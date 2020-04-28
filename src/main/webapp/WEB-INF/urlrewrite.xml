@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.1//EN"  "http://tuckey.org/res/dtds/urlrewrite3.1.dtd"> 
+<urlrewrite>
+    <rule>
+        <from>^/index.html</from>
+        <to type="forward">/index/isMobileOrPc</to>
+    </rule>
+    <!-- <rule>
+        <from>^/Category/([0-9]{1,3}).html</from>
+        <to type="forward">/MlbackCategory/toproductlist?categoryId=$1</to>
+    </rule>
+    <rule>
+        <from>^/search/([a-z0-9A-Z-]{2,60}).html</from>
+        <to type="forward">/MlbackCategory/toprolistBycategorySeo?categorySeo=$1</to>
+    </rule>
+    <rule>
+        <from>^/([a-z0-9A-Z-]{8,80}).html</from>
+        <to type="forward">/MlbackProduct/tofbProductDetailPageByhtml?productSeo=$1</to>
+    </rule> -->
+    <rule>
+        <from>^/myCart.html</from>
+        <to>/MlbackCart/toCartList</to>
+    </rule>
+    <rule>
+        <from>^/CheakOut.html</from>
+        <to>/MlbackCart/toCheakOut</to>
+    </rule>
+    <rule>
+        <from>^/Friday.html</from>
+        <to>/MlActive/ActiveIndex</to>
+    </rule>
+    <rule>
+        <from>^/Activty.html</from>
+        <to>/MlActive/NowActiveIndex</to>
+    </rule>
+</urlrewrite>
