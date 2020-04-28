@@ -1,5 +1,7 @@
 package com.atguigu.dao;
 
+import java.util.List;
+
 import com.atguigu.bean.MlbackAdmin;
 
 public interface MlbackAdminMapper {
@@ -14,4 +16,6 @@ public interface MlbackAdminMapper {
     int updateByPrimaryKeySelective(MlbackAdmin record);
 
     int updateByPrimaryKey(MlbackAdmin record);
+    //查询管理员账户
+    List<MlbackAdmin> selectMlbackAdmin(MlbackAdmin example);
 }

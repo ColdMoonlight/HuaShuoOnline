@@ -92,4 +92,14 @@
       admin_power = #{adminPower,jdbcType=INTEGER}
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
+  
+  <!-- 使用中 -->
+  <select id="selectMlbackAdmin" parameterType="com.atguigu.bean.MlbackAdmin" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_admin 
+    where admin_accName = #{adminAccname,jdbcType=VARCHAR} 
+    <if test="adminPassword != null">
+        and admin_password = #{adminPassword,jdbcType=VARCHAR}
+    </if>
+  </select>
 </mapper>
