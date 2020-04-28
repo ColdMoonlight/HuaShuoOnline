@@ -9,7 +9,7 @@ public class MlbackAdmin {
 
     private String adminOperatername;
 
-    private Integer adminPower;
+    private Integer adminPower;//0只看	1写
 
     public MlbackAdmin(Integer adminId, String adminAccname, String adminPassword, String adminOperatername, Integer adminPower) {
         this.adminId = adminId;
