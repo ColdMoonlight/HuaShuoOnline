@@ -1,7 +1,5 @@
 target/*
 src/test/*
-src/main/webapp/page/*
-src/main/webapp/static/img/*
 
 .settings
 .project
