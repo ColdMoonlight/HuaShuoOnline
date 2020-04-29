@@ -8,23 +8,39 @@
 <%
 	pageContext.setAttribute("APP_PATH", request.getContextPath());
 %>
+<!-- common css -->
 <link href="${APP_PATH }/static/back/css/style.css" rel="stylesheet">
+<!-- toastr css -->
+<link href="${APP_PATH }/static/common/toastr/toastr.min.css" rel="stylesheet">
+<!-- login style  -->
+<style>
+.c-app>.container {
+	width: 100%;
+	min-height: 100vh;
+}
+.header {
+	width: 100%;
+	height: 78px;
+	margin: 20px 0;
+}
+.header>img {
+	display: block;
+}
+.login-bg {
+	min-height: 360px;
+	margin-top: 50px;
+	background: url('${APP_PATH }/static/back/img/login-bg.png') no-repeat;
+	background-size: 100% 100%;;
+}
+</style>
 </head>
-<body class="c-app flex-row align-items-center">
+<body class="c-app">
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="card-group">
-            <div class="card text-white bg-primary p-4 d-md-down-none">
-              <div class="card-body text-center">
-                <div>
-                  <h2>Sign up</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  <button class="btn btn-lg btn-outline-light mt-3" type="button">Register Now!</button>
-                </div>
-              </div>
-            </div>
-            <div class="card py-5" style="width:44%">
+		<div class="header">
+			<img src="${APP_PATH }/static/back/img/logo.png" />
+		</div>
+      	<div class="row align-items-center justify-content-end login-bg">
+            <div class="card col-md-5 col-lg-5">
               <div class="card-body">
                 <p class="text-muted">Sign In to your account</p>
                 <div class="input-group mb-3">
@@ -51,9 +67,10 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+      	</div>
+      	<div class="footer">
+      		<p class="text-center">© 2020-202x MegaLook.com. All rights reserved.</p>
+      	</div>
     </div>
 	<!-- common script -->
     <script src="${APP_PATH }/static/back/lib/icons/js/svgxuse.min.js"></script>
@@ -72,14 +89,17 @@
 		        contentType: 'application/json',
 		        data: JSON.stringify(data),
 		        success: function (data) {
-		          if (data.code == 100) {
-		            console.log(data);
-		          } else {
-		            toastr.error('加载分类数据失败');
-		          }
+		          	if (data.code == 100) {
+		            	toastr.success('登陆成功，正在跳转过程中。');
+		          	} else {
+		          		toastr.error('用户名和密码不正确，请重新输入！');
+		          	}
+		        },
+		        error: function() {
+		        	toastr.error('登录失败，请重新登录！');
 		        }
-		      }); 			
- 		})
+		    });
+ 		});
     </script>
   </body>
 </html>
