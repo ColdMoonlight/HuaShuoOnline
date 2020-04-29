@@ -27,20 +27,11 @@ public class MlbackAdminController {
 	MlbackAdminService mlbackAdminService;
 	
 	/**
+	 * 1.0
 	 * @author zsh
 	 * @param MlbackAdmin
-	 * @exception add方法用户信息是否存在
-	 * 	onuse	20200103	检查
-	 * */
-	@RequestMapping("/toindex")
-	public String toindex() throws Exception{
-		System.out.println("后台登陆:进入toindex");
-		return "back/mlbackAdminLogin";
-	}
-	
-	/**
-	 * 	onuse	20200103	检查
-	 * 帐号注销
+	 * @exception 管理员帐号推出
+	 * 20200428
 	 * */
 	@RequestMapping("/exitIndex")
 	public String exitindex(HttpSession session) throws Exception{
@@ -50,8 +41,11 @@ public class MlbackAdminController {
 	}
 	
 	/**
-	 * 	onuse	20200103	检查
-	 * 登陆֤
+	 * 2.0
+	 * @author zsh
+	 * @param MlbackAdmin
+	 * @exception 管理员帐号登陆
+	 * 20200428
 	 * */
 	@RequestMapping(value="/CheakAdminUser",method=RequestMethod.POST)
 	@ResponseBody
@@ -77,15 +71,17 @@ public class MlbackAdminController {
 	}
 	
 	/**
-	 * 	onuse	20200103	检查
-	 * 管理员自行修改密码
+	 * 3.0
+	 * @author zsh
+	 * @param MlbackAdmin
+	 * @exception 管理员帐号修改密码
+	 * 20200428
 	 * */
 	@RequestMapping(value="/UpdateAdminUserInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg UpdateAdminUserInfo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackAdmin MlbackAdminReq){
 		//1接收参数
 		//2用账户+旧密码查账户(查到,update新密码,没查到,旧密码不对)
-		//3,
 		MlbackAdmin mlbackAdminGet = new MlbackAdmin();
 		mlbackAdminGet.setAdminAccname(MlbackAdminReq.getAdminAccname());
 		List<MlbackAdmin> mlbackAdminGetresList = mlbackAdminService.selectMlbackAdmin(mlbackAdminGet);
@@ -95,11 +91,13 @@ public class MlbackAdminController {
 		mlbackAdminGet.setAdminPassword(MlbackAdminReq.getAdminPassword());
 		List<MlbackAdmin> MlbackAdminListNameAndPwd = mlbackAdminService.selectMlbackAdmin(mlbackAdminGet);
 		if(MlbackAdminListNameAndPwd.size()>0){
-			//将登陆状态放入session对象
+			//mlbackAdminGet
+			mlbackAdminGet.setAdminPassword(MlbackAdminReq.getAdminOperatername());
+			mlbackAdminService.updateByAdminAccnameSelective(mlbackAdminGet);
 			session.setAttribute("AdminUser", mlbackAdminGet);
-			return Msg.success().add("resMsg", "登陆成功");
+			return Msg.success().add("resMsg", "密码修改成功");
 		}else{
-			return Msg.fail().add("resMsg", "密码错误登录失败");
+			return Msg.fail().add("resMsg", "旧密码错误");
 		}
 	}
 	
