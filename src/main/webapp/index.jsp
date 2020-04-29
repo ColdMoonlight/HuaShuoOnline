@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-HuaShuoOnline
+HuaShuo独立站项目3.0系统
 </body>
 </html>
