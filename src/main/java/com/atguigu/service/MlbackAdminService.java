@@ -38,15 +38,15 @@ public class MlbackAdminService {
 		return intReslut;
 	}
 	
-//	/**
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 查看全部用户信息
-//	 * 
-//	 * */
-//	public List<MlbackAdmin> selectMlbackAdminGetAll() {
-//		List<MlbackAdmin>  MlbackAdminList = mlbackAdminMapper.selectMlbackAdminGetAll();
-//		return MlbackAdminList;
-//	}
+	/**
+	 * @author Shinelon
+	 * @param 
+	 * @exception 查看全部用户信息
+	 * 
+	 * */
+	public int updateByAdminAccnameSelective(MlbackAdmin mlbackAdmin) {
+		int intReslut = mlbackAdminMapper.updateByAdminAccnameSelective(mlbackAdmin);
+		return intReslut;
+	}
 
 }
