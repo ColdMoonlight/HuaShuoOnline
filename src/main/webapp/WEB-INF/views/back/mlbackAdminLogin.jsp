@@ -5,9 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<%
+	pageContext.setAttribute("APP_PATH", request.getContextPath());
+%>
 </head>
 <body>
-这里是登陆页面
+这里是登陆页面,等待开发
 
 </body>
 </html>
