@@ -13,7 +13,9 @@ public class Const {
     public static final String USERNAME = "username";
     
     public static final String ADMIN_USER="AdminUser";
-
+    
+    public static final String TOKEN_PREFIX="token_";
+    
    
 
 

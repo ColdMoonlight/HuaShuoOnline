@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
+import com.atguigu.common.TokenCache;
 import com.atguigu.service.MlbackAdminService;
 
 @Controller
@@ -67,7 +68,8 @@ public class MlbackAdminController {
 		List<MlbackAdmin> MlbackAdminListNameAndPwd = mlbackAdminService.selectMlbackAdmin(mlbackAdminGet);
 		if(MlbackAdminListNameAndPwd.size()>0){
 			//将登陆状态放入session对象
-			session.setAttribute("AdminUser", mlbackAdminGet);
+			session.setAttribute(Const.ADMIN_USER, mlbackAdminGet);
+			TokenCache.setKey(Const.TOKEN_PREFIX+MlbackAdminReq.getAdminAccname(), "String");
 			return Msg.success().add("resMsg", "登陆成功");
 		}else{
 			return Msg.fail().add("resMsg", "密码错误登录失败");
