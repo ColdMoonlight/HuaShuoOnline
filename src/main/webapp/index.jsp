@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/views/portal/pcheader.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/portal/header.jsp"></jsp:include>
 HuaShuo独立站项目3.0系统
 </body>
 </html>
