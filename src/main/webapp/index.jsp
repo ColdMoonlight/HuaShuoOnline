@@ -12,6 +12,6 @@
 <body>
 
 <jsp:include page="/WEB-INF/views/portal/header.jsp"></jsp:include>
-HuaShuo独立站项目3.0系统
+<h1>HuaShuo独立站项目3.0系统</h1>
 </body>
 </html>
