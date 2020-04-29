@@ -83,7 +83,9 @@ public class MlbackAdminController {
 	@RequestMapping(value="/UpdateAdminUserInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg UpdateAdminUserInfo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackAdmin MlbackAdminReq){
-		//接收参数信息 
+		//1接收参数
+		//2用账户+旧密码查账户(查到,update新密码,没查到,旧密码不对)
+		//3,
 		MlbackAdmin mlbackAdminGet = new MlbackAdmin();
 		mlbackAdminGet.setAdminAccname(MlbackAdminReq.getAdminAccname());
 		List<MlbackAdmin> mlbackAdminGetresList = mlbackAdminService.selectMlbackAdmin(mlbackAdminGet);
