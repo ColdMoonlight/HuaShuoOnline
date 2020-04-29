@@ -75,7 +75,7 @@ public class MlbackAdminController {
 	 * @author zsh
 	 * @param MlbackAdmin
 	 * @exception 管理员帐号修改密码
-	 * 20200428
+	 * 20200429
 	 * */
 	@RequestMapping(value="/UpdateAdminUserInfo",method=RequestMethod.POST)
 	@ResponseBody
