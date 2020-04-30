@@ -37,14 +37,14 @@
 		                <div class="input-group mb-3">
 		                  <div class="input-group-prepend"><span class="input-group-text">
 		                      <svg class="c-icon">
-		                        <use xlink:href="${APP_PATH }/static/back/lib/icons/svg/free.svg#cil-user"></use>
+		                        <use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-user"></use>
 		                      </svg></span></div>
 		                  <input class="form-control" name="adminAccname" type="text" placeholder="Username">
 		                </div>
 		                <div class="input-group mb-4">
 		                  <div class="input-group-prepend"><span class="input-group-text">
 		                      <svg class="c-icon">
-		                        <use xlink:href="${APP_PATH }/static/back/lib/icons/svg/free.svg#cil-lock-locked"></use>
+		                        <use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-lock-locked"></use>
 		                      </svg></span></div>
 		                  <input class="form-control" name="adminPassword" type="password" placeholder="Password">
 		                </div>
@@ -67,21 +67,21 @@
 		                <div class="input-group mb-3">
 		                  <div class="input-group-prepend"><span class="input-group-text">
 		                      <svg class="c-icon">
-		                        <use xlink:href="${APP_PATH }/static/back/lib/icons/svg/free.svg#cil-user"></use>
+		                        <use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-user"></use>
 		                      </svg></span></div>
 		                  <input class="form-control" name="adminAccname" type="text" placeholder="Username">
 		                </div>
 		                <div class="input-group mb-4">
 		                  <div class="input-group-prepend"><span class="input-group-text">
 		                      <svg class="c-icon">
-		                        <use xlink:href="${APP_PATH }/static/back/lib/icons/svg/free.svg#cil-lock-locked"></use>
+		                        <use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-lock-locked"></use>
 		                      </svg></span></div>
 		                  <input class="form-control" name="adminPassword" type="password" placeholder="Old Password">
 		                </div>
 		                <div class="input-group mb-4">
 		                  <div class="input-group-prepend"><span class="input-group-text">
 		                      <svg class="c-icon">
-		                        <use xlink:href="${APP_PATH }/static/back/lib/icons/svg/free.svg#cil-lock-locked"></use>
+		                        <use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-lock-locked"></use>
 		                      </svg></span></div>
 		                  <input class="form-control" name="adminOperatername" type="password" placeholder="New Password">
 		                </div>
