@@ -105,21 +105,11 @@
       	</div>
     </div>
 	<!-- common script -->
-    <script src="${APP_PATH }/static/back/lib/icons/js/svgxuse.min.js"></script>
     <script src="${APP_PATH }/static/common/jquery.min.js"></script>
     <script src="${APP_PATH }/static/common/toastr/toastr.min.js"></script>
+    <script src="${APP_PATH }/static/back/js/main.js"></script>
     <!-- custom script -->
     <script>
-    	function showSpinner(self) {
-			$(self).attr('disabled', 'disabled');
-			$(self).find('.spinner-text').hide();
-			$(self).find('.spinner-border').show();
-		}
-    	function hideSpinner(self) {
-    		$(self).removeAttr('disabled');
-			$(self).find('.spinner-text').show();
-			$(self).find('.spinner-border').hide();
-    	}
  		$('#back-login').on('click', function(e) {
  			var self = this;
  			showSpinner(self);
