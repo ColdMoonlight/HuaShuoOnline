@@ -157,7 +157,7 @@
 		        data: JSON.stringify(data),
 		        success: function (data) {
 		          	if (data.code == 100) {
-		            	toastr.success(data.extend.resMsg + ', 请点击下方登录按钮重新登录');
+		            	toastr.success(data.extend.resMsg + ', 请点击下方返回登录按钮重新登录');
 		          	} else {
 		          		toastr.error(data.extend.resMsg);
 		          	}
