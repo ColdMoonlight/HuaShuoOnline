@@ -29,7 +29,7 @@
     values (#{adminId,jdbcType=INTEGER}, #{adminAccname,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
       #{adminOperatername,jdbcType=VARCHAR}, #{adminPower,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackAdmin">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.atguigu.bean.MlbackAdmin">
     insert into tb_mlback_admin
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="adminId != null">
@@ -102,4 +102,21 @@
         and admin_password = #{adminPassword,jdbcType=VARCHAR}
     </if>
   </select>
+  
+  
+  <update id="updateByAdminAccnameSelective" parameterType="com.atguigu.bean.MlbackAdmin">
+    update tb_mlback_admin
+    <set>
+      <if test="adminPassword != null">
+        admin_password = #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminOperatername != null">
+        admin_operaterName = #{adminOperatername,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPower != null">
+        admin_power = #{adminPower,jdbcType=INTEGER},
+      </if>
+    </set>
+    where admin_accName = #{adminAccname,jdbcType=VARCHAR}
+  </update>
 </mapper>
