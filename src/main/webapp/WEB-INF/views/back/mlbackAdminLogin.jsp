@@ -14,11 +14,18 @@
 <link href="${APP_PATH }/static/common/toastr/toastr.min.css" rel="stylesheet">
 <!-- login style  -->
 <style>
-.c-app>.container { width: 100%; min-height: 100vh; }
+.c-app { background-color: #f5feff; }
+.c-app>.container { width: 1300px; min-height: 100vh; }
 .header { width: 100%; height: 78px; margin: 20px 0; }
 .header>img, .login-bg>img { display: block; }
+.login-box { display: flex; align-items: center; justify-content: center;}
 .login-bg>img { width: 100%; }
 #reset-password-form, .spinner>.spinner-border { display: none; }
+.input-group { margin-bottom: 16px; }
+@media screen and (max-width: 1000px) {
+	.md-down-none { display: none; }
+	.card { width: 60%; margin-bottom: 20px; }
+}
 </style>
 </head>
 <body class="c-app">
@@ -26,7 +33,7 @@
 		<div class="header">
 			<img src="${APP_PATH }/static/back/img/logo.png" />
 		</div>
-      	<div class="row align-items-center justify-content-end">
+      	<div class="row login-box">
       		<div class="col-md-8 col-lg-8 login-bg md-down-none">
       			<img src="${APP_PATH }/static/back/img/login-bg.jpg" />
       		</div>
@@ -34,28 +41,28 @@
             	 <form id="login-form">
 		              <div class="card-body">
 		                <p class="text-muted">Sign In to your account</p>
-		                <div class="input-group mb-3">
-		                  <div class="input-group-prepend"><span class="input-group-text">
+		                <div class="input-group">
+		                  <span class="input-group-addon">
 		                      <svg class="c-icon">
 		                        <use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-user"></use>
-		                      </svg></span></div>
+		                      </svg></span>
 		                  <input class="form-control" name="adminAccname" type="text" placeholder="Username">
 		                </div>
-		                <div class="input-group mb-4">
-		                  <div class="input-group-prepend"><span class="input-group-text">
+		                <div class="input-group">
+		                  <span class="input-group-addon">
 		                      <svg class="c-icon">
 		                        <use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-lock-locked"></use>
-		                      </svg></span></div>
+		                      </svg></span>
 		                  <input class="form-control" name="adminPassword" type="password" placeholder="Password">
 		                </div>
 		                <div class="row">
-		                  <div class="col-6">
-		                    <button class="btn btn-primary px-4 spinner" type="button" id="back-login">
+		                  <div class="col-sm-6">
+		                    <button class="btn btn-primary spinner" type="button" id="back-login">
 		                    	<span class="spinner-text">Login</span>
 		                    	<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 		                    </button>
 		                  </div>
-		                  <div class="col-6 text-right">
+		                  <div class="col-sm-6 text-right">
 		                    <button class="btn btn-link px-0" id="change-password" type="button">Change Password</button>
 		                  </div>
 		                </div>
@@ -64,35 +71,35 @@
             	 <form id="reset-password-form">
             	 	<div class="card-body">
 		                <p class="text-muted">Change Your Password</p>
-		                <div class="input-group mb-3">
-		                  <div class="input-group-prepend"><span class="input-group-text">
+		                <div class="input-group">
+		                  <span class="input-group-addon">
 		                      <svg class="c-icon">
 		                        <use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-user"></use>
-		                      </svg></span></div>
+		                      </svg></span>
 		                  <input class="form-control" name="adminAccname" type="text" placeholder="Username">
 		                </div>
-		                <div class="input-group mb-4">
-		                  <div class="input-group-prepend"><span class="input-group-text">
+		                <div class="input-group">
+		                  <span class="input-group-addon">
 		                      <svg class="c-icon">
 		                        <use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-lock-locked"></use>
-		                      </svg></span></div>
+		                      </svg></span>
 		                  <input class="form-control" name="adminPassword" type="password" placeholder="Old Password">
 		                </div>
-		                <div class="input-group mb-4">
-		                  <div class="input-group-prepend"><span class="input-group-text">
+		                <div class="input-group">
+		                  <span class="input-group-addon">
 		                      <svg class="c-icon">
 		                        <use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-lock-locked"></use>
-		                      </svg></span></div>
+		                      </svg></span>
 		                  <input class="form-control" name="adminOperatername" type="password" placeholder="New Password">
 		                </div>
 		                <div class="row">
-		                  <div class="col-6">
-		                    <button class="btn btn-primary px-4 spinner" type="button" id="back-reset">                   	
+		                  <div class="col-sm-6">
+		                    <button class="btn btn-primary spinner" type="button" id="back-reset">                   	
 		                    	<span class="spinner-text">Rseset</span>
 		                    	<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 		                    </button>
 		                  </div>
-		                  <div class="col-6 text-right">
+		                  <div class="col-sm-6 text-right">
 		                    <button class="btn btn-link px-0" id="go-signin" type="button">Back SignIn</button>
 		                  </div>
 		                </div>
