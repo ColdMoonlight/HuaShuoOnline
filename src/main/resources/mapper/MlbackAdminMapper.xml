@@ -8,10 +8,11 @@
       <arg column="admin_password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="admin_operaterName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="admin_power" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="admin_power_item_str" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    admin_id, admin_accName, admin_password, admin_operaterName, admin_power
+    admin_id, admin_accName, admin_password, admin_operaterName, admin_power, admin_power_item_str
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,9 +26,9 @@
   </delete>
   <insert id="insert" parameterType="com.atguigu.bean.MlbackAdmin">
     insert into tb_mlback_admin (admin_id, admin_accName, admin_password, 
-      admin_operaterName, admin_power)
+      admin_operaterName, admin_power, admin_power_item_str)
     values (#{adminId,jdbcType=INTEGER}, #{adminAccname,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
-      #{adminOperatername,jdbcType=VARCHAR}, #{adminPower,jdbcType=INTEGER})
+      #{adminOperatername,jdbcType=VARCHAR}, #{adminPower,jdbcType=INTEGER}, #{adminPowerItemStr,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.atguigu.bean.MlbackAdmin">
     insert into tb_mlback_admin
@@ -47,6 +48,9 @@
       <if test="adminPower != null">
         admin_power,
       </if>
+      <if test="adminPowerItemStr != null">
+        admin_power_item_str,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="adminId != null">
@@ -63,6 +67,9 @@
       </if>
       <if test="adminPower != null">
         #{adminPower,jdbcType=INTEGER},
+      </if>
+      <if test="adminPowerItemStr != null">
+        #{adminPowerItemStr,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -81,6 +88,9 @@
       <if test="adminPower != null">
         admin_power = #{adminPower,jdbcType=INTEGER},
       </if>
+      <if test="adminPowerItemStr != null">
+        admin_power_item_str = #{adminPowerItemStr,jdbcType=VARCHAR},
+      </if>
     </set>
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
@@ -89,7 +99,8 @@
     set admin_accName = #{adminAccname,jdbcType=VARCHAR},
       admin_password = #{adminPassword,jdbcType=VARCHAR},
       admin_operaterName = #{adminOperatername,jdbcType=VARCHAR},
-      admin_power = #{adminPower,jdbcType=INTEGER}
+      admin_power = #{adminPower,jdbcType=INTEGER},
+      admin_power_item_str = #{adminPowerItemStr,jdbcType=VARCHAR}
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
   
