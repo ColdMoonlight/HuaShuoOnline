@@ -1,17 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login</title>
-<%
-	pageContext.setAttribute("APP_PATH", request.getContextPath());
-%>
-<!-- common css -->
-<link href="${APP_PATH }/static/back/css/style.css" rel="stylesheet">
-<!-- toastr css -->
-<link href="${APP_PATH }/static/common/toastr/toastr.min.css" rel="stylesheet">
+<% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
+<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 <!-- login style  -->
 <style>
 .c-app { background-color: #f5feff; }
@@ -111,10 +105,8 @@
       		<p class="text-center">© 2020-202x MegaLook.com. All rights reserved.</p>
       	</div>
     </div>
-	<!-- common script -->
-    <script src="${APP_PATH }/static/common/jquery.min.js"></script>
-    <script src="${APP_PATH }/static/common/toastr/toastr.min.js"></script>
-    <script src="${APP_PATH }/static/back/js/main.js"></script>
+	
+	<jsp:include page="common/backfooter.jsp"></jsp:include>
     <!-- custom script -->
     <script>
  		$('#back-login').on('click', function(e) {
@@ -130,6 +122,9 @@
 		        success: function (data) {
 		          	if (data.code == 100) {
 		            	toastr.success(data.extend.resMsg + ', 稍后将进行跳转');
+		            	/* setTimeout(function() {
+		            		window.location.href = '${App_PATH}/mlbackHomePage.jsp';
+		            	}, 1000); */
 		          	} else {
 		          		toastr.error(data.extend.resMsg);
 		          	}
