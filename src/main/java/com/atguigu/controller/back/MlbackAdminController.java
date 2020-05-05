@@ -94,7 +94,7 @@ public class MlbackAdminController {
 			//mlbackAdminGet
 			mlbackAdminGet.setAdminPassword(MlbackAdminReq.getAdminOperatername());
 			mlbackAdminService.updateByAdminAccnameSelective(mlbackAdminGet);
-			session.setAttribute("AdminUser", mlbackAdminGet);
+			session.setAttribute(Const.ADMIN_USER, mlbackAdminGet);
 			return Msg.success().add("resMsg", "密码修改成功");
 		}else{
 			return Msg.fail().add("resMsg", "旧密码错误");

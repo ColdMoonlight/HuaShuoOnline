@@ -1,0 +1,124 @@
+package com.atguigu.controller;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONObject;
+import com.atguigu.common.Msg;
+import com.atguigu.utils.HttpUtils;
+import com.atguigu.vo.MoneyRate;
+
+@Controller
+@RequestMapping("/header")
+public class headerController {
+	
+
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/getMoneyRate",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getMoneyRate(HttpSession session) throws Exception{
+		
+		String host = "https://jisuhuilv.market.alicloudapi.com";
+	    String path = "/exchange/convert";
+	    String method = "GET";
+	    String appcode = "cfecc4cf51c64bad8b403f94e13aef00";
+	    Map<String, String> headers = new HashMap<String, String>();
+	    //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+	    headers.put("Authorization", "APPCODE " + appcode);
+	    Map<String, String> querys = new HashMap<String, String>();
+	    querys.put("amount", "1");
+	    
+	    List<MoneyRate> moneyRateList = new ArrayList<MoneyRate>();
+	    MoneyRate moneyRate = new MoneyRate();
+	   
+	    
+	    BigDecimal rateZero = new BigDecimal(0);	//初始化最终价格参数
+		DecimalFormat rateFinal = new DecimalFormat("0.00");
+	    
+	    
+	    String fromCode = "USD";
+	    querys.put("from", fromCode);	//美元USD欧元EUR英镑GBP人民CNY
+	    
+	    MoneyRate moneyRateUSD = new MoneyRate("USD","1");
+	    MoneyRate moneyRateEUR = new MoneyRate("EUR","0");
+	    MoneyRate moneyRateGBP = new MoneyRate("GBP","0");
+	    
+	    moneyRateList.add(moneyRateUSD);
+	   
+	    //美元USD
+	    
+	    String toCodeRate="";
+	    
+	    System.out.println("-----------USD-----to-----EUR-----------");
+	    
+	    //循环1		转换欧元EUR
+	    String toCode = "EUR";
+	    querys.put("to", toCode);
+	    try {
+	    	HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
+	    	
+	    	String rate =EntityUtils.toString(response.getEntity());
+
+	    	JSONObject object = (JSONObject) JSONObject.parse(rate);
+
+	    	rateZero=(BigDecimal) object.getJSONObject("result").get("camount");
+	    	
+	    	toCodeRate = rateFinal.format(rateZero);
+	    	System.out.println("toCode:"+toCode+"toCodeRate:"+toCodeRate);
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+	    
+	    moneyRateEUR.setMoneyRateCode(toCode);
+	    moneyRateEUR.setMoneyRate(toCodeRate);
+	    moneyRateList.add(moneyRateEUR);
+	    
+	    
+//	    System.out.println("-----------USD-----to-----GBP-----------");
+//	    
+//	    //循环		转换英镑GBP
+//	    toCode = "GBP";
+//	    
+//	    querys.put("from", fromCode);	//美元USD欧元EUR英镑GBP人民CNY
+//	    querys.put("to", toCode);
+//	    try {
+//	    	HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
+//	    	System.out.println(response.toString());
+//	    	//获取response的body
+//	    	
+//	    	String rate =EntityUtils.toString(response.getEntity());
+//
+//	    	JSONObject object = (JSONObject) JSONObject.parse(rate);
+//
+//	    	rateZero=(BigDecimal) object.getJSONObject("result").get("camount");
+//	    	
+//	    	toCodeRate = rateFinal.format(rateZero);
+//	    	System.out.println("toCode:"+toCode+"toCodeRate:"+toCodeRate);
+//	    } catch (Exception e) {
+//	    	e.printStackTrace();
+//	    }
+//	    
+//	    moneyRate.setMoneyRateCode(toCode);
+//	    moneyRate.setMoneyRate(toCodeRate);
+//	    moneyRateList.add(moneyRate);
+	    
+	    return Msg.success().add("moneyRateList", moneyRateList);
+	}
+	
+}

@@ -10,7 +10,7 @@
 		</commentGenerator>
 		<!-- 配置数据库连接 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/ShopTemplate" userId="root"
+			connectionURL="jdbc:mysql://localhost:3306/HuaShuoOnline" userId="root"
 			password="root">
 		</jdbcConnection>
 
@@ -43,8 +43,9 @@
 
 		
 		<!-- megalook table指定每个表的生成策略 -->
-		<table tableName="tb_mlback_admin" domainObjectName="MlbackAdmin" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<!--<table tableName="tb_mlback_coupondescdetail" domainObjectName="MlbackCouponDescDetail"></table>-->
+		<!--<table tableName="tb_mlback_admin" domainObjectName="MlbackAdmin" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+		<table tableName="tb_mlback_menu" domainObjectName="MlbackMenu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<!--<table tableName="tb_mlback_menu" domainObjectName="MlbackCouponDescDetail"></table>-->
 		
 	</context>
 </generatorConfiguration>
