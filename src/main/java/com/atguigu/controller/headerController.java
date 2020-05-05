@@ -45,78 +45,44 @@ public class headerController {
 	    querys.put("amount", "1");
 	    
 	    List<MoneyRate> moneyRateList = new ArrayList<MoneyRate>();
-	    MoneyRate moneyRate = new MoneyRate();
-	   
 	    
 	    BigDecimal rateZero = new BigDecimal(0);	//初始化最终价格参数
 		DecimalFormat rateFinal = new DecimalFormat("0.00");
 	    
-	    
 	    String fromCode = "USD";
 	    querys.put("from", fromCode);	//美元USD欧元EUR英镑GBP人民CNY
 	    
-	    MoneyRate moneyRateUSD = new MoneyRate("USD","1");
-	    MoneyRate moneyRateEUR = new MoneyRate("EUR","0");
-	    MoneyRate moneyRateGBP = new MoneyRate("GBP","0");
+	    String arr[] = {"EUR","GBP"};
 	    
-	    moneyRateList.add(moneyRateUSD);
-	   
-	    //美元USD
 	    
-	    String toCodeRate="";
-	    
-	    System.out.println("-----------USD-----to-----EUR-----------");
-	    
-	    //循环1		转换欧元EUR
-	    String toCode = "EUR";
-	    querys.put("to", toCode);
-	    try {
-	    	HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
+	    moneyRateList.add(new MoneyRate("USD","1"));
+	    for(int i=0;i<arr.length;i++){
 	    	
-	    	String rate =EntityUtils.toString(response.getEntity());
-
-	    	JSONObject object = (JSONObject) JSONObject.parse(rate);
-
-	    	rateZero=(BigDecimal) object.getJSONObject("result").get("camount");
+	    	System.out.println("-----------USD-----to-----"+arr[i]+"-----------");
+	    	String toCodeRate = "";
 	    	
-	    	toCodeRate = rateFinal.format(rateZero);
-	    	System.out.println("toCode:"+toCode+"toCodeRate:"+toCodeRate);
-	    } catch (Exception e) {
-	    	e.printStackTrace();
+	    	String toCode = arr[i];
+		    querys.put("to", toCode);
+		    try {
+		    	HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
+		    	
+		    	String rate =EntityUtils.toString(response.getEntity());
+
+		    	JSONObject object = (JSONObject) JSONObject.parse(rate);
+
+		    	rateZero=(BigDecimal) object.getJSONObject("result").get("camount");
+		    	
+		    	toCodeRate = rateFinal.format(rateZero);
+		    	System.out.println("toCode:"+toCode+"toCodeRate:"+toCodeRate);
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+		    
+		    MoneyRate moneyRate = new MoneyRate();
+		    moneyRate.setMoneyRateCode(toCode);
+		    moneyRate.setMoneyRate(toCodeRate);
+		    moneyRateList.add(moneyRate);
 	    }
-	    
-	    moneyRateEUR.setMoneyRateCode(toCode);
-	    moneyRateEUR.setMoneyRate(toCodeRate);
-	    moneyRateList.add(moneyRateEUR);
-	    
-	    
-//	    System.out.println("-----------USD-----to-----GBP-----------");
-//	    
-//	    //循环		转换英镑GBP
-//	    toCode = "GBP";
-//	    
-//	    querys.put("from", fromCode);	//美元USD欧元EUR英镑GBP人民CNY
-//	    querys.put("to", toCode);
-//	    try {
-//	    	HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
-//	    	System.out.println(response.toString());
-//	    	//获取response的body
-//	    	
-//	    	String rate =EntityUtils.toString(response.getEntity());
-//
-//	    	JSONObject object = (JSONObject) JSONObject.parse(rate);
-//
-//	    	rateZero=(BigDecimal) object.getJSONObject("result").get("camount");
-//	    	
-//	    	toCodeRate = rateFinal.format(rateZero);
-//	    	System.out.println("toCode:"+toCode+"toCodeRate:"+toCodeRate);
-//	    } catch (Exception e) {
-//	    	e.printStackTrace();
-//	    }
-//	    
-//	    moneyRate.setMoneyRateCode(toCode);
-//	    moneyRate.setMoneyRate(toCodeRate);
-//	    moneyRateList.add(moneyRate);
 	    
 	    return Msg.success().add("moneyRateList", moneyRateList);
 	}
