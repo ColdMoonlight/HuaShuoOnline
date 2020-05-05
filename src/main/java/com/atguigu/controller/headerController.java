@@ -54,6 +54,7 @@ public class headerController {
 	    
 	    String arr[] = {"EUR","GBP"};
 	    
+	    
 	    moneyRateList.add(new MoneyRate("USD","1"));
 	    for(int i=0;i<arr.length;i++){
 	    	
