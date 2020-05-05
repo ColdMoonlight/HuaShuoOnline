@@ -59,7 +59,7 @@
 		                  <div class="col-sm-6">
 		                    <button class="btn btn-primary spinner" type="button" id="back-login">
 		                    	<span class="spinner-text">Login</span>
-		                    	<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+		                    	<span class="spinner-border" role="status" aria-hidden="true"></span>
 		                    </button>
 		                  </div>
 		                  <div class="col-sm-6 text-right">
@@ -96,7 +96,7 @@
 		                  <div class="col-sm-6">
 		                    <button class="btn btn-primary spinner" type="button" id="back-reset">                   	
 		                    	<span class="spinner-text">Rseset</span>
-		                    	<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+		                    	<span class="spinner-border" role="status" aria-hidden="true"></span>
 		                    </button>
 		                  </div>
 		                  <div class="col-sm-6 text-right">
