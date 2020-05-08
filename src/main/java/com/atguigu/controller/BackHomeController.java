@@ -14,7 +14,7 @@ import com.atguigu.bean.MlbackAdmin;
  */
 @Controller
 @RequestMapping("/BackHome")
-public class HomePageController {
+public class BackHomeController {
 	
 	/**
 	 * 	onuse	20200103	检查
