@@ -43,8 +43,10 @@
 
 		
 		<!-- megalook table指定每个表的生成策略 -->
-		<!--<table tableName="tb_mlback_admin" domainObjectName="MlbackAdmin" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-		<table tableName="tb_mlback_menu" domainObjectName="MlbackMenu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<!--<table tableName="tb_mlback_admin" domainObjectName="MlbackAdmin" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_mlback_menu" domainObjectName="MlbackMenu" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+		<table tableName="tb_mlback_category" domainObjectName="MlbackCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		
 		<!--<table tableName="tb_mlback_menu" domainObjectName="MlbackCouponDescDetail"></table>-->
 		
 	</context>
