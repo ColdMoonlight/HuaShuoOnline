@@ -122,9 +122,9 @@
 		        success: function (data) {
 		          	if (data.code == 100) {
 		            	toastr.success(data.extend.resMsg + ', 稍后将进行跳转');
-		            	/* setTimeout(function() {
-		            		window.location.href = '${App_PATH}/mlbackHomePage.jsp';
-		            	}, 1000); */
+		            	setTimeout(function() {
+		            		window.location.href = window.location.href;
+		            	}, 1000);
 		          	} else {
 		          		toastr.error(data.extend.resMsg);
 		          	}
