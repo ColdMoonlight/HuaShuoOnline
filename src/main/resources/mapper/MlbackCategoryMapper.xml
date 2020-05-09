@@ -55,7 +55,7 @@
       #{categoryImgpcurl,jdbcType=VARCHAR}, #{categoryMetatitle,jdbcType=VARCHAR}, #{categoryMetakeywords,jdbcType=VARCHAR}, 
       #{categoryMetadesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackCategory">
+  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="categoryId" parameterType="com.atguigu.bean.MlbackCategory">
     insert into tb_mlback_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="categoryId != null">
@@ -252,5 +252,63 @@
     <select id="selectMlbackCategoryGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
     select *
     from tb_mlback_category order by category_id desc
+  </select>
+  
+  <!-- 使用中 -->
+  <select id="selectMlbackCategory" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_category
+    where category_id = #{categoryId,jdbcType=INTEGER}
+      <if test="categoryName != null">
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryImgurl != null">
+        category_imgurl = #{categoryImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryParentId != null">
+        category_parent_id = #{categoryParentId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryParentName != null">
+        category_parent_name = #{categoryParentName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryStatus != null">
+        category_status = #{categoryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="categoryLable != null">
+        category_lable = #{categoryLable,jdbcType=INTEGER},
+      </if>
+      <if test="categorySeo != null">
+        category_seo = #{categorySeo,jdbcType=VARCHAR},
+      </if>
+      <if test="categorySortOrder != null">
+        category_sort_order = #{categorySortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="categoryCreatetime != null">
+        category_createTime = #{categoryCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryMotifytime != null">
+        category_motifyTime = #{categoryMotifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryDesc != null">
+        category_desc = #{categoryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryProductIds != null">
+        category_product_ids = #{categoryProductIds,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryProductNames != null">
+        category_product_names = #{categoryProductNames,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryImgpcurl != null">
+        category_imgpcurl = #{categoryImgpcurl,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryMetatitle != null">
+        category_metaTitle = #{categoryMetatitle,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryMetakeywords != null">
+        category_metaKeyWords = #{categoryMetakeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryMetadesc != null">
+        category_metaDesc = #{categoryMetadesc,jdbcType=VARCHAR},
+      </if>
   </select>
 </mapper>
