@@ -205,4 +205,17 @@ public class MlbackCategory {
     public void setCategoryMetadesc(String categoryMetadesc) {
         this.categoryMetadesc = categoryMetadesc == null ? null : categoryMetadesc.trim();
     }
+
+	@Override
+	public String toString() {
+		return "MlbackCategory [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryImgurl="
+				+ categoryImgurl + ", categoryParentId=" + categoryParentId + ", categoryParentName="
+				+ categoryParentName + ", categoryStatus=" + categoryStatus + ", categoryLable=" + categoryLable
+				+ ", categorySeo=" + categorySeo + ", categorySortOrder=" + categorySortOrder + ", categoryCreatetime="
+				+ categoryCreatetime + ", categoryMotifytime=" + categoryMotifytime + ", categoryDesc=" + categoryDesc
+				+ ", categoryProductIds=" + categoryProductIds + ", categoryProductNames=" + categoryProductNames
+				+ ", categoryImgpcurl=" + categoryImgpcurl + ", categoryMetatitle=" + categoryMetatitle
+				+ ", categoryMetakeywords=" + categoryMetakeywords + ", categoryMetadesc=" + categoryMetadesc + "]";
+	}
+    
 }

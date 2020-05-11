@@ -71,6 +71,38 @@ public class MlbackCategoryController {
 		return Msg.success().add("pageInfo", page);
 	}
 	
+	
+	/**3.0	onuse	20191225	检查
+	 * MlbackCategory	insert/update
+	 * @param MlbackCategory
+	 * @return
+	 */
+	@RequestMapping(value="/initializaCategory",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg initializaCategory(HttpServletResponse rep,HttpServletRequest res){
+		
+		MlbackCategory mlbackCategory = new MlbackCategory();
+		//接受参数信息
+		String categoryParentName="---none---";
+		String categoryDesc="";
+			categoryParentName ="---none---";
+		//判断归属是否为none
+		Integer	categoryParentId = -1;
+		mlbackCategory.setCategoryParentId(categoryParentId);
+		mlbackCategory.setCategoryDesc(categoryDesc);
+		mlbackCategory.setCategoryParentName(categoryParentName);
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		mlbackCategory.setCategoryCreatetime(nowTime);
+		//无id，insert
+		System.out.println("插入前"+mlbackCategory.toString());
+		mlbackCategoryService.insertSelective(mlbackCategory);
+		System.out.println("插入后"+mlbackCategory.toString());
+		return Msg.success().add("resMsg", "插入成功").add("mlbackCategory", mlbackCategory);
+	}
+	
+	
+	
 	/**3.0	onuse	20191225	检查
 	 * MlbackCategory	insert/update
 	 * @param MlbackCategory
