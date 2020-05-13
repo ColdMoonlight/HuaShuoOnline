@@ -6,6 +6,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Collection</title>
 		<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
+		<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
+		<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 	</head>
 
 	<body class="c-app">
@@ -14,38 +16,65 @@
 		<div class="c-wrapper">
 			<div class="c-body">
 				<div class="c-main">
-					<div class="c-option">
-						<span class="c-option-title">Collections</span>
-						<button class="btn btn-primary btn-create">Create collection</button>
-					</div>
-					<div class="c-table">
-						<div class="c-table-tab">
-							<div class="c-table-tab-item active">All</div>
+					<div class="c-init">
+						<div class="c-option">
+							<span class="c-option-title">Collections</span>
+							<button class="btn btn-primary btn-create">Create collection</button>
 						</div>
-						<div class="c-table-content">
-							<div class="input-group c-search">
-								<svg class="c-icon">
-									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
-								</svg>
-								<input class="form-control" name="searchCollection" type="text" placeholder="Search Collections">
-								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
+						<div class="c-table">
+							<div class="c-table-tab">
+								<div class="c-table-tab-item active">All</div>
 							</div>
-							<table class="c-table-table table table-responsive-sm">
-								<thead>
-									<tr>
-										<th>序号</th>
-										<th>分类名</th>
-										<th>图片</th>
-										<th>操作</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-							<div id="table-pagination"></div>
+							<div class="c-table-content">
+								<div class="input-group c-search">
+									<svg class="c-icon">
+										<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
+									</svg>
+									<input class="form-control" name="searchCollection" type="text" placeholder="Search Collections">
+									<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
+								</div>
+								<table class="c-table-table table table-responsive-sm">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>分类名</th>
+											<th>图片</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+								<div id="table-pagination"></div>
+							</div>
 						</div>
-						<div class="c-table-mask">
-							<div class="spinner-border"></div>
+					</div>
+					<!-- edit or create -->
+					<div class="c-create hide">
+						<div class="c-option">
+							<span class="c-option-title">Edit Collections</span>
+							<div class="group">
+								<button class="btn btn-secondary btn-cancel">Cancel</button>
+								<button class="btn btn-primary btn-save">Save collection</button>
+							</div>
 						</div>
+						<div class="c-form">
+							<div class="form-group">
+		                        <label class="col-form-label" for="tagsinput">Tagsinput</label>
+		                        <div class="controls">
+			                         <input class="form-control" id="tagsinput" type="text" />
+		                        </div>
+	                      	</div>
+							<div class="form-group">
+		                        <label class="col-form-label" for="summernote">Summernote</label>
+		                        <div class="controls">
+			                        <textarea class="form-control" id="summernote" size="16" type="text"></textarea>
+		                        </div>
+	                      	</div>
+						</div>
+					</div>
+					<!-- mask -->					
+					<div class="c-mask">
+						<div class="spinner-border"></div>
 					</div>
 				</div>
 			</div>
@@ -53,13 +82,16 @@
 		</div>
 
 		<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
+		
+		<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
+		<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 		<!-- custom script -->
 		<script>
 			var inputSearchEl = $('input[name="searchCollection"]');
 			// init
 			renderTabItems();
 			getCollectionsData();
-			// listener
+			// search
 			$('.btn-save-search').on('click', function() {
 				var searchCollectionVal = inputSearchEl.val().trim();
 				if(searchCollectionVal) {
@@ -67,17 +99,120 @@
 					addTabItemEl(searchCollectionVal);
 				}
 			});
+			// tab-item click
 			$(document.body).on('click', '.c-table-tab-item', function() {
 				$('.c-table-tab-item').removeClass('active');
 				$(this).addClass('active');
 				setPageNum(1);
 				getCollectionsData($(this).text());
 			});
+			// tab delete
 			$(document.body).on('click', '.delete-table-tab-item', deleteCollectionEl);
+			// pagination
 			$(document.body).on('click', '#table-pagination li', function(e) {
 				getCollectionsData($(this).text());
 			});
+			// create collection
+			$('.btn-create').on('click', function() {
+				$('.c-create c-option-title').text('Create Collection');
+				showCreateBlock();
+				getCollectionId();
+				// tagsinput
+				$('#tagsinput').tagsinput({
+					onTagExists: function(item, $tag) {
+						toastr.error('Youve already used the option "'+ item + '"');
+					}
+				});
+				$('.bootstrap-tagsinput input').on('focus', function(e) {
+					$(this).parent().addClass('active')
+				});
+				$('.bootstrap-tagsinput input').on('blur', function(e) {
+					$(this).parent().removeClass('active')
+				});
+				// rich text
+				$('#summernote').summernote({
+					height: 300,
+			        toolbar: [
+						['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+						['fontsize', ['fontsize']],
+						['height', ['height']],
+						['color', ['color']],
+						['para', ['ul', 'ol', 'paragraph']],
+						['table', ['table']],
+						['insert', ['link', 'picture', 'video']],
+						['view', ['codeview']]
+			        ]
+			   	});
+			});
+			// edit collection
+			$(document.body).on('click', '.btn-edit', function(e) {
+				$('.c-create c-option-title').text('Edit Collection');
+				showCreateBlock();
+				$('#summernote').summernote({
+					height: 300,
+			        toolbar: [
+						['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+						['fontsize', ['fontsize']],
+						['height', ['height']],
+						['color', ['color']],
+						['para', ['ul', 'ol', 'paragraph']],
+						['table', ['table']],
+						['insert', ['link', 'picture', 'video']],
+						['view', ['codeview']]
+			        ]
+			   	});
+			});
+			// delete collection
+			$(document.body).on('click', '.btn-delete', function(e) {
+				var cId = $(this).data('id');
+				getCollectionsData();
+			});
+			// save collection
+			$('.btn-save').on('click', function() {
+				showInitBlock();
+				getCollectionsData();
+			});
+			// cancel collection save
+			$('.btn-cancel').on('click', function() {
+				showInitBlock();
+				resetFormData();
+			});
+			function showCreateBlock() {
+				$('.c-init').addClass('hide');
+				$('.c-create').removeClass('hide');
+			}
+			function showInitBlock() {
+				$('.c-init').removeClass('hide');
+				$('.c-create').addClass('hide');
+			}
+			function resetFormData() {
+				
+			}
+			function getCollectionId() {
+				$.ajax({
+					url: "${APP_PATH }/MlbackCategory/save",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					async: false,
+					success: function (data) {
+						if (data.code == 100) {
+							console.log(data)
+							toastr.success(data.msg);
+						} else {
+							toastr.error(data.msg);
+						}
+					},
+					error: function() {
+						toastr.error('获取分类失败，请刷新页面重新获取！');
+					},
+					complete: function() {
+						$('.c-mask').hide();
+					}
+				});
+			}
 			function getCollectionsData(val, pn) {
+				$('.c-mask').show();
 				var data = {
 						pn: getPageNum(),
 					};
@@ -100,7 +235,7 @@
 						toastr.error('获取分类失败，请刷新页面重新获取！');
 					},
 					complete: function() {
-						$('.c-table-mask').hide();
+						$('.c-mask').hide();
 					}
 				});
 			}
@@ -148,12 +283,14 @@
 						'</svg></div>');
 			}
 			function deleteCollectionEl(e) {
+				e.stopPropagation();
 				var targetEl = $(e.target),
 					itemVal = targetEl.data('item'),
 					parentEl = targetEl.parent('.c-table-tab-item');
 				deleteCollectionItem(itemVal);
 				$(parentEl).remove();
 				$('.c-table-tab-item').eq(0).addClass('active');
+				getCollectionsData();
 			}
 			function getCollectionList() {
 				return JSON.parse(storage.getItem('collections')) || [];
@@ -168,7 +305,6 @@
 			function addCollectionItem(name) {
 				var collections = getCollectionList();
 				collections.unshift(name);
-				console.log(collections, name)
 				storage.setItem('collections', JSON.stringify(collections));
 			}
 		</script>
