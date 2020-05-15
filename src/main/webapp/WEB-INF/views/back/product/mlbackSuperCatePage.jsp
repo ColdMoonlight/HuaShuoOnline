@@ -18,8 +18,8 @@
 				<div class="c-main">
 					<div class="c-init">
 						<div class="c-option">
-							<span class="c-option-title">Collections</span>
-							<button class="btn btn-primary btn-create">Create collection</button>
+							<span class="c-option-title">SuperCate</span>
+							<button class="btn btn-primary btn-create">Create SuperCate</button>
 						</div>
 						<div class="c-table">
 							<div class="c-table-tab">
@@ -51,25 +51,90 @@
 					<!-- edit or create -->
 					<div class="c-create hide">
 						<div class="c-option">
-							<span class="c-option-title">Edit Collections</span>
+							<span class="c-option-title">Edit SuperCate</span>
 							<div class="group">
 								<button class="btn btn-secondary btn-cancel">Cancel</button>
-								<button class="btn btn-primary btn-save">Save collection</button>
+								<button class="btn btn-primary btn-save">Save SuperCate</button>
 							</div>
 						</div>
 						<div class="c-form">
-							<div class="form-group">
-		                        <label class="col-form-label" for="tagsinput">Tagsinput</label>
-		                        <div class="controls">
-			                         <input class="form-control" id="tagsinput" type="text" />
-		                        </div>
-	                      	</div>
-							<div class="form-group">
-		                        <label class="col-form-label" for="summernote">Summernote</label>
-		                        <div class="controls">
-			                        <textarea class="form-control" id="summernote" size="16" type="text"></textarea>
-		                        </div>
-	                      	</div>
+							<input id="supercateId" hidden>
+							<div class="card">
+								<div class="card-body">
+									<div class="form-group">
+				                        <label class="col-form-label" for="supercateName">Title</label>
+				                        <div class="controls">
+					                         <input class="form-control" id="supercateName" type="text" />
+				                        </div>
+			                      	</div>						
+									<div class="form-group">
+				                        <label class="col-form-label" for="supercateSortOrder">Sort</label>
+				                        <div class="controls">
+					                         <input class="form-control" id="supercateSortOrder" type="number" />
+				                        </div>
+			                      	</div>
+			                      	<div class="form-group row">
+				                        <label class="col-md-3 col-form-label" for="supercateStatus">Status</label>
+				                        <div class="controls col-md-3">
+					                         <label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="supercateStatus" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
+				                        </div>
+			                      	</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">SuperCate Image</div>
+								</div>
+								<div class="card-body">
+									<div id="uploadImg" class="c-upload-img">
+										<svg class="c-icon">
+											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+										</svg>
+										<input type="file" />
+									</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Search engine listing preview</div>
+									
+									<div class="form-group row">
+				                        <label class="col-md-3 col-form-label" for="supercateSeo">Enable SEO</label>
+				                        <div class="controls col-md-3">
+					                         <label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="supercateSeo" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
+				                        </div>
+			                      	</div>
+									<%-- <div class="cartegory-name"></div>
+									<div class="category-link></div>
+									<div class="caetegory-desc></div> --%>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+				                        <label class="col-form-label" for="supercateMetatitle">Page title</label>
+				                        <div class="controls">
+					                         <input class="form-control" id="supercateMetatitle" type="text" />
+				                        </div>
+			                      	</div>
+			                      	<div class="form-group">
+				                        <label class="col-form-label" for="supercateMetakeywords">Page keywords</label>
+				                        <div class="controls">
+					                         <textarea class="form-control" height="100" id="supercateMetakeywords"></textarea>
+				                        </div>
+			                      	</div>
+			                      	<div class="form-group">
+				                        <label class="col-form-label" for="supercateMetadesc">Page Description</label>
+				                        <div class="controls">
+					                         <textarea class="form-control" height="100" id="supercateMetadesc"></textarea>
+				                        </div>
+			                      	</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<!-- mask -->					
@@ -171,6 +236,7 @@
 			$('.btn-save').on('click', function() {
 				showInitBlock();
 				getCollectionsData();
+				saveCollectionData(getFormData());
 			});
 			// cancel collection save
 			$('.btn-cancel').on('click', function() {
@@ -188,16 +254,45 @@
 			function resetFormData() {
 				
 			}
+			function getFormData() {
+				var data = {};
+				/* 
+					supercateId: 29
+					supercateImgurl: null
+					supercateMetadesc: null
+					supercateMetakeywords: null
+					supercateMetatitle: null
+					supercateMotifytime: null
+					supercateName: null
+					supercateSeo: null
+					supercateSortOrder: null
+					supercateStatus: null
+				*/
+				data.supercateId = $('#supercateId').val();
+				data.supercateName = $('#supercateName').val();
+				data.supercateSortOrder = $('#supercateSortOrder').val();
+				data.supercateStatus = $('#supercateStatus').prop('checked');
+
+				data.supercateImgurl = $('#supercateImgurl').val();
+
+				data.supercateSeo = $('#supercateSeo').prop('checked');
+				data.supercateMetatitle = $('#supercateMetatitle').val();
+				data.supercateMetakeywords = $('#supercateMetakeywords').val();
+				data.supercateMetadesc = $('#supercateMetadesc').val();
+
+				return data;
+			}
 			function getCollectionId() {
+				$('.c-mask').show();
 				$.ajax({
-					url: "${APP_PATH }/MlbackCategory/save",
+					url: "${APP_PATH }/MlbackSuperCate/initializaSuperCate",
 					type: "post",
 					dataType: "json",
 					contentType: 'application/json',
 					async: false,
 					success: function (data) {
 						if (data.code == 100) {
-							console.log(data)
+							$('#supercateId').val(data.extend.mlbackSuperCate.supercateId);
 							toastr.success(data.msg);
 						} else {
 							toastr.error(data.msg);
@@ -217,7 +312,7 @@
 						pn: getPageNum(),
 					};
 				$.ajax({
-					url: "${APP_PATH }/MlbackCategory/getMlbackCategoryByPage",
+					url: "${APP_PATH }/MlbackSuperCate/getMlbackSuperCateByPage",
 					type: "post",
 					dataType: "json",
 					contentType: 'application/json',
@@ -226,6 +321,29 @@
 						if (data.code == 100) {
 							renderTable(data.extend.pageInfo.list);
 							renderTablePagination(data.extend.pageInfo);
+							toastr.success(data.msg);
+						} else {
+							toastr.error(data.msg);
+						}
+					},
+					error: function() {
+						toastr.error('获取分类失败，请刷新页面重新获取！');
+					},
+					complete: function() {
+						$('.c-mask').hide();
+					}
+				});
+			}
+			function saveCollectionData(data) {
+				$('.c-mask').show();
+				$.ajax({
+					url: "${APP_PATH }/MlbackSuperCate/getMlbackSuperCateByPage",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(data),
+					success: function (data) {
+						if (data.code == 100) {
 							toastr.success(data.msg);
 						} else {
 							toastr.error(data.msg);
