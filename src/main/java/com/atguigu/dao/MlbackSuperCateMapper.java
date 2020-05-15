@@ -1,7 +1,8 @@
 package com.atguigu.dao;
 
 import java.util.List;
-import com.atguigu.bean.MlbackSuperCate;
+
+import com.atguigu.bean.back.MlbackSuperCate;
 
 public interface MlbackSuperCateMapper {
 	

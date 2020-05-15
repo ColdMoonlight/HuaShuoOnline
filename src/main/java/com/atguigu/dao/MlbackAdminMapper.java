@@ -2,7 +2,7 @@ package com.atguigu.dao;
 
 import java.util.List;
 
-import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.back.MlbackAdmin;
 
 public interface MlbackAdminMapper {
     int deleteByPrimaryKey(Integer adminId);
