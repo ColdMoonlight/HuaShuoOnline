@@ -36,8 +36,10 @@ public class MlbackCategory {
     private String categoryMetakeywords;
 
     private String categoryMetadesc;
+    
+    private Integer categorySuperCate;
 
-    public MlbackCategory(Integer categoryId, String categoryName, String categoryImgurl, Integer categoryParentId, String categoryParentName, Integer categoryStatus, Integer categoryLable, String categorySeo, Integer categorySortOrder, String categoryCreatetime, String categoryMotifytime, String categoryDesc, String categoryProductIds, String categoryProductNames, String categoryImgpcurl, String categoryMetatitle, String categoryMetakeywords, String categoryMetadesc) {
+    public MlbackCategory(Integer categoryId, String categoryName, String categoryImgurl, Integer categoryParentId, String categoryParentName, Integer categoryStatus, Integer categoryLable, String categorySeo, Integer categorySortOrder, String categoryCreatetime, String categoryMotifytime, String categoryDesc, String categoryProductIds, String categoryProductNames, String categoryImgpcurl, String categoryMetatitle, String categoryMetakeywords, String categoryMetadesc,Integer categorySuperCate) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryImgurl = categoryImgurl;
@@ -56,6 +58,7 @@ public class MlbackCategory {
         this.categoryMetatitle = categoryMetatitle;
         this.categoryMetakeywords = categoryMetakeywords;
         this.categoryMetadesc = categoryMetadesc;
+        this.categorySuperCate = categorySuperCate;
     }
 
     public MlbackCategory() {
@@ -206,6 +209,14 @@ public class MlbackCategory {
         this.categoryMetadesc = categoryMetadesc == null ? null : categoryMetadesc.trim();
     }
 
+	public Integer getCategorySuperCate() {
+		return categorySuperCate;
+	}
+
+	public void setCategorySuperCate(Integer categorySuperCate) {
+		this.categorySuperCate = categorySuperCate;
+	}
+
 	@Override
 	public String toString() {
 		return "MlbackCategory [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryImgurl="
@@ -215,6 +226,7 @@ public class MlbackCategory {
 				+ categoryCreatetime + ", categoryMotifytime=" + categoryMotifytime + ", categoryDesc=" + categoryDesc
 				+ ", categoryProductIds=" + categoryProductIds + ", categoryProductNames=" + categoryProductNames
 				+ ", categoryImgpcurl=" + categoryImgpcurl + ", categoryMetatitle=" + categoryMetatitle
+				+ ", categorySuperCate=" + categorySuperCate
 				+ ", categoryMetakeywords=" + categoryMetakeywords + ", categoryMetadesc=" + categoryMetadesc + "]";
 	}
     
