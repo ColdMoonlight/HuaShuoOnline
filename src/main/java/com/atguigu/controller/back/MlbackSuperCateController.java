@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlbackCategory;
-import com.atguigu.bean.MlbackSuperCate;
+
+import com.atguigu.bean.back.MlbackAdmin;
+import com.atguigu.bean.back.MlbackCategory;
+import com.atguigu.bean.back.MlbackSuperCate;
 import com.atguigu.common.Const;
 //import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Msg;
@@ -84,12 +85,9 @@ public class MlbackSuperCateController {
 	public Msg initializaCategory(HttpServletResponse rep,HttpServletRequest res){
 		
 		MlbackSuperCate mlbackSuperCate = new MlbackSuperCate();
-		//接受参数信息
 		
-		//取出id
 		String nowTime = DateUtil.strTime14s();
 		mlbackSuperCate.setSupercateCreatetime(nowTime);
-		//无id，insert
 		System.out.println("插入前"+mlbackSuperCate.toString());
 		mlbackSuperCateService.insertSelective(mlbackSuperCate);
 		System.out.println("插入后"+mlbackSuperCate.toString());
@@ -139,16 +137,16 @@ public class MlbackSuperCateController {
 	 */
 	@RequestMapping(value="/getOneMlbackSuperCateDetail",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneMlbackSuperCateDetail(@RequestParam(value = "supercateId") Integer supercateId){
+	public Msg getOneMlbackSuperCateDetail(@RequestBody MlbackSuperCate mlbackSuperCate,HttpSession session){
 		
-		//接受categoryId
+		//接受supercateId
+		Integer supercateId = mlbackSuperCate.getSupercateId();
 		MlbackSuperCate mlbackSuperCateReq = new MlbackSuperCate();
 		mlbackSuperCateReq.setSupercateId(supercateId);
 		//查询本条
 		List<MlbackSuperCate> mlbackSuperCateResList =mlbackSuperCateService.selectMlbackSuperCateById(mlbackSuperCateReq);
-		MlbackSuperCate mlbackCategoryOne =mlbackSuperCateResList.get(0);
-		return Msg.success().add("resMsg", "查categoryOne完毕").add("mlbackCategoryOne", mlbackCategoryOne);
-	}
-	
+		MlbackSuperCate mlbackSuperCateOne =mlbackSuperCateResList.get(0);
+		return Msg.success().add("resMsg", "查mlbackSuperCate完毕").add("mlbackSuperCate", mlbackSuperCateOne);
+	}	
 
 }

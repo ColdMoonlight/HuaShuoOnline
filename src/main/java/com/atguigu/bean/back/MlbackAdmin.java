@@ -1,4 +1,4 @@
-package com.atguigu.bean;
+package com.atguigu.bean.back;
 
 public class MlbackAdmin {
     private Integer adminId;

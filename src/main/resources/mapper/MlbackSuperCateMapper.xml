@@ -172,4 +172,10 @@
     select *
     from tb_mlback_supercate order by superCate_id desc
   </select>
+  <!-- 使用中 -->
+  <select id="selectMlbackSuperCateById" parameterType="com.atguigu.bean.MlbackSuperCate" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_supercate
+    where superCate_id = #{supercateId,jdbcType=INTEGER}
+  </select>
 </mapper>
