@@ -39,16 +39,16 @@ public class MlbackSuperCateService {
 		return intReslut;
 	}
 	
-//	/**
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 查看全部用户信息
-//	 * 
-//	 * */
-//	public List<MlbackSuperCate> selectMlbackSuperCateGetAll() {
-//		List<MlbackSuperCate>  mlbackSuperCateList = mlbackSuperCateMapper.selectMlbackSuperCateGetAll();
-//		return mlbackSuperCateList;
-//	}
+	/**
+	 * @author Shinelon
+	 * @param 
+	 * @exception 查看全部用户信息
+	 * 
+	 * */
+	public List<MlbackSuperCate> selectMlbackSuperCateGetAll() {
+		List<MlbackSuperCate>  mlbackSuperCateList = mlbackSuperCateMapper.selectMlbackSuperCateGetAll();
+		return mlbackSuperCateList;
+	}
 
 	/**
 	 * @author Shinelon

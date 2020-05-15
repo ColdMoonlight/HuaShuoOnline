@@ -43,7 +43,7 @@
       #{supercateMetatitle,jdbcType=VARCHAR}, #{supercateMetakeywords,jdbcType=VARCHAR}, 
       #{supercateMetadesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackSuperCate">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="supercateId" parameterType="com.atguigu.bean.MlbackSuperCate">
     insert into tb_mlback_supercate
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="supercateId != null">
@@ -166,4 +166,10 @@
       superCate_metaDesc = #{supercateMetadesc,jdbcType=VARCHAR}
     where superCate_id = #{supercateId,jdbcType=INTEGER}
   </update>
+  
+  <!-- 使用中 -->
+  <select id="selectMlbackSuperCateGetAll" parameterType="com.atguigu.bean.MlbackSuperCate" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_supercate order by superCate_id desc
+  </select>
 </mapper>
