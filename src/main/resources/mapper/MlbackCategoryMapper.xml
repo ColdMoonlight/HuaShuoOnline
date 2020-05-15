@@ -55,7 +55,7 @@
       #{categoryImgpcurl,jdbcType=VARCHAR}, #{categoryMetatitle,jdbcType=VARCHAR}, #{categoryMetakeywords,jdbcType=VARCHAR}, 
       #{categoryMetadesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="categoryId" parameterType="com.atguigu.bean.MlbackCategory">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="categoryId" parameterType="com.atguigu.bean.MlbackCategory">
     insert into tb_mlback_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="categoryId != null">
