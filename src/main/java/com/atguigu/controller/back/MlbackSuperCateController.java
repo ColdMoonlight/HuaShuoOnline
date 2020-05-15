@@ -1,6 +1,5 @@
 package com.atguigu.controller.back;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.bean.back.MlbackAdmin;
-import com.atguigu.bean.back.MlbackCategory;
 import com.atguigu.bean.back.MlbackSuperCate;
 import com.atguigu.common.Const;
 //import com.atguigu.bean.MlbackProduct;
@@ -22,7 +20,6 @@ import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
-import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackSuperCateService;
 //import com.atguigu.service.MlbackProductService;
 import com.atguigu.utils.DateUtil;
@@ -67,13 +64,12 @@ public class MlbackSuperCateController {
 	@ResponseBody
 	public Msg getMlbackSuperCateByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
 
-		int PagNum = 30;
+		int PagNum = Const.PAGE_NUM_CATEGORY;
 		PageHelper.startPage(pn, PagNum);
 		List<MlbackSuperCate> mlbackSuperCateList = mlbackSuperCateService.selectMlbackSuperCateGetAll();
 		PageInfo page = new PageInfo(mlbackSuperCateList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
-	
 	
 	/**3.0	onuse	20191225	检查
 	 * MlbackSuperCate	insert
@@ -94,8 +90,6 @@ public class MlbackSuperCateController {
 		return Msg.success().add("resMsg", "插入成功").add("mlbackSuperCate", mlbackSuperCate);
 	}
 	
-	
-	
 	/**3.0	onuse	20191225	检查
 	 * MlbackCategory	insert/update
 	 * @param MlbackCategory
@@ -106,11 +100,8 @@ public class MlbackSuperCateController {
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackSuperCate mlbackSuperCate){
 		//接受参数信息
 
-		//取出id
-		Integer SupercateId = mlbackSuperCate.getSupercateId();
 		String nowTime = DateUtil.strTime14s();
 		mlbackSuperCate.setSupercateMotifytime(nowTime);
-		//有id，update
 		mlbackSuperCateService.updateByPrimaryKeySelective(mlbackSuperCate);
 		System.out.println("后台操作:SupercateId不为null,走update+intResult:"+mlbackSuperCate.toString());
 		return Msg.success().add("resMsg", "更新成功").add("mlbackSuperCate", mlbackSuperCate);
