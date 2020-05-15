@@ -24,7 +24,7 @@
 				</svg>
 				<span>Lock Account</span>
 			</a>
-			<a class="dropdown-item">
+			<a class="dropdown-item" href="${APP_PATH }/MlbackAdmin/exitIndex">
 				<svg class="c-icon">
 					<use xlink:href="${APP_PATH }/static/back/img/svg/free.svg#cil-account-logout"></use>
 				</svg>

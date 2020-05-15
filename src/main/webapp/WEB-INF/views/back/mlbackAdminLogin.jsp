@@ -128,7 +128,7 @@
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg + ', 稍后将进行跳转');
 						setTimeout(function() {
-							window.location.href = window.location.href;
+							window.location.href = '${APP_PATH }/BackHome/BackHomePage';
 						}, 100);
 					} else {
 						toastr.error(data.extend.resMsg);
