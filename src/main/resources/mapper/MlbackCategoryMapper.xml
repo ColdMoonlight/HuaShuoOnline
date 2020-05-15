@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.dao.MlbackCategoryMapper">
-  <resultMap id="BaseResultMap" type="com.atguigu.bean.MlbackCategory">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.back.MlbackCategory">
     <constructor>
       <idArg column="category_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="category_name" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -21,13 +21,14 @@
       <arg column="category_metaTitle" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="category_metaKeyWords" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="category_metaDesc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="category_superCate" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
     category_id, category_name, category_imgurl, category_parent_id, category_parent_name, 
     category_status, category_lable, category_seo, category_sort_order, category_createTime, 
     category_motifyTime, category_desc, category_product_ids, category_product_names, 
-    category_imgpcurl, category_metaTitle, category_metaKeyWords, category_metaDesc
+    category_imgpcurl, category_metaTitle, category_metaKeyWords, category_metaDesc, category_superCate
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -39,23 +40,24 @@
     delete from tb_mlback_category
     where category_id = #{categoryId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.atguigu.bean.MlbackCategory">
+  <insert id="insert" parameterType="com.atguigu.bean.back.MlbackCategory">
     insert into tb_mlback_category (category_id, category_name, category_imgurl, 
       category_parent_id, category_parent_name, category_status, 
       category_lable, category_seo, category_sort_order, 
       category_createTime, category_motifyTime, 
       category_desc, category_product_ids, category_product_names, 
       category_imgpcurl, category_metaTitle, category_metaKeyWords, 
-      category_metaDesc)
+      category_metaDesc,category_superCate)
     values (#{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{categoryImgurl,jdbcType=VARCHAR}, 
       #{categoryParentId,jdbcType=INTEGER}, #{categoryParentName,jdbcType=VARCHAR}, #{categoryStatus,jdbcType=INTEGER}, 
       #{categoryLable,jdbcType=INTEGER}, #{categorySeo,jdbcType=VARCHAR}, #{categorySortOrder,jdbcType=INTEGER}, 
       #{categoryCreatetime,jdbcType=VARCHAR}, #{categoryMotifytime,jdbcType=VARCHAR}, 
       #{categoryDesc,jdbcType=VARCHAR}, #{categoryProductIds,jdbcType=VARCHAR}, #{categoryProductNames,jdbcType=VARCHAR}, 
       #{categoryImgpcurl,jdbcType=VARCHAR}, #{categoryMetatitle,jdbcType=VARCHAR}, #{categoryMetakeywords,jdbcType=VARCHAR}, 
-      #{categoryMetadesc,jdbcType=VARCHAR})
+      #{categoryMetadesc,jdbcType=VARCHAR}, #{categorySuperCate,jdbcType=INTEGER})
+
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="categoryId" parameterType="com.atguigu.bean.MlbackCategory">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="categoryId" parameterType="com.atguigu.bean.back.MlbackCategory">
     insert into tb_mlback_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="categoryId != null">
@@ -111,6 +113,9 @@
       </if>
       <if test="categoryMetadesc != null">
         category_metaDesc,
+      </if>
+      <if test="categorySuperCate != null">
+      	category_superCate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -168,9 +173,12 @@
       <if test="categoryMetadesc != null">
         #{categoryMetadesc,jdbcType=VARCHAR},
       </if>
+      <if test="categorySuperCate != null">
+      	#{categorySuperCate,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackCategory">
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.back.MlbackCategory">
     update tb_mlback_category
     <set>
       <if test="categoryName != null">
@@ -224,10 +232,13 @@
       <if test="categoryMetadesc != null">
         category_metaDesc = #{categoryMetadesc,jdbcType=VARCHAR},
       </if>
+      <if test="categorySuperCate != null">
+      	category_superCate = #{categorySuperCate,jdbcType=INTEGER},
+      </if>
     </set>
     where category_id = #{categoryId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackCategory">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.back.MlbackCategory">
     update tb_mlback_category
     set category_name = #{categoryName,jdbcType=VARCHAR},
       category_imgurl = #{categoryImgurl,jdbcType=VARCHAR},
@@ -245,17 +256,18 @@
       category_imgpcurl = #{categoryImgpcurl,jdbcType=VARCHAR},
       category_metaTitle = #{categoryMetatitle,jdbcType=VARCHAR},
       category_metaKeyWords = #{categoryMetakeywords,jdbcType=VARCHAR},
-      category_metaDesc = #{categoryMetadesc,jdbcType=VARCHAR}
+      category_metaDesc = #{categoryMetadesc,jdbcType=VARCHAR},
+      category_superCate = #{categorySuperCate,jdbcType=INTEGER}
     where category_id = #{categoryId,jdbcType=INTEGER}
   </update>
   
-    <select id="selectMlbackCategoryGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
+    <select id="selectMlbackCategoryGetAll" parameterType="com.atguigu.bean.back.MlbackCategory" resultMap="BaseResultMap">
     select *
     from tb_mlback_category order by category_id desc
   </select>
   
   <!-- 使用中 -->
-  <select id="selectMlbackCategory" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
+  <select id="selectMlbackCategory" parameterType="com.atguigu.bean.back.MlbackCategory" resultMap="BaseResultMap">
     select *
     from tb_mlback_category
     where category_id = #{categoryId,jdbcType=INTEGER}
@@ -309,6 +321,9 @@
       </if>
       <if test="categoryMetadesc != null">
         category_metaDesc = #{categoryMetadesc,jdbcType=VARCHAR},
+      </if>
+      <if test="categorySuperCate != null">
+      	category_superCate = #{categorySuperCate,jdbcType=INTEGER},
       </if>
   </select>
 </mapper>
