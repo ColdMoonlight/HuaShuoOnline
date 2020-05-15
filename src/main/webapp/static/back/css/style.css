@@ -5411,8 +5411,17 @@ button.close {
   margin-bottom: 16px;
 }
 
+.card-title {
+	padding: 2rem;
+	padding-bottom: 0;
+}
+.card-title-name {
+	margin-bottom: 1rem;
+	font-weight: 400;
+	font-size: 1.5rem;
+}
 .card-body{  
-	padding: 28px;
+	padding: 2rem;
 }
 
 /* custom text style */

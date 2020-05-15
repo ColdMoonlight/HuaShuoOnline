@@ -189,13 +189,19 @@
 	font-weight: 600;
 	font-size: 1.6rem;	
 }
-.c-table {
+.c-table,
+.c-form {
 	margin-top: 1rem;
 	border-radius: .5rem;
-	overflow: hidden;	
+	overflow: hidden;
+}
+.c-table {
 	border: 0;
 	box-shadow: 0 0 1px 1px #ccc;
 	background-color: #fff;
+}
+.c-form>.card {
+	margin-bottom: 1rem;
 }
 .c-table-tab {
 	display: flex;
@@ -280,4 +286,29 @@
 /* summernote */
 .note-toolbar .btn {
 	border-color: #ccc;
+}
+/* upload img */
+.c-upload-img {
+	position: relative;
+	width: 8rem;
+	height: 8rem;
+	padding: 2rem;
+}
+.c-upload-img>.c-icon {
+	display: block;
+	width: 4rem;
+	height: 4rem;
+}
+.c-upload-img>input {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	display: block;
+	background-color: transparent;
+	border: none;
+	opacity: 0;
+	cursor: pointer;
 }

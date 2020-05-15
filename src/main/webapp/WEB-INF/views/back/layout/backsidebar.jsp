@@ -31,6 +31,12 @@
 						<span class="c-text">Collections</span>
 					</a>
 				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackSuperCate/toMlbackSuperCatePage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">SuperCate</span>
+					</a>
+				</li>
 			</ul>
 		</li>
 		<li class="c-sidebar-nav-item">
