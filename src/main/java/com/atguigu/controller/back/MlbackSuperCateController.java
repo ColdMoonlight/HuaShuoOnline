@@ -115,7 +115,7 @@ public class MlbackSuperCateController {
 		//有id，update
 		mlbackSuperCateService.updateByPrimaryKeySelective(mlbackSuperCate);
 		System.out.println("后台操作:SupercateId不为null,走update+intResult:"+mlbackSuperCate.toString());
-		return Msg.success().add("resMsg", "更新成功");
+		return Msg.success().add("resMsg", "更新成功").add("mlbackSuperCate", mlbackSuperCate);
 	}
 	
 	/**4.0	onuse	20191225	检查
