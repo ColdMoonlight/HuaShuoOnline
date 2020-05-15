@@ -43,7 +43,7 @@ public class MlbackSuperCateController {
 	 * to后台分类MlbackCategory列表页面
 	 * @return jsp
 	 * */
-	@RequestMapping("/toMlbackCategoryPage")
+	@RequestMapping("/toMlbackSuperCatePage")
 	public String tologin(HttpSession session) throws Exception{
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
@@ -51,7 +51,7 @@ public class MlbackSuperCateController {
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";
 		}else{
-			return "back/product/mlbackCategoryPage";
+			return "back/product/mlbackSuperCatePage";
 		}
 	}
 	
