@@ -25,7 +25,6 @@ import com.atguigu.vo.MoneyRate;
 @RequestMapping("/header")
 public class headerController {
 	
-
 	
 	/**
 	 * 	onuse	20200103	检查
