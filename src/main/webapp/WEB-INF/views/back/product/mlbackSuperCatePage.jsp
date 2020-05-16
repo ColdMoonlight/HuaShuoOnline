@@ -202,7 +202,7 @@
 			// save collection
 			$('.btn-save').on('click', function() {
 				showInitBlock();
-				saveCollectionData(getFormData());
+				saveCollectionData(getFormData(), getCollectionsData);
 			});
 			// cancel collection save
 			$('.btn-cancel').on('click', function() {
@@ -281,7 +281,7 @@
 						}
 					},
 					error: function(err) {
-						toastr.error('初始化superCate失败：' + err);
+						toastr.error('initial superCate fail：' + err);
 					},
 					complete: function() {
 						$('.c-mask').hide();
@@ -310,7 +310,7 @@
 						}
 					},
 					error: function(err) {
-						toastr.error('获取分类失败，请刷新页面重新获取！');
+						toastr.error('Failed to get Super-Categeory, please refresh the page to get again！');
 					},
 					complete: function() {
 						$('.c-mask').hide();
@@ -318,7 +318,7 @@
 				});
 			}
 			// callback save
-			function saveCollectionData(reqData) {
+			function saveCollectionData(reqData, callback) {
 				$('.c-mask').show();
 				$.ajax({
 					url: "${APP_PATH}/MlbackSuperCate/save",
@@ -330,7 +330,7 @@
 					success: function (data) {
 						if (data.code == 100) {
 							toastr.success(data.msg);
-							getCollectionsData();
+							callback();
 						} else {
 							toastr.error(data.msg);
 						}

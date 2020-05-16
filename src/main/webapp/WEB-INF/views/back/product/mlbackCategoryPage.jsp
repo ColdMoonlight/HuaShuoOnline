@@ -87,6 +87,7 @@
 		<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 		<!-- custom script -->
 		<script>
+			var categoryData = {};
 			var inputSearchEl = $('input[name="searchCollection"]');
 			// init
 			renderTabItems();
@@ -116,6 +117,8 @@
 			$('.btn-create').on('click', function() {
 				$('.c-create c-option-title').text('Create Collection');
 				showCreateBlock();
+				// init formData
+				resetFormData();
 				getCollectionId();
 				// tagsinput
 				$('#tagsinput').tagsinput({
@@ -160,7 +163,9 @@
 						['insert', ['link', 'picture', 'video']],
 						['view', ['codeview']]
 			        ]
-			   	});
+				});
+				   
+				initFormData(categoryData[cId]);
 			});
 			// delete collection
 			$(document.body).on('click', '.btn-delete', function(e) {
@@ -170,12 +175,11 @@
 			// save collection
 			$('.btn-save').on('click', function() {
 				showInitBlock();
-				getCollectionsData();
+				saveCollectionData(getFormData(), getCollectionsData);
 			});
 			// cancel collection save
 			$('.btn-cancel').on('click', function() {
 				showInitBlock();
-				resetFormData();
 			});
 			function showCreateBlock() {
 				$('.c-init').addClass('hide');
@@ -185,9 +189,69 @@
 				$('.c-init').removeClass('hide');
 				$('.c-create').addClass('hide');
 			}
+			// handle formData
+			// reset data
 			function resetFormData() {
-				
+				/*
+				"categoryName": "Bundle",
+				"categoryImgurl": "https://is3-ssl.mzstatic.com/image/thumb/Purple128/v4/20/68/3a/20683a03-5c54-23be-6a04-bf855bcec41d/source/100x100bb.jpg",
+				"categoryParentId": "65",
+				"categoryParentName": "Wig By Cap",
+				"categoryStatus": "0",
+				"categorySeo": "mmmmmmmm",
+				"categorySortOrder": "1",
+				"categoryId": "170"
+				*/
+				$('#categoryId').val('');
+				$('#categoryName').val('');
+				$('#categorySortOrder').val('');
+				$('#categoryStatus').prop('checked', false);
+
+				$('#categoryImgurl').val('');
+
+				$('#categoryParentId').val('')
+
+				$('#categorySeo').prop('checked', false);
+				// $('#supercateMetatitle').val('');
+				// $('#supercateMetakeywords').val('');
+				// $('#supercateMetadesc').val('');
 			}
+			// getFormdData
+			function getFormData() {
+				var data = {};
+				data.supercateId = parseInt($('#categoryId').val());
+				data.supercateName = $('#categoryName').val();
+				data.supercateSortOrder = $('#categorySortOrder').val();
+				data.supercateStatus = $('#categoryStatus').prop('checked') ? 1 : 0;
+
+				data.supercateImgurl = $('#categoryImgurl').val();
+
+				data.categoryParentId = $('#categoryParentId').val();
+
+				data.categorySeo = String($('#categorySeo').prop('checked'));
+				// data.supercateMetatitle = $('#supercateMetatitle').val();
+				// data.supercateMetakeywords = $('#supercateMetakeywords').val();
+				// data.supercateMetadesc = $('#supercateMetadesc').val();
+
+				return data;
+			}
+			// initFormData
+			function initFormData(data) {
+				$('#categoryId').val(data.categoryId);
+				$('#categoryName').val(data.categoryName);
+				$('#categorySortOrder').val(data.categorySortOrder);
+				$('#categoryStatus').prop('checked', data.categoryStatus);
+
+				$('#categoryImgurl').val(data.categoryImgurl);
+
+				$('#categoryParentId').val(data.categoryParentId);
+
+				$('#categorySeo').prop('checked', data.categorySeo);
+				// $('#supercateMetatitle').val(data.supercateMetatitle);
+				// $('#supercateMetakeywords').val(data.supercateMetakeywords);
+				// $('#supercateMetadesc').val(data.supercateMetadesc);
+			}
+			// callback get id
 			function getCollectionId() {
 				$.ajax({
 					url: "${APP_PATH }/MlbackCategory/save",
@@ -204,13 +268,14 @@
 						}
 					},
 					error: function() {
-						toastr.error('获取分类失败，请刷新页面重新获取！');
+						toastr.error('Failed to Save Categeory, please save-data again！');
 					},
 					complete: function() {
 						$('.c-mask').hide();
 					}
 				});
 			}
+			// callback get data
 			function getCollectionsData(val, pn) {
 				$('.c-mask').show();
 				var data = {
@@ -232,16 +297,44 @@
 						}
 					},
 					error: function() {
-						toastr.error('获取分类失败，请刷新页面重新获取！');
+						toastr.error('Failed to get Categeory, please refresh the page to get again！');
+					},
+					complete: function() {
+						$('.c-mask').hide();
+					}
+				});
+			}			
+			// callback delete
+			function deleteCollectionData(reqData) {
+				$('.c-mask').show();
+				$.ajax({
+					url: "${APP_PATH}/MlbackCategory/delete",
+					type: "post",
+					cache: false,
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.msg);
+							getCollectionsData();
+						} else {
+							toastr.error(data.msg);
+						}
+					},
+					error: function(err) {
+						toastr.error(err);
 					},
 					complete: function() {
 						$('.c-mask').hide();
 					}
 				});
 			}
+			// init table-list
 			function renderTable(data) {
 				var htmlStr = '';
 				for (var i=0, len=data.length; i<len; i+=1) {
+					categoryData[data[i].categoryId] = data[i];
 					htmlStr += '<tr><td>'+ (i+1) +'</td>' +
 						'<td>'+ data[i].categoryName +'</td>' +
 						'<td><div class="c-table-img" style="background-image: url('+data[i].categoryImgurl+');"></div></td>' +
