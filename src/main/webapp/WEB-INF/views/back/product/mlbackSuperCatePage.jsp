@@ -36,10 +36,12 @@
 								<table class="c-table-table table table-responsive-sm">
 									<thead>
 										<tr>
-											<th>序号</th>
-											<th>分类名</th>
-											<th>图片</th>
-											<th>操作</th>
+											<th>supercate id</th>
+											<th>supercate name</th>
+											<th>status</th>
+											<th>iamge</th>
+											<th>order</th>
+											<th>operation</th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -69,8 +71,22 @@
 			                      	</div>						
 									<div class="form-group">
 				                        <label class="col-form-label" for="supercateSortOrder">Sort</label>
-				                        <div class="controls">
+				                        <!-- <div class="controls">
 					                         <input class="form-control" id="supercateSortOrder" type="number" />
+				                        </div> -->
+				                        <div class="controls">
+					                         <select class="form-control" id="supercateSortOrder" />
+					                         	<option value="1">1</option>
+					                         	<option value="2">2</option>
+					                         	<option value="3">3</option>
+					                         	<option value="4">4</option>
+					                         	<option value="5">5</option>
+					                         	<option value="6">6</option>
+					                         	<option value="7">7</option>
+					                         	<option value="8">8</option>
+					                         	<option value="9">9</option>
+					                         	<option value="10">10</option>
+					                         </select>
 				                        </div>
 			                      	</div>
 			                      	<div class="form-group row">
@@ -374,9 +390,11 @@
 				var htmlStr = '';
 				for (var i=0, len=data.length; i<len; i+=1) {
 					categoryData[data[i].supercateId] = data[i];
-					htmlStr += '<tr><td>'+ (i+1) +'</td>' +
+					htmlStr += '<tr><td>'+ data[i].supercateId +'</td>' +
 						'<td>'+ data[i].supercateName +'</td>' +
+						'<td>'+ (data[i].supercateStatus ? 'enable' : 'not enable') +'</td>' +
 						'<td><div class="c-table-img" style="background-image: url('+data[i].supercateImgurl+');"></div></td>' +
+						'<td>'+ data[i].supercateSortOrder +'</td>' +
 						'<td>'+
 							'<button class="btn btn-primary btn-edit" data-id="'+data[i].supercateId+'">'+
 								'<svg class="c-icon">'+
