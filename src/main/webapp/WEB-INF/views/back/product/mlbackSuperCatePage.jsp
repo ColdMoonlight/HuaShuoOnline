@@ -64,7 +64,7 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="form-group">
-				                        <label class="col-form-label" for="supercateName">Title</label>
+				                        <label class="col-form-label" for="supercateName">SuperCate Name</label>
 				                        <div class="controls">
 					                         <input class="form-control" id="supercateName" type="text" />
 				                        </div>
@@ -208,6 +208,7 @@
 				var cId = $(this).data('id');
 				$('.c-create c-option-title').text('Edit Collection');
 				showCreateBlock();
+				resetFormData();
 				initFormData(categoryData[cId]);
 			});
 			// delete collection
@@ -393,7 +394,7 @@
 					categoryData[data[i].supercateId] = data[i];
 					htmlStr += '<tr><td>'+ data[i].supercateId +'</td>' +
 						'<td>'+ data[i].supercateName +'</td>' +
-						'<td>'+ (data[i].supercateStatus ? 'enable' : 'not enable') +'</td>' +
+						'<td>'+ (data[i].supercateStatus ? 'enable' : 'disable') +'</td>' +
 						'<td><div class="c-table-img" style="background-image: url('+data[i].supercateImgurl+');"></div></td>' +
 						'<td>'+ data[i].supercateSortOrder +'</td>' +
 						'<td>'+
