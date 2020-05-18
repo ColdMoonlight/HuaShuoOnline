@@ -152,6 +152,7 @@
 		<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 		<!-- custom script -->
 		<script>
+			var categoryData = {};
 			var inputSearchEl = $('input[name="searchCollection"]');
 			// init
 			renderTabItems();
@@ -181,68 +182,33 @@
 			$('.btn-create').on('click', function() {
 				$('.c-create c-option-title').text('Create Collection');
 				showCreateBlock();
+				// init formData
+				resetFormData();
 				getCollectionId();
-				// tagsinput
-				$('#tagsinput').tagsinput({
-					onTagExists: function(item, $tag) {
-						toastr.error('Youve already used the option "'+ item + '"');
-					}
-				});
-				$('.bootstrap-tagsinput input').on('focus', function(e) {
-					$(this).parent().addClass('active')
-				});
-				$('.bootstrap-tagsinput input').on('blur', function(e) {
-					$(this).parent().removeClass('active')
-				});
-				// rich text
-				$('#summernote').summernote({
-					height: 300,
-			        toolbar: [
-						['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-						['fontsize', ['fontsize']],
-						['height', ['height']],
-						['color', ['color']],
-						['para', ['ul', 'ol', 'paragraph']],
-						['table', ['table']],
-						['insert', ['link', 'picture', 'video']],
-						['view', ['codeview']]
-			        ]
-			   	});
 			});
 			// edit collection
 			$(document.body).on('click', '.btn-edit', function(e) {
+				var cId = $(this).data('id');
 				$('.c-create c-option-title').text('Edit Collection');
 				showCreateBlock();
-				$('#summernote').summernote({
-					height: 300,
-			        toolbar: [
-						['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-						['fontsize', ['fontsize']],
-						['height', ['height']],
-						['color', ['color']],
-						['para', ['ul', 'ol', 'paragraph']],
-						['table', ['table']],
-						['insert', ['link', 'picture', 'video']],
-						['view', ['codeview']]
-			        ]
-			   	});
+				initFormData(categoryData[cId]);
 			});
 			// delete collection
 			$(document.body).on('click', '.btn-delete', function(e) {
-				var cId = $(this).data('id');
-				getCollectionsData();
+				deleteCollectionData({
+					supercateId: parseInt($(this).data('id')),
+				});
 			});
 			// save collection
 			$('.btn-save').on('click', function() {
 				showInitBlock();
-				getCollectionsData();
 				saveCollectionData(getFormData());
 			});
 			// cancel collection save
 			$('.btn-cancel').on('click', function() {
 				showInitBlock();
-				resetFormData();
 			});
+			// tab create/init
 			function showCreateBlock() {
 				$('.c-init').addClass('hide');
 				$('.c-create').removeClass('hide');
@@ -251,37 +217,53 @@
 				$('.c-init').removeClass('hide');
 				$('.c-create').addClass('hide');
 			}
+			// handle formData
+			// reset data
 			function resetFormData() {
-				
+				$('#supercateId').val('');
+				$('#supercateName').val('');
+				$('#supercateSortOrder').val('');
+				$('#supercateStatus').prop('checked', false);
+
+				$('#supercateImgurl').val('');
+
+				$('#supercateSeo').prop('checked', false);
+				$('#supercateMetatitle').val('');
+				$('#supercateMetakeywords').val('');
+				$('#supercateMetadesc').val('');
 			}
+			// getFormdData
 			function getFormData() {
 				var data = {};
-				/* 
-					supercateId: 29
-					supercateImgurl: null
-					supercateMetadesc: null
-					supercateMetakeywords: null
-					supercateMetatitle: null
-					supercateMotifytime: null
-					supercateName: null
-					supercateSeo: null
-					supercateSortOrder: null
-					supercateStatus: null
-				*/
-				data.supercateId = $('#supercateId').val();
+				data.supercateId = parseInt($('#supercateId').val());
 				data.supercateName = $('#supercateName').val();
 				data.supercateSortOrder = $('#supercateSortOrder').val();
-				data.supercateStatus = $('#supercateStatus').prop('checked');
+				data.supercateStatus = $('#supercateStatus').prop('checked') ? 1 : 0;
 
 				data.supercateImgurl = $('#supercateImgurl').val();
 
-				data.supercateSeo = $('#supercateSeo').prop('checked');
+				data.supercateSeo = String($('#supercateSeo').prop('checked'));
 				data.supercateMetatitle = $('#supercateMetatitle').val();
 				data.supercateMetakeywords = $('#supercateMetakeywords').val();
 				data.supercateMetadesc = $('#supercateMetadesc').val();
 
 				return data;
 			}
+			// initFormData
+			function initFormData(data) {
+				$('#supercateId').val(data.supercateId);
+				$('#supercateName').val(data.supercateName);
+				$('#supercateSortOrder').val(data.supercateSortOrder);
+				$('#supercateStatus').prop('checked', data.supercateStatus);
+
+				$('#supercateImgurl').val(data.supercateImgurl);
+
+				$('#supercateSeo').prop('checked', data.supercateSeo);
+				$('#supercateMetatitle').val(data.supercateMetatitle);
+				$('#supercateMetakeywords').val(data.supercateMetakeywords);
+				$('#supercateMetadesc').val(data.supercateMetadesc);
+			}
+			// callback id
 			function getCollectionId() {
 				$('.c-mask').show();
 				$.ajax({
@@ -298,25 +280,26 @@
 							toastr.error(data.msg);
 						}
 					},
-					error: function() {
-						toastr.error('获取分类失败，请刷新页面重新获取！');
+					error: function(err) {
+						toastr.error('初始化superCate失败：' + err);
 					},
 					complete: function() {
 						$('.c-mask').hide();
 					}
 				});
 			}
+			//  callback get
 			function getCollectionsData(val, pn) {
 				$('.c-mask').show();
-				var data = {
+				var reqData = {
 						pn: getPageNum(),
 					};
 				$.ajax({
-					url: "${APP_PATH }/MlbackSuperCate/getMlbackSuperCateByPage",
+					url: "${APP_PATH}/MlbackSuperCate/getMlbackSuperCateByPage",
 					type: "post",
 					dataType: "json",
 					contentType: 'application/json',
-					data: JSON.stringify(data),
+					data: JSON.stringify(reqData),
 					success: function (data) {
 						if (data.code == 100) {
 							renderTable(data.extend.pageInfo.list);
@@ -326,7 +309,7 @@
 							toastr.error(data.msg);
 						}
 					},
-					error: function() {
+					error: function(err) {
 						toastr.error('获取分类失败，请刷新页面重新获取！');
 					},
 					complete: function() {
@@ -334,42 +317,73 @@
 					}
 				});
 			}
-			function saveCollectionData(data) {
+			// callback save
+			function saveCollectionData(reqData) {
 				$('.c-mask').show();
 				$.ajax({
-					url: "${APP_PATH }/MlbackSuperCate/getMlbackSuperCateByPage",
+					url: "${APP_PATH}/MlbackSuperCate/save",
 					type: "post",
+					cache: false,
 					dataType: "json",
 					contentType: 'application/json',
-					data: JSON.stringify(data),
+					data: JSON.stringify(reqData),
 					success: function (data) {
 						if (data.code == 100) {
 							toastr.success(data.msg);
+							getCollectionsData();
 						} else {
 							toastr.error(data.msg);
 						}
 					},
-					error: function() {
-						toastr.error('获取分类失败，请刷新页面重新获取！');
+					error: function(err) {
+						toastr.error(err);
 					},
 					complete: function() {
 						$('.c-mask').hide();
 					}
 				});
 			}
+			// callback delete
+			function deleteCollectionData(reqData) {
+				$('.c-mask').show();
+				$.ajax({
+					url: "${APP_PATH}/MlbackSuperCate/delete",
+					type: "post",
+					cache: false,
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.msg);
+							getCollectionsData();
+						} else {
+							toastr.error(data.msg);
+						}
+					},
+					error: function(err) {
+						toastr.error(err);
+					},
+					complete: function() {
+						$('.c-mask').hide();
+					}
+				});
+			}
+			// init table-list
 			function renderTable(data) {
 				var htmlStr = '';
 				for (var i=0, len=data.length; i<len; i+=1) {
+					categoryData[data[i].supercateId] = data[i];
 					htmlStr += '<tr><td>'+ (i+1) +'</td>' +
-						'<td>'+ data[i].categoryName +'</td>' +
-						'<td><div class="c-table-img" style="background-image: url('+data[i].categoryImgurl+');"></div></td>' +
+						'<td>'+ data[i].supercateName +'</td>' +
+						'<td><div class="c-table-img" style="background-image: url('+data[i].supercateImgurl+');"></div></td>' +
 						'<td>'+
-							'<button class="btn btn-primary btn-edit" data-id="'+data[i].categoryId+'">'+
+							'<button class="btn btn-primary btn-edit" data-id="'+data[i].supercateId+'">'+
 								'<svg class="c-icon">'+
 									'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>'+
 								'</svg>'+
 							'</button>' +
-							'<button class="btn btn-danger btn-delete" data-id="'+data[i].categoryId+'">'+
+							'<button class="btn btn-danger btn-delete" data-id="'+data[i].supercateId+'">'+
 								'<svg class="c-icon">'+
 									'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>'+
 								'</svg>'+
