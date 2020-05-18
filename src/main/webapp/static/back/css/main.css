@@ -245,6 +245,9 @@
 	min-height: 12rem;
 	padding: 1rem 1.5rem;
 }
+.c-table-content td {
+	vertical-align: middle;
+}
 .c-search {
 	position: relative;
 }

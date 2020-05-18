@@ -36,10 +36,12 @@
 								<table class="c-table-table table table-responsive-sm">
 									<thead>
 										<tr>
-											<th>序号</th>
-											<th>分类名</th>
-											<th>图片</th>
-											<th>操作</th>
+											<th>supercate id</th>
+											<th>supercate name</th>
+											<th>status</th>
+											<th>iamge</th>
+											<th>order</th>
+											<th>operation</th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -69,8 +71,23 @@
 			                      	</div>						
 									<div class="form-group">
 				                        <label class="col-form-label" for="supercateSortOrder">Sort</label>
-				                        <div class="controls">
+				                        <!-- <div class="controls">
 					                         <input class="form-control" id="supercateSortOrder" type="number" />
+				                        </div> -->
+				                        <div class="controls">
+					                         <select class="form-control" id="supercateSortOrder" />
+					                         	<option value="99">99</option>
+					                         	<option value="1">1</option>
+					                         	<option value="2">2</option>
+					                         	<option value="3">3</option>
+					                         	<option value="4">4</option>
+					                         	<option value="5">5</option>
+					                         	<option value="6">6</option>
+					                         	<option value="7">7</option>
+					                         	<option value="8">8</option>
+					                         	<option value="9">9</option>
+					                         	<option value="10">10</option>
+					                         </select>
 				                        </div>
 			                      	</div>
 			                      	<div class="form-group row">
@@ -202,7 +219,7 @@
 			// save collection
 			$('.btn-save').on('click', function() {
 				showInitBlock();
-				saveCollectionData(getFormData());
+				saveCollectionData(getFormData(), getCollectionsData);
 			});
 			// cancel collection save
 			$('.btn-cancel').on('click', function() {
@@ -281,7 +298,7 @@
 						}
 					},
 					error: function(err) {
-						toastr.error('初始化superCate失败：' + err);
+						toastr.error('initial superCate fail：' + err);
 					},
 					complete: function() {
 						$('.c-mask').hide();
@@ -310,7 +327,7 @@
 						}
 					},
 					error: function(err) {
-						toastr.error('获取分类失败，请刷新页面重新获取！');
+						toastr.error('Failed to get Super-Categeory, please refresh the page to get again！');
 					},
 					complete: function() {
 						$('.c-mask').hide();
@@ -318,7 +335,7 @@
 				});
 			}
 			// callback save
-			function saveCollectionData(reqData) {
+			function saveCollectionData(reqData, callback) {
 				$('.c-mask').show();
 				$.ajax({
 					url: "${APP_PATH}/MlbackSuperCate/save",
@@ -330,7 +347,7 @@
 					success: function (data) {
 						if (data.code == 100) {
 							toastr.success(data.msg);
-							getCollectionsData();
+							callback();
 						} else {
 							toastr.error(data.msg);
 						}
@@ -374,9 +391,11 @@
 				var htmlStr = '';
 				for (var i=0, len=data.length; i<len; i+=1) {
 					categoryData[data[i].supercateId] = data[i];
-					htmlStr += '<tr><td>'+ (i+1) +'</td>' +
+					htmlStr += '<tr><td>'+ data[i].supercateId +'</td>' +
 						'<td>'+ data[i].supercateName +'</td>' +
+						'<td>'+ (data[i].supercateStatus ? 'enable' : 'not enable') +'</td>' +
 						'<td><div class="c-table-img" style="background-image: url('+data[i].supercateImgurl+');"></div></td>' +
+						'<td>'+ data[i].supercateSortOrder +'</td>' +
 						'<td>'+
 							'<button class="btn btn-primary btn-edit" data-id="'+data[i].supercateId+'">'+
 								'<svg class="c-icon">'+
