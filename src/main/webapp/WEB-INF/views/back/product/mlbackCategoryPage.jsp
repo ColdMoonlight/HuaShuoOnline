@@ -342,14 +342,14 @@
 			// callback get id
 			function getCollectionId() {
 				$.ajax({
-					url: "${APP_PATH }/MlbackCategory/save",
+					url: "${APP_PATH }/MlbackCategory/initializaCategory",
 					type: "post",
 					dataType: "json",
 					contentType: 'application/json',
 					async: false,
 					success: function (data) {
 						if (data.code == 100) {
-							console.log(data)
+							$('#categoryId').val(data.mlbackCategory.categoryId);
 							toastr.success(data.msg);
 						} else {
 							toastr.error(data.msg);
