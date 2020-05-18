@@ -98,7 +98,6 @@ public class MlbackSuperCateController {
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackSuperCate mlbackSuperCate){
-		//接受参数信息
 
 		String nowTime = DateUtil.strTime14s();
 		mlbackSuperCate.setSupercateMotifytime(nowTime);
