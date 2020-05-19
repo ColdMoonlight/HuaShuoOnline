@@ -137,6 +137,19 @@ public class MlbackSuperCateController {
 		List<MlbackSuperCate> mlbackSuperCateResList =mlbackSuperCateService.selectMlbackSuperCateById(mlbackSuperCateReq);
 		MlbackSuperCate mlbackSuperCateOne =mlbackSuperCateResList.get(0);
 		return Msg.success().add("resMsg", "查mlbackSuperCate完毕").add("mlbackSuperCate", mlbackSuperCateOne);
+	}
+	/**
+	 * 6.0	onuse	20200519	检查
+	 * 用在category的类目中下拉所需MlbackSuperCateList
+	 * @param categoryId
+	 * @return 
+	 */
+	@RequestMapping(value="/getSuperCateDownList",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getSuperCateDownList(HttpSession session){
+		
+		List<MlbackSuperCate> mlbackSuperCateResList =mlbackSuperCateService.selectMlbackSuperCateGetAll();
+		return Msg.success().add("resMsg", "在category的类目中下拉所需MlbackSuperCateList").add("mlbackSuperCateResList", mlbackSuperCateResList);
 	}	
-
+	
 }
