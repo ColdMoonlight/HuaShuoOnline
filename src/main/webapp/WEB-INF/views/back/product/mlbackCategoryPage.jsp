@@ -97,7 +97,7 @@
 				                        <label class="col-form-label" for="categorySortOrder">Sort</label>
 				                        <div class="controls">
 					                         <select class="form-control" id="categorySortOrder" />
-					                         	<option value="99">99</option>
+					                         	<option value="0">Please select category sort-order</option>
 					                         	<option value="1">1</option>
 					                         	<option value="2">2</option>
 					                         	<option value="3">3</option>
@@ -123,29 +123,48 @@
 			                      	<div class="form-group">
 				                        <label class="col-form-label" for="categoryLable">Label</label>
 				                        <div class="controls">
-					                         <input class="form-control" id="categoryLable" type="text" />
+					                         <select class="form-control" id="categoryLable" />
+					                         	<option value="0">Please select tag...</option>
+					                         	<option value="1">1</option>
+					                         	<option value="2">2</option>
+					                         	<option value="3">3</option>
+					                         	<option value="4">4</option>
+					                         	<option value="5">5</option>
+					                         	<option value="6">6</option>
+					                         	<option value="7">7</option>
+					                         	<option value="8">8</option>
+					                         	<option value="9">9</option>
+					                         	<option value="10">10</option>
+					                         </select>
 				                        </div>
 			                      	</div>
 			                      	<div class="form-group">
 				                        <label class="col-form-label" for="categoryDesc">Description</label>
-				                         <div class="controls">
-					                         <input class="form-control" id="categoryDesc" type="text" />
+				                        <div class="controls">
+					                        <input class="form-control" id="categoryDesc" type="text" disabled />
 				                        </div>
 			                      	</div>
 								</div>
 							</div>
-							<div class="card">
+							<div class="card">							
+								<div class="card-title">
+									<div class="card-title-name">Super Category & Parent Category</div>
+								</div>	
 								<div class="card-body">
 									<div class="form-group">
-				                        <label class="col-form-label" for="categoryParentId">Parent Id</label>
-				                        <div class="controls">
-					                         <input class="form-control" id="categoryParentId" type="text" />
+				                        <label class="col-form-label" for="categorySuperCateId">Super Category</label>
+				                        <div class="controls">					                         
+				                         	<select class="form-control" id="categorySuperCateId" />
+				                         		<option value="0">Please Select Super-category</option>
+				                         	</select>
 				                        </div>
 			                      	</div>
-			                      	<div class="form-group">
-				                        <label class="col-form-label" for="categoryParentName">Parent Name</label>
-				                         <div class="controls">
-					                         <input class="form-control" id="categoryParentName" type="text" />
+									<div class="form-group">
+				                        <label class="col-form-label" for="categoryParentId">Parent Category</label>
+				                        <div class="controls">
+				                        	<select class="form-control" id="categoryParentId" />
+				                         		<option value="0">Please Select parent-category</option>
+				                         	</select>
 				                        </div>
 			                      	</div>
 								</div>
@@ -217,6 +236,8 @@
 		<script>
 			var categoryData = {};
 			var inputSearchEl = $('input[name="searchCollection"]');
+			var hasSuperCategory = false;
+			var hasParentCategory = false;
 			// init
 			renderTabItems();
 			getCollectionsData();
@@ -248,7 +269,6 @@
 				// init formData
 				resetFormData();
 				getCollectionId();
-				
 			});
 			// edit collection
 			$(document.body).on('click', '.btn-edit', function(e) {
@@ -262,7 +282,7 @@
 			$(document.body).on('click', '.btn-delete', function(e) {
 				deleteCollectionData({
 					categoryId: parseInt($(this).data('id')),
-				});
+				}, getCollectionsData);
 			});
 			// save collection
 			$('.btn-save').on('click', function() {
@@ -276,6 +296,10 @@
 			function showCreateBlock() {
 				$('.c-init').addClass('hide');
 				$('.c-create').removeClass('hide');
+				
+				if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
+
+				if (!hasParentCategory) getSuperCategoryData(renderParentCategory);
 			}
 			function showInitBlock() {
 				$('.c-init').removeClass('hide');
@@ -288,12 +312,13 @@
 				$('#categoryName').val('');
 				$('#categorySortOrder').val('');
 				$('#categoryStatus').prop('checked', false);
+				$('#categoryLable').val('0');				
 				$('#categoryDesc').val('');
 
 				$('#categoryImgurl').val('');
-
-				$('#categoryParentId').val('');
-				$('#categoryParentName').val();
+				
+				$('#categorySuperCateId').val('0');
+				$('#categoryParentId').val('0');
 
 				$('#categorySeo').prop('checked', false);
 				$('#categoryMetatitle').val('');
@@ -307,12 +332,16 @@
 				data.categoryName = $('#categoryName').val();
 				data.categoryStatus = $('#categoryStatus').prop('checked') ? 1 : 0;
 				data.categorySortOrder =  $('#categorySortOrder').val();
+				data.categoryLable =  parseInt($('#categoryLable').val());
 				data.categoryDesc = $('#categoryDesc').val();
 
 				data.categoryImgurl = $('#categoryImgurl').val();
 
+				data.categorySuperCateId = $('#categorySuperCateId').val();
+				data.categorySuperCateName = $('#categorySuperCateId').find('option:selected').text();
+				
 				data.categoryParentId = $('#categoryParentId').val();
-				data.categoryParentName = $('#categoryParentName').val();
+				data.categoryParentName = $('#categoryParentId').find('option:selected').text();
 
 				data.categorySeo = String($('#categorySeo').prop('checked'));
 				data.categoryMetatitle = $('#categoryMetatitle').val();
@@ -327,10 +356,11 @@
 				$('#categoryName').val(data.categoryName);
 				$('#categorySortOrder').val(data.categorySortOrder);
 				$('#categoryStatus').prop('checked', data.categoryStatus);
+				$('#categoryLable').val( data.categoryLable);
 				$('#categoryDesc').val(data.categoryDesc);
 				
+				$('#categorySuperCateId').val(data.categorySuperCateId ? data.categorySuperCateId : 0);
 				$('#categoryParentId').val(data.categoryParentId);
-				$('#categoryParentName').val(data.categoryParentName);
 
 				$('#categoryImgurl').val(data.categoryImgurl);
 
@@ -341,6 +371,7 @@
 			}
 			// callback get id
 			function getCollectionId() {
+				$('.c-mask').show();
 				$.ajax({
 					url: "${APP_PATH }/MlbackCategory/initializaCategory",
 					type: "post",
@@ -417,9 +448,9 @@
 						$('.c-mask').hide();
 					}
 				});
-			}			
+			}
 			// callback delete
-			function deleteCollectionData(reqData) {
+			function deleteCollectionData(reqData, callback) {
 				$('.c-mask').show();
 				$.ajax({
 					url: "${APP_PATH}/MlbackCategory/delete",
@@ -431,7 +462,54 @@
 					success: function (data) {
 						if (data.code == 100) {
 							toastr.success(data.msg);
-							getCollectionsData();
+							callback();
+						} else {
+							toastr.error(data.msg);
+						}
+					},
+					error: function(err) {
+						toastr.error(err);
+					},
+					complete: function() {
+						$('.c-mask').hide();
+					}
+				});
+			}
+			// callback superCategory
+			function getSuperCategoryData(callback) {
+				$('.c-mask').show();
+				$.ajax({
+					url: "${APP_PATH}/MlbackSuperCate/getSuperCateDownList",
+					type: "post",
+					contentType: 'application/json',
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.msg);
+							callback(data.extend.mlbackSuperCateResList);
+						} else {
+							toastr.error(data.msg);
+						}
+					},
+					error: function(err) {
+						toastr.error(err);
+					},
+					complete: function() {
+						$('.c-mask').hide();
+					}
+				});
+			}
+
+			// callback parentCategory
+			function getParentCategoryData(callback) {
+				$('.c-mask').show();
+				$.ajax({
+					url: "${APP_PATH}/MlbackCategory/getParentCategoryDownList",
+					type: "post",
+					contentType: 'application/json',
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.msg);
+							callback(data.extend.mlbackSuperCateResList);
 						} else {
 							toastr.error(data.msg);
 						}
@@ -472,6 +550,24 @@
 						'</td></tr>';
 				}
 				$('.c-table-table tbody').html(htmlStr);
+			}
+			// render superCategoryData
+			function renderSuperCategory(data) {
+				var htmlStr = $('#categorySuperCateId').html();
+				for (var i=0, len=data.length; i<len; i+=1) {
+					htmlStr += '<option value="'+ data[i].supercateId +'">'+ data[i].supercateName +'</option>';
+				}
+				$('#categorySuperCateId').html(htmlStr);
+				hasSuperCategory = true;
+			}
+			// render parentCategoryData
+			function renderParentCategory(data) {
+				var htmlStr = $('#categoryParentId').html();
+				for (var i=0, len=data.length; i<len; i+=1) {
+					htmlStr += '<option value="'+ data[i].categoryId +'">'+ data[i].categoryDesc +'</option>';
+				}
+				$('#categoryParentId').html(htmlStr);
+				hasParentCategory = true;
 			}
 			function renderTabItems() {
 				var collections = getCollectionList(),
