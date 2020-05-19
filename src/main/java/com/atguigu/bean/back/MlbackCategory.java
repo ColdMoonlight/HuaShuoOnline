@@ -37,9 +37,15 @@ public class MlbackCategory {
 
     private String categoryMetadesc;
     
-    private Integer categorySuperCate;
+    private Integer categorySuperCateId;
+    
+    private String categorySuperCateName;
 
-    public MlbackCategory(Integer categoryId, String categoryName, String categoryImgurl, Integer categoryParentId, String categoryParentName, Integer categoryStatus, Integer categoryLable, String categorySeo, Integer categorySortOrder, String categoryCreatetime, String categoryMotifytime, String categoryDesc, String categoryProductIds, String categoryProductNames, String categoryImgpcurl, String categoryMetatitle, String categoryMetakeywords, String categoryMetadesc,Integer categorySuperCate) {
+    public MlbackCategory(Integer categoryId, String categoryName, String categoryImgurl, Integer categoryParentId,
+    		String categoryParentName, Integer categoryStatus, Integer categoryLable, String categorySeo,
+    		Integer categorySortOrder, String categoryCreatetime, String categoryMotifytime, String categoryDesc,
+    		String categoryProductIds, String categoryProductNames, String categoryImgpcurl, String categoryMetatitle,
+    		String categoryMetakeywords, String categoryMetadesc,Integer categorySuperCateId,String categorySuperCateName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryImgurl = categoryImgurl;
@@ -58,7 +64,8 @@ public class MlbackCategory {
         this.categoryMetatitle = categoryMetatitle;
         this.categoryMetakeywords = categoryMetakeywords;
         this.categoryMetadesc = categoryMetadesc;
-        this.categorySuperCate = categorySuperCate;
+        this.categorySuperCateId = categorySuperCateId;
+        this.categorySuperCateName = categorySuperCateName;
     }
 
     public MlbackCategory() {
@@ -209,12 +216,20 @@ public class MlbackCategory {
         this.categoryMetadesc = categoryMetadesc == null ? null : categoryMetadesc.trim();
     }
 
-	public Integer getCategorySuperCate() {
-		return categorySuperCate;
+	public Integer getCategorySuperCateId() {
+		return categorySuperCateId;
 	}
 
-	public void setCategorySuperCate(Integer categorySuperCate) {
-		this.categorySuperCate = categorySuperCate;
+	public void setCategorySuperCateId(Integer categorySuperCateId) {
+		this.categorySuperCateId = categorySuperCateId;
+	}
+
+	public String getCategorySuperCateName() {
+		return categorySuperCateName;
+	}
+
+	public void setCategorySuperCateName(String categorySuperCateName) {
+		this.categorySuperCateName = categorySuperCateName == null ? null : categorySuperCateName.trim();
 	}
 
 	@Override
@@ -226,7 +241,7 @@ public class MlbackCategory {
 				+ categoryCreatetime + ", categoryMotifytime=" + categoryMotifytime + ", categoryDesc=" + categoryDesc
 				+ ", categoryProductIds=" + categoryProductIds + ", categoryProductNames=" + categoryProductNames
 				+ ", categoryImgpcurl=" + categoryImgpcurl + ", categoryMetatitle=" + categoryMetatitle
-				+ ", categorySuperCate=" + categorySuperCate
+				+ ", categorySuperCateId=" + categorySuperCateId + ", categorySuperCateName=" + categorySuperCateName
 				+ ", categoryMetakeywords=" + categoryMetakeywords + ", categoryMetadesc=" + categoryMetadesc + "]";
 	}
     

@@ -175,9 +175,10 @@ public class MlbackCategoryController {
 	 */
 	@RequestMapping(value="/getOneMlbackCategoryDetail",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneMlbackCategoryDetail(@RequestParam(value = "categoryId") Integer categoryId){
+	public Msg getOneMlbackCategoryDetail(@RequestBody MlbackCategory mlbackCategory){
 		
 		//接受categoryId
+		Integer categoryId = mlbackCategory.getCategoryId();
 		MlbackCategory mlbackCategoryReq = new MlbackCategory();
 		mlbackCategoryReq.setCategoryId(categoryId);
 		//查询本条
