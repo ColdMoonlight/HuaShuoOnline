@@ -59,97 +59,100 @@
 								<button class="btn btn-primary btn-save">Save SuperCate</button>
 							</div>
 						</div>
-						<div class="c-form">
+						<div class="c-form row">
 							<input id="supercateId" hidden>
-							<div class="card">
-								<div class="card-body">
-									<div class="form-group">
-				                        <label class="col-form-label" for="supercateName">SuperCate Name</label>
-				                        <div class="controls">
-					                         <input class="form-control" id="supercateName" type="text" />
-				                        </div>
-			                      	</div>						
-									<div class="form-group">
-				                        <label class="col-form-label" for="supercateSortOrder">Sort</label>
-				                        <!-- <div class="controls">
-					                         <input class="form-control" id="supercateSortOrder" type="number" />
-				                        </div> -->
-				                        <div class="controls">
-					                         <select class="form-control" id="supercateSortOrder" />
-					                         	<option value="0">Please super-category sort-order</option>
-					                         	<option value="1">1</option>
-					                         	<option value="2">2</option>
-					                         	<option value="3">3</option>
-					                         	<option value="4">4</option>
-					                         	<option value="5">5</option>
-					                         	<option value="6">6</option>
-					                         	<option value="7">7</option>
-					                         	<option value="8">8</option>
-					                         	<option value="9">9</option>
-					                         	<option value="10">10</option>
-					                         </select>
-				                        </div>
-			                      	</div>
-			                      	<div class="form-group row">
-				                        <label class="col-md-3 col-form-label" for="supercateStatus">Status</label>
-				                        <div class="controls col-md-3">
-					                         <label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="supercateStatus" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
-				                        </div>
-			                      	</div>
+							<!-- left panel -->
+							<div class="left-panel col-lg-7 col-md-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="form-group">
+											<label class="col-form-label" for="supercateName">SuperCate Name</label>
+											<div class="controls">
+												 <input class="form-control" id="supercateName" type="text" />
+											</div>
+										  </div>						
+										<div class="form-group">
+											<label class="col-form-label" for="supercateSortOrder">Sort</label>
+											<!-- <div class="controls">
+												 <input class="form-control" id="supercateSortOrder" type="number" />
+											</div> -->
+											<div class="controls">
+												 <select class="form-control" id="supercateSortOrder" />
+													 <option value="0">Please super-category sort-order</option>
+													 <option value="1">1</option>
+													 <option value="2">2</option>
+													 <option value="3">3</option>
+													 <option value="4">4</option>
+													 <option value="5">5</option>
+													 <option value="6">6</option>
+													 <option value="7">7</option>
+													 <option value="8">8</option>
+													 <option value="9">9</option>
+													 <option value="10">10</option>
+												 </select>
+											</div>
+										  </div>
+										  <div class="form-group row">
+											<label class="col-md-3 col-form-label" for="supercateStatus">Status</label>
+											<div class="controls col-md-3">
+												 <label class="c-switch c-switch-primary">
+													<input class="c-switch-input" id="supercateStatus" type="checkbox">
+													<span class="c-switch-slider"></span>
+												</label>
+											</div>
+										  </div>
+									</div>
 								</div>
-							</div>
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">SuperCate Image</div>
-								</div>
-								<div class="card-body">
-									<div id="uploadImg" class="c-upload-img">
-										<svg class="c-icon">
-											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-										</svg>
-										<input type="file" />
+								<div class="card">
+									<div class="card-title">
+										<div class="card-title-name">SuperCate Image</div>
+									</div>
+									<div class="card-body">
+										<div id="uploadImg" class="c-upload-img">
+											<svg class="c-icon">
+												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+											</svg>
+											<input type="file" />
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Search engine listing preview</div>
-									
-									<div class="form-group row">
-				                        <label class="col-md-3 col-form-label" for="supercateSeo">Enable SEO</label>
-				                        <div class="controls col-md-3">
-					                         <label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="supercateSeo" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
-				                        </div>
-			                      	</div>
-									<%-- <div class="cartegory-name"></div>
-									<div class="category-link></div>
-									<div class="caetegory-desc></div> --%>
-								</div>
-								<div class="card-body">
-									<div class="form-group">
-				                        <label class="col-form-label" for="supercateMetatitle">Page title</label>
-				                        <div class="controls">
-					                         <input class="form-control" id="supercateMetatitle" type="text" />
-				                        </div>
-			                      	</div>
-			                      	<div class="form-group">
-				                        <label class="col-form-label" for="supercateMetakeywords">Page keywords</label>
-				                        <div class="controls">
-					                         <textarea class="form-control" height="100" id="supercateMetakeywords"></textarea>
-				                        </div>
-			                      	</div>
-			                      	<div class="form-group">
-				                        <label class="col-form-label" for="supercateMetadesc">Page Description</label>
-				                        <div class="controls">
-					                         <textarea class="form-control" height="100" id="supercateMetadesc"></textarea>
-				                        </div>
-			                      	</div>
+							<!-- right panel -->							
+							<div class="right-panel col-lg-5 col-md-12">								
+								<div class="card">
+									<div class="card-title">
+										<div class="card-title-name">Search engine listing preview</div>
+										
+										<div class="form-group row">
+											<label class="col-md-3 col-form-label" for="supercateSeo">Enable SEO</label>
+											<div class="controls col-md-3">
+												 <label class="c-switch c-switch-primary">
+													<input class="c-switch-input" id="supercateSeo" type="checkbox">
+													<span class="c-switch-slider"></span>
+												</label>
+											</div>
+										  </div>
+									</div>
+									<div class="card-body">
+										<div class="form-group">
+											<label class="col-form-label" for="supercateMetatitle">Page title</label>
+											<div class="controls">
+												 <input class="form-control" id="supercateMetatitle" type="text" />
+											</div>
+										  </div>
+										  <div class="form-group">
+											<label class="col-form-label" for="supercateMetakeywords">Page keywords</label>
+											<div class="controls">
+												 <textarea class="form-control" height="100" id="supercateMetakeywords"></textarea>
+											</div>
+										  </div>
+										  <div class="form-group">
+											<label class="col-form-label" for="supercateMetadesc">Page Description</label>
+											<div class="controls">
+												 <textarea class="form-control" height="100" id="supercateMetadesc"></textarea>
+											</div>
+										  </div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -309,15 +312,11 @@
 			//  callback get
 			function getCollectionsData(val, pn) {
 				$('.c-mask').show();
-				var reqData = {
-						pn: getPageNum(),
-					};
+				var pnNUm = getPageNum();
 				$.ajax({
 					url: "${APP_PATH}/MlbackSuperCate/getMlbackSuperCateByPage",
 					type: "post",
-					dataType: "json",
-					contentType: 'application/json',
-					data: JSON.stringify(reqData),
+					data: "pn=" + pnNUm,
 					success: function (data) {
 						if (data.code == 100) {
 							renderTable(data.extend.pageInfo.list);

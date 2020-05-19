@@ -63,7 +63,7 @@
 								<button class="btn btn-primary btn-save">Save collection</button>
 							</div>
 						</div>
-						<div class="c-form">
+						<div class="c-form row">
 							<!-- /*
 							"categoryId": 167,
 			                "categoryName": "6x6 Lace Closure Wig",
@@ -85,136 +85,142 @@
 			                "categoryMetadesc": null
 			                */ -->
 							<input id="categoryId" hidden>
-							<div class="card">
-								<div class="card-body">
-									<div class="form-group">
-				                        <label class="col-form-label" for="categoryName">Collection Name</label>
-				                        <div class="controls">
-					                         <input class="form-control" id="categoryName" type="text" />
-				                        </div>
-			                      	</div>						
-									<div class="form-group">
-				                        <label class="col-form-label" for="categorySortOrder">Sort</label>
-				                        <div class="controls">
-					                         <select class="form-control" id="categorySortOrder" />
-					                         	<option value="0">Please select category sort-order</option>
-					                         	<option value="1">1</option>
-					                         	<option value="2">2</option>
-					                         	<option value="3">3</option>
-					                         	<option value="4">4</option>
-					                         	<option value="5">5</option>
-					                         	<option value="6">6</option>
-					                         	<option value="7">7</option>
-					                         	<option value="8">8</option>
-					                         	<option value="9">9</option>
-					                         	<option value="10">10</option>
-					                         </select>
-				                        </div>
-			                      	</div>
-			                      	<div class="form-group row">
-				                        <label class="col-md-3 col-form-label" for="categoryStatus">Status</label>
-				                        <div class="controls col-md-3">
-					                         <label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="categoryStatus" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
-				                        </div>
-			                      	</div>
-			                      	<div class="form-group">
-				                        <label class="col-form-label" for="categoryLable">Label</label>
-				                        <div class="controls">
-					                         <select class="form-control" id="categoryLable" />
-					                         	<option value="0">Please select tag...</option>
-					                         	<option value="1">1</option>
-					                         	<option value="2">2</option>
-					                         	<option value="3">3</option>
-					                         	<option value="4">4</option>
-					                         	<option value="5">5</option>
-					                         	<option value="6">6</option>
-					                         	<option value="7">7</option>
-					                         	<option value="8">8</option>
-					                         	<option value="9">9</option>
-					                         	<option value="10">10</option>
-					                         </select>
-				                        </div>
-			                      	</div>
-			                      	<div class="form-group">
-				                        <label class="col-form-label" for="categoryDesc">Description</label>
-				                        <div class="controls">
-					                        <input class="form-control" id="categoryDesc" type="text" disabled />
-				                        </div>
-			                      	</div>
+							<!-- left panel  -->
+							<div class="left-panel col-lg-7 col-md-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="form-group">
+											<label class="col-form-label" for="categoryName">Collection Name</label>
+											<div class="controls">
+												 <input class="form-control" id="categoryName" type="text" />
+											</div>
+										  </div>						
+										<div class="form-group">
+											<label class="col-form-label" for="categorySortOrder">Sort</label>
+											<div class="controls">
+												 <select class="form-control" id="categorySortOrder" />
+													 <option value="0">Please select category sort-order</option>
+													 <option value="1">1</option>
+													 <option value="2">2</option>
+													 <option value="3">3</option>
+													 <option value="4">4</option>
+													 <option value="5">5</option>
+													 <option value="6">6</option>
+													 <option value="7">7</option>
+													 <option value="8">8</option>
+													 <option value="9">9</option>
+													 <option value="10">10</option>
+												 </select>
+											</div>
+										  </div>
+										  <div class="form-group row">
+											<label class="col-md-3 col-form-label" for="categoryStatus">Status</label>
+											<div class="controls col-md-3">
+												 <label class="c-switch c-switch-primary">
+													<input class="c-switch-input" id="categoryStatus" type="checkbox">
+													<span class="c-switch-slider"></span>
+												</label>
+											</div>
+										  </div>
+										  <div class="form-group">
+											<label class="col-form-label" for="categoryLable">Label</label>
+											<div class="controls">
+												 <select class="form-control" id="categoryLable" />
+													 <option value="0">Please select tag...</option>
+													 <option value="1">1</option>
+													 <option value="2">2</option>
+													 <option value="3">3</option>
+													 <option value="4">4</option>
+													 <option value="5">5</option>
+													 <option value="6">6</option>
+													 <option value="7">7</option>
+													 <option value="8">8</option>
+													 <option value="9">9</option>
+													 <option value="10">10</option>
+												 </select>
+											</div>
+										  </div>
+										  <div class="form-group">
+											<label class="col-form-label" for="categoryDesc">Description</label>
+											<div class="controls">
+												<input class="form-control" id="categoryDesc" type="text" disabled />
+											</div>
+										  </div>
+									</div>
 								</div>
-							</div>
-							<div class="card">							
-								<div class="card-title">
-									<div class="card-title-name">Super Category & Parent Category</div>
-								</div>	
-								<div class="card-body">
-									<div class="form-group">
-				                        <label class="col-form-label" for="categorySuperCateId">Super Category</label>
-				                        <div class="controls">					                         
-				                         	<select class="form-control" id="categorySuperCateId" />
-				                         		<option value="0">Please Select Super-category</option>
-				                         	</select>
-				                        </div>
-			                      	</div>
-									<div class="form-group">
-				                        <label class="col-form-label" for="categoryParentId">Parent Category</label>
-				                        <div class="controls">
-				                        	<select class="form-control" id="categoryParentId" />
-				                         		<option value="0">Please Select parent-category</option>
-				                         	</select>
-				                        </div>
-			                      	</div>
+								<div class="card">							
+									<div class="card-title">
+										<div class="card-title-name">Super Category & Parent Category</div>
+									</div>	
+									<div class="card-body">
+										<div class="form-group">
+											<label class="col-form-label" for="categorySuperCateId">Super Category</label>
+											<div class="controls">					                         
+												 <select class="form-control" id="categorySuperCateId" />
+													 <option value="0">Please Select Super-category</option>
+												 </select>
+											</div>
+										  </div>
+										<div class="form-group">
+											<label class="col-form-label" for="categoryParentId">Parent Category</label>
+											<div class="controls">
+												<select class="form-control" id="categoryParentId" />
+													 <option value="0">Please Select parent-category</option>
+												 </select>
+											</div>
+										  </div>
+									</div>
 								</div>
-							</div>
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Collection Image</div>
-								</div>
-								<div class="card-body">
-									<div id="uploadImg" class="c-upload-img">
-										<svg class="c-icon">
-											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-										</svg>
-										<input type="file" />
+								<div class="card">
+									<div class="card-title">
+										<div class="card-title-name">Collection Image</div>
+									</div>
+									<div class="card-body">
+										<div id="uploadImg" class="c-upload-img">
+											<svg class="c-icon">
+												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+											</svg>
+											<input type="file" />
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Search engine listing preview</div>
-									
-									<div class="form-group row">
-				                        <label class="col-md-3 col-form-label" for="categorySeo">Enable SEO</label>
-				                        <div class="controls col-md-3">
-					                         <label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="categorySeo" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
-				                        </div>
-			                      	</div>
-								</div>
-								<div class="card-body">
-									<div class="form-group">
-				                        <label class="col-form-label" for="categoryMetatitle">Page title</label>
-				                        <div class="controls">
-					                         <input class="form-control" id="categoryMetatitle" type="text" />
-				                        </div>
-			                      	</div>
-			                      	<div class="form-group">
-				                        <label class="col-form-label" for="categoryMetakeywords">Page keywords</label>
-				                        <div class="controls">
-					                         <textarea class="form-control" height="100" id="categoryMetakeywords"></textarea>
-				                        </div>
-			                      	</div>
-			                      	<div class="form-group">
-				                        <label class="col-form-label" for="categoryMetadesc">Page Description</label>
-				                        <div class="controls">
-					                         <textarea class="form-control" height="100" id="categoryMetadesc"></textarea>
-				                        </div>
-			                      	</div>
+							<!-- right panel  -->
+							<div class="right-panel col-lg-5 col-md-12">
+								<div class="card">
+									<div class="card-title">
+										<div class="card-title-name">Search engine listing preview</div>
+										
+										<div class="form-group row">
+											<label class="col-md-3 col-form-label" for="categorySeo">Enable SEO</label>
+											<div class="controls col-md-3">
+												 <label class="c-switch c-switch-primary">
+													<input class="c-switch-input" id="categorySeo" type="checkbox">
+													<span class="c-switch-slider"></span>
+												</label>
+											</div>
+										  </div>
+									</div>
+									<div class="card-body">
+										<div class="form-group">
+											<label class="col-form-label" for="categoryMetatitle">Page title</label>
+											<div class="controls">
+												 <input class="form-control" id="categoryMetatitle" type="text" />
+											</div>
+										  </div>
+										  <div class="form-group">
+											<label class="col-form-label" for="categoryMetakeywords">Page keywords</label>
+											<div class="controls">
+												 <textarea class="form-control" height="100" id="categoryMetakeywords"></textarea>
+											</div>
+										  </div>
+										  <div class="form-group">
+											<label class="col-form-label" for="categoryMetadesc">Page Description</label>
+											<div class="controls">
+												 <textarea class="form-control" height="100" id="categoryMetadesc"></textarea>
+											</div>
+										  </div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -397,15 +403,11 @@
 			// callback get data
 			function getCollectionsData(val, pn) {
 				$('.c-mask').show();
-				var data = {
-						pn: getPageNum(),
-					};
+				var pnNUm = getPageNum();
 				$.ajax({
 					url: "${APP_PATH }/MlbackCategory/getMlbackCategoryByPage",
 					type: "post",
-					dataType: "json",
-					contentType: 'application/json',
-					data: JSON.stringify(data),
+					data: "pn=" + pnNUm,
 					success: function (data) {
 						if (data.code == 100) {
 							renderTable(data.extend.pageInfo.list);
