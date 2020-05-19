@@ -36,10 +36,16 @@
 								<table class="c-table-table table table-responsive-sm">
 									<thead>
 										<tr>
-											<th>序号</th>
-											<th>分类名</th>
-											<th>图片</th>
-											<th>操作</th>
+											<th>id</th>
+											<th>image</th>
+											<th>name</th>
+											<th>parent Id</th>
+											<th>parent name</th>
+											<th>tag</th>
+											<th>status</th>
+											<th>order</th>
+											<th>path desc</th>
+											<th>operate</th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -58,18 +64,140 @@
 							</div>
 						</div>
 						<div class="c-form">
-							<div class="form-group">
-		                        <label class="col-form-label" for="tagsinput">Tagsinput</label>
-		                        <div class="controls">
-			                         <input class="form-control" id="tagsinput" type="text" />
-		                        </div>
-	                      	</div>
-							<div class="form-group">
-		                        <label class="col-form-label" for="summernote">Summernote</label>
-		                        <div class="controls">
-			                        <textarea class="form-control" id="summernote" size="16" type="text"></textarea>
-		                        </div>
-	                      	</div>
+							<!-- /*
+							"categoryId": 167,
+			                "categoryName": "6x6 Lace Closure Wig",
+			                "categoryImgurl": "http://localhost:8080/ShopTemplate/static/img/category/cateid167time611325.jpg",
+			                "categoryParentId": 65,
+			                "categoryParentName": "Wig By Cap",
+			                "categoryStatus": 1,
+			                "categoryLable": 0,
+			                "categorySeo": "6x6-Closure-Wig",
+			                "categorySortOrder": 8,
+			                "categoryCreatetime": null,
+			                "categoryMotifytime": "2020-03-27 16:29:17",
+			                "categoryDesc": "HUMAN HAIR WIG>Wig By Cap>6x6 Lace Closure Wig",
+			                "categoryProductIds": "291,292",
+			                "categoryProductNames": "6x6 Lace Closure Wigs 180% Density Brazilian Human Hair Body Wave Straight Hair,6x6 Lace Closure Wigs 180% Density Brazilian Deep Wave Water Wave Jerry Curly Hair",
+			                "categoryImgpcurl": null,
+			                "categoryMetatitle": null,
+			                "categoryMetakeywords": null,
+			                "categoryMetadesc": null
+			                */ -->
+							<input id="categoryId" hidden>
+							<div class="card">
+								<div class="card-body">
+									<div class="form-group">
+				                        <label class="col-form-label" for="categoryName">Collection Name</label>
+				                        <div class="controls">
+					                         <input class="form-control" id="categoryName" type="text" />
+				                        </div>
+			                      	</div>						
+									<div class="form-group">
+				                        <label class="col-form-label" for="categorySortOrder">Sort</label>
+				                        <div class="controls">
+					                         <select class="form-control" id="categorySortOrder" />
+					                         	<option value="99">99</option>
+					                         	<option value="1">1</option>
+					                         	<option value="2">2</option>
+					                         	<option value="3">3</option>
+					                         	<option value="4">4</option>
+					                         	<option value="5">5</option>
+					                         	<option value="6">6</option>
+					                         	<option value="7">7</option>
+					                         	<option value="8">8</option>
+					                         	<option value="9">9</option>
+					                         	<option value="10">10</option>
+					                         </select>
+				                        </div>
+			                      	</div>
+			                      	<div class="form-group row">
+				                        <label class="col-md-3 col-form-label" for="categoryStatus">Status</label>
+				                        <div class="controls col-md-3">
+					                         <label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="categoryStatus" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
+				                        </div>
+			                      	</div>
+			                      	<div class="form-group">
+				                        <label class="col-form-label" for="categoryLable">Label</label>
+				                        <div class="controls">
+					                         <input class="form-control" id="categoryLable" type="text" />
+				                        </div>
+			                      	</div>
+			                      	<div class="form-group">
+				                        <label class="col-form-label" for="categoryDesc">Description</label>
+				                         <div class="controls">
+					                         <input class="form-control" id="categoryDesc" type="text" />
+				                        </div>
+			                      	</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-body">
+									<div class="form-group">
+				                        <label class="col-form-label" for="categoryParentId">Parent Id</label>
+				                        <div class="controls">
+					                         <input class="form-control" id="categoryParentId" type="text" />
+				                        </div>
+			                      	</div>
+			                      	<div class="form-group">
+				                        <label class="col-form-label" for="categoryParentName">Parent Name</label>
+				                         <div class="controls">
+					                         <input class="form-control" id="categoryParentName" type="text" />
+				                        </div>
+			                      	</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Collection Image</div>
+								</div>
+								<div class="card-body">
+									<div id="uploadImg" class="c-upload-img">
+										<svg class="c-icon">
+											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+										</svg>
+										<input type="file" />
+									</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Search engine listing preview</div>
+									
+									<div class="form-group row">
+				                        <label class="col-md-3 col-form-label" for="categorySeo">Enable SEO</label>
+				                        <div class="controls col-md-3">
+					                         <label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="categorySeo" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
+				                        </div>
+			                      	</div>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+				                        <label class="col-form-label" for="categoryMetatitle">Page title</label>
+				                        <div class="controls">
+					                         <input class="form-control" id="categoryMetatitle" type="text" />
+				                        </div>
+			                      	</div>
+			                      	<div class="form-group">
+				                        <label class="col-form-label" for="categoryMetakeywords">Page keywords</label>
+				                        <div class="controls">
+					                         <textarea class="form-control" height="100" id="categoryMetakeywords"></textarea>
+				                        </div>
+			                      	</div>
+			                      	<div class="form-group">
+				                        <label class="col-form-label" for="categoryMetadesc">Page Description</label>
+				                        <div class="controls">
+					                         <textarea class="form-control" height="100" id="categoryMetadesc"></textarea>
+				                        </div>
+			                      	</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<!-- mask -->					
@@ -120,57 +248,21 @@
 				// init formData
 				resetFormData();
 				getCollectionId();
-				// tagsinput
-				$('#tagsinput').tagsinput({
-					onTagExists: function(item, $tag) {
-						toastr.error('Youve already used the option "'+ item + '"');
-					}
-				});
-				$('.bootstrap-tagsinput input').on('focus', function(e) {
-					$(this).parent().addClass('active')
-				});
-				$('.bootstrap-tagsinput input').on('blur', function(e) {
-					$(this).parent().removeClass('active')
-				});
-				// rich text
-				$('#summernote').summernote({
-					height: 300,
-			        toolbar: [
-						['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-						['fontsize', ['fontsize']],
-						['height', ['height']],
-						['color', ['color']],
-						['para', ['ul', 'ol', 'paragraph']],
-						['table', ['table']],
-						['insert', ['link', 'picture', 'video']],
-						['view', ['codeview']]
-			        ]
-			   	});
+				
 			});
 			// edit collection
 			$(document.body).on('click', '.btn-edit', function(e) {
+				var cId = $(this).data('id');
 				$('.c-create c-option-title').text('Edit Collection');
 				showCreateBlock();
-				$('#summernote').summernote({
-					height: 300,
-			        toolbar: [
-						['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-						['fontsize', ['fontsize']],
-						['height', ['height']],
-						['color', ['color']],
-						['para', ['ul', 'ol', 'paragraph']],
-						['table', ['table']],
-						['insert', ['link', 'picture', 'video']],
-						['view', ['codeview']]
-			        ]
-				});
-				   
+				resetFormData();
 				initFormData(categoryData[cId]);
 			});
 			// delete collection
 			$(document.body).on('click', '.btn-delete', function(e) {
-				var cId = $(this).data('id');
-				getCollectionsData();
+				deleteCollectionData({
+					categoryId: parseInt($(this).data('id')),
+				});
 			});
 			// save collection
 			$('.btn-save').on('click', function() {
@@ -192,46 +284,40 @@
 			// handle formData
 			// reset data
 			function resetFormData() {
-				/*
-				"categoryName": "Bundle",
-				"categoryImgurl": "https://is3-ssl.mzstatic.com/image/thumb/Purple128/v4/20/68/3a/20683a03-5c54-23be-6a04-bf855bcec41d/source/100x100bb.jpg",
-				"categoryParentId": "65",
-				"categoryParentName": "Wig By Cap",
-				"categoryStatus": "0",
-				"categorySeo": "mmmmmmmm",
-				"categorySortOrder": "1",
-				"categoryId": "170"
-				*/
 				$('#categoryId').val('');
 				$('#categoryName').val('');
 				$('#categorySortOrder').val('');
 				$('#categoryStatus').prop('checked', false);
+				$('#categoryDesc').val('');
 
 				$('#categoryImgurl').val('');
 
-				$('#categoryParentId').val('')
+				$('#categoryParentId').val('');
+				$('#categoryParentName').val();
 
 				$('#categorySeo').prop('checked', false);
-				// $('#supercateMetatitle').val('');
-				// $('#supercateMetakeywords').val('');
-				// $('#supercateMetadesc').val('');
+				$('#categoryMetatitle').val('');
+				$('#categoryMetakeywords').val('');
+				$('#categoryMetadesc').val('');
 			}
 			// getFormdData
 			function getFormData() {
 				var data = {};
-				data.supercateId = parseInt($('#categoryId').val());
-				data.supercateName = $('#categoryName').val();
-				data.supercateSortOrder = $('#categorySortOrder').val();
-				data.supercateStatus = $('#categoryStatus').prop('checked') ? 1 : 0;
+				data.categoryId = parseInt($('#categoryId').val());
+				data.categoryName = $('#categoryName').val();
+				data.categoryStatus = $('#categoryStatus').prop('checked') ? 1 : 0;
+				data.categorySortOrder =  $('#categorySortOrder').val();
+				data.categoryDesc = $('#categoryDesc').val();
 
-				data.supercateImgurl = $('#categoryImgurl').val();
+				data.categoryImgurl = $('#categoryImgurl').val();
 
 				data.categoryParentId = $('#categoryParentId').val();
+				data.categoryParentName = $('#categoryParentName').val();
 
 				data.categorySeo = String($('#categorySeo').prop('checked'));
-				// data.supercateMetatitle = $('#supercateMetatitle').val();
-				// data.supercateMetakeywords = $('#supercateMetakeywords').val();
-				// data.supercateMetadesc = $('#supercateMetadesc').val();
+				data.categoryMetatitle = $('#categoryMetatitle').val();
+				data.categoryMetakeywords = $('#categoryMetakeywords').val();
+				data.categoryMetadesc = $('#categoryMetadesc').val();
 
 				return data;
 			}
@@ -241,27 +327,29 @@
 				$('#categoryName').val(data.categoryName);
 				$('#categorySortOrder').val(data.categorySortOrder);
 				$('#categoryStatus').prop('checked', data.categoryStatus);
+				$('#categoryDesc').val(data.categoryDesc);
+				
+				$('#categoryParentId').val(data.categoryParentId);
+				$('#categoryParentName').val(data.categoryParentName);
 
 				$('#categoryImgurl').val(data.categoryImgurl);
 
-				$('#categoryParentId').val(data.categoryParentId);
-
 				$('#categorySeo').prop('checked', data.categorySeo);
-				// $('#supercateMetatitle').val(data.supercateMetatitle);
-				// $('#supercateMetakeywords').val(data.supercateMetakeywords);
-				// $('#supercateMetadesc').val(data.supercateMetadesc);
+				$('#categoryMetatitle').val(data.categoryMetatitle);
+				$('#categoryMetakeywords').val(data.categoryMetakeywords);
+				$('#categoryMetadesc').val(data.categoryMetadesc);
 			}
 			// callback get id
 			function getCollectionId() {
 				$.ajax({
-					url: "${APP_PATH }/MlbackCategory/save",
+					url: "${APP_PATH }/MlbackCategory/initializaCategory",
 					type: "post",
 					dataType: "json",
 					contentType: 'application/json',
 					async: false,
 					success: function (data) {
 						if (data.code == 100) {
-							console.log(data)
+							$('#categoryId').val(data.mlbackCategory.categoryId);
 							toastr.success(data.msg);
 						} else {
 							toastr.error(data.msg);
@@ -304,6 +392,32 @@
 					}
 				});
 			}			
+			// callback save
+			function saveCollectionData(reqData, callback) {
+				$('.c-mask').show();
+				$.ajax({
+					url: "${APP_PATH}/MlbackCategory/save",
+					type: "post",
+					cache: false,
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.msg);
+							callback();
+						} else {
+							toastr.error(data.msg);
+						}
+					},
+					error: function(err) {
+						toastr.error(err);
+					},
+					complete: function() {
+						$('.c-mask').hide();
+					}
+				});
+			}			
 			// callback delete
 			function deleteCollectionData(reqData) {
 				$('.c-mask').show();
@@ -335,9 +449,15 @@
 				var htmlStr = '';
 				for (var i=0, len=data.length; i<len; i+=1) {
 					categoryData[data[i].categoryId] = data[i];
-					htmlStr += '<tr><td>'+ (i+1) +'</td>' +
-						'<td>'+ data[i].categoryName +'</td>' +
+					htmlStr += '<tr><td>'+ data[i].categoryId +'</td>' +
 						'<td><div class="c-table-img" style="background-image: url('+data[i].categoryImgurl+');"></div></td>' +
+						'<td>'+ data[i].categoryName +'</td>' +
+						'<td>'+ data[i].categoryParentId +'</td>' +
+						'<td>'+ data[i].categoryParentName +'</td>' +
+						'<td>'+ data[i].categoryLable +'</td>' +
+						'<td>'+ (data[i].categoryStatus ? 'enable' : 'disable') +'</td>' +
+						'<td>'+ data[i].categorySortOrder +'</td>' +
+						'<td>'+ data[i].categoryDesc +'</td>' +
 						'<td>'+
 							'<button class="btn btn-primary btn-edit" data-id="'+data[i].categoryId+'">'+
 								'<svg class="c-icon">'+
