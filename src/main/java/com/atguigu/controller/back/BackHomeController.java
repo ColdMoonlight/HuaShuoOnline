@@ -1,4 +1,4 @@
-package com.atguigu.controller;
+package com.atguigu.controller.back;
 
 import javax.servlet.http.HttpSession;
 
