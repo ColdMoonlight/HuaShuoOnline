@@ -74,7 +74,7 @@ public class MlbackCategoryController {
 	
 	
 	/**3.0	onuse	20191225	检查
-	 * MlbackCategory	insert/update
+	 * MlbackCategory	initializaCategory
 	 * @param MlbackCategory
 	 * @return
 	 */
@@ -102,10 +102,8 @@ public class MlbackCategoryController {
 		return Msg.success().add("resMsg", "插入成功").add("mlbackCategory", mlbackCategory);
 	}
 	
-	
-	
 	/**3.0	onuse	20191225	检查
-	 * MlbackCategory	insert/update
+	 * MlbackCategory	update
 	 * @param MlbackCategory
 	 * @return
 	 */
@@ -156,7 +154,8 @@ public class MlbackCategoryController {
 	
 	/**4.0	onuse	20191225	检查
 	 * MlbackCategory	delete
-	 * @param id
+	 * @param MlbackCategory-categoryId
+	 * @return 
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	@ResponseBody
@@ -169,8 +168,8 @@ public class MlbackCategoryController {
 	
 	/**
 	 * 5.0	onuse	20200103	检查
-	 * 查单条MlbackCategory详情by-categoryId
-	 * @param categoryId
+	 * 查单条MlbackCategory详情
+	 * @param MlbackCategory-categoryId
 	 * @return 
 	 */
 	@RequestMapping(value="/getOneMlbackCategoryDetail",method=RequestMethod.POST)
