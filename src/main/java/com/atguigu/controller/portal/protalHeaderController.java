@@ -1,4 +1,4 @@
-package com.atguigu.controller;
+package com.atguigu.controller.portal;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -22,8 +22,8 @@ import com.atguigu.utils.HttpUtils;
 import com.atguigu.vo.MoneyRate;
 
 @Controller
-@RequestMapping("/header")
-public class headerController {
+@RequestMapping("/protalHeader")
+public class protalHeaderController {
 	
 	
 	/**

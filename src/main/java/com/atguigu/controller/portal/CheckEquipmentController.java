@@ -1,4 +1,4 @@
-package com.atguigu.controller;
+package com.atguigu.controller.portal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/index")
-public class indexController {
+@RequestMapping("/CheckEquipment")
+public class CheckEquipmentController {
 	
 	/**
 	 *	onuse	20200103	检查
