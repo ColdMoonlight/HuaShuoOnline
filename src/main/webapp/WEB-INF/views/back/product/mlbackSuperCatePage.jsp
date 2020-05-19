@@ -218,7 +218,7 @@
 			$(document.body).on('click', '.btn-delete', function(e) {
 				deleteCollectionData({
 					supercateId: parseInt($(this).data('id')),
-				});
+				}, getCollectionsData);
 			});
 			// save collection
 			$('.btn-save').on('click', function() {
@@ -310,7 +310,7 @@
 				});
 			}
 			//  callback get
-			function getCollectionsData(val, pn) {
+			function getCollectionsData(val) {
 				$('.c-mask').show();
 				var pnNUm = getPageNum();
 				$.ajax({
@@ -361,7 +361,7 @@
 				});
 			}
 			// callback delete
-			function deleteCollectionData(reqData) {
+			function deleteCollectionData(reqData, callback) {
 				$('.c-mask').show();
 				$.ajax({
 					url: "${APP_PATH}/MlbackSuperCate/delete",
@@ -373,7 +373,7 @@
 					success: function (data) {
 						if (data.code == 100) {
 							toastr.success(data.msg);
-							getCollectionsData();
+							callback();
 						} else {
 							toastr.error(data.msg);
 						}

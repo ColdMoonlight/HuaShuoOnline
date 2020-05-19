@@ -401,7 +401,7 @@
 				});
 			}
 			// callback get data
-			function getCollectionsData(val, pn) {
+			function getCollectionsData(val) {
 				$('.c-mask').show();
 				var pnNUm = getPageNum();
 				$.ajax({
