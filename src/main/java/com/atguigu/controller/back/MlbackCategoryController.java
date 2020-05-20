@@ -185,7 +185,6 @@ public class MlbackCategoryController {
 		return Msg.success().add("resMsg", "查categoryOne完毕").add("mlbackCategoryOne", mlbackCategoryOne);
 	}
 	
-	
 	/**
 	 * 6.0	onuse	20191225	检查
 	 * 获取全部类目，以便于下拉选择
@@ -208,6 +207,34 @@ public class MlbackCategoryController {
 			}
 		}
 		return Msg.success().add("resMsg", "success").add("mlbackCategorydownEr", mlbackCategorydownEr);
+	}
+	
+	/**
+	 * 7.0	onuse	20200103	check
+	 * 后端获取类下产品list详情页面wap/pc
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping(value="/backSearchBycategory",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg backSearchBycategory(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "categoryName") String categoryName,
+			@RequestParam(value = "categorySuperCateId", defaultValue = "1") Integer categorySuperCateId) throws Exception{
+		
+		//接收传递进来的参数
+		int PagNum = 30;
+		PageHelper.startPage(pn, PagNum);
+		
+		MlbackCategory mlbackCategoryReq = new MlbackCategory();
+		mlbackCategoryReq.setCategorySuperCateId(categorySuperCateId);
+		mlbackCategoryReq.setCategoryName(categoryName);
+		List<MlbackCategory> mlbackCategoryResList = mlbackCategoryService.selectMlbackCategoryBackSearch(mlbackCategoryReq);
+		
+		PageInfo page = new PageInfo(mlbackCategoryResList, PagNum);
+		
+		return Msg.success().add("pageInfo", page);
+			
 	}
 	
 	/**

@@ -20,7 +20,7 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param MlbackCategory
 	 * @exception 查看用户信息是否存在
-	 * 
+	 * 	3.0
 	 * */
 	public List<MlbackCategory> selectMlbackCategory(MlbackCategory mlbackCategory) {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategory(mlbackCategory);
@@ -30,7 +30,7 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param MlbackCategory
 	 * @exception 查看用户信息是否存在
-	 * 
+	 * 	3.0
 	 * */
 	public MlbackCategory selectMlbackCategoryById(MlbackCategory mlbackCategory) {
 		MlbackCategory  mlbackCategoryOne = mlbackCategoryMapper.selectMlbackCategoryById(mlbackCategory);
@@ -41,7 +41,7 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param MlbackCategory
 	 * @exception add方法用户信息是否存在
-	 * 
+	 * 	3.0
 	 * */
 	public int insertSelective(MlbackCategory mlbackCategory) {
 		int intReslut = mlbackCategoryMapper.insertSelective(mlbackCategory);
@@ -52,7 +52,7 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param 
 	 * @exception 查看全部用户信息
-	 * 
+	 * 	3.0
 	 * */
 	public List<MlbackCategory> selectMlbackCategoryGetAll() {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategoryGetAll();
@@ -70,20 +70,20 @@ public class MlbackCategoryService {
 	}
 	
 	/**
-	 * @author Shinelon
+	 * @author
 	 * @param 
 	 * @exception 查看全部用户信息
-	 * 
+	 * 	3.0
 	 * */
 	public List<MlbackCategory> selectMenuMlbackCategoryGetAll() {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMenuMlbackCategoryGetAll();
 		return mlbackCategoryList;
 	}
 	/**
-	 * @author Shinelon
+	 * @author
 	 * @param 
 	 * @exception 删除本条信息
-	 * 
+	 * 	3.0
 	 * */
 	public int deleteByPrimaryKey(int categoryId) {
 		int  intReslut = mlbackCategoryMapper.deleteByPrimaryKey(categoryId);
@@ -91,10 +91,9 @@ public class MlbackCategoryService {
 	}
 
 	/**
-	 * @author Shinelon
+	 * @author	3.0
 	 * @param 
 	 * @exception 更新本条信息
-	 * 
 	 * */
 	public int updateByPrimaryKeySelective(MlbackCategory mlbackCategory) {
 		int  intReslut = mlbackCategoryMapper.updateByPrimaryKeySelective(mlbackCategory);
@@ -104,7 +103,7 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param 
 	 * @exception 通过CategoryBySeo查找该类的详情
-	 * 
+	 * 	3.0
 	 * */
 	public List<MlbackCategory> selectMlbackCategoryBySeo(MlbackCategory mlbackCategory) {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategoryBySeo(mlbackCategory);
@@ -114,10 +113,21 @@ public class MlbackCategoryService {
 	 * @autho	onuse	20191226	检查
 	 * @param MlbackCategory
 	 * @exception	
-	 * 获取getCategoryMenuSenond
+	 * 	3.0
 	 * */
 	public List<MlbackCategory> selectCategorylistByParam(MlbackCategory mlbackCategory) {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectCategorylistByParam(mlbackCategory);
+		return mlbackCategoryList;
+	}
+	
+	/**
+	 * @autho	3.0
+	 * @param MlbackCategory
+	 * @exception
+	 * 	3.0	
+	 * */
+	public List<MlbackCategory> selectMlbackCategoryBackSearch(MlbackCategory mlbackCategoryReq) {
+		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategoryBackSearch(mlbackCategoryReq);
 		return mlbackCategoryList;
 	}
 
