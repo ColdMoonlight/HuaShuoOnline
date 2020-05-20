@@ -72,7 +72,6 @@ public class MlbackCategoryController {
 		return Msg.success().add("pageInfo", page);
 	}
 	
-	
 	/**3.0	onuse	20191225	检查
 	 * MlbackCategory	initializaCategory
 	 * @param MlbackCategory
@@ -86,7 +85,7 @@ public class MlbackCategoryController {
 		//接受参数信息
 		String categoryParentName="---none---";
 		String categoryDesc="";
-			categoryParentName ="---none---";
+		categoryParentName ="---none---";
 		//判断归属是否为none
 		Integer	categoryParentId = -1;
 		mlbackCategory.setCategoryParentId(categoryParentId);
@@ -186,6 +185,31 @@ public class MlbackCategoryController {
 		return Msg.success().add("resMsg", "查categoryOne完毕").add("mlbackCategoryOne", mlbackCategoryOne);
 	}
 	
+	
+	/**
+	 * 6.0	onuse	20191225	检查
+	 * 获取全部类目，以便于下拉选择
+	 * @param 无参
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlbackCategoryParentDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlbackCategoryParentDetail(HttpServletResponse rep,HttpServletRequest res){
+		
+		//查询全部的category信息，便于下拉选择
+		List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
+		//System.out.println("操作说明:管理员查-categorydownList菜单");
+		
+		List<MlbackCategory> mlbackCategorydownEr =new ArrayList<MlbackCategory>();
+		for(MlbackCategory mlbackCategoryOne :mlbackCategorydownList){
+			Integer categoryParentId = mlbackCategoryOne.getCategoryParentId();
+			if(categoryParentId>0){
+				mlbackCategorydownEr.add(mlbackCategoryOne);
+			}
+		}
+		return Msg.success().add("resMsg", "success").add("mlbackCategorydownEr", mlbackCategorydownEr);
+	}
+	
 	/**
 	 * 6.0	onuse	20191225	检查
 	 * 传进Cid查询所有的类下的产品list
@@ -223,31 +247,7 @@ public class MlbackCategoryController {
 //		return Msg.success().add("resMsg", "传进Cid查询所有的类下的产品list完毕")
 //					.add("mlbackProductResList", mlbackProductResList);
 //	}
-	
-	/**
-	 * 7.0	onuse	20191225	检查
-	 * 获取全部类目，以便于下拉选择
-	 * @param 无参
-	 * @return 
-	 */
-	@RequestMapping(value="/getOneMlbackCategoryParentDetail",method=RequestMethod.GET)
-	@ResponseBody
-	public Msg getOneMlbackCategoryParentDetail(HttpServletResponse rep,HttpServletRequest res){
-		
-		//查询全部的category信息，便于下拉选择
-		List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
-		//System.out.println("操作说明:管理员查-categorydownList菜单");
-		
-		List<MlbackCategory> mlbackCategorydownEr =new ArrayList<MlbackCategory>();
-		for(MlbackCategory mlbackCategoryOne :mlbackCategorydownList){
-			Integer categoryParentId = mlbackCategoryOne.getCategoryParentId();
-			if(categoryParentId>0){
-				mlbackCategorydownEr.add(mlbackCategoryOne);
-			}
-		}
-		return Msg.success().add("resMsg", "success")
-					.add("mlbackCategorydownList", mlbackCategorydownList).add("mlbackCategorydownEr", mlbackCategorydownEr);
-	}
+
 	
 	/**
 	 * 8.0	onuse	20200103	check
