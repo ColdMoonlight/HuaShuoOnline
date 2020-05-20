@@ -33,5 +33,7 @@ public interface MlbackCategoryMapper {
 	List<MlbackCategory> selectMlbackCategoryBySeo(MlbackCategory mlbackCategory);
 	//selectCategorylistByParentId	onuse	20191226	检查
 	List<MlbackCategory> selectCategorylistByParam(MlbackCategory mlbackCategory);
+	//selectMlbackCategoryBackSearch	服务端需要用查询
+	List<MlbackCategory> selectMlbackCategoryBackSearch(MlbackCategory mlbackCategoryReq);
     
 }
