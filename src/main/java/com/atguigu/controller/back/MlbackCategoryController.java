@@ -72,7 +72,6 @@ public class MlbackCategoryController {
 		return Msg.success().add("pageInfo", page);
 	}
 	
-	
 	/**3.0	onuse	20191225	检查
 	 * MlbackCategory	initializaCategory
 	 * @param MlbackCategory
@@ -86,7 +85,7 @@ public class MlbackCategoryController {
 		//接受参数信息
 		String categoryParentName="---none---";
 		String categoryDesc="";
-			categoryParentName ="---none---";
+		categoryParentName ="---none---";
 		//判断归属是否为none
 		Integer	categoryParentId = -1;
 		mlbackCategory.setCategoryParentId(categoryParentId);
