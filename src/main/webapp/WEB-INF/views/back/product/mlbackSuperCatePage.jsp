@@ -167,6 +167,7 @@
 		</div>
 
 		<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
+		<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
 		
 		<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
 		<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
@@ -216,9 +217,15 @@
 			});
 			// delete collection
 			$(document.body).on('click', '.btn-delete', function(e) {
-				deleteCollectionData({
-					supercateId: parseInt($(this).data('id')),
-				}, getCollectionsData);
+				var supercateId = parseInt($(this).data('id'));
+				$('#deleteModal').find('.modal-title').html('Delete SuperCategory!');
+				$('#deleteModal').modal('show');
+				$('#deleteModal .btn-ok').on('click', function() {
+					deleteCollectionData({
+						supercateId: supercateId,
+					}, getCollectionsData);
+					
+				});
 			});
 			// save collection
 			$('.btn-save').on('click', function() {
@@ -373,6 +380,7 @@
 					success: function (data) {
 						if (data.code == 100) {
 							toastr.success(data.msg);
+							$('#deleteModal').modal('hide');
 							callback();
 						} else {
 							toastr.error(data.msg);
