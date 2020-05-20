@@ -315,3 +315,7 @@
 	opacity: 0;
 	cursor: pointer;
 }
+
+#deleteModal .modal-body {
+	text-align: center;
+}

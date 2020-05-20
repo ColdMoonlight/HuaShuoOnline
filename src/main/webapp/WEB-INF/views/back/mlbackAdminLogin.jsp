@@ -9,7 +9,7 @@
 		<!-- login style  -->
 		<style>
 			.c-app { background-color: #f5feff; }
-			.c-app>.container { width: 1300px; min-height: 100vh; }
+			.c-app>.container { min-height: 100vh; }
 			.header { width: 100%; height: 78px; margin: 20px 0; }
 			.header>img, .login-bg>img { display: block; }
 			.login-box { display: flex; align-items: center; justify-content: center;}
