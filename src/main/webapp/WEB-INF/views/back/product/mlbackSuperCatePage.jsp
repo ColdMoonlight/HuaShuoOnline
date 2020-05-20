@@ -124,13 +124,10 @@
 								<div class="card-title">
 									<div class="card-title-name">Search engine listing preview</div>
 
-									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="supercateSeo">Enable SEO</label>
-										<div class="controls col-md-3">
-											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="supercateSeo" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
+									<div class="form-group">
+										<label class="col-form-label" for="supercateSeo">Supercate SEO</label>
+										<div class="controls">
+											 <input class="form-control" id="supercateSeo" type="text">
 										</div>
 									</div>
 								</div>

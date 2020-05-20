@@ -245,6 +245,12 @@
 	min-height: 12rem;
 	padding: 1rem 1.5rem;
 }
+.c-table-content th {
+	white-space: nowrap;
+}
+.c-table-content tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,21,.05);
+}
 .c-table-content td {
 	vertical-align: middle;
 }

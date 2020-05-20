@@ -174,13 +174,10 @@
 								<div class="card-title">
 									<div class="card-title-name">Search engine listing preview</div>
 
-									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="categorySeo">Enable SEO</label>
-										<div class="controls col-md-3">
-											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="categorySeo" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
+									<div class="form-group">
+										<label class="col-form-label" for="categorySeo">Collection SEO</label>
+										<div class="controls">
+											 <input class="form-control" id="categorySeo" type="text">
 										</div>
 									</div>
 								</div>
@@ -323,7 +320,7 @@
 			$('#categorySuperCateId').val('0');
 			$('#categoryParentId').val('0');
 
-			$('#categorySeo').prop('checked', false);
+			$('#categorySeo').val('');
 			$('#categoryMetatitle').val('');
 			$('#categoryMetakeywords').val('');
 			$('#categoryMetadesc').val('');
@@ -346,7 +343,7 @@
 			data.categoryParentId = $('#categoryParentId').val();
 			data.categoryParentName = $('#categoryParentId').find('option:selected').data('name');
 
-			data.categorySeo = String($('#categorySeo').prop('checked'));
+			data.categorySeo = $('#categorySeo').val();
 			data.categoryMetatitle = $('#categoryMetatitle').val();
 			data.categoryMetakeywords = $('#categoryMetakeywords').val();
 			data.categoryMetadesc = $('#categoryMetadesc').val();
@@ -367,7 +364,7 @@
 
 			$('#categoryImgurl').val(data.categoryImgurl);
 
-			$('#categorySeo').prop('checked', data.categorySeo);
+			$('#categorySeo').val(data.categorySeo);
 			$('#categoryMetatitle').val(data.categoryMetatitle);
 			$('#categoryMetakeywords').val(data.categoryMetakeywords);
 			$('#categoryMetadesc').val(data.categoryMetadesc);
