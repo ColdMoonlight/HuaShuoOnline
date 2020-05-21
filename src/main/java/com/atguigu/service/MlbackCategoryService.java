@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.atguigu.bean.back.MlbackCategory;
-import com.atguigu.dao.back.MlbackCategoryMapper;
+import com.atguigu.bean.MlbackCategory;
+import com.atguigu.dao.MlbackCategoryMapper;
 
 
 @Service

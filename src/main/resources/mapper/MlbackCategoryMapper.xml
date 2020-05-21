@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.atguigu.dao.back.MlbackCategoryMapper">
-  <resultMap id="BaseResultMap" type="com.atguigu.bean.back.MlbackCategory">
+<mapper namespace="com.atguigu.dao.MlbackCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.MlbackCategory">
  	<id column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
     <result column="category_imgurl" jdbcType="VARCHAR" property="categoryImgurl" />
@@ -39,7 +39,7 @@
     delete from tb_mlback_category
     where category_id = #{categoryId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.atguigu.bean.back.MlbackCategory">
+  <insert id="insert" parameterType="com.atguigu.bean.MlbackCategory">
     insert into tb_mlback_category (category_id, category_name, category_imgurl, 
       category_parent_id, category_parent_name, category_status, 
       category_lable, category_seo, category_sort_order, 
@@ -56,7 +56,7 @@
       #{categoryMetadesc,jdbcType=VARCHAR}, #{categorySuperCateId,jdbcType=INTEGER}, #{categorySuperCateName,jdbcType=VARCHAR})
 
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="categoryId" parameterType="com.atguigu.bean.back.MlbackCategory">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="categoryId" parameterType="com.atguigu.bean.MlbackCategory">
     insert into tb_mlback_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="categoryId != null">
@@ -183,7 +183,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.back.MlbackCategory">
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackCategory">
     update tb_mlback_category
     <set>
       <if test="categoryName != null">
@@ -246,7 +246,7 @@
     </set>
     where category_id = #{categoryId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.back.MlbackCategory">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackCategory">
     update tb_mlback_category
     set category_name = #{categoryName,jdbcType=VARCHAR},
       category_imgurl = #{categoryImgurl,jdbcType=VARCHAR},
@@ -270,13 +270,13 @@
     where category_id = #{categoryId,jdbcType=INTEGER}
   </update>
   
-    <select id="selectMlbackCategoryGetAll" parameterType="com.atguigu.bean.back.MlbackCategory" resultMap="BaseResultMap">
+    <select id="selectMlbackCategoryGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
     select *
     from tb_mlback_category order by category_id desc
   </select>
   
   <!-- 使用中 -->
-  <select id="selectMlbackCategory" parameterType="com.atguigu.bean.back.MlbackCategory" resultMap="BaseResultMap">
+  <select id="selectMlbackCategory" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
     select *
     from tb_mlback_category
     where category_id = #{categoryId,jdbcType=INTEGER}
@@ -339,14 +339,14 @@
       </if>
   </select>
   <!-- selectMlbackCategoryGetAllByParentId,下拉 -->
-  <select id="selectMlbackCategoryGetAllByParentId" parameterType="com.atguigu.bean.back.MlbackCategory" resultMap="BaseResultMap">
+  <select id="selectMlbackCategoryGetAllByParentId" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
     select
     category_id, category_name, category_seo, category_parent_id, category_parent_name, category_desc
     from tb_mlback_category order by category_parent_id,category_id
   </select>
   
   <!-- 使用中selectMlbackCategoryBackSearch -->
-  <select id="selectMlbackCategoryBackSearch" parameterType="com.atguigu.bean.back.MlbackCategory" resultMap="BaseResultMap">
+  <select id="selectMlbackCategoryBackSearch" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
   	select 
   	category_id, category_name,category_parent_id, category_parent_name, category_status, 
   	category_lable, category_seo, category_sort_order, category_superCate_id, category_superCate_name
@@ -357,4 +357,35 @@
      </if>
     order by category_parent_id
   </select>
+  <!-- selectMenuMlbackCategoryGetAll -->
+  <select id="selectMenuMlbackCategoryGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
+    select 
+    category_id, category_name,category_parent_id, category_parent_name, 
+    category_status, category_lable, category_seo, category_sort_order,category_superCate_id, category_superCate_name
+    from tb_mlback_category where category_status = 1 order by category_parent_id,category_sort_order
+  </select>
+  
+  <!-- 使用中selectCategorylistByParam -->
+  <select id="selectCategorylistByParam" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
+  	select category_id, category_name, category_parent_id, category_parent_name, category_status, category_lable, category_seo, category_sort_order
+  	from tb_mlback_category where category_status = 1
+    <if test="categoryId != null">
+      and category_id = #{categoryId,jdbcType=INTEGER}
+    </if>
+    <if test="categoryName != null">
+      and category_name = #{categoryName,jdbcType=VARCHAR}
+    </if>
+    <if test="categoryParentId != null">
+      and category_parent_id = #{categoryParentId,jdbcType=INTEGER}
+    </if>
+    <if test="categoryLable != null">
+      and category_lable = #{categoryLable,jdbcType=INTEGER}
+    </if>
+    <if test="categorySeo != null">
+      and category_seo = #{categorySeo,jdbcType=VARCHAR}
+    </if>
+    order by category_parent_id
+  </select>
+  
+  
 </mapper>

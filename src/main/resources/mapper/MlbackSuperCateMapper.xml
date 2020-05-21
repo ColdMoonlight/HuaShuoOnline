@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.atguigu.dao.back.MlbackSuperCateMapper">
-  <resultMap id="BaseResultMap" type="com.atguigu.bean.back.MlbackSuperCate">
+<mapper namespace="com.atguigu.dao.MlbackSuperCateMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.MlbackSuperCate">
     <constructor>
       <idArg column="superCate_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="superCate_name" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -31,7 +31,7 @@
     delete from tb_mlback_supercate
     where superCate_id = #{supercateId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.atguigu.bean.back.MlbackSuperCate">
+  <insert id="insert" parameterType="com.atguigu.bean.MlbackSuperCate">
     insert into tb_mlback_supercate (superCate_id, superCate_name, superCate_imgurl, 
       superCate_status, superCate_seo, superCate_sort_order, 
       superCate_createTime, superCate_motifyTime, 
@@ -43,7 +43,7 @@
       #{supercateMetatitle,jdbcType=VARCHAR}, #{supercateMetakeywords,jdbcType=VARCHAR}, 
       #{supercateMetadesc,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="supercateId" parameterType="com.atguigu.bean.back.MlbackSuperCate">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="supercateId" parameterType="com.atguigu.bean.MlbackSuperCate">
     insert into tb_mlback_supercate
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="supercateId != null">
@@ -116,7 +116,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.back.MlbackSuperCate">
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackSuperCate">
     update tb_mlback_supercate
     <set>
       <if test="supercateName != null">
@@ -152,7 +152,7 @@
     </set>
     where superCate_id = #{supercateId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.back.MlbackSuperCate">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackSuperCate">
     update tb_mlback_supercate
     set superCate_name = #{supercateName,jdbcType=VARCHAR},
       superCate_imgurl = #{supercateImgurl,jdbcType=VARCHAR},
@@ -168,12 +168,12 @@
   </update>
   
   <!-- 使用中 -->
-  <select id="selectMlbackSuperCateGetAll" parameterType="com.atguigu.bean.back.MlbackSuperCate" resultMap="BaseResultMap">
+  <select id="selectMlbackSuperCateGetAll" parameterType="com.atguigu.bean.MlbackSuperCate" resultMap="BaseResultMap">
     select *
     from tb_mlback_supercate order by superCate_id desc
   </select>
   <!-- 使用中 -->
-  <select id="selectMlbackSuperCateById" parameterType="com.atguigu.bean.back.MlbackSuperCate" resultMap="BaseResultMap">
+  <select id="selectMlbackSuperCateById" parameterType="com.atguigu.bean.MlbackSuperCate" resultMap="BaseResultMap">
     select *
     from tb_mlback_supercate
     where superCate_id = #{supercateId,jdbcType=INTEGER}

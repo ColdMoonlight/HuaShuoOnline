@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.atguigu.bean.back.MlbackAdmin;
+import com.atguigu.bean.MlbackAdmin;
 
 /**
  * HomePage
