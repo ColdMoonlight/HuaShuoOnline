@@ -19,7 +19,7 @@
 		</javaTypeResolver>
 
 		<!-- 指定javaBean生成的位置 -->
-		<javaModelGenerator targetPackage="com.atguigu.bean.back"
+		<javaModelGenerator targetPackage="com.atguigu.bean"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
             <!-- 是否对model添加 构造函数 -->
@@ -37,7 +37,7 @@
 
 		<!-- 指定dao接口生成的位置，mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.atguigu.dao.back" targetProject=".\src\main\java">
+			targetPackage="com.atguigu.dao" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		
