@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.atguigu.dao.back.MlbackAdminMapper">
-  <resultMap id="BaseResultMap" type="com.atguigu.bean.back.MlbackAdmin">
+<mapper namespace="com.atguigu.dao.MlbackAdminMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.MlbackAdmin">
     <constructor>
       <idArg column="admin_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="admin_accName" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -24,13 +24,13 @@
     delete from tb_mlback_admin
     where admin_id = #{adminId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.atguigu.bean.back.MlbackAdmin">
+  <insert id="insert" parameterType="com.atguigu.bean.MlbackAdmin">
     insert into tb_mlback_admin (admin_id, admin_accName, admin_password, 
       admin_operaterName, admin_power, admin_power_item_str)
     values (#{adminId,jdbcType=INTEGER}, #{adminAccname,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
       #{adminOperatername,jdbcType=VARCHAR}, #{adminPower,jdbcType=INTEGER}, #{adminPowerItemStr,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.atguigu.bean.back.MlbackAdmin">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.atguigu.bean.MlbackAdmin">
     insert into tb_mlback_admin
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="adminId != null">
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.back.MlbackAdmin">
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackAdmin">
     update tb_mlback_admin
     <set>
       <if test="adminAccname != null">
@@ -94,7 +94,7 @@
     </set>
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.back.MlbackAdmin">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackAdmin">
     update tb_mlback_admin
     set admin_accName = #{adminAccname,jdbcType=VARCHAR},
       admin_password = #{adminPassword,jdbcType=VARCHAR},
@@ -105,7 +105,7 @@
   </update>
   
   <!-- 使用中 -->
-  <select id="selectMlbackAdmin" parameterType="com.atguigu.bean.back.MlbackAdmin" resultMap="BaseResultMap">
+  <select id="selectMlbackAdmin" parameterType="com.atguigu.bean.MlbackAdmin" resultMap="BaseResultMap">
     select *
     from tb_mlback_admin 
     where admin_accName = #{adminAccname,jdbcType=VARCHAR} 
@@ -114,8 +114,7 @@
     </if>
   </select>
   
-  
-  <update id="updateByAdminAccnameSelective" parameterType="com.atguigu.bean.back.MlbackAdmin">
+  <update id="updateByAdminAccnameSelective" parameterType="com.atguigu.bean.MlbackAdmin">
     update tb_mlback_admin
     <set>
       <if test="adminPassword != null">

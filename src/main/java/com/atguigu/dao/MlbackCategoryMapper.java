@@ -1,8 +1,8 @@
-package com.atguigu.dao.back;
+package com.atguigu.dao;
 
 import java.util.List;
 
-import com.atguigu.bean.back.MlbackCategory;
+import com.atguigu.bean.MlbackCategory;
 
 public interface MlbackCategoryMapper {
 

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.atguigu.bean.back.MlbackSuperCate;
-import com.atguigu.dao.back.MlbackSuperCateMapper;
+import com.atguigu.bean.MlbackSuperCate;
+import com.atguigu.dao.MlbackSuperCateMapper;
 
 
 @Service

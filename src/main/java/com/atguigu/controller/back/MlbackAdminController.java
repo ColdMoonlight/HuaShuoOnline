@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.atguigu.bean.back.MlbackAdmin;
+import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.common.TokenCache;
