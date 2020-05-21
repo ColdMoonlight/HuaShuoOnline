@@ -2339,6 +2339,14 @@ select[multiple].input-lg {
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
 }
+.btn-block {
+    display: block;
+    width: 100%
+}
+
+.btn-block+.btn-block {
+    margin-top: .5rem
+}
 @media(hover: hover),(-ms-high-contrast:none) {
     .btn:hover {
         color:#4f5d73;

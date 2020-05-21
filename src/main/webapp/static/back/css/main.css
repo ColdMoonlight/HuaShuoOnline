@@ -245,6 +245,12 @@
 	min-height: 12rem;
 	padding: 1rem 1.5rem;
 }
+.c-table-content th {
+	white-space: nowrap;
+}
+.c-table-content tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,21,.05);
+}
 .c-table-content td {
 	vertical-align: middle;
 }
@@ -254,13 +260,31 @@
 .c-search>.c-icon {
 	position: absolute;
 	left: .6rem;
-    top: .6rem;
+    top: 1.1rem;
     fill: #ccc;
     font-size: 1.8rem;
     z-index: 9;
+    cursor: pointer;
 }
-.c-search>input {
+.c-search>.c-icon:hover {
+	fill: #e55353;
+}
+.c-search>.form-control {
+	display: flex;
 	padding-left: 2rem;
+	height: auto;
+}
+.c-search>.form-control input,
+.c-search>.form-control select {
+	flex-grow: 1;
+	display: inline-block;
+	padding: .5rem;
+	border-color: transparent;
+}
+.c-search>.form-control input:focus,
+.c-search>.form-control select:focus {
+	border-color: #000;
+	border-radius: .25rem;
 }
 #table-pagination>nav {
 	text-align: center;;
@@ -296,6 +320,10 @@
 	width: 8rem;
 	height: 8rem;
 	padding: 2rem;
+	border: 2px dashed #ccc;
+}
+.c-upload-img:hover {
+	border-color: #4638c2;
 }
 .c-upload-img>.c-icon {
 	display: block;
@@ -305,11 +333,11 @@
 .c-upload-img>input {
 	position: absolute;
 	top: 0;
-	right: 0;
-	bottom: 0;
 	left: 0;
 	z-index: 2;
 	display: block;
+	width: 100%;
+    height: 100%;
 	background-color: transparent;
 	border: none;
 	opacity: 0;
@@ -318,4 +346,11 @@
 
 #deleteModal .modal-body {
 	text-align: center;
+}
+
+.step {
+	display: none;
+}
+.step.active {
+	display: block;
 }
