@@ -279,9 +279,9 @@
 		}
 		// tab delete
 		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
-		// pagination
-		$(document.body).on('click', '#table-pagination li', function (e) {
-			getCollectionsData();
+		// pagination a-click
+		$(document.body).on('click', '#table-pagination li', function (e) {			
+			getTabSearchData($('.c-table-tab-item.active'));
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
@@ -659,7 +659,6 @@
 			if ($('.c-table-tab-item.active').length < 1) {
 				$('.c-table-tab-item').eq(0).addClass('active');
 			}
-
 
 			getTabSearchData($('.c-table-tab-item.active'));
 		}
