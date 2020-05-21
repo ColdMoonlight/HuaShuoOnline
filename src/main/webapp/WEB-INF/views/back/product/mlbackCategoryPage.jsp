@@ -24,14 +24,17 @@
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
-							<div class="c-table-tab-item active">All</div>
+							<div class="c-table-tab-item" data-idx="0">All</div>
 						</div>
 						<div class="c-table-content">
 							<div class="input-group c-search">
 								<svg class="c-icon">
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
-								<input class="form-control" name="searchCollection" type="text" placeholder="Search Collections">
+								<div class="form-control">
+									<input id="searchCollection" type="text" placeholder="Search Collections">						
+									<select id="searchSupercate"></select>
+								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
 							<table class="c-table-table table table-responsive-sm">
@@ -222,32 +225,60 @@
 	<!-- custom script -->
 	<script>
 		var categoryData = {};
-		var inputSearchEl = $('input[name="searchCollection"]');
 		var hasSuperCategory = false;
 		var hasParentCategory = false;
+
+		if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
+
 		// init
 		renderTabItems();
-		getCollectionsData();
-		// search
+		// save search
 		$('.btn-save-search').on('click', function () {
-			var searchCollectionVal = inputSearchEl.val().trim();
-			if (searchCollectionVal) {
+			var searchCollectionVal = {
+				supercate: $('#searchSupercate').find('option:selected').text(),
+				supercateId: $('#searchSupercate').val(),
+				collection: $('#searchCollection').val()
+			};
+			if (searchCollectionVal.supercate || searchCollectionVal.collection) {
 				addCollectionItem(searchCollectionVal);
-				addTabItemEl(searchCollectionVal);
+				addTableTabItem(searchCollectionVal);
 			}
 		});
+		// search it
+		$('#searchCollection, #searchSupercate').on('click', function() {
+			$(this).on('change', function() {
+				getSearchCollectionsData();
+			});
+		});
 		// tab-item click
-		$(document.body).on('click', '.c-table-tab-item', function () {
+		$(document.body).on('click', '.c-table-tab-item', function (e) {
 			$('.c-table-tab-item').removeClass('active');
 			$(this).addClass('active');
 			setPageNum(1);
-			getCollectionsData($(this).text());
+			setActiveItemNum($(this).data('idx'));
+			getTabSearchData($(this));
 		});
+		// get Data for table
+		function getTabSearchData($this) {
+			var dataVal = $this.data('val') && JSON.parse($this.data('val').replace(/\'/g, '"'));
+			if (dataVal) {
+				$('#searchCollection, #searchSupercate').off('change');
+				setTimeout(function() {
+					$('#searchCollection').val(dataVal.collection ? dataVal.collection : '');
+					$('#searchSupercate').val(dataVal.supercateId ? dataVal.supercateId : '0');
+					getSearchCollectionsData();
+				}, 0)
+			} else {
+				getCollectionsData();
+				$('#searchSupercate').val('0');
+				$('#searchCollection').val('');
+			}		
+		}
 		// tab delete
-		$(document.body).on('click', '.delete-table-tab-item', deleteCollectionEl);
+		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
 		// pagination
 		$(document.body).on('click', '#table-pagination li', function (e) {
-			getCollectionsData($(this).text());
+			getCollectionsData();
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
@@ -296,8 +327,6 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
-
-			if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
 
 			if (!hasParentCategory) getParentCategoryData(renderParentCategory);
 		}
@@ -395,13 +424,41 @@
 			});
 		}
 		// callback get data
-		function getCollectionsData(val) {
+		function getCollectionsData() {
 			$('.c-mask').show();
-			var pnNUm = getPageNum();
+			var formData = 'pn=' + getPageNum();
 			$.ajax({
 				url: "${APP_PATH }/MlbackCategory/getMlbackCategoryByPage",
 				type: "post",
-				data: "pn=" + pnNUm,
+				data: formData,
+				success: function (data) {
+					if (data.code == 100) {
+						renderTable(data.extend.pageInfo.list);
+						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.msg);
+					} else {
+						toastr.error(data.msg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get Categeory, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback get search data
+		function getSearchCollectionsData(data) {
+			$('.c-mask').show();
+			var formData = '';
+			formData += 'categoryName=' + $('#searchCollection').val();
+			formData += '&categorySuperCateId=' + ($('#searchSupercate').val() || '0');
+			formData += '&pn=' + getPageNum();
+			$.ajax({
+				url: "${APP_PATH }/MlbackCategory/backSearchBycategory",
+				type: "post",
+				data: formData,
 				success: function (data) {
 					if (data.code == 100) {
 						renderTable(data.extend.pageInfo.list);
@@ -555,6 +612,7 @@
 				htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
 			}
 			$('#categorySuperCateId').html(htmlStr);
+			$('#searchSupercate').html(htmlStr);
 			hasSuperCategory = true;
 		}
 		// render parentCategoryData
@@ -569,34 +627,61 @@
 		function renderTabItems() {
 			var collections = getCollectionList(),
 				len = collections.length,
-				htmlStr = '';
+				htmlStr = '',
+				activeNum = parseInt(getActiveItemNum());
+
 			if (len > 0) {
 				for (var i = 0; i < len; i += 1) {
-					htmlStr += createCollectionItem(collections[i])[0].outerHTML;
+					var $item = createCollectionItem(collections[i]);
+					$item.attr('data-idx', i+1);
+
+					if (activeNum == i + 1) {
+						$item.addClass('active')
+					}
+
+					htmlStr += $item[0].outerHTML;
 				}
+
 				$('.c-table-tab').append(htmlStr);
-				$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
 			}
+			// check activeItem exsits or not.
+			if ($('.c-table-tab-item.active').length < 1) {
+				$('.c-table-tab-item').eq(0).addClass('active');
+			}
+
+
+			getTabSearchData($('.c-table-tab-item.active'));
 		}
-		function addTabItemEl(val) {
+		function addTableTabItem(val) {
 			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab').append(createCollectionItem(val));
+			$('.c-table-tab').append(createCollectionItem(val).addClass('active'));
+			setActiveItemNum($('.c-table-tab-item').length - 1);
 		}
 		function createCollectionItem(val) {
-			return $('<div class="c-table-tab-item active">' + val +
-				'<svg class="delete-table-tab-item c-icon" data-item="' + val + '">' +
+			var textArr = [];
+			if (val.supercate) {
+				textArr.push(val.supercate)
+			}
+			if (val.collection) {
+				textArr.push(val.collection)
+			}
+
+			return $('<div class="c-table-tab-item" data-val="'+ JSON.stringify(val).replace(/\"/g, "'") +'">' + textArr.join("-") +
+				'<svg class="delete-table-tab-item c-icon">' +
 				'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-x"></use>' +
 				'</svg></div>');
 		}
-		function deleteCollectionEl(e) {
+		function deleteTableTabItem(e) {
 			e.stopPropagation();
 			var targetEl = $(e.target),
-				itemVal = targetEl.data('item'),
-				parentEl = targetEl.parent('.c-table-tab-item');
+				parentEl = targetEl.parent('.c-table-tab-item'),
+				itemVal = JSON.parse($(parentEl).data('val').replace(/\'/g, '"'));
+
 			deleteCollectionItem(itemVal);
 			$(parentEl).remove();
+
 			$('.c-table-tab-item').eq(0).addClass('active');
-			getCollectionsData();
+			getTabSearchData($('.c-table-tab-item').eq(0));
 		}
 		function getCollectionList() {
 			return JSON.parse(storage.getItem('collections')) || [];
@@ -604,14 +689,21 @@
 		function deleteCollectionItem(name) {
 			var oldCollections = getCollectionList();
 			var newCollections = oldCollections.filter(function (item) {
-				if (item != name) return item;
+				if (JSON.stringify(item) != JSON.stringify(name)) return item;
 			});
 			storage.setItem('collections', JSON.stringify(newCollections));
 		}
 		function addCollectionItem(name) {
 			var collections = getCollectionList();
-			collections.unshift(name);
+			collections.push(name);
 			storage.setItem('collections', JSON.stringify(collections));
+		}
+		// tab active-item cache
+		function getActiveItemNum() {
+			return storage.getItem('itemNum') || 0;
+		}
+		function setActiveItemNum(num) {
+			storage.setItem('itemNum', num)
 		}
 	</script>
 </body>

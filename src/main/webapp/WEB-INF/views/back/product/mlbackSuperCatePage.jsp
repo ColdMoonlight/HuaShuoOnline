@@ -31,7 +31,9 @@
 								<svg class="c-icon">
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
-								<input class="form-control" name="searchCollection" type="text" placeholder="Search Collections">
+								<div  class="form-control">
+									<input name="searchCollection" type="text" placeholder="Search Collections">
+								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
 							<table class="c-table-table table table-responsive-sm">
