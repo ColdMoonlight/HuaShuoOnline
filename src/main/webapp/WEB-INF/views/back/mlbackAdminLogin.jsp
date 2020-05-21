@@ -126,7 +126,7 @@
 				data: JSON.stringify(data),
 				success: function (data) {
 					if (data.code == 100) {
-						toastr.success(data.extend.resMsg + ', 稍后将进行跳转');
+						toastr.success(data.extend.resMsg + ', The jump will take place later。');
 						setTimeout(function() {
 							window.location.href = '${APP_PATH }/BackHome/BackHomePage';
 						}, 100);
@@ -135,7 +135,7 @@
 					}
 				},
 				error: function() {
-					toastr.error('登录失败，请重新登录！');
+					toastr.error('Login failed, please login again！');
 				},
 				complete: function() {
 					hideSpinner(self);
@@ -154,13 +154,13 @@
 				data: JSON.stringify(data),
 				success: function (data) {
 					if (data.code == 100) {
-						toastr.success(data.extend.resMsg + ', 请点击下方返回登录按钮重新登录');
+						toastr.success(data.extend.resMsg + ', Please click the back to login button below to log in again');
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function() {
-					toastr.error('修改密码失败，请重新提交！');
+					toastr.error('Password modification failed, please resubmit！');
 				},
 				complete: function() {
 					hideSpinner(self);

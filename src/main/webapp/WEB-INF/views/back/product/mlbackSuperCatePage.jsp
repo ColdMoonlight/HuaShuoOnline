@@ -303,9 +303,9 @@
 				success: function (data) {
 					if (data.code == 100) {
 						$('#supercateId').val(data.extend.mlbackSuperCate.supercateId);
-						toastr.success(data.msg);
+						toastr.success(data.extend.resMsg);
 					} else {
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function (err) {
@@ -328,9 +328,9 @@
 					if (data.code == 100) {
 						renderTable(data.extend.pageInfo.list);
 						renderTablePagination(data.extend.pageInfo);
-						toastr.success(data.msg);
+						toastr.success(data.extend.resMsg);
 					} else {
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function (err) {
@@ -353,10 +353,10 @@
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
-						toastr.success(data.msg);
+						toastr.success(data.extend.resMsg);
 						callback();
 					} else {
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function (err) {
@@ -379,11 +379,11 @@
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
-						toastr.success(data.msg);
+						toastr.success(data.extend.resMsg);
 						$('#deleteModal').modal('hide');
 						callback();
 					} else {
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function (err) {

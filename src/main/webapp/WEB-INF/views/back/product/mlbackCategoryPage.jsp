@@ -347,8 +347,10 @@
 
 			$('#categoryImgurl').val('');
 
-			$('#categorySuperCateId').val('0');
-			$('#categoryParentId').val('-1');
+			setTimeout(function() {
+				$('#categorySuperCateId').val('0');
+				$('#categoryParentId').val('-1');				
+			});
 
 			$('#categorySeo').val('');
 			$('#categoryMetatitle').val('');
@@ -413,13 +415,13 @@
 						var categoryId = data.extend&& data.extend.mlbackCategory && data.extend.mlbackCategory.categoryId;
 						if (categoryId) {
 							$('#categoryId').val(data.extend.mlbackCategory.categoryId);
-							toastr.success(data.msg);
+							toastr.success(data.extend.resMsg);
 						} else {
 							toastr.error('create collecion fail! Please try again.');
 						}
 					} else {
 						showInitBlock();
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function (err) {
@@ -442,9 +444,9 @@
 					if (data.code == 100) {
 						renderTable(data.extend.pageInfo.list);
 						renderTablePagination(data.extend.pageInfo);
-						toastr.success(data.msg);
+						toastr.success(data.extend.resMsg);
 					} else {
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function () {
@@ -470,9 +472,9 @@
 					if (data.code == 100) {
 						renderTable(data.extend.pageInfo.list);
 						renderTablePagination(data.extend.pageInfo);
-						toastr.success(data.msg);
+						toastr.success(data.extend.resMsg);
 					} else {
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function () {
@@ -495,10 +497,10 @@
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
-						toastr.success(data.msg);
+						toastr.success(data.extend.resMsg);
 						callback();
 					} else {
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function (err) {
@@ -521,11 +523,11 @@
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
-						toastr.success(data.msg);
+						toastr.success(data.extend.resMsg);
 						$('#deleteModal').modal('hide');
 						callback();
 					} else {
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function (err) {
@@ -545,10 +547,10 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						toastr.success(data.msg);
+						toastr.success(data.extend.resMsg);
 						callback(data.extend.mlbackSuperCateResList);
 					} else {
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function (err) {
@@ -569,10 +571,10 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						toastr.success(data.msg);
+						toastr.success(data.extend.resMsg);
 						callback(data.extend.mlbackCategorydownEr);
 					} else {
-						toastr.error(data.msg);
+						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function (err) {
