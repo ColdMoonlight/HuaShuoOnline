@@ -239,7 +239,9 @@
 				supercateId: $('#searchSupercate').val(),
 				collection: $('#searchCollection').val()
 			};
-			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate=""
+			// cancel repeat add save-search
+			if (checkNewItem(searchCollectionVal)) return;
+			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate = ""
 			if (searchCollectionVal.supercate || searchCollectionVal.collection) {
 				addCollectionItem(searchCollectionVal);
 				addTableTabItem(searchCollectionVal);
@@ -660,6 +662,14 @@
 
 
 			getTabSearchData($('.c-table-tab-item.active'));
+		}
+		function checkNewItem(val) {
+			var filterArr = getCollectionList().filter(function(item) {
+				if (JSON.stringify(val) === JSON.stringify(item)) {
+					return item;
+				}
+			});
+			return filterArr.length ? true : false;
 		}
 		function addTableTabItem(val) {
 			$('.c-table-tab-item').removeClass('active');
