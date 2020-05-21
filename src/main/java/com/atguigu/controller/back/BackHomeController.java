@@ -10,7 +10,6 @@ import com.atguigu.bean.MlbackAdmin;
 /**
  * HomePage
  * @author
- *
  */
 @Controller
 @RequestMapping("/BackHome")
