@@ -239,6 +239,7 @@
 				supercateId: $('#searchSupercate').val(),
 				collection: $('#searchCollection').val()
 			};
+			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate=""
 			if (searchCollectionVal.supercate || searchCollectionVal.collection) {
 				addCollectionItem(searchCollectionVal);
 				addTableTabItem(searchCollectionVal);
@@ -246,7 +247,7 @@
 		});
 		// search it
 		$('#searchCollection, #searchSupercate').on('click', function() {
-			$(this).on('change', function() {
+			$(this).one('change', function() {
 				getSearchCollectionsData();
 			});
 		});
@@ -267,7 +268,7 @@
 					$('#searchCollection').val(dataVal.collection ? dataVal.collection : '');
 					$('#searchSupercate').val(dataVal.supercateId ? dataVal.supercateId : '0');
 					getSearchCollectionsData();
-				}, 300)
+				}, 100)
 			} else {
 				getCollectionsData();
 				$('#searchSupercate').val('0');
