@@ -140,9 +140,7 @@
 								</div>
 								<div class="card-body">
 									<div id="uploadImg" class="c-upload-img">
-										<svg class="c-icon">
-											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-										</svg>
+										<div class="c-icon">x</div>
 										<input type="file" />
 									</div>
 								</div>
