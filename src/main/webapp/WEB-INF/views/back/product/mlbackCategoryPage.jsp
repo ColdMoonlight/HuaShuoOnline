@@ -347,8 +347,10 @@
 
 			$('#categoryImgurl').val('');
 
-			$('#categorySuperCateId').val('0');
-			$('#categoryParentId').val('-1');
+			setTimeout(function() {
+				$('#categorySuperCateId').val('0');
+				$('#categoryParentId').val('-1');				
+			});
 
 			$('#categorySeo').val('');
 			$('#categoryMetatitle').val('');
