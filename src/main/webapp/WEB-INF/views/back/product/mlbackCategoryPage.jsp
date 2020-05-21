@@ -302,7 +302,7 @@
 			var categoryId = parseInt($(this).data('id'));
 			$('#deleteModal').find('.modal-title').html('Delete collection!');
 			$('#deleteModal').modal('show');
-			$('#deleteModal .btn-ok').on('click', function () {
+			$('#deleteModal .btn-ok').one('click', function () {
 				deleteCollectionData({
 					categoryId: categoryId,
 				}, getCollectionsData);
