@@ -452,19 +452,19 @@
 			getCollectionsData();
 		}
 		function getCollectionList() {
-			return JSON.parse(storage.getItem('collections')) || [];
+			return JSON.parse(storage.getItem('supercates')) || [];
 		}
 		function deleteCollectionItem(name) {
 			var oldCollections = getCollectionList();
 			var newCollections = oldCollections.filter(function (item) {
 				if (item != name) return item;
 			});
-			storage.setItem('collections', JSON.stringify(newCollections));
+			storage.setItem('supercates', JSON.stringify(newCollections));
 		}
 		function addCollectionItem(name) {
 			var collections = getCollectionList();
 			collections.unshift(name);
-			storage.setItem('collections', JSON.stringify(collections));
+			storage.setItem('supercates', JSON.stringify(collections));
 		}
 	</script>
 </body>
