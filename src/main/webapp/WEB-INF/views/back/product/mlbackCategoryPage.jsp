@@ -267,7 +267,7 @@
 					$('#searchCollection').val(dataVal.collection ? dataVal.collection : '');
 					$('#searchSupercate').val(dataVal.supercateId ? dataVal.supercateId : '0');
 					getSearchCollectionsData();
-				}, 0)
+				}, 300)
 			} else {
 				getCollectionsData();
 				$('#searchSupercate').val('0');
