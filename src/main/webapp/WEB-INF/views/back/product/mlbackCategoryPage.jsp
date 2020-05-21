@@ -239,6 +239,7 @@
 				supercateId: $('#searchSupercate').val(),
 				collection: $('#searchCollection').val()
 			};
+			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate=""
 			if (searchCollectionVal.supercate || searchCollectionVal.collection) {
 				addCollectionItem(searchCollectionVal);
 				addTableTabItem(searchCollectionVal);
@@ -246,7 +247,7 @@
 		});
 		// search it
 		$('#searchCollection, #searchSupercate').on('click', function() {
-			$(this).on('change', function() {
+			$(this).one('change', function() {
 				getSearchCollectionsData();
 			});
 		});
@@ -267,7 +268,7 @@
 					$('#searchCollection').val(dataVal.collection ? dataVal.collection : '');
 					$('#searchSupercate').val(dataVal.supercateId ? dataVal.supercateId : '0');
 					getSearchCollectionsData();
-				}, 0)
+				}, 100)
 			} else {
 				getCollectionsData();
 				$('#searchSupercate').val('0');
@@ -301,7 +302,7 @@
 			var categoryId = parseInt($(this).data('id'));
 			$('#deleteModal').find('.modal-title').html('Delete collection!');
 			$('#deleteModal').modal('show');
-			$('#deleteModal .btn-ok').on('click', function () {
+			$('#deleteModal .btn-ok').one('click', function () {
 				deleteCollectionData({
 					categoryId: categoryId,
 				}, getCollectionsData);
@@ -347,7 +348,7 @@
 			$('#categoryImgurl').val('');
 
 			$('#categorySuperCateId').val('0');
-			$('#categoryParentId').val('0');
+			$('#categoryParentId').val('-1');
 
 			$('#categorySeo').val('');
 			$('#categoryMetatitle').val('');
@@ -409,14 +410,20 @@
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						$('#categoryId').val(data.mlbackCategory.categoryId);
-						toastr.success(data.msg);
+						var categoryId = data.extend&& data.extend.mlbackCategory && data.extend.mlbackCategory.categoryId;
+						if (categoryId) {
+							$('#categoryId').val(data.extend.mlbackCategory.categoryId);
+							toastr.success(data.msg);
+						} else {
+							toastr.error('create collecion fail! Please try again.');
+						}
 					} else {
+						showInitBlock();
 						toastr.error(data.msg);
 					}
 				},
-				error: function () {
-					toastr.error('Failed to Save Categeory, please save-data again！');
+				error: function (err) {
+					toastr.error(err);
 				},
 				complete: function () {
 					$('.c-mask').hide();

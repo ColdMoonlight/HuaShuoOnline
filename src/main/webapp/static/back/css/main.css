@@ -276,14 +276,20 @@
 }
 .c-search>.form-control input,
 .c-search>.form-control select {
+	border: none;
 	flex-grow: 1;
 	display: inline-block;
 	padding: .5rem;
-	border-color: transparent;
+	border-color: #ccc;
+	outline: none;
+	box-shadow: 0 0 1px #3d3d3d;
+}
+.c-search>.form-control select {
+	margin-left: 1rem;
+	border-width: 2px;
 }
 .c-search>.form-control input:focus,
 .c-search>.form-control select:focus {
-	border-color: #000;
 	border-radius: .25rem;
 }
 #table-pagination>nav {
