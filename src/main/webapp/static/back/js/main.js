@@ -34,37 +34,39 @@ var CURRENT_URL = window.location.href.split('#')[0],
 // Sidebar
 function init_sidebar() {
 	var closeMenu = function () {
-	  $SIDEBAR_MENU.find('li').removeClass('active');
-	  $SIDEBAR_MENU.find('li ul').slideUp();
+		$SIDEBAR_MENU.find('li').removeClass('active');
+		$SIDEBAR_MENU.find('li ul').slideUp();
 	}
-	
+
 	$SIDEBAR_MENU.find('a').on('click', function (e) {
-	  var $li = $(this).parent();
-	  if ($li.is('.active')) {
-	    $li.removeClass('active');
-	    $('ul:first', $li).slideUp();
-	  } else {
-	    closeMenu();
-	    $li.addClass('active');
-	    $('ul:first', $li).slideDown();
-	  }
-	  new PerfectScrollbar('#sidebar-menu', {
-	    wheelSpeed: 2,
-	    wheelPropagation: true,
-	    minScrollbarLength: 20
-	  });
+		// initial page-num
+		setPageNum(1);
+		var $li = $(this).parent();
+		if ($li.is('.active')) {
+			$li.removeClass('active');
+			$('ul:first', $li).slideUp();
+		} else {
+			closeMenu();
+			$li.addClass('active');
+			$('ul:first', $li).slideDown();
+		}
+		new PerfectScrollbar('#sidebar-menu', {
+			wheelSpeed: 2,
+			wheelPropagation: true,
+			minScrollbarLength: 20
+		});
 	});
-	
+
 	// setting current page -> navItem
 	$SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
 	$SIDEBAR_MENU.find('a').filter(function () {
-	  return this.href == CURRENT_URL;
-	}).parent('li').addClass('current-page').parents('ul').slideDown(function() {
-	  new PerfectScrollbar('#sidebar-menu', {
-	    wheelSpeed: 2,
-	    wheelPropagation: true,
-	    minScrollbarLength: 20
-	  });
+		return this.href == CURRENT_URL;
+	}).parent('li').addClass('current-page').parents('ul').slideDown(function () {
+		new PerfectScrollbar('#sidebar-menu', {
+			wheelSpeed: 2,
+			wheelPropagation: true,
+			minScrollbarLength: 20
+		});
 	}).parent().addClass('active');
 }
 
@@ -73,17 +75,17 @@ init_sidebar();
 var storage = window.localStorage;
 /* pageNum */
 function getPageNum() {
-    return storage.getItem('pageNum') || 1
+	return storage.getItem('pageNum') || 1
 }
 
 function setPageNum(val) {
-    storage.setItem('pageNum', val);
+	storage.setItem('pageNum', val);
 }
 
 function makerArray(n) {
 	var arr = []
 	for (var i = 0; i < n; i++) {
-		arr.push(i+1);
+		arr.push(i + 1);
 	}
 	return arr;
 }
@@ -92,31 +94,31 @@ function renderTablePagination(data) {
 		$("#table-pagination").empty();
 		//构建元素
 		var pageUl = $('<ul class="pagination" />'),
-		firstPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('首页').attr('href', '#')),
-		prePageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&laquo;')),
-		nextPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&raquo;')),
-		lastPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('末页').attr('href', '#')),
-		pageCurrentNum = data.pageNum,
-		pageNums = data.pages,
-		pageArr = [];
-		prePageLi.on('click', function() {
+			firstPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('首页').attr('href', '#')),
+			prePageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&laquo;')),
+			nextPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&raquo;')),
+			lastPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('末页').attr('href', '#')),
+			pageCurrentNum = data.pageNum,
+			pageNums = data.pages,
+			pageArr = [];
+		prePageLi.on('click', function () {
 			pageCurrentNum > 1 && setPageNum(pageCurrentNum - 1);
 		});
-		nextPageLi.on('click', function() {
+		nextPageLi.on('click', function () {
 			pageCurrentNum < pageNums && setPageNum(pageCurrentNum + 1);
 		});
 		if (pageNums > 5) {
 			if (pageCurrentNum <= 5) {
 				pageArr = [1, 2, 3, 4, 5];
 			} else if (pageCurrentNum > pageNums - 5) {
-				pageArr = [pageNums - 4, pageNums - 3, pageNums - 2, pageNums -1, pageNums];
+				pageArr = [pageNums - 4, pageNums - 3, pageNums - 2, pageNums - 1, pageNums];
 			} else {
 				pageArr = [pageCurrentNum - 2, pageCurrentNum - 1, pageCurrentNum, pageCurrentNum + 1, pageCurrentNum + 2];
 			}
 		} else {
 			pageArr = makerArray(pageNums || 1);
 		}
-		
+
 		if (data.hasPreviousPage == false) {
 			firstPageLi.addClass('disabled');
 			prePageLi.addClass('disabled');
@@ -129,7 +131,7 @@ function renderTablePagination(data) {
 				setPageNum(pageCurrentNum - 1);
 			});
 		}
-		
+
 		if (data.hasNextPage == false) {
 			nextPageLi.addClass('disabled');
 			lastPageLi.addClass('disabled');
@@ -141,10 +143,10 @@ function renderTablePagination(data) {
 				setPageNum(pageNums);
 			});
 		}
-		
+
 		pageUl.append(firstPageLi).append(prePageLi);
-		
-		$.each(pageArr, function(i, item) {
+
+		$.each(pageArr, function (i, item) {
 			var numLi = $('<li class="page-item" />').append($('<a class="page-link" href="#" />').append(item));
 			if (pageCurrentNum == item) {
 				numLi.addClass('active');
@@ -154,9 +156,9 @@ function renderTablePagination(data) {
 			});
 			pageUl.append(numLi);
 		});
-		
+
 		pageUl.append(nextPageLi).append(lastPageLi);
-		
+
 		var navEle = $('<nav aria-label="Page navigation" />').append(pageUl);
 		navEle.appendTo('#table-pagination');
 	}

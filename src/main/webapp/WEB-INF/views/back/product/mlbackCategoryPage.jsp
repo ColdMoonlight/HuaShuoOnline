@@ -140,9 +140,7 @@
 								</div>
 								<div class="card-body">
 									<div id="uploadImg" class="c-upload-img">
-										<svg class="c-icon">
-											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-										</svg>
+										<div class="c-icon">x</div>
 										<input type="file" />
 									</div>
 								</div>
@@ -248,11 +246,25 @@
 			}
 		});
 		// search it
-		$('#searchCollection, #searchSupercate').on('click', function() {
+		/* $('#searchCollection, #searchSupercate').on('click', function() {
 			$(this).one('change', function() {
 				getSearchCollectionsData();
 			});
+		}); */
+		$('#searchSupercate').on('change', function() {
+			getSearchCollectionsData();
 		});
+		var oldTime = (new Date()).getTime(),
+			timer = null;
+		$('#searchCollection').on('keyup', function() {
+			var distanceTime = 1000,
+				newTime =  (new Date()).getTime();
+			if (newTime - oldTime < 1000) clearTimeout(timer);
+			oldTime = newTime;
+			timer = setTimeout(function() {
+				getSearchCollectionsData();
+			}, distanceTime);
+		})
 		// tab-item click
 		$(document.body).on('click', '.c-table-tab-item', function (e) {
 			$('.c-table-tab-item').removeClass('active');
@@ -265,7 +277,7 @@
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val') && JSON.parse($this.data('val').replace(/\'/g, '"'));
 			if (dataVal) {
-				$('#searchCollection, #searchSupercate').off('change');
+				// $('#searchCollection, #searchSupercate').off('change');
 				setTimeout(function() {
 					$('#searchCollection').val(dataVal.collection ? dataVal.collection : '');
 					$('#searchSupercate').val(dataVal.supercateId ? dataVal.supercateId : '0');
@@ -685,9 +697,7 @@
 			}
 
 			return $('<div class="c-table-tab-item" data-val="'+ JSON.stringify(val).replace(/\"/g, "'") +'">' + textArr.join("-") +
-				'<svg class="delete-table-tab-item c-icon">' +
-				'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-x"></use>' +
-				'</svg></div>');
+				'<div class="delete-table-tab-item c-icon">x</div></div>');
 		}
 		function deleteTableTabItem(e) {
 			e.stopPropagation();
