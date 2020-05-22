@@ -325,6 +325,9 @@
 					categoryId: categoryId,
 				}, getCollectionsData);
 			});
+			$('#deleteModal .btn-cancel').on('click', function() {
+				$('#deleteModal .btn-ok').off('click');
+			});
 		});
 		// save collection
 		$('.btn-save').on('click', function () {

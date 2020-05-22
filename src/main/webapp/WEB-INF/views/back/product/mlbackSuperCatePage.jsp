@@ -222,11 +222,15 @@
 			var supercateId = parseInt($(this).data('id'));
 			$('#deleteModal').find('.modal-title').html('Delete SuperCategory!');
 			$('#deleteModal').modal('show');
-			$('#deleteModal .btn-ok').on('click', function () {
+			$('#deleteModal .btn-ok').one('click', function () {
 				deleteCollectionData({
 					supercateId: supercateId,
 				}, getCollectionsData);
 
+			});
+
+			$('#deleteModal .btn-cancel').on('click', function() {
+				$('#deleteModal .btn-ok').off('click');
 			});
 		});
 		// save collection
