@@ -175,6 +175,7 @@
 	<script>
 		var categoryData = {};
 		var inputSearchEl = $('input[name="searchCollection"]');
+		var isCreate = false;
 		// init
 		renderTabItems();
 		getCollectionsData();
@@ -206,6 +207,7 @@
 			// init formData
 			resetFormData();
 			getCollectionId();
+			isCreate = true;
 		});
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
@@ -229,11 +231,19 @@
 		});
 		// save collection
 		$('.btn-save').on('click', function () {
-			showInitBlock();
-			saveCollectionData(getFormData(), getCollectionsData);
+			saveCollectionData(getFormData(), function() {
+				getCollectionsData();
+				showInitBlock();
+				isCreate = false;
+			});
 		});
 		// cancel collection save
 		$('.btn-cancel').on('click', function () {
+			if (isCreate) {
+				getCollectionsData();
+				isCreate = false;
+			}
+
 			showInitBlock();
 		});
 		// tab create/init
@@ -250,7 +260,7 @@
 		function resetFormData() {
 			$('#supercateId').val('');
 			$('#supercateName').val('');
-			$('#supercateSortOrder').val('');
+			$('#supercateSortOrder').val('0');
 			$('#supercateStatus').prop('checked', false);
 
 			$('#supercateImgurl').val('');
@@ -281,7 +291,7 @@
 		function initFormData(data) {
 			$('#supercateId').val(data.supercateId);
 			$('#supercateName').val(data.supercateName);
-			$('#supercateSortOrder').val(data.supercateSortOrder);
+			$('#supercateSortOrder').val(data.supercateSortOrder ? data.supercateSortOrder : '0');
 			$('#supercateStatus').prop('checked', data.supercateStatus);
 
 			$('#supercateImgurl').val(data.supercateImgurl);
@@ -437,9 +447,7 @@
 		}
 		function createCollectionItem(val) {
 			return $('<div class="c-table-tab-item active">' + val +
-				'<svg class="delete-table-tab-item c-icon" data-item="' + val + '">' +
-				'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-x"></use>' +
-				'</svg></div>');
+				'<div class="delete-table-tab-item c-icon" data-item="' + val + '">x</div></div>');
 		}
 		function deleteCollectionEl(e) {
 			e.stopPropagation();

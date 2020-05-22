@@ -227,6 +227,7 @@
 		var categoryData = {};
 		var hasSuperCategory = false;
 		var hasParentCategory = false;
+		var isCreate = false;
 
 		if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
 
@@ -304,6 +305,7 @@
 			// init formData
 			resetFormData();
 			getCollectionId();
+			isCreate = true;
 		});
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
@@ -326,11 +328,19 @@
 		});
 		// save collection
 		$('.btn-save').on('click', function () {
-			showInitBlock();
-			saveCollectionData(getFormData(), getCollectionsData);
+			saveCollectionData(getFormData(), function() {
+				getCollectionsData();
+				showInitBlock();
+				isCreate = false;
+			});
 		});
 		// cancel collection save
 		$('.btn-cancel').on('click', function () {
+			if (isCreate) {
+				getCollectionsData();
+				isCreate = false;
+			}
+
 			showInitBlock();
 		});
 		// status combinewith supercate
@@ -356,7 +366,7 @@
 		function resetFormData() {
 			$('#categoryId').val('');
 			$('#categoryName').val('');
-			$('#categorySortOrder').val('');
+			$('#categorySortOrder').val('0');
 			$('#categoryStatus').prop('checked', false);
 			$('#categoryLable').val('0');
 			$('#categoryDesc').val('');
@@ -402,7 +412,7 @@
 		function initFormData(data) {
 			$('#categoryId').val(data.categoryId);
 			$('#categoryName').val(data.categoryName);
-			$('#categorySortOrder').val(data.categorySortOrder);
+			$('#categorySortOrder').val(data.categorySortOrder ? data.categorySortOrder : '0');
 			$('#categoryStatus').prop('checked', (data.categorySuperCateId > 0 ? data.categoryStatus : 0));
 			$('#categoryLable').val(data.categoryLable);
 			$('#categoryDesc').val(data.categoryDesc);
