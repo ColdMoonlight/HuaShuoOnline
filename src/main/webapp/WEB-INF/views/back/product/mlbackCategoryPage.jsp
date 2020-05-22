@@ -683,9 +683,7 @@
 			}
 
 			return $('<div class="c-table-tab-item" data-val="'+ JSON.stringify(val).replace(/\"/g, "'") +'">' + textArr.join("-") +
-				'<svg class="delete-table-tab-item c-icon">' +
-				'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-x"></use>' +
-				'</svg></div>');
+				'<div class="delete-table-tab-item c-icon">x</div></div>');
 		}
 		function deleteTableTabItem(e) {
 			e.stopPropagation();
