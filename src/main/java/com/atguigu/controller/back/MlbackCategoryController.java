@@ -38,7 +38,6 @@ public class MlbackCategoryController {
 	@Autowired
 	MlbackAdminService mlbackAdminService;
 	
-	
 	/**
 	 * 1.0	onuse	20191225	检查
 	 * to后台分类MlbackCategory列表页面
@@ -94,11 +93,12 @@ public class MlbackCategoryController {
 		//取出id
 		String nowTime = DateUtil.strTime14s();
 		mlbackCategory.setCategoryCreatetime(nowTime);
+		mlbackCategory.setCategoryStatus(0);//0未上架1上架中
 		//无id，insert
 		System.out.println("插入前"+mlbackCategory.toString());
 		mlbackCategoryService.insertSelective(mlbackCategory);
 		System.out.println("插入后"+mlbackCategory.toString());
-		return Msg.success().add("resMsg", "插入成功").add("mlbackCategory", mlbackCategory);
+		return Msg.success().add("resMsg", "Category初始化成功").add("mlbackCategory", mlbackCategory);
 	}
 	
 	/**3.0	onuse	20191225	检查
@@ -132,23 +132,11 @@ public class MlbackCategoryController {
 		}else{
 			mlbackCategory.setCategoryDesc(categoryDesc+">"+categoryName);
 		}
-		//取出id
-		Integer categoryId = mlbackCategory.getCategoryId();
 		String nowTime = DateUtil.strTime14s();
 		mlbackCategory.setCategoryMotifytime(nowTime);
 		mlbackCategory.setCategoryParentName(categoryParentName);
-		if(categoryId==null){
-			//无id，insert
-			//System.out.println("插入前"+mlbackCategory.toString());
-			mlbackCategoryService.insertSelective(mlbackCategory);
-			//System.out.println("插入后"+mlbackCategory.toString());
-			return Msg.success().add("resMsg", "插入成功");
-		}else{
-			//有id，update
-			mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategory);
-			//System.out.println("后台操作:categoryId不为null,走update+intResult:"+intResult);
-			return Msg.success().add("resMsg", "更新成功");
-		}		
+		mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategory);
+		return Msg.success().add("resMsg", "category保存成功");
 	}
 	
 	/**4.0	onuse	20191225	检查
@@ -162,7 +150,7 @@ public class MlbackCategoryController {
 		//接收id信息
 		int categoryIdInt = mlbackCategory.getCategoryId();
 		mlbackCategoryService.deleteByPrimaryKey(categoryIdInt);
-		return Msg.success().add("resMsg", "delete success");
+		return Msg.success().add("resMsg", "category delete  success");
 	}
 	
 	/**
@@ -206,7 +194,7 @@ public class MlbackCategoryController {
 				mlbackCategorydownEr.add(mlbackCategoryOne);
 			}
 		}
-		return Msg.success().add("resMsg", "success").add("mlbackCategorydownEr", mlbackCategorydownEr);
+		return Msg.success().add("resMsg", "success").add("mlbackCategorydownList", mlbackCategorydownList).add("mlbackCategorydownEr", mlbackCategorydownEr);
 	}
 	
 	/**
