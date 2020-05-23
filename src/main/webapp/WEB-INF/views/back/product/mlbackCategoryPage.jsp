@@ -335,6 +335,7 @@
 				getCollectionsData();
 				showInitBlock();
 				isCreate = false;
+				initActiveItemNum();
 			});
 		});
 		// cancel collection save
@@ -342,6 +343,7 @@
 			if (isCreate) {
 				getCollectionsData();
 				isCreate = false;
+				initActiveItemNum();
 			}
 
 			showInitBlock();
@@ -741,12 +743,17 @@
 			collections.push(name);
 			storage.setItem('collections', JSON.stringify(collections));
 		}
-		// tab active-item cache
+		// tab active-item cache (get & set)
 		function getActiveItemNum() {
 			return storage.getItem('itemNum') || 0;
 		}
 		function setActiveItemNum(num) {
-			storage.setItem('itemNum', num)
+			storage.setItem('itemNum', num);
+		}
+		// initial activeItem
+		function initActiveItemNum() {
+			$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
+			setActiveItemNum(0);
 		}
 	</script>
 </body>
