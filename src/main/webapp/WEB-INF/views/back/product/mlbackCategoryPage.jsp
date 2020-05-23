@@ -278,6 +278,7 @@
 		});
 		// get Data for table
 		function getTabSearchData($this) {
+			setPageNum(1);
 			var dataVal = $this.data('val') && JSON.parse($this.data('val').replace(/\'/g, '"'));
 			if (dataVal) {
 				// $('#searchCollection, #searchSupercate').off('change');
@@ -754,6 +755,7 @@
 		function initActiveItemNum() {
 			$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
 			setActiveItemNum(0);
+			setPageNum(1);
 		}
 	</script>
 </body>
