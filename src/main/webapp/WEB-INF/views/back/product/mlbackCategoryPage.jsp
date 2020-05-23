@@ -25,6 +25,8 @@
 					<div class="c-table">
 						<div class="c-table-tab">
 							<div class="c-table-tab-item" data-idx="0">All</div>
+							<div class="c-table-tab-list"></div>
+							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
 							<div class="input-group c-search">
@@ -242,20 +244,16 @@
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchCollectionVal)) return;
-			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate = ""
+			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate = "";
 			if (searchCollectionVal.supercate || searchCollectionVal.collection) {
 				addCollectionItem(searchCollectionVal);
+				createCollectionItem(val).addClass('active')
 				addTableTabItem(searchCollectionVal);
 			}
 		});
 		// search it
-		/* $('#searchCollection, #searchSupercate').on('click', function() {
-			$(this).one('change', function() {
-				getSearchCollectionsData();
-			});
-		}); */
 		$('#searchSupercate').on('change', function() {
-			getSearchCollectionsData();
+			updateSearchData();
 		});
 		var oldTime = (new Date()).getTime(),
 			timer = null;
@@ -265,9 +263,22 @@
 			if (newTime - oldTime < 1000) clearTimeout(timer);
 			oldTime = newTime;
 			timer = setTimeout(function() {
-				getSearchCollectionsData();
+				updateSearchData();
 			}, distanceTime);
-		})
+		});
+		// search status change
+		function updateSearchData() {
+			var searchCollectionVal = {
+				supercate: $('#searchSupercate').find('option:selected').text(),
+				supercateId: $('#searchSupercate').val(),
+				collection: $('#searchCollection').val()
+			};
+			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate = "";
+
+			$('.c-table-tab-item.active').removeClass('active');
+			$('.c-table-tab-tempory').html(createCollectionItem(searchCollectionVal).addClass('active'));
+			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
+		}
 		// tab-item click
 		$(document.body).on('click', '.c-table-tab-item', function (e) {
 			$('.c-table-tab-item').removeClass('active');
@@ -278,7 +289,6 @@
 		});
 		// get Data for table
 		function getTabSearchData($this) {
-			setPageNum(1);
 			var dataVal = $this.data('val') && JSON.parse($this.data('val').replace(/\'/g, '"'));
 			if (dataVal) {
 				// $('#searchCollection, #searchSupercate').off('change');
@@ -683,7 +693,7 @@
 					htmlStr += $item[0].outerHTML;
 				}
 
-				$('.c-table-tab').append(htmlStr);
+				$('.c-table-tab-list').append(htmlStr);
 			}
 			// check activeItem exsits or not.
 			if ($('.c-table-tab-item.active').length < 1) {
@@ -702,7 +712,7 @@
 		}
 		function addTableTabItem(val) {
 			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab').append(createCollectionItem(val).addClass('active'));
+			$('.c-table-tab-list').append(createCollectionItem(val).addClass('active'));
 			setActiveItemNum($('.c-table-tab-item').length - 1);
 		}
 		function createCollectionItem(val) {

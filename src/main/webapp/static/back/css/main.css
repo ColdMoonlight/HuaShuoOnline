@@ -207,6 +207,9 @@
 	display: flex;
 	box-shadow: 0 1px 1px 1px #ccc;
 }
+.c-table-tab-list {
+	display: flex;
+}
 .c-table-tab-item {
 	position: relative;
 	box-sizing: border-box;
@@ -217,9 +220,6 @@
 .c-table-tab-item:nth-of-type(1) {
 	margin-left: 1rem;
 }
-.delete-table-tab-item:hover {
-	color: #2eb85c;
-}
 .c-table-tab-item.active::after {
 	position: absolute;
 	bottom: -2px;
@@ -229,6 +229,12 @@
 	width: 100%;
 	height: 2px;
 	background-color: #5c6ac4;
+}
+.c-table-tab-tempory .c-table-tab-item.active::after {
+	background-color: #3d3d3d;
+}
+.delete-table-tab-item:hover {
+	color: #2eb85c;
 }
 .delete-table-tab-item {
 	position: absolute;

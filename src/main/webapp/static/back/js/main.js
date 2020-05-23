@@ -31,6 +31,11 @@ function hideSpinner(self) {
 var CURRENT_URL = window.location.href.split('#')[0],
 	$SIDEBAR_MENU = $('#sidebar-menu');
 
+// check page unload
+window.addEventListener("beforeunload", function(e) {
+	// initial page-num
+	setPageNum(1);
+});
 // Sidebar
 function init_sidebar() {
 	var closeMenu = function () {
@@ -39,8 +44,6 @@ function init_sidebar() {
 	}
 
 	$SIDEBAR_MENU.find('a').on('click', function (e) {
-		// initial page-num
-		setPageNum(1);
 		var $li = $(this).parent();
 		if ($li.is('.active')) {
 			$li.removeClass('active');
