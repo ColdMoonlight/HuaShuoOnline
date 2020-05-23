@@ -349,7 +349,7 @@
   <select id="selectMlbackCategoryBackSearch" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
   	select 
   	category_id, category_name,category_parent_id, category_parent_name, category_status, 
-  	category_lable, category_seo, category_sort_order, category_superCate_id, category_superCate_name
+  	category_lable, category_seo, category_desc, category_sort_order, category_superCate_id, category_superCate_name
   	from tb_mlback_category 
   	where category_name like concat(concat("%",#{categoryName}),"%")
      <if test="categorySuperCateId != null">
@@ -386,6 +386,5 @@
     </if>
     order by category_parent_id
   </select>
-  
   
 </mapper>
