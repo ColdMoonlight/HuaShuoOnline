@@ -18,3 +18,8 @@
   </div>
 </div>
 </div>
+<script>
+$('#deleteModal .btn-cancel').on('click', function() {
+	$('#deleteModal .btn-ok').off('click');
+});
+</script>
