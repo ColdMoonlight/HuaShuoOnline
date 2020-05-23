@@ -601,7 +601,7 @@
 				success: function (data) {
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackCategorydownEr);
+						callback(data.extend.mlbackCategorydownList);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
