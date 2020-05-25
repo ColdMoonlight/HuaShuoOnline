@@ -641,7 +641,7 @@
 					'<td>' + data[i].categoryParentId + '</td>' +
 					'<td>' + data[i].categoryParentName + '</td>' +
 					'<td>' + data[i].categoryLable + '</td>' +
-					'<td>' + (data[i].categoryStatus ? 'enable' : 'disable') + '</td>' +
+					'<td><a class="btn '+ (data[i].categoryStatus ? 'btn-success': 'btn-danger') +'" href="javascript:;">' + (data[i].categoryStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].categorySortOrder + '</td>' +
 					'<td>' + data[i].categoryDesc + '</td>' +
 					'<td>';
