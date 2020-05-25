@@ -742,8 +742,7 @@
 				textArr.push(val.collection)
 			}
 
-			return $('<div class="c-table-tab-item" data-val='+ JSON.stringify(val) +'>' + textArr.join("-") +
-				'<div class="delete-table-tab-item c-icon">x</div></div>');
+			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
 		}
 		function deleteTableTabItem(e) {
 			e.stopPropagation();
