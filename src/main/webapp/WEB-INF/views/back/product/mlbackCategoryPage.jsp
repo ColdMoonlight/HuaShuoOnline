@@ -358,7 +358,7 @@
 		});
 		// status combinewith supercate
 		$('#categoryStatus').on('click', function(e) {
-			if ($('#categorySuperCateId').val() == '0') {
+			if (parseInt($('#categorySuperCateId').val()) < 0) {
 				toastr.info('Please Select super-category!');
 				$('#categorySuperCateId').focus();
 				$('#categoryStatus').prop('checked', false)
@@ -386,8 +386,8 @@
 
 			$('#categoryImgurl').val('');
 
-			$('#categorySuperCateId').val('');
-			$('#categoryParentId').val('');
+			$('#categorySuperCateId').val('-1');
+			$('#categoryParentId').val('-1');
 
 			$('#categorySeo').val('');
 			$('#categoryMetatitle').val('');
@@ -430,15 +430,12 @@
 
 			if (hasSuperCategory && hasParentCategory) {
 				// value
-				$('#categorySuperCateId').val(data.categorySuperCateId > 0 ? data.categorySuperCateId : 0);
+				$('#categorySuperCateId').val(data.categorySuperCateId || '-1');
 				$('#categoryParentId').val(data.categoryParentId || '-1');
-				// attr
-				$('#categorySuperCateId').attr('data-val', data.categorySuperCateId > 0 ? data.categorySuperCateId : 0);
-				$('#categoryParentId').attr('data-val', data.categoryParentId || '-1');
-			} else {
-				$('#categorySuperCateId').attr('data-val', data.categorySuperCateId > 0 ? data.categorySuperCateId : 0);
-				$('#categoryParentId').attr('data-val', data.categoryParentId || '-1');
 			}
+			// attr
+			$('#categorySuperCateId').attr('data-val', data.categorySuperCateId || '-1');
+			$('#categoryParentId').attr('data-val', data.categoryParentId || '-1');
 
 			$('#categoryImgurl').val(data.categoryImgurl);
 
@@ -506,10 +503,12 @@
 		// callback get search data
 		function getSearchCollectionsData(data) {
 			$('.c-mask').show();
+			// formdata issue, need to check formdata ?
 			var formData = '';
 			formData += 'categoryName=' + $('#searchCollection').val();
-			formData += ('&categorySuperCateId=' + ($('#searchSupercate').attr('data-val') || '0'));
+			formData += ('&categorySuperCateId=' + ($('#searchSupercate').attr('data-val') || '-1'));
 			formData += '&pn=' + getPageNum();
+
 			$.ajax({
 				url: "${APP_PATH }/MlbackCategory/backSearchBycategory",
 				type: "post",
@@ -664,7 +663,7 @@
 		}
 		// render superCategoryData
 		function renderSuperCategory(data) {
-			var htmlStr = '<option value="0">Please Select Super-category</option>';
+			var htmlStr = '<option value="-1">Please Select Super-category</option>';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
 			}
@@ -688,9 +687,9 @@
 		
 		function initFormFiled() {
 			// search
-			$('#searchSupercate').val($('#searchSupercate').data('val') || '0');
+			$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
 			// form
-			$('#categorySuperCateId').val($('#categorySuperCateId').data('val') || '0');
+			$('#categorySuperCateId').val($('#categorySuperCateId').data('val') || '-1');
 			$('#categoryParentId').val($('#categoryParentId').data('val') || '-1');
 		}
 		function renderTabItems() {
