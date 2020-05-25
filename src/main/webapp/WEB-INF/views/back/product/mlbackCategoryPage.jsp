@@ -289,7 +289,7 @@
 		});
 		// get Data for table
 		function getTabSearchData($this) {
-			var dataVal = $this.data('val') && JSON.parse($this.data('val').replace(/\'/g, '"'));
+			var dataVal = $this.data('val');
 			if (dataVal) {
 				// $('#searchCollection, #searchSupercate').off('change');
 				setTimeout(function() {
@@ -721,14 +721,14 @@
 				textArr.push(val.collection)
 			}
 
-			return $('<div class="c-table-tab-item" data-val="'+ JSON.stringify(val).replace(/\"/g, "'") +'">' + textArr.join("-") +
+			return $('<div class="c-table-tab-item" data-val='+ JSON.stringify(val) +'>' + textArr.join("-") +
 				'<div class="delete-table-tab-item c-icon">x</div></div>');
 		}
 		function deleteTableTabItem(e) {
 			e.stopPropagation();
 			var targetEl = $(e.target),
 				parentEl = targetEl.parent('.c-table-tab-item'),
-				itemVal = JSON.parse($(parentEl).data('val').replace(/\'/g, '"'));
+				itemVal = $(parentEl).data('val');
 
 			deleteCollectionItem(itemVal);
 			$(parentEl).remove();
