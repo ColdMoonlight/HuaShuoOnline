@@ -361,9 +361,15 @@
 			if (parseInt($('#categorySuperCateId').val()) < 0) {
 				toastr.info('Please Select super-category!');
 				$('#categorySuperCateId').focus();
-				$('#categoryStatus').prop('checked', false)
+				$('#categoryStatus').prop('checked', false);
 			}
-		})
+		});
+		// supercate & categoryStatus combinewith
+		$('#categorySuperCateId').on('change', function(e) {
+			if (parseInt($(this).val()) < 0) {
+				$('#categoryStatus').prop('checked', false);
+			}
+		});
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
