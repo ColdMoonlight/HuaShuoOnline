@@ -32,9 +32,9 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div  class="form-control">
-									<input name="searchCollection" type="text" placeholder="Search Collections">
+									<input name="searchCollection" type="text" disabled placeholder="Search Collections">
 								</div>
-								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
+								<a class="btn btn-primary input-group-addon btn-save-search" disabled>Save search</a>
 							</div>
 							<table class="c-table-table table table-responsive-sm">
 								<thead>
