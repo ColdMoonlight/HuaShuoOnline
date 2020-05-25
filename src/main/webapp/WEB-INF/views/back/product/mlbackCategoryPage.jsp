@@ -335,12 +335,14 @@
 		// save collection
 		$('.btn-save').on('click', function () {
 			saveCollectionData(getFormData(), function() {
+				// redirect tab-active & then search-data
 				if (isCreate) {
 					isCreate = false;
-					initActiveItemNum();					
-				} else {
-					getTabSearchData($('.c-table-tab-item.active'));
+					initActiveItemNum();
+					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
 				}
+
+				getTabSearchData($('.c-table-tab-item.active'));
 				showInitBlock();
 			});
 		});
