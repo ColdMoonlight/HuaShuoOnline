@@ -288,12 +288,12 @@
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
 			if (dataVal) {
-				$('#searchCollection').val(dataVal.collection ? dataVal.collection : '');
-				$('#searchSupercate').attr('data-val', dataVal.supercateId ? dataVal.supercateId : '0');
-				$('#searchSupercate').val(dataVal.supercateId ? dataVal.supercateId : '0');
+				$('#searchCollection').val(dataVal.collection || '');
+				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
+				$('#searchSupercate').val(dataVal.supercateId || '-1');
 				getSearchCollectionsData();
 			} else {
-				$('#searchSupercate').val('0');
+				$('#searchSupercate').val('-1');
 				$('#searchCollection').val('');
 				getCollectionsData();
 			}
