@@ -40,9 +40,9 @@
 								<thead>
 									<tr>
 										<th>supercate-id</th>
+										<th>iamge</th>
 										<th>supercate-name</th>
 										<th>status</th>
-										<th>iamge</th>
 										<th>order</th>
 										<th>operation</th>
 									</tr>
@@ -410,9 +410,13 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				categoryData[data[i].supercateId] = data[i];
 				htmlStr += '<tr><td>' + data[i].supercateId + '</td>' +
+					'<td>' +
+						(data[i].supercateImgurl ?
+							'<div class="c-table-img" style="background-image: url(' + data[i].supercateImgurl + ');"></div>'
+							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+					'</td>' +
 					'<td>' + data[i].supercateName + '</td>' +
 					'<td>' + (data[i].supercateStatus ? 'enable' : 'disable') + '</td>' +
-					'<td><div class="c-table-img" style="background-image: url(' + data[i].supercateImgurl + ');"></div></td>' +
 					'<td>' + data[i].supercateSortOrder + '</td>' +
 					'<td>' +
 					'<button class="btn btn-primary btn-edit" data-id="' + data[i].supercateId + '">' +

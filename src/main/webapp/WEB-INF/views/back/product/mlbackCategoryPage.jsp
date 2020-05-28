@@ -641,7 +641,11 @@
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].categoryId + '</td>' +
-					'<td><div class="c-table-img" style="background-image: url(' + data[i].categoryImgurl + ');"></div></td>' +
+					'<td>' +
+						(data[i].categoryImgurl ?
+							'<div class="c-table-img" style="background-image: url(' + data[i].categoryImgurl + ');"></div>'
+							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+					'</td>' +
 					'<td>' + data[i].categoryName + '</td>' +
 					'<td>' + data[i].categoryParentId + '</td>' +
 					'<td>' + data[i].categoryParentName + '</td>' +
