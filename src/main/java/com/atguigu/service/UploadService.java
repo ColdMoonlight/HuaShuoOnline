@@ -16,24 +16,22 @@ public class UploadService {
 	 * @exception 查看用户信息是否存在
 	 * 
 	 * */
-	public String uploadImage(CommonsMultipartFile file,String uploadPath,String realUploadUrl) {
-		
+	public String uploadImage(CommonsMultipartFile file,String uploadPath,String realUploadPath) {
+
 		InputStream is = null;
 		OutputStream os = null;
 		try {
 			is = file.getInputStream();
-			String des = realUploadUrl+"/"+file.getOriginalFilename();
-			os = new FileOutputStream(des);
+			String des = realUploadPath+"/"+file.getOriginalFilename();//文件最终的路径
 			
-			//我们就每次读写10K,我们的文件小，这个就已经够用了
-	        byte[] b = new byte[1024*10];
-
-	        int len = 0 ;
-
-	        //读写文件,-1标识为空
-	        while( (len = is.read(b) ) != -1 ) {
-	            os.write(b);
-	        }
+			//创建文件输出流
+			os = new FileOutputStream(des);
+			//读取文件输入流
+			byte[] b = new byte[1024];
+			int len = 0;
+			while((len = is.read(b))>0){//输入流读取
+				os.write(b);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,22 +39,20 @@ public class UploadService {
 			if(is!=null){
 				try {
 					is.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if(os!=null){
-				try {
-					os.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
 			}
 			
+			if(os!=null){
+				try {
+					os.close();
+				} catch (IOException e2) {
+					e2.printStackTrace();
+				}
+			}
 		}
-		
 		return uploadPath+"/"+file.getOriginalFilename();
 	}
 	
-
 }
