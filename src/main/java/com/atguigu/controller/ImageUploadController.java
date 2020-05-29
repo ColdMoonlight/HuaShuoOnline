@@ -1,5 +1,7 @@
 package com.atguigu.controller;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,7 +38,13 @@ public class ImageUploadController {
 	@RequestMapping(value="/thumImageCategory",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg thumImageCategory(@RequestParam("image")CommonsMultipartFile file,@RequestParam("categorySeo")String categorySeo,
-			@RequestParam("categoryId")String categoryId,HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+			@RequestParam("categoryId")String categoryId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		String typeName="";
+		if("category".equals(type)){
+			typeName="cateid";
+		}
 		
 		String uploadPath = "static/img/category";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
@@ -51,7 +59,7 @@ public class ImageUploadController {
 		String sqlthumImageUrl="";
 		try {
 			
-			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath);//图片原图路径
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,typeName);//图片原图路径
 //			System.out.println("uploadPath:"+uploadPath);
 //			System.out.println("realUploadPath:"+realUploadPath);
 //			System.out.println("imageUrl:"+imageUrl);
@@ -66,7 +74,7 @@ public class ImageUploadController {
 		
 		try {
 			
-			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress);
+			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,typeName);
 //			System.out.println("uploadPathcompress:"+uploadPathcompress);
 //			System.out.println("realUploadPathcompress:"+realUploadPathcompress);
 //			System.out.println("thumImageUrl:"+thumImageUrl);
@@ -79,6 +87,20 @@ public class ImageUploadController {
 		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
+	}
+	
+    private static String getCatefilename(String cateid) {
+		Calendar c = Calendar.getInstance();//可以对每个时间域单独修改   对时间进行加减操作等
+		int year = c.get(Calendar.YEAR);  
+		 int month = c.get(Calendar.MONTH);   
+		int date = c.get(Calendar.DATE);    
+		int hour = c.get(Calendar.HOUR_OF_DAY);   
+		int minute = c.get(Calendar.MINUTE);   
+		int second = c.get(Calendar.SECOND);    
+		System.out.println(year + "/" + month + "/" + date + " " +hour + ":" +minute + ":" + second);    
+		String newfilename = "cateid"+ cateid +"time"+date+hour+minute+second+".jpg";
+		System.out.println(newfilename);
+		return newfilename;
 	}
 	
 }

@@ -16,7 +16,7 @@ public class UploadService {
 	 * @exception 查看用户信息是否存在
 	 * 
 	 * */
-	public String uploadImage(CommonsMultipartFile file,String uploadPath,String realUploadPath) {
+	public String uploadImage(CommonsMultipartFile file,String uploadPath,String realUploadPath,String typeName) {
 
 		InputStream is = null;
 		OutputStream os = null;
