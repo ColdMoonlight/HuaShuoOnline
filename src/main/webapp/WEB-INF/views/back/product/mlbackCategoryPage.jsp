@@ -394,8 +394,8 @@
 				success: function (data) {
 					if (data.code == 100) {
 						addPicture($this, {
-							imageUrl: data.extend.imageUrl,
-							thumImageUrl: data.extend.thumImageUrl
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlthumImageUrl
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
