@@ -7,8 +7,8 @@ import net.coobird.thumbnailator.Thumbnails;
 @Service
 public class ThumbnailService {
 	
-	public static final int WIDTH = 100;
-	public static final int HEIGH = 100; 
+	public static final int WIDTH = 200;
+	public static final int HEIGH = 200; 
 	
 	/**
 	 * @author Shinelon
@@ -19,14 +19,14 @@ public class ThumbnailService {
 	public String Thumbnail(CommonsMultipartFile file,String uploadPath,String realUploadUrl) {
 		
 		try {
-			String des = realUploadUrl+"/"+file.getOriginalFilename();
+			String des = realUploadUrl+"/"+"thumb_"+file.getOriginalFilename();
 			Thumbnails.of(file.getInputStream()).size(WIDTH,HEIGH).toFile(des);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return uploadPath+"/"+file.getOriginalFilename();
+		return uploadPath+"/"+"thumb_"+file.getOriginalFilename();
+		
 	}
 	
-
 }

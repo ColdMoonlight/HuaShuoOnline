@@ -14,7 +14,8 @@
 	</div>
 	<div class="bbody">
 		
-		<form id="upload_from"<%--  enctype="multipart/form-data" method="post" action="${APP_PATH}/thumImageUrlImg/thumImage" --%>>
+		<form id="upload_from" enctype="multipart/form-data" method="post" action="${APP_PATH}/thumImageUrlImg/thumImage">
+
 		
 		<h2>请选择上传图片</h2>
 		<div>
@@ -28,7 +29,8 @@
 </body>
 <script src="${APP_PATH}/static/common/jquery.min.js"></script>
 <script>
-$('#upload_from button').on('click', function() {
+/* $('#upload_from button').on('click', function(e) {
+	e.preventDefault();
 	var formData = 'image=' + $('#image')[0].files[0];
 	$.ajax({
 		url: "${APP_PATH}/thumImageUrlImg/thumImage",
@@ -46,6 +48,6 @@ $('#upload_from button').on('click', function() {
 			conosle.log('xxx')
 		}
 	});	
-})
+}) */
 </script>
 </html>
