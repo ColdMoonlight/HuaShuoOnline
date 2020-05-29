@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.atguigu.common.Msg;
 import com.atguigu.service.ThumbnailService;
 import com.atguigu.service.UploadService;
@@ -40,6 +43,7 @@ public class ImgController {
 	 * 	onuse	20200103	检查
 	 * */
 	@RequestMapping(value="/thumImage",method=RequestMethod.POST)
+	@ResponseBody
 	public Msg thumbnail(@RequestParam("image")CommonsMultipartFile file,HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
 		System.out.println("----into----thumImageUrlImg/thumImage----");
@@ -66,6 +70,7 @@ public class ImgController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl);
 	}
 	
