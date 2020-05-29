@@ -14,13 +14,13 @@
 	</div>
 	<div class="bbody">
 		
-		<form id="upload_from" enctype="multipart/form-data" method="post" action="${APP_PATH}/thumImageUrlImg/thumImage">
+		<form id="upload_from">
 
 		
 		<h2>请选择上传图片</h2>
 		<div>
 			<input type="file" name="image" id="image">
-			<button type="submit">上传</button>
+			<button>上传</button>
 		</div>
 		</form>
 		
@@ -29,25 +29,30 @@
 </body>
 <script src="${APP_PATH}/static/common/jquery.min.js"></script>
 <script>
-/* $('#upload_from button').on('click', function(e) {
+$('#upload_from button').on('click', function(e) {
 	e.preventDefault();
-	var formData = 'image=' + $('#image')[0].files[0];
+	var formData = new FormData();
+	formData.append('image', $('#image')[0].files[0])
 	$.ajax({
 		url: "${APP_PATH}/thumImageUrlImg/thumImage",
 		type: "post",
 		data: formData,
+		processData: false,
+		contentType: false,
+		cache: false,
+		dataType: 'json',
 		success: function (data) {
-			if (data.code == 100) {
 				console.log(data)
+			if (data.code == 100) {
 			}
 		},
 		error: function (err) {
-			toastr.error(err);
+			console.log(err);
 		},
 		complete: function () {
-			conosle.log('xxx')
+			console.log('xxx')
 		}
-	});	
-}) */
+	});
+});
 </script>
 </html>
