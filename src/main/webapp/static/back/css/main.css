@@ -318,6 +318,23 @@
 	background-repeat: no-repeat;
 	background-size: 100% auto;
 }
+.c-table-icon {
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	border: 2px solid #f5f5f5;
+	border-radius: 2px;
+}
+.c-table-content tbody tr:nth-of-type(odd) .c-table-icon {
+	border-color: #e8e8e8;
+}
+.c-table-icon>.c-icon {
+	width: 2rem;
+	height: 2rem;
+	fill: #d5d5d5;
+}
 /* chart */
 .c-chart-wrapper {
   margin: 20px 20px 0 20px;
