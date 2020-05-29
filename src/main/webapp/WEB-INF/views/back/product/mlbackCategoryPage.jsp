@@ -145,7 +145,12 @@
 										<svg class="c-icon">
 											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 										</svg>
-										<input type="file" />
+										<div class="c-backshow"></div>						
+										<input id="categoryImgurl" type="file" />										
+										<!-- spinner -->
+										<div class="spinner">
+											<div class="spinner-border" role="status" aria-hidden="true"></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -370,6 +375,52 @@
 				$('#categoryStatus').prop('checked', false);
 			}
 		});
+		// upload img
+		$('#categoryImgurl').on('change', function(e) {
+			var $this = $(this);
+			$('.c-upload-img .spinner').show();
+			var formData = new FormData();
+			formData.append('image', $this[0].files[0]);
+			formData.append('categoryId', $('#categoryId').val());
+			formData.append('categorySeo', $('#categorySeo').val());
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/thumImageCategory",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						addPicture($this, {
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlthumImageUrl
+						});
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-upload-img .spinner').hide();
+				}
+			});
+		});
+		function addPicture(el, data) {
+			var parentEl = el.parent();
+			el.attr('data-val', JSON.stringify(data));
+			parentEl.addClass('active');
+			parentEl.find('.c-backshow').css('background-image', 'url('+ encodeUrl(data.thumImageUrl) + ')');
+		}
+		function resetPicture(el) {
+			var parentEl = el.parent();
+			el.attr('data-val', '');
+			parentEl.removeClass('active');
+			parentEl.find('.c-backshow').css('background-image', '');
+		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
@@ -390,7 +441,7 @@
 			$('#categoryLable').val('');
 			$('#categoryDesc').val('');
 
-			$('#categoryImgurl').val('');
+			resetPicture($('#categoryImgurl'));
 
 			$('#categorySuperCateId').val('-1');
 			$('#categoryParentId').val('-1');
@@ -410,7 +461,9 @@
 			data.categoryLable = parseInt($('#categoryLable').val());
 			data.categoryDesc = $('#categoryDesc').val();
 
-			data.categoryImgurl = $('#categoryImgurl').val();
+			var imageData = JSON.parse($('#categoryImgurl').attr('data-val'));
+			data.categoryImgpcurl = imageData.imageUrl;
+			data.categoryImgurl = imageData.thumImageUrl;
 
 			data.categorySuperCateId = $('#categorySuperCateId').val();
 			data.categorySuperCateName = $('#categorySuperCateId').find('option:selected').text();
@@ -443,7 +496,11 @@
 			$('#categorySuperCateId').attr('data-val', data.categorySuperCateId || '-1');
 			$('#categoryParentId').attr('data-val', data.categoryParentId || '-1');
 
-			$('#categoryImgurl').val(data.categoryImgurl);
+			data.categoryImgurl && addPicture($('#categoryImgurl'), {
+				imageUrl: data.categoryImgpcurl,
+				thumImageUrl: data.categoryImgurl
+			});
+			
 
 			$('#categorySeo').val(data.categorySeo);
 			$('#categoryMetatitle').val(data.categoryMetatitle);
@@ -643,7 +700,7 @@
 				htmlStr += '<tr><td>' + data[i].categoryId + '</td>' +
 					'<td>' +
 						(data[i].categoryImgurl ?
-							'<div class="c-table-img" style="background-image: url(' + data[i].categoryImgurl + ');"></div>'
+							'<div class="c-table-img" style="background-image: url(' + encodeUrl(data[i].categoryImgurl) + ');"></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
 					'<td>' + data[i].categoryName + '</td>' +

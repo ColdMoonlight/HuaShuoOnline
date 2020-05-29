@@ -166,3 +166,11 @@ function renderTablePagination(data) {
 		navEle.appendTo('#table-pagination');
 	}
 }
+
+function encodeUrl(url) {
+	return window.encodeURI(url).replace('(', '%28').replace(')', '%29')
+}
+
+function decodeUrl(url) {
+	return window.decodeURI(url);
+}
