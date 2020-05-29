@@ -65,8 +65,11 @@
 					if (data.code == 100) {
 						var parentEl = $this.parent();
 						parentEl.addClass('active');
-						parentEl.find('.c-backshow').css('background-image', 'url('+ encodeUrl('${APP_PATH}' + data.extend.thumImageUrl) + ')');
-						addUploadListItem(data.extend.imageUrl);
+						parentEl.find('.c-backshow').css('background-image', 'url('+ encodeUrl(data.extend.thumImageUrl) + ')');
+						addUploadListItem({
+							imageUrl: data.extend.imageUrl,
+							thumImageUrl: data.extend.thumImageUrl
+						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
 					}
@@ -80,8 +83,8 @@
 			});
 		});
 		
-		function addUploadListItem(imgUrl) {
-			var item = $('<div class="upload-list-item" style="background-image: url('+ encodeUrl('${APP_PATH}'+ imgUrl) +');" />');
+		function addUploadListItem(data) {
+			var item = $('<div class="upload-list-item" style="background-image: url('+ encodeUrl(data.imageUrl) +');" />');
 
 			$('.upload-list').append(item);
 		}
