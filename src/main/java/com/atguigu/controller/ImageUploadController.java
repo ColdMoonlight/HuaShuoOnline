@@ -14,6 +14,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.atguigu.common.Msg;
 import com.atguigu.service.ThumbnailService;
 import com.atguigu.service.UploadService;
+import com.atguigu.utils.URLLocationUtils;
 
 /**
  * HomePage
@@ -37,10 +38,18 @@ public class ImageUploadController {
 	public Msg thumImageCategory(@RequestParam("image")CommonsMultipartFile file,@RequestParam("categorySeo")String categorySeo,
 			@RequestParam("categoryId")String categoryId,HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
-		String uploadPath = "/static/img/category";
+		String uploadPath = "static/img/category";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		System.out.println("uploadPath:"+uploadPath);
 		System.out.println("realUploadPath:"+realUploadPath);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);	//出来是真实的
+        
+        System.out.println("basePathStr:"+basePathStr);
+		
+		
+		
 		String imageUrl ="";
 		String thumImageUrl ="";
 		try {
@@ -49,11 +58,13 @@ public class ImageUploadController {
 			System.out.println("uploadPath:"+uploadPath);
 			System.out.println("realUploadPath:"+realUploadPath);
 			System.out.println("imageUrl:"+imageUrl);
+			String sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "/static/imagecompress/category";
+		String uploadPathcompress = "static/imagecompress/category";
 		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
 		
 		try {
@@ -62,6 +73,10 @@ public class ImageUploadController {
 			System.out.println("uploadPathcompress:"+uploadPathcompress);
 			System.out.println("realUploadPathcompress:"+realUploadPathcompress);
 			System.out.println("thumImageUrl:"+thumImageUrl);
+			
+			String sqlthumImageUrl=basePathStr+thumImageUrl;
+			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
