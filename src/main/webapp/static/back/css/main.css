@@ -359,6 +359,29 @@
 	width: 4rem;
 	height: 4rem;
 }
+.c-upload-img>.c-backshow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	width: 100%;
+	height: 100%;
+	border: 1px solid #d5d5d5;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+}
+.c-upload-img.active:hover {
+	filter: brightness(1.1);
+}
+.c-upload-img.active {
+	border-color: transparent;
+}
+.c-upload-img.active>.c-backshow {
+	display: block;
+}
+.c-upload-img.active>.c-icon {
+	display: none;
+}
 .c-upload-img>input {
 	position: absolute;
 	top: 0;
@@ -372,7 +395,28 @@
 	opacity: 0;
 	cursor: pointer;
 }
-
+.c-upload-img .spinner {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 3;
+	text-align: center;
+	background-color: rgba(0, 0, 0, .6);
+}
+.c-upload-img .spinner::after {
+	content: "";
+	display: inline-block;
+	vertical-align: middle;
+	width: 0;
+	height: 100%;
+}
+.c-upload-img .spinner>.spinner-border {
+	display: inline-block;
+	vertical-align: middle;
+}
 #deleteModal .modal-body {
 	text-align: center;
 }
