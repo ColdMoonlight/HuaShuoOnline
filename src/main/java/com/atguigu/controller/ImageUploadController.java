@@ -40,25 +40,22 @@ public class ImageUploadController {
 		
 		String uploadPath = "static/img/category";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
-		System.out.println("uploadPath:"+uploadPath);
-		System.out.println("realUploadPath:"+realUploadPath);
 		
 		//当前服务器路径
-		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);	//出来是真实的
-        
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
         System.out.println("basePathStr:"+basePathStr);
-		
-		
 		
 		String imageUrl ="";
 		String thumImageUrl ="";
+		String sqlimageUrl="";
+		String sqlthumImageUrl="";
 		try {
 			
 			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath);//图片原图路径
-			System.out.println("uploadPath:"+uploadPath);
-			System.out.println("realUploadPath:"+realUploadPath);
-			System.out.println("imageUrl:"+imageUrl);
-			String sqlimageUrl=basePathStr+imageUrl;
+//			System.out.println("uploadPath:"+uploadPath);
+//			System.out.println("realUploadPath:"+realUploadPath);
+//			System.out.println("imageUrl:"+imageUrl);
+			sqlimageUrl=basePathStr+imageUrl;
 			System.out.println("sqlimageUrl:"+sqlimageUrl);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,18 +67,18 @@ public class ImageUploadController {
 		try {
 			
 			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress);
-			System.out.println("uploadPathcompress:"+uploadPathcompress);
-			System.out.println("realUploadPathcompress:"+realUploadPathcompress);
-			System.out.println("thumImageUrl:"+thumImageUrl);
-			
-			String sqlthumImageUrl=basePathStr+thumImageUrl;
+//			System.out.println("uploadPathcompress:"+uploadPathcompress);
+//			System.out.println("realUploadPathcompress:"+realUploadPathcompress);
+//			System.out.println("thumImageUrl:"+thumImageUrl);
+			sqlthumImageUrl=basePathStr+thumImageUrl;
 			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl);
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
+				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
 	}
 	
 }
