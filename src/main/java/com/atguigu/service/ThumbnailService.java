@@ -20,7 +20,7 @@ public class ThumbnailService {
 		
 		try {
 			String des = realUploadUrl+"/"+"thumb_"+file.getOriginalFilename();
-			Thumbnails.of(file.getInputStream()).size(WIDTH,HEIGH).toFile(des);
+			Thumbnails.of(file.getInputStream()).scale(0.4f).toFile(des);
 
 		} catch (Exception e) {
 			e.printStackTrace();

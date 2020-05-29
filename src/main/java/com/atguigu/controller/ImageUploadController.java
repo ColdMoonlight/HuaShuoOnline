@@ -1,4 +1,4 @@
-package com.atguigu.controller.back;
+package com.atguigu.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +20,8 @@ import com.atguigu.service.UploadService;
  * @author
  */
 @Controller
-@RequestMapping("/thumImageUrlImg")
-public class ImgController {
+@RequestMapping("/ImageUpload")
+public class ImageUploadController {
 	
 	@Autowired
 	UploadService uploadService;
@@ -32,20 +32,12 @@ public class ImgController {
 	/**
 	 * 	onuse	20200103	检查
 	 * */
-	@RequestMapping(value="/toTmagePage",method=RequestMethod.GET)
-	public String toTmagePage(HttpSession session) throws Exception{
-		
-		return "image";
-	}
-	
-	/**
-	 * 	onuse	20200103	检查
-	 * */
 	@RequestMapping(value="/thumImageCategory",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg thumImageCategory(@RequestParam("image")CommonsMultipartFile file,HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+	public Msg thumImageCategory(@RequestParam("image")CommonsMultipartFile file,@RequestParam("categorySeo")String categorySeo,
+			@RequestParam("categoryId")String categoryId,HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
-		String uploadPath = "/image/product";
+		String uploadPath = "/static/img/category";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		System.out.println("uploadPath:"+uploadPath);
 		System.out.println("realUploadPath:"+realUploadPath);
@@ -61,7 +53,7 @@ public class ImgController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "/imagecompress/product";
+		String uploadPathcompress = "/static/imagecompress/category";
 		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
 		
 		try {
