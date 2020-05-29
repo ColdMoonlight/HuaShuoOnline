@@ -65,8 +65,8 @@
 					if (data.code == 100) {
 						var parentEl = $this.parent();
 						parentEl.addClass('active');
-						parentEl.find('.c-backshow').css('background-image', 'url(${APP_PATH}' + escape(data.extend.thumImageUrl) + ')');
-						addUploadListItem(escape(data.extend.imageUrl));
+						parentEl.find('.c-backshow').css('background-image', 'url('+ encodeUrl('${APP_PATH}' + data.extend.thumImageUrl) + ')');
+						addUploadListItem(data.extend.imageUrl);
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
 					}
@@ -81,7 +81,7 @@
 		});
 		
 		function addUploadListItem(imgUrl) {
-			var item = $('<div class="upload-list-item" style="background-image: url(${APP_PATH}'+ imgUrl +');" />');
+			var item = $('<div class="upload-list-item" style="background-image: url('+ encodeUrl('${APP_PATH}'+ imgUrl) +');" />');
 
 			$('.upload-list').append(item);
 		}
