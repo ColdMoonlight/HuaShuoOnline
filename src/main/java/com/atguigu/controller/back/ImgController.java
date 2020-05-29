@@ -42,7 +42,7 @@ public class ImgController {
 	@RequestMapping(value="/thumImage",method=RequestMethod.POST)
 	public Msg thumbnail(@RequestParam("image")CommonsMultipartFile file,HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
-		System.out.println("--into--thumImageUrlImg/thumImage--");
+		System.out.println("----into----thumImageUrlImg/thumImage----");
 		
 		String uploadPath = "/image";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
