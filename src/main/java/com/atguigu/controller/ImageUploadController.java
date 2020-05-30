@@ -40,7 +40,7 @@ public class ImageUploadController {
 	public Msg thumImageCategory(@RequestParam("image")CommonsMultipartFile file,@RequestParam("categorySeo")String categorySeo,
 			@RequestParam("categoryId")String categoryId,@RequestParam("type")String type,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
-		
+		//判断参数,确定信息
 		String typeName="";
 		if("category".equals(type)){
 			typeName="cateid";

@@ -14,7 +14,6 @@ public class UploadService {
 	 * @author Shinelon
 	 * @param MlbackAdmin
 	 * @exception 查看用户信息是否存在
-	 * 
 	 * */
 	public String uploadImage(CommonsMultipartFile file,String uploadPath,String realUploadPath,String typeName) {
 
