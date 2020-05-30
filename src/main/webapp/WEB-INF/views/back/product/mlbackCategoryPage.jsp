@@ -338,7 +338,11 @@
 			$('#deleteModal .btn-ok').one('click', function () {
 				deleteCollectionData({
 					categoryId: categoryId,
-				}, getCollectionsData);
+				}, function() {
+					getCollectionsData();
+					// update parentCategory data
+					getParentCategoryData(renderParentCategory);
+				});
 			});
 		});
 		// save collection
