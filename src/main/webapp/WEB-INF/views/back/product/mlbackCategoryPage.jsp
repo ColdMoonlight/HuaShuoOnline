@@ -437,9 +437,9 @@
 		function resetFormData() {
 			$('#categoryId').val('');
 			$('#categoryName').val('');
-			$('#categorySortOrder').val('');
+			$('#categorySortOrder').val('0');
 			$('#categoryStatus').prop('checked', false);
-			$('#categoryLable').val('');
+			$('#categoryLable').val('0');
 			$('#categoryDesc').val('');
 
 			resetPicture($('#categoryImgurl'));
@@ -462,7 +462,7 @@
 			data.categoryLable = parseInt($('#categoryLable').val());
 			data.categoryDesc = $('#categoryDesc').val();
 
-			var imageData = JSON.parse($('#categoryImgurl').attr('data-val'));
+			var imageData = $('#categoryImgurl').attr('data-val') && JSON.parse($('#categoryImgurl').attr('data-val'));
 			data.categoryImgpcurl = imageData.imageUrl;
 			data.categoryImgurl = imageData.thumImageUrl;
 
