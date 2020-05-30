@@ -349,6 +349,8 @@
 					isCreate = false;
 					initActiveItemNum();
 					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
+					// update parentCategory data
+					getParentCategoryData(renderParentCategory);
 				}
 
 				getTabSearchData($('.c-table-tab-item.active'));
@@ -682,6 +684,7 @@
 				url: "${APP_PATH}/MlbackCategory/getOneMlbackCategoryParentDetail",
 				type: "post",
 				contentType: 'application/json',
+				async: false,
 				success: function (data) {
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
