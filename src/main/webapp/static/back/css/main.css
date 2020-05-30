@@ -317,6 +317,7 @@
 	border: 1px solid #ccc;
 	background-repeat: no-repeat;
 	background-size: 100% auto;
+	background-position: center;
 }
 .c-table-icon {
 	display:flex;
@@ -369,6 +370,7 @@
 	border: 1px solid #d5d5d5;
 	background-size: 100% auto;
 	background-repeat: no-repeat;
+	background-position: center;
 }
 .c-upload-img.active:hover {
 	filter: brightness(1.1);
