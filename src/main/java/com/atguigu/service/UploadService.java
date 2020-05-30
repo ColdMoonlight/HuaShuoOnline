@@ -15,13 +15,14 @@ public class UploadService {
 	 * @param MlbackAdmin
 	 * @exception 查看用户信息是否存在
 	 * */
-	public String uploadImage(CommonsMultipartFile file,String uploadPath,String realUploadPath,String typeName) {
+	public String uploadImage(CommonsMultipartFile file,String uploadPath,String realUploadPath,String imgName) {
 
 		InputStream is = null;
 		OutputStream os = null;
 		try {
 			is = file.getInputStream();
-			String des = realUploadPath+"/"+file.getOriginalFilename();//文件最终的路径
+			//String des = realUploadPath+"/"+file.getOriginalFilename();//文件最终的路径
+			String des = realUploadPath+"/"+imgName;//文件最终的路径
 			
 			//创建文件输出流
 			os = new FileOutputStream(des);
@@ -51,7 +52,8 @@ public class UploadService {
 				}
 			}
 		}
-		return uploadPath+"/"+file.getOriginalFilename();
+		//return uploadPath+"/"+file.getOriginalFilename();
+		return uploadPath+"/"+imgName;
 	}
 	
 }
