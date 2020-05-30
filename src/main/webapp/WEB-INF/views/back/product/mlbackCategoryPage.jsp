@@ -414,7 +414,7 @@
 			var parentEl = el.parent();
 			el.attr('data-val', JSON.stringify(data));
 			parentEl.addClass('active');
-			parentEl.find('.c-backshow').append($('<img src="'+ encodeUrl(data.thumImageUrl) + '" />'));
+			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.thumImageUrl) + '" />');
 		}
 		function resetPicture(el) {
 			var parentEl = el.parent();
