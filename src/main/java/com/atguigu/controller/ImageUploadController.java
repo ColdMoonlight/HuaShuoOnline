@@ -40,11 +40,13 @@ public class ImageUploadController {
 	public Msg thumImageCategory(@RequestParam("image")CommonsMultipartFile file,@RequestParam("categorySeo")String categorySeo,
 			@RequestParam("categoryId")String categoryId,@RequestParam("type")String type,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
-		
+		//判断参数,确定信息
 		String typeName="";
 		if("category".equals(type)){
 			typeName="cateid";
 		}
+		
+		String imgName = getfilename(typeName,categoryId);
 		
 		String uploadPath = "static/img/category";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
@@ -59,7 +61,7 @@ public class ImageUploadController {
 		String sqlthumImageUrl="";
 		try {
 			
-			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,typeName);//图片原图路径
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
 //			System.out.println("uploadPath:"+uploadPath);
 //			System.out.println("realUploadPath:"+realUploadPath);
 //			System.out.println("imageUrl:"+imageUrl);
@@ -74,7 +76,7 @@ public class ImageUploadController {
 		
 		try {
 			
-			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,typeName);
+			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
 //			System.out.println("uploadPathcompress:"+uploadPathcompress);
 //			System.out.println("realUploadPathcompress:"+realUploadPathcompress);
 //			System.out.println("thumImageUrl:"+thumImageUrl);
@@ -89,7 +91,7 @@ public class ImageUploadController {
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
 	}
 	
-    private static String getCatefilename(String cateid) {
+    private static String getfilename(String typeName,String typeId) {
 		Calendar c = Calendar.getInstance();//可以对每个时间域单独修改   对时间进行加减操作等
 		int year = c.get(Calendar.YEAR);  
 		 int month = c.get(Calendar.MONTH);   
@@ -98,7 +100,7 @@ public class ImageUploadController {
 		int minute = c.get(Calendar.MINUTE);   
 		int second = c.get(Calendar.SECOND);    
 		System.out.println(year + "/" + month + "/" + date + " " +hour + ":" +minute + ":" + second);    
-		String newfilename = "cateid"+ cateid +"time"+date+hour+minute+second+".jpg";
+		String newfilename = typeName+ typeId +"time"+date+hour+minute+second+".jpg";
 		System.out.println(newfilename);
 		return newfilename;
 	}
