@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 public class ImageNameUtil {
 
+	//获取图片的类型前缀
 	public static String gettypeName(String type) {
 		String typeName = "";
 		if("category".equals(type)){
@@ -12,6 +13,7 @@ public class ImageNameUtil {
 		return typeName;
 	}
 	
+	//获取图片的转化名
 	public static String getfilename(String typeName,String typeIdStr) {
 		Calendar c = Calendar.getInstance();//可以对每个时间域单独修改   对时间进行加减操作等
 		int year = c.get(Calendar.YEAR);  
