@@ -146,7 +146,7 @@
 											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 										</svg>
 										<div class="c-backshow"></div>						
-										<input id="categoryImgurl" type="file" />										
+										<input id="categoryImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 										<!-- spinner -->
 										<div class="spinner">
 											<div class="spinner-border" role="status" aria-hidden="true"></div>
@@ -420,7 +420,7 @@
 			var parentEl = el.parent();
 			el.attr('data-val', '');
 			parentEl.removeClass('active');
-			parentEl.find('.c-backshow').css('background-image', '');
+			parentEl.find('.c-backshow').html('');
 		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
@@ -437,9 +437,9 @@
 		function resetFormData() {
 			$('#categoryId').val('');
 			$('#categoryName').val('');
-			$('#categorySortOrder').val('');
+			$('#categorySortOrder').val('0');
 			$('#categoryStatus').prop('checked', false);
-			$('#categoryLable').val('');
+			$('#categoryLable').val('0');
 			$('#categoryDesc').val('');
 
 			resetPicture($('#categoryImgurl'));
@@ -462,7 +462,7 @@
 			data.categoryLable = parseInt($('#categoryLable').val());
 			data.categoryDesc = $('#categoryDesc').val();
 
-			var imageData = JSON.parse($('#categoryImgurl').attr('data-val'));
+			var imageData = $('#categoryImgurl').attr('data-val') && JSON.parse($('#categoryImgurl').attr('data-val'));
 			data.categoryImgpcurl = imageData.imageUrl;
 			data.categoryImgurl = imageData.thumImageUrl;
 
