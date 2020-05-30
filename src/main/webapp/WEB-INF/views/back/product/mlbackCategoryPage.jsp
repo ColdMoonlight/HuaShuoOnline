@@ -365,7 +365,7 @@
 		$('.btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
-				initActiveItemNum();
+				/* initActiveItemNum(); */
 				// delete null collection
 				deleteCollectionData({
 					categoryId: $('#categoryId').val(),
@@ -373,7 +373,7 @@
 					console.log("cancel create-collection");
 				});
 				// fetch default collection
-				getCollectionsData();
+				// getCollectionsData();
 			}
 
 			showInitBlock();
