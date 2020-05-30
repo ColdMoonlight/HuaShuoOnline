@@ -95,4 +95,64 @@ public class ImageUploadController {
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
 	}
 	
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/thumImageProduct",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg thumImageProduct(@RequestParam("image")CommonsMultipartFile file,@RequestParam("categorySeo")String categorySeo,
+			@RequestParam("categoryId")Integer categoryId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);
+		
+		String categoryIdStr = categoryId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,categoryIdStr);
+		
+		String uploadPath = "static/img/category";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String imageUrl ="";
+		String thumImageUrl ="";
+		String sqlimageUrl="";
+		String sqlthumImageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		String uploadPathcompress = "static/imagecompress/category";
+		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+		
+		try {
+			
+			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+			sqlthumImageUrl=basePathStr+thumImageUrl;
+			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		MlbackCategory mlbackCategory = new MlbackCategory();
+		mlbackCategory.setCategoryId(categoryId);
+		mlbackCategory.setCategoryImgpcurl(sqlimageUrl);
+		mlbackCategory.setCategoryImgurl(sqlthumImageUrl);
+		
+		mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategory);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
+				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
+	}
+	
 }
