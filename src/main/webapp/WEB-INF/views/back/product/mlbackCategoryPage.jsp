@@ -364,9 +364,16 @@
 		// cancel collection save
 		$('.btn-cancel').on('click', function () {
 			if (isCreate) {
-				getCollectionsData();
 				isCreate = false;
 				initActiveItemNum();
+				// delete null collection
+				deleteCollectionData({
+					categoryId: $('#categoryId').val(),
+				}, function() {
+					console.log("cancel create-collection");
+				});
+				// fetch default collection
+				getCollectionsData();
 			}
 
 			showInitBlock();
