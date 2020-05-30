@@ -382,7 +382,7 @@
 			var formData = new FormData();
 			formData.append('type', 'cateid');
 			formData.append('image', $this[0].files[0]);
-			formData.append('categoryId', $('#categoryId').val());
+			formData.append('categoryId', parseInt($('#categoryId').val()));
 			formData.append('categorySeo', $('#categorySeo').val());
 			$.ajax({
 				url: "${APP_PATH}/ImageUpload/thumImageCategory",
@@ -414,7 +414,7 @@
 			var parentEl = el.parent();
 			el.attr('data-val', JSON.stringify(data));
 			parentEl.addClass('active');
-			parentEl.find('.c-backshow').css('background-image', 'url('+ encodeUrl(data.thumImageUrl) + ')');
+			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.thumImageUrl) + '" />');
 		}
 		function resetPicture(el) {
 			var parentEl = el.parent();
@@ -701,7 +701,7 @@
 				htmlStr += '<tr><td>' + data[i].categoryId + '</td>' +
 					'<td>' +
 						(data[i].categoryImgurl ?
-							'<div class="c-table-img" style="background-image: url(' + encodeUrl(data[i].categoryImgurl) + ');"></div>'
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].categoryImgurl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
 					'<td>' + data[i].categoryName + '</td>' +
