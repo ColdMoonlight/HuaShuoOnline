@@ -275,6 +275,9 @@
 				supercateId: $('#searchSupercate').val(),
 				collection: $('#searchCollection').val()
 			};
+			// inital pagination num
+			setPageNum(1);
+			// check searchCollection
 			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
@@ -285,6 +288,7 @@
 		$(document.body).on('click', '.c-table-tab-item', function (e) {
 			$('.c-table-tab-item').removeClass('active');
 			$(this).addClass('active');
+			// inital pagination num
 			setPageNum(1);
 			setActiveItemNum($(this).data('idx'));
 			getTabSearchData($(this));
