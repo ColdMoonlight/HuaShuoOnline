@@ -275,6 +275,9 @@
 				supercateId: $('#searchSupercate').val(),
 				collection: $('#searchCollection').val()
 			};
+			// inital pagination num
+			setPageNum(1);
+			// check searchCollection
 			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
@@ -285,6 +288,7 @@
 		$(document.body).on('click', '.c-table-tab-item', function (e) {
 			$('.c-table-tab-item').removeClass('active');
 			$(this).addClass('active');
+			// inital pagination num
 			setPageNum(1);
 			setActiveItemNum($(this).data('idx'));
 			getTabSearchData($(this));
@@ -345,6 +349,8 @@
 					isCreate = false;
 					initActiveItemNum();
 					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
+					// update parentCategory data
+					getParentCategoryData(renderParentCategory);
 				}
 
 				getTabSearchData($('.c-table-tab-item.active'));
@@ -678,6 +684,7 @@
 				url: "${APP_PATH}/MlbackCategory/getOneMlbackCategoryParentDetail",
 				type: "post",
 				contentType: 'application/json',
+				async: false,
 				success: function (data) {
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
