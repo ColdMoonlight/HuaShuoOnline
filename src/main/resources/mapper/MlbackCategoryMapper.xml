@@ -355,7 +355,7 @@
      <if test="categorySuperCateId != null">
      	and category_superCate_id = #{categorySuperCateId,jdbcType=INTEGER}
      </if>
-    order by category_parent_id
+    order by category_id desc,category_parent_id
   </select>
   <!-- selectMenuMlbackCategoryGetAll -->
   <select id="selectMenuMlbackCategoryGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
