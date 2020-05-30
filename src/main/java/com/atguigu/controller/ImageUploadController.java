@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.atguigu.bean.MlbackCategory;
 import com.atguigu.common.Msg;
+import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.ThumbnailService;
 import com.atguigu.service.UploadService;
 import com.atguigu.utils.URLLocationUtils;
@@ -32,13 +34,16 @@ public class ImageUploadController {
 	@Autowired
 	ThumbnailService thumbnailService;
 	
+	@Autowired
+	MlbackCategoryService mlbackCategoryService;
+	
 	/**
 	 * 	onuse	20200103	检查
 	 * */
 	@RequestMapping(value="/thumImageCategory",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg thumImageCategory(@RequestParam("image")CommonsMultipartFile file,@RequestParam("categorySeo")String categorySeo,
-			@RequestParam("categoryId")String categoryId,@RequestParam("type")String type,
+			@RequestParam("categoryId")Integer categoryId,@RequestParam("type")String type,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		//判断参数,确定信息
 		String typeName="";
@@ -46,7 +51,8 @@ public class ImageUploadController {
 			typeName="cateid";
 		}
 		
-		String imgName = getfilename(typeName,categoryId);
+		String categoryIdStr = categoryId+"";
+		String imgName = getfilename(typeName,categoryIdStr);
 		
 		String uploadPath = "static/img/category";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
@@ -87,20 +93,28 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
+		MlbackCategory mlbackCategory = new MlbackCategory();
+		mlbackCategory.setCategoryId(categoryId);
+		mlbackCategory.setCategoryImgpcurl(sqlimageUrl);
+		mlbackCategory.setCategoryImgurl(sqlthumImageUrl);
+		
+		mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategory);
+		
+		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
 	}
 	
-    private static String getfilename(String typeName,String typeId) {
+    private static String getfilename(String typeName,String typeIdStr) {
 		Calendar c = Calendar.getInstance();//可以对每个时间域单独修改   对时间进行加减操作等
 		int year = c.get(Calendar.YEAR);  
 		 int month = c.get(Calendar.MONTH);   
 		int date = c.get(Calendar.DATE);    
 		int hour = c.get(Calendar.HOUR_OF_DAY);   
 		int minute = c.get(Calendar.MINUTE);   
-		int second = c.get(Calendar.SECOND);    
+		int second = c.get(Calendar.SECOND);
 		System.out.println(year + "/" + month + "/" + date + " " +hour + ":" +minute + ":" + second);    
-		String newfilename = typeName+ typeId +"time"+date+hour+minute+second+".jpg";
+		String newfilename = typeName+ typeIdStr +"time"+date+hour+minute+second+".jpg";
 		System.out.println(newfilename);
 		return newfilename;
 	}
