@@ -380,6 +380,7 @@
 			var $this = $(this);
 			$('.c-upload-img .spinner').show();
 			var formData = new FormData();
+			formData.append('type', 'cateid');
 			formData.append('image', $this[0].files[0]);
 			formData.append('categoryId', $('#categoryId').val());
 			formData.append('categorySeo', $('#categorySeo').val());
