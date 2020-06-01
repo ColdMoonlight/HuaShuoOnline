@@ -21,18 +21,18 @@ public interface MlbackProductMapper {
     int deleteByPrimaryKey(Integer productId);
     //更新本条
     int updateByPrimaryKeySelective(MlbackProduct record);
-    //查询后台登陆用户
-    List<MlbackProduct> selectMlbackProduct(MlbackProduct example);
-    //查询后台登陆用户
-    MlbackProduct selectMlbackProductById(MlbackProduct example);
     //查询全部登陆用户
 	List<MlbackProduct> selectMlbackProductGetAll();
-	//查询全部Category的parentid信息
-	List<MlbackProduct> selectMlbackProductGetAllByParentId();
-	//通过CategoryBySeo查找该类的详情
-	List<MlbackProduct> selectMlbackProductBySeo(MlbackProduct MlbackProduct);
-	//selectCategorylistByParentId	onuse	20191226	检查
-	List<MlbackProduct> selectProductlistByParam(MlbackProduct MlbackProduct);
-	//selectMlbackProductBackSearch	服务端需要用查询
-	List<MlbackProduct> selectMlbackProductBackSearch(MlbackProduct MlbackProductReq);
+    //查询后台登陆用户
+    List<MlbackProduct> selectMlbackProductByParam(MlbackProduct example);
+//    //查询后台登陆用户
+//    MlbackProduct selectMlbackProductById(MlbackProduct example);
+//	//查询全部Category的parentid信息
+//	List<MlbackProduct> selectMlbackProductGetAllByParentId();
+//	//通过CategoryBySeo查找该类的详情
+//	List<MlbackProduct> selectMlbackProductBySeo(MlbackProduct MlbackProduct);
+//	//selectCategorylistByParentId	onuse	20191226	检查
+//	List<MlbackProduct> selectProductlistByParam(MlbackProduct MlbackProduct);
+//	//selectMlbackProductBackSearch	服务端需要用查询
+//	List<MlbackProduct> selectMlbackProductBackSearch(MlbackProduct MlbackProductReq);
 }
