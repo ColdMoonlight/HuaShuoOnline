@@ -242,4 +242,59 @@ public class MlbackProduct {
     public void setProductDesc(String productDesc) {
         this.productDesc = productDesc == null ? null : productDesc.trim();
     }
+
+	public MlbackProduct() {
+		super();
+	}
+
+	public MlbackProduct(Integer productId, String productName, String productSeo, Integer productSupercateid,
+			String productSupercatename, String productMainimgurl, String productMainfuimgurl,
+			String productMainsmallimgurl, String productMainfumallimgurl, BigDecimal productOriginalprice,
+			Integer productHavesalenum, Integer productStatus, String productCreatetime, String productMotifytime,
+			Integer productLable, Integer productFirsth, Integer productActoffoff, Integer productReviewnum,
+			String productCategoryIdsstr, String productCategoryNamesstr, String productMetaDesc,
+			String productMetaTitle, String productMetaKeywords, String productDesc) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.productSeo = productSeo;
+		this.productSupercateid = productSupercateid;
+		this.productSupercatename = productSupercatename;
+		this.productMainimgurl = productMainimgurl;
+		this.productMainfuimgurl = productMainfuimgurl;
+		this.productMainsmallimgurl = productMainsmallimgurl;
+		this.productMainfumallimgurl = productMainfumallimgurl;
+		this.productOriginalprice = productOriginalprice;
+		this.productHavesalenum = productHavesalenum;
+		this.productStatus = productStatus;
+		this.productCreatetime = productCreatetime;
+		this.productMotifytime = productMotifytime;
+		this.productLable = productLable;
+		this.productFirsth = productFirsth;
+		this.productActoffoff = productActoffoff;
+		this.productReviewnum = productReviewnum;
+		this.productCategoryIdsstr = productCategoryIdsstr;
+		this.productCategoryNamesstr = productCategoryNamesstr;
+		this.productMetaDesc = productMetaDesc;
+		this.productMetaTitle = productMetaTitle;
+		this.productMetaKeywords = productMetaKeywords;
+		this.productDesc = productDesc;
+	}
+
+	@Override
+	public String toString() {
+		return "MlbackProduct [productId=" + productId + ", productName=" + productName + ", productSeo=" + productSeo
+				+ ", productSupercateid=" + productSupercateid + ", productSupercatename=" + productSupercatename
+				+ ", productMainimgurl=" + productMainimgurl + ", productMainfuimgurl=" + productMainfuimgurl
+				+ ", productMainsmallimgurl=" + productMainsmallimgurl + ", productMainfumallimgurl="
+				+ productMainfumallimgurl + ", productOriginalprice=" + productOriginalprice + ", productHavesalenum="
+				+ productHavesalenum + ", productStatus=" + productStatus + ", productCreatetime=" + productCreatetime
+				+ ", productMotifytime=" + productMotifytime + ", productLable=" + productLable + ", productFirsth="
+				+ productFirsth + ", productActoffoff=" + productActoffoff + ", productReviewnum=" + productReviewnum
+				+ ", productCategoryIdsstr=" + productCategoryIdsstr + ", productCategoryNamesstr="
+				+ productCategoryNamesstr + ", productMetaDesc=" + productMetaDesc + ", productMetaTitle="
+				+ productMetaTitle + ", productMetaKeywords=" + productMetaKeywords + ", productDesc=" + productDesc
+				+ "]";
+	}
+    
 }
