@@ -173,7 +173,6 @@
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
-		var categoryData = {};
 		var inputSearchEl = $('input[name="searchCollection"]');
 		var isCreate = false;
 		// init
@@ -212,10 +211,14 @@
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var cId = $(this).data('id');
-			$('.c-create c-option-title').text('Edit Collection');
-			showCreateBlock();
-			resetFormData();
-			initFormData(categoryData[cId]);
+			getOneCollectionData({
+				supercateId: cId
+			}, function(resData) {
+				$('.c-create c-option-title').text('Edit Collection');
+				resetFormData();
+				showCreateBlock();
+				initFormData(resData);
+			});
 		});
 		// delete collection
 		$(document.body).on('click', '.btn-delete', function (e) {
@@ -326,7 +329,7 @@
 				}
 			});
 		}
-		//  callback get
+		//  callback get all
 		function getCollectionsData(val) {
 			$('.c-mask').show();
 			var pnNUm = getPageNum();
@@ -338,6 +341,31 @@
 					if (data.code == 100) {
 						renderTable(data.extend.pageInfo.list);
 						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('Failed to get Super-Categeory, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		//  callback get one
+		function getOneCollectionData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackSuperCate/getOneMlbackSuperCateDetail",
+				type: "post",
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json', 
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend.mlbackSuperCate);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -408,7 +436,6 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				categoryData[data[i].supercateId] = data[i];
 				htmlStr += '<tr><td>' + data[i].supercateId + '</td>' +
 					'<td>' +
 						(data[i].supercateImgurl ?
