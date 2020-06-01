@@ -47,10 +47,7 @@
     from tb_mlback_product
     where product_id = #{productId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_mlback_product
-    where product_id = #{productId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.atguigu.bean.MlbackProduct">
     insert into tb_mlback_product (product_id, product_name, product_seo, 
       product_superCateId, product_superCateName, 
@@ -357,9 +354,24 @@
       </if>
     </trim>
   </insert>
-  <!-- insertSelective -->
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlback_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <!-- deleteByPrimaryKey -->
   
   
+  <!-- selectMlbackProductGetAll -->
+  <select id="selectMlbackProductGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_product order by product_name ,product_superCateId
+  </select>
+  <!-- deleteByPrimaryKey -->
+  
+  <!-- deleteByPrimaryKey -->
+  
+  <!-- deleteByPrimaryKey -->
   
   
 </mapper>

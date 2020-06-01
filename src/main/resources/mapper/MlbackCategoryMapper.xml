@@ -270,7 +270,7 @@
     where category_id = #{categoryId,jdbcType=INTEGER}
   </update>
   
-    <select id="selectMlbackCategoryGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
+  <select id="selectMlbackCategoryGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
     select *
     from tb_mlback_category order by category_id desc
   </select>
