@@ -115,7 +115,12 @@
 										<svg class="c-icon">
 											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 										</svg>
+										<div class="c-backshow"></div>	
 										<input type="file" />
+										<!-- spinner -->
+										<div class="spinner">
+											<div class="spinner-border" role="status" aria-hidden="true"></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -243,8 +248,12 @@
 		// cancel collection save
 		$('.btn-cancel').on('click', function () {
 			if (isCreate) {
-				getCollectionsData();
-				isCreate = false;
+				deleteCollectionData({
+					supercateId: $('#supercateId').val(),
+				}, function() {
+					showInitBlock();
+					isCreate = false;					
+				});
 			}
 
 			showInitBlock();
