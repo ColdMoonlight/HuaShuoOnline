@@ -148,7 +148,6 @@ public class ImageUploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		MlbackProduct mlbackProduct = new MlbackProduct();
 		mlbackProduct.setProductId(productId);
 		mlbackProduct.setProductMainimgurl(sqlimageUrl);
