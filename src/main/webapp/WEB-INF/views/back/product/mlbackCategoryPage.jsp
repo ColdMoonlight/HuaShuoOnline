@@ -324,11 +324,15 @@
 		});
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
-			var data = $(this).data('val');
-			$('.c-create c-option-title').text('Edit Collection');
-			showCreateBlock();
-			resetFormData();
-			initFormData(data);
+			var categoryId = $(this).data('id');
+			getOneCollectionData({
+			 categoryId: categoryId
+			}, function(resData) {
+			 	$('.c-create c-option-title').text('Edit Collection');
+				showCreateBlock();
+				resetFormData();
+				initFormData(resData);
+			});			
 		});
 		// delete collection
 		$(document.body).on('click', '.btn-delete', function (e) {
@@ -338,7 +342,11 @@
 			$('#deleteModal .btn-ok').one('click', function () {
 				deleteCollectionData({
 					categoryId: categoryId,
-				}, getCollectionsData);
+				}, function() {
+					getCollectionsData();
+					// update parentCategory data
+					getParentCategoryData(renderParentCategory);
+				});
 			});
 		});
 		// save collection
@@ -360,9 +368,16 @@
 		// cancel collection save
 		$('.btn-cancel').on('click', function () {
 			if (isCreate) {
-				getCollectionsData();
 				isCreate = false;
-				initActiveItemNum();
+				/* initActiveItemNum(); */
+				// delete null collection
+				deleteCollectionData({
+					categoryId: $('#categoryId').val(),
+				}, function() {
+					console.log("cancel create-collection");
+				});
+				// fetch default collection
+				// getCollectionsData();
 			}
 
 			showInitBlock();
@@ -545,7 +560,7 @@
 				}
 			});
 		}
-		// callback get data
+		// callback get all data
 		function getCollectionsData() {
 			$('.c-mask').show();
 			var formData = 'pn=' + getPageNum();
@@ -557,6 +572,31 @@
 					if (data.code == 100) {
 						renderTable(data.extend.pageInfo.list);
 						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get Categeory, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback get one data
+		function getOneCollectionData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH }/MlbackCategory/getOneMlbackCategoryDetail",
+				type: "post",
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend.mlbackCategoryOne);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -718,20 +758,17 @@
 					'<td><a class="badge '+ (data[i].categoryStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].categoryStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].categorySortOrder + '</td>' +
 					'<td>' + data[i].categoryDesc + '</td>' +
-					'<td>';
-				var btnEdit = $('<button class="btn btn-primary btn-edit">' +
-						'<svg class="c-icon">' +
-						'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
-						'</svg>' +
-						'</button>');
-				btnEdit.attr('data-val', JSON.stringify(data[i]));
-				htmlStr += btnEdit[0].outerHTML;
-
-				htmlStr += '<button class="btn btn-danger btn-delete" data-id="' + data[i].categoryId + '">' +
-					'<svg class="c-icon">' +
-					'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
-					'</svg>' +
-					'</button>' +
+					'<td>' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].categoryId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
+							'</svg>' +
+						'</button>' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].categoryId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
+							'</svg>' +
+						'</button>' +
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
