@@ -120,5 +120,36 @@ public class MlbackProductController {
 		mlbackProductService.deleteByPrimaryKey(productIdInt);
 		return Msg.success().add("resMsg", "category delete  success");
 	}
+	
+	/**
+	 * 5.0	UseNow	0505
+	 * 查看单个产品的详情
+	 * @param productId
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlbackProductDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlbackProductDetail(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackProduct mlbackProduct){
+		//接受信息
+		Integer productId = mlbackProduct.getProductId();
+		
+		Integer productSupercateid = mlbackProduct.getProductSupercateid();
+		
+		MlbackProduct mlbackProductReq = new MlbackProduct();
+		mlbackProductReq.setProductId(productId);
+		mlbackProductReq.setProductSupercateid(productSupercateid);
+		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductByParam(mlbackProductReq);
+		MlbackProduct mlbackProductOne = new MlbackProduct();
+		if(mlbackProductResList.size()>0){
+			//如果用这个id查到,就拿出来.
+			mlbackProductOne = mlbackProductResList.get(0);
+		}else{
+			//如果用这个id没查到,就取出当前所有产品最新上的那款.
+			mlbackProductResList = mlbackProductService.selectMlbackProductGetAll();
+			mlbackProductOne = mlbackProductResList.get(0);
+		}
+		//System.out.println("操作说明：查询-mlbackProductOne:"+mlbackProductOne);
+		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("mlbackProductOne", mlbackProductOne);
+	}
 
 }

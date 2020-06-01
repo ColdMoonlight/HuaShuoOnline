@@ -58,16 +58,16 @@ public class MlbackProductService {
 		return mlbackProductList;
 	}
 
-//	/**
-//	 * @author Shinelon
-//	 * @param MlbackProduct
-//	 * @exception 查看用户信息是否存在
-//	 * 
-//	 * */
-//	public List<MlbackProduct> selectMlbackProduct(MlbackProduct mlbackProduct) {
-//		List<MlbackProduct>  mlbackCategoryList = mlbackProductMapper.selectMlbackProduct(mlbackProduct);
-//		return mlbackCategoryList;
-//	}
+	/**
+	 * @author Shinelon
+	 * @param MlbackProduct
+	 * @exception 查看用户信息是否存在
+	 * 
+	 * */
+	public List<MlbackProduct> selectMlbackProductByParam(MlbackProduct mlbackProduct) {
+		List<MlbackProduct>  mlbackCategoryList = mlbackProductMapper.selectMlbackProductByParam(mlbackProduct);
+		return mlbackCategoryList;
+	}
 //	/**
 //	 * @author Shinelon
 //	 * @param MlbackProduct
