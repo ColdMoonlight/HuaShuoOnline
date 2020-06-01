@@ -20,7 +20,7 @@
 			</a>
 			<ul class="c-child-menu">
 				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackCategory/toMlbackProductPage">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackProduct/toMlbackProductPage">
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">All Products</span>
 					</a>

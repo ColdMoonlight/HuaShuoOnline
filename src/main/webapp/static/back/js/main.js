@@ -174,7 +174,3 @@ function encodeUrl(url) {
 function decodeUrl(url) {
 	return window.decodeURI(url);
 }
-// upload img
-$('.c-upload-img>.c-icon').on('click', function() {
-	$(this).siblings('input').click();
-})

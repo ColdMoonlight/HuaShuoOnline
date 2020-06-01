@@ -426,10 +426,3 @@
 #deleteModal .modal-body {
 	text-align: center;
 }
-
-.step {
-	display: none;
-}
-.step.active {
-	display: block;
-}

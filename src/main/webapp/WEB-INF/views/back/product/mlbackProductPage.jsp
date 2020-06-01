@@ -5,7 +5,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Collection</title>
+	<title>Product List</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
@@ -19,8 +19,8 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Collections</span>
-						<button class="btn btn-primary btn-create">Create collection</button>
+						<span class="c-option-title">Products</span>
+						<button class="btn btn-primary btn-create">Create product</button>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -34,7 +34,7 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="searchCollection" type="text" placeholder="Search Collections">						
+									<input id="searchProduct" type="text" placeholder="Search Products">						
 									<select id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
@@ -63,10 +63,10 @@
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">Edit Collections</span>
+						<span class="c-option-title">Edit Products</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save collection</button>
+							<button class="btn btn-primary btn-save">Save Product</button>
 						</div>
 					</div>
 					<div class="c-form row">
@@ -79,7 +79,7 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="categoryName">Collection Name</label>
+										<label class="col-form-label" for="categoryName">Product Name</label>
 										<div class="controls">
 											<input class="form-control" id="categoryName" type="text" />
 										</div>
@@ -131,14 +131,14 @@
 									<div class="form-group">
 										<label class="col-form-label" for="categoryDesc">Description</label>
 										<div class="controls">
-											<input class="form-control" id="categoryDesc" type="text" disabled />
+											<textarea id="categoryDesc">Please Input Product Des.</textarea>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Collection Image</div>
+									<div class="card-title-name">Product Image</div>
 								</div>
 								<div class="card-body">
 									<div id="uploadImg" class="c-upload-img">
@@ -181,7 +181,7 @@
 									<div class="card-title-name">Search engine listing preview</div>
 
 									<div class="form-group">
-										<label class="col-form-label" for="categorySeo">Collection SEO</label>
+										<label class="col-form-label" for="categorySeo">Product SEO</label>
 										<div class="controls">
 											 <input class="form-control" id="categorySeo" type="text">
 										</div>
@@ -233,22 +233,36 @@
 
 		if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
 
+		$('#categoryDesc').summernote({
+			height: 300,
+	        toolbar: [
+				['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+				['fontsize', ['fontsize']],
+				['height', ['height']],
+				['color', ['color']],
+				['para', ['ul', 'ol', 'paragraph']],
+				['table', ['table']],
+				['insert', ['link', 'picture', 'video']],
+				['view', ['codeview']]
+	        ]
+	   	});
+
 		// init
 		renderTabItems();
 		// save search
 		$('.btn-save-search').on('click', function () {
-			var searchCollectionVal = {
+			var searchProductVal = {
 				supercate: $('#searchSupercate').find('option:selected').text(),
 				supercateId: $('#searchSupercate').val(),
-				collection: $('#searchCollection').val()
+				collection: $('#searchProduct').val()
 			};
 			// cancel repeat add save-search
-			if (checkNewItem(searchCollectionVal)) return;
-			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate = "";
-			if (searchCollectionVal.supercate || searchCollectionVal.collection) {
-				addCollectionItem(searchCollectionVal);
-				createCollectionItem(searchCollectionVal).addClass('active')
-				addTableTabItem(searchCollectionVal);
+			if (checkNewItem(searchProductVal)) return;
+			if (parseInt(searchProductVal.supercateId) == 0) searchProductVal.supercate = "";
+			if (searchProductVal.supercate || searchProductVal.collection) {
+				addProductItem(searchProductVal);
+				createProductItem(searchProductVal).addClass('active')
+				addTableTabItem(searchProductVal);
 				$('.c-table-tab-tempory').html('');
 			}
 		});
@@ -259,7 +273,7 @@
 		});
 		var oldTime = (new Date()).getTime(),
 			timer = null;
-		$('#searchCollection').on('keyup', function() {
+		$('#searchProduct').on('keyup', function() {
 			var distanceTime = 1000,
 				newTime =  (new Date()).getTime();
 			if (newTime - oldTime < 1000) clearTimeout(timer);
@@ -270,18 +284,18 @@
 		});
 		// search status change
 		function updateSearchData() {
-			var searchCollectionVal = {
+			var searchProductVal = {
 				supercate: $('#searchSupercate').find('option:selected').text(),
 				supercateId: $('#searchSupercate').val(),
-				collection: $('#searchCollection').val()
+				collection: $('#searchProduct').val()
 			};
 			// inital pagination num
 			setPageNum(1);
-			// check searchCollection
-			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate = "";
+			// check searchProduct
+			if (parseInt(searchProductVal.supercateId) == 0) searchProductVal.supercate = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
-			$('.c-table-tab-tempory').html(createCollectionItem(searchCollectionVal).addClass('active'));
+			$('.c-table-tab-tempory').html(createProductItem(searchProductVal).addClass('active'));
 			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
 		}
 		// tab-item click
@@ -297,14 +311,14 @@
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
 			if (dataVal) {
-				$('#searchCollection').val(dataVal.collection || '');
+				$('#searchProduct').val(dataVal.collection || '');
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
-				getSearchCollectionsData();
+				getSearchProductsData();
 			} else {
 				$('#searchSupercate').val('-1');
-				$('#searchCollection').val('');
-				getCollectionsData();
+				$('#searchProduct').val('');
+				getProductsData();
 			}
 		}
 		// tab delete
@@ -315,20 +329,20 @@
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create c-option-title').text('Create Collection');
+			$('.c-create c-option-title').text('Create Product');
 			showCreateBlock();
 			// init formData
 			resetFormData();
-			getCollectionId();
+			getProductId();
 			isCreate = true;
 		});
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var categoryId = $(this).data('id');
-			getOneCollectionData({
+			getOneProductData({
 			 categoryId: categoryId
 			}, function(resData) {
-			 	$('.c-create c-option-title').text('Edit Collection');
+			 	$('.c-create c-option-title').text('Edit Product');
 				showCreateBlock();
 				resetFormData();
 				initFormData(resData);
@@ -340,10 +354,10 @@
 			$('#deleteModal').find('.modal-title').html('Delete collection!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteCollectionData({
+				deleteProductData({
 					categoryId: categoryId,
 				}, function() {
-					getCollectionsData();
+					getProductsData();
 					// update parentCategory data
 					getParentCategoryData(renderParentCategory);
 				});
@@ -351,7 +365,7 @@
 		});
 		// save collection
 		$('.btn-save').on('click', function () {
-			saveCollectionData(getFormData(), function() {
+			saveProductData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) {
 					isCreate = false;
@@ -371,13 +385,13 @@
 				isCreate = false;
 				/* initActiveItemNum(); */
 				// delete null collection
-				deleteCollectionData({
+				deleteProductData({
 					categoryId: $('#categoryId').val(),
 				}, function() {
 					console.log("cancel create-collection");
 				});
 				// fetch default collection
-				// getCollectionsData();
+				// getProductsData();
 			}
 
 			showInitBlock();
@@ -530,15 +544,16 @@
 			$('#categoryMetadesc').val(data.categoryMetadesc);
 		}
 		// callback get id
-		function getCollectionId() {
+		function getProductId() {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackCategory/initializaCategory",
+				url: "${APP_PATH }MlbackProduct/initializaProduct",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
+					console.log(data)
 					if (data.code == 100) {
 						var categoryId = data.extend&& data.extend.mlbackCategory && data.extend.mlbackCategory.categoryId;
 						if (categoryId) {
@@ -561,11 +576,11 @@
 			});
 		}
 		// callback get all data
-		function getCollectionsData() {
+		function getProductsData() {
 			$('.c-mask').show();
 			var formData = 'pn=' + getPageNum();
 			$.ajax({
-				url: "${APP_PATH }/MlbackCategory/getMlbackCategoryByPage",
+				url: "${APP_PATH }/MlbackProduct/getMlbackProductByPage",
 				type: "post",
 				data: formData,
 				success: function (data) {
@@ -578,7 +593,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Categeory, please refresh the page to get again！');
+					toastr.error('Failed to get Products, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -586,10 +601,10 @@
 			});
 		}
 		// callback get one data
-		function getOneCollectionData(reqData, callback) {
+		function getOneProductData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackCategory/getOneMlbackCategoryDetail",
+				url: "${APP_PATH }/MlbackProduct/getOneMlbackProductDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: 'json',
@@ -611,11 +626,11 @@
 			});
 		}
 		// callback get search data
-		function getSearchCollectionsData(data) {
+		function getSearchProductsData(data) {
 			$('.c-mask').show();
 			// formdata issue, need to check formdata ?
 			var formData = '';
-			formData += 'categoryName=' + $('#searchCollection').val();
+			formData += 'categoryName=' + $('#searchProduct').val();
 			formData += ('&categorySuperCateId=' + ($('#searchSupercate').attr('data-val') || '-1'));
 			formData += '&pn=' + getPageNum();
 
@@ -641,7 +656,7 @@
 			});
 		}
 		// callback save
-		function saveCollectionData(reqData, callback) {
+		function saveProductData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackCategory/save",
@@ -667,10 +682,10 @@
 			});
 		}
 		// callback delete
-		function deleteCollectionData(reqData, callback) {
+		function deleteProductData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCategory/delete",
+				url: "${APP_PATH}/MlbackProduct/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -775,7 +790,7 @@
 		}
 		// render superCategoryData
 		function renderSuperCategory(data) {
-			var htmlStr = '<option value="-1">Please Select Super-category</option>';
+			var htmlStr = '<option value="-1">Please Select Parent-category</option>';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
 			}
@@ -805,14 +820,14 @@
 			$('#categoryParentId').val($('#categoryParentId').data('val') || '-1');
 		}
 		function renderTabItems() {
-			var collections = getCollectionList(),
-				len = collections.length,
+			var products = getProductList(),
+				len = products.length,
 				htmlStr = '',
 				activeNum = parseInt(getActiveItemNum());
 
 			if (len > 0) {
 				for (var i = 0; i < len; i += 1) {
-					var $item = createCollectionItem(collections[i]);
+					var $item = createProductItem(products[i]);
 					$item.attr('data-idx', i+1);
 
 					if (activeNum == i + 1) {
@@ -832,7 +847,7 @@
 			getTabSearchData($('.c-table-tab-item.active'));
 		}
 		function checkNewItem(val) {
-			var filterArr = getCollectionList().filter(function(item) {
+			var filterArr = getProductList().filter(function(item) {
 				if (JSON.stringify(val) === JSON.stringify(item)) {
 					return item;
 				}
@@ -841,10 +856,10 @@
 		}
 		function addTableTabItem(val) {
 			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab-list').append(createCollectionItem(val).addClass('active'));
+			$('.c-table-tab-list').append(createProductItem(val).addClass('active'));
 			setActiveItemNum($('.c-table-tab-item').length - 1);
 		}
-		function createCollectionItem(val) {
+		function createProductItem(val) {
 			var textArr = [];
 			if (val.supercate) {
 				textArr.push(val.supercate)
@@ -861,26 +876,26 @@
 				parentEl = targetEl.parent('.c-table-tab-item'),
 				itemVal = $(parentEl).data('val');
 
-			deleteCollectionItem(itemVal);
+			deleteProductItem(itemVal);
 			$(parentEl).remove();
 
 			$('.c-table-tab-item').eq(0).addClass('active');
 			getTabSearchData($('.c-table-tab-item').eq(0));
 		}
-		function getCollectionList() {
-			return JSON.parse(storage.getItem('collections')) || [];
+		function getProductList() {
+			return JSON.parse(storage.getItem('products')) || [];
 		}
-		function deleteCollectionItem(name) {
-			var oldCollections = getCollectionList();
-			var newCollections = oldCollections.filter(function (item) {
+		function deleteProductItem(name) {
+			var oldProducts = getProductList();
+			var newProducts = oldProducts.filter(function (item) {
 				if (JSON.stringify(item) != JSON.stringify(name)) return item;
 			});
-			storage.setItem('collections', JSON.stringify(newCollections));
+			storage.setItem('products', JSON.stringify(newProducts));
 		}
-		function addCollectionItem(name) {
-			var collections = getCollectionList();
-			collections.push(name);
-			storage.setItem('collections', JSON.stringify(collections));
+		function addProductItem(name) {
+			var products = getProductList();
+			products.push(name);
+			storage.setItem('products', JSON.stringify(products));
 		}
 		// tab active-item cache (get & set)
 		function getActiveItemNum() {
