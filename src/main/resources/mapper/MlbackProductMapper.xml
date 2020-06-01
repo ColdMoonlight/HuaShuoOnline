@@ -368,15 +368,15 @@
   <select id="selectMlbackProductByParam" parameterType="com.atguigu.bean.MlbackProduct" resultMap="BaseResultMap">
     select *
     from tb_mlback_product
-    where product_superCateId = #{productSupercateid,jdbcType=INTEGER}
+    where product_id = #{productId,jdbcType=INTEGER}
       <if test="productName != null">
         and product_name = #{productName,jdbcType=VARCHAR}
       </if>
       <if test="productSeo != null">
         and product_seo = #{productSeo,jdbcType=VARCHAR}
       </if>
-      <if test="productId != null">
-        and product_id = #{productId,jdbcType=INTEGER}
+      <if test="productSupercateid != null">
+        and product_superCateId = #{productSupercateid,jdbcType=INTEGER}
       </if>
       <if test="productSupercatename != null">
         and product_superCateName = #{productSupercatename,jdbcType=VARCHAR}
