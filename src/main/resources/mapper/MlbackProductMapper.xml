@@ -203,7 +203,7 @@
   </update>
   
   <!-- insertSelective -->
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackProduct">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="productId" parameterType="com.atguigu.bean.MlbackProduct">
     insert into tb_mlback_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="productId != null">
@@ -359,17 +359,56 @@
     delete from tb_mlback_product
     where product_id = #{productId,jdbcType=INTEGER}
   </delete>
-  <!-- deleteByPrimaryKey -->
-  
-  
   <!-- selectMlbackProductGetAll -->
   <select id="selectMlbackProductGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
     select *
     from tb_mlback_product order by product_name ,product_superCateId
   </select>
+  <!-- selectMlbackProductByParam -->
+  <select id="selectMlbackProductByParam" parameterType="com.atguigu.bean.MlbackProduct" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_product
+    where product_superCateId = #{productSupercateid,jdbcType=INTEGER}
+      <if test="productName != null">
+        and product_name = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="productSeo != null">
+        and product_seo = #{productSeo,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null">
+        and product_id = #{productId,jdbcType=INTEGER}
+      </if>
+      <if test="productSupercatename != null">
+        and product_superCateName = #{productSupercatename,jdbcType=VARCHAR}
+      </if>
+      <if test="productStatus != null">
+        and product_status = #{productStatus,jdbcType=INTEGER}
+      </if>
+      <if test="productLable != null">
+        and product_lable = #{productLable,jdbcType=INTEGER}
+      </if>
+      <if test="productFirsth != null">
+        and product_firsth = #{productFirsth,jdbcType=INTEGER}
+      </if>
+      <if test="productActoffoff != null">
+        and product_actoffOff = #{productActoffoff,jdbcType=INTEGER}
+      </if>
+      <if test="productMetaDesc != null">
+        and product_meta_desc = #{productMetaDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="productMetaTitle != null">
+        and product_meta_title = #{productMetaTitle,jdbcType=VARCHAR}
+      </if>
+      <if test="productMetaKeywords != null">
+        and product_meta_keyWords = #{productMetaKeywords,jdbcType=VARCHAR}
+      </if>
+      <if test="productDesc != null">
+        and product_desc = #{productDesc,jdbcType=LONGVARCHAR}
+      </if>
+  </select>
+  <!-- deleteByPrimaryKey -->
   <!-- deleteByPrimaryKey -->
   
-  <!-- deleteByPrimaryKey -->
   
   <!-- deleteByPrimaryKey -->
   
