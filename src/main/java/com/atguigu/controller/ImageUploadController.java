@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.atguigu.bean.MlbackCategory;
+import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackCategoryService;
+import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.ThumbnailService;
 import com.atguigu.service.UploadService;
 import com.atguigu.utils.ImageNameUtil;
@@ -35,6 +37,9 @@ public class ImageUploadController {
 	
 	@Autowired
 	MlbackCategoryService mlbackCategoryService;
+	
+	@Autowired
+	MlbackProductService mlbackProductService;
 	
 	/**
 	 * 	onuse	20200103	检查
@@ -101,17 +106,17 @@ public class ImageUploadController {
 	 * */
 	@RequestMapping(value="/thumImageProduct",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg thumImageProduct(@RequestParam("image")CommonsMultipartFile file,@RequestParam("categorySeo")String categorySeo,
-			@RequestParam("categoryId")Integer categoryId,@RequestParam("type")String type,
+	public Msg thumImageProduct(@RequestParam("image")CommonsMultipartFile file,@RequestParam("productSeo")String productSeo,
+			@RequestParam("productId")Integer productId,@RequestParam("type")String type,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
 		//判断参数,确定信息
 		String typeName=ImageNameUtil.gettypeName(type);
 		
-		String categoryIdStr = categoryId+"";
-		String imgName = ImageNameUtil.getfilename(typeName,categoryIdStr);
+		String productIdStr = productId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,productIdStr);
 		
-		String uploadPath = "static/img/category";
+		String uploadPath = "static/img/product";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		
 		//当前服务器路径
@@ -131,7 +136,7 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/imagecompress/category";
+		String uploadPathcompress = "static/imagecompress/product";
 		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
 		
 		try {
@@ -143,13 +148,12 @@ public class ImageUploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		MlbackProduct mlbackProduct = new MlbackProduct();
+		mlbackProduct.setProductId(productId);
+		mlbackProduct.setProductMainimgurl(sqlimageUrl);
+		mlbackProduct.setProductMainsmallimgurl(sqlthumImageUrl);
 		
-		MlbackCategory mlbackCategory = new MlbackCategory();
-		mlbackCategory.setCategoryId(categoryId);
-		mlbackCategory.setCategoryImgpcurl(sqlimageUrl);
-		mlbackCategory.setCategoryImgurl(sqlthumImageUrl);
-		
-		mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategory);
+		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
 		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
@@ -101,11 +102,188 @@ public class MlbackProductController {
 		//接受参数信息
 		//获取类名
 
+		Integer productId =  mlbackProduct.getProductId();
+		String productName = mlbackProduct.getProductName();
 		String nowTime = DateUtil.strTime14s();
 		mlbackProduct.setProductCreatetime(nowTime);
+		
+		//先对这个产品选择的一些类，进行productIdStr的清理,
+		//有id，update
+		String categoryIdsStr = mlbackProduct.getProductCategoryIdsstr();
+		Integer productSupercateid = mlbackProduct.getProductSupercateid();
+		//3.0.1从中读取categoryIdsStr,切割得到每一个categoryId,遍历，把productId,填充再每个查回来的categort中的proidStr拼上
+//		UpdateCategoryProductIdStr(categoryIdsStr,productId,productName,productSupercateid);
 		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
 		return Msg.success().add("resMsg", "category保存成功");
 	}
+	
+	/**
+	 * 5.0.1
+	 * //从中读取categoryIdsStr,切割得到每一个categoryId,
+	 * 遍历categoryId查询，把productId,填充再每个查回来的category中的proidStr拼上
+	 * */
+	private void UpdateCategoryProductIdStr(String categoryIdsStr, Integer productId,String productName, Integer productSupercateid) {
+		
+		String inproductIdStr=productId+"";
+		
+		if(categoryIdsStr==""){
+			System.out.println("categoryIdsStr为空");
+			//把该productId下的
+			ProductCategoryIdsStrUpdateOld(productId,categoryIdsStr);
+			//清理掉，该产品下的类
+			MlbackProduct mlbackProductReq = new MlbackProduct();
+			mlbackProductReq.setProductId(productId);
+			mlbackProductReq.setProductCategoryIdsstr("");
+			mlbackProductReq.setProductCategoryNamesstr("");
+			mlbackProductService.updateByPrimaryKeySelective(mlbackProductReq);
+		}else{
+			//先清理老的数据
+			ProductCategoryIdsStrUpdateOld(productId,categoryIdsStr);
+			//从中读取categoryIdsStr,切割得到每一个categoryId,
+			String categoryIdsStrArr [] = categoryIdsStr.split(",");
+			String categoryIdStr = "";
+			Integer categoryIdInt = 0;
+			MlbackCategory mlbackCategoryReq = new MlbackCategory();
+			MlbackCategory mlbackCategoryRes = new MlbackCategory();
+			
+			MlbackCategory mlbackCategoryReqUpdate = new MlbackCategory();
+			List<MlbackCategory> mlbackCategoryList = new ArrayList<MlbackCategory>();
+			String categoryProductIdsStr = "";
+			String categoryproductNamesStr = "";
+			
+			for(int i=0;i<categoryIdsStrArr.length;i++){
+				categoryIdStr=categoryIdsStrArr[i];
+				categoryIdInt = Integer.parseInt(categoryIdStr);
+				//遍历categoryId查询
+				mlbackCategoryReq.setCategoryId(categoryIdInt);
+				mlbackCategoryList = mlbackCategoryService.selectMlbackCategory(mlbackCategoryReq);
+				mlbackCategoryRes = mlbackCategoryList.get(0);
+ 				categoryProductIdsStr = mlbackCategoryRes.getCategoryProductIds();
+				categoryproductNamesStr = mlbackCategoryRes.getCategoryProductNames();
+				//把productId,填充再每个查回来的categort中的proidStr拼上
+				if(categoryProductIdsStr==null||categoryProductIdsStr.length()==0){
+					//如果当前没有,属于第一次填充，直接替代就好
+					categoryProductIdsStr =inproductIdStr;
+					categoryproductNamesStr=productName;
+				}else{
+					//如果产品类下已经有数据
+					
+					int ifHave = cheakifHave(categoryProductIdsStr,inproductIdStr);
+					
+					//先判断是否包含本次
+					if(ifHave>0){
+						//只要test.indexOf('This')返回的值不是-1说明test字符串中包含字符串'This',相反如果包含返回的值必定是-1"
+						//如果包含，跳过
+						continue;
+					}else{
+						//如果不包含，拼接
+						categoryProductIdsStr = categoryProductIdsStr +","+ inproductIdStr;
+						categoryproductNamesStr = categoryproductNamesStr+","+productName;
+					}
+				}
+				//操作完，执行更新
+				mlbackCategoryReqUpdate.setCategoryId(categoryIdInt);
+				mlbackCategoryReqUpdate.setCategoryProductIds(categoryProductIdsStr);
+				mlbackCategoryReqUpdate.setCategoryProductNames(categoryproductNamesStr);
+				mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategoryReqUpdate);
+			}
+		}
+	}
+
+	
+	private int cheakifHave(String categoryProductIdsStr, String inproductIdStr) {
+		
+		int num = 0;
+		String arrStr [] = categoryProductIdsStr.split(",");
+		String nowPidStr = "";
+		for(int i=0;i<arrStr.length;i++){
+			nowPidStr =arrStr[i];
+			if(nowPidStr.equals(inproductIdStr)){
+				//有相同的，所以num增加
+				num++;
+				break;//找到，跳出
+			}
+		}
+		return num;
+	}
+
+	//清理每条的新产品信息
+	private void ProductCategoryIdsStrUpdateOld(Integer productId,String categoryIdsStrNew) {
+		MlbackProduct mlbackProductReq = new MlbackProduct();
+		MlbackProduct mlbackProductRes = new MlbackProduct();
+		mlbackProductReq.setProductId(productId);
+		List<MlbackProduct> mlbackProductListOld =  mlbackProductService.selectMlbackProductByParam(mlbackProductReq);
+		mlbackProductRes = mlbackProductListOld.get(0);
+		String productCategoryIdsStr = mlbackProductRes.getProductCategoryIdsstr();
+		MlbackCategory mlbackCategoryReq = new MlbackCategory();
+		MlbackCategory mlbackCategoryRes = new MlbackCategory();
+		List<MlbackCategory> MlbackCategoryList = new ArrayList<MlbackCategory>();
+		if(productCategoryIdsStr==null||productCategoryIdsStr.length()==0){
+			//没有被类管理绑定过
+			System.out.println("产品的这个字段下,没有被类管理绑定过,不需要进行移除操作");
+		}else{
+			//被类管理绑定过
+			String productCategoryIdsStrArr [] =  productCategoryIdsStr.split(",");
+			for(int i=0;i<productCategoryIdsStrArr.length;i++){
+				//遍历categoryIdsStr
+				String  categoryIdsStr = productCategoryIdsStrArr[i];
+				Integer categoryIdsInt = Integer.parseInt(categoryIdsStr);
+				mlbackCategoryReq.setCategoryId(categoryIdsInt);
+				MlbackCategoryList = mlbackCategoryService.selectMlbackCategory(mlbackCategoryReq);
+				if(!(MlbackCategoryList.size()>0)){
+					continue;
+				}
+				mlbackCategoryRes = MlbackCategoryList.get(0);
+				
+				//从该中取的老的产品串串
+				String categoryProductIds = "";
+				String categoryProductNames = "";
+				categoryProductIds = mlbackCategoryRes.getCategoryProductIds();
+				categoryProductNames = mlbackCategoryRes.getCategoryProductNames();
+				
+				String categoryProductIdsArr [] = categoryProductIds.split(",");
+				String categoryProductNamesArr [] = categoryProductNames.split(",");
+				
+				List<String> categoryProductIdsStrNewList = new ArrayList<String>();
+				List<String> categoryProductNamesStrNewList = new ArrayList<String>();
+				
+				String categoryProductIdsStrNew="";
+				String categoryProductNamesStrNew="";
+				//对来的产品串进行遍历
+				String productIdnow = productId+"";
+				//该类的产品串进行
+				for(int j =0;j<categoryProductIdsArr.length;j++){
+					//
+					String productOldIdOneStr = categoryProductIdsArr[j];
+					String productOldNamesStr = categoryProductNamesArr[j];
+					
+					if(productOldIdOneStr.equals(productIdnow)){
+						System.out.println("一致就不存了");
+					}else{
+						//移除本个后的该类下全部产品
+						categoryProductIdsStrNewList.add(productOldIdOneStr);
+						categoryProductIdsStrNew+=productOldIdOneStr+",";
+						
+						categoryProductNamesStrNewList.add(productOldNamesStr);
+						categoryProductNamesStrNew+=productOldNamesStr+",";
+					}
+				}
+				//判断是不是空了，空了的话，不移除最后一个字符","
+				if(categoryProductIdsStrNew.length()>0){
+					categoryProductIdsStrNew=categoryProductIdsStrNew.substring(0,categoryProductIdsStrNew.length()-1);
+					categoryProductNamesStrNew=categoryProductNamesStrNew.substring(0,categoryProductNamesStrNew.length()-1);
+				}
+				//封装参数
+				MlbackCategory mlbackCategoryRemoveOld = new MlbackCategory();
+				mlbackCategoryRemoveOld.setCategoryId(categoryIdsInt);
+				mlbackCategoryRemoveOld.setCategoryProductIds(categoryProductIdsStrNew);
+				mlbackCategoryRemoveOld.setCategoryProductNames(categoryProductNamesStrNew);
+				//执行更新
+				mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategoryRemoveOld);
+			}
+		}
+	}
+	
 	
 	/**4.0	onuse	20191225	检查
 	 * MlbackProduct	delete
