@@ -176,7 +176,7 @@ public class ImageUploadController {
 	@RequestMapping(value="/thumImageProductAll",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg thumImageProductAll(@RequestParam("imageAll")CommonsMultipartFile file,@RequestParam("productId")Integer productId,
-			@RequestParam("productimgSortOrder")Integer productimgSortOrder,@RequestParam("type")String type,
+			@RequestParam("productimgSortOrder")Integer productimgSortOrder,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
 		//判断参数,确定信息
@@ -184,7 +184,7 @@ public class ImageUploadController {
 		String productimgSortIdstr = productimgSortOrder+"";
 		String imgName = ImageNameUtil.getImageAllfilename(productIdStr,productimgSortIdstr);
 		
-		String uploadPath = "static/img/productAll/";
+		String uploadPath = "static/img/productAll";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		
 		//当前服务器路径
@@ -204,7 +204,7 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/imagecompress/product";
+		String uploadPathcompress = "static/imagecompress/productAll";
 		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
 		
 		try {
