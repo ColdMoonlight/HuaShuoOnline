@@ -389,6 +389,12 @@
 		});
 		// save product
 		$('.btn-save').on('click', function () {
+			if (parseInt($('#productSupercateid').val()) < 0) {
+				toastr.info('Please Select super-category!');
+				$('#productSupercateid').focus();
+				$('#productStatus').prop('checked', false);
+				return;
+			}
 			saveProductData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) {
@@ -419,14 +425,6 @@
 			}
 
 			showInitBlock();
-		});
-		// status combinewith supercate
-		$('#productStatus').on('click', function(e) {
-			if (parseInt($('#productSupercateid').val()) < 0) {
-				toastr.info('Please Select super-category!');
-				$('#productSupercateid').focus();
-				$('#productStatus').prop('checked', false);
-			}
 		});
 		// supercate & productStatus combinewith
 		$('#productSupercateid').on('change', function(e) {
@@ -574,7 +572,7 @@
 				imageUrl: data.productMainimgurl,
 				thumImageUrl: data.productMainsmallimgurl
 			});
-			
+
 			$('#productHavesalenum').val(data.productHavesalenum);
 			$('#productReviewnum').val(data.productReviewnum);			
 
