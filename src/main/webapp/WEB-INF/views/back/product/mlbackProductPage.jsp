@@ -226,13 +226,13 @@
 									<div class="form-group">
 										<label class="col-form-label" for="productMetaKeywords">Page keywords</label>
 										<div class="controls">
-											<textarea class="form-control" height="100" id="productMetaKeywords"></textarea>
+											<textarea class="form-control" rows="5" id="productMetaKeywords"></textarea>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="productMetaDesc">Page Description</label>
 										<div class="controls">
-											<textarea class="form-control" height="100" id="productMetaDesc"></textarea>
+											<textarea class="form-control" rows="5" id="productMetaDesc"></textarea>
 										</div>
 									</div>
 								</div>

@@ -197,13 +197,13 @@
 									<div class="form-group">
 										<label class="col-form-label" for="categoryMetakeywords">Page keywords</label>
 										<div class="controls">
-											<textarea class="form-control" height="100" id="categoryMetakeywords"></textarea>
+											<textarea class="form-control" rows="5" id="categoryMetakeywords"></textarea>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="categoryMetadesc">Page Description</label>
 										<div class="controls">
-											<textarea class="form-control" height="100" id="categoryMetadesc"></textarea>
+											<textarea class="form-control" rows="5" id="categoryMetadesc"></textarea>
 										</div>
 									</div>
 								</div>
