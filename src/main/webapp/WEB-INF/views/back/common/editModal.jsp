@@ -9,10 +9,14 @@
       <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
     </div>
     <div class="modal-body">
+    	<div class="spinner" style="text-align: center;">
+    		<div class="spinner-border"></div>
+    	</div>
+    	<div class="modal-body-body"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary btn-cancel" type="button" data-dismiss="modal">No</button>
-      <button class="btn btn-danger btn-ok" type="button">Yes</button>
+      <button class="btn btn-secondary btn-cancel" type="button" data-dismiss="modal">cancel</button>
+      <button class="btn btn-danger btn-ok" type="button">save</button>
     </div>
   </div>
 </div>

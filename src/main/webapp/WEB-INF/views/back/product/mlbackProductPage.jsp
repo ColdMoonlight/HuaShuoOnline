@@ -401,8 +401,6 @@
 					isCreate = false;
 					initActiveItemNum();
 					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-					// update parentCategory data
-					getParentCategoryData(renderParentCategory);
 				}
 
 				getTabSearchData($('.c-table-tab-item.active'));
@@ -436,6 +434,8 @@
 		$('#editProductCategory').on('click', function() {
 			$('#editModal').find('.modal-title').html('selete category for product');
 			$('#editModal').modal('show');
+			// get parentCategory data
+			getParentCategoryData(renderParentCategory);
 			$('#editModal .btn-ok').one('click', function () {
 				var checkData = getSelectedCategoryData();
 				$('#productCategoryIdsstr').val(checkData.productCategoryIds.join(','));
@@ -510,8 +510,6 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
-
-			getParentCategoryData(renderParentCategory);
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
@@ -798,7 +796,7 @@
 
 		// callback parentCategory
 		function getParentCategoryData(callback) {
-			$('.c-mask').show();
+			$('#editModal .spinner').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackCategory/getOneMlbackCategoryParentDetail",
 				type: "post",
@@ -816,7 +814,7 @@
 					toastr.error(err);
 				},
 				complete: function () {
-					$('.c-mask').hide();
+					$('#editModal .spinner').hide();
 				}
 			});
 		}
@@ -878,7 +876,7 @@
 						'<label class="form-check-label" for="'+ cagtegoryId +'">No.' + cagtegoryId + ' ' + categoryName +'</label>' +
 					'</div></div>';
 			}
-			$('#editModal .modal-body').html(htmlStr);
+			$('#editModal .modal-body-body').html(htmlStr);
 		}
 
 		function initFormFiled() {
