@@ -75,6 +75,12 @@
 										</div>
 									</div>
 									<div class="form-group">
+										<label class="col-form-label" for="supercateSeo">Supercate SEO</label>
+										<div class="controls">
+											 <input class="form-control" id="supercateSeo" type="text">
+										</div>
+									</div>
+									<div class="form-group">
 										<label class="col-form-label" for="supercateSortOrder">Sort</label>
 										<!-- <div class="controls">
 												 <input class="form-control" id="supercateSortOrder" type="number" />
@@ -130,13 +136,6 @@
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">Search engine listing preview</div>
-
-									<div class="form-group">
-										<label class="col-form-label" for="supercateSeo">Supercate SEO</label>
-										<div class="controls">
-											 <input class="form-control" id="supercateSeo" type="text">
-										</div>
-									</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
