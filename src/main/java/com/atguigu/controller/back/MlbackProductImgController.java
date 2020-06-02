@@ -47,16 +47,16 @@ public class MlbackProductImgController {
 		//接受信息
 		List<MlbackProductImg> mbackProductImgResList =mlbackProductImgService.selectMlbackProductImgByProductId(productId);
 		
-		MlbackProduct mlbackProductReq = new MlbackProduct();
-		MlbackProduct mlbackProductOne = new MlbackProduct();
-		mlbackProductReq.setProductId(productId);
-		List<MlbackProduct> mlbackProductList =  mlbackProductService.selectMlbackProductByParam(mlbackProductReq);
-		
-		if(mlbackProductList.size()>0){
-			mlbackProductOne = mlbackProductList.get(0);
-		}
+//		MlbackProduct mlbackProductReq = new MlbackProduct();
+//		MlbackProduct mlbackProductOne = new MlbackProduct();
+//		mlbackProductReq.setProductId(productId);
+//		List<MlbackProduct> mlbackProductList =  mlbackProductService.selectMlbackProductByParam(mlbackProductReq);
+//		
+//		if(mlbackProductList.size()>0){
+//			mlbackProductOne = mlbackProductList.get(0);
+//		}
 		return Msg.success().add("resMsg", "查看本productId下的所有小图,完毕")
-					.add("mbackProductImgResList", mbackProductImgResList).add("mlbackProductOne", mlbackProductOne);
+					.add("mbackProductImgResList", mbackProductImgResList);
 	}
 	
 	/**2.0	onuse	200104
