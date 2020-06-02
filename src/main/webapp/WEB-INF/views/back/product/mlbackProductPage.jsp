@@ -34,7 +34,7 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="productId" type="text" placeholder="Search Products">						
+									<input id="searchProduct" type="text" placeholder="Search Products">						
 									<select id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
@@ -51,7 +51,7 @@
 										<th>status</th>
 										<th>sale(s)</th>
 										<th>reivew(s)</th>
-										<th>path-desc</th>
+										<th>description</th>
 										<th>operate</th>
 									</tr>
 								</thead>
@@ -179,7 +179,7 @@
 										<input type="hidden" id="productCategoryIdsstr" />
 										<input type="hidden" id="productCategoryNamesstr" />
 										<div class="controls" style="display: flex;">
-											<textarea class="form-control" height="100" disabled></textarea>
+											<textarea id="productCategoryList" class="form-control" rows="5" disabled></textarea>
 											<button id="editProductCategory" class="btn btn-info" style="margin-left: 1rem;">edit</button>
 										</div>
 									</div>
@@ -252,15 +252,28 @@
 
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/editModal.jsp" flush="true"></jsp:include>
 
 	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
 		var hasSuperCategory = false;
-		var hasParentCategory = false;
 		var isCreate = false;
-
+		// init summernote editor for description
+		$('#productDesc').summernote({
+			height: 300,
+	        toolbar: [
+				['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+				['fontsize', ['fontsize']],
+				['height', ['height']],
+				['color', ['color']],
+				['para', ['ul', 'ol', 'paragraph']],
+				['table', ['table']],
+				['insert', ['link', 'picture', 'video']],
+				['view', ['codeview']]
+	        ]
+	   	});
 		if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
 
 		// init
@@ -270,12 +283,12 @@
 			var searchProductVal = {
 				supercate: $('#searchSupercate').find('option:selected').text(),
 				supercateId: $('#searchSupercate').val(),
-				collection: $('#searchProduct').val()
+				product: $('#searchProduct').val()
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchProductVal)) return;
 			if (parseInt(searchProductVal.supercateId) == 0) searchProductVal.supercate = "";
-			if (searchProductVal.supercate || searchProductVal.collection) {
+			if (searchProductVal.supercate || searchProductVal.product) {
 				addProductItem(searchProductVal);
 				createProductItem(searchProductVal).addClass('active')
 				addTableTabItem(searchProductVal);
@@ -303,7 +316,7 @@
 			var searchProductVal = {
 				supercate: $('#searchSupercate').find('option:selected').text(),
 				supercateId: $('#searchSupercate').val(),
-				collection: $('#searchProduct').val()
+				product: $('#searchProduct').val()
 			};
 			// inital pagination num
 			setPageNum(1);
@@ -327,7 +340,7 @@
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
 			if (dataVal) {
-				$('#searchProduct').val(dataVal.collection || '');
+				$('#searchProduct').val(dataVal.product || '');
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
 				getSearchProductsData();
@@ -343,29 +356,28 @@
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
 		});
-		// create collection
+		// create product
 		$('.btn-create').on('click', function () {
-			$('.c-create c-option-title').text('Create Product');
+			$('.c-create .c-option-title').text('Create Product');
 			showCreateBlock();
 			// init formData
 			resetFormData();
 			getProductId();
 			isCreate = true;
 		});
-		// edit collection
+		// edit product
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var reqData = $(this).data('val');
 			getOneProductData(reqData, function(resData) {
-			 	$('.c-create c-option-title').text('Edit Product');
+			 	$('.c-create .c-option-title').text('Edit Product');
 				showCreateBlock();
-				resetFormData();
 				initFormData(resData);
 			});			
 		});
-		// delete collection
+		// delete product
 		$(document.body).on('click', '.btn-delete', function (e) {
 			var productId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete collection!');
+			$('#deleteModal').find('.modal-title').html('Delete product!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
 				deleteProductData({
@@ -375,46 +387,42 @@
 				});
 			});
 		});
-		// save collection
-		$('.btn-save').on('click', function () {
+		// save product
+		$('.c-create .btn-save').on('click', function () {
+			if (parseInt($('#productSupercateid').val()) < 0) {
+				toastr.info('Please Select super-category!');
+				$('#productSupercateid').focus();
+				$('#productStatus').prop('checked', false);
+				return;
+			}
 			saveProductData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) {
 					isCreate = false;
 					initActiveItemNum();
 					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-					// update parentCategory data
-					getParentCategoryData(renderParentCategory);
 				}
 
 				getTabSearchData($('.c-table-tab-item.active'));
 				showInitBlock();
 			});
 		});
-		// cancel collection save
-		$('.btn-cancel').on('click', function () {
+		// cancel product save
+		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
 				/* initActiveItemNum(); */
-				// delete null collection
+				// delete null product
 				deleteProductData({
 					productId: $('#productId').val(),
 				}, function() {
-					console.log("cancel create-collection");
+					console.log("cancel create-product");
 				});
-				// fetch default collection
+				// fetch default product
 				// getProductsData();
 			}
 
 			showInitBlock();
-		});
-		// status combinewith supercate
-		$('#productStatus').on('click', function(e) {
-			if (parseInt($('#productSupercateid').val()) < 0) {
-				toastr.info('Please Select super-category!');
-				$('#productSupercateid').focus();
-				$('#productStatus').prop('checked', false);
-			}
 		});
 		// supercate & productStatus combinewith
 		$('#productSupercateid').on('change', function(e) {
@@ -422,17 +430,47 @@
 				$('#productStatus').prop('checked', false);
 			}
 		});
+		// eidt product category
+		$('#editProductCategory').on('click', function() {
+			$('#editModal').find('.modal-title').html('selete category for product');
+			$('#editModal').modal('show');
+			// get parentCategory data
+			getParentCategoryData(renderParentCategory);
+			$('#editModal .btn-ok').one('click', function () {
+				var checkData = getSelectedCategoryData();
+				$('#productCategoryIdsstr').val(checkData.productCategoryIds.join(','));
+				$('#productCategoryNamesstr').val(checkData.productCategoryNames.join(','));
+				$('#productCategoryList').val(checkData.productCategoryNames.join('\n'));
+				$('#editModal').modal('hide');
+			});
+		});
+		function getSelectedCategoryData() {
+			var checkedInputs = $('#editModal').find('input:checked');
+			var resData = {
+					productCategoryIds: [],
+					productCategoryNames: []
+			};
+			for (var i = 0, len = checkedInputs.length; i < len; i+=1) {
+				console.log(checkedInputs[i])
+				resData.productCategoryIds.push($(checkedInputs[i]).data('id'));
+				resData.productCategoryNames.push($(checkedInputs[i]).data('name'));
+			}
+			return resData;
+		}
+		function resetSelectedCategoryData() {
+			
+		}
 		// upload img
 		$('#categoryImgurl').on('change', function(e) {
 			var $this = $(this);
 			$('.c-upload-img .spinner').show();
 			var formData = new FormData();
-			formData.append('type', 'cateid');
+			formData.append('type', 'product');
 			formData.append('image', $this[0].files[0]);
 			formData.append('productId', parseInt($('#productId').val()));
 			formData.append('productSeo', $('#productSeo').val());
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/thumImageCategory",
+				url: "${APP_PATH}/ImageUpload/thumImageProduct",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -472,8 +510,6 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
-
-			if (!hasParentCategory) getParentCategoryData(renderParentCategory);
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
@@ -486,21 +522,9 @@
 			$('#productName').val('');
 			$('#productStatus').prop('checked', false);
 			$('#productLable').val('0');
-			$('#productDesc').val('').html('');
-			/* $('#productDesc').summernote({
-				height: 300,
-		        toolbar: [
-					['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-					['fontsize', ['fontsize']],
-					['height', ['height']],
-					['color', ['color']],
-					['para', ['ul', 'ol', 'paragraph']],
-					['table', ['table']],
-					['insert', ['link', 'picture', 'video']],
-					['view', ['codeview']]
-		        ]
-		   	}); */
-			
+
+			$('#productDesc').summernote('reset');
+
 			$('#productOriginalprice').val('0.00');
 			$('#productActoffoff').val('0');
 
@@ -530,8 +554,8 @@
 			data.productActoffoff = $('#productActoffoff').val();
 
 			var imageData = $('#categoryImgurl').attr('data-val') && JSON.parse($('#categoryImgurl').attr('data-val'));
-			data.categoryImgpcurl = imageData.imageUrl;
-			data.categoryImgurl = imageData.thumImageUrl;
+			data.productMainimgurl = imageData ? imageData.imageUrl : null;
+			data.productMainimgsmallurl = imageData ? imageData.thumImageUrl : null;
 
 			data.productSupercateid = $('#productSupercateid').val();
 			data.productCategoryIdsstr = $('#productCategoryIdsstr').val();
@@ -551,43 +575,29 @@
 		function initFormData(data) {
 			$('#productId').val(data.productId);
 			$('#productName').val(data.productName);
-			$('#productStatus').prop('checked', (data.productSupercateid > 0 ? data.productStatus : 0));
+			$('#productStatus').prop('checked', data.productStatus);
 			$('#productLable').val(data.productLable);
-			$('#productDesc').html(data.productDesc);
-			$('#productDesc').summernote({
-				height: 300,
-		        toolbar: [
-					['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-					['fontsize', ['fontsize']],
-					['height', ['height']],
-					['color', ['color']],
-					['para', ['ul', 'ol', 'paragraph']],
-					['table', ['table']],
-					['insert', ['link', 'picture', 'video']],
-					['view', ['codeview']]
-		        ]
-		   	});
+			$('#productDesc').summernote('code', data.productDesc);
 
 			$('#productOriginalprice').val(data.productOriginalprice || 0.00);
 			$('#productActoffoff').val(data.productActoffoff || 0);
 
-			if (hasSuperCategory && hasParentCategory) {
+			if (hasSuperCategory) {
 				// value
 				$('#productSupercateid').val(data.productSupercateid || '-1');
-				$('#categoryParentId').val(data.categoryParentId || '-1');
 			}
 			// attr
 			$('#productSupercateid').attr('data-val', data.productSupercateid || '-1');
-			$('#categoryParentId').attr('data-val', data.categoryParentId || '-1');
 
 			$('#productCategoryIdsstr').val(data.productCategoryIdsstr);
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
+			$('#productCategoryList').val(data.productCategoryNamesstr.replace(',', '\n'));
 
-			data.categoryImgurl && addPicture($('#categoryImgurl'), {
-				imageUrl: data.categoryImgpcurl,
-				thumImageUrl: data.categoryImgurl
+			data.productMainimgurl && addPicture($('#categoryImgurl'), {
+				imageUrl: data.productMainimgurl,
+				thumImageUrl: data.productMainsmallimgurl
 			});
-			
+
 			$('#productHavesalenum').val(data.productHavesalenum);
 			$('#productReviewnum').val(data.productReviewnum);			
 
@@ -786,7 +796,7 @@
 
 		// callback parentCategory
 		function getParentCategoryData(callback) {
-			$('.c-mask').show();
+			$('#editModal .spinner').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackCategory/getOneMlbackCategoryParentDetail",
 				type: "post",
@@ -804,7 +814,7 @@
 					toastr.error(err);
 				},
 				complete: function () {
-					$('.c-mask').hide();
+					$('#editModal .spinner').hide();
 				}
 			});
 		}
@@ -855,16 +865,20 @@
 		}
 		// render parentCategoryData
 		function renderParentCategory(data) {
-			var htmlStr = '<option value="-1">Please Select parent-category</option>';
+			var htmlStr = '';
+			var defaultProductCategory = $('#productCategoryIdsstr').val() && $('#productCategoryIdsstr').val().split(',');
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].productId + '" data-name="' + data[i].productName + '">' + data[i].productDesc + '</option>';
+				var cagtegoryId = data[i].categoryId;
+				var categoryName = data[i].categoryName;
+				var checkedStatus = defaultProductCategory.indexOf(String(cagtegoryId)) > -1 ? "checked" : "";
+				htmlStr += '<div class="col-form-label"><div class="form-check checkbox">' +
+						'<input class="form-check-input" '+ checkedStatus +' id="'+ cagtegoryId +'" type="checkbox" value="" data-id="'+ cagtegoryId +'" data-name="'+ categoryName +'"}>' +
+						'<label class="form-check-label" for="'+ cagtegoryId +'">No.' + cagtegoryId + ' ' + categoryName +'</label>' +
+					'</div></div>';
 			}
-			$('#categoryParentId').html(htmlStr);
-			hasParentCategory = true;
-			// init select default value
-			initFormFiled();
+			$('#editModal .modal-body-body').html(htmlStr);
 		}
-		
+
 		function initFormFiled() {
 			// search
 			$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
@@ -917,8 +931,8 @@
 			if (val.supercate) {
 				textArr.push(val.supercate)
 			}
-			if (val.collection) {
-				textArr.push(val.collection)
+			if (val.product) {
+				textArr.push(val.product)
 			}
 
 			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
