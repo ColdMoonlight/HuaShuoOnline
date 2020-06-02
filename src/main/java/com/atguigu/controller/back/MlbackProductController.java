@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
-import com.atguigu.bean.MlbackSuperCate;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
