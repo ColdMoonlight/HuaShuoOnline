@@ -35,7 +35,7 @@
       #{productimgCreatetime,jdbcType=VARCHAR}, #{productimgMotifytime,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackProductImg">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="productimgId" parameterType="com.atguigu.bean.MlbackProductImg">
     insert into tb_mlback_productimg
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="productimgId != null">
