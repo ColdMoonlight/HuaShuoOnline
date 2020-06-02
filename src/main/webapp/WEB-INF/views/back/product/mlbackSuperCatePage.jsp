@@ -237,7 +237,7 @@
 			});
 		});
 		// save collection
-		$('.btn-save').on('click', function () {
+		$('.c-create .btn-save').on('click', function () {
 			saveCollectionData(getFormData(), function() {
 				getCollectionsData();
 				showInitBlock();
@@ -245,7 +245,7 @@
 			});
 		});
 		// cancel collection save
-		$('.btn-cancel').on('click', function () {
+		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				deleteCollectionData({
 					supercateId: $('#supercateId').val(),

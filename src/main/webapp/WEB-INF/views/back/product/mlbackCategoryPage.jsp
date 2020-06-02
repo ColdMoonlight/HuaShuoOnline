@@ -349,7 +349,7 @@
 			});
 		});
 		// save collection
-		$('.btn-save').on('click', function () {
+		$('.c-create .btn-save').on('click', function () {
 			saveCollectionData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) {
@@ -365,7 +365,7 @@
 			});
 		});
 		// cancel collection save
-		$('.btn-cancel').on('click', function () {
+		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
 				/* initActiveItemNum(); */

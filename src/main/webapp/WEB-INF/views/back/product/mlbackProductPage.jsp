@@ -179,7 +179,7 @@
 										<input type="hidden" id="productCategoryIdsstr" />
 										<input type="hidden" id="productCategoryNamesstr" />
 										<div class="controls" style="display: flex;">
-											<textarea class="form-control" height="100" disabled></textarea>
+											<textarea id="productCategoryList" class="form-control" rows="5" disabled></textarea>
 											<button id="editProductCategory" class="btn btn-info" style="margin-left: 1rem;">edit</button>
 										</div>
 									</div>
@@ -252,13 +252,13 @@
 
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/editModal.jsp" flush="true"></jsp:include>
 
 	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
 		var hasSuperCategory = false;
-		var hasParentCategory = false;
 		var isCreate = false;
 		// init summernote editor for description
 		$('#productDesc').summernote({
@@ -388,7 +388,7 @@
 			});
 		});
 		// save product
-		$('.btn-save').on('click', function () {
+		$('.c-create .btn-save').on('click', function () {
 			if (parseInt($('#productSupercateid').val()) < 0) {
 				toastr.info('Please Select super-category!');
 				$('#productSupercateid').focus();
@@ -410,7 +410,7 @@
 			});
 		});
 		// cancel product save
-		$('.btn-cancel').on('click', function () {
+		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
 				/* initActiveItemNum(); */
@@ -432,6 +432,34 @@
 				$('#productStatus').prop('checked', false);
 			}
 		});
+		// eidt product category
+		$('#editProductCategory').on('click', function() {
+			$('#editModal').find('.modal-title').html('selete category for product');
+			$('#editModal').modal('show');
+			$('#editModal .btn-ok').one('click', function () {
+				var checkData = getSelectedCategoryData();
+				$('#productCategoryIdsstr').val(checkData.productCategoryIds.join(','));
+				$('#productCategoryNamesstr').val(checkData.productCategoryNames.join(','));
+				$('#productCategoryList').val(checkData.productCategoryNames.join('\n'));
+				$('#editModal').modal('hide');
+			});
+		});
+		function getSelectedCategoryData() {
+			var checkedInputs = $('#editModal').find('input:checked');
+			var resData = {
+					productCategoryIds: [],
+					productCategoryNames: []
+			};
+			for (var i = 0, len = checkedInputs.length; i < len; i+=1) {
+				console.log(checkedInputs[i])
+				resData.productCategoryIds.push($(checkedInputs[i]).data('id'));
+				resData.productCategoryNames.push($(checkedInputs[i]).data('name'));
+			}
+			return resData;
+		}
+		function resetSelectedCategoryData() {
+			
+		}
 		// upload img
 		$('#categoryImgurl').on('change', function(e) {
 			var $this = $(this);
@@ -483,7 +511,7 @@
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
 
-			if (!hasParentCategory) getParentCategoryData(renderParentCategory);
+			getParentCategoryData(renderParentCategory);
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
@@ -556,17 +584,16 @@
 			$('#productOriginalprice').val(data.productOriginalprice || 0.00);
 			$('#productActoffoff').val(data.productActoffoff || 0);
 
-			if (hasSuperCategory && hasParentCategory) {
+			if (hasSuperCategory) {
 				// value
 				$('#productSupercateid').val(data.productSupercateid || '-1');
-				$('#categoryParentId').val(data.categoryParentId || '-1');
 			}
 			// attr
 			$('#productSupercateid').attr('data-val', data.productSupercateid || '-1');
-			$('#categoryParentId').attr('data-val', data.categoryParentId || '-1');
 
 			$('#productCategoryIdsstr').val(data.productCategoryIdsstr);
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
+			$('#productCategoryList').val(data.productCategoryNamesstr.replace(',', '\n'));
 
 			data.productMainimgurl && addPicture($('#categoryImgurl'), {
 				imageUrl: data.productMainimgurl,
@@ -840,16 +867,20 @@
 		}
 		// render parentCategoryData
 		function renderParentCategory(data) {
-			var htmlStr = '<option value="-1">Please Select parent-category</option>';
+			var htmlStr = '';
+			var defaultProductCategory = $('#productCategoryIdsstr').val() && $('#productCategoryIdsstr').val().split(',');
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].productId + '" data-name="' + data[i].productName + '">' + data[i].productDesc + '</option>';
+				var cagtegoryId = data[i].categoryId;
+				var categoryName = data[i].categoryName;
+				var checkedStatus = defaultProductCategory.indexOf(String(cagtegoryId)) > -1 ? "checked" : "";
+				htmlStr += '<div class="col-form-label"><div class="form-check checkbox">' +
+						'<input class="form-check-input" '+ checkedStatus +' id="'+ cagtegoryId +'" type="checkbox" value="" data-id="'+ cagtegoryId +'" data-name="'+ categoryName +'"}>' +
+						'<label class="form-check-label" for="'+ cagtegoryId +'">No.' + cagtegoryId + ' ' + categoryName +'</label>' +
+					'</div></div>';
 			}
-			$('#categoryParentId').html(htmlStr);
-			hasParentCategory = true;
-			// init select default value
-			initFormFiled();
+			$('#editModal .modal-body').html(htmlStr);
 		}
-		
+
 		function initFormFiled() {
 			// search
 			$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
