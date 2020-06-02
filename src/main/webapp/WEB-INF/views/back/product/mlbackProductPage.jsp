@@ -157,7 +157,7 @@
 											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 										</svg>
 										<div class="c-backshow"></div>						
-										<input id="categoryImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+										<input id="productImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 										<!-- spinner -->
 										<div class="spinner">
 											<div class="spinner-border" role="status" aria-hidden="true"></div>
@@ -460,7 +460,7 @@
 			
 		}
 		// upload img
-		$('#categoryImgurl').on('change', function(e) {
+		$('#productImgurl').on('change', function(e) {
 			var $this = $(this);
 			$('.c-upload-img .spinner').show();
 			var formData = new FormData();
@@ -527,7 +527,7 @@
 			$('#productOriginalprice').val('0.00');
 			$('#productActoffoff').val('0');
 
-			resetPicture($('#categoryImgurl'));
+			resetPicture($('#productImgurl'));
 
 			$('#productSupercateid').val('-1');
 			$('#productCategoryIdsstr').val('');
@@ -554,7 +554,7 @@
 			data.productOriginalprice = $('#productOriginalprice').val();
 			data.productActoffoff = $('#productActoffoff').val();
 
-			var imageData = $('#categoryImgurl').attr('data-val') && JSON.parse($('#categoryImgurl').attr('data-val'));
+			var imageData = $('#productImgurl').attr('data-val') && JSON.parse($('#productImgurl').attr('data-val'));
 			data.productMainimgurl = imageData ? imageData.imageUrl : null;
 			data.productMainimgsmallurl = imageData ? imageData.thumImageUrl : null;
 
@@ -595,7 +595,7 @@
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
 			$('#productCategoryList').val(data.productCategoryNamesstr.replace(/\,/g, '\n'));
 
-			data.productMainimgurl && addPicture($('#categoryImgurl'), {
+			data.productMainimgurl && addPicture($('#productImgurl'), {
 				imageUrl: data.productMainimgurl,
 				thumImageUrl: data.productMainsmallimgurl
 			});
@@ -871,7 +871,7 @@
 			var defaultProductCategory = $('#productCategoryIdsstr').val() && $('#productCategoryIdsstr').val().split(',');
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var cagtegoryId = data[i].categoryId;
-				var categoryName = data[i].categoryName;
+				var categoryName = data[i].categoryDesc;
 				var checkedStatus = defaultProductCategory.indexOf(String(cagtegoryId)) > -1 ? "checked" : "";
 				htmlStr += '<div class="col-form-label"><div class="form-check checkbox">' +
 						'<input class="form-check-input" '+ checkedStatus +' id="'+ cagtegoryId +'" type="checkbox" value="" data-id="'+ cagtegoryId +'" data-name="'+ categoryName +'"}>' +
