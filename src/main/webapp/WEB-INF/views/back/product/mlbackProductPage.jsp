@@ -51,7 +51,7 @@
 										<th>status</th>
 										<th>sale(s)</th>
 										<th>reivew(s)</th>
-										<th>path-desc</th>
+										<th>description</th>
 										<th>operate</th>
 									</tr>
 								</thead>
@@ -465,12 +465,12 @@
 			var $this = $(this);
 			$('.c-upload-img .spinner').show();
 			var formData = new FormData();
-			formData.append('type', 'cateid');
+			formData.append('type', 'product');
 			formData.append('image', $this[0].files[0]);
 			formData.append('productId', parseInt($('#productId').val()));
 			formData.append('productSeo', $('#productSeo').val());
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/thumImageCategory",
+				url: "${APP_PATH}/ImageUpload/thumImageProduct",
 				type: "post",
 				data: formData,
 				processData: false,
