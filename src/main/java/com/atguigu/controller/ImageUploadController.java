@@ -169,9 +169,6 @@ public class ImageUploadController {
 	
 	/**
 	 * 	onuse	20200103	检查
-	 * 	
-	String ProductIdstr = aa[1];
-	String productimgSortIdstr = aa[2];
 	 * */
 	@RequestMapping(value="/thumImageProductAll",method=RequestMethod.POST)
 	@ResponseBody
