@@ -592,7 +592,7 @@
 
 			$('#productCategoryIdsstr').val(data.productCategoryIdsstr);
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
-			$('#productCategoryList').val(data.productCategoryNamesstr.replace(',', '\n'));
+			$('#productCategoryList').val(data.productCategoryNamesstr.replace(/\,/g, '\n'));
 
 			data.productMainimgurl && addPicture($('#categoryImgurl'), {
 				imageUrl: data.productMainimgurl,
