@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
+import com.atguigu.bean.MlbackSuperCate;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
@@ -23,11 +24,15 @@ import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlbackSuperCateService;
 import com.atguigu.utils.DateUtil;
 
 @Controller
 @RequestMapping("/MlbackProduct")
 public class MlbackProductController {
+	
+	@Autowired
+	MlbackSuperCateService mlbackSuperCateService;
 	
 	@Autowired
 	MlbackProductService mlbackProductService;
@@ -112,7 +117,7 @@ public class MlbackProductController {
 		String categoryIdsStr = mlbackProduct.getProductCategoryIdsstr();
 		Integer productSupercateid = mlbackProduct.getProductSupercateid();
 		//3.0.1从中读取categoryIdsStr,切割得到每一个categoryId,遍历，把productId,填充再每个查回来的categort中的proidStr拼上
-//		UpdateCategoryProductIdStr(categoryIdsStr,productId,productName,productSupercateid);
+		UpdateCategoryProductIdStr(categoryIdsStr,productId,productName,productSupercateid);
 		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
 		return Msg.success().add("resMsg", "category保存成功");
 	}
@@ -189,7 +194,6 @@ public class MlbackProductController {
 			}
 		}
 	}
-
 	
 	private int cheakifHave(String categoryProductIdsStr, String inproductIdStr) {
 		

@@ -9,7 +9,7 @@ public class MlbackAdmin {
 
     private String adminOperatername;
 
-    private Integer adminPower;//0超级管理员		1操作员
+    private Integer adminPower;//0超级管理员	1操作员
     
     private String adminPowerItemStr;//具体都有哪些视图
     
