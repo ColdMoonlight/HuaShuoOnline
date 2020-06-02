@@ -149,18 +149,54 @@
 							<!-- media picture -->
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Product Image</div>
+									<div class="card-title-name">Product Media</div>
 								</div>
 								<div class="card-body">
-									<div id="uploadImg" class="c-upload-img">
-										<svg class="c-icon">
-											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-										</svg>
-										<div class="c-backshow"></div>						
-										<input id="productImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
-										<!-- spinner -->
-										<div class="spinner">
-											<div class="spinner-border" role="status" aria-hidden="true"></div>
+									<div class="row">
+										<!-- main img  -->
+										<div class="col-md-6">
+											<h3>Main Picture</h3>
+											<div id="uploadImg" class="c-upload-img">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+												</svg>
+												<div class="c-backshow"></div>						
+												<input id="productImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<!-- spinner -->
+												<div class="spinner">
+													<div class="spinner-border" role="status" aria-hidden="true"></div>
+												</div>
+											</div>
+										</div>
+										<!-- video -->
+										<div class="col-md-6">
+											<h3>Video</h3>
+											<div id="uploadImg" class="c-upload-img">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cloud-upload"></use>
+												</svg>
+												<div class="c-backshow"></div>						
+												<input id="productVideourl" type="file" accept="video/mp4" />										
+												<!-- spinner -->
+												<div class="spinner">
+													<div class="spinner-border" role="status" aria-hidden="true"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="pictureDetails">
+										<h3>Product Details Picture</h3>
+										<div class="picture-list"></div>
+										<div id="uploadImg" class="c-upload-img">
+											<svg class="c-icon">
+												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+											</svg>
+											<div class="c-backshow"></div>						
+											<input id="productListImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+											<!-- spinner -->
+											<div class="spinner">
+												<div class="spinner-border" role="status" aria-hidden="true"></div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -450,17 +486,48 @@
 					productCategoryNames: []
 			};
 			for (var i = 0, len = checkedInputs.length; i < len; i+=1) {
-				console.log(checkedInputs[i])
 				resData.productCategoryIds.push($(checkedInputs[i]).data('id'));
 				resData.productCategoryNames.push($(checkedInputs[i]).data('name'));
 			}
 			return resData;
 		}
-		function resetSelectedCategoryData() {
-			
-		}
 		// upload img
 		$('#productImgurl').on('change', function(e) {
+			var $this = $(this);
+			$('.c-upload-img .spinner').show();
+			var formData = new FormData();
+			formData.append('type', 'product');
+			formData.append('image', $this[0].files[0]);
+			formData.append('productId', parseInt($('#productId').val()));
+			formData.append('productSeo', $('#productSeo').val());
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/thumImageProduct",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						addPicture($this, {
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlthumImageUrl
+						});
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-upload-img .spinner').hide();
+				}
+			});
+		});
+		// upload img
+		$('#productVideourl').on('change', function(e) {
 			var $this = $(this);
 			$('.c-upload-img .spinner').show();
 			var formData = new FormData();
