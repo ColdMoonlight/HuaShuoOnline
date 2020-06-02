@@ -85,6 +85,12 @@
 										</div>
 									</div>
 									<div class="form-group">
+										<label class="col-form-label" for="categorySeo">Collection SEO</label>
+										<div class="controls">
+											 <input class="form-control" id="categorySeo" type="text">
+										</div>
+									</div>
+									<div class="form-group">
 										<label class="col-form-label" for="categorySortOrder">Sort</label>
 										<div class="controls">
 											<select class="form-control" id="categorySortOrder" />
@@ -179,13 +185,6 @@
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">Search engine listing preview</div>
-
-									<div class="form-group">
-										<label class="col-form-label" for="categorySeo">Collection SEO</label>
-										<div class="controls">
-											 <input class="form-control" id="categorySeo" type="text">
-										</div>
-									</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">

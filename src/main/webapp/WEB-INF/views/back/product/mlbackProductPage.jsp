@@ -51,6 +51,7 @@
 										<th>status</th>
 										<th>sale(s)</th>
 										<th>reivew(s)</th>
+										<th>supercate</th>
 										<th>operate</th>
 									</tr>
 								</thead>
@@ -83,6 +84,12 @@
 										<label class="col-form-label" for="productName">Product Name</label>
 										<div class="controls">
 											<input class="form-control" id="productName" type="text" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="productSeo">Product SEO</label>
+										<div class="controls">
+											 <input class="form-control" id="productSeo" type="text">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -208,13 +215,6 @@
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">Search engine listing preview</div>
-
-									<div class="form-group">
-										<label class="col-form-label" for="productSeo">Product SEO</label>
-										<div class="controls">
-											 <input class="form-control" id="productSeo" type="text">
-										</div>
-									</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
@@ -559,6 +559,7 @@
 			data.productMainimgsmallurl = imageData ? imageData.thumImageUrl : null;
 
 			data.productSupercateid = $('#productSupercateid').val();
+			data.productSupercatename = $('#productSupercateid').find('option:checked').text();
 			data.productCategoryIdsstr = $('#productCategoryIdsstr').val();
 			data.productCategoryNamesstr = $('#productCategoryNamesstr').val();
 
@@ -836,6 +837,7 @@
 					'<td><a class="badge '+ (data[i].productStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].productStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].productHavesalenum + '</td>' +
 					'<td>' + data[i].productReviewnum + '</td>' +
+					'<td>' + (data[i].productSupercatename || "") + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-val={"productId":'+ data[i].productId + ',"productSupercateid":' +  data[i].productSupercateid + '}>' +
 							'<svg class="c-icon">' +
