@@ -220,7 +220,6 @@
 				supercateId: cId
 			}, function(resData) {
 				$('.c-create c-option-title').text('Edit Collection');
-				resetFormData();
 				showCreateBlock();
 				initFormData(resData);
 			});

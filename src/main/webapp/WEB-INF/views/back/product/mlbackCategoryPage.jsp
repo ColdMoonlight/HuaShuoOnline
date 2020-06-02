@@ -315,7 +315,7 @@
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create c-option-title').text('Create Collection');
+			$('.c-create .c-option-title').text('Create Collection');
 			showCreateBlock();
 			// init formData
 			resetFormData();
@@ -328,9 +328,8 @@
 			getOneCollectionData({
 			 categoryId: categoryId
 			}, function(resData) {
-			 	$('.c-create c-option-title').text('Edit Collection');
+			 	$('.c-create .c-option-title').text('Edit Collection');
 				showCreateBlock();
-				resetFormData();
 				initFormData(resData);
 			});			
 		});
@@ -518,11 +517,14 @@
 			$('#categorySuperCateId').attr('data-val', data.categorySuperCateId || '-1');
 			$('#categoryParentId').attr('data-val', data.categoryParentId || '-1');
 
-			data.categoryImgurl && addPicture($('#categoryImgurl'), {
-				imageUrl: data.categoryImgpcurl,
-				thumImageUrl: data.categoryImgurl
-			});
-			
+			if (data.categoryImgurl) {
+				addPicture($('#categoryImgurl'), {
+					imageUrl: data.categoryImgpcurl,
+					thumImageUrl: data.categoryImgurl
+				});				
+			} else {
+				resetPicture($('#categoryImgurl'));
+			}
 
 			$('#categorySeo').val(data.categorySeo);
 			$('#categoryMetatitle').val(data.categoryMetatitle);

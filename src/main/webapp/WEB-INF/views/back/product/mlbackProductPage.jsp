@@ -34,7 +34,7 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="productId" type="text" placeholder="Search Products">						
+									<input id="searchProduct" type="text" placeholder="Search Products">						
 									<select id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
@@ -260,7 +260,20 @@
 		var hasSuperCategory = false;
 		var hasParentCategory = false;
 		var isCreate = false;
-
+		// init summernote editor for description
+		$('#productDesc').summernote({
+			height: 300,
+	        toolbar: [
+				['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+				['fontsize', ['fontsize']],
+				['height', ['height']],
+				['color', ['color']],
+				['para', ['ul', 'ol', 'paragraph']],
+				['table', ['table']],
+				['insert', ['link', 'picture', 'video']],
+				['view', ['codeview']]
+	        ]
+	   	});
 		if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
 
 		// init
@@ -270,12 +283,12 @@
 			var searchProductVal = {
 				supercate: $('#searchSupercate').find('option:selected').text(),
 				supercateId: $('#searchSupercate').val(),
-				collection: $('#searchProduct').val()
+				product: $('#searchProduct').val()
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchProductVal)) return;
 			if (parseInt(searchProductVal.supercateId) == 0) searchProductVal.supercate = "";
-			if (searchProductVal.supercate || searchProductVal.collection) {
+			if (searchProductVal.supercate || searchProductVal.product) {
 				addProductItem(searchProductVal);
 				createProductItem(searchProductVal).addClass('active')
 				addTableTabItem(searchProductVal);
@@ -303,7 +316,7 @@
 			var searchProductVal = {
 				supercate: $('#searchSupercate').find('option:selected').text(),
 				supercateId: $('#searchSupercate').val(),
-				collection: $('#searchProduct').val()
+				product: $('#searchProduct').val()
 			};
 			// inital pagination num
 			setPageNum(1);
@@ -327,7 +340,7 @@
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
 			if (dataVal) {
-				$('#searchProduct').val(dataVal.collection || '');
+				$('#searchProduct').val(dataVal.product || '');
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
 				getSearchProductsData();
@@ -343,29 +356,28 @@
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
 		});
-		// create collection
+		// create product
 		$('.btn-create').on('click', function () {
-			$('.c-create c-option-title').text('Create Product');
+			$('.c-create .c-option-title').text('Create Product');
 			showCreateBlock();
 			// init formData
 			resetFormData();
 			getProductId();
 			isCreate = true;
 		});
-		// edit collection
+		// edit product
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var reqData = $(this).data('val');
 			getOneProductData(reqData, function(resData) {
-			 	$('.c-create c-option-title').text('Edit Product');
+			 	$('.c-create .c-option-title').text('Edit Product');
 				showCreateBlock();
-				resetFormData();
 				initFormData(resData);
 			});			
 		});
-		// delete collection
+		// delete product
 		$(document.body).on('click', '.btn-delete', function (e) {
 			var productId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete collection!');
+			$('#deleteModal').find('.modal-title').html('Delete product!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
 				deleteProductData({
@@ -375,7 +387,7 @@
 				});
 			});
 		});
-		// save collection
+		// save product
 		$('.btn-save').on('click', function () {
 			saveProductData(getFormData(), function() {
 				// redirect tab-active & then search-data
@@ -391,18 +403,18 @@
 				showInitBlock();
 			});
 		});
-		// cancel collection save
+		// cancel product save
 		$('.btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
 				/* initActiveItemNum(); */
-				// delete null collection
+				// delete null product
 				deleteProductData({
 					productId: $('#productId').val(),
 				}, function() {
-					console.log("cancel create-collection");
+					console.log("cancel create-product");
 				});
-				// fetch default collection
+				// fetch default product
 				// getProductsData();
 			}
 
@@ -486,21 +498,9 @@
 			$('#productName').val('');
 			$('#productStatus').prop('checked', false);
 			$('#productLable').val('0');
-			$('#productDesc').val('').html('');
-			/* $('#productDesc').summernote({
-				height: 300,
-		        toolbar: [
-					['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-					['fontsize', ['fontsize']],
-					['height', ['height']],
-					['color', ['color']],
-					['para', ['ul', 'ol', 'paragraph']],
-					['table', ['table']],
-					['insert', ['link', 'picture', 'video']],
-					['view', ['codeview']]
-		        ]
-		   	}); */
-			
+
+			$('#productDesc').summernote('reset');
+
 			$('#productOriginalprice').val('0.00');
 			$('#productActoffoff').val('0');
 
@@ -530,8 +530,8 @@
 			data.productActoffoff = $('#productActoffoff').val();
 
 			var imageData = $('#categoryImgurl').attr('data-val') && JSON.parse($('#categoryImgurl').attr('data-val'));
-			data.categoryImgpcurl = imageData.imageUrl;
-			data.categoryImgurl = imageData.thumImageUrl;
+			data.productMainimgurl = imageData ? imageData.imageUrl : null;
+			data.productMainimgsmallurl = imageData ? imageData.thumImageUrl : null;
 
 			data.productSupercateid = $('#productSupercateid').val();
 			data.productCategoryIdsstr = $('#productCategoryIdsstr').val();
@@ -551,22 +551,9 @@
 		function initFormData(data) {
 			$('#productId').val(data.productId);
 			$('#productName').val(data.productName);
-			$('#productStatus').prop('checked', (data.productSupercateid > 0 ? data.productStatus : 0));
+			$('#productStatus').prop('checked', data.productStatus);
 			$('#productLable').val(data.productLable);
-			$('#productDesc').html(data.productDesc);
-			$('#productDesc').summernote({
-				height: 300,
-		        toolbar: [
-					['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-					['fontsize', ['fontsize']],
-					['height', ['height']],
-					['color', ['color']],
-					['para', ['ul', 'ol', 'paragraph']],
-					['table', ['table']],
-					['insert', ['link', 'picture', 'video']],
-					['view', ['codeview']]
-		        ]
-		   	});
+			$('#productDesc').summernote('code', data.productDesc);
 
 			$('#productOriginalprice').val(data.productOriginalprice || 0.00);
 			$('#productActoffoff').val(data.productActoffoff || 0);
@@ -583,9 +570,9 @@
 			$('#productCategoryIdsstr').val(data.productCategoryIdsstr);
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
 
-			data.categoryImgurl && addPicture($('#categoryImgurl'), {
-				imageUrl: data.categoryImgpcurl,
-				thumImageUrl: data.categoryImgurl
+			data.productMainimgurl && addPicture($('#categoryImgurl'), {
+				imageUrl: data.productMainimgurl,
+				thumImageUrl: data.productMainsmallimgurl
 			});
 			
 			$('#productHavesalenum').val(data.productHavesalenum);
@@ -917,8 +904,8 @@
 			if (val.supercate) {
 				textArr.push(val.supercate)
 			}
-			if (val.collection) {
-				textArr.push(val.collection)
+			if (val.product) {
+				textArr.push(val.product)
 			}
 
 			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
