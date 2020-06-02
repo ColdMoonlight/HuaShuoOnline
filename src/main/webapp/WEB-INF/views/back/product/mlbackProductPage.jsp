@@ -51,7 +51,6 @@
 										<th>status</th>
 										<th>sale(s)</th>
 										<th>reivew(s)</th>
-										<th>description</th>
 										<th>operate</th>
 									</tr>
 								</thead>
@@ -227,13 +226,13 @@
 									<div class="form-group">
 										<label class="col-form-label" for="productMetaKeywords">Page keywords</label>
 										<div class="controls">
-											<textarea class="form-control" height="100" id="productMetaKeywords"></textarea>
+											<textarea class="form-control" rows="5" id="productMetaKeywords"></textarea>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="productMetaDesc">Page Description</label>
 										<div class="controls">
-											<textarea class="form-control" height="100" id="productMetaDesc"></textarea>
+											<textarea class="form-control" rows="5" id="productMetaDesc"></textarea>
 										</div>
 									</div>
 								</div>
@@ -531,7 +530,9 @@
 			resetPicture($('#categoryImgurl'));
 
 			$('#productSupercateid').val('-1');
-			$('#categoryParentId').val('-1');
+			$('#productCategoryIdsstr').val('');
+			$('#productCategoryNamesstr').val('');
+			$('#productCategoryList').val('');
 
 			$('#productHavesalenum').val('0');
 			$('#productReviewnum').val('0');
@@ -591,7 +592,7 @@
 
 			$('#productCategoryIdsstr').val(data.productCategoryIdsstr);
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
-			$('#productCategoryList').val(data.productCategoryNamesstr.replace(',', '\n'));
+			$('#productCategoryList').val(data.productCategoryNamesstr.replace(/\,/g, '\n'));
 
 			data.productMainimgurl && addPicture($('#categoryImgurl'), {
 				imageUrl: data.productMainimgurl,
@@ -835,7 +836,6 @@
 					'<td><a class="badge '+ (data[i].productStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].productStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].productHavesalenum + '</td>' +
 					'<td>' + data[i].productReviewnum + '</td>' +
-					'<td>' + data[i].productDesc + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-val={"productId":'+ data[i].productId + ',"productSupercateid":' +  data[i].productSupercateid + '}>' +
 							'<svg class="c-icon">' +

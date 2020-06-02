@@ -148,13 +148,13 @@
 									<div class="form-group">
 										<label class="col-form-label" for="supercateMetakeywords">Page keywords</label>
 										<div class="controls">
-											<textarea class="form-control" height="100" id="supercateMetakeywords"></textarea>
+											<textarea class="form-control" rows="5" id="supercateMetakeywords"></textarea>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="supercateMetadesc">Page Description</label>
 										<div class="controls">
-											<textarea class="form-control" height="100" id="supercateMetadesc"></textarea>
+											<textarea class="form-control" rows="5" id="supercateMetadesc"></textarea>
 										</div>
 									</div>
 								</div>
