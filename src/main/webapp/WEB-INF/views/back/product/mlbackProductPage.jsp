@@ -187,7 +187,7 @@
 									<div class="pictureDetails">
 										<h3>Product Details Picture</h3>
 										<i class="text-danger">Upload up to 6 images！</i>
-										<div class="picture-img-list">
+										<div class="product-img-list">
 											<div id="uploadImg" class="product-img-item c-upload-img">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
@@ -566,9 +566,9 @@
 		// upload details img
 		$(document.body).on('change', '.productAllImgurl', function(e) {
 			var $this = $(this);
-			$('.c-upload-img .spinner').show();
+			$this.parent().find('.spinner').show();
 			var formData = new FormData();
-			formData.append('image', $this[0].files[0]);
+			formData.append('imageAll', $this[0].files[0]);
 			formData.append('productId', parseInt($('#productId').val()));
 			formData.append('productimgSortOrder', $this.data('order'));
 			$.ajax({
@@ -585,7 +585,7 @@
 							imageUrl: data.extend.sqlimageUrl,
 							thumImageUrl: data.extend.sqlthumImageUrl
 						});
-						var count = $('.upload-img-item').length;
+						var count = $('.product-img-item').length;
 						if (count < 6) {
 							addUploadBlock(count + 1);
 						}
@@ -597,7 +597,7 @@
 					toastr.error(err);
 				},
 				complete: function () {
-					$('.c-upload-img .spinner').hide();
+					$this.parent().find('.spinner').hide();
 				}
 			});
 		});
@@ -624,7 +624,7 @@
 					'<div class="spinner-border" role="status" aria-hidden="true"></div>' +
 				'</div>' +
 			'</div>';
-			$('.upload-img-list').append($(htmlStr));
+			$('.product-img-list').append($(htmlStr));
 		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
@@ -719,7 +719,9 @@
 				imageUrl: data.productMainimgurl,
 				thumImageUrl: data.productMainsmallimgurl
 			});
-
+			getProductAllImgData({
+				productId: data.productId
+			}, renderProductAllData)
 			$('#productHavesalenum').val(data.productHavesalenum);
 			$('#productReviewnum').val(data.productReviewnum);			
 
@@ -940,6 +942,32 @@
 				}
 			});
 		}
+		// callback get all img data
+		function getProductAllImgData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackProductImg/getMlbackProductImgListByProductId",
+				type: "post",
+				cache: false,
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						callback(data.extend.mbackProductImgResList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
@@ -972,6 +1000,16 @@
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
+		}
+		// render product all img data
+		function renderProductAllData(data) {
+			for (var i = 0, len = data.length; i < len; i+=1) {
+				addUploadBlock(data[i].productimgSortOrder);
+				addPicture($('.product-img-item').last(), {
+					imageUrl: data[i].productimgurl,
+					thumImageUrl: data[i].productimgSmallturl
+				});
+			}
 		}
 		// render superCategoryData
 		function renderSuperCategory(data) {
