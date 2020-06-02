@@ -315,7 +315,7 @@
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create c-option-title').text('Create Collection');
+			$('.c-create .c-option-title').text('Create Collection');
 			showCreateBlock();
 			// init formData
 			resetFormData();
@@ -328,9 +328,8 @@
 			getOneCollectionData({
 			 categoryId: categoryId
 			}, function(resData) {
-			 	$('.c-create c-option-title').text('Edit Collection');
+			 	$('.c-create .c-option-title').text('Edit Collection');
 				showCreateBlock();
-				resetFormData();
 				initFormData(resData);
 			});			
 		});
@@ -350,7 +349,7 @@
 			});
 		});
 		// save collection
-		$('.btn-save').on('click', function () {
+		$('.c-create .btn-save').on('click', function () {
 			saveCollectionData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) {
@@ -366,7 +365,7 @@
 			});
 		});
 		// cancel collection save
-		$('.btn-cancel').on('click', function () {
+		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
 				/* initActiveItemNum(); */
@@ -401,7 +400,7 @@
 			var $this = $(this);
 			$('.c-upload-img .spinner').show();
 			var formData = new FormData();
-			formData.append('type', 'cateid');
+			formData.append('type', 'category');
 			formData.append('image', $this[0].files[0]);
 			formData.append('categoryId', parseInt($('#categoryId').val()));
 			formData.append('categorySeo', $('#categorySeo').val());
@@ -518,11 +517,14 @@
 			$('#categorySuperCateId').attr('data-val', data.categorySuperCateId || '-1');
 			$('#categoryParentId').attr('data-val', data.categoryParentId || '-1');
 
-			data.categoryImgurl && addPicture($('#categoryImgurl'), {
-				imageUrl: data.categoryImgpcurl,
-				thumImageUrl: data.categoryImgurl
-			});
-			
+			if (data.categoryImgurl) {
+				addPicture($('#categoryImgurl'), {
+					imageUrl: data.categoryImgpcurl,
+					thumImageUrl: data.categoryImgurl
+				});				
+			} else {
+				resetPicture($('#categoryImgurl'));
+			}
 
 			$('#categorySeo').val(data.categorySeo);
 			$('#categoryMetatitle').val(data.categoryMetatitle);
