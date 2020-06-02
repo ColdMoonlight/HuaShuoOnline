@@ -186,16 +186,18 @@
 									</div>
 									<div class="pictureDetails">
 										<h3>Product Details Picture</h3>
-										<div class="picture-list"></div>
-										<div id="uploadImg" class="c-upload-img">
-											<svg class="c-icon">
-												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-											</svg>
-											<div class="c-backshow"></div>						
-											<input id="productListImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
-											<!-- spinner -->
-											<div class="spinner">
-												<div class="spinner-border" role="status" aria-hidden="true"></div>
+										<i class="text-danger">Upload up to 6 images！</i>
+										<div class="picture-img-list">
+											<div id="uploadImg" class="product-img-item c-upload-img">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+												</svg>
+												<div class="c-backshow"></div>						
+												<input class="productAllImgurl" data-order="1" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<!-- spinner -->
+												<div class="spinner">
+													<div class="spinner-border" role="status" aria-hidden="true"></div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -526,7 +528,7 @@
 				}
 			});
 		});
-		// upload img
+		// upload vieo
 		$('#productVideourl').on('change', function(e) {
 			var $this = $(this);
 			$('.c-upload-img .spinner').show();
@@ -561,6 +563,44 @@
 				}
 			});
 		});
+		// upload details img
+		$(document.body).on('change', '.productAllImgurl', function(e) {
+			var $this = $(this);
+			$('.c-upload-img .spinner').show();
+			var formData = new FormData();
+			formData.append('image', $this[0].files[0]);
+			formData.append('productId', parseInt($('#productId').val()));
+			formData.append('productimgSortOrder', $this.data('order'));
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/thumImageProductAll",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						addPicture($this, {
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlthumImageUrl
+						});
+						var count = $('.upload-img-item').length;
+						if (count < 6) {
+							addUploadBlock(count + 1);
+						}
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-upload-img .spinner').hide();
+				}
+			});
+		});
 		function addPicture(el, data) {
 			var parentEl = el.parent();
 			el.attr('data-val', JSON.stringify(data));
@@ -572,6 +612,19 @@
 			el.attr('data-val', '');
 			parentEl.removeClass('active');
 			parentEl.find('.c-backshow').html('');
+		}
+		function addUploadBlock(idx) {
+			var htmlStr = '<div id="uploadImg" class="product-img-item c-upload-img">' +
+				'<svg class="c-icon">' +
+					'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>' +
+				'</svg>' +
+				'<div class="c-backshow"></div>' +
+				'<input class="productAllImgurl" data-order="'+ idx +'" type="file" accept="image/png, image/jpeg, image/gif" />' +
+				'<div class="spinner">' +
+					'<div class="spinner-border" role="status" aria-hidden="true"></div>' +
+				'</div>' +
+			'</div>';
+			$('.upload-img-list').append($(htmlStr));
 		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
