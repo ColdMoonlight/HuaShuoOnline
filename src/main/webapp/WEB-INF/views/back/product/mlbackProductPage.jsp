@@ -149,18 +149,56 @@
 							<!-- media picture -->
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Product Image</div>
+									<div class="card-title-name">Product Media</div>
 								</div>
 								<div class="card-body">
-									<div id="uploadImg" class="c-upload-img">
-										<svg class="c-icon">
-											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-										</svg>
-										<div class="c-backshow"></div>						
-										<input id="categoryImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
-										<!-- spinner -->
-										<div class="spinner">
-											<div class="spinner-border" role="status" aria-hidden="true"></div>
+									<div class="row">
+										<!-- main img  -->
+										<div class="col-md-6">
+											<h3>Main Picture</h3>
+											<div id="uploadImg" class="c-upload-img">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+												</svg>
+												<div class="c-backshow"></div>						
+												<input id="productImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<!-- spinner -->
+												<div class="spinner">
+													<div class="spinner-border" role="status" aria-hidden="true"></div>
+												</div>
+											</div>
+										</div>
+										<!-- video -->
+										<div class="col-md-6">
+											<h3>Video</h3>
+											<div id="uploadImg" class="c-upload-img">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cloud-upload"></use>
+												</svg>
+												<div class="c-backshow"></div>						
+												<input id="productVideourl" type="file" accept="video/mp4" />										
+												<!-- spinner -->
+												<div class="spinner">
+													<div class="spinner-border" role="status" aria-hidden="true"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="pictureDetails">
+										<h3>Product Details Picture</h3>
+										<i class="text-danger">Upload up to 6 images！</i>
+										<div class="picture-img-list">
+											<div id="uploadImg" class="product-img-item c-upload-img">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+												</svg>
+												<div class="c-backshow"></div>						
+												<input class="productAllImgurl" data-order="1" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<!-- spinner -->
+												<div class="spinner">
+													<div class="spinner-border" role="status" aria-hidden="true"></div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -450,17 +488,13 @@
 					productCategoryNames: []
 			};
 			for (var i = 0, len = checkedInputs.length; i < len; i+=1) {
-				console.log(checkedInputs[i])
 				resData.productCategoryIds.push($(checkedInputs[i]).data('id'));
 				resData.productCategoryNames.push($(checkedInputs[i]).data('name'));
 			}
 			return resData;
 		}
-		function resetSelectedCategoryData() {
-			
-		}
 		// upload img
-		$('#categoryImgurl').on('change', function(e) {
+		$('#productImgurl').on('change', function(e) {
 			var $this = $(this);
 			$('.c-upload-img .spinner').show();
 			var formData = new FormData();
@@ -494,6 +528,79 @@
 				}
 			});
 		});
+		// upload vieo
+		$('#productVideourl').on('change', function(e) {
+			var $this = $(this);
+			$('.c-upload-img .spinner').show();
+			var formData = new FormData();
+			formData.append('type', 'product');
+			formData.append('image', $this[0].files[0]);
+			formData.append('productId', parseInt($('#productId').val()));
+			formData.append('productSeo', $('#productSeo').val());
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/thumImageProduct",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						addPicture($this, {
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlthumImageUrl
+						});
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-upload-img .spinner').hide();
+				}
+			});
+		});
+		// upload details img
+		$(document.body).on('change', '.productAllImgurl', function(e) {
+			var $this = $(this);
+			$('.c-upload-img .spinner').show();
+			var formData = new FormData();
+			formData.append('image', $this[0].files[0]);
+			formData.append('productId', parseInt($('#productId').val()));
+			formData.append('productimgSortOrder', $this.data('order'));
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/thumImageProductAll",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						addPicture($this, {
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlthumImageUrl
+						});
+						var count = $('.upload-img-item').length;
+						if (count < 6) {
+							addUploadBlock(count + 1);
+						}
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-upload-img .spinner').hide();
+				}
+			});
+		});
 		function addPicture(el, data) {
 			var parentEl = el.parent();
 			el.attr('data-val', JSON.stringify(data));
@@ -505,6 +612,19 @@
 			el.attr('data-val', '');
 			parentEl.removeClass('active');
 			parentEl.find('.c-backshow').html('');
+		}
+		function addUploadBlock(idx) {
+			var htmlStr = '<div id="uploadImg" class="product-img-item c-upload-img">' +
+				'<svg class="c-icon">' +
+					'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>' +
+				'</svg>' +
+				'<div class="c-backshow"></div>' +
+				'<input class="productAllImgurl" data-order="'+ idx +'" type="file" accept="image/png, image/jpeg, image/gif" />' +
+				'<div class="spinner">' +
+					'<div class="spinner-border" role="status" aria-hidden="true"></div>' +
+				'</div>' +
+			'</div>';
+			$('.upload-img-list').append($(htmlStr));
 		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
@@ -527,7 +647,7 @@
 			$('#productOriginalprice').val('0.00');
 			$('#productActoffoff').val('0');
 
-			resetPicture($('#categoryImgurl'));
+			resetPicture($('#productImgurl'));
 
 			$('#productSupercateid').val('-1');
 			$('#productCategoryIdsstr').val('');
@@ -554,7 +674,7 @@
 			data.productOriginalprice = $('#productOriginalprice').val();
 			data.productActoffoff = $('#productActoffoff').val();
 
-			var imageData = $('#categoryImgurl').attr('data-val') && JSON.parse($('#categoryImgurl').attr('data-val'));
+			var imageData = $('#productImgurl').attr('data-val') && JSON.parse($('#productImgurl').attr('data-val'));
 			data.productMainimgurl = imageData ? imageData.imageUrl : null;
 			data.productMainimgsmallurl = imageData ? imageData.thumImageUrl : null;
 
@@ -595,7 +715,7 @@
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
 			$('#productCategoryList').val(data.productCategoryNamesstr.replace(/\,/g, '\n'));
 
-			data.productMainimgurl && addPicture($('#categoryImgurl'), {
+			data.productMainimgurl && addPicture($('#productImgurl'), {
 				imageUrl: data.productMainimgurl,
 				thumImageUrl: data.productMainsmallimgurl
 			});
@@ -871,7 +991,7 @@
 			var defaultProductCategory = $('#productCategoryIdsstr').val() && $('#productCategoryIdsstr').val().split(',');
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var cagtegoryId = data[i].categoryId;
-				var categoryName = data[i].categoryName;
+				var categoryName = data[i].categoryDesc;
 				var checkedStatus = defaultProductCategory.indexOf(String(cagtegoryId)) > -1 ? "checked" : "";
 				htmlStr += '<div class="col-form-label"><div class="form-check checkbox">' +
 						'<input class="form-check-input" '+ checkedStatus +' id="'+ cagtegoryId +'" type="checkbox" value="" data-id="'+ cagtegoryId +'" data-name="'+ categoryName +'"}>' +

@@ -15,8 +15,8 @@
     	<div class="modal-body-body"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary btn-cancel" type="button" data-dismiss="modal">cancel</button>
-      <button class="btn btn-danger btn-ok" type="button">save</button>
+      <button class="btn btn-secondary btn-cancel" type="button" data-dismiss="modal">No</button>
+      <button class="btn btn-danger btn-ok" type="button">Yes</button>
     </div>
   </div>
 </div>
