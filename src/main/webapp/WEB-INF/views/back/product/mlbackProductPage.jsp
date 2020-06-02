@@ -51,7 +51,6 @@
 										<th>status</th>
 										<th>sale(s)</th>
 										<th>reivew(s)</th>
-										<th>description</th>
 										<th>operate</th>
 									</tr>
 								</thead>
@@ -531,7 +530,9 @@
 			resetPicture($('#categoryImgurl'));
 
 			$('#productSupercateid').val('-1');
-			$('#categoryParentId').val('-1');
+			$('#productCategoryIdsstr').val('');
+			$('#productCategoryNamesstr').val('');
+			$('#productCategoryList').val('');
 
 			$('#productHavesalenum').val('0');
 			$('#productReviewnum').val('0');
@@ -835,7 +836,6 @@
 					'<td><a class="badge '+ (data[i].productStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].productStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].productHavesalenum + '</td>' +
 					'<td>' + data[i].productReviewnum + '</td>' +
-					'<td>' + data[i].productDesc + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-val={"productId":'+ data[i].productId + ',"productSupercateid":' +  data[i].productSupercateid + '}>' +
 							'<svg class="c-icon">' +
