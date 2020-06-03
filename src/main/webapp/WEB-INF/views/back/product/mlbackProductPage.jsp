@@ -1083,12 +1083,24 @@
 			getTabSearchData($('.c-table-tab-item.active'));
 		}
 		function checkNewItem(val) {
-			var filterArr = getProductList().filter(function(item) {
+			var productList = getProductList();
+			if (productList.length >= 6) {
+				// save-search-item num <= 6
+				toastr.info('You can add up to six search records！');
+				return true;
+			}
+				
+			var filterArr = productList.filter(function(item) {
 				if (JSON.stringify(val) === JSON.stringify(item)) {
 					return item;
 				}
 			});
-			return filterArr.length ? true : false;
+
+			if (filterArr.length > 0) {
+				toastr.info('You can not add it repeatedly！');
+				return true;
+			}
+			return false;
 		}
 		function addTableTabItem(val) {
 			$('.c-table-tab-item').removeClass('active');
