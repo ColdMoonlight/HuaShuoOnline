@@ -825,7 +825,7 @@
 			formData += '&pn=' + getPageNum();
 
 			$.ajax({
-				url: "${APP_PATH }/MlbackCategory/backSearchBycategory",
+				url: "${APP_PATH }/MlbackProduct/backSearchByProduct",
 				type: "post",
 				data: formData,
 				success: function (data) {
