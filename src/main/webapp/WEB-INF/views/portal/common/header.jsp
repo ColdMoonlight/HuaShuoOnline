@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>MEGALOOK</title>
-	<% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-</head>
-<body>
-	这是引入的头文件
-</body>
-</html>
+<!-- icon -->
+<link rel="icon" sizes="120x120" href="${APP_PATH }/static/apple/micon1.png">
+<link rel="apple-touch-icon" sizes="120x120" href="${APP_PATH }/static/apple/micon1.png">
+<link rel="apple-touch-icon" sizes="180x180" href="${APP_PATH }/static/apple/micon2.png">
+<!-- common css -->
+<link href="${APP_PATH}/static/pc/css/main.css" rel="stylesheet">
+<script src="${APP_PATH}/static/common/jquery.min.js"></script>
