@@ -180,6 +180,14 @@
 											<select class="form-control" id="categoryParentId" /></select>
 										</div>
 									</div>
+									<input type="hidden" id="categoryProductIds" />
+									<input type="hidden" id="categoryProductNames" />
+									<div class="form-group">
+										<label class="col-form-label" for="categoryProductList">Products Under Category</label>
+										<div class="controls">
+											<textarea class="form-control" rows="5" id="categoryProductList"></textarea>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="card">
@@ -465,6 +473,9 @@
 
 			$('#categorySuperCateId').val('-1');
 			$('#categoryParentId').val('-1');
+			$('#categoryProductIds').val('');
+			$('#categoryProductNames').val('')
+			$('#categoryProductList').val('No product！');
 
 			$('#categorySeo').val('');
 			$('#categoryMetatitle').val('');
@@ -491,6 +502,9 @@
 			data.categoryParentId = $('#categoryParentId').val();
 			data.categoryParentName = $('#categoryParentId').find('option:selected').data('name');
 
+			data.categoryProductIds = $('#categoryProductIds').val();
+			data.categoryProductNames = $('#categoryProductNames').val();
+
 			data.categorySeo = $('#categorySeo').val();
 			data.categoryMetatitle = $('#categoryMetatitle').val();
 			data.categoryMetakeywords = $('#categoryMetakeywords').val();
@@ -515,6 +529,10 @@
 			// attr
 			$('#categorySuperCateId').attr('data-val', data.categorySuperCateId || '-1');
 			$('#categoryParentId').attr('data-val', data.categoryParentId || '-1');
+
+			$('#categoryProductIds').val(data.categoryProductIds);
+			$('#categoryProductNames').val(data.categoryProductNames);
+			$('#categoryProductList').val(data.categoryProductNames ? ' * ' + data.categoryProductNames.replace(/\,/g, '\n * '): 'No product！').attr('data-val', data.categoryProductNames);
 
 			if (data.categoryImgurl) {
 				addPicture($('#categoryImgurl'), {
