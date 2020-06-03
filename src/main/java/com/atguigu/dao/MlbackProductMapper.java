@@ -23,10 +23,12 @@ public interface MlbackProductMapper {
     int updateByPrimaryKeySelective(MlbackProduct record);
     //查询全部登陆用户
 	List<MlbackProduct> selectMlbackProductGetAll();
-    //查询后台登陆用户
+    //查询ProductByParam
     List<MlbackProduct> selectMlbackProductByParam(MlbackProduct example);
-//    //查询后台登陆用户
-//    MlbackProduct selectMlbackProductById(MlbackProduct example);
+    //查询BackSearch
+    List<MlbackProduct> selectMlbackProductBackSearch(MlbackProduct mlbackProductReq);
+//  //查询后台登陆用户
+//  MlbackProduct selectMlbackProductById(MlbackProduct example);
 //	//查询全部Category的parentid信息
 //	List<MlbackProduct> selectMlbackProductGetAllByParentId();
 //	//通过CategoryBySeo查找该类的详情
@@ -35,4 +37,5 @@ public interface MlbackProductMapper {
 //	List<MlbackProduct> selectProductlistByParam(MlbackProduct MlbackProduct);
 //	//selectMlbackProductBackSearch	服务端需要用查询
 //	List<MlbackProduct> selectMlbackProductBackSearch(MlbackProduct MlbackProductReq);
+
 }

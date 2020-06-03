@@ -406,7 +406,19 @@
         and product_desc = #{productDesc,jdbcType=LONGVARCHAR}
       </if>
   </select>
-  <!-- deleteByPrimaryKey -->
+  <!-- 使用中selectMlbackProductBackSearch -->
+  <select id="selectMlbackProductBackSearch" parameterType="com.atguigu.bean.MlbackProduct" resultMap="BaseResultMap">
+  	select 
+    product_id, product_name, product_seo, product_superCateId, product_superCateName, 
+    product_mainimgurl, product_mainsmallimgurl,product_originalPrice, product_haveSaleNum, product_status,
+    product_lable, product_firsth, product_actoffOff, product_reviewNum
+  	from tb_mlback_product 
+  	where product_name like concat(concat("%",#{productName}),"%")
+     <if test="productSupercateid != null">
+     	and product_superCateId = #{productSupercateid,jdbcType=INTEGER}
+     </if>
+    order by product_id desc
+  </select>
   <!-- deleteByPrimaryKey -->
   
   

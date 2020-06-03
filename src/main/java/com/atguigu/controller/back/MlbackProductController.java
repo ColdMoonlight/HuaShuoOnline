@@ -122,7 +122,7 @@ public class MlbackProductController {
 	}
 	
 	/**
-	 * 5.0.1
+	 * 3.0.1
 	 * //从中读取categoryIdsStr,切割得到每一个categoryId,
 	 * 遍历categoryId查询，把productId,填充再每个查回来的category中的proidStr拼上
 	 * */
@@ -193,7 +193,7 @@ public class MlbackProductController {
 			}
 		}
 	}
-	
+	//* 3.0.2
 	private int cheakifHave(String categoryProductIdsStr, String inproductIdStr) {
 		
 		int num = 0;
@@ -210,7 +210,7 @@ public class MlbackProductController {
 		return num;
 	}
 
-	//清理每条的新产品信息
+	//* 3.0.3清理每条的新产品信息
 	private void ProductCategoryIdsStrUpdateOld(Integer productId,String categoryIdsStrNew) {
 		MlbackProduct mlbackProductReq = new MlbackProduct();
 		MlbackProduct mlbackProductRes = new MlbackProduct();
@@ -331,6 +331,31 @@ public class MlbackProductController {
 		}
 		//System.out.println("操作说明：查询-mlbackProductOne:"+mlbackProductOne);
 		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("mlbackProductOne", mlbackProductOne);
+	}
+	
+	/**
+	 * 6.0	onuse	20200103	check
+	 * 后端获取backSearchByProduct产品list
+	 * @return 
+	 * */
+	@RequestMapping(value="/backSearchByProduct",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg backSearchByProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "productName") String productName,
+			@RequestParam(value = "productSupercateid", defaultValue = "1") Integer productSupercateid) throws Exception{
+		
+		//接收传递进来的参数
+		int PagNum = 30;
+		PageHelper.startPage(pn, PagNum);
+		
+		MlbackProduct mlbackProductReq = new MlbackProduct();
+		mlbackProductReq.setProductSupercateid(productSupercateid);
+		mlbackProductReq.setProductName(productName);
+		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductBackSearch(mlbackProductReq);
+		PageInfo page = new PageInfo(mlbackProductResList, PagNum);
+		return Msg.success().add("pageInfo", page);
+			
 	}
 
 }
