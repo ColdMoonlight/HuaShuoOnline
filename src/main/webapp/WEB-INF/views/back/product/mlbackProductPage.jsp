@@ -581,14 +581,14 @@
 				dataType: 'json',
 				success: function (data) {
 					if (data.code == 100) {
+						var count = $('.product-img-item').length;
+						if (count < 6 && !$this.attr('data-val')) {
+							addUploadBlock(count + 1);
+						}
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
 							thumImageUrl: data.extend.sqlthumImageUrl
 						});
-						var count = $('.product-img-item').length;
-						if (count < 6) {
-							addUploadBlock(count + 1);
-						}
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
 					}
@@ -1009,8 +1009,7 @@
 		function renderProductAllData(data) {
 			var len = data.length;
 			$('.product-img-list').html('');
-			if (len < 1) addUploadBlock(1);
-			
+
 			for (var i = 0; i < len; i+=1) {
 				addUploadBlock(data[i].productimgSortOrder);
 				addPicture($('.product-img-item').last().find('.productAllImgurl'), {
@@ -1018,6 +1017,8 @@
 					thumImageUrl: data[i].productimgSmallturl
 				});
 			}
+
+			if (len < 6) addUploadBlock(len);
 		}
 		// render superCategoryData
 		function renderSuperCategory(data) {
