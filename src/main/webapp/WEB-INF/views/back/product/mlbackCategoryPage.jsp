@@ -243,7 +243,7 @@
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchCollectionVal)) return;
-			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate = "";
+			if (parseInt(searchCollectionVal.supercateId) < 0) searchCollectionVal.supercate = "";
 			if (searchCollectionVal.supercate || searchCollectionVal.collection) {
 				addCollectionItem(searchCollectionVal);
 				createCollectionItem(searchCollectionVal).addClass('active')
@@ -277,7 +277,7 @@
 			// inital pagination num
 			setPageNum(1);
 			// check searchCollection
-			if (parseInt(searchCollectionVal.supercateId) == 0) searchCollectionVal.supercate = "";
+			if (parseInt(searchCollectionVal.supercateId) < 0) searchCollectionVal.supercate = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
 			$('.c-table-tab-tempory').html(createCollectionItem(searchCollectionVal).addClass('active'));

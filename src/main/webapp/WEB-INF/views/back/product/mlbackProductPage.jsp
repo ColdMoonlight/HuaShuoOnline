@@ -324,7 +324,7 @@
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchProductVal)) return;
-			if (parseInt(searchProductVal.supercateId) == 0) searchProductVal.supercate = "";
+			if (parseInt(searchProductVal.supercateId) < 0) searchProductVal.supercate = "";
 			if (searchProductVal.supercate || searchProductVal.product) {
 				addProductItem(searchProductVal);
 				createProductItem(searchProductVal).addClass('active')
@@ -358,7 +358,7 @@
 			// inital pagination num
 			setPageNum(1);
 			// check searchProduct
-			if (parseInt(searchProductVal.supercateId) == 0) searchProductVal.supercate = "";
+			if (parseInt(searchProductVal.supercateId) < 0) searchProductVal.supercate = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
 			$('.c-table-tab-tempory').html(createProductItem(searchProductVal).addClass('active'));
