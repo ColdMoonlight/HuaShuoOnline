@@ -171,7 +171,7 @@
 										<!-- video -->
 										<div class="col-md-6">
 											<h3>Video</h3>
-											<div id="uploadImg" class="c-upload-img">
+											<div class="c-upload-img">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cloud-upload"></use>
 												</svg>
@@ -188,7 +188,7 @@
 										<h3>Product Details Picture</h3>
 										<i class="text-danger">Upload up to 6 images！</i>
 										<div class="product-img-list">
-											<div id="uploadImg" class="product-img-item c-upload-img">
+											<div class="product-img-item c-upload-img">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 												</svg>
@@ -581,14 +581,14 @@
 				dataType: 'json',
 				success: function (data) {
 					if (data.code == 100) {
+						var count = $('.product-img-item').length;
+						if (count < 6 && !$this.attr('data-val')) {
+							addUploadBlock(count + 1);
+						}
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
 							thumImageUrl: data.extend.sqlthumImageUrl
 						});
-						var count = $('.product-img-item').length;
-						if (count < 6) {
-							addUploadBlock(count + 1);
-						}
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
 					}
@@ -614,7 +614,7 @@
 			parentEl.find('.c-backshow').html('');
 		}
 		function addUploadBlock(idx) {
-			var htmlStr = '<div id="uploadImg" class="product-img-item c-upload-img">' +
+			var htmlStr = '<div class="product-img-item c-upload-img">' +
 				'<svg class="c-icon">' +
 					'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>' +
 				'</svg>' +
@@ -648,6 +648,9 @@
 			$('#productActoffoff').val('0');
 
 			resetPicture($('#productImgurl'));
+			// reset product-img-list
+			$('.product-img-list').html('');
+			addUploadBlock(1);
 
 			$('#productSupercateid').val('-1');
 			$('#productCategoryIdsstr').val('');
@@ -721,7 +724,8 @@
 			});
 			getProductAllImgData({
 				productId: data.productId
-			}, renderProductAllData)
+			}, renderProductAllData);
+
 			$('#productHavesalenum').val(data.productHavesalenum);
 			$('#productReviewnum').val(data.productReviewnum);			
 
@@ -1003,13 +1007,18 @@
 		}
 		// render product all img data
 		function renderProductAllData(data) {
-			for (var i = 0, len = data.length; i < len; i+=1) {
+			var len = data.length;
+			$('.product-img-list').html('');
+
+			for (var i = 0; i < len; i+=1) {
 				addUploadBlock(data[i].productimgSortOrder);
-				addPicture($('.product-img-item').last(), {
+				addPicture($('.product-img-item').last().find('.productAllImgurl'), {
 					imageUrl: data[i].productimgurl,
 					thumImageUrl: data[i].productimgSmallturl
 				});
 			}
+
+			if (len < 6) addUploadBlock(len);
 		}
 		// render superCategoryData
 		function renderSuperCategory(data) {
