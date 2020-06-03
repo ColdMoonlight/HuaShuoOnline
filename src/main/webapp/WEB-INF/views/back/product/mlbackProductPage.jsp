@@ -655,7 +655,7 @@
 			$('#productSupercateid').val('-1');
 			$('#productCategoryIdsstr').val('');
 			$('#productCategoryNamesstr').val('');
-			$('#productCategoryList').val('');
+			$('#productCategoryList').val('No category!');
 
 			$('#productHavesalenum').val('0');
 			$('#productReviewnum').val('0');
@@ -716,7 +716,7 @@
 
 			$('#productCategoryIdsstr').val(data.productCategoryIdsstr);
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
-			$('#productCategoryList').val(data.productCategoryNamesstr.replace(/\,/g, '\n'));
+			$('#productCategoryList').val(data.productCategoryNamesstr ? ' * ' + data.productCategoryNamesstr.replace(/\,/g, '\n * ') : 'No category！');
 
 			data.productMainimgurl && addPicture($('#productImgurl'), {
 				imageUrl: data.productMainimgurl,
