@@ -31,9 +31,6 @@ public class MlbackSuperCateController {
 	@Autowired
 	MlbackSuperCateService mlbackSuperCateService;
 	
-//	@Autowired
-//	MlbackProductService mlbackProductService;
-	
 	@Autowired
 	MlbackAdminService mlbackAdminService;
 	
