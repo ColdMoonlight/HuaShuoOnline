@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.MlbackProductAttributeValueMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.MlbackProductAttributeValue">
+    <id column="productAttrValue_id" jdbcType="INTEGER" property="productattrvalueId" />
+    <result column="productAttrValue_name" jdbcType="VARCHAR" property="productattrvalueName" />
+    <result column="productAttrValue_PAttributeNameId" jdbcType="INTEGER" property="productattrvaluePattributenameid" />
+    <result column="productAttrValue_sort" jdbcType="INTEGER" property="productattrvalueSort" />
+    <result column="productAttrValue_pid" jdbcType="INTEGER" property="productattrvaluePid" />
+    <result column="productAttrValue_status" jdbcType="INTEGER" property="productattrvalueStatus" />
+    <result column="productAttrValue_createTime" jdbcType="VARCHAR" property="productattrvalueCreatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    productAttrValue_id, productAttrValue_name, productAttrValue_PAttributeNameId, productAttrValue_sort, 
+    productAttrValue_pid, productAttrValue_status, productAttrValue_createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_mlback_product_attributevalue
+    where productAttrValue_id = #{productattrvalueId,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insert" parameterType="com.atguigu.bean.MlbackProductAttributeValue">
+    insert into tb_mlback_product_attributevalue (productAttrValue_id, productAttrValue_name, 
+      productAttrValue_PAttributeNameId, productAttrValue_sort, 
+      productAttrValue_pid, productAttrValue_status, 
+      productAttrValue_createTime)
+    values (#{productattrvalueId,jdbcType=INTEGER}, #{productattrvalueName,jdbcType=VARCHAR}, 
+      #{productattrvaluePattributenameid,jdbcType=INTEGER}, #{productattrvalueSort,jdbcType=INTEGER}, 
+      #{productattrvaluePid,jdbcType=INTEGER}, #{productattrvalueStatus,jdbcType=INTEGER}, 
+      #{productattrvalueCreatetime,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackProductAttributeValue">
+    update tb_mlback_product_attributevalue
+    set productAttrValue_name = #{productattrvalueName,jdbcType=VARCHAR},
+      productAttrValue_PAttributeNameId = #{productattrvaluePattributenameid,jdbcType=INTEGER},
+      productAttrValue_sort = #{productattrvalueSort,jdbcType=INTEGER},
+      productAttrValue_pid = #{productattrvaluePid,jdbcType=INTEGER},
+      productAttrValue_status = #{productattrvalueStatus,jdbcType=INTEGER},
+      productAttrValue_createTime = #{productattrvalueCreatetime,jdbcType=VARCHAR}
+    where productAttrValue_id = #{productattrvalueId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="productattrvalueId" parameterType="com.atguigu.bean.MlbackProductAttributeValue">
+    insert into tb_mlback_product_attributevalue
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productattrvalueId != null">
+        productAttrValue_id,
+      </if>
+      <if test="productattrvalueName != null">
+        productAttrValue_name,
+      </if>
+      <if test="productattrvaluePattributenameid != null">
+        productAttrValue_PAttributeNameId,
+      </if>
+      <if test="productattrvalueSort != null">
+        productAttrValue_sort,
+      </if>
+      <if test="productattrvaluePid != null">
+        productAttrValue_pid,
+      </if>
+      <if test="productattrvalueStatus != null">
+        productAttrValue_status,
+      </if>
+      <if test="productattrvalueCreatetime != null">
+        productAttrValue_createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productattrvalueId != null">
+        #{productattrvalueId,jdbcType=INTEGER},
+      </if>
+      <if test="productattrvalueName != null">
+        #{productattrvalueName,jdbcType=VARCHAR},
+      </if>
+      <if test="productattrvaluePattributenameid != null">
+        #{productattrvaluePattributenameid,jdbcType=INTEGER},
+      </if>
+      <if test="productattrvalueSort != null">
+        #{productattrvalueSort,jdbcType=INTEGER},
+      </if>
+      <if test="productattrvaluePid != null">
+        #{productattrvaluePid,jdbcType=INTEGER},
+      </if>
+      <if test="productattrvalueStatus != null">
+        #{productattrvalueStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productattrvalueCreatetime != null">
+        #{productattrvalueCreatetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlback_product_attributevalue
+    where productAttrValue_id = #{productattrvalueId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackProductAttributeValue">
+    update tb_mlback_product_attributevalue
+    <set>
+      <if test="productattrvalueName != null">
+        productAttrValue_name = #{productattrvalueName,jdbcType=VARCHAR},
+      </if>
+      <if test="productattrvaluePattributenameid != null">
+        productAttrValue_PAttributeNameId = #{productattrvaluePattributenameid,jdbcType=INTEGER},
+      </if>
+      <if test="productattrvalueSort != null">
+        productAttrValue_sort = #{productattrvalueSort,jdbcType=INTEGER},
+      </if>
+      <if test="productattrvaluePid != null">
+        productAttrValue_pid = #{productattrvaluePid,jdbcType=INTEGER},
+      </if>
+      <if test="productattrvalueStatus != null">
+        productAttrValue_status = #{productattrvalueStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productattrvalueCreatetime != null">
+        productAttrValue_createTime = #{productattrvalueCreatetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where productAttrValue_id = #{productattrvalueId,jdbcType=INTEGER}
+  </update>
+  <!-- selectMlbackProductAttributeValueByPAttributeNameId使用中 -->
+  <select id="selectMlbackProductAttributeValueByPAttributeNameId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_product_attributevalue 
+    where productAttrValue_PAttributeNameId = #{productattrvaluePattributenameid,jdbcType=INTEGER} order by productAttrValue_sort
+  </select>
+</mapper>
