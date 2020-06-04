@@ -43,7 +43,7 @@
   
   
   <!-- insertSelective -->
-  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="productattrnameId" parameterType="com.atguigu.bean.MlbackProductAttributeName">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="productattrnameId" parameterType="com.atguigu.bean.MlbackProductAttributeName">
     insert into tb_mlback_product_attributename
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="productattrnameId != null">
@@ -117,7 +117,7 @@
   <select id="selectMlbackProductAttributeNameByProductId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select *
     from tb_mlback_product_attributename 
-    where productAttrName_id = #{productattrnameId,jdbcType=INTEGER} order by productAttrName_sort
+    where productAttrName_pid = #{productattrnamePid,jdbcType=INTEGER} order by productAttrName_sort
   </select>
   
 </mapper>
