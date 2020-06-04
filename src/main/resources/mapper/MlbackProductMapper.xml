@@ -361,7 +361,11 @@
   </delete>
   <!-- selectMlbackProductGetAll -->
   <select id="selectMlbackProductGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
-    select *
+    select 
+    product_id, product_name, product_seo, product_superCateId, product_superCateName, 
+    product_mainimgurl, product_mainsmallimgurl,
+    product_originalPrice, product_haveSaleNum, product_status,
+    product_lable, product_firsth, product_actoffOff, product_reviewNum
     from tb_mlback_product order by product_name ,product_superCateId
   </select>
   <!-- selectMlbackProductByParam -->

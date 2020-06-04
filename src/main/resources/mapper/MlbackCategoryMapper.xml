@@ -271,7 +271,10 @@
   </update>
   
   <select id="selectMlbackCategoryGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
-    select *
+    select
+    category_id, category_name, category_imgurl, category_parent_id, category_parent_name, 
+    category_status, category_lable, category_seo, category_sort_order, category_desc, 
+    category_imgpcurl, category_superCate_id, category_superCate_name
     from tb_mlback_category order by category_id desc
   </select>
   
