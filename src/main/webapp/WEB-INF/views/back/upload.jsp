@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form class="form-horizontal" id="upload" method="post" action="${APP_PATH}/file/upload" enctype="multipart/form-data">
+	<form class="form-horizontal" id="upload" method="post" action="${APP_PATH}/VideoUpload/upload" enctype="multipart/form-data">
             <div class="form-group" align="center">
                 <div class="col-md-4 col-sm-4  col-xs-4 col-lg-4">
                    文件上传： <input type="file" class="form-control" name="file" id="file">
