@@ -154,7 +154,16 @@
 								<div class="card-body">
 									<div class="product-options"></div>
 									<button class="product-option-add btn btn-secondary">Add another option</button>
-									<div class="product-skus"></div>
+									<div class="product-skus">
+										<div class="product-sku-head">
+											<div class="product-sku-head-name"> name </div>
+											<div class="product-sku-head-stock"> stock </div>
+											<div class="product-sku-head-price"> price </div>
+											<div class="product-sku-head-sku"> sku </div>
+											<div class="product-sku-head-operate"> operate </div>
+										</div>
+										<div class="product-sku-body"></div>
+									</div>
 								</div>
 							</div>
 							<!-- media picture -->
@@ -572,6 +581,7 @@
             		'<div class="product-sku-name">'+ item.reverse().join('/') +'</div>' +
             		'<input class="product-sku-stock" />' +
             		'<input class="product-sku-price" />' +
+            		'<input class="product-sku-sku" />' +
             		'<div class="product-sku-operate">'+
 	            		'<button class="btn btn-primary product-sku-save">' +
 		        			'<svg class="c-icon">' +
@@ -586,7 +596,7 @@
             		'</div>'
             	+'</div>';
             });
-            $('.product-skus').html(htmlStr);
+            $('.product-sku-body').html(htmlStr);
 		}
 		// generate skus
 		function generateSkus(data) {
