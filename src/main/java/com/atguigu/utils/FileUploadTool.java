@@ -31,7 +31,7 @@ public class FileUploadTool {
 	private static String[] allowAVI = { ".wmv9", ".rm", ".rmvb" };
 	 
  
-	public FileEntity createFile(String logoPathDir,MultipartFile multipartFile, HttpServletRequest request) {
+	public FileEntity createFile(String basePathStr,String logoPathDir,MultipartFile multipartFile, HttpServletRequest request) {
 		FileEntity entity = new FileEntity();
 		boolean bflag = false;
 		String fileName = multipartFile.getOriginalFilename().toString();
@@ -58,7 +58,8 @@ public class FileUploadTool {
 			System.out.println("文件为空");
 		}
 		if (bflag) {
-			//String logoPathDir = "/video/";
+			//String logoPathDir = "/video/";String uploadPath = "static/img/productAll";
+			logoPathDir = "static/video/product/";
 			String logoRealPathDir = request.getSession().getServletContext().getRealPath(logoPathDir);
 			System.out.println("全路径不加项目名："+logoRealPathDir+"*************************");
 		//上传到本地磁盘
@@ -93,15 +94,22 @@ public class FileUploadTool {
 		entity.setType(fileEnd);
 		String fileDir = logoPathDir + newFileName + fileEnd;
 		StringBuilder builder = new StringBuilder(fileDir);
-		String finalFileDir = builder.substring(1);
+		String finalFileDir = builder.substring(0);
 		//size存储为String
 		String size = this.getSize(filedirs);
 		//源文件保存路径
 		String aviPath = filedirs.getAbsolutePath();
+		
+		
+		String sqlPathStr = basePathStr+finalFileDir;	//出来是真实的
+        
+        System.out.println("basePathStr:"+basePathStr);
+		
 		if (aviPath!=null) {
 	 
 			entity.setSize(size);
-			entity.setPath(finalFileDir);
+			//entity.setPath(finalFileDir);
+			entity.setPath(sqlPathStr);
 			entity.setTitleOrig(name);
 			entity.setTitleAlter(newFileName); 
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
