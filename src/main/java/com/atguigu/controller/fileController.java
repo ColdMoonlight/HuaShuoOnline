@@ -47,7 +47,7 @@ public class fileController {
 	public String tologin(HttpSession session) throws Exception{
 		
 		//SysUsers对象为空
-		return "back/index";//back/index.jsp
+		return "back/upload";//back/index.jsp
 		
 	}
 
@@ -75,7 +75,7 @@ public class fileController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ModelAndView("/pages/views/result", map);
+		return new ModelAndView("/back/FileResult", map);
 	}
 
 	@RequestMapping(value = "/{id}/play")
