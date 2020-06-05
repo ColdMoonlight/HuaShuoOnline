@@ -7,20 +7,15 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.multipart.MultipartFile;
-
 import com.atguigu.bean.FileEntity;
-
 
 //文件上传工具
 public class FileUploadTool {
  
- 
 	// 文件最大500M
-	private static long upload_maxsize = 5000 * 1024 * 1024;
+	private static long upload_maxsize = 1000 * 1024 * 1024;
 	//文件允许格式
 	private static String[] allowFiles = { ".rar", ".doc", ".docx", ".zip", ".pdf", ".txt", ".swf", ".xlsx", ".gif",
 	".png", ".jpg", ".jpeg", ".bmp", ".xls", ".mp4", ".flv", ".ppt", ".avi", ".mpg", ".wmv", ".3gp", ".mov",
@@ -29,7 +24,7 @@ public class FileUploadTool {
 	private static String[] allowFLV = { ".avi", ".mpg", ".wmv", ".3gp", ".mov", ".asf", ".asx", ".vob" };
 	//允许的视频转码格式(mencoder)
 	private static String[] allowAVI = { ".wmv9", ".rm", ".rmvb" };
-	 
+	
  
 	public FileEntity createFile(String basePathStr,String logoPathDir,MultipartFile multipartFile, HttpServletRequest request) {
 		FileEntity entity = new FileEntity();
@@ -117,11 +112,9 @@ public class FileUploadTool {
 			return entity;
 			}
 		} else {
-		return null;
+			return null;
 		}
-	return entity;
-	 
- 
+		return entity;
 	}
  
  
@@ -136,9 +129,9 @@ public class FileUploadTool {
 			while (type.hasNext()) {
 				String ext = type.next();
 				if (fileName.toLowerCase().endsWith(ext)) {
-			return true;
-		}
-	}
+					return true;
+				}
+			}
 		return false;
 	}
 
@@ -159,7 +152,6 @@ public class FileUploadTool {
 		return false;
 	}
  
- 
 	/**
 	* 视频类型判断(AVI)
 	* @param fileName
@@ -170,9 +162,9 @@ public class FileUploadTool {
 			while (type.hasNext()) {
 			String ext = type.next();
 				if (fileEnd.equals(ext)) {
-				return true;
+					return true;
+				}
 			}
-		}
 		return false;
 	}
 	 
@@ -183,7 +175,7 @@ public class FileUploadTool {
 	* @return string
 	*/
 	private String getFileExt(String fileName) {
-	return fileName.substring(fileName.lastIndexOf("."));
+		return fileName.substring(fileName.lastIndexOf("."));
 	}
 	 
 	 
@@ -194,8 +186,7 @@ public class FileUploadTool {
 	*/
 	private String getName(String fileName) {
 		Random random = new Random();
-	return "" + random.nextInt(10000) + System.currentTimeMillis();
-	//return UUID.randomUUID().toString() + "_" + fileName;
+		return "" + random.nextInt(10000) + System.currentTimeMillis();
 	 
 	}
 	 

@@ -9,6 +9,8 @@ public class MlbackProductAttributeName {
     private Integer productattrnameSort;	//排序
 
     private Integer productattrnamePid;	//归属产品Id
+    
+    private String productattrnameValues;	//属性名
 
     private Integer productattrnameStatus;	//状态:0不生效,1生效
 
@@ -45,8 +47,16 @@ public class MlbackProductAttributeName {
     public void setProductattrnamePid(Integer productattrnamePid) {
         this.productattrnamePid = productattrnamePid;
     }
+    
+    public String getProductattrnameValues() {
+		return productattrnameValues;
+	}
 
-    public Integer getProductattrnameStatus() {
+	public void setProductattrnameValues(String productattrnameValues) {
+		this.productattrnameValues = productattrnameValues == null ? null : productattrnameValues.trim();
+	}
+
+	public Integer getProductattrnameStatus() {
         return productattrnameStatus;
     }
 
@@ -67,13 +77,14 @@ public class MlbackProductAttributeName {
 	}
 
 	public MlbackProductAttributeName(Integer productattrnameId, String productattrnameName,
-			Integer productattrnameSort, Integer productattrnamePid, Integer productattrnameStatus,
-			String productattrnameCreatetime) {
+			Integer productattrnameSort, Integer productattrnamePid, String productattrnameValues,
+			Integer productattrnameStatus, String productattrnameCreatetime) {
 		super();
 		this.productattrnameId = productattrnameId;
 		this.productattrnameName = productattrnameName;
 		this.productattrnameSort = productattrnameSort;
 		this.productattrnamePid = productattrnamePid;
+		this.productattrnameValues = productattrnameValues;
 		this.productattrnameStatus = productattrnameStatus;
 		this.productattrnameCreatetime = productattrnameCreatetime;
 	}
@@ -82,8 +93,8 @@ public class MlbackProductAttributeName {
 	public String toString() {
 		return "MlbackProductAttributeName [productattrnameId=" + productattrnameId + ", productattrnameName="
 				+ productattrnameName + ", productattrnameSort=" + productattrnameSort + ", productattrnamePid="
-				+ productattrnamePid + ", productattrnameStatus=" + productattrnameStatus
-				+ ", productattrnameCreatetime=" + productattrnameCreatetime + "]";
+				+ productattrnamePid + ", productattrnameValues=" + productattrnameValues + ", productattrnameStatus="
+				+ productattrnameStatus + ", productattrnameCreatetime=" + productattrnameCreatetime + "]";
 	}
-    
+
 }
