@@ -16,7 +16,7 @@
   uploadTime
 )
 VALUES
-  (#{titleOrig}, #{titleAlter}, #{size}, #{TYPE}, #{path},#{uploadTime})
+  (#{titleOrig}, #{titleAlter}, #{size}, #{type}, #{path},#{uploadTime})
   
   </insert>
   

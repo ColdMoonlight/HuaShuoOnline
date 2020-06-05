@@ -50,7 +50,9 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript" src="../ckplayer/ckplayer.js" charset="utf-8"></script>
+<%-- <img src="${APP_PATH }/static/back/img/logo.png" />
+<script type="text/javascript" src="../ckplayer/ckplayer.js" charset="utf-8"></script> --%>
+<script type="text/javascript" src="${APP_PATH }/static/video/ckplayer/ckplayer.js" charset="utf-8"></script>
 <script type="text/javascript">
 	function play(){
 		var flashvars = {
@@ -65,8 +67,7 @@
 			    CKobject.embedSWF('../ckplayer/ckplayer.swf','a1','ckplayer_a1','600','400',flashvars,params);  */
 			var video=['${contextPath}/${entity.path}->video/mp4'];
 			alert(video);
-			CKobject.embed('../ckplayer/ckplayer.swf', 'a1', 'ckplayer_a1',
-			'600', '400', false, flashvars, video);
+			CKobject.embed('${APP_PATH }/static/video/ckplayer/ckplayer.swf', 'a1', 'ckplayer_a1','600', '400', false, flashvars, video);
 		}
 </script>
 
