@@ -146,6 +146,17 @@
 									</div>
 								</div>
 							</div>
+							<!-- price sku  -->
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Skus</div>
+								</div>
+								<div class="card-body">
+									<div class="product-options"></div>
+									<button class="product-option-add btn btn-secondary">Add another option</button>
+									<div class="product-skus"></div>
+								</div>
+							</div>
 							<!-- media picture -->
 							<div class="card">
 								<div class="card-title">
@@ -409,7 +420,14 @@
 			 	$('.c-create .c-option-title').text('Edit Product');
 				showCreateBlock();
 				initFormData(resData);
-			});			
+			});
+			// initial product option & skus
+			getProductOptionsData({
+				"productattrnamePid": reqData.productId
+			}, function(resData) {
+				renderProductOption(resData);
+				renderProductSkus(getOptionData());
+			});
 		});
 		// delete product
 		$(document.body).on('click', '.btn-delete', function (e) {
@@ -492,6 +510,215 @@
 				resData.productCategoryNames.push($(checkedInputs[i]).data('name'));
 			}
 			return resData;
+		}
+		// initial product option
+		function getProductOptionsData(reqData, callback) {
+			// getMlbackProductAttributeNameListByProductId
+			$.ajax({
+				url: "${APP_PATH }/MlbackProductAttributeName/getMlbackProductAttributeNameListByProductId",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend.mbackProductAttributeNameResList);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// add product option
+		$('.product-option-add').on('click', function() {
+			getProductOptionId({
+				"productattrnamePid": $('#productId').val(),				
+			    "productattrnameSort": ($('.product-options-item').length ? $('.product-options-item').last().data('sort') + 1 : 1)
+			}, createOptionItem);
+		});
+		// save product option name
+		$(document.body).on('click', '.product-option-save', function() {
+			var parentEl = $(this).parents('.product-options-item');
+			var optionName = parentEl.find('.product-option-name').val();
+			var optionVal = parentEl.find('.product-option-values').val();
+			var optionSort = parentEl.data('sort');
+			if (!optionName.trim()) {
+				toastr.error('Product-option-name cannot be empty！');
+				return;
+			}
+			saveProductOption({
+				"productattrnameName": optionName,
+				"productattrnameId": $(this).data('id'),
+			    "productattrnameSort": optionSort,
+			    "productattrnameValues": optionVal,
+				"productattrnamePid": $('#productId').val()
+			}, function() {
+				renderProductSkus(getOptionData());
+			});
+			
+		});
+		function renderProductSkus(data) { 
+            var htmlStr = '';
+            generateSkus(data).forEach(function(item) {
+            	htmlStr += '<div class="product-sku-item">'+
+            		'<div class="product-sku-name">'+ item.reverse().join('/') +'</div>' +
+            		'<input class="product-sku-stock" />' +
+            		'<input class="product-sku-price" />' +
+            		'<div class="product-sku-operate">'+
+	            		'<button class="btn btn-primary product-sku-save">' +
+		        			'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-save"></use>' +
+							'</svg>' +
+						'</button>' +
+            			'<button class="btn btn-primary product-sku-delete">' +
+	            			'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
+							'</svg>' +
+						'</button>' +
+            		'</div>'
+            	+'</div>';
+            });
+            $('.product-skus').html(htmlStr);
+		}
+		// generate skus
+		function generateSkus(data) {
+			var skuArrs = [];
+			(function cb(res, a, n) {  
+                if (n == 0) return skuArrs.push(res);
+                for (var i= 0, len=a[n-1].length; i < len; i++) {
+                    cb(res.concat(a[n-1][i]), a, n - 1);  
+                }
+            })([], data, data.length);
+			return skuArrs;
+		}
+		// get option data
+		function getOptionData() {
+			var optionVal = [];
+			$('.product-option-values').each(function(idx, item) {
+				optionVal.push($(item).val().split(','));
+			});
+			return optionVal;
+		}
+		// remove product option
+		$(document.body).on('click', '.product-option-remove', function() {
+			function removeOptionItem(el) {
+				el.parents('.product-options-item').remove();
+			}
+			var $this = $(this);
+			var reqData = { "productattrnameId": $this.data('id') }
+			$.ajax({
+				url: "${APP_PATH }/MlbackProductAttributeName/delete",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						removeOptionItem($this);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		});
+		// save product option
+		function saveProductOption(reqData, callback) {
+			$('.c-mask').show(); 
+			$.ajax({
+				url: "${APP_PATH }/MlbackProductAttributeName/save",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						callback();
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// get product option id
+		function getProductOptionId(reqData, callback) {
+			$('.c-mask').show(); 
+			$.ajax({
+				url: "${APP_PATH }/MlbackProductAttributeName/save",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend.mlbackProductAttributeName);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// render product option
+		function renderProductOption(data) {
+			data.forEach(function(item) {
+				createOptionItem(item)
+					.find('.product-option-values')
+					.tagsinput({
+						onTagExists: function(item, $tag) {
+							toastr.error('Youve already used the option "'+ item + '"');
+						}
+					});
+			});
+		}
+		// create option item
+		function createOptionItem(data) {
+			var optionItem = $('<div class="product-options-item" data-sort="'+ data.productattrnameSort +'">' +
+				'<div class="product-option-head">' +
+					'<div class="product-option-title">Option '+ ($('.product-options-item').length + 1) +'</div>' +
+					'<div>' +
+						'<a href="javascript:;" class="product-option-save" data-id="'+ data.productattrnameId +'" style="margin-right: 1rem;">Save</a>' +
+						'<a href="javascript:;" class="product-option-remove" data-id="'+ data.productattrnameId +'">Remove</a>' +
+					'</div>' +
+				'</div>' +
+				'<div class="product-option-body">' +
+					'<input class="product-option-name" type="text" value="'+ (data.productattrnameName || "") +'"  />' +
+					'<input class="product-option-values" type="text" value="'+ (data.productattrnameValues || "") +'" />' +										
+				'</div>' +
+			'</div>');
+			
+			$('.product-options').append(optionItem);
+			return optionItem;
 		}
 		// upload img
 		$('#productImgurl').on('change', function(e) {
