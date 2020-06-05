@@ -3,11 +3,11 @@
 <mapper namespace="com.atguigu.dao.FileMapper" >
   <select id="findByid" parameterType="java.lang.Long">
   
-  select * from videoup where fileId=#{id}
+  select * from tb_mlback_videoup where fileId=#{id}
   </select>
   
   <insert id="saveFile" parameterType="com.atguigu.bean.FileEntity">
-  INSERT INTO `videoup` (
+  INSERT INTO `tb_mlback_videoup` (
   titleOrig,
   titleAlter,
   size,
