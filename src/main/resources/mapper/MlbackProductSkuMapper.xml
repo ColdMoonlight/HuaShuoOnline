@@ -4,19 +4,17 @@
   <resultMap id="BaseResultMap" type="com.atguigu.bean.MlbackProductSku">
     <id column="productSku_id" jdbcType="INTEGER" property="productskuId" />
     <result column="productSku_name" jdbcType="VARCHAR" property="productskuName" />
-    <result column="productSku_nameIdAndValIdStr" jdbcType="VARCHAR" property="productskuNameidandvalidstr" />
-    <result column="productSku_nameAndValStr" jdbcType="VARCHAR" property="productskuNameandvalstr" />
+    <result column="productSku_Code" jdbcType="VARCHAR" property="productskuCode" />
     <result column="productSku_money" jdbcType="VARCHAR" property="productskuMoney" />
     <result column="productSku_stock" jdbcType="INTEGER" property="productskuStock" />
-    <result column="productSku_sort" jdbcType="INTEGER" property="productskuSort" />
     <result column="productSku_pid" jdbcType="INTEGER" property="productskuPid" />
     <result column="productSku_status" jdbcType="INTEGER" property="productskuStatus" />
     <result column="productSku_createTime" jdbcType="VARCHAR" property="productskuCreatetime" />
     <result column="productSku_motifyTime" jdbcType="VARCHAR" property="productskuMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    productSku_id, productSku_name, productSku_nameIdAndValIdStr, productSku_nameAndValStr, 
-    productSku_money, productSku_stock, productSku_sort, productSku_pid, productSku_status, 
+    productSku_id, productSku_name, productSku_Code, 
+    productSku_money, productSku_stock, productSku_pid, productSku_status, 
     productSku_createTime, productSku_motifyTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -27,14 +25,14 @@
   </select>
 
   <insert id="insert" parameterType="com.atguigu.bean.MlbackProductSku">
-    insert into tb_mlback_product_sku (productSku_id, productSku_name, productSku_nameIdAndValIdStr, 
-      productSku_nameAndValStr, productSku_money, 
-      productSku_stock, productSku_sort, productSku_pid, 
+    insert into tb_mlback_product_sku (productSku_id, productSku_name, productSku_Code, 
+      productSku_money, 
+      productSku_stock, productSku_pid, 
       productSku_status, productSku_createTime, 
       productSku_motifyTime)
-    values (#{productskuId,jdbcType=INTEGER}, #{productskuName,jdbcType=VARCHAR}, #{productskuNameidandvalidstr,jdbcType=VARCHAR}, 
-      #{productskuNameandvalstr,jdbcType=VARCHAR}, #{productskuMoney,jdbcType=VARCHAR}, 
-      #{productskuStock,jdbcType=INTEGER}, #{productskuSort,jdbcType=INTEGER}, #{productskuPid,jdbcType=INTEGER}, 
+    values (#{productskuId,jdbcType=INTEGER}, #{productskuName,jdbcType=VARCHAR}, #{productskuCode,jdbcType=VARCHAR}, 
+      #{productskuMoney,jdbcType=VARCHAR}, 
+      #{productskuStock,jdbcType=INTEGER}, #{productskuPid,jdbcType=INTEGER}, 
       #{productskuStatus,jdbcType=INTEGER}, #{productskuCreatetime,jdbcType=VARCHAR}, 
       #{productskuMotifytime,jdbcType=VARCHAR})
   </insert>
@@ -43,11 +41,9 @@
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackProductSku">
     update tb_mlback_product_sku
     set productSku_name = #{productskuName,jdbcType=VARCHAR},
-      productSku_nameIdAndValIdStr = #{productskuNameidandvalidstr,jdbcType=VARCHAR},
-      productSku_nameAndValStr = #{productskuNameandvalstr,jdbcType=VARCHAR},
+      productSku_Code = #{productskuCode,jdbcType=VARCHAR},
       productSku_money = #{productskuMoney,jdbcType=VARCHAR},
       productSku_stock = #{productskuStock,jdbcType=INTEGER},
-      productSku_sort = #{productskuSort,jdbcType=INTEGER},
       productSku_pid = #{productskuPid,jdbcType=INTEGER},
       productSku_status = #{productskuStatus,jdbcType=INTEGER},
       productSku_createTime = #{productskuCreatetime,jdbcType=VARCHAR},
@@ -64,20 +60,14 @@
       <if test="productskuName != null">
         productSku_name,
       </if>
-      <if test="productskuNameidandvalidstr != null">
-        productSku_nameIdAndValIdStr,
-      </if>
-      <if test="productskuNameandvalstr != null">
-        productSku_nameAndValStr,
+      <if test="productskuCode != null">
+        productSku_Code,
       </if>
       <if test="productskuMoney != null">
         productSku_money,
       </if>
       <if test="productskuStock != null">
         productSku_stock,
-      </if>
-      <if test="productskuSort != null">
-        productSku_sort,
       </if>
       <if test="productskuPid != null">
         productSku_pid,
@@ -99,20 +89,14 @@
       <if test="productskuName != null">
         #{productskuName,jdbcType=VARCHAR},
       </if>
-      <if test="productskuNameidandvalidstr != null">
-        #{productskuNameidandvalidstr,jdbcType=VARCHAR},
-      </if>
-      <if test="productskuNameandvalstr != null">
-        #{productskuNameandvalstr,jdbcType=VARCHAR},
+      <if test="productskuCode != null">
+        #{productskuCode,jdbcType=VARCHAR},
       </if>
       <if test="productskuMoney != null">
         #{productskuMoney,jdbcType=VARCHAR},
       </if>
       <if test="productskuStock != null">
         #{productskuStock,jdbcType=INTEGER},
-      </if>
-      <if test="productskuSort != null">
-        #{productskuSort,jdbcType=INTEGER},
       </if>
       <if test="productskuPid != null">
         #{productskuPid,jdbcType=INTEGER},
@@ -140,20 +124,14 @@
       <if test="productskuName != null">
         productSku_name = #{productskuName,jdbcType=VARCHAR},
       </if>
-      <if test="productskuNameidandvalidstr != null">
-        productSku_nameIdAndValIdStr = #{productskuNameidandvalidstr,jdbcType=VARCHAR},
-      </if>
-      <if test="productskuNameandvalstr != null">
-        productSku_nameAndValStr = #{productskuNameandvalstr,jdbcType=VARCHAR},
+      <if test="productskuCode != null">
+        productSku_Code = #{productskuCode,jdbcType=VARCHAR},
       </if>
       <if test="productskuMoney != null">
         productSku_money = #{productskuMoney,jdbcType=VARCHAR},
       </if>
       <if test="productskuStock != null">
         productSku_stock = #{productskuStock,jdbcType=INTEGER},
-      </if>
-      <if test="productskuSort != null">
-        productSku_sort = #{productskuSort,jdbcType=INTEGER},
       </if>
       <if test="productskuPid != null">
         productSku_pid = #{productskuPid,jdbcType=INTEGER},
