@@ -25,10 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.atguigu.bean.FileEntity;
-import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.common.Const;
 import com.atguigu.service.FileService;
 import com.atguigu.utils.FileUploadTool;
+import com.atguigu.utils.URLLocationUtils;
 
 
 @Controller
@@ -54,14 +53,15 @@ public class fileController {
 	@RequestMapping(value = "/upload")
 	@ResponseBody
 	public ModelAndView upload(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
-			HttpServletRequest request, ModelMap map) {
+			HttpServletRequest request,HttpServletResponse response,ModelMap map) {
 		String message = "";
 		FileEntity entity = new FileEntity();
 		String logoPathDir = request.getParameter("shipin");
 		System.out.println("-------" + logoPathDir + "----------------------------------");
 		FileUploadTool fileUploadTool = new FileUploadTool();
+		String basePathStr = URLLocationUtils.getbasePathStr(response,request);	//出来是真实的
 		try {
-			entity = fileUploadTool.createFile(logoPathDir, multipartFile, request);
+			entity = fileUploadTool.createFile(basePathStr,logoPathDir, multipartFile, request);
 			if (entity != null) {
 				service.saveFile(entity);
 				message ="上传成功";

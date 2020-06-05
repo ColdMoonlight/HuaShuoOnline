@@ -6,11 +6,12 @@
     <result column="productAttrName_name" jdbcType="VARCHAR" property="productattrnameName" />
     <result column="productAttrName_sort" jdbcType="INTEGER" property="productattrnameSort" />
     <result column="productAttrName_pid" jdbcType="INTEGER" property="productattrnamePid" />
+    <result column="productAttrName_values" jdbcType="VARCHAR" property="productattrnameValues" />
     <result column="productAttrName_status" jdbcType="INTEGER" property="productattrnameStatus" />
     <result column="productAttrName_createTime" jdbcType="VARCHAR" property="productattrnameCreatetime" />
   </resultMap>
   <sql id="Base_Column_List">
-    productAttrName_id, productAttrName_name, productAttrName_sort, productAttrName_pid, 
+    productAttrName_id, productAttrName_name, productAttrName_sort, productAttrName_pid, productAttrName_values,
     productAttrName_status, productAttrName_createTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -22,11 +23,11 @@
 
   <insert id="insert" parameterType="com.atguigu.bean.MlbackProductAttributeName">
     insert into tb_mlback_product_attributename (productAttrName_id, productAttrName_name, 
-      productAttrName_sort, productAttrName_pid, 
+      productAttrName_sort, productAttrName_pid,  productAttrName_values,
       productAttrName_status, productAttrName_createTime
       )
     values (#{productattrnameId,jdbcType=INTEGER}, #{productattrnameName,jdbcType=VARCHAR}, 
-      #{productattrnameSort,jdbcType=INTEGER}, #{productattrnamePid,jdbcType=INTEGER}, 
+      #{productattrnameSort,jdbcType=INTEGER}, #{productattrnamePid,jdbcType=INTEGER}, #{productattrnameValues,jdbcType=VARCHAR}, 
       #{productattrnameStatus,jdbcType=INTEGER}, #{productattrnameCreatetime,jdbcType=VARCHAR}
       )
   </insert>
@@ -36,6 +37,7 @@
     set productAttrName_name = #{productattrnameName,jdbcType=VARCHAR},
       productAttrName_sort = #{productattrnameSort,jdbcType=INTEGER},
       productAttrName_pid = #{productattrnamePid,jdbcType=INTEGER},
+      productAttrName_values = #{productattrnameValues,jdbcType=VARCHAR}, 
       productAttrName_status = #{productattrnameStatus,jdbcType=INTEGER},
       productAttrName_createTime = #{productattrnameCreatetime,jdbcType=VARCHAR}
     where productAttrName_id = #{productattrnameId,jdbcType=INTEGER}
@@ -58,6 +60,9 @@
       <if test="productattrnamePid != null">
         productAttrName_pid,
       </if>
+      <if test="productattrnameValues != null">
+        productAttrName_values,
+      </if>
       <if test="productattrnameStatus != null">
         productAttrName_status,
       </if>
@@ -77,6 +82,9 @@
       </if>
       <if test="productattrnamePid != null">
         #{productattrnamePid,jdbcType=INTEGER},
+      </if>
+      <if test="productattrnameValues != null">
+        #{productattrnameValues,jdbcType=VARCHAR}, 
       </if>
       <if test="productattrnameStatus != null">
         #{productattrnameStatus,jdbcType=INTEGER},
@@ -103,6 +111,9 @@
       </if>
       <if test="productattrnamePid != null">
         productAttrName_pid = #{productattrnamePid,jdbcType=INTEGER},
+      </if>
+      <if test="productattrnameValues != null">
+        productAttrName_values = #{productattrnameValues,jdbcType=VARCHAR}, 
       </if>
       <if test="productattrnameStatus != null">
         productAttrName_status = #{productattrnameStatus,jdbcType=INTEGER},
