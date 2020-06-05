@@ -10,7 +10,7 @@ public class MlbackProductAttributeName {
 
     private Integer productattrnamePid;	//归属产品Id
     
-    private String productattrnameValues;	//属性名
+    private String productattrnameValues;	//属性值串
 
     private Integer productattrnameStatus;	//状态:0不生效,1生效
 
