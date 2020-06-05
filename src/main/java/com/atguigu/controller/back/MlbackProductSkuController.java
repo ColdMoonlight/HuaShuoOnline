@@ -37,7 +37,7 @@ public class MlbackProductSkuController {
 		//接受参数信息
 		Integer productskuId = mlbackProductSku.getProductskuId();
 		String nowtime = DateUtil.strTime14s();
-		mlbackProductSku.setProductskuMoney(nowtime);
+		mlbackProductSku.setProductskuMotifytime(nowtime);
 		if(productskuId==null){
 			mlbackProductSku.setProductskuCreatetime(nowtime);
 			mlbackProductSku.setProductskuStatus(0);

@@ -6,15 +6,11 @@ public class MlbackProductSku {
 
     private String productskuName;	//skuName
 
-    private String productskuNameidandvalidstr;	//sku属性Id属性名Id
-
-    private String productskuNameandvalstr;	//sku属性名与属性值Name
+    private String productskuCode;	//skuCode
 
     private String productskuMoney;	//价格
 
     private Integer productskuStock;	//库存
-
-    private Integer productskuSort;	//排序
 
     private Integer productskuPid;	//归属产品Id
 
@@ -40,23 +36,15 @@ public class MlbackProductSku {
         this.productskuName = productskuName == null ? null : productskuName.trim();
     }
 
-    public String getProductskuNameidandvalidstr() {
-        return productskuNameidandvalidstr;
-    }
+    public String getProductskuCode() {
+		return productskuCode;
+	}
 
-    public void setProductskuNameidandvalidstr(String productskuNameidandvalidstr) {
-        this.productskuNameidandvalidstr = productskuNameidandvalidstr == null ? null : productskuNameidandvalidstr.trim();
-    }
+	public void setProductskuCode(String productskuCode) {
+		this.productskuCode = productskuCode == null ? null : productskuCode.trim();
+	}
 
-    public String getProductskuNameandvalstr() {
-        return productskuNameandvalstr;
-    }
-
-    public void setProductskuNameandvalstr(String productskuNameandvalstr) {
-        this.productskuNameandvalstr = productskuNameandvalstr == null ? null : productskuNameandvalstr.trim();
-    }
-
-    public String getProductskuMoney() {
+	public String getProductskuMoney() {
         return productskuMoney;
     }
 
@@ -70,14 +58,6 @@ public class MlbackProductSku {
 
     public void setProductskuStock(Integer productskuStock) {
         this.productskuStock = productskuStock;
-    }
-
-    public Integer getProductskuSort() {
-        return productskuSort;
-    }
-
-    public void setProductskuSort(Integer productskuSort) {
-        this.productskuSort = productskuSort;
     }
 
     public Integer getProductskuPid() {
@@ -116,31 +96,27 @@ public class MlbackProductSku {
 		super();
 	}
 
-	public MlbackProductSku(Integer productskuId, String productskuName, String productskuNameidandvalidstr,
-			String productskuNameandvalstr, String productskuMoney, Integer productskuStock, Integer productskuSort,
+	public MlbackProductSku(Integer productskuId, String productskuName, String productskuCode,String productskuMoney, Integer productskuStock, Integer productskuSort,
 			Integer productskuPid, Integer productskuStatus, String productskuCreatetime, String productskuMotifytime) {
 		super();
 		this.productskuId = productskuId;
 		this.productskuName = productskuName;
-		this.productskuNameidandvalidstr = productskuNameidandvalidstr;
-		this.productskuNameandvalstr = productskuNameandvalstr;
+		this.productskuCode = productskuCode;
 		this.productskuMoney = productskuMoney;
 		this.productskuStock = productskuStock;
-		this.productskuSort = productskuSort;
 		this.productskuPid = productskuPid;
 		this.productskuStatus = productskuStatus;
 		this.productskuCreatetime = productskuCreatetime;
 		this.productskuMotifytime = productskuMotifytime;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "MlbackProductSku [productskuId=" + productskuId + ", productskuName=" + productskuName
-				+ ", productskuNameidandvalidstr=" + productskuNameidandvalidstr + ", productskuNameandvalstr="
-				+ productskuNameandvalstr + ", productskuMoney=" + productskuMoney + ", productskuStock="
-				+ productskuStock + ", productskuSort=" + productskuSort + ", productskuPid=" + productskuPid
-				+ ", productskuStatus=" + productskuStatus + ", productskuCreatetime=" + productskuCreatetime
-				+ ", productskuMotifytime=" + productskuMotifytime + "]";
+				+ ", productskuCode=" + productskuCode + ", productskuMoney=" + productskuMoney + ", productskuStock="
+				+ productskuStock + ", productskuPid=" + productskuPid + ", productskuStatus=" + productskuStatus
+				+ ", productskuCreatetime=" + productskuCreatetime + ", productskuMotifytime=" + productskuMotifytime
+				+ "]";
 	}
-    
 }
