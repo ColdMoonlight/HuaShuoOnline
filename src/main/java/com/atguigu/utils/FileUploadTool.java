@@ -14,7 +14,7 @@ import com.atguigu.bean.FileEntity;
 //文件上传工具
 public class FileUploadTool {
  
-	// 文件最大500M
+	// 文件最大100M
 	private static long upload_maxsize = 1000 * 1024 * 1024;
 	//文件允许格式
 	private static String[] allowFiles = { ".rar", ".doc", ".docx", ".zip", ".pdf", ".txt", ".swf", ".xlsx", ".gif",
@@ -66,7 +66,8 @@ public class FileUploadTool {
 		String name = fileName.substring(0, fileName.lastIndexOf("."));
 		System.out.println("文件名称：" + name);
 		//新的文件名
-		String newFileName = this.getName(name);
+		//String newFileName = this.getName(name);
+		String newFileName = name ;
 		//文件扩展名
 		String fileEnd = this.getFileExt(fileName);
 		//绝对路径
@@ -79,10 +80,8 @@ public class FileUploadTool {
 		try {
 			multipartFile.transferTo(filedirs);
 		} catch (IllegalStateException e) {
-		// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-		// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//相对路径
@@ -95,9 +94,8 @@ public class FileUploadTool {
 		//源文件保存路径
 		String aviPath = filedirs.getAbsolutePath();
 		
-		
-		String sqlPathStr = basePathStr+finalFileDir;	//出来是真实的
-        
+		String sqlPathStr = basePathStr+finalFileDir;	//出来是域名+文件路径
+        //https://megalook.com/B-13x4-Straight-Transparent-Lace-Wig.html
         System.out.println("basePathStr:"+basePathStr);
 		
 		if (aviPath!=null) {
@@ -120,7 +118,6 @@ public class FileUploadTool {
  
 	/**
 	* 文件类型判断
-	*
 	* @param fileName
 	* @return
 	*/

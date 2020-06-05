@@ -31,11 +31,10 @@ import com.atguigu.utils.URLLocationUtils;
 
 
 @Controller
-@RequestMapping("/file")
-public class fileController {
+@RequestMapping("/VideoUpload")
+public class VideoUploadController {
 	@Autowired
 	private FileService service;
-	
 	
 	/**
 	 * 1.0	onuse	20191225	检查
@@ -59,6 +58,7 @@ public class fileController {
 		String logoPathDir = request.getParameter("shipin");
 		System.out.println("-------" + logoPathDir + "----------------------------------");
 		FileUploadTool fileUploadTool = new FileUploadTool();
+		//服务器路径+端口号http://localhost:8080/HuaShuoOnline
 		String basePathStr = URLLocationUtils.getbasePathStr(response,request);	//出来是真实的
 		try {
 			entity = fileUploadTool.createFile(basePathStr,logoPathDir, multipartFile, request);
@@ -130,7 +130,6 @@ public class fileController {
 		try {
 			fileName = new String(fileName.getBytes("iso8859-1"), "UTF-8");
 		} catch (UnsupportedEncodingException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		// 获取上传文件目录
