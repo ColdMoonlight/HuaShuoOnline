@@ -49,7 +49,7 @@ public class MlbackProductAttributeNameController {
 			//无id,insert
 			mlbackProductAttributeNameService.insertSelective(mlbackProductAttributeName);
 			System.out.println("mlbackProductAttributeName insert success+intResult:"+mlbackProductAttributeName.toString());
-			return Msg.success().add("resMsg", "插入成功");
+			return Msg.success().add("resMsg", "插入成功").add("mlbackProductAttributeName", mlbackProductAttributeName);
 		}else{
 			//有id,update
 			mlbackProductAttributeNameService.updateByPrimaryKeySelective(mlbackProductAttributeName);
