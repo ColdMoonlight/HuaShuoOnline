@@ -73,7 +73,6 @@ public class MlbackFootNavService {
 	 * @author Shinelon
 	 * @param MlbackFootNav
 	 * @exception 查看全部的地址信息
-	 * 
 	 * */
 
 	public List<MlbackFootNav> selectMlbackFootNavAllSimpleIfShow(MlbackFootNav mlbackFootNav) {
