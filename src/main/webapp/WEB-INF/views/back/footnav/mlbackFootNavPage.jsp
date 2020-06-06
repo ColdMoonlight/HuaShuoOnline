@@ -227,13 +227,18 @@
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchFootnavVal)) return;
-			if (parseInt(searchProductVal.supercateId) < 0) searchProductVal.supercate = "";
+			if (parseInt(searchFootnavVal.supercateId) < 0) searchFootnavVal.supercate = "";
 			if (searchFootnavVal.supercate || searchFootnavVal.footnav) {
 				addFootnavItem(searchFootnavVal);
 				createFootnavItem(searchFootnavVal).addClass('active')
 				addTableTabItem(searchFootnavVal);
 				$('.c-table-tab-tempory').html('');
 			}
+		});
+		// search it
+		$('#searchSupercate').on('change', function() {
+			$(this).attr('data-val', $(this).val());
+			updateSearchData();
 		});
 		var oldTime = (new Date()).getTime(),
 			timer = null;
@@ -540,12 +545,12 @@
 			$('.c-mask').show();
 			// formdata issue, need to check formdata ?
 			var formData = '';
-			formData += 'categoryName=' + $('#searchFootnav').val();
-			formData += ('&categorySuperCateId=' + ($('#searchSupercate').attr('data-val') || '-1'));
+			formData += 'footnavName=' + $('#searchFootnav').val();
+			formData += ('&footnavSuperCateId=' + ($('#searchSupercate').attr('data-val') || '-1'));
 			formData += '&pn=' + getPageNum();
 
 			$.ajax({
-				url: "${APP_PATH }/MlbackFootNav/backSearchBycategory",
+				url: "${APP_PATH }/MlbackFootNav/backSearchByfootNav",
 				type: "post",
 				data: formData,
 				success: function (data) {
