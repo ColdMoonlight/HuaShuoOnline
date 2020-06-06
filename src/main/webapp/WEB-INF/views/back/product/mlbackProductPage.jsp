@@ -152,7 +152,9 @@
 									<div class="card-title-name">Skus</div>
 								</div>
 								<div class="card-body">
-									<div class="product-options"></div>
+									<div class="product-options">
+										<p class="text-center"> no option, please add one option to generate skus. </p>
+									</div>
 									<button class="product-option-add btn btn-secondary">Add another option</button>
 									<div class="product-skus">
 										<div class="product-sku-head">
@@ -162,7 +164,9 @@
 											<div class="product-sku-head-sku"> sku </div>
 											<div class="product-sku-head-operate"> operate </div>
 										</div>
-										<div class="product-sku-body"></div>
+										<div class="product-sku-body">
+											<p class="text-center"> no skus ... </p>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -419,6 +423,9 @@
 			showCreateBlock();
 			// init formData
 			resetFormData();
+			// init option & skus-list			
+			$('.product-options').html('<p class="text-center"> no option, please add one option to generate skus. </p>');
+			$('.product-sku-body').html('<p class="text-center"> no skus ... </p>');
 			getProductId();
 			isCreate = true;
 		});
@@ -435,7 +442,9 @@
 				"productattrnamePid": reqData.productId
 			}, function(resData) {
 				renderProductOption(resData);
-				renderProductSkus(getOptionData());
+				getProductSkusData({
+					"productskuPid": reqData.productId
+				}, renderProductSkus)
 			});
 		});
 		// delete product
@@ -551,7 +560,12 @@
 			getProductOptionId({
 				"productattrnamePid": $('#productId').val(),				
 			    "productattrnameSort": ($('.product-options-item').length ? $('.product-options-item').last().data('sort') + 1 : 1)
-			}, createOptionItem);
+			}, function(data) {
+				if (!$('.product-options-item').length) {
+					$('.product-options').html('');	
+				}
+				createOptionItem(data);
+			});
 		});
 		// save product option name
 		$(document.body).on('click', '.product-option-save', function() {
@@ -569,19 +583,20 @@
 			    "productattrnameSort": optionSort,
 			    "productattrnameValues": optionVal,
 				"productattrnamePid": $('#productId').val()
-			}, function() {
-				renderProductSkus(getOptionData());
+			}, function(data) {
+				renderProductSkus(getOptionData(), true);
 			});
 			
 		});
-		function renderProductSkus(data) { 
+		// render product skus in sav
+		function renderProductSkus(data, flag) { 
             var htmlStr = '';
-            generateSkus(data).forEach(function(item) {
-            	htmlStr += '<div class="product-sku-item">'+
-            		'<div class="product-sku-name">'+ item.reverse().join('/') +'</div>' +
-            		'<input class="product-sku-stock" />' +
-            		'<input class="product-sku-price" />' +
-            		'<input class="product-sku-sku" />' +
+            (flag ? generateSkus(data) : data).forEach(function(item) {
+            	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
+            		'<div class="product-sku-name">'+ (item.productskuName ? item.productskuName.replace(',', '/') : item.join('/')) +'</div>' +
+            		'<input class="product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : '') +'" />' +
+            		'<input class="product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : '') +'" />' +
+            		'<input class="product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'" />' +
             		'<div class="product-sku-operate">'+
 	            		'<button class="btn btn-primary product-sku-save">' +
 		        			'<svg class="c-icon">' +
@@ -596,17 +611,17 @@
             		'</div>'
             	+'</div>';
             });
-            $('.product-sku-body').html(htmlStr);
+            $('.product-sku-body').html(htmlStr || '<p class="text-center"> no skus ... </p>');
 		}
 		// generate skus
 		function generateSkus(data) {
 			var skuArrs = [];
 			(function cb(res, a, n) {  
-                if (n == 0) return skuArrs.push(res);
+                if (n == 0) return res.length ? skuArrs.push(res) : skuArrs;
                 for (var i= 0, len=a[n-1].length; i < len; i++) {
                     cb(res.concat(a[n-1][i]), a, n - 1);  
                 }
-            })([], data, data.length);
+            })([], data.reverse(), data.length);
 			return skuArrs;
 		}
 		// get option data
@@ -623,7 +638,20 @@
 				el.parents('.product-options-item').remove();
 			}
 			var $this = $(this);
-			var reqData = { "productattrnameId": $this.data('id') }
+			deleteProductOption({
+				"productattrnameId": $this.data('id')
+			}, function() {
+				removeOptionItem($this);
+				if (!$('.product-options-item').length) {
+					$('.product-options').html('<p class="text-center"> no option, please add one option to generate skus. </p>');
+					$('.product-sku-body').html('<p class="text-center"> no skus ... </p>');
+				}
+				renderProductSkus(getOptionData(), true);
+			});
+		});
+		// delete product option
+		function deleteProductOption(reqData, callback) {
+			$('.c-mask').show(); 
 			$.ajax({
 				url: "${APP_PATH }/MlbackProductAttributeName/delete",
 				type: "post",
@@ -633,7 +661,7 @@
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
-						removeOptionItem($this);
+						callback();
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -646,10 +674,10 @@
 					$('.c-mask').hide();
 				}
 			});
-		});
+		}
 		// save product option
 		function saveProductOption(reqData, callback) {
-			$('.c-mask').show(); 
+			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH }/MlbackProductAttributeName/save",
 				type: "post",
@@ -660,6 +688,113 @@
 				success: function (data) {
 					if (data.code == 100) {
 						callback();
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// save product sku
+		$(document.body).on('click', '.product-sku-save', function() {
+			var skuId = $(this).data('id') || null;
+			var parentEl = $(this).parents('.product-sku-item');
+			saveProductSkuData({
+			    "productskuPid": $('#productId').val(),
+				"productskuId": skuId,
+				"productskuName": parentEl.find('.product-sku-name').text().split('/').join(','),
+			    "productskuStock": parentEl.find('.product-sku-stock').val(),
+			    "productskuMoney": parentEl.find('.product-sku-price').val(),
+			    "productskuCode": parentEl.find('.product-sku-sku').val(),
+			}, function(data) {
+				parentEl.attr('data-id', data.productskuId);
+			});
+		});
+		// delete product sku
+		$(document.body).on('click', '.product-sku-delete', function() {
+			var parentEl = $(this).parents('.product-sku-item');
+			var skuId = parentEl.data('id') || null;
+			function deleteSkuItem(el) {
+				el.remove();
+			}
+			if (skuId) {
+				deleteProductSkuData({ "productskuId": skuId }, parentEl, deleteSkuItem);
+			} else {
+				deleteSkuItem(parentEl);
+				toastr.success('delete product sku success!');
+			}
+		});
+		// get product sku-list
+		function getProductSkusData(reqData, callback) {
+			$('.c-mask').show(); 
+			$.ajax({
+				url: "${APP_PATH }/MlbackProductSku/getMlbackProductSkuListByPId",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend.mlbackProductSkuResList);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// save product sku-data
+		function saveProductSkuData(reqData, callback) {
+			$('.c-mask').show(); 
+			$.ajax({
+				url: "${APP_PATH }/MlbackProductSku/save",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend.mlbackProductSku);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// delete product sku-data
+		function deleteProductSkuData(reqData, el, callback) {
+			$('.c-mask').show(); 
+			$.ajax({
+				url: "${APP_PATH }/MlbackProductSku/delete",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						callback(el);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -701,15 +836,14 @@
 		}
 		// render product option
 		function renderProductOption(data) {
-			data.forEach(function(item) {
-				createOptionItem(item)
-					.find('.product-option-values')
-					.tagsinput({
-						onTagExists: function(item, $tag) {
-							toastr.error('Youve already used the option "'+ item + '"');
-						}
-					});
-			});
+			if (data.length) {
+				$('.product-options').html('');
+				data.forEach(function(item) {
+					createOptionItem(item);
+				});				
+			} else {
+				$('.product-options').html('<p class="text-center"> no option, please add one option to generate skus. </p>');
+			}
 		}
 		// create option item
 		function createOptionItem(data) {
@@ -726,9 +860,13 @@
 					'<input class="product-option-values" type="text" value="'+ (data.productattrnameValues || "") +'" />' +										
 				'</div>' +
 			'</div>');
-			
+			optionItem.find('.product-option-values')
+			.tagsinput({
+				onTagExists: function(item, $tag) {
+					toastr.error('Youve already used the option "'+ item + '"');
+				}
+			})
 			$('.product-options').append(optionItem);
-			return optionItem;
 		}
 		// upload img
 		$('#productImgurl').on('change', function(e) {
@@ -883,7 +1021,7 @@
 
 			$('#productOriginalprice').val('0.00');
 			$('#productActoffoff').val('0');
-
+			
 			resetPicture($('#productImgurl'));
 			// reset product-img-list
 			$('.product-img-list').html('');
