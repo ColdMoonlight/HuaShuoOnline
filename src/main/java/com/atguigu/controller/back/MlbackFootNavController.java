@@ -78,6 +78,8 @@ public class MlbackFootNavController {
 		String nowTime = DateUtil.strTime14s();
 		mlbackFootNav.setFootnavMotifytime(nowTime);
 		mlbackFootNav.setFootnavIfshow(0);//0不展示1展示
+		mlbackFootNav.setFootnavSuperCateId(1);
+		mlbackFootNav.setFootnavSuperCateName("hair");
 		mlbackFootNavService.insertSelective(mlbackFootNav);
 		System.out.println("插入后"+mlbackFootNav.toString());
 		return Msg.success().add("resMsg", "Category初始化成功").add("mlbackCategory", mlbackFootNav);
