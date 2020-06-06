@@ -82,7 +82,7 @@ public class MlbackFootNavController {
 		mlbackFootNav.setFootnavSuperCateName("hair");
 		mlbackFootNavService.insertSelective(mlbackFootNav);
 		System.out.println("插入后"+mlbackFootNav.toString());
-		return Msg.success().add("resMsg", "Category初始化成功").add("mlbackCategory", mlbackFootNav);
+		return Msg.success().add("resMsg", "FootNav初始化成功").add("mlbackFootNav", mlbackFootNav);
 	}
 	
 	/**3.0	UseNow	0505
