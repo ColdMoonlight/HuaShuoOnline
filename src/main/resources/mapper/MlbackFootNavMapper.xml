@@ -205,6 +205,16 @@
     select footnav_id, footnav_name, footnav_hang, footnav_lie, footnav_superCate_id, footnav_superCate_name, footnav_ifIncome,footnav_ifShow
     from tb_mlback_footnav where footnav_ifShow = #{footnavIfshow,jdbcType=INTEGER} order by footnav_lie, footnav_hang,footnav_id
   </select>
-  <!-- insertSelective -->
-  
+  <!-- selectMlbackFootNavBackSearch -->
+  <select id="selectMlbackFootNavBackSearch" parameterType="com.atguigu.bean.MlbackFootNav" resultMap="BaseResultMap">
+  	select 
+  	footnav_id, footnav_name, footnav_hang, footnav_lie, 
+    footnav_superCate_id, footnav_superCate_name, footnav_ifIncome,footnav_ifshow
+  	from tb_mlback_footnav 
+  	where footnav_name like concat(concat("%",#{footnavName}),"%")
+     <if test="footnavSuperCateId != null">
+     	and footnav_superCate_id = #{footnavSuperCateId,jdbcType=INTEGER}
+     </if>
+    order by footnav_lie desc, footnav_hang desc,footnav_id desc
+  </select>
 </mapper>

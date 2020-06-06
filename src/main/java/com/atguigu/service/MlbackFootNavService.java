@@ -3,6 +3,8 @@ package com.atguigu.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackFootNav;
 import com.atguigu.dao.MlbackFootNavMapper;
 
@@ -77,6 +79,11 @@ public class MlbackFootNavService {
 	public List<MlbackFootNav> selectMlbackFootNavAllSimpleIfShow(MlbackFootNav mlbackFootNav) {
 		List<MlbackFootNav>  mlbackAreafreightList = mlbackFootNavMapper.selectMlbackFootNavAllSimpleIfShow(mlbackFootNav);
 		return mlbackAreafreightList;
+	}
+
+	public List<MlbackFootNav> selectMlbackFootNavBackSearch(MlbackFootNav mlbackFootNavReq) {
+		List<MlbackFootNav>  mlbackFootNavList = mlbackFootNavMapper.selectMlbackFootNavBackSearch(mlbackFootNavReq);
+		return mlbackFootNavList;
 	}
 	
 }
