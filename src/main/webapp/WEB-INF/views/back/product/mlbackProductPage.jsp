@@ -593,7 +593,7 @@
             var htmlStr = '';
             (flag ? generateSkus(data) : data).forEach(function(item) {
             	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
-            		'<div class="product-sku-name">'+ (item.productskuName ? item.productskuName.replace(',', '/') : item.join('/')) +'</div>' +
+            		'<div class="product-sku-name">'+ (item.productskuName ? item.productskuName.replace(/\,/g, '/') : item.join('/')) +'</div>' +
             		'<input class="product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : '') +'" />' +
             		'<input class="product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : '') +'" />' +
             		'<input class="product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'" />' +
