@@ -242,9 +242,9 @@ public class MlbackFootNavController {
 		MlbackFootNav mlbackFootNavReq = new MlbackFootNav();
 		mlbackFootNavReq.setFootnavSuperCateId(footnavSuperCateId);
 		mlbackFootNavReq.setFootnavName(footnavName);
-		List<MlbackFootNav> mlbackCategoryResList = mlbackFootNavService.selectMlbackFootNavBackSearch(mlbackFootNavReq);
+		List<MlbackFootNav> mlbackFootNavResList = mlbackFootNavService.selectMlbackFootNavBackSearch(mlbackFootNavReq);
 		
-		PageInfo page = new PageInfo(mlbackCategoryResList, PagNum);
+		PageInfo page = new PageInfo(mlbackFootNavResList, PagNum);
 		
 		return Msg.success().add("pageInfo", page);
 			
