@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackFootNav;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
@@ -220,5 +221,32 @@ public class MlbackFootNavController {
 		return Msg.success().add("resMsg", "查看底部导航完毕详情细节完毕").add("isNav", isNav)
 				.add("mlbackFootNavOneList", mlbackFootNavOneList).add("mlbackFootNavTwoList", mlbackFootNavTwoList)
 				.add("mlbackFootNavThreeList", mlbackFootNavThreeList).add("mlbackFootNavFourList", mlbackFootNavFourList);
+	}
+	
+	/**
+	 * 7.0	onuse	20200103	check
+	 * 后端获取类下产品list详情页面wap/pc
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping(value="/backSearchByfootNav",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg backSearchByfootNav(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "footnavName") String footnavName,
+			@RequestParam(value = "footnavSuperCateId", defaultValue = "1") Integer footnavSuperCateId) throws Exception{
+		
+		//接收传递进来的参数
+		int PagNum = 30;
+		PageHelper.startPage(pn, PagNum);
+		MlbackFootNav mlbackFootNavReq = new MlbackFootNav();
+		mlbackFootNavReq.setFootnavSuperCateId(footnavSuperCateId);
+		mlbackFootNavReq.setFootnavName(footnavName);
+		List<MlbackFootNav> mlbackCategoryResList = mlbackFootNavService.selectMlbackFootNavBackSearch(mlbackFootNavReq);
+		
+		PageInfo page = new PageInfo(mlbackCategoryResList, PagNum);
+		
+		return Msg.success().add("pageInfo", page);
+			
 	}
 }

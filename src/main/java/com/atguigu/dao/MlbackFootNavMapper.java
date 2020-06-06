@@ -26,4 +26,6 @@ public interface MlbackFootNavMapper {
 	List<MlbackFootNav> selectMlbackFootNavGetAll();
 	//简单查询底部导航
 	List<MlbackFootNav> selectMlbackFootNavAllSimpleIfShow(MlbackFootNav mlbackFootNav);
+	//类目超级搜索
+	List<MlbackFootNav> selectMlbackFootNavBackSearch(MlbackFootNav mlbackFootNavReq);
 }
