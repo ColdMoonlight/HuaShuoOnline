@@ -149,7 +149,7 @@
     where productSku_id = #{productskuId,jdbcType=INTEGER}
   </update>
   <!-- insertSelective -->
-    <!-- selectMlbackProductSkuListByPId使用中 -->
+  <!-- selectMlbackProductSkuListByPId使用中 -->
   <select id="selectMlbackProductSkuListByPId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select *
     from tb_mlback_product_sku 
