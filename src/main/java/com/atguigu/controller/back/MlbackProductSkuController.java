@@ -44,7 +44,7 @@ public class MlbackProductSkuController {
 			//无id,insert
 			mlbackProductSkuService.insertSelective(mlbackProductSku);
 			System.out.println("mlbackProductSku insert success+intResult:"+mlbackProductSku.toString());
-			return Msg.success().add("resMsg", "插入成功");
+			return Msg.success().add("resMsg", "插入成功").add("mlbackProductSku", mlbackProductSku);
 		}else{
 			//有id,update
 			mlbackProductSkuService.updateByPrimaryKeySelective(mlbackProductSku);
