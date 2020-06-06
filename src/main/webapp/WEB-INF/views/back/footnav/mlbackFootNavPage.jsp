@@ -369,8 +369,8 @@
 		function resetFormData() {
 			$('#footnavId').val('');
 			$('#footnavName').val('');
-			$('#footnavLie').val('0');
-			$('#footnavHang').val('0');
+			$('#footnavLie').val('1');
+			$('#footnavHang').val('1');
 			$('#footnavIfshow').prop('checked', false);
 			$('#footnavIfincome').prop('checked', false);
 			$('#footnavDesc').summernote('reset'); 
