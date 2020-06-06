@@ -19,6 +19,10 @@ public class MlbackFootNav {
     private Integer footnavIfshow;
 
     private String footnavDesc;
+    
+    private Integer footnavSuperCateId;
+    
+    private String footnavSuperCateName;
 
     public Integer getFootnavId() {
         return footnavId;
@@ -91,6 +95,22 @@ public class MlbackFootNav {
     public void setFootnavDesc(String footnavDesc) {
         this.footnavDesc = footnavDesc == null ? null : footnavDesc.trim();
     }
+    
+	public Integer getFootnavSuperCateId() {
+		return footnavSuperCateId;
+	}
+
+	public void setFootnavSuperCateId(Integer footnavSuperCateId) {
+		this.footnavSuperCateId = footnavSuperCateId;
+	}
+
+	public String getFootnavSuperCateName() {
+		return footnavSuperCateName;
+	}
+
+	public void setFootnavSuperCateName(String footnavSuperCateName) {
+		this.footnavSuperCateName = footnavSuperCateName == null ? null : footnavSuperCateName.trim();
+	}
 
 	public MlbackFootNav() {
 		super();
@@ -98,7 +118,7 @@ public class MlbackFootNav {
 
 	public MlbackFootNav(Integer footnavId, String footnavName, Integer footnavHang, Integer footnavLie,
 			String footnavCreatetime, String footnavMotifytime, Integer footnavIfincome, Integer footnavIfshow,
-			String footnavDesc) {
+			String footnavDesc, Integer footnavSuperCateId, String footnavSuperCateName) {
 		super();
 		this.footnavId = footnavId;
 		this.footnavName = footnavName;
@@ -109,6 +129,8 @@ public class MlbackFootNav {
 		this.footnavIfincome = footnavIfincome;
 		this.footnavIfshow = footnavIfshow;
 		this.footnavDesc = footnavDesc;
+		this.footnavSuperCateId = footnavSuperCateId;
+		this.footnavSuperCateName = footnavSuperCateName;
 	}
 
 	@Override
@@ -116,7 +138,8 @@ public class MlbackFootNav {
 		return "MlbackFootNav [footnavId=" + footnavId + ", footnavName=" + footnavName + ", footnavHang=" + footnavHang
 				+ ", footnavLie=" + footnavLie + ", footnavCreatetime=" + footnavCreatetime + ", footnavMotifytime="
 				+ footnavMotifytime + ", footnavIfincome=" + footnavIfincome + ", footnavIfshow=" + footnavIfshow
-				+ ", footnavDesc=" + footnavDesc + "]";
+				+ ", footnavDesc=" + footnavDesc + ", footnavSuperCateId=" + footnavSuperCateId
+				+ ", footnavSuperCateName=" + footnavSuperCateName + "]";
 	}
     
 }

@@ -65,6 +65,24 @@ public class MlbackFootNavController {
 //		}
 	}
 	
+	/**3.0	onuse	20191225	检查
+	 * MlbackFootNav	initializaFootNav
+	 * @param MlbackFootNav
+	 * @return
+	 */
+	@RequestMapping(value="/initializaFootNav",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg initializaFootNav(HttpServletResponse rep,HttpServletRequest res){
+		
+		MlbackFootNav mlbackFootNav = new MlbackFootNav();
+		String nowTime = DateUtil.strTime14s();
+		mlbackFootNav.setFootnavMotifytime(nowTime);
+		mlbackFootNav.setFootnavIfshow(0);//0不展示1展示
+		mlbackFootNavService.insertSelective(mlbackFootNav);
+		System.out.println("插入后"+mlbackFootNav.toString());
+		return Msg.success().add("resMsg", "Category初始化成功").add("mlbackCategory", mlbackFootNav);
+	}
+	
 	/**3.0	UseNow	0505
 	 * MlbackAreafreight	insert
 	 * @param MlbackAreafreight
