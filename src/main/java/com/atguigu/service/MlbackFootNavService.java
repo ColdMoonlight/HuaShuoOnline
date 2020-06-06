@@ -1,7 +1,6 @@
 package com.atguigu.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.atguigu.bean.MlbackFootNav;
@@ -10,12 +9,9 @@ import com.atguigu.dao.MlbackFootNavMapper;
 @Service
 public class MlbackFootNavService {
 	
-	
 	@Autowired
 	MlbackFootNavMapper mlbackFootNavMapper;
 
-
-	
 	/**1
 	 * @author Shinelon
 	 * @param MlbackFootNav

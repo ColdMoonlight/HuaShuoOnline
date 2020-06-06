@@ -20,8 +20,6 @@ import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackFootNavService;
 import com.atguigu.utils.DateUtil;
-import com.atguigu.utils.IfMobileUtils;
-
 
 @Controller
 @RequestMapping("/MlbackFootNav")
@@ -42,7 +40,7 @@ public class MlbackFootNavController {
 	@RequestMapping("/toMlbackFootNavPage")
 	public String toMlbackFootNavPage() throws Exception{
 	
-		return "back/product/mlbackFootNavPage";
+		return "back/footnav/mlbackFootNavPage";
 	}
 	
 	
@@ -84,7 +82,7 @@ public class MlbackFootNavController {
 			mlbackFootNav.setFootnavCreatetime(nowTime);
 			mlbackFootNavService.insertSelective(mlbackFootNav);
 			System.out.println("后台操作:footnavId为null,走add+intResult:"+mlbackFootNav.toString());
-			return Msg.success().add("resMsg", "插入成功");
+			return Msg.success().add("resMsg", "插入成功").add("mlbackFootNav", mlbackFootNav);
 		}else{
 			//有id，update
 			mlbackFootNavService.updateByPrimaryKeySelective(mlbackFootNav);
@@ -108,7 +106,7 @@ public class MlbackFootNavController {
 	}
 	
 	/**
-	 * 6.0	UseNow	0505
+	 * 5.0	UseNow	0505
 	 * 查看单条类目的详情细节
 	 * @param MlbackAreafreight
 	 * @return 
@@ -133,7 +131,7 @@ public class MlbackFootNavController {
 	}
 	
 	/**
-	 * 8.0	UseNow	0505
+	 * 6.0	UseNow	0505
 	 * toMlbackFootNav展示页面(wap)
 	 * @param jsp
 	 * @return 
@@ -148,21 +146,14 @@ public class MlbackFootNavController {
 		
 		session.setAttribute("footnavId", footnavIdReq);
 		
-		//判断请求设备
-		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
-		
-		if(ifMobile.equals("1")){
-			//1wap
-			return "mfront/footNavPage";
-		}else{
-			//0PC
-			return "front/pcfootNavPage";
-		}
+
+		return "mfront/footNavPage";
+
 		
 	}
 	
 	/**
-	 * 9.0	UseNow	0505
+	 * 7.0	UseNow	0505
 	 * 前台查看list		查看foot全部的接口类目的详情细节
 	 * @param MlbackAreafreight
 	 * @return 

@@ -10,10 +10,6 @@ public class MlbackFootNav {
 
     private Integer footnavLie;
 
-    private Integer footnavAdminId;
-
-    private String footnavAdminOperatorname;
-
     private String footnavCreatetime;
 
     private String footnavMotifytime;
@@ -56,22 +52,6 @@ public class MlbackFootNav {
         this.footnavLie = footnavLie;
     }
 
-    public Integer getFootnavAdminId() {
-        return footnavAdminId;
-    }
-
-    public void setFootnavAdminId(Integer footnavAdminId) {
-        this.footnavAdminId = footnavAdminId;
-    }
-
-    public String getFootnavAdminOperatorname() {
-        return footnavAdminOperatorname;
-    }
-
-    public void setFootnavAdminOperatorname(String footnavAdminOperatorname) {
-        this.footnavAdminOperatorname = footnavAdminOperatorname == null ? null : footnavAdminOperatorname.trim();
-    }
-
     public String getFootnavCreatetime() {
         return footnavCreatetime;
     }
@@ -111,4 +91,32 @@ public class MlbackFootNav {
     public void setFootnavDesc(String footnavDesc) {
         this.footnavDesc = footnavDesc == null ? null : footnavDesc.trim();
     }
+
+	public MlbackFootNav() {
+		super();
+	}
+
+	public MlbackFootNav(Integer footnavId, String footnavName, Integer footnavHang, Integer footnavLie,
+			String footnavCreatetime, String footnavMotifytime, Integer footnavIfincome, Integer footnavIfshow,
+			String footnavDesc) {
+		super();
+		this.footnavId = footnavId;
+		this.footnavName = footnavName;
+		this.footnavHang = footnavHang;
+		this.footnavLie = footnavLie;
+		this.footnavCreatetime = footnavCreatetime;
+		this.footnavMotifytime = footnavMotifytime;
+		this.footnavIfincome = footnavIfincome;
+		this.footnavIfshow = footnavIfshow;
+		this.footnavDesc = footnavDesc;
+	}
+
+	@Override
+	public String toString() {
+		return "MlbackFootNav [footnavId=" + footnavId + ", footnavName=" + footnavName + ", footnavHang=" + footnavHang
+				+ ", footnavLie=" + footnavLie + ", footnavCreatetime=" + footnavCreatetime + ", footnavMotifytime="
+				+ footnavMotifytime + ", footnavIfincome=" + footnavIfincome + ", footnavIfshow=" + footnavIfshow
+				+ ", footnavDesc=" + footnavDesc + "]";
+	}
+    
 }
