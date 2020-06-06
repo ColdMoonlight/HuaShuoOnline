@@ -11,6 +11,7 @@
 				<span class="c-text">Dashboard</span>
 			</a>
 		</li>
+		<!-- product -->
 		<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
 			<a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle">
 				<svg class="c-sidebar-nav-icon">
@@ -40,11 +41,11 @@
 			</ul>
 		</li>
 		<li class="c-sidebar-nav-item">
-			<a class="c-sidebar-nav-link" href="widgets.html">
+			<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackFootNav/toMlbackFootNavPage">
 				<svg class="c-sidebar-nav-icon">
 					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-calculator"></use>
 				</svg>
-				<span class="c-text">Widgets</span>
+				<span class="c-text">Footer Nav</span>
 			</a>
 		</li>
 		<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
