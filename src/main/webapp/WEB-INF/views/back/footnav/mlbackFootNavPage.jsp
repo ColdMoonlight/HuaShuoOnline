@@ -83,9 +83,9 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="footLie">Column</label>
+										<label class="col-form-label" for="footnavLie">Column</label>
 										<div class="controls">
-											<select class="form-control" id="footLie" />
+											<select class="form-control" id="footnavLie" />
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -94,9 +94,9 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="footHang">Row</label>
+										<label class="col-form-label" for="footnavHang">Row</label>
 										<div class="controls">
-											<select class="form-control" id="footHang" />
+											<select class="form-control" id="footnavHang" />
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -221,10 +221,13 @@
 		// save search
 		$('.btn-save-search').on('click', function () {
 			var searchFootnavVal = {
-				footnav: $('#searchFootnav').val()
+				footnav: $('#searchFootnav').val(),
+				supercate: $('#searchSupercate').find('option:selected').text(),
+				supercateId: $('#searchSupercate').val(),
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchFootnavVal)) return;
+			if (parseInt(searchProductVal.supercateId) < 0) searchProductVal.supercate = "";
 			if (searchFootnavVal.supercate || searchFootnavVal.footnav) {
 				addFootnavItem(searchFootnavVal);
 				createFootnavItem(searchFootnavVal).addClass('active')
@@ -246,6 +249,8 @@
 		// search status change
 		function updateSearchData() {
 			var searchFootnavVal = {
+				supercate: $('#searchSupercate').find('option:selected').text(),
+				supercateId: $('#searchSupercate').val(),
 				footnav: $('#searchFootnav').val()
 			};
 			// inital pagination num
@@ -268,9 +273,12 @@
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
 			if (dataVal) {
+				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
+				$('#searchSupercate').val(dataVal.supercateId || '-1');
 				$('#searchFootnav').val(dataVal.footnav || '');
 				getSearchFootnavsData();
 			} else {
+				$('#searchSupercate').val('-1');
 				$('#searchFootnav').val('');
 				getFootnavsData();
 			}
@@ -361,13 +369,13 @@
 		function resetFormData() {
 			$('#footnavId').val('');
 			$('#footnavName').val('');
-			$('#footnavLie').val('0');
-			$('#footnavHang').val('0');
+			$('#footnavLie').val('1');
+			$('#footnavHang').val('1');
 			$('#footnavIfshow').prop('checked', false);
 			$('#footnavIfincome').prop('checked', false);
 			$('#footnavDesc').summernote('reset'); 
 
-			$('#footnavSuperCateId').val('0');
+			$('#footnavSuperCateId').val('-1');
 			
 			/* $('#footnavSeo').val('');
 			$('#footnavMetatitle').val('');
@@ -537,7 +545,7 @@
 			formData += '&pn=' + getPageNum();
 
 			$.ajax({
-				url: "${APP_PATH }/MlbackCategory/backSearchBycategory",
+				url: "${APP_PATH }/MlbackFootNav/backSearchBycategory",
 				type: "post",
 				data: formData,
 				success: function (data) {
@@ -561,7 +569,7 @@
 		function saveFootnavData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCategory/save",
+				url: "${APP_PATH}/MlbackFootNav/save",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -587,7 +595,7 @@
 		function deleteFootnavData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCategory/delete",
+				url: "${APP_PATH}/MlbackFootNav/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
