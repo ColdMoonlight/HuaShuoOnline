@@ -490,19 +490,93 @@ th {
   background-size: 18px;
 }
 .wap-header,
-.pc-header {
+.pc-header,
+.wap-footer,
+.pc-footer {
 	display: none;
 }
-@media (min-width: 576px) {
+/* footer nav */
+footer ul {
+	padding-left: 0;
+}
+footer li {
+	list-style: none;
+}
+/* pc */
+.pc-footer li a {
+	color: #777777;
+	line-height: 1.5;
+	text-decoration: none;
+}
+.pc-footer li a:hover {
+	text-decoration: underline;
+	color: #171717;
+}
+.pc-footer h4 {
+	letter-spacing: 0.04em;
+	line-height: 1.6;
+}
+.pc-footer h4>.icon {
+	display: none;
+}
+.pc-footer .footer-nav-item {
+	width: 23%;
+}
+.pc-footer .client_service_support {
+	width: 31%;
+}
+.pc-footer .client_service_support a:hover {
+	text-decoration: none;
+}
+
+/* wap */
+.wap-footer {
+	padding: 1rem;
+}
+.wap-footer h4 {
+	position: relative;
+	margin: .25rem;
+	line-height: 2;
+	color: #fff;
+	font-weight: normal;
+}
+.wap-footer h4>.icon {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.wap-footer a {
+	color: #fff;
+	font-size: .8rem;
+	line-height: 2.0;
+	text-decoration: none;
+}
+.wap-footer .footer-nav-body {
+	padding: .5rem 1rem;
+	margin: 0;
+	display: none;
+}
+/* .wap-footer .client_service_support .footer-nav-body {
+	display: block;
+} */
+@media screen and (min-width: 576px) {
 	.pc-header {
 		display: block;
 	}
+	.pc-footer {
+		display: flex;
+		background: #f7f8fa;
+	}
 }
-@media (max-width: 576px) {
+@media screen and (max-width: 576px) {
 	.wap-header {
 		display: block;
 	}
-}
+	.wap-footer {
+		display: block;
+		background-color: #666;
+	}
+} 
 /* icon */
 @font-face {
   font-family: "icon";
