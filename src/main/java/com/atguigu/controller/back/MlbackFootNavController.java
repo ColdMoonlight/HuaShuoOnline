@@ -127,9 +127,9 @@ public class MlbackFootNavController {
 	}
 	
 	/**
-	 * 5.0	UseNow	0505
+	 * 5.0	20200608
 	 * 查看单条类目的详情细节
-	 * @param MlbackAreafreight
+	 * @param MlbackFootNav
 	 * @return 
 	 */
 	@RequestMapping(value="/getOneMlbackFootNavOneAllDetail",method=RequestMethod.POST)
@@ -152,23 +152,22 @@ public class MlbackFootNavController {
 	}
 	
 	/**
-	 * 6.0	UseNow	0505
-	 * toMlbackFootNav展示页面(wap)
+	 * 6.0	20200608
+	 * toMlbackFootNav展示页面
 	 * @param jsp
 	 * @return 
 	 * */
 	@RequestMapping(value="/toFootNavPage",method=RequestMethod.GET)
-	public String toFootNavPage(HttpSession session,@RequestParam(value = "footnavId") Integer footnavId,HttpServletResponse rep,HttpServletRequest res) throws Exception{
+	public String toFootNavPage(HttpSession session,@RequestBody MlbackFootNav mlbackFootNav,HttpServletResponse rep,HttpServletRequest res) throws Exception{
 	
 		//接收传递进来的参数
-		Integer footnavIdReq = footnavId;
+		Integer footnavIdReq = mlbackFootNav.getFootnavId();
 		//放回响应域中
 		res.setAttribute("footnavId", footnavIdReq);
 		
 		session.setAttribute("footnavId", footnavIdReq);
-		
 
-		return "mfront/footNavPage";
+		return "portal/footNavDetailPage";
 
 		
 	}
