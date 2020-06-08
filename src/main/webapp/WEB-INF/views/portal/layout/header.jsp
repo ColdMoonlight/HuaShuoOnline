@@ -48,7 +48,7 @@
 			var labelClass = getLabelClass(data1[i].categoryLable);
 			var secondNavSeo = data1[i].categorySeo;
 			var secondNavName = data1[i].categoryName;
-			menuHhtml += '<li class="menu-item ' + labelClass + '">';
+			menuHhtml += '<li class="menu-item label ' + labelClass + '">';
 			if (secondNavSeo == "") {
 				menuHhtml += '<a href="${APP_PATH}/search/nowig.html">' + secondNavName + '</a>';
 			} else if (secondNavSeo == "home") {
@@ -77,7 +77,7 @@
 							var thirdNavName = data2[i][j][k].categoryName;
 
 							if (k == 0) {
-								subMenuHtml += '<dt class="' + labelClass + '">';
+								subMenuHtml += '<dt class="label ' + labelClass + '">';
 								if (thirdNavSeo == "") {
 									subMenuHtml += '<a href="${APP_PATH}/search/nowig.html">' + thirdNavName + '</a>';
 								} else if (thirdNavSeo == "Customer-Videos") {
