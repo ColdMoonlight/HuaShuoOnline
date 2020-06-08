@@ -4,7 +4,7 @@
 
 <head>
     <title>Insert title here</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<jsp:include page="WEB-INF/views/portal/common/header.jsp" flush="true"></jsp:include>
 </head>
 
 <body>
