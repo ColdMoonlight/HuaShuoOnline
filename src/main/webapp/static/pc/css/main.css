@@ -294,27 +294,32 @@ th {
   color: #444;
 }
 /* lable */
-.pc-nav .label-hot {
-  background: url(../img/navlabel/hot.gif) no-repeat center top;
+.label-hot {
+  background: url(../../common/navlabel/hot.gif) no-repeat;
   background-size: 35px 25px;
 }
-.pc-nav .label-new {
-  background: url(../img/navlabel/new.gif) no-repeat center top;
+.label-new {
+  background: url(../../common/navlabel/new.gif) no-repeat center top;
   background-size: 35px 25px;
 }
-.pc-nav .label-sale {
-  background: url(../img/navlabel/4zoff.gif) no-repeat center top;
+.label-sale {
+  background: url(../../common/navlabel/4zoff.gif) no-repeat center top;
   background-size: 64px 25px;
 }
-.pc-nav .label-doubledrawn {
-  background: url(../img/navlabel/doubledrawn.gif) no-repeat center top;
+.label-doubledrawn {
+  background: url(../../common/navlabel/doubledrawn.gif) no-repeat center top;
   background-size: 100px 25px;
 }
-.pc-nav .label-15a {
-  background: url(../img/navlabel/15A.gif) no-repeat center top;
+.label-15a {
+  background: url(../../common/navlabel/15A.gif) no-repeat center top;
   background-size: 35px 25px;
 }
-
+.pc-nav .label {
+	background-position: center top;
+}
+.wap-nav .label {
+	background-position: center center;
+}
 /* wap nav */
 .wap-nav-box {
   position: fixed;
@@ -358,62 +363,6 @@ th {
 .wap-nav {
   margin-top: 60px;
   background-color: #fff;
-}
-
-/*hot*/
-.wap-nav .label-hot:before {
-  content: "";
-  width: 35px;
-  height: 25px;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  background: url(../../pc/img/navlabel/hot.gif) no-repeat center top;
-  background-size: 35px 25px;
-}
-/*new*/
-.wap-nav .label-new:before {
-  content: "";
-  width: 35px;
-  height: 25px;
-  position: absolute;
-  top: 0;
-  left: 60%;
-  background: url(../../pc/img/navlabel/new.gif) no-repeat center top;
-  background-size: 35px 25px;
-}
-/*Sale*/
-.wap-nav .label-sale:before {
-  content: "";
-  width: 64px;
-  height: 25px;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  background: url(../../pc/img/navlabel/4off.gif) no-repeat center top;
-  background-size: 64px 25px;
-}
-/*Double Drawn*/
-.wap-nav .label-doubledrawn:before {
-  content: "";
-  width: 100px;
-  height: 25px;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  background: url(../../pc/img/navlabel/double.gif) no-repeat center top;
-  background-size: 100px 25px;
-}
-/*15 A*/
-.wap-nav .label-15a:before {
-  content: "";
-  width: 35px;
-  height: 25px;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  background: url(../../pc/img/navlabel/15A.gif) no-repeat center top;
-  background-size: 35px 25px;
 }
 
 .wap-nav .menu-item a {
@@ -514,7 +463,7 @@ footer li {
 }
 .pc-footer h4 {
 	letter-spacing: 0.04em;
-	line-height: 1.6;
+	margin: 0 0 20px;
 }
 .pc-footer h4>.icon {
 	display: none;
@@ -556,27 +505,80 @@ footer li {
 	margin: 0;
 	display: none;
 }
-/* .wap-footer .client_service_support .footer-nav-body {
-	display: block;
-} */
+/* follow-us  */
+.follow-us-title {
+	display: none;
+	text-align: center;
+}
+.follow-us-list {
+  padding: 10px 0;
+  text-align: center;
+}
+.follow-us .follow-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin: 0 6px;
+  background-image: url(../../common/follow-us.png);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+.follow-us .follow-icon>a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.follow-us .follow-icon.facebook {
+	background-position: 0 0;
+}
+.follow-us .follow-icon.instagram {
+	background-position: 0 -40px;
+}
+.follow-us .follow-icon.pinterest {
+	background-position: 0 -80px;
+}
+.follow-us .follow-icon.snapchat {
+	background-position: 0 -120px;
+}
+.follow-us .follow-icon.youtube {
+	background-position: 0 -160px;
+}
+
 @media screen and (min-width: 576px) {
-	.pc-header {
+	.pc-header,
+	.pc-follow-us {
 		display: block;
 	}
+	footer,
 	.pc-footer {
 		display: flex;
+	}
+	footer {
+		padding: 50px 20px;
 		background: #f7f8fa;
+	}
+	.follow-us {
+		width: 25%;
+		margin-right: 2rem;
+	}
+	.footer-nav {
+		width: 75%;
 	}
 }
 @media screen and (max-width: 576px) {
-	.wap-header {
-		display: block;
-	}
+	.wap-header,
+	.wap-follow-us,
 	.wap-footer {
 		display: block;
+	}
+	footer {
 		background-color: #666;
 	}
-} 
+	.follow-us {
+		padding: 20px;
+		background-color: #fff;
+	}
+}
 /* icon */
 @font-face {
   font-family: "icon";
