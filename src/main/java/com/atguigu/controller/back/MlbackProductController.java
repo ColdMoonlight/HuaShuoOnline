@@ -352,7 +352,6 @@ public class MlbackProductController {
 		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductBackSearch(mlbackProductReq);
 		PageInfo page = new PageInfo(mlbackProductResList, PagNum);
 		return Msg.success().add("pageInfo", page);
-			
 	}
 
 }
