@@ -310,7 +310,6 @@ public class MlbackProductController {
 	public Msg getOneMlbackProductDetail(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackProduct mlbackProduct){
 		//接受信息
 		Integer productId = mlbackProduct.getProductId();
-		
 		Integer productSupercateid = mlbackProduct.getProductSupercateid();
 		
 		MlbackProduct mlbackProductReq = new MlbackProduct();
