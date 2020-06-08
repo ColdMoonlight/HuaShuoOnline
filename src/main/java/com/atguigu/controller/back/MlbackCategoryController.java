@@ -39,7 +39,7 @@ public class MlbackCategoryController {
 	MlbackAdminService mlbackAdminService;
 	
 	/**
-	 * 1.0	onuse	20191225	检查
+	 * 1.0	20200608
 	 * to后台分类MlbackCategory列表页面
 	 * @return jsp
 	 * */
@@ -55,7 +55,7 @@ public class MlbackCategoryController {
 		}
 	}
 	
-	/**2.0	onuse	20191225	检查
+	/**2.0	20200608
 	 * 后台MlbackCategory列表分页list数据
 	 * @param pn
 	 * @return
@@ -71,7 +71,7 @@ public class MlbackCategoryController {
 		return Msg.success().add("pageInfo", page);
 	}
 	
-	/**3.0	onuse	20191225	检查
+	/**3.0	20200608
 	 * MlbackCategory	initializaCategory
 	 * @param MlbackCategory
 	 * @return
@@ -101,7 +101,7 @@ public class MlbackCategoryController {
 		return Msg.success().add("resMsg", "Category初始化成功").add("mlbackCategory", mlbackCategory);
 	}
 	
-	/**3.0	onuse	20191225	检查
+	/**4.0	20200608
 	 * MlbackCategory	update
 	 * @param MlbackCategory
 	 * @return
@@ -139,7 +139,7 @@ public class MlbackCategoryController {
 		return Msg.success().add("resMsg", "category保存成功");
 	}
 	
-	/**4.0	onuse	20191225	检查
+	/**5.0	20200608
 	 * MlbackCategory	delete
 	 * @param MlbackCategory-categoryId
 	 * @return 
@@ -154,7 +154,7 @@ public class MlbackCategoryController {
 	}
 	
 	/**
-	 * 5.0	onuse	20200103
+	 * 6.0	20200608
 	 * 查单条MlbackCategory详情
 	 * @param MlbackCategory-categoryId
 	 * @return 
@@ -174,7 +174,7 @@ public class MlbackCategoryController {
 	}
 	
 	/**
-	 * 6.0	20200608
+	 * 7.0	20200608
 	 * 获取全部类目，以便于下拉选择
 	 * @param 无参
 	 * @return 
@@ -198,7 +198,7 @@ public class MlbackCategoryController {
 	}
 	
 	/**
-	 * 7.0	20200608
+	 * 8.0	20200608
 	 * 后端获取类下产品list详情页面wap/pc
 	 * @param jsp
 	 * @return 
@@ -226,7 +226,7 @@ public class MlbackCategoryController {
 	}
 	
 	/**
-	 * 8.0	20200608
+	 * 9.0	20200608
 	 * 前台获取类下产品list页面
 	 * @param jsp
 	 * @return 
