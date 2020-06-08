@@ -13,11 +13,10 @@
 	<main> </main>
 	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
 	<script>
-		var footernavId = '${sessionScope.footnavId}';
 		$.ajax({
 			url: "${APP_PATH}/MlbackFootNav/getOneMlbackFootNavOneAllDetail",
 			type: "post",
-			data: {"footnavId": footernavId},
+			data: {"footnavId": '${sessionScope.footnavId}'},
 			success: function (data) {
 				if (data.code == 100) {
 					renderArticle(data.extend.MlbackFootNavOne)
