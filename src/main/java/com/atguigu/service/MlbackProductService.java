@@ -1,7 +1,6 @@
 package com.atguigu.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.atguigu.bean.MlbackProduct;
@@ -75,6 +74,11 @@ public class MlbackProductService {
 		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductBackSearch(mlbackProductReq);
 		return mlbackProductList;
 	}
+
+	public List<MlbackProduct> selectMlbackProductbyCategorySeo(MlbackProduct mlbackProductReq) {
+		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductbyCategorySeo(mlbackProductReq);
+		return mlbackProductList;
+	}
 	
 //	/**
 //	 * @author Shinelon
@@ -132,10 +136,7 @@ public class MlbackProductService {
 //		return mlbackProductList;
 //	}
 //	
-//	public List<MlbackProduct> selectMlbackProductbyCategorySeo(MlbackProduct mlbackProductReq) {
-//		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductbyCategorySeo(mlbackProductReq);
-//		return mlbackProductList;
-//	}
+
 //	
 //	/**
 //	 * 查询单个产品信息(无富文本描述)
