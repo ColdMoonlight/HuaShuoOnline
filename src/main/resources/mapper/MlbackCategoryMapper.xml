@@ -390,5 +390,11 @@
     order by category_parent_id
   </select>
   
+  <!-- 使用中selectMlbackCategoryBySeo -->
+  <select id="selectMlbackCategoryBySeo" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_category
+    where category_seo = #{categorySeo,jdbcType=VARCHAR}
+  </select>
   
 </mapper>
