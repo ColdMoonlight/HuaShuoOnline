@@ -27,6 +27,8 @@ public interface MlbackProductMapper {
     List<MlbackProduct> selectMlbackProductByParam(MlbackProduct example);
     //查询BackSearch
     List<MlbackProduct> selectMlbackProductBackSearch(MlbackProduct mlbackProductReq);
+    
+    List<MlbackProduct> selectMlbackProductbyCategorySeo(MlbackProduct mlbackProductReq);
 //  //查询后台登陆用户
 //  MlbackProduct selectMlbackProductById(MlbackProduct example);
 //	//查询全部Category的parentid信息

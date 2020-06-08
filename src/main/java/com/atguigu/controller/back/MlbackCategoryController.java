@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
+import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Const;
-//import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCategoryService;
-//import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlbackProductService;
 import com.atguigu.utils.DateUtil;
 
 @Controller
@@ -32,8 +32,8 @@ public class MlbackCategoryController {
 	@Autowired
 	MlbackCategoryService mlbackCategoryService;
 	
-//	@Autowired
-//	MlbackProductService mlbackProductService;
+	@Autowired
+	MlbackProductService mlbackProductService;
 	
 	@Autowired
 	MlbackAdminService mlbackAdminService;
@@ -154,7 +154,7 @@ public class MlbackCategoryController {
 	}
 	
 	/**
-	 * 5.0	onuse	20200103	检查
+	 * 5.0	onuse	20200103
 	 * 查单条MlbackCategory详情
 	 * @param MlbackCategory-categoryId
 	 * @return 
@@ -174,14 +174,14 @@ public class MlbackCategoryController {
 	}
 	
 	/**
-	 * 6.0	onuse	20191225	检查
+	 * 6.0	20200608
 	 * 获取全部类目，以便于下拉选择
 	 * @param 无参
 	 * @return 
 	 */
-	@RequestMapping(value="/getOneMlbackCategoryParentDetail",method=RequestMethod.POST)
+	@RequestMapping(value="/getMlbackCategoryDropdownSelect",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneMlbackCategoryParentDetail(HttpServletResponse rep,HttpServletRequest res){
+	public Msg getMlbackCategoryDropdownSelect(HttpServletResponse rep,HttpServletRequest res){
 		
 		//查询全部的category信息，便于下拉选择
 		List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
@@ -198,7 +198,7 @@ public class MlbackCategoryController {
 	}
 	
 	/**
-	 * 7.0	onuse	20200103	check
+	 * 7.0	20200608
 	 * 后端获取类下产品list详情页面wap/pc
 	 * @param jsp
 	 * @return 
@@ -226,80 +226,15 @@ public class MlbackCategoryController {
 	}
 	
 	/**
-	 * 6.0	onuse	20191225	检查
-	 * 传进Cid查询所有的类下的产品list
-	 * @param MlbackCategory
-	 * @return 
-	 */
-//	@RequestMapping(value="/getMlFrontCategoryAllProductByCid",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getMlFrontCategoryAllProductByPid(@RequestParam(value = "categoryId") Integer categoryId){
-//		
-//		//接受categoryId
-//		MlbackCategory mlbackCategoryReq = new MlbackCategory();
-//		mlbackCategoryReq.setCategoryId(categoryId);
-//		//查询本条
-//		List<MlbackCategory> mlbackCategoryResList =mlbackCategoryService.selectMlbackCategory(mlbackCategoryReq);
-//		MlbackCategory mlbackCategoryOne =mlbackCategoryResList.get(0);
-//		String productidsStr = mlbackCategoryOne.getCategoryProductIds();
-//		
-//		String productidsStrArr [] =productidsStr.split(",");
-//		String productidStr ="";
-//		Integer productidInt =0;
-//		List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
-//		List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
-//		MlbackProduct mlbackProductResOne = new MlbackProduct();
-//		for(int i=0;i<productidsStrArr.length;i++){
-//			productidStr = productidsStrArr[i];
-//			productidInt = Integer.parseInt(productidStr);
-//			//查询本pid的产品详情
-//			MlbackProduct mlbackProductReq = new MlbackProduct();
-//			mlbackProductReq.setProductId(productidInt);
-//			mlbackProductReqList =mlbackProductService.selectMlbackProduct(mlbackProductReq);
-//			mlbackProductResOne = mlbackProductReqList.get(0);
-//			mlbackProductResList.add(mlbackProductResOne);
-//		}
-//		return Msg.success().add("resMsg", "传进Cid查询所有的类下的产品list完毕")
-//					.add("mlbackProductResList", mlbackProductResList);
-//	}
-
-	
-	/**
-	 * 8.0	onuse	20200103	check
-	 * 获取全部类目，以便于下拉选择
-	 * @param MlbackCategory
-	 * @return 
-	 */
-	@RequestMapping(value="/getMenuMlbackCategory",method=RequestMethod.GET)
-	@ResponseBody
-	public Msg getMenuMlbackCategory(HttpServletResponse rep,HttpServletRequest res){
-		
-		//查询全部的category信息，便于下拉选择
-		List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMenuMlbackCategoryGetAll();
-		System.out.println("操作说明:客户查询-getMenuMlbackCategory-菜单");
-		
-		List<MlbackCategory> mlbackCategorydownEr =new ArrayList<MlbackCategory>();
-		for(MlbackCategory mlbackCategoryOne :mlbackCategorydownList){
-			Integer categoryParentId = mlbackCategoryOne.getCategoryParentId();
-			if(categoryParentId>0){
-				mlbackCategorydownEr.add(mlbackCategoryOne);
-			}
-		}
-		
-		return Msg.success().add("resMsg", "查allCategorydownList")
-					.add("mlbackCategorydownList", mlbackCategorydownList).add("mlbackCategorydownEr", mlbackCategorydownEr);
-	}
-	
-	/**
-	 * 9.0	onuse	20200103	check
-	 * 前台获取类下产品list详情页面wap/pc
+	 * 8.0	20200608
+	 * 前台获取类下产品list页面
 	 * @param jsp
 	 * @return 
 	 * */
-	@RequestMapping(value="/toprolistBycategorySeo",method=RequestMethod.GET)
-	public String toprolistBycategorySeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "categorySeo") String categorySeo) throws Exception{
+	@RequestMapping(value="/toprolistBycategorySeoPage",method=RequestMethod.POST)
+	public String toprolistBycategorySeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackCategory mlbackCategory) throws Exception{
 		//接收传递进来的参数
-		String categorySeoReq = categorySeo;
+		String categorySeoReq = mlbackCategory.getCategorySeo();
 		
 		//放回响应域中
 		res.setAttribute("categorySeo", categorySeoReq);
@@ -328,7 +263,7 @@ public class MlbackCategoryController {
 			
 		}
 		//返回视图
-		return "mfront/prolistBycategorySeo";
+		return "portal/prolistBycategorySeo";
 	}
 	
 	/**
@@ -337,65 +272,67 @@ public class MlbackCategoryController {
 	  * @param productId
 	  * @return 
 	  */
-//	 @RequestMapping(value="/searchBycategorySeo",method=RequestMethod.POST)
-//	 @ResponseBody
-//	 public Msg searchBycategorySeo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackCategory mlbackCategory){
-//		 
-//		 //初始化返回下拉所需
-//		 //查询all-category信息，便于下拉选择
-//		 List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
-//		 
-//		 List<MlbackCategory> mlbackCategorydownEr =new ArrayList<MlbackCategory>();
-//		 for(MlbackCategory mlbackCategoryOne :mlbackCategorydownList){
-//			 Integer categoryParentId = mlbackCategoryOne.getCategoryParentId();
-//			 if(categoryParentId>0){
-//				 mlbackCategorydownEr.add(mlbackCategoryOne);
-//			 }
-//		 }
-//		 
-//		 //接受信息
-//		 String categorySeoReq = mlbackCategory.getCategorySeo();
-//		 MlbackCategory mlbackCategoryReq = new MlbackCategory();
-//		 mlbackCategoryReq.setCategorySeo(categorySeoReq);
-//		 List<MlbackCategory> mlbackCategoryList = mlbackCategoryService.selectMlbackCategoryBySeo(mlbackCategoryReq);
-//		 
-//		 if(!(mlbackCategoryList.size()>0)){
-//			 return Msg.success().add("resMsg", "通过categorySeo未查到该category").add("mlbackProductResList", null).add("mlbackCategorydownEr", mlbackCategorydownEr);
-//		 }
-//		 
-//		 MlbackCategory mlbackCategoryres = mlbackCategoryList.get(0);
-//		 //System.out.println("操作说明:客户点击类菜单-searchBycategorySeo");
-//	 
-//		 String CategoryProductIdsStr = mlbackCategoryres.getCategoryProductIds();
-//		 
-//		 if(CategoryProductIdsStr==null){
-//			 return Msg.success().add("resMsg", "该类下无prolist").add("mlbackProductResList", null).add("mlbackCategorydownEr", mlbackCategorydownEr);
-//		 }
-//		 if("".equals(CategoryProductIdsStr)){
-//			 return Msg.success().add("resMsg", "该类下无prolist").add("mlbackProductResList", null).add("mlbackCategorydownEr", mlbackCategorydownEr);
-//		 }
-//		
-//		 String productidsStrArr [] =CategoryProductIdsStr.split(",");
-//		 String productidStr ="";
-//		 Integer productidInt =0;
-//		 List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
-//		 List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
-//		 MlbackProduct mlbackProductResOne = new MlbackProduct();
-//		 for(int i=0;i<productidsStrArr.length;i++){
-//			 productidStr = productidsStrArr[i];
-//			 productidInt = Integer.parseInt(productidStr);
-//			 //查询白pid的产品详情
-//			 MlbackProduct mlbackProductReq = new MlbackProduct();
-//			 mlbackProductReq.setProductId(productidInt);
-//			 mlbackProductReqList =mlbackProductService.selectMlbackProductbyCategorySeo(mlbackProductReq);
-//			 if(mlbackProductReqList.size()>0){
-//				 mlbackProductResOne = mlbackProductReqList.get(0);
-//				 mlbackProductResList.add(mlbackProductResOne);
-//			 }
-//		 }
-//		 return Msg.success().add("resMsg", "searchBycategorySeo完毕")
-//				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownEr", mlbackCategorydownEr);
-//	 }
+	 @RequestMapping(value="/searchBycategorySeo",method=RequestMethod.POST)
+	 @ResponseBody
+	 public Msg searchBycategorySeo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackCategory mlbackCategory){
+		 
+		 //初始化返回下拉所需
+		 //查询all-category信息，便于下拉选择
+		 List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
+		 
+		 List<MlbackCategory> mlbackCategorydownEr =new ArrayList<MlbackCategory>();
+		 for(MlbackCategory mlbackCategoryOne :mlbackCategorydownList){
+			 Integer categoryParentId = mlbackCategoryOne.getCategoryParentId();
+			 if(categoryParentId>0){
+				 mlbackCategorydownEr.add(mlbackCategoryOne);
+			 }
+		 }
+		 
+		 //接受信息
+		 String categorySeoReq = mlbackCategory.getCategorySeo();
+		 MlbackCategory mlbackCategoryReq = new MlbackCategory();
+		 mlbackCategoryReq.setCategorySeo(categorySeoReq);
+		 List<MlbackCategory> mlbackCategoryList = mlbackCategoryService.selectMlbackCategoryBySeo(mlbackCategoryReq);
+		 
+		 if(!(mlbackCategoryList.size()>0)){
+			 return Msg.success().add("resMsg", "通过categorySeo未查到该category").add("mlbackProductResList", null).add("mlbackCategorydownEr", mlbackCategorydownEr);
+		 }
+		 
+		 MlbackCategory mlbackCategoryres = mlbackCategoryList.get(0);
+		 //System.out.println("操作说明:客户点击类菜单-searchBycategorySeo");
+	 
+		 String CategoryProductIdsStr = mlbackCategoryres.getCategoryProductIds();
+		 
+		 if(CategoryProductIdsStr==null){
+			 return Msg.success().add("resMsg", "该类下无prolist").add("mlbackProductResList", null).add("mlbackCategorydownEr", mlbackCategorydownEr);
+		 }
+		 if("".equals(CategoryProductIdsStr)){
+			 return Msg.success().add("resMsg", "该类下无prolist").add("mlbackProductResList", null).add("mlbackCategorydownEr", mlbackCategorydownEr);
+		 }
+		
+		 String productidsStrArr [] =CategoryProductIdsStr.split(",");
+		 String productidStr ="";
+		 Integer productidInt =0;
+		 List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
+		 List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
+		 MlbackProduct mlbackProductResOne = new MlbackProduct();
+		 for(int i=0;i<productidsStrArr.length;i++){
+			 productidStr = productidsStrArr[i];
+			 productidInt = Integer.parseInt(productidStr);
+			 //查询白pid的产品详情
+			 MlbackProduct mlbackProductReq = new MlbackProduct();
+			 mlbackProductReq.setProductId(productidInt);
+			 mlbackProductReqList =mlbackProductService.selectMlbackProductbyCategorySeo(mlbackProductReq);
+			 if(mlbackProductReqList.size()>0){
+				 mlbackProductResOne = mlbackProductReqList.get(0);
+				 mlbackProductResList.add(mlbackProductResOne);
+			 }
+		 }
+		 return Msg.success().add("resMsg", "searchBycategorySeo完毕")
+				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownEr", mlbackCategorydownEr);
+	 }
+	
+
 	 
 	/**
 	 * 11.0	onuse	20191225	检查
