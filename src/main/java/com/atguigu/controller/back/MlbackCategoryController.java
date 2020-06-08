@@ -232,9 +232,9 @@ public class MlbackCategoryController {
 	 * @return 
 	 * */
 	@RequestMapping(value="/toprolistBycategorySeoPage",method=RequestMethod.GET)
-	public String toprolistBycategorySeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackCategory mlbackCategory) throws Exception{
+	public String toprolistBycategorySeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "categorySeo") String categorySeo) throws Exception{
 		//接收传递进来的参数
-		String categorySeoReq = mlbackCategory.getCategorySeo();
+		String categorySeoReq = categorySeo;
 		
 		//放回响应域中
 		res.setAttribute("categorySeo", categorySeoReq);

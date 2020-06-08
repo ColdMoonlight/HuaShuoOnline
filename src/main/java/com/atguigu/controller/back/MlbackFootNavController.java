@@ -158,10 +158,10 @@ public class MlbackFootNavController {
 	 * @return 
 	 * */
 	@RequestMapping(value="/toFootNavPage",method=RequestMethod.GET)
-	public String toFootNavPage(HttpSession session,@RequestBody MlbackFootNav mlbackFootNav,HttpServletResponse rep,HttpServletRequest res) throws Exception{
+	public String toFootNavPage(HttpSession session,@RequestParam(value = "footnavId") Integer footnavId,HttpServletResponse rep,HttpServletRequest res) throws Exception{
 	
 		//接收传递进来的参数
-		Integer footnavIdReq = mlbackFootNav.getFootnavId();
+		Integer footnavIdReq = footnavId;
 		//放回响应域中
 		res.setAttribute("footnavId", footnavIdReq);
 		
