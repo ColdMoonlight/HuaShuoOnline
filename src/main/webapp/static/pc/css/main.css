@@ -697,3 +697,18 @@ footer li {
 .icon.back:before {
   content: "\e613";
 }
+/* article desc for footer nav */
+.article-title {
+	padding: 25px;
+	font-size: 26px;
+	font-weight: bolder;
+	color: #333;
+	text-align: center;
+}
+.article-content {
+	padding: 0 20px;
+	margin-bottom: 20px;
+}
+.article-content p {
+	font-size: 16px;
+}
