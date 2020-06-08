@@ -231,7 +231,7 @@ public class MlbackCategoryController {
 	 * @param jsp
 	 * @return 
 	 * */
-	@RequestMapping(value="/toprolistBycategorySeoPage",method=RequestMethod.POST)
+	@RequestMapping(value="/toprolistBycategorySeoPage",method=RequestMethod.GET)
 	public String toprolistBycategorySeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackCategory mlbackCategory) throws Exception{
 		//接收传递进来的参数
 		String categorySeoReq = mlbackCategory.getCategorySeo();
@@ -267,9 +267,9 @@ public class MlbackCategoryController {
 	}
 	
 	/**
-	  * 10.0	onuse	20200103	check
+	  * 10.0	20200608
 	  * 通过产品名查看单条产品的详情
-	  * @param productId
+	  * @param mlbackCategory-categorySeo
 	  * @return 
 	  */
 	 @RequestMapping(value="/searchBycategorySeo",method=RequestMethod.POST)
@@ -331,8 +331,6 @@ public class MlbackCategoryController {
 		 return Msg.success().add("resMsg", "searchBycategorySeo完毕")
 				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownEr", mlbackCategorydownEr);
 	 }
-	
-
 	 
 	/**
 	 * 11.0	onuse	20191225	检查
