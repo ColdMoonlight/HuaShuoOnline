@@ -386,6 +386,22 @@
 	align-items: center;
 	justify-content: center;
 }
+.c-upload-img .video-preview {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	display: none;
+    width: 3.6rem;
+    height: 2rem;
+	border: 1px solid #ccc;
+    border-bottom-right-radius: 100%;
+    background-color: #fff;
+	cursor: grab;
+}
+.c-upload-img .video-preview:hover {
+	color: #333;
+}
 .c-upload-img.active:hover {
 	filter: brightness(1.1);
 }
@@ -394,6 +410,9 @@
 }
 .c-upload-img.active>.c-backshow {
 	display: flex;
+}
+.c-upload-img.active>.video-preview {
+	display: block;
 }
 .c-upload-img.active>.c-icon {
 	display: none;

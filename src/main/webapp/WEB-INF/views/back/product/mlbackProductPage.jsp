@@ -154,7 +154,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="productActoffoff">Discount Label Picture</label>
+										<label class="col-form-label" for="productDiscoutimgurl">Discount Label Picture</label>
 										<div class="controls">
 											<div class="c-upload-img">
 												<svg class="c-icon">
@@ -222,9 +222,10 @@
 											<h3>Video</h3>
 											<div class="c-upload-img">
 												<svg class="c-icon">
-													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cloud-upload"></use>
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-movie"></use>
 												</svg>
-												<div class="c-backshow"></div>						
+												<div class="video-preview">preview</div>
+												<div class="c-backshow"></div>
 												<input id="productVideourl" type="file" accept="video/mp4" />										
 												<!-- spinner -->
 												<div class="spinner">
@@ -339,6 +340,7 @@
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/editModal.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/videoModal.jsp" flush="true"></jsp:include>
 
 	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
@@ -764,7 +766,6 @@
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
-				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
 						callback(data.extend.mlbackProductSkuResList);
@@ -896,7 +897,7 @@
 		// upload main img
 		$('#productImgurl').on('change', function(e) {
 			var $this = $(this);
-			$('.c-upload-img .spinner').show();
+			$this.parent().find('.spinner').show();
 			var formData = new FormData();
 			formData.append('type', 'product');
 			formData.append('image', $this[0].files[0]);
@@ -924,7 +925,7 @@
 					toastr.error(err);
 				},
 				complete: function () {
-					$('.c-upload-img .spinner').hide();
+					$this.parent().find('.spinner').hide();
 				}
 			});
 		});
@@ -962,41 +963,117 @@
 				}
 			});
 		});
+		// video preview
+		$(document.body).on('click', '.video-preview', function() {
+			var videoModal = $('#videoModal');
+			var videoEl = videoModal.find('video');
+			videoEl[0].src = $('#productVideourl').data('val').videoUrl;
+			videoModal.modal('show');
+		});
 		// upload vieo
 		$('#productVideourl').on('change', function(e) {
 			var $this = $(this);
+			var videoFile = $this[0].files[0];
+			var productId = parseInt($('#productId').val());
+			var resVideoData = {};
 			$this.parent().find('.spinner').show();
-			var formData = new FormData();
-			formData.append('type', 'product');
-			formData.append('image', $this[0].files[0]);
-			formData.append('productId', parseInt($('#productId').val()));
-			formData.append('productSeo', $('#productSeo').val());
-			$.ajax({
-				url: "${APP_PATH}/ImageUpload/thumImageProduct",
-				type: "post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				cache: false,
-				dataType: 'json',
-				success: function (data) {
-					if (data.code == 100) {
-						addPicture($this, {
-							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl
-						});
-					} else {
-						toastr.error('网络错误， 请稍后重试！');	
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$this.parent().find('.spinner').hide();
-				}
+			generateVideoPoster(videoFile, function(data) {
+				// poster
+				var posterFormData = new FormData();            	
+				posterFormData.append('type', 'productVideo');
+				posterFormData.append('image', data);
+				posterFormData.append('productId', productId);	            	
+            	$.ajax({
+    				url: "${APP_PATH}/ImageUpload/thumProVideoImage",
+    				type: "post",
+    				data: posterFormData,
+    				processData: false,
+    				contentType: false,
+    				cache: false,
+    				dataType: 'json',
+    				async: false,
+    				success: function (data) {
+    					if (data.code == 100) {
+    						resVideoData.imageUrl = data.extend.sqlimageUrl;
+    						resVideoData.thumImageUrl = data.extend.sqlimageUrl;
+    					} else {
+    						toastr.error('网络错误， 请稍后重试！');	
+    					}
+    				},
+    				error: function (err) {
+    					toastr.error(err);
+    				}
+    			});
+            	// video
+    			var videoFormData = new FormData();
+    			videoFormData.append('file', videoFile);
+    			videoFormData.append('productId', productId);
+    			videoFormData.append('productSeo', $('#productSeo').val());
+    			$.ajax({
+    				url: "${APP_PATH}/VideoUpload/uploadProSmallVideo",
+    				type: "post",
+    				data: videoFormData,
+    				processData: false,
+    				contentType: false,
+    				cache: false,
+    				dataType: 'json',
+    				success: function (data) {
+    					if (data.code == 100) {
+    						resVideoData.videoUrl = data.extend.videoUrl;
+    						addPicture($this, resVideoData);
+    					} else {
+    						toastr.error('网络错误， 请稍后重试！');	
+    					}
+    				},
+    				error: function (err) {
+    					toastr.error(err);
+    				},
+    				complete: function () {
+    					$this.parent().find('.spinner').hide();
+    				}
+    			});
 			});
 		});
+		function generateVideoPoster(file, callback) {
+			var videoEl = document.createElement('video'),
+	            mimeType = file.type;
+	        videoEl.controls = true;
+	        videoEl.width = 200;
+	        videoEl.height = 200;
+	        videoEl.src = URL.createObjectURL(file);
+	        videoEl.currentTime = 1;
+	        videoEl.addEventListener('canplay', function(e) {
+	            var video = e.target;
+	            var canvas = document.createElement('canvas'),
+	                ctx = canvas.getContext('2d'),
+	                width = video.videoWidth,
+	                height = video.videoHeight,
+	                videoRatio = width / height,
+	                offsetLeft = 0,
+	                offsetTop = 0,
+	                outputWidth = 500,
+	                outputHeight = 500;
+	            
+	            canvas.width = outputWidth;
+	            canvas.height = outputHeight;
+	            if (videoRatio > 1) {
+	                width = outputWidth;
+	                height = parseInt(outputWidth / videoRatio);
+	                offsetTop = parseInt((outputHeight - height) / 2);
+	            } else if (videoRatio == 1) {
+	                width = outputWidth;
+	                height = outputHeight;
+	            } else {
+	                height = outputHeight;
+	                width = parseInt(outputHeight * videoRatio);
+	                offsetLeft = parseInt((outputWidth - width) / 2);
+	            }
+	            ctx.drawImage(video, offsetLeft, offsetTop, width, height);
+	            canvas.toBlob(function(blob) {
+	            	callback(blob);
+	            }, 'image/png');
+	        }, { once: true });
+		}
 		// upload details img
 		$(document.body).on('change', '.productAllImgurl', function(e) {
 			var $this = $(this);
@@ -1084,6 +1161,8 @@
 			$('#productDiscoutimgShow').prop('checked', false);
 			
 			resetPicture($('#productImgurl'));
+			resetPicture($('#productVideourl'));
+
 			// reset product-img-list
 			$('.product-img-list').html('');
 			addUploadBlock(1);
@@ -1112,13 +1191,18 @@
 			
 			data.productOriginalprice = $('#productOriginalprice').val();
 			data.productActoffoff = $('#productActoffoff').val();
-			var discountImageData = $('#productImgurl').attr('data-val') && JSON.parse($('#productImgurl').attr('data-val'));
-			data.productDiscoutimgurl = discountImageData.productDiscoutimgurl;
-			data.productDiscoutimgShow = $('#productDiscoutimgShow').val();
+
+			var discountImageData = $('#productDiscoutimgurl').attr('data-val') && JSON.parse($('#productDiscoutimgurl').attr('data-val'));
+			data.productDiscoutimgurl = discountImageData.imageUrl;
+			data.productDiscoutimgShow = $('#productDiscoutimgShow').prop('checked') ? 1 : 0;
 
 			var imageData = $('#productImgurl').attr('data-val') && JSON.parse($('#productImgurl').attr('data-val'));
-			data.productMainimgurl = imageData ? imageData.imageUrl : null;
-			data.productMainimgsmallurl = imageData ? imageData.thumImageUrl : null;
+			data.productMainimgurl = imageData.imageUrl || null;
+			data.productMainimgsmallurl = imageData.thumImageUrl || null;
+
+			var videoData = $('#productVideourl').attr('data-val') && JSON.parse($('#productVideourl').attr('data-val'));
+			data.productVideoImgUrl = videoData.imageUrl || null;
+			data.productVideoUrl = videoData.videoUrl || null;
 
 			data.productSupercateid = $('#productSupercateid').val();
 			data.productSupercatename = $('#productSupercateid').find('option:checked').text();
@@ -1174,6 +1258,17 @@
 			} else {
 				resetPicture($('#productImgurl'));
 			}
+			
+			if (data.productVideoImgUrl && data.productVideoUrl) {
+				addPicture($('#productVideourl'), {
+					imageUrl: data.productVideoImgUrl,
+					thumImageUrl: data.productVideoImgUrl,
+					videoUrl: data.productVideoUrl
+				});
+			} else {
+				resetPicture($('#productVideourl'));
+			}
+			
 			getProductAllImgData({
 				productId: data.productId
 			}, renderProductAllData);
