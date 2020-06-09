@@ -21,7 +21,7 @@ public class ImageNameUtil {
 	public static String getfilename(String typeName,String typeIdStr) {
 		Calendar c = Calendar.getInstance();//可以对每个时间域单独修改   对时间进行加减操作等
 		int year = c.get(Calendar.YEAR);  
-		 int month = c.get(Calendar.MONTH);   
+		int month = c.get(Calendar.MONTH);   
 		int date = c.get(Calendar.DATE);    
 		int hour = c.get(Calendar.HOUR_OF_DAY);   
 		int minute = c.get(Calendar.MINUTE);   
@@ -36,7 +36,7 @@ public class ImageNameUtil {
 	public static String getImageAllfilename(String productIdstr, String productimgSortIdstr) {
 		Calendar c = Calendar.getInstance();//可以对每个时间域单独修改   对时间进行加减操作等
 		int year = c.get(Calendar.YEAR);  
-		 int month = c.get(Calendar.MONTH);   
+		int month = c.get(Calendar.MONTH);   
 		int date = c.get(Calendar.DATE);    
 		int hour = c.get(Calendar.HOUR_OF_DAY);   
 		int minute = c.get(Calendar.MINUTE);   
