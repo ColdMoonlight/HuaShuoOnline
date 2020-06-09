@@ -23,20 +23,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.atguigu.bean.FileEntity;
-import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Msg;
 import com.atguigu.service.FileService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.utils.FileUploadTool;
 import com.atguigu.utils.URLLocationUtils;
 
-
 @Controller
 @RequestMapping("/VideoUpload")
 public class VideoUploadController {
-	
 	
 	@Autowired
 	private FileService service;
@@ -88,10 +84,10 @@ public class VideoUploadController {
 	
 	
 	@RequestMapping(value = "/uploadProSmallVideo")
-	  @ResponseBody
-	  public Msg upload(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
-	      @RequestParam("productId")Integer productId,@RequestParam("productSeo")String productSeo,
-	      HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+	@ResponseBody
+	public Msg upload(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
+			@RequestParam("productId")Integer productId,@RequestParam("productSeo")String productSeo,
+			HttpServletRequest request,HttpServletResponse response,ModelMap map) {
 	    String message = "";
 	    FileEntity entity = new FileEntity();
 	    String logoPathDir = request.getParameter("shipin");
@@ -118,11 +114,10 @@ public class VideoUploadController {
 //		mlbackProductReq.setProductId(productId);
 //		mlbackProductReq.setProductSupercateid(productSupercateid);
 //		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductByParam(mlbackProductReq);
-//	    
 	    
 	    //return new ModelAndView("/back/FileResult", map);
-		return Msg.success().add("resMsg", "ProVideo上传成功").add("entity", entity);
-	  }
+	    return Msg.success().add("resMsg", "ProVideo上传成功").add("entity", entity);
+	}
 
 	@RequestMapping(value = "/{id}/play")
 	@ResponseBody

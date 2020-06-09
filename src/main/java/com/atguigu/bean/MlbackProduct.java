@@ -54,6 +54,10 @@ public class MlbackProduct {
     private String productMetaKeywords;
 
     private String productDesc;
+    
+    private String productVideoUrl;
+    
+    private String productVideoImgUrl;
 
     public Integer getProductId() {
         return productId;
@@ -262,6 +266,22 @@ public class MlbackProduct {
     public void setProductDesc(String productDesc) {
         this.productDesc = productDesc == null ? null : productDesc.trim();
     }
+    
+	public String getProductVideoUrl() {
+		return productVideoUrl;
+	}
+
+	public void setProductVideoUrl(String productVideoUrl) {
+		this.productVideoUrl = productVideoUrl == null ? null : productVideoUrl.trim();
+	}
+	
+	public String getProductVideoImgUrl() {
+		return productVideoImgUrl;
+	}
+
+	public void setProductVideoImgUrl(String productVideoImgUrl) {
+		this.productVideoImgUrl = productVideoImgUrl == null ? null : productVideoImgUrl.trim();
+	}
 
 	public MlbackProduct() {
 		super();
@@ -271,10 +291,10 @@ public class MlbackProduct {
 			String productSupercatename, String productMainimgurl, String productMainfuimgurl,
 			String productMainsmallimgurl, String productMainfumallimgurl, String productDiscoutimgurl,
 			Integer productDiscoutimgShow, BigDecimal productOriginalprice, Integer productHavesalenum,
-			Integer productStatus,String productCreatetime, String productMotifytime, Integer productLable,
-			Integer productFirsth,Integer productActoffoff, Integer productReviewnum, String productCategoryIdsstr,
+			Integer productStatus, String productCreatetime, String productMotifytime, Integer productLable,
+			Integer productFirsth, Integer productActoffoff, Integer productReviewnum, String productCategoryIdsstr,
 			String productCategoryNamesstr, String productMetaDesc, String productMetaTitle, String productMetaKeywords,
-			String productDesc) {
+			String productDesc, String productVideoUrl, String productVideoImgUrl) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -302,6 +322,8 @@ public class MlbackProduct {
 		this.productMetaTitle = productMetaTitle;
 		this.productMetaKeywords = productMetaKeywords;
 		this.productDesc = productDesc;
+		this.productVideoUrl = productVideoUrl;
+		this.productVideoImgUrl = productVideoImgUrl;
 	}
 
 	@Override
@@ -318,7 +340,8 @@ public class MlbackProduct {
 				+ productActoffoff + ", productReviewnum=" + productReviewnum + ", productCategoryIdsstr="
 				+ productCategoryIdsstr + ", productCategoryNamesstr=" + productCategoryNamesstr + ", productMetaDesc="
 				+ productMetaDesc + ", productMetaTitle=" + productMetaTitle + ", productMetaKeywords="
-				+ productMetaKeywords + ", productDesc=" + productDesc + "]";
+				+ productMetaKeywords + ", productDesc=" + productDesc + ", productVideoUrl=" + productVideoUrl
+				+ ", productVideoImgUrl=" + productVideoImgUrl + "]";
 	}
 	
 }
