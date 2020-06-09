@@ -20,7 +20,9 @@ public class MlbackProduct {
     private String productMainsmallimgurl;
 
     private String productMainfumallimgurl;
-
+    
+    private String productDiscoutimgurl;
+    
     private BigDecimal productOriginalprice;
 
     private Integer productHavesalenum;
@@ -122,8 +124,16 @@ public class MlbackProduct {
     public void setProductMainfumallimgurl(String productMainfumallimgurl) {
         this.productMainfumallimgurl = productMainfumallimgurl == null ? null : productMainfumallimgurl.trim();
     }
+    
+    public String getProductDiscoutimgurl() {
+		return productDiscoutimgurl;
+	}
 
-    public BigDecimal getProductOriginalprice() {
+	public void setProductDiscoutimgurl(String productDiscoutimgurl) {
+		this.productDiscoutimgurl = productDiscoutimgurl == null ? null : productDiscoutimgurl.trim();
+	}
+
+	public BigDecimal getProductOriginalprice() {
         return productOriginalprice;
     }
 
@@ -249,11 +259,12 @@ public class MlbackProduct {
 
 	public MlbackProduct(Integer productId, String productName, String productSeo, Integer productSupercateid,
 			String productSupercatename, String productMainimgurl, String productMainfuimgurl,
-			String productMainsmallimgurl, String productMainfumallimgurl, BigDecimal productOriginalprice,
-			Integer productHavesalenum, Integer productStatus, String productCreatetime, String productMotifytime,
-			Integer productLable, Integer productFirsth, Integer productActoffoff, Integer productReviewnum,
-			String productCategoryIdsstr, String productCategoryNamesstr, String productMetaDesc,
-			String productMetaTitle, String productMetaKeywords, String productDesc) {
+			String productMainsmallimgurl, String productMainfumallimgurl, String productDiscoutimgurl,
+			BigDecimal productOriginalprice, Integer productHavesalenum, Integer productStatus,
+			String productCreatetime, String productMotifytime, Integer productLable, Integer productFirsth,
+			Integer productActoffoff, Integer productReviewnum, String productCategoryIdsstr,
+			String productCategoryNamesstr, String productMetaDesc, String productMetaTitle, String productMetaKeywords,
+			String productDesc) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -264,6 +275,7 @@ public class MlbackProduct {
 		this.productMainfuimgurl = productMainfuimgurl;
 		this.productMainsmallimgurl = productMainsmallimgurl;
 		this.productMainfumallimgurl = productMainfumallimgurl;
+		this.productDiscoutimgurl = productDiscoutimgurl;
 		this.productOriginalprice = productOriginalprice;
 		this.productHavesalenum = productHavesalenum;
 		this.productStatus = productStatus;
@@ -287,14 +299,15 @@ public class MlbackProduct {
 				+ ", productSupercateid=" + productSupercateid + ", productSupercatename=" + productSupercatename
 				+ ", productMainimgurl=" + productMainimgurl + ", productMainfuimgurl=" + productMainfuimgurl
 				+ ", productMainsmallimgurl=" + productMainsmallimgurl + ", productMainfumallimgurl="
-				+ productMainfumallimgurl + ", productOriginalprice=" + productOriginalprice + ", productHavesalenum="
-				+ productHavesalenum + ", productStatus=" + productStatus + ", productCreatetime=" + productCreatetime
-				+ ", productMotifytime=" + productMotifytime + ", productLable=" + productLable + ", productFirsth="
-				+ productFirsth + ", productActoffoff=" + productActoffoff + ", productReviewnum=" + productReviewnum
+				+ productMainfumallimgurl + ", productDiscoutimgurl=" + productDiscoutimgurl + ", productOriginalprice="
+				+ productOriginalprice + ", productHavesalenum=" + productHavesalenum + ", productStatus="
+				+ productStatus + ", productCreatetime=" + productCreatetime + ", productMotifytime="
+				+ productMotifytime + ", productLable=" + productLable + ", productFirsth=" + productFirsth
+				+ ", productActoffoff=" + productActoffoff + ", productReviewnum=" + productReviewnum
 				+ ", productCategoryIdsstr=" + productCategoryIdsstr + ", productCategoryNamesstr="
 				+ productCategoryNamesstr + ", productMetaDesc=" + productMetaDesc + ", productMetaTitle="
 				+ productMetaTitle + ", productMetaKeywords=" + productMetaKeywords + ", productDesc=" + productDesc
 				+ "]";
 	}
-    
+	
 }

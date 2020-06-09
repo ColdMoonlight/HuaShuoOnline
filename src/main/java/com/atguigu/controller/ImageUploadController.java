@@ -253,6 +253,47 @@ public class ImageUploadController {
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
 	}
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/productDiscount",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg productDiscount(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("productId")Integer productId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
+		
+		String productIdStr = productId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,productIdStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String imageUrl ="";
+		String sqlimageUrl="";
+		
+		String uploadPath = "static/img/productDiscount";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+		
+		try {
+			
+			imageUrl = thumbnailService.ThumbnailProDiscount(file, uploadPath, realUploadPath,imgName);
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		MlbackProduct mlbackProduct = new MlbackProduct();
+		mlbackProduct.setProductId(productId);
+		mlbackProduct.setProductDiscoutimgurl(sqlimageUrl);		
+		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+	}
 
 	
 }

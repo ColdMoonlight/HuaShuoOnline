@@ -11,6 +11,8 @@ public class ImageNameUtil {
 			typeName="cateid";
 		}else if("product".equals(type)){
 			typeName="proid";
+		}else if("productDiscout".equals(type)){
+			typeName="proidDiscout";
 		}
 		return typeName;
 	}
