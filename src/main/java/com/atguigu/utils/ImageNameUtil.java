@@ -13,6 +13,8 @@ public class ImageNameUtil {
 			typeName="proid";
 		}else if("productDiscout".equals(type)){
 			typeName="proidDiscout";
+		}else if("productVideo".equals(type)){
+			typeName="productVideo";
 		}
 		return typeName;
 	}
