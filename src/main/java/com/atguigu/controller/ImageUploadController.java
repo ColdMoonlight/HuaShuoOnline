@@ -272,17 +272,31 @@ public class ImageUploadController {
 		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
         System.out.println("basePathStr:"+basePathStr);
 		
-		String imageUrl ="";
-		String sqlimageUrl="";
-		
 		String uploadPath = "static/img/productDiscount";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		
+		
+		String imageUrl ="";
+		String thumImageUrl ="";
+		String sqlimageUrl="";
+		String sqlthumImageUrl="";
 		try {
 			
-			imageUrl = thumbnailService.ThumbnailProDiscount(file, uploadPath, realUploadPath,imgName);
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
 			sqlimageUrl=basePathStr+imageUrl;
 			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		String uploadPathcompress = "static/imagecompress/productDiscount";
+		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+		
+		try {
+			
+			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+			sqlthumImageUrl=basePathStr+thumImageUrl;
+			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -292,7 +306,8 @@ public class ImageUploadController {
 		mlbackProduct.setProductDiscoutimgurl(sqlimageUrl);		
 		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
 		
-		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
+				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
 	}
 	
 }

@@ -33,18 +33,4 @@ public class ThumbnailService {
 		
 	}
 	
-	public String ThumbnailProDiscount(CommonsMultipartFile file,String uploadPath,String realUploadUrl,String imgName) {
-		
-		try {
-			String des = realUploadUrl+"/"+"thumb_"+imgName;//文件最终的路径
-//			String des = realUploadUrl+"/"+"thumb_"+file.getOriginalFilename();
-			Thumbnails.of(file.getInputStream()).scale(DisWIDTH,DisHEIGH).toFile(des);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return uploadPath+"/"+"thumb_"+imgName;
-		
-	}
-	
 }
