@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.atguigu.bean.FileEntity;
+import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Msg;
 import com.atguigu.service.FileService;
 import com.atguigu.service.MlbackProductService;
@@ -110,13 +111,13 @@ public class VideoUploadController {
 	    } catch (Exception e) {
 	      e.printStackTrace();
 	    }
-//	    MlbackProduct mlbackProductReq = new MlbackProduct();
-//		mlbackProductReq.setProductId(productId);
-//		mlbackProductReq.setProductSupercateid(productSupercateid);
-//		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductByParam(mlbackProductReq);
-	    
-	    //return new ModelAndView("/back/FileResult", map);
-	    return Msg.success().add("resMsg", "ProVideo上传成功").add("entity", entity);
+	    String videoUrl ="";
+	    videoUrl = entity.getPath();
+	    MlbackProduct mlbackProductReq = new MlbackProduct();
+		mlbackProductReq.setProductId(productId);
+		mlbackProductReq.setProductVideoUrl(videoUrl);
+		mlbackProductService.updateByPrimaryKeySelective(mlbackProductReq);
+	    return Msg.success().add("resMsg", "ProVideo上传成功").add("videoUrl", videoUrl);
 	}
 
 	@RequestMapping(value = "/{id}/play")

@@ -310,4 +310,62 @@ public class ImageUploadController {
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
 	}
 	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/thumProVideoImage",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg thumProVideoImage(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("productId")Integer productId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);
+		
+		String productIdStr = productId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,productIdStr);
+		
+		String uploadPath = "static/img/product";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String imageUrl ="";
+		String thumImageUrl ="";
+		String sqlimageUrl="";
+		String sqlthumImageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		String uploadPathcompress = "static/imagecompress/product";
+		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+		
+		try {
+			
+			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+			sqlthumImageUrl=basePathStr+thumImageUrl;
+			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		MlbackProduct mlbackProduct = new MlbackProduct();
+		mlbackProduct.setProductId(productId);
+		mlbackProduct.setProductMainimgurl(sqlimageUrl);
+		mlbackProduct.setProductMainsmallimgurl(sqlthumImageUrl);
+		
+		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
+				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
+	}
+	
 }
