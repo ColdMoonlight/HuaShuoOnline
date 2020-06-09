@@ -4,12 +4,17 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import com.atguigu.bean.MlbackProductSku;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
@@ -82,6 +87,27 @@ public class MlbackProductSkuController {
 		List<MlbackProductSku> mlbackProductSkuResList =mlbackProductSkuService.selectMlbackProductSkuListByPId(productskuPid);
 		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
 					.add("mlbackProductSkuResList", mlbackProductSkuResList);
+	}
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/productDiscount",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg productDiscount(HttpSession session,HttpServletResponse rep,HttpServletRequest res,
+			@RequestParam("mlbackProductSkuList")List<MlbackProductSku> mlbackProductSkuList){
+		
+		for(MlbackProductSku mlbackProductSkuOne :mlbackProductSkuList){
+			
+			String nowtime = DateUtil.strTime14s();
+			mlbackProductSkuOne.setProductskuCreatetime(nowtime);
+			mlbackProductSkuService.insertSelective(mlbackProductSkuOne);
+			
+		}
+		
+		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
+				.add("mlbackProductSkuResList", mlbackProductSkuList);
+		
 	}
 	
 }
