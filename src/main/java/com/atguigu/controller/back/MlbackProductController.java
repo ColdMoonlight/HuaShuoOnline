@@ -43,7 +43,7 @@ public class MlbackProductController {
 	MlbackAdminService mlbackAdminService;
 	
 	/**
-	 * 1.0	onuse	20191225	检查
+	 * 1.0	20200608
 	 * to后台分类MlbackProduct列表页面
 	 * @return jsp
 	 * */
@@ -59,7 +59,7 @@ public class MlbackProductController {
 		}
 	}
 	
-	/**2.0	onuse	20191225	检查
+	/**2.0	20200608
 	 * 后台MlbackProduct列表分页list数据
 	 * @param pn
 	 * @return
@@ -75,7 +75,7 @@ public class MlbackProductController {
 		return Msg.success().add("pageInfo", page);
 	}
 	
-	/**3.0	onuse	20191225	检查
+	/**3.0	20200608
 	 * MlbackProduct	initializaCategory
 	 * @param MlbackProduct
 	 * @return
@@ -95,7 +95,7 @@ public class MlbackProductController {
 		return Msg.success().add("resMsg", "Product初始化成功").add("mlbackProduct", mlbackProduct);
 	}
 	
-	/**3.0	onuse	20191225	检查
+	/**4.0	20200608
 	 * MlbackProduct	update
 	 * @param MlbackProduct
 	 * @return
@@ -104,8 +104,6 @@ public class MlbackProductController {
 	@ResponseBody
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackProduct mlbackProduct){
 		//接受参数信息
-		//获取类名
-
 		Integer productId =  mlbackProduct.getProductId();
 		String productName = mlbackProduct.getProductName();
 		String nowTime = DateUtil.strTime14s();
@@ -115,14 +113,14 @@ public class MlbackProductController {
 		//有id，update
 		String categoryIdsStr = mlbackProduct.getProductCategoryIdsstr();
 		Integer productSupercateid = mlbackProduct.getProductSupercateid();
-		//3.0.1从中读取categoryIdsStr,切割得到每一个categoryId,遍历，把productId,填充再每个查回来的categort中的proidStr拼上
+		//4.0.1从中读取categoryIdsStr,切割得到每一个categoryId,遍历，把productId,填充再每个查回来的categort中的proidStr拼上
 		UpdateCategoryProductIdStr(categoryIdsStr,productId,productName,productSupercateid);
 		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
 		return Msg.success().add("resMsg", "category保存成功");
 	}
 	
 	/**
-	 * 3.0.1
+	 * 4.0.1
 	 * //从中读取categoryIdsStr,切割得到每一个categoryId,
 	 * 遍历categoryId查询，把productId,填充再每个查回来的category中的proidStr拼上
 	 * */
@@ -193,7 +191,7 @@ public class MlbackProductController {
 			}
 		}
 	}
-	//* 3.0.2
+	//* 4.0.2
 	private int cheakifHave(String categoryProductIdsStr, String inproductIdStr) {
 		
 		int num = 0;
@@ -210,7 +208,7 @@ public class MlbackProductController {
 		return num;
 	}
 
-	//* 3.0.3清理每条的新产品信息
+	//* 4.0.3清理每条的新产品信息
 	private void ProductCategoryIdsStrUpdateOld(Integer productId,String categoryIdsStrNew) {
 		MlbackProduct mlbackProductReq = new MlbackProduct();
 		MlbackProduct mlbackProductRes = new MlbackProduct();
@@ -287,7 +285,7 @@ public class MlbackProductController {
 		}
 	}
 	
-	/**4.0	onuse	20191225	检查
+	/**5.0	20200608
 	 * MlbackProduct	delete
 	 * @param MlbackProduct-categoryId
 	 * @return 
@@ -302,7 +300,7 @@ public class MlbackProductController {
 	}
 	
 	/**
-	 * 5.0	UseNow	0505
+	 * 6.0	20200608
 	 * 查看单个产品的详情
 	 * @param productId
 	 * @return 
@@ -312,7 +310,6 @@ public class MlbackProductController {
 	public Msg getOneMlbackProductDetail(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackProduct mlbackProduct){
 		//接受信息
 		Integer productId = mlbackProduct.getProductId();
-		
 		Integer productSupercateid = mlbackProduct.getProductSupercateid();
 		
 		MlbackProduct mlbackProductReq = new MlbackProduct();
@@ -333,7 +330,7 @@ public class MlbackProductController {
 	}
 	
 	/**
-	 * 6.0	onuse	20200103	check
+	 * 7.0	20200608
 	 * 后端获取backSearchByProduct产品list
 	 * @return 
 	 * */
@@ -354,7 +351,6 @@ public class MlbackProductController {
 		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductBackSearch(mlbackProductReq);
 		PageInfo page = new PageInfo(mlbackProductResList, PagNum);
 		return Msg.success().add("pageInfo", page);
-			
 	}
 
 }

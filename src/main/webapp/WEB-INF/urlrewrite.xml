@@ -23,6 +23,10 @@
         <to type="forward">/MlbackCategory/toprolistBycategorySeoPage?categorySeo=$1</to>
     </rule>
     <rule>
+        <from>^/([a-z0-9A-Z-]{8,80}).html</from>
+        <to type="forward">/MlbackProduct/tofbProductDetailPageByhtml?productSeo=$1</to>
+    </rule>
+    <rule>
         <from>^/myCart.html</from>
         <to>/MlbackCart/toCartList</to>
     </rule>
