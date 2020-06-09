@@ -1,12 +1,44 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
+<!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+	<title>Insert title here</title>
+	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 </head>
+
 <body>
-portal\footNavDetailPage页面
+	<jsp:include page="layout/header.jsp" flush="true"></jsp:include>
+	<main> </main>
+	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
+	<script>
+		$.ajax({
+			url: "${APP_PATH}/MlbackFootNav/getOneMlbackFootNavOneAllDetail",
+			type: "post",
+			data: {"footnavId": '${sessionScope.footnavId}'},
+			success: function (data) {
+				if (data.code == 100) {
+					renderArticle(data.extend.MlbackFootNavOne)
+					// toastr.success(data.extend.resMsg);
+				} else {
+					// toastr.error(data.extend.resMsg);
+				}
+			},
+			error: function () {
+				// toastr.error('please refresh the page to get again！');
+			},
+			complete: function () {}
+		});
+		function renderArticle(data) {
+			var htmlStr = '';
+			htmlStr = '<div class="article">' +
+				'<div class="article-title">'+ data.footnavName +'</div>' +
+				'<div class="article-content">'+ data.footnavDesc +'</div>' +
+			'</div>';
+			$('main').html(htmlStr);
+		}
+	</script>
 </body>
+
 </html>

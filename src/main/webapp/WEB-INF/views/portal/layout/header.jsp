@@ -48,7 +48,7 @@
 			var labelClass = getLabelClass(data1[i].categoryLable);
 			var secondNavSeo = data1[i].categorySeo;
 			var secondNavName = data1[i].categoryName;
-			menuHhtml += '<li class="menu-item ' + labelClass + '">';
+			menuHhtml += '<li class="menu-item label ' + labelClass + '">';
 			if (secondNavSeo == "") {
 				menuHhtml += '<a href="${APP_PATH}/search/nowig.html">' + secondNavName + '</a>';
 			} else if (secondNavSeo == "home") {
@@ -77,7 +77,7 @@
 							var thirdNavName = data2[i][j][k].categoryName;
 
 							if (k == 0) {
-								subMenuHtml += '<dt class="' + labelClass + '">';
+								subMenuHtml += '<dt class="label ' + labelClass + '">';
 								if (thirdNavSeo == "") {
 									subMenuHtml += '<a href="${APP_PATH}/search/nowig.html">' + thirdNavName + '</a>';
 								} else if (thirdNavSeo == "Customer-Videos") {
@@ -107,23 +107,18 @@
 	}
 	// listner event throttle
 	function addNavEvent() {
-		var startTime = Date.now();
 		var timer = null;
 		$('.pc-nav .menu-item').on('mouseenter', function (e) {
 			var $this = $(this);
-			var endTime = Date.now();
-			if (endTime - startTime < 300) {
-				clearTimeout(timer);
-			}
-			startTime = endTime;
 			timer = setTimeout(function () {
-				enterEvent($this, e);
-				$this.on('mouseleave', function (e) {
-					$this.find('.sub-menu-container').removeClass('active');
-					$this.find('a').removeClass('active');
-				});
+				enterEvent($this, e);				
 			}, 300);
-		});
+		}).on('mouseleave', function (e) {
+			var $this = $(this);
+			clearTimeout(timer);
+			$this.find('.sub-menu-container').removeClass('active');
+			$this.find('a').removeClass('active');
+		});		
 	}
 	function addWapNavEvent() {
 		$('#menu').on('click', function () {

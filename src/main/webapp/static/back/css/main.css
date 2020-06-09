@@ -513,7 +513,7 @@
 }
 .product-sku-body {
 	padding-top: 40px;
-	max-height: 300px;
+	max-height: 600px;
 	overflow-y: auto;
 }
 .product-sku-head-name,

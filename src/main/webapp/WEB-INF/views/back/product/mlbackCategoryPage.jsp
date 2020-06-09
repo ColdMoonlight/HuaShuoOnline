@@ -740,7 +740,7 @@
 		function getParentCategoryData(callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCategory/getOneMlbackCategoryParentDetail",
+				url: "${APP_PATH}/MlbackCategory/getMlbackCategoryDropdownSelect",
 				type: "post",
 				contentType: 'application/json',
 				async: false,
