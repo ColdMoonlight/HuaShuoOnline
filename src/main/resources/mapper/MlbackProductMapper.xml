@@ -12,6 +12,7 @@
     <result column="product_mainsmallimgurl" jdbcType="VARCHAR" property="productMainsmallimgurl" />
     <result column="product_mainfumallimgurl" jdbcType="VARCHAR" property="productMainfumallimgurl" />
     <result column="product_discoutimgurl" jdbcType="VARCHAR" property="productDiscoutimgurl" />
+    <result column="product_discoutimgshow" jdbcType="INTEGER" property="productDiscoutimgShow" />
     <result column="product_originalPrice" jdbcType="DECIMAL" property="productOriginalprice" />
     <result column="product_haveSaleNum" jdbcType="INTEGER" property="productHavesalenum" />
     <result column="product_status" jdbcType="INTEGER" property="productStatus" />
@@ -32,7 +33,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     product_id, product_name, product_seo, product_superCateId, product_superCateName, 
-    product_mainimgurl, product_mainfuimgurl, product_mainsmallimgurl, product_mainfumallimgurl, product_discoutimgurl, 
+    product_mainimgurl, product_mainfuimgurl, product_mainsmallimgurl, product_mainfumallimgurl, product_discoutimgurl, product_discoutimgshow,
     product_originalPrice, product_haveSaleNum, product_status, product_createTime, product_motifyTime, 
     product_lable, product_firsth, product_actoffOff, product_reviewNum, product_category_idsStr, 
     product_category_namesStr, product_meta_desc, product_meta_title, product_meta_keyWords
@@ -53,7 +54,7 @@
     insert into tb_mlback_product (product_id, product_name, product_seo, 
       product_superCateId, product_superCateName, 
       product_mainimgurl, product_mainfuimgurl, 
-      product_mainsmallimgurl, product_mainfumallimgurl, product_discoutimgurl,
+      product_mainsmallimgurl, product_mainfumallimgurl, product_discoutimgurl,product_discoutimgshow,
       product_originalPrice, product_haveSaleNum, 
       product_status, product_createTime, product_motifyTime, 
       product_lable, product_firsth, product_actoffOff, 
@@ -64,7 +65,7 @@
     values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productSeo,jdbcType=VARCHAR}, 
       #{productSupercateid,jdbcType=INTEGER}, #{productSupercatename,jdbcType=VARCHAR}, 
       #{productMainimgurl,jdbcType=VARCHAR}, #{productMainfuimgurl,jdbcType=VARCHAR}, 
-      #{productMainsmallimgurl,jdbcType=VARCHAR}, #{productMainfumallimgurl,jdbcType=VARCHAR},  #{productDiscoutimgurl,jdbcType=VARCHAR}, 
+      #{productMainsmallimgurl,jdbcType=VARCHAR}, #{productMainfumallimgurl,jdbcType=VARCHAR},#{productDiscoutimgurl,jdbcType=VARCHAR}, #{productDiscoutimgShow,jdbcType=VARCHAR}, 
       #{productOriginalprice,jdbcType=DECIMAL}, #{productHavesalenum,jdbcType=INTEGER}, 
       #{productStatus,jdbcType=INTEGER}, #{productCreatetime,jdbcType=VARCHAR}, #{productMotifytime,jdbcType=VARCHAR}, 
       #{productLable,jdbcType=INTEGER}, #{productFirsth,jdbcType=INTEGER}, #{productActoffoff,jdbcType=INTEGER}, 
@@ -103,6 +104,9 @@
       </if>
       <if test="productDiscoutimgurl != null">
         product_discoutimgurl = #{productDiscoutimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="productDiscoutimgShow != null">
+        product_discoutimgshow = #{productDiscoutimgShow,jdbcType=VARCHAR},
       </if>
       <if test="productOriginalprice != null">
         product_originalPrice = #{productOriginalprice,jdbcType=DECIMAL},
@@ -163,6 +167,7 @@
       product_mainsmallimgurl = #{productMainsmallimgurl,jdbcType=VARCHAR},
       product_mainfumallimgurl = #{productMainfumallimgurl,jdbcType=VARCHAR},
       product_discoutimgurl = #{productDiscoutimgurl,jdbcType=VARCHAR},
+      product_discoutimgshow = #{productDiscoutimgShow,jdbcType=VARCHAR},
       product_originalPrice = #{productOriginalprice,jdbcType=DECIMAL},
       product_haveSaleNum = #{productHavesalenum,jdbcType=INTEGER},
       product_status = #{productStatus,jdbcType=INTEGER},
@@ -191,6 +196,7 @@
       product_mainsmallimgurl = #{productMainsmallimgurl,jdbcType=VARCHAR},
       product_mainfumallimgurl = #{productMainfumallimgurl,jdbcType=VARCHAR},
       product_discoutimgurl = #{productDiscoutimgurl,jdbcType=VARCHAR},
+      product_discoutimgshow = #{productDiscoutimgShow,jdbcType=VARCHAR},
       product_originalPrice = #{productOriginalprice,jdbcType=DECIMAL},
       product_haveSaleNum = #{productHavesalenum,jdbcType=INTEGER},
       product_status = #{productStatus,jdbcType=INTEGER},
@@ -241,6 +247,9 @@
       </if>
       <if test="productDiscoutimgurl != null">
         product_discoutimgurl,
+      </if>
+      <if test="productDiscoutimgShow != null">
+        product_discoutimgshow,
       </if>
       <if test="productOriginalprice != null">
         product_originalPrice,
@@ -319,6 +328,9 @@
       <if test="productDiscoutimgurl != null">
         #{productDiscoutimgurl,jdbcType=VARCHAR},
       </if>
+      <if test="productDiscoutimgShow != null">
+        #{productDiscoutimgShow,jdbcType=VARCHAR},
+      </if>
       <if test="productOriginalprice != null">
         #{productOriginalprice,jdbcType=DECIMAL},
       </if>
@@ -375,7 +387,7 @@
   <select id="selectMlbackProductGetAll" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
     select 
     product_id, product_name, product_seo, product_superCateId, product_superCateName, 
-    product_mainimgurl, product_mainsmallimgurl,product_discoutimgurl,
+    product_mainimgurl, product_mainsmallimgurl,product_discoutimgurl,product_discoutimgshow,
     product_originalPrice, product_haveSaleNum, product_status,
     product_lable, product_firsth, product_actoffOff, product_reviewNum
     from tb_mlback_product order by product_name ,product_superCateId
@@ -438,12 +450,11 @@
   <!--selectMlbackProductbyCategorySeo使用中 -->
   <select id="selectMlbackProductbyCategorySeo" parameterType="com.atguigu.bean.MlbackProduct" resultMap="BaseResultMap">
     select 	
-	product_id, product_name, product_seo, product_superCateId, product_superCateName, product_mainimgurl, product_discoutimgurl, product_originalPrice, 
+	product_id, product_name, product_seo, product_superCateId, product_superCateName, product_mainimgurl, product_discoutimgurl, product_discoutimgshow, product_originalPrice, 
     product_haveSaleNum, product_status, product_lable, product_firsth, product_actoffOff, product_reviewNum
 	from tb_mlback_product
     where product_id = #{productId,jdbcType=INTEGER} AND product_status = 1
   </select>
-  
   <!-- deleteByPrimaryKey -->
   
   

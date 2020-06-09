@@ -23,6 +23,8 @@ public class MlbackProduct {
     
     private String productDiscoutimgurl;
     
+    private Integer productDiscoutimgShow;
+    
     private BigDecimal productOriginalprice;
 
     private Integer productHavesalenum;
@@ -131,6 +133,14 @@ public class MlbackProduct {
 
 	public void setProductDiscoutimgurl(String productDiscoutimgurl) {
 		this.productDiscoutimgurl = productDiscoutimgurl == null ? null : productDiscoutimgurl.trim();
+	}
+	
+	public Integer getProductDiscoutimgShow() {
+		return productDiscoutimgShow;
+	}
+
+	public void setProductDiscoutimgShow(Integer productDiscoutimgShow) {
+		this.productDiscoutimgShow = productDiscoutimgShow;
 	}
 
 	public BigDecimal getProductOriginalprice() {
@@ -260,9 +270,9 @@ public class MlbackProduct {
 	public MlbackProduct(Integer productId, String productName, String productSeo, Integer productSupercateid,
 			String productSupercatename, String productMainimgurl, String productMainfuimgurl,
 			String productMainsmallimgurl, String productMainfumallimgurl, String productDiscoutimgurl,
-			BigDecimal productOriginalprice, Integer productHavesalenum, Integer productStatus,
-			String productCreatetime, String productMotifytime, Integer productLable, Integer productFirsth,
-			Integer productActoffoff, Integer productReviewnum, String productCategoryIdsstr,
+			Integer productDiscoutimgShow, BigDecimal productOriginalprice, Integer productHavesalenum,
+			Integer productStatus,String productCreatetime, String productMotifytime, Integer productLable,
+			Integer productFirsth,Integer productActoffoff, Integer productReviewnum, String productCategoryIdsstr,
 			String productCategoryNamesstr, String productMetaDesc, String productMetaTitle, String productMetaKeywords,
 			String productDesc) {
 		super();
@@ -276,6 +286,7 @@ public class MlbackProduct {
 		this.productMainsmallimgurl = productMainsmallimgurl;
 		this.productMainfumallimgurl = productMainfumallimgurl;
 		this.productDiscoutimgurl = productDiscoutimgurl;
+		this.productDiscoutimgShow = productDiscoutimgShow;
 		this.productOriginalprice = productOriginalprice;
 		this.productHavesalenum = productHavesalenum;
 		this.productStatus = productStatus;
@@ -299,15 +310,15 @@ public class MlbackProduct {
 				+ ", productSupercateid=" + productSupercateid + ", productSupercatename=" + productSupercatename
 				+ ", productMainimgurl=" + productMainimgurl + ", productMainfuimgurl=" + productMainfuimgurl
 				+ ", productMainsmallimgurl=" + productMainsmallimgurl + ", productMainfumallimgurl="
-				+ productMainfumallimgurl + ", productDiscoutimgurl=" + productDiscoutimgurl + ", productOriginalprice="
-				+ productOriginalprice + ", productHavesalenum=" + productHavesalenum + ", productStatus="
-				+ productStatus + ", productCreatetime=" + productCreatetime + ", productMotifytime="
-				+ productMotifytime + ", productLable=" + productLable + ", productFirsth=" + productFirsth
-				+ ", productActoffoff=" + productActoffoff + ", productReviewnum=" + productReviewnum
-				+ ", productCategoryIdsstr=" + productCategoryIdsstr + ", productCategoryNamesstr="
-				+ productCategoryNamesstr + ", productMetaDesc=" + productMetaDesc + ", productMetaTitle="
-				+ productMetaTitle + ", productMetaKeywords=" + productMetaKeywords + ", productDesc=" + productDesc
-				+ "]";
+				+ productMainfumallimgurl + ", productDiscoutimgurl=" + productDiscoutimgurl
+				+ ", productDiscoutimgShow=" + productDiscoutimgShow + ", productOriginalprice=" + productOriginalprice
+				+ ", productHavesalenum=" + productHavesalenum + ", productStatus=" + productStatus
+				+ ", productCreatetime=" + productCreatetime + ", productMotifytime=" + productMotifytime
+				+ ", productLable=" + productLable + ", productFirsth=" + productFirsth + ", productActoffoff="
+				+ productActoffoff + ", productReviewnum=" + productReviewnum + ", productCategoryIdsstr="
+				+ productCategoryIdsstr + ", productCategoryNamesstr=" + productCategoryNamesstr + ", productMetaDesc="
+				+ productMetaDesc + ", productMetaTitle=" + productMetaTitle + ", productMetaKeywords="
+				+ productMetaKeywords + ", productDesc=" + productDesc + "]";
 	}
 	
 }
