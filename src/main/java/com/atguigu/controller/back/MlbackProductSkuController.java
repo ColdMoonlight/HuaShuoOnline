@@ -90,7 +90,7 @@ public class MlbackProductSkuController {
 					.add("mlbackProductSkuResList", mlbackProductSkuResList);
 	}
 	
-	/**
+	/**4.0
 	 * 	onuse	20200103	检查
 	 * */
 	@RequestMapping(value="/productSkuListInto",method=RequestMethod.POST)
