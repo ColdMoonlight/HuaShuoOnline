@@ -150,10 +150,17 @@
   </update>
   <!-- insertSelective -->
   <!-- selectMlbackProductSkuListByPId使用中 -->
-  <select id="selectMlbackProductSkuListByPId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectMlbackProductSkuListByPId" parameterType="com.atguigu.bean.MlbackProductSku" resultMap="BaseResultMap">
     select *
-    from tb_mlback_product_sku 
-    where productSku_pid = #{productskuPid,jdbcType=INTEGER} order by productSku_id
+    from tb_mlback_product_sku
+    where productSku_pid = #{productskuPid,jdbcType=INTEGER}
+      <if test="productskuStatus != null">
+       and productSku_status = #{productskuStatus,jdbcType=INTEGER}
+      </if>
+      <if test="productskuName != null">
+       and productSku_name = #{productskuName,jdbcType=VARCHAR}
+      </if>
+       order by productSku_id
   </select>
   <!-- insertSelective -->
   

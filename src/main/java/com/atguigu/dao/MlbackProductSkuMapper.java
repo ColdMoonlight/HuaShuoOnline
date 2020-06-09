@@ -18,5 +18,5 @@ public interface MlbackProductSkuMapper {
     //更新本条图片00
     int updateByPrimaryKeySelective(MlbackProductSku record);
     //selectMlbackProductSkuByPId
-    List<MlbackProductSku> selectMlbackProductSkuListByPId(Integer productskuPid);
+    List<MlbackProductSku> selectMlbackProductSkuListByPId(MlbackProductSku record);
 }
