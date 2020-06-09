@@ -129,7 +129,7 @@
 							<!-- price data  -->
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Price & Discount & Skus</div>
+									<div class="card-title-name">Price & Discount</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
@@ -142,6 +142,31 @@
 										<label class="col-form-label" for="productActoffoff">Discount</label>
 										<div class="controls">
 											<input class="form-control" id="productActoffoff" type="number" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="productDiscoutimgShow">Discount Label Picture Status</label>
+										<div class="controls">
+											<label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="productDiscoutimgShow" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="productActoffoff">Discount Label Picture</label>
+										<div class="controls">
+											<div class="c-upload-img">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+												</svg>
+												<div class="c-backshow"></div>						
+												<input id="productDiscoutimgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<!-- spinner -->
+												<div class="spinner">
+													<div class="spinner-border" role="status" aria-hidden="true"></div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -180,7 +205,7 @@
 										<!-- main img  -->
 										<div class="col-md-6">
 											<h3>Main Picture</h3>
-											<div id="uploadImg" class="c-upload-img">
+											<div class="c-upload-img">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 												</svg>
@@ -868,7 +893,7 @@
 			})
 			$('.product-options').append(optionItem);
 		}
-		// upload img
+		// upload main img
 		$('#productImgurl').on('change', function(e) {
 			var $this = $(this);
 			$('.c-upload-img .spinner').show();
@@ -903,10 +928,44 @@
 				}
 			});
 		});
+		// upload discount img
+		$('#productDiscoutimgurl').on('change', function(e) {
+			var $this = $(this);
+			$this.parent().find('.spinner').show();
+			var formData = new FormData();
+			formData.append('type', 'productDiscout');
+			formData.append('image', $this[0].files[0]);
+			formData.append('productId', parseInt($('#productId').val()));
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/productDiscount",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						addPicture($this, {
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlimageUrl
+						});
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$this.parent().find('.spinner').hide();
+				}
+			});
+		});
 		// upload vieo
 		$('#productVideourl').on('change', function(e) {
 			var $this = $(this);
-			$('.c-upload-img .spinner').show();
+			$this.parent().find('.spinner').show();
 			var formData = new FormData();
 			formData.append('type', 'product');
 			formData.append('image', $this[0].files[0]);
@@ -934,7 +993,7 @@
 					toastr.error(err);
 				},
 				complete: function () {
-					$('.c-upload-img .spinner').hide();
+					$this.parent().find('.spinner').hide();
 				}
 			});
 		});
@@ -1021,6 +1080,8 @@
 
 			$('#productOriginalprice').val('0.00');
 			$('#productActoffoff').val('0');
+			resetPicture($('#productDiscoutimgurl'));
+			$('#productDiscoutimgShow').prop('checked', false);
 			
 			resetPicture($('#productImgurl'));
 			// reset product-img-list
@@ -1051,6 +1112,9 @@
 			
 			data.productOriginalprice = $('#productOriginalprice').val();
 			data.productActoffoff = $('#productActoffoff').val();
+			var discountImageData = $('#productImgurl').attr('data-val') && JSON.parse($('#productImgurl').attr('data-val'));
+			data.productDiscoutimgurl = discountImageData.productDiscoutimgurl;
+			data.productDiscoutimgShow = $('#productDiscoutimgShow').val();
 
 			var imageData = $('#productImgurl').attr('data-val') && JSON.parse($('#productImgurl').attr('data-val'));
 			data.productMainimgurl = imageData ? imageData.imageUrl : null;
@@ -1081,6 +1145,15 @@
 
 			$('#productOriginalprice').val(data.productOriginalprice || 0.00);
 			$('#productActoffoff').val(data.productActoffoff || 0);
+			if (data.productDiscoutimgurl) {
+				addPicture($('#productDiscoutimgurl'), {
+					imageUrl: data.productDiscoutimgurl,
+					thumImageUrl: data.productDiscoutimgurl
+				});
+			} else {
+				resetPicture($('#productDiscoutimgurl'));
+			}
+			$('#productDiscoutimgShow').prop('checked', data.productDiscoutimgShow);
 
 			if (hasSuperCategory) {
 				// value
@@ -1093,10 +1166,14 @@
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
 			$('#productCategoryList').val(data.productCategoryNamesstr ? ' * ' + data.productCategoryNamesstr.replace(/\,/g, '\n * ') : 'No category！');
 
-			data.productMainimgurl && addPicture($('#productImgurl'), {
-				imageUrl: data.productMainimgurl,
-				thumImageUrl: data.productMainsmallimgurl
-			});
+			if (data.productMainimgurl) {
+				addPicture($('#productImgurl'), {
+					imageUrl: data.productMainimgurl,
+					thumImageUrl: data.productMainsmallimgurl
+				});
+			} else {
+				resetPicture($('#productImgurl'));
+			}
 			getProductAllImgData({
 				productId: data.productId
 			}, renderProductAllData);
@@ -1392,6 +1469,8 @@
 					thumImageUrl: data[i].productimgSmallturl
 				});
 			}
+			
+			if (len < 0) addUploadBlock(1);
 
 			if (len < 6) addUploadBlock(len);
 		}
