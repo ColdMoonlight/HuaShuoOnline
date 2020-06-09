@@ -156,4 +156,5 @@
     where productSku_pid = #{productskuPid,jdbcType=INTEGER} order by productSku_id
   </select>
   <!-- insertSelective -->
+  
 </mapper>

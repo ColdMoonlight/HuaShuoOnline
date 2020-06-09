@@ -25,7 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.atguigu.bean.FileEntity;
+import com.atguigu.bean.MlbackProduct;
+import com.atguigu.common.Msg;
 import com.atguigu.service.FileService;
+import com.atguigu.service.MlbackProductService;
 import com.atguigu.utils.FileUploadTool;
 import com.atguigu.utils.URLLocationUtils;
 
@@ -33,8 +36,13 @@ import com.atguigu.utils.URLLocationUtils;
 @Controller
 @RequestMapping("/VideoUpload")
 public class VideoUploadController {
+	
+	
 	@Autowired
 	private FileService service;
+	
+	@Autowired
+	MlbackProductService mlbackProductService;
 	
 	/**
 	 * 1.0	onuse	20191225	检查
@@ -77,6 +85,44 @@ public class VideoUploadController {
 		}
 		return new ModelAndView("/back/FileResult", map);
 	}
+	
+	
+	@RequestMapping(value = "/uploadProSmallVideo")
+	  @ResponseBody
+	  public Msg upload(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
+	      @RequestParam("productId")Integer productId,@RequestParam("productSeo")String productSeo,
+	      HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+	    String message = "";
+	    FileEntity entity = new FileEntity();
+	    String logoPathDir = request.getParameter("shipin");
+	    System.out.println("-------" + logoPathDir + "----------------------------------");
+	    FileUploadTool fileUploadTool = new FileUploadTool();
+	    //服务器路径+端口号http://localhost:8080/HuaShuoOnline
+	    String basePathStr = URLLocationUtils.getbasePathStr(response,request);  //出来是真实的
+	    try {
+	      entity = fileUploadTool.createFile(basePathStr,logoPathDir, multipartFile, request);
+	      if (entity != null) {
+	        service.saveFile(entity);
+	        message ="上传成功";
+	        map.put("entity", entity);
+	        map.put("result", message);
+	      } else {
+	        message ="上传失败";
+	        map.put("result", message);
+	      }
+
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+//	    MlbackProduct mlbackProductReq = new MlbackProduct();
+//		mlbackProductReq.setProductId(productId);
+//		mlbackProductReq.setProductSupercateid(productSupercateid);
+//		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductByParam(mlbackProductReq);
+//	    
+	    
+	    //return new ModelAndView("/back/FileResult", map);
+		return Msg.success().add("resMsg", "ProVideo上传成功").add("entity", entity);
+	  }
 
 	@RequestMapping(value = "/{id}/play")
 	@ResponseBody
