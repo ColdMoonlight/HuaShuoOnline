@@ -766,6 +766,7 @@
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
+				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
 						callback(data.extend.mlbackProductSkuResList);
