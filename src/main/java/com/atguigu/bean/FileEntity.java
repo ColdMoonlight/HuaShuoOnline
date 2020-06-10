@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class FileEntity {
 	
-    private long fileId;
+    private Integer fileId;
     
     /*****
      * 原文件名
@@ -40,13 +40,13 @@ public class FileEntity {
      * 文件上传时间
      ***/
     
-    private Timestamp uploadTime;
+    private String uploadTime;
 
-	public long getFileId() {
+	public Integer getFileId() {
 		return fileId;
 	}
 
-	public void setFileId(long fileId) {
+	public void setFileId(Integer fileId) {
 		this.fileId = fileId;
 	}
 
@@ -90,15 +90,12 @@ public class FileEntity {
 		this.path = path;
 	}
 
-	public Timestamp getUploadTime() {
+	public String getUploadTime() {
 		return uploadTime;
 	}
 
-	public void setUploadTime(Timestamp uploadTime) {
+	public void setUploadTime(String uploadTime) {
 		this.uploadTime = uploadTime;
 	}
     
-    
-
-
 }

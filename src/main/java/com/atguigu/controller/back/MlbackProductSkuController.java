@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.atguigu.bean.MlbackProductSku;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
@@ -159,6 +162,28 @@ public class MlbackProductSkuController {
 		
 		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
 				.add("mlbackProductSkuListFinallRes", mlbackProductSkuListFinallRes);
+		
+	}
+	/**4.0
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/productSkuListIntoA",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg productSkuListIntoA(HttpSession session,HttpServletResponse rep,HttpServletRequest res,
+			@RequestParam("teams") String teams,@RequestParam("productskuPid") Integer productskuPid){
+		
+		//1.收到productskuPid，查询该id下，所有的产品sku
+		//收到list集合,先对该产品下,所有的生效中的进行状态为0,
+		//遍历集合
+		//取出一条,查询这一条,如果存在,将状态改成1，生效中。如果有，更改属性值即可，如果没，新增本条即可。
+		
+		JSONArray jsonArray= JSON.parseArray(teams);
+	    List<MlbackProductSku> mlbackProductSkuListA = jsonArray.toJavaList(MlbackProductSku.class);
+		
+		
+		
+		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
+				.add("mlbackProductSkuListA", mlbackProductSkuListA);
 		
 	}
 	

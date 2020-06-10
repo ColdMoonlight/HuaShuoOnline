@@ -324,13 +324,13 @@ public class ImageUploadController {
 		String productIdStr = productId+"";
 		String imgName = ImageNameUtil.getfilename(typeName,productIdStr);
 		
-		String uploadPath = "static/Video/productVideoImage";
-		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
-		
 		//当前服务器路径
 		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
         System.out.println("basePathStr:"+basePathStr);
 		
+		String uploadPath = "static/video/productVideoImage";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
 		String imageUrl ="";
 		String thumImageUrl ="";
 		String sqlimageUrl="";
@@ -343,23 +343,23 @@ public class ImageUploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		String uploadPathcompress = "static/Videocompress/productVideoImage";
-		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
-		
-		try {
-			
-			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
-			sqlthumImageUrl=basePathStr+thumImageUrl;
-			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		
+//		String uploadPathcompress = "static/video/productVideoImage";
+//		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+//		
+//		try {
+//			
+//			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+//			sqlthumImageUrl=basePathStr+thumImageUrl;
+//			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+
 		MlbackProduct mlbackProduct = new MlbackProduct();
 		mlbackProduct.setProductId(productId);
-		mlbackProduct.setProductMainimgurl(sqlimageUrl);
-		mlbackProduct.setProductMainsmallimgurl(sqlthumImageUrl);
+		mlbackProduct.setProductVideoImgUrl(sqlimageUrl);
 		
 		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
 		
