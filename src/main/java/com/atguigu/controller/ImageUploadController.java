@@ -274,8 +274,7 @@ public class ImageUploadController {
 		
 		String uploadPath = "static/img/productDiscount";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
-		
-		
+				
 		String imageUrl ="";
 		String thumImageUrl ="";
 		String sqlimageUrl="";
