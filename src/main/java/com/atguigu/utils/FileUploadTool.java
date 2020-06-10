@@ -2,7 +2,6 @@ package com.atguigu.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -105,7 +104,8 @@ public class FileUploadTool {
 			entity.setPath(sqlPathStr);
 			entity.setTitleOrig(name);
 			entity.setTitleAlter(newFileName); 
-			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			//Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			String timestamp = DateUtil.strTime14s();
 			entity.setUploadTime(timestamp);
 			return entity;
 			}

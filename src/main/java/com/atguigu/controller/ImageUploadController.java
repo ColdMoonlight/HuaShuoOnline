@@ -324,13 +324,13 @@ public class ImageUploadController {
 		String productIdStr = productId+"";
 		String imgName = ImageNameUtil.getfilename(typeName,productIdStr);
 		
-		String uploadPath = "static/Video/productVideoImage";
-		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
-		
 		//当前服务器路径
 		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
         System.out.println("basePathStr:"+basePathStr);
 		
+		String uploadPath = "static/Video/productVideoImage";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
 		String imageUrl ="";
 		String thumImageUrl ="";
 		String sqlimageUrl="";
@@ -344,7 +344,7 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/Videocompress/productVideoImage";
+		String uploadPathcompress = "static/imagecompress/productDiscount";
 		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
 		
 		try {
@@ -356,10 +356,10 @@ public class ImageUploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		MlbackProduct mlbackProduct = new MlbackProduct();
 		mlbackProduct.setProductId(productId);
-		mlbackProduct.setProductMainimgurl(sqlimageUrl);
-		mlbackProduct.setProductMainsmallimgurl(sqlthumImageUrl);
+		mlbackProduct.setProductVideoImgUrl(sqlimageUrl);
 		
 		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
 		
