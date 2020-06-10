@@ -193,6 +193,7 @@
 											<p class="text-center"> no skus ... </p>
 										</div>
 									</div>
+									<div class="text-right" style="margin-top: 1rem;"><button class="btn btn-primary all-product-sku-save">Save All Product Skus</button></div>
 								</div>
 							</div>
 							<!-- media picture -->
@@ -730,8 +731,8 @@
 		}
 		// save product sku
 		$(document.body).on('click', '.product-sku-save', function() {
-			var skuId = $(this).data('id') || null;
 			var parentEl = $(this).parents('.product-sku-item');
+			var skuId = parentEl.data('id') || null;
 			saveProductSkuData({
 			    "productskuPid": $('#productId').val(),
 				"productskuId": skuId,
@@ -741,6 +742,29 @@
 			    "productskuCode": parentEl.find('.product-sku-sku').val(),
 			}, function(data) {
 				parentEl.attr('data-id', data.productskuId);
+			});
+		});
+		// save all product-sku
+		$('.all-product-sku-save').on('click', function() {
+			function getProductSkus() {
+				var skusArr = [];
+				$('.product-sku-item').each(function(item) {
+					skusArr.push({
+						"productskuId": ($(item).data('id') || null),
+						"productskuName": $(item).find('.product-sku-name').text().split('/').join(','),
+					    "productskuStock": $(item).find('.product-sku-stock').val(),
+					    "productskuMoney": $(item).find('.product-sku-price').val(),
+					    "productskuCode": $(item).find('.product-sku-sku').val(),
+					});
+				});
+				return skusArr;
+			}
+			saveProductSkusData({
+			    "productskuPid": $('#productId').val(),
+			    "mlbackProductSkuList": getProductSkus(),
+			}, function(data) {
+				console.log(data)
+				// parentEl.attr('data-id', data.productskuId);
 			});
 		});
 		// delete product sku
@@ -769,6 +793,33 @@
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
+						callback(data.extend.mlbackProductSkuResList);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// save product sku-list
+		function saveProductSkusData(reqData, callback) {
+			$('.c-mask').show(); 
+			$.ajax({
+				url: "${APP_PATH }/MlbackProductSku/productSkuListInto",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(reqData),
+			    traditional: true,
+				success: function (data) {
+					if (data.code == 100) {
+						console.log(data);
 						callback(data.extend.mlbackProductSkuResList);
 						toastr.success(data.extend.resMsg);
 					} else {
