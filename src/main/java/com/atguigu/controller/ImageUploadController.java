@@ -328,7 +328,7 @@ public class ImageUploadController {
 		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
         System.out.println("basePathStr:"+basePathStr);
 		
-		String uploadPath = "static/Video/productVideoImage";
+		String uploadPath = "static/video/productVideoImage";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 				
 		String imageUrl ="";
@@ -343,19 +343,19 @@ public class ImageUploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		String uploadPathcompress = "static/imagecompress/productDiscount";
-		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
-		
-		try {
-			
-			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
-			sqlthumImageUrl=basePathStr+thumImageUrl;
-			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		
+//		String uploadPathcompress = "static/video/productVideoImage";
+//		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+//		
+//		try {
+//			
+//			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+//			sqlthumImageUrl=basePathStr+thumImageUrl;
+//			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 		MlbackProduct mlbackProduct = new MlbackProduct();
 		mlbackProduct.setProductId(productId);
