@@ -4,9 +4,6 @@ import com.atguigu.bean.FileEntity;
 
 public interface FileMapper {
 	
-	
-	
-	
 	void saveFile(FileEntity entity);
 	
 	
