@@ -274,8 +274,7 @@ public class ImageUploadController {
 		
 		String uploadPath = "static/img/productDiscount";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
-		
-		
+				
 		String imageUrl ="";
 		String thumImageUrl ="";
 		String sqlimageUrl="";
@@ -325,7 +324,7 @@ public class ImageUploadController {
 		String productIdStr = productId+"";
 		String imgName = ImageNameUtil.getfilename(typeName,productIdStr);
 		
-		String uploadPath = "static/img/productVideo";
+		String uploadPath = "static/Video/productVideoImage";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		
 		//当前服务器路径
@@ -345,7 +344,7 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/imagecompress/productVideo";
+		String uploadPathcompress = "static/Videocompress/productVideoImage";
 		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
 		
 		try {
