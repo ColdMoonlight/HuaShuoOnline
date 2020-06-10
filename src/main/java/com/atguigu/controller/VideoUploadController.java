@@ -83,7 +83,6 @@ public class VideoUploadController {
 		return new ModelAndView("/back/FileResult", map);
 	}
 	
-	
 	@RequestMapping(value = "/uploadProSmallVideo")
 	@ResponseBody
 	public Msg upload(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
