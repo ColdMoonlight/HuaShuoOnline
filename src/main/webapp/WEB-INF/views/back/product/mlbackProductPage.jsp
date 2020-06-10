@@ -748,15 +748,17 @@
 		$('.all-product-sku-save').on('click', function() {
 			function getProductSkus() {
 				var skusArr = [];
-				$('.product-sku-item').each(function(item) {
+				$('.product-sku-item').each(function(idx, item) {
+					var productSkuName = $(item).find('.product-sku-name').text() && $(item).find('.product-sku-name').text().split('/').join(',');
 					skusArr.push({
 						"productskuId": ($(item).data('id') || null),
-						"productskuName": $(item).find('.product-sku-name').text().split('/').join(','),
+						"productskuName": productSkuName,
 					    "productskuStock": $(item).find('.product-sku-stock').val(),
 					    "productskuMoney": $(item).find('.product-sku-price').val(),
 					    "productskuCode": $(item).find('.product-sku-sku').val(),
 					});
 				});
+				console.log(skusArr)
 				return skusArr;
 			}
 			saveProductSkusData({
