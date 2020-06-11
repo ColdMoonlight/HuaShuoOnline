@@ -167,7 +167,7 @@ public class MlbackProductSkuController {
 	/**4.0
 	 * 	onuse	20200103	检查
 	 * */
-	@RequestMapping(value="/productSkuListIntoA",method=RequestMethod.POST)
+	@RequestMapping(value="/productSkuListInsert",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg productSkuListIntoA(HttpSession session,HttpServletResponse rep,HttpServletRequest res,
 			@RequestParam("teams") String teams,@RequestParam("productskuPid") Integer productskuPid){
