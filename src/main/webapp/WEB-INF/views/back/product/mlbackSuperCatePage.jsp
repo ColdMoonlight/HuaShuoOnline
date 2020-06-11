@@ -339,11 +339,10 @@
 		//  callback get all
 		function getCollectionsData(val) {
 			$('.c-mask').show();
-			var pnNUm = getPageNum();
 			$.ajax({
 				url: "${APP_PATH}/MlbackSuperCate/getMlbackSuperCateByPage",
 				type: "post",
-				data: "pn=" + pnNUm,
+				data: "pn=" + getPageNum(),
 				success: function (data) {
 					if (data.code == 100) {
 						renderTable(data.extend.pageInfo.list);

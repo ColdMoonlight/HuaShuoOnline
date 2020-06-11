@@ -760,9 +760,11 @@
 				});
 				return skusArr;
 			}
+
 			var formData = new FormData();
 			formData.append("productskuPid", $('#productId').val());
 			formData.append("teams", JSON.stringify(getProductSkus()));
+
 			saveProductSkusData(formData, function(data) {
 				console.log(data)
 				// parentEl.attr('data-id', data.productskuId);
@@ -952,11 +954,13 @@
 		$('#productImgurl').on('change', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
+
 			var formData = new FormData();
 			formData.append('type', 'product');
 			formData.append('image', $this[0].files[0]);
 			formData.append('productId', parseInt($('#productId').val()));
 			formData.append('productSeo', $('#productSeo').val());
+
 			$.ajax({
 				url: "${APP_PATH}/ImageUpload/thumImageProduct",
 				type: "post",
@@ -987,10 +991,12 @@
 		$('#productDiscoutimgurl').on('change', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
+
 			var formData = new FormData();
 			formData.append('type', 'productDiscout');
 			formData.append('image', $this[0].files[0]);
 			formData.append('productId', parseInt($('#productId').val()));
+
 			$.ajax({
 				url: "${APP_PATH}/ImageUpload/productDiscount",
 				type: "post",
@@ -1036,7 +1042,8 @@
 				var posterFormData = new FormData();            	
 				posterFormData.append('type', 'productVideo');
 				posterFormData.append('image', data);
-				posterFormData.append('productId', productId);	            	
+				posterFormData.append('productId', productId);
+
             	$.ajax({
     				url: "${APP_PATH}/ImageUpload/thumProVideoImage",
     				type: "post",
@@ -1063,6 +1070,7 @@
     			videoFormData.append('file', videoFile);
     			videoFormData.append('productId', productId);
     			videoFormData.append('productSeo', $('#productSeo').val());
+ 
     			$.ajax({
     				url: "${APP_PATH}/VideoUpload/uploadProSmallVideo",
     				type: "post",
@@ -1132,10 +1140,12 @@
 		$(document.body).on('change', '.productAllImgurl', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
+
 			var formData = new FormData();
 			formData.append('imageAll', $this[0].files[0]);
 			formData.append('productId', parseInt($('#productId').val()));
 			formData.append('productimgSortOrder', $this.data('order'));
+
 			$.ajax({
 				url: "${APP_PATH}/ImageUpload/thumImageProductAll",
 				type: "post",
@@ -1369,10 +1379,16 @@
 		// callback get all data
 		function getProductsData() {
 			$('.c-mask').show();
-			var formData = 'pn=' + getPageNum();
+
+			var formData = new FormData();
+			formData.append('pn', getPageNum());
+
 			$.ajax({
 				url: "${APP_PATH }/MlbackProduct/getMlbackProductByPage",
 				type: "post",
+				processData: false,
+				contentType: false,
+				cache: false,
 				data: formData,
 				success: function (data) {
 					if (data.code == 100) {
@@ -1419,16 +1435,19 @@
 		// callback get search data
 		function getSearchProductsData(data) {
 			$('.c-mask').show();
-			// formdata issue, need to check formdata ?
-			var formData = '';
-			formData += 'productName=' + $('#searchProduct').val();
-			formData += ('&productSupercateid=' + ($('#searchSupercate').attr('data-val') || '-1'));
-			formData += '&pn=' + getPageNum();
+
+			var formData = new FormData();
+			formData.append('productName', $('#searchProduct').val());
+			formData.append('productSupercateid', ($('#searchSupercate').attr('data-val') || '-1'));
+			formData.append('pn', getPageNum());
 
 			$.ajax({
 				url: "${APP_PATH }/MlbackProduct/backSearchByProduct",
 				type: "post",
 				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
 				success: function (data) {
 					if (data.code == 100) {
 						renderTable(data.extend.pageInfo.list);
