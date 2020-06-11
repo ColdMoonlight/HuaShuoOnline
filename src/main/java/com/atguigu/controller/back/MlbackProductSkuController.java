@@ -178,12 +178,70 @@ public class MlbackProductSkuController {
 		//取出一条,查询这一条,如果存在,将状态改成1，生效中。如果有，更改属性值即可，如果没，新增本条即可。
 		
 		JSONArray jsonArray= JSON.parseArray(teams);
-	    List<MlbackProductSku> mlbackProductSkuListA = jsonArray.toJavaList(MlbackProductSku.class);
+	    List<MlbackProductSku> mlbackProductSkuList = jsonArray.toJavaList(MlbackProductSku.class);
 		
-		
+	    
+	  //1.收到productskuPid，查询该id下，所有的产品sku
+  		//收到list集合,先对该产品下,所有的生效中的进行状态为0,
+  		//遍历集合
+  		//取出一条,查询这一条,如果存在,将状态改成1，生效中。如果有，更改属性值即可，如果没，新增本条即可。
+  		
+  		MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();
+  		mlbackProductSkuReq.setProductskuPid(productskuPid);
+  		mlbackProductSkuReq.setProductskuStatus(1);//查询其中状态为1
+  		List<MlbackProductSku> mlbackProductSkuListOldRes= mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuReq);
+  		//如果当前有生效中
+  		if(mlbackProductSkuListOldRes.size()>0){
+  			//更改每一条的状态为0
+  			for(MlbackProductSku mlbackProductSkuOne :mlbackProductSkuList){
+  				Integer productskuId = mlbackProductSkuOne.getProductskuId();
+  				
+  				String nowtimeStatus = DateUtil.strTime14s();
+  				MlbackProductSku mlbackProductSkuStatueReq = new MlbackProductSku();
+  				mlbackProductSkuStatueReq.setProductskuId(productskuId);
+  				mlbackProductSkuStatueReq.setProductskuStatus(0);//先对该产品下,所有的生效中的进行状态为0
+  				mlbackProductSkuStatueReq.setProductskuMotifytime(nowtimeStatus);
+  			}
+  		}
+  		
+  		for(MlbackProductSku mlbackProductSkuOne :mlbackProductSkuList){
+  			
+  			String nowtime = DateUtil.strTime14s();
+  			String PSkuName = mlbackProductSkuOne.getProductskuName();
+  			
+  			MlbackProductSku mlbackProductSkuNewReq = new MlbackProductSku();
+  			mlbackProductSkuNewReq.setProductskuName(PSkuName);
+  			mlbackProductSkuNewReq.setProductskuPid(productskuPid);
+  			List<MlbackProductSku> mlbackProductSkuNewRes = mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuNewReq);
+  			
+  			MlbackProductSku mlbackProductSkuStatue = new MlbackProductSku();
+  			//取出一条,查询这一条,如果存在,将状态改成1
+  			if(mlbackProductSkuNewRes.size()>0){
+  				mlbackProductSkuStatue = mlbackProductSkuNewRes.get(0);
+  				Integer productskuId = mlbackProductSkuStatue.getProductskuId();//本条的id
+  				//付给新数据对象
+  				mlbackProductSkuOne.setProductskuId(productskuId);
+  				mlbackProductSkuOne.setProductskuStatus(1);
+  				mlbackProductSkuOne.setProductskuMotifytime(nowtime);
+  				//新数据对象有了id，走更新
+  				mlbackProductSkuService.updateByPrimaryKeySelective(mlbackProductSkuOne);
+  			}else{
+  				//没有这一条,新增本条即可
+  				mlbackProductSkuOne.setProductskuCreatetime(nowtime);
+  				mlbackProductSkuOne.setProductskuStatus(1);
+  				mlbackProductSkuService.insertSelective(mlbackProductSkuOne);
+  			}
+  			
+  		}
+  		
+  		MlbackProductSku mlbackProductSkuFinallReq = new MlbackProductSku();
+  		mlbackProductSkuFinallReq.setProductskuPid(productskuPid);
+  		mlbackProductSkuFinallReq.setProductskuStatus(1);//查询其中状态为1
+  		List<MlbackProductSku> mlbackProductSkuListFinallRes= mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuFinallReq);
+	
 		
 		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
-				.add("mlbackProductSkuListA", mlbackProductSkuListA);
+				.add("mlbackProductSkuListFinallRes", mlbackProductSkuListFinallRes);
 		
 	}
 	
