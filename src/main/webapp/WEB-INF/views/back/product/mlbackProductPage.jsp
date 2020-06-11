@@ -748,10 +748,11 @@
 		$('.all-product-sku-save').on('click', function() {
 			function getProductSkus() {
 				var skusArr = [];
-				$('.product-sku-item').each(function(item) {
+				$('.product-sku-item').each(function(idx, item) {
+					var productSkuName = $(item).find('.product-sku-name').text() && $(item).find('.product-sku-name').text().split('/').join(',');
 					skusArr.push({
 						"productskuId": ($(item).data('id') || null),
-						"productskuName": $(item).find('.product-sku-name').text().split('/').join(','),
+						"productskuName": productSkuName,
 					    "productskuStock": $(item).find('.product-sku-stock').val(),
 					    "productskuMoney": $(item).find('.product-sku-price').val(),
 					    "productskuCode": $(item).find('.product-sku-sku').val(),
@@ -759,10 +760,10 @@
 				});
 				return skusArr;
 			}
-			saveProductSkusData({
-			    "productskuPid": $('#productId').val(),
-			    "mlbackProductSkuList": getProductSkus(),
-			}, function(data) {
+			var formData = new FormData();
+			formData.append("productskuPid", parseInt($('#productId').val()));
+			formData.append("teams", JSON.stringify(getProductSkus()));
+			saveProductSkusData(formData, function(data) {
 				console.log(data)
 				// parentEl.attr('data-id', data.productskuId);
 			});
@@ -809,14 +810,15 @@
 		}
 		// save product sku-list
 		function saveProductSkusData(reqData, callback) {
-			$('.c-mask').show(); 
+			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackProductSku/productSkuListInto",
+				url: "${APP_PATH }/MlbackProductSku/productSkuListIntoA",
 				type: "post",
 				dataType: "json",
-				contentType: 'application/json;charset=utf-8',
-				data: JSON.stringify(reqData),
-			    traditional: true,
+				processData: false,
+				contentType: false,
+				/* contentType: 'application/json', */
+				data: reqData,
 				success: function (data) {
 					if (data.code == 100) {
 						console.log(data);

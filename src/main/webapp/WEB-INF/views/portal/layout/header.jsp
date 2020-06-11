@@ -124,11 +124,15 @@
 		$('#menu').on('click', function () {
 			$('.wap-nav-box').addClass('active');
 		});
+		$('.wap-nav-box').on('click', function () {
+			$('.wap-nav-box').removeClass('active');
+		});
 		$('.wap-nav-box .close').on('click', function () {
 			$('.wap-nav-box').removeClass('active');
 		});
 		// dropdwon menu
-		$(".wap-nav .gw-i").click(function () {
+		$(".wap-nav .gw-i").click(function (e) {			
+			e.stopPropagation();
 			var $this = $(this);
 			var str = $this.next('.sub-menu-container').css('display');
 			if (str == 'none') {
@@ -140,12 +144,14 @@
 			}
 			$this.parent('.menu-item').siblings('.menu-item').find('.gw-i.active').removeClass('active').next('.sub-menu-container').hide(200);
 		});
-		$(".wap-nav .gw-i2").click(function () {
+		$(".wap-nav .gw-i2").click(function (e) {
+			e.stopPropagation();
 			var $this = $(this);
 			if ($this.hasClass('active')) {
-				$this.removeClass('active').parents("dl").find('dd').hide(200).siblings("dl").find('.operate').removeClass('active').find('dd').hide(200);;
+				$this.removeClass('active').parents("dl").find('dd').hide(200);
 			} else {
-				$this.addClass('active').parents("dl").find('dd').show(200).siblings("dl").removeClass("active").find('.operate').find('dd').hide(200);
+				$('.operate.active.gw-i2').removeClass("active").parents('dl').find('dd').hide(200);
+				$this.addClass('active').parents("dl").find('dd').show(200);
 			}
 		});
 	}
