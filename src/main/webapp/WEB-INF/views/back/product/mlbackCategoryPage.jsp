@@ -406,11 +406,13 @@
 		$('#categoryImgurl').on('change', function(e) {
 			var $this = $(this);
 			$('.c-upload-img .spinner').show();
+
 			var formData = new FormData();
 			formData.append('type', 'category');
 			formData.append('image', $this[0].files[0]);
 			formData.append('categoryId', parseInt($('#categoryId').val()));
 			formData.append('categorySeo', $('#categorySeo').val());
+
 			$.ajax({
 				url: "${APP_PATH}/ImageUpload/thumImageCategory",
 				type: "post",
@@ -582,10 +584,16 @@
 		// callback get all data
 		function getCollectionsData() {
 			$('.c-mask').show();
-			var formData = 'pn=' + getPageNum();
+
+			var formData = new FormData();
+			formData.append('pn', getPageNum());
+
 			$.ajax({
 				url: "${APP_PATH }/MlbackCategory/getMlbackCategoryByPage",
 				type: "post",
+				processData: false,
+				contentType: false,
+				cache: false,
 				data: formData,
 				success: function (data) {
 					if (data.code == 100) {
@@ -632,15 +640,18 @@
 		// callback get search data
 		function getSearchCollectionsData(data) {
 			$('.c-mask').show();
-			// formdata issue, need to check formdata ?
-			var formData = '';
-			formData += 'categoryName=' + $('#searchCollection').val();
-			formData += ('&categorySuperCateId=' + ($('#searchSupercate').attr('data-val') || '-1'));
-			formData += '&pn=' + getPageNum();
+
+			var formData = new FormData();
+			formData.append('categoryName', $('#searchCollection').val());
+			formData.append('categorySuperCateId', ($('#searchSupercate').attr('data-val') || '-1'));
+			formData.append('pn', getPageNum());
 
 			$.ajax({
 				url: "${APP_PATH }/MlbackCategory/backSearchBycategory",
 				type: "post",
+				processData: false,
+				contentType: false,
+				cache: false,
 				data: formData,
 				success: function (data) {
 					if (data.code == 100) {
