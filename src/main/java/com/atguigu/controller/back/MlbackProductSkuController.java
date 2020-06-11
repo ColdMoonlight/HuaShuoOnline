@@ -33,7 +33,7 @@ public class MlbackProductSkuController {
 	MlbackAdminService mlbackAdminService;
 	
 
-	/**1.0	UseNow	0505
+	/**1.0	20200611
 	 * MlbackChannel	insert
 	 * @param MlbackChannel
 	 */
@@ -58,7 +58,7 @@ public class MlbackProductSkuController {
 		}
 	}
 	
-	/**2.0	onuse	200104
+	/**2.0	20200611
 	 * MlbackProductSku	delete
 	 * @param id
 	 */
@@ -74,7 +74,7 @@ public class MlbackProductSkuController {
 	}
 	
 	/**
-	 * 3.0	onuse	200104
+	 * 3.0	20200611
 	 * 查看单条id下的细节详情图
 	 * @param MlbackProductSku
 	 * @return 
@@ -92,80 +92,11 @@ public class MlbackProductSkuController {
 		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
 					.add("mlbackProductSkuResList", mlbackProductSkuResList);
 	}
-	
-//	/**4.0
-//	 * 	onuse	20200103	检查
-//	 * */
-//	@RequestMapping(value="/productSkuListInto",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg productDiscount(HttpSession session,HttpServletResponse rep,HttpServletRequest res,
-//			@RequestParam("mlbackProductSkuList")List<MlbackProductSku> mlbackProductSkuList,
-//			@RequestParam("productskuPid") Integer productskuPid){
-//		
-//		//1.收到productskuPid，查询该id下，所有的产品sku
-//		//收到list集合,先对该产品下,所有的生效中的进行状态为0,
-//		//遍历集合
-//		//取出一条,查询这一条,如果存在,将状态改成1，生效中。如果有，更改属性值即可，如果没，新增本条即可。
-//		
-//		MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();
-//		mlbackProductSkuReq.setProductskuPid(productskuPid);
-//		mlbackProductSkuReq.setProductskuStatus(1);//查询其中状态为1
-//		List<MlbackProductSku> mlbackProductSkuListOldRes= mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuReq);
-//		//如果当前有生效中
-//		if(mlbackProductSkuListOldRes.size()>0){
-//			//更改每一条的状态为0
-//			for(MlbackProductSku mlbackProductSkuOne :mlbackProductSkuList){
-//				Integer productskuId = mlbackProductSkuOne.getProductskuId();
-//				
-//				String nowtimeStatus = DateUtil.strTime14s();
-//				MlbackProductSku mlbackProductSkuStatueReq = new MlbackProductSku();
-//				mlbackProductSkuStatueReq.setProductskuId(productskuId);
-//				mlbackProductSkuStatueReq.setProductskuStatus(0);//先对该产品下,所有的生效中的进行状态为0
-//				mlbackProductSkuStatueReq.setProductskuMotifytime(nowtimeStatus);
-//			}
-//		}
-//		
-//		for(MlbackProductSku mlbackProductSkuOne :mlbackProductSkuList){
-//			
-//			String nowtime = DateUtil.strTime14s();
-//			String PSkuName = mlbackProductSkuOne.getProductskuName();
-//			
-//			MlbackProductSku mlbackProductSkuNewReq = new MlbackProductSku();
-//			mlbackProductSkuNewReq.setProductskuName(PSkuName);
-//			mlbackProductSkuNewReq.setProductskuPid(productskuPid);
-//			List<MlbackProductSku> mlbackProductSkuNewRes = mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuNewReq);
-//			
-//			MlbackProductSku mlbackProductSkuStatue = new MlbackProductSku();
-//			//取出一条,查询这一条,如果存在,将状态改成1
-//			if(mlbackProductSkuNewRes.size()>0){
-//				mlbackProductSkuStatue = mlbackProductSkuNewRes.get(0);
-//				Integer productskuId = mlbackProductSkuStatue.getProductskuId();//本条的id
-//				//付给新数据对象
-//				mlbackProductSkuOne.setProductskuId(productskuId);
-//				mlbackProductSkuOne.setProductskuStatus(1);
-//				mlbackProductSkuOne.setProductskuMotifytime(nowtime);
-//				//新数据对象有了id，走更新
-//				mlbackProductSkuService.updateByPrimaryKeySelective(mlbackProductSkuOne);
-//			}else{
-//				//没有这一条,新增本条即可
-//				mlbackProductSkuOne.setProductskuCreatetime(nowtime);
-//				mlbackProductSkuOne.setProductskuStatus(1);
-//				mlbackProductSkuService.insertSelective(mlbackProductSkuOne);
-//			}
-//			
-//		}
-//		
-//		MlbackProductSku mlbackProductSkuFinallReq = new MlbackProductSku();
-//		mlbackProductSkuFinallReq.setProductskuPid(productskuPid);
-//		mlbackProductSkuFinallReq.setProductskuStatus(1);//查询其中状态为1
-//		List<MlbackProductSku> mlbackProductSkuListFinallRes= mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuFinallReq);
-//		
-//		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
-//				.add("mlbackProductSkuListFinallRes", mlbackProductSkuListFinallRes);
-//		
-//	}
-	/**4.0
-	 * 	onuse	20200103	检查
+
+	/**4.0	20200611
+	 * 批量插入产品下的skuList
+	 * @param MlbackProductSku
+	 * @return 
 	 * */
 	@RequestMapping(value="/productSkuListInsert",method=RequestMethod.POST)
 	@ResponseBody
@@ -181,7 +112,7 @@ public class MlbackProductSkuController {
 	    List<MlbackProductSku> mlbackProductSkuList = jsonArray.toJavaList(MlbackProductSku.class);
 		
 	    
-	  //1.收到productskuPid，查询该id下，所有的产品sku
+	    //1.收到productskuPid，查询该id下，所有的产品sku
   		//收到list集合,先对该产品下,所有的生效中的进行状态为0,
   		//遍历集合
   		//取出一条,查询这一条,如果存在,将状态改成1，生效中。如果有，更改属性值即可，如果没，新增本条即可。
@@ -233,7 +164,6 @@ public class MlbackProductSkuController {
   				mlbackProductSkuOne.setProductskuPid(productskuPid);
   				mlbackProductSkuService.insertSelective(mlbackProductSkuOne);
   			}
-  			
   		}
   		
   		MlbackProductSku mlbackProductSkuFinallReq = new MlbackProductSku();
@@ -241,10 +171,7 @@ public class MlbackProductSkuController {
   		mlbackProductSkuFinallReq.setProductskuStatus(1);//查询其中状态为1
   		List<MlbackProductSku> mlbackProductSkuListFinallRes= mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuFinallReq);
 	
-		
 		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
 				.add("mlbackProductSkuListFinallRes", mlbackProductSkuListFinallRes);
-		
 	}
-	
 }
