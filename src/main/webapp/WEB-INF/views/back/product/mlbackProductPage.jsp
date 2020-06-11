@@ -761,7 +761,7 @@
 				return skusArr;
 			}
 			var formData = new FormData();
-			formData.append("productskuPid", parseInt($('#productId').val()));
+			formData.append("productskuPid", $('#productId').val());
 			formData.append("teams", JSON.stringify(getProductSkus()));
 			saveProductSkusData(formData, function(data) {
 				console.log(data)
@@ -817,7 +817,7 @@
 				dataType: "json",
 				processData: false,
 				contentType: false,
-				/* contentType: 'application/json', */
+				cache: false,
 				data: reqData,
 				success: function (data) {
 					if (data.code == 100) {
