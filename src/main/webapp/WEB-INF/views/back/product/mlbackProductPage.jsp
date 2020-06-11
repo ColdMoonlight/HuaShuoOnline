@@ -640,7 +640,7 @@
 		function renderProductSkus(data, flag) { 
             var htmlStr = '';
             (flag ? generateSkus(data) : data).forEach(function(item) {
-            	var skuName = Object.prototype.toString.call(item.productskuName) == "[object Array]" ? item.join('/') : item ? item.productskuName.replace(/\,/g, '/') : item
+            	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
             	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
             		'<div class="product-sku-name">'+ skuName +'</div>' +
             		'<input class="product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : '') +'" />' +
@@ -839,6 +839,10 @@
 		});
 		// reset product skus
 		$('.product-sku-reset').on('click', function() {
+			if ($('.product-sku-item').length) {
+				toastr.info('Sku data cannot be reset while it exists!');
+				return false;
+			}
 			renderProductSkus(getOptionData(), true);
 		});
 		// save all product-sku
