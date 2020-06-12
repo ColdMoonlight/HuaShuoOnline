@@ -680,13 +680,13 @@
             	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
             	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
             		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
-            		'<input type="number" class="product-sku-td product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : 0) +'" />' +
-            		'<input type="number" class="product-sku-td product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'" />' +
-            		'<input type="text" class="product-sku-td product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'" />' +
+            		'<input type="number" class="product-sku-td product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : 0) +'" disabled/>' +
+            		'<input type="number" class="product-sku-td product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'" disabled />' +
+            		'<input type="text" class="product-sku-td product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'" disabled />' +
             		'<div class="product-sku-td product-sku-operate">'+
-	            		'<button class="btn btn-primary product-sku-save">' +
+	            		'<button class="btn btn-primary product-sku-edit">' +
 		        			'<svg class="c-icon">' +
-								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-save"></use>' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
 						'</button>' +
             			'<button class="btn btn-primary product-sku-delete">' +
@@ -799,40 +799,46 @@
 				}
 			});
 		}
-		// save product sku
-		$(document.body).on('click', '.product-sku-save', function() {
+		// edit product sku
+		$(document.body).on('click', '.product-sku-edit', function() {
 			var parentEl = $(this).parents('.product-sku-item');
-			var skuId = parentEl.data('id') || null;
-			saveProductSkuData({
-			    "productskuPid": $('#productId').val(),
-				"productskuId": skuId,
-				"productskuName": parentEl.find('.product-sku-name').text().split('/').join(','),
-			    "productskuStock": parentEl.find('.product-sku-stock').val(),
-			    "productskuMoney": parentEl.find('.product-sku-price').val(),
-			    "productskuCode": parentEl.find('.product-sku-sku').val(),
-			}, function(data) {
-				parentEl.attr('data-id', data.productskuId);
+			productSkuModal({
+				'id': parentEl.data('id'),
+				'stock': parentEl.find('.product-sku-stock').val(),
+				'price': parentEl.find('.product-sku-price').val(),
+				'sku': parentEl.find('.product-sku-sku').val(),
+				'name':  parentEl.find('.product-sku-name').text().split('/'),
 			});
 		});
 		// add one product sku
 		$('.product-sku-add').on('click', function() {
+			productSkuModal();
+		});
+		// product sku form modal
+		function productSkuModal(data) {
 			getProductOptionsData({
 				"productattrnamePid": $('#productId').val(),
-			}, function(data) {
+			}, function(resData) {
 				// reset skuModal input
 				var htmlStr = '';
-				data.forEach(function(item) {
+				resData.forEach(function(item, idx) {
 					htmlStr += '<div class="form-group">' +
 						'<label class="col-form-label" for="'+ item.productattrnameName +'">'+ item.productattrnameName +'</label>' +
 						'<div class="controls">' +
-							 '<input class="form-control" id="'+ item.productattrnameName +'" type="text">' +
+							 '<input class="form-control" id="'+ item.productattrnameName +'" type="text" value="'+ (data ? data.name[idx] : '') +'">' +
 						'</div>' +
 					'</div>';
-				})
+				});
 				$('#productSkuName').html(htmlStr);
+				if (data) {
+					$('#productSkuId').val(data.id);
+					$('#productSkuStock').val(data.stock);
+				    $('#productSkuPrice').val(data.price);
+				    $('#productSkuSku').val(data.sku);
+				}
 				$('#skuModal').modal('show');
 			});
-		});
+		}
 		// save one product sku
 		$(document.body).on('click', '#skuModal .btn-save', function() {
 			var skuName = [];
@@ -868,7 +874,7 @@
 			
 			saveProductSkuData({
 			    "productskuPid": productId,
-				"productskuId": null,
+				"productskuId": $('#productSkuId').val(),
 				"productskuName": skuName.join(','),
 			    "productskuStock": $('#productSkuStock').val(),
 			    "productskuMoney": $('#productSkuPrice').val(),

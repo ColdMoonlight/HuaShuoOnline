@@ -511,6 +511,7 @@
 }
 .product-sku-th,
 .product-sku-item {
+	min-width: 100%;
 	width: max-content;
 	padding: .25rem 0;
 }
@@ -529,10 +530,12 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	text-align: center;
 	background-color: #fff;
 	border-bottom: 1px solid #e6e6e6;
 	overflow: hidden;
+}
+.product-sku-head .product-sku-td {	
+	text-align: center;
 }
 .product-sku-body {
 	padding-top: 40px;
