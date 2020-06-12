@@ -183,11 +183,13 @@
 									<button class="product-option-add btn btn-secondary">Add another option</button>
 									<div class="product-skus">
 										<div class="product-sku-head">
-											<div class="product-sku-head-name"> name </div>
-											<div class="product-sku-head-stock"> stock </div>
-											<div class="product-sku-head-price"> price </div>
-											<div class="product-sku-head-sku"> sku </div>
-											<div class="product-sku-head-operate"> operate </div>
+											<div class="product-sku-th">
+												<div class="product-sku-td product-sku-head-name"> name </div>
+												<div class="product-sku-td product-sku-head-stock"> stock </div>
+												<div class="product-sku-td product-sku-head-price"> price </div>
+												<div class="product-sku-td product-sku-head-sku"> sku </div>
+												<div class="product-sku-td product-sku-head-operate"> operate </div>
+											</div>
 										</div>
 										<div class="product-sku-body">
 											<p class="text-center"> no skus ... </p>
@@ -671,11 +673,11 @@
             (flag ? generateSkus(data) : data).forEach(function(item) {
             	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
             	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
-            		'<div class="product-sku-name">'+ skuName +'</div>' +
-            		'<input type="number" class="product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : 0) +'" />' +
-            		'<input type="number" class="product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'" />' +
-            		'<input type="text" class="product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'" />' +
-            		'<div class="product-sku-operate">'+
+            		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
+            		'<input type="number" class="product-sku-td product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : 0) +'" />' +
+            		'<input type="number" class="product-sku-td product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'" />' +
+            		'<input type="text" class="product-sku-td product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'" />' +
+            		'<div class="product-sku-td product-sku-operate">'+
 	            		'<button class="btn btn-primary product-sku-save">' +
 		        			'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-save"></use>' +
@@ -706,7 +708,8 @@
 		function getOptionData() {
 			var optionVal = [];
 			$('.product-option-values').each(function(idx, item) {
-				optionVal.push($(item).val().split(','));
+				var itemVal = $(item).val().split(',');
+				itemVal.length && optionVal.push(itemVal);
 			});
 			return optionVal;
 		}

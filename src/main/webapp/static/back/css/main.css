@@ -494,6 +494,13 @@
 	margin-top: 1rem;
 	border-top: 1px solid #e6e6e6;
 }
+.product-sku-head {
+	overflow-x: auto;
+}
+.product-sku-td {
+	flex-grow: 1;
+	flex-shrink: 0;
+}
 .product-option-name {
 	width: 200px;
 	height: 2rem;
@@ -509,7 +516,7 @@
 	position: relative;
 	margin-top: 1rem;
 }
-.product-sku-head,
+.product-sku-th,
 .product-sku-item {
 	display: flex;
 	align-items: center;
