@@ -25,7 +25,8 @@
 					<div class="card-title">
 						<div class="card-title-name">Others</div>
 					</div>
-					<div class="card-body">					
+					<div class="card-body">	
+						<input id="productSkuId" hidden>				
 						<div class="form-group">
 							<label class="col-form-label" for="productSkuStock">Product Sku Stock</label>
 							<div class="controls">

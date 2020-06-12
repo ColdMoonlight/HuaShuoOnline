@@ -183,11 +183,13 @@
 									<button class="product-option-add btn btn-secondary">Add another option</button>
 									<div class="product-skus">
 										<div class="product-sku-head">
-											<div class="product-sku-head-name"> name </div>
-											<div class="product-sku-head-stock"> stock </div>
-											<div class="product-sku-head-price"> price </div>
-											<div class="product-sku-head-sku"> sku </div>
-											<div class="product-sku-head-operate"> operate </div>
+											<div class="product-sku-th">
+												<div class="product-sku-td product-sku-head-name"> name </div>
+												<div class="product-sku-td product-sku-head-stock"> stock </div>
+												<div class="product-sku-td product-sku-head-price"> price </div>
+												<div class="product-sku-td product-sku-head-sku"> sku </div>
+												<div class="product-sku-td product-sku-head-operate"> operate </div>
+											</div>
 										</div>
 										<div class="product-sku-body">
 											<p class="text-center"> no skus ... </p>
@@ -294,13 +296,13 @@
 									<div class="form-group">
 										<label class="col-form-label" for="productReviewnum">Reviews Number</label>
 										<div class="controls">
-											 <input class="form-control" id="productReviewnum" type="text" disabled />
+											 <input class="form-control" id="productReviewnum" type="number" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="productHavesalenum">Sale Number</label>
 										<div class="controls">
-											<input class="form-control" id="productHavesalenum" type="text" disabled />
+											<input class="form-control" id="productHavesalenum" type="number" />
 										</div>
 									</div>
 								</div>
@@ -355,6 +357,7 @@
 	<script>
 		var hasSuperCategory = false;
 		var isCreate = false;
+		var isSaveSku = false;
 		// init summernote editor for description
 		$('#productDesc').summernote({
 			height: 300,
@@ -496,6 +499,10 @@
 		});
 		// save product
 		$('.c-create .btn-save').on('click', function () {
+			if (isSaveSku) {
+				toastr.info('Need to save all product Skus!');
+				return;
+			}
 			if (parseInt($('#productSupercateid').val()) < 0) {
 				toastr.info('Please Select super-category!');
 				$('#productSupercateid').focus();
@@ -527,9 +534,30 @@
 				});
 				// fetch default product
 				// getProductsData();
+			} else {
+				if (isSaveSku && $('.product-sku-item').length) {
+					toastr.info('Need to save all product Skus!');
+					$('.all-product-sku-save').focus();
+					return false;
+				}
 			}
-
 			showInitBlock();
+		});
+		$(window).on('beforeunload', function() {
+			if (isCreate) {
+				// delete null product
+				deleteProductData({
+					productId: $('#productId').val(),
+				}, function() {
+					console.log("cancel create-product");
+				});
+			} else {
+				if (isSaveSku && $('.product-sku-item').length) {
+					toastr.info('Need to save all product Skus!');
+					$('.all-product-sku-save').focus();
+					return false;
+				}
+			}
 		});
 		// supercate & productStatus combinewith
 		$('#productSupercateid').on('change', function(e) {
@@ -591,19 +619,15 @@
 		}
 		// add product option
 		$('.product-option-add').on('click', function() {
-			getProductOptionId({
-				"productattrnamePid": $('#productId').val(),				
-			    "productattrnameSort": ($('.product-options-item').length ? $('.product-options-item').last().data('sort') + 1 : 1)
-			}, function(data) {
-				if (!$('.product-options-item').length) {
-					$('.product-options').html('');	
-				}
-				createOptionItem(data, isCreate ? 0 : 2);
-			});
+			var sortNum = $('.product-options-item').length ? $('.product-options-item').last().data('sort') + 1 : 1;
+			createOptionItem({
+				"productattrnameSort": sortNum
+			}, isCreate ? 0 : 2);
 		});
 		// save product option
 		$(document.body).on('click', '.product-option-save', function() {
-			var parentEl = $(this).parents('.product-options-item');
+			var $this = $(this);
+			var parentEl = $this.parents('.product-options-item');
 			var optionName = parentEl.find('.product-option-name').val();
 			var optionVal = parentEl.find('.product-option-values').val();
 			var optionSort = parentEl.data('sort');
@@ -625,9 +649,12 @@
 			    "productattrnameValues": optionVal,
 				"productattrnamePid": $('#productId').val()
 			}, function(data) {
+				parentEl.data('id', data.productattrnameId);
 				if (isCreate) {
-					renderProductSkus(getOptionData(), true);					
+					renderProductSkus(getOptionData(), true);
 				} else {
+					$this.hide();
+					isSaveSku = true;
 					$('.product-sku-name').each(function(idx, item) {
 						var itemText = $(item).text().split('/');
 						itemText.push(optionVal);
@@ -636,20 +663,30 @@
 				}
 			});
 		});
+		// listen sku-list scroll
+		$('.product-sku-body').on('scroll', function(e) {
+			var delay = 100;
+			var newTime = Date.now();
+			if (newTime - oldTime < delay) clearTimeout(timer);
+			oldTime = newTime;
+			timer = setTimeout(function() {
+				$('.product-sku-head .product-sku-th').css('margin-left', '-' +  e.target.scrollLeft + 'px');				
+			}, delay);
+		});
 		// render product skus in sav
-		function renderProductSkus(data, flag) { 
+		function renderProductSkus(data, flag) {
             var htmlStr = '';
             (flag ? generateSkus(data) : data).forEach(function(item) {
             	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
             	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
-            		'<div class="product-sku-name">'+ skuName +'</div>' +
-            		'<input class="product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : '') +'" />' +
-            		'<input class="product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : '') +'" />' +
-            		'<input class="product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'" />' +
-            		'<div class="product-sku-operate">'+
-	            		'<button class="btn btn-primary product-sku-save">' +
+            		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
+            		'<input type="number" class="product-sku-td product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
+            		'<input type="number" class="product-sku-td product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
+            		'<input type="text" class="product-sku-td product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'"/>' +
+            		'<div class="product-sku-td product-sku-operate">'+
+	            		'<button class="btn btn-primary product-sku-edit" style="display: '+ (isCreate ? 'none' : 'inherit') +';">' +
 		        			'<svg class="c-icon">' +
-								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-save"></use>' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
 						'</button>' +
             			'<button class="btn btn-primary product-sku-delete">' +
@@ -677,7 +714,7 @@
 		function getOptionData() {
 			var optionVal = [];
 			$('.product-option-values').each(function(idx, item) {
-				optionVal.push($(item).val().split(','));
+				if ($(item).parents('.product-options-item').data('id')) optionVal.push($(item).val().split(','));
 			});
 			return optionVal;
 		}
@@ -685,8 +722,14 @@
 		$(document.body).on('click', '.product-option-remove', function() {
 			var parentEl = $(this).parents('.product-options-item');
 			var optionVal = parentEl.find('.product-option-values').val();
+			var optionId = parentEl.data('id');
+
+			if (!optionId) {
+				parentEl.remove();
+				return false;
+			}
 			deleteProductOption({
-				"productattrnameId": parentEl.data('id')
+				"productattrnameId": optionId
 			}, function() {
 				parentEl.remove();
 				if (!$('.product-options-item').length) {
@@ -742,7 +785,7 @@
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
-						callback();
+						callback(data.extend.mlbackProductAttributeName);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -756,40 +799,46 @@
 				}
 			});
 		}
-		// save product sku
-		$(document.body).on('click', '.product-sku-save', function() {
+		// edit product sku
+		$(document.body).on('click', '.product-sku-edit', function() {
 			var parentEl = $(this).parents('.product-sku-item');
-			var skuId = parentEl.data('id') || null;
-			saveProductSkuData({
-			    "productskuPid": $('#productId').val(),
-				"productskuId": skuId,
-				"productskuName": parentEl.find('.product-sku-name').text().split('/').join(','),
-			    "productskuStock": parentEl.find('.product-sku-stock').val(),
-			    "productskuMoney": parentEl.find('.product-sku-price').val(),
-			    "productskuCode": parentEl.find('.product-sku-sku').val(),
-			}, function(data) {
-				parentEl.attr('data-id', data.productskuId);
+			productSkuModal({
+				'id': parentEl.data('id'),
+				'stock': parentEl.find('.product-sku-stock').val(),
+				'price': parentEl.find('.product-sku-price').val(),
+				'sku': parentEl.find('.product-sku-sku').val(),
+				'name':  parentEl.find('.product-sku-name').text().split('/'),
 			});
 		});
 		// add one product sku
 		$('.product-sku-add').on('click', function() {
+			productSkuModal();
+		});
+		// product sku form modal
+		function productSkuModal(data) {
 			getProductOptionsData({
 				"productattrnamePid": $('#productId').val(),
-			}, function(data) {
+			}, function(resData) {
 				// reset skuModal input
 				var htmlStr = '';
-				data.forEach(function(item) {
+				resData.forEach(function(item, idx) {
 					htmlStr += '<div class="form-group">' +
 						'<label class="col-form-label" for="'+ item.productattrnameName +'">'+ item.productattrnameName +'</label>' +
 						'<div class="controls">' +
-							 '<input class="form-control" id="'+ item.productattrnameName +'" type="text">' +
+							 '<input class="form-control" id="'+ item.productattrnameName +'" type="text" value="'+ (data ? data.name[idx] : '') +'">' +
 						'</div>' +
 					'</div>';
-				})
+				});
 				$('#productSkuName').html(htmlStr);
+				if (data) {
+					$('#productSkuId').val(data.id);
+					$('#productSkuStock').val(data.stock);
+				    $('#productSkuPrice').val(data.price);
+				    $('#productSkuSku').val(data.sku);
+				}
 				$('#skuModal').modal('show');
 			});
-		});
+		}
 		// save one product sku
 		$(document.body).on('click', '#skuModal .btn-save', function() {
 			var skuName = [];
@@ -825,7 +874,7 @@
 			
 			saveProductSkuData({
 			    "productskuPid": productId,
-				"productskuId": null,
+				"productskuId": $('#productSkuId').val(),
 				"productskuName": skuName.join(','),
 			    "productskuStock": $('#productSkuStock').val(),
 			    "productskuMoney": $('#productSkuPrice').val(),
@@ -868,6 +917,7 @@
 			formData.append("teams", JSON.stringify(getProductSkus()));
 
 			saveProductSkusData(formData, function(data) {
+				isSaveSku = false;
 				getProductSkusData({
 					"productskuPid": productId
 				}, renderProductSkus)
@@ -992,7 +1042,7 @@
 				}
 			});
 		}
-		// get product option id
+		/* // get product option id
 		function getProductOptionId(reqData, callback) {
 			$('.c-mask').show(); 
 			$.ajax({
@@ -1017,7 +1067,7 @@
 					$('.c-mask').hide();
 				}
 			});
-		}
+		} */
 		// render product option
 		function renderProductOption(data) {
 			if (data.length) {
@@ -1032,7 +1082,7 @@
 		// create option item
 		function createOptionItem(data, flag) {
 			// flag, 0/nul/undefined, create Prodcut/inital product create option; 1, edit-product initial option; 2, edit-product create option 
-			var optionItem = $('<div class="product-options-item" data-id="'+ data.productattrnameId +'" data-sort="'+ data.productattrnameSort +'">' +
+			var optionItem = $('<div class="product-options-item" data-id="'+ (data.productattrnameId || '') +'" data-sort="'+ (data.productattrnameSort || '') +'">' +
 				'<div class="product-option-head">' +
 					'<div class="product-option-title">Option '+ ($('.product-options-item').length + 1) +'</div>' +
 					'<div style="display: '+ (flag == 1 ? 'none': 'block') + '">' +
@@ -1041,7 +1091,7 @@
 					'</div>' +
 				'</div>' +
 				'<div class="product-option-body">' +
-					'<input class="product-option-name" type="text" value="'+ (data.productattrnameName || "") +'"  />' +
+					'<input class="product-option-name" type="text" value="'+ (data.productattrnameName || "") +'" />' +
 					'<input class="product-option-values" type="text" value="'+ (data.productattrnameValues || "") +'" />' +										
 				'</div>' +
 			'</div>');
