@@ -494,13 +494,6 @@
 	margin-top: 1rem;
 	border-top: 1px solid #e6e6e6;
 }
-.product-sku-head {
-	overflow-x: auto;
-}
-.product-sku-td {
-	flex-grow: 1;
-	flex-shrink: 0;
-}
 .product-option-name {
 	width: 200px;
 	height: 2rem;
@@ -518,9 +511,12 @@
 }
 .product-sku-th,
 .product-sku-item {
-	display: flex;
-	align-items: center;
+	width: max-content;
 	padding: .25rem 0;
+}
+.product-sku-td {
+	display: inline-block;
+	vertical-align: middle;
 }
 .product-sku-item:nth-of-type(odd) {
 	background-color: rgba(0,0,21,.05);
@@ -536,6 +532,7 @@
 	text-align: center;
 	background-color: #fff;
 	border-bottom: 1px solid #e6e6e6;
+	overflow: hidden;
 }
 .product-sku-body {
 	padding-top: 40px;
@@ -552,13 +549,11 @@
 .product-sku-head-price,
 .product-sku-stock,
 .product-sku-price {
-	display: block;
 	width: 60px;
 	margin-left: .5rem;
 }
 .product-sku-head-sku,
 .product-sku-sku {
-	display: block;
 	width: 10rem;
 	margin-left: .5rem;
 }

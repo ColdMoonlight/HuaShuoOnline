@@ -667,6 +667,16 @@
 				}
 			});
 		});
+		// listen sku-list scroll
+		$('.product-sku-body').on('scroll', function(e) {
+			var delay = 100;
+			var newTime = Date.now();
+			if (newTime - oldTime < delay) clearTimeout(timer);
+			oldTime = newTime;
+			timer = setTimeout(function() {
+				$('.product-sku-head .product-sku-th').css('margin-left', '-' +  e.target.scrollLeft + 'px');				
+			}, delay);
+		});
 		// render product skus in sav
 		function renderProductSkus(data, flag) {
             var htmlStr = '';
