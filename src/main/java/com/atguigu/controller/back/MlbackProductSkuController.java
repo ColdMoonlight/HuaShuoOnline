@@ -54,7 +54,7 @@ public class MlbackProductSkuController {
 		}else{
 			//有id,update
 			mlbackProductSkuService.updateByPrimaryKeySelective(mlbackProductSku);
-			return Msg.success().add("resMsg", "更新成功");
+			return Msg.success().add("resMsg", "更新成功").add("mlbackProductSku", mlbackProductSku);
 		}
 	}
 	
@@ -162,6 +162,11 @@ public class MlbackProductSkuController {
   				mlbackProductSkuOne.setProductskuCreatetime(nowtime);
   				mlbackProductSkuOne.setProductskuStatus(1);
   				mlbackProductSkuOne.setProductskuPid(productskuPid);
+  				
+  				Integer StockNum = mlbackProductSkuOne.getProductskuStock();
+  				if(!(StockNum>0)){
+  					mlbackProductSkuOne.setProductskuStock(0);
+  				}
   				mlbackProductSkuService.insertSelective(mlbackProductSkuOne);
   			}
   		}
