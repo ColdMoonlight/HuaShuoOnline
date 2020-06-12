@@ -680,11 +680,11 @@
             	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
             	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
             		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
-            		'<input type="number" class="product-sku-td product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : 0) +'" disabled/>' +
-            		'<input type="number" class="product-sku-td product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'" disabled />' +
-            		'<input type="text" class="product-sku-td product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'" disabled />' +
+            		'<input type="number" class="product-sku-td product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
+            		'<input type="number" class="product-sku-td product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
+            		'<input type="text" class="product-sku-td product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'"/>' +
             		'<div class="product-sku-td product-sku-operate">'+
-	            		'<button class="btn btn-primary product-sku-edit">' +
+	            		'<button class="btn btn-primary product-sku-edit" style="display: '+ (isCreate ? 'none' : 'inherit') +';">' +
 		        			'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
