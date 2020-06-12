@@ -294,13 +294,13 @@
 									<div class="form-group">
 										<label class="col-form-label" for="productReviewnum">Reviews Number</label>
 										<div class="controls">
-											 <input class="form-control" id="productReviewnum" type="text" disabled />
+											 <input class="form-control" id="productReviewnum" type="number" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="productHavesalenum">Sale Number</label>
 										<div class="controls">
-											<input class="form-control" id="productHavesalenum" type="text" disabled />
+											<input class="form-control" id="productHavesalenum" type="number" />
 										</div>
 									</div>
 								</div>
@@ -355,6 +355,7 @@
 	<script>
 		var hasSuperCategory = false;
 		var isCreate = false;
+		var isSaveSku = false;
 		// init summernote editor for description
 		$('#productDesc').summernote({
 			height: 300,
@@ -496,6 +497,10 @@
 		});
 		// save product
 		$('.c-create .btn-save').on('click', function () {
+			if (isSaveSku) {
+				toastr.info('Need to save all product Skus!');
+				return;
+			}
 			if (parseInt($('#productSupercateid').val()) < 0) {
 				toastr.info('Please Select super-category!');
 				$('#productSupercateid').focus();
@@ -527,9 +532,30 @@
 				});
 				// fetch default product
 				// getProductsData();
+			} else {
+				if (isSaveSku && $('.product-sku-item').length) {
+					toastr.info('Need to save all product Skus!');
+					$('.all-product-sku-save').focus();
+					return false;
+				}
 			}
-
 			showInitBlock();
+		});
+		$(window).on('beforeunload', function() {
+			if (isCreate) {
+				// delete null product
+				deleteProductData({
+					productId: $('#productId').val(),
+				}, function() {
+					console.log("cancel create-product");
+				});
+			} else {
+				if (isSaveSku && $('.product-sku-item').length) {
+					toastr.info('Need to save all product Skus!');
+					$('.all-product-sku-save').focus();
+					return false;
+				}
+			}
 		});
 		// supercate & productStatus combinewith
 		$('#productSupercateid').on('change', function(e) {
@@ -627,9 +653,10 @@
 				"productattrnamePid": $('#productId').val()
 			}, function(data) {
 				if (isCreate) {
-					renderProductSkus(getOptionData(), true);					
+					renderProductSkus(getOptionData(), true);
 				} else {
 					$this.hide();
+					isSaveSku = true;
 					$('.product-sku-name').each(function(idx, item) {
 						var itemText = $(item).text().split('/');
 						itemText.push(optionVal);
@@ -639,7 +666,7 @@
 			});
 		});
 		// render product skus in sav
-		function renderProductSkus(data, flag) { 
+		function renderProductSkus(data, flag) {
             var htmlStr = '';
             (flag ? generateSkus(data) : data).forEach(function(item) {
             	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
@@ -870,6 +897,7 @@
 			formData.append("teams", JSON.stringify(getProductSkus()));
 
 			saveProductSkusData(formData, function(data) {
+				isSaveSku = false;
 				getProductSkusData({
 					"productskuPid": productId
 				}, renderProductSkus)
