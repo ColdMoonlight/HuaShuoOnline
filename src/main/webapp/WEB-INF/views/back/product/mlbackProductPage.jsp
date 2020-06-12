@@ -603,7 +603,8 @@
 		});
 		// save product option
 		$(document.body).on('click', '.product-option-save', function() {
-			var parentEl = $(this).parents('.product-options-item');
+			var $this = $(this);
+			var parentEl = $this.parents('.product-options-item');
 			var optionName = parentEl.find('.product-option-name').val();
 			var optionVal = parentEl.find('.product-option-values').val();
 			var optionSort = parentEl.data('sort');
@@ -628,6 +629,7 @@
 				if (isCreate) {
 					renderProductSkus(getOptionData(), true);					
 				} else {
+					$this.hide();
 					$('.product-sku-name').each(function(idx, item) {
 						var itemText = $(item).text().split('/');
 						itemText.push(optionVal);
@@ -643,9 +645,9 @@
             	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
             	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
             		'<div class="product-sku-name">'+ skuName +'</div>' +
-            		'<input class="product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : '') +'" />' +
-            		'<input class="product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : '') +'" />' +
-            		'<input class="product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'" />' +
+            		'<input type="number" class="product-sku-stock" value="'+ (item.productskuStock ? item.productskuStock : 0) +'" />' +
+            		'<input type="number" class="product-sku-price" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'" />' +
+            		'<input type="text" class="product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'" />' +
             		'<div class="product-sku-operate">'+
 	            		'<button class="btn btn-primary product-sku-save">' +
 		        			'<svg class="c-icon">' +
