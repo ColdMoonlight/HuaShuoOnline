@@ -92,6 +92,28 @@ public class MlbackProductSkuController {
 		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
 					.add("mlbackProductSkuResList", mlbackProductSkuResList);
 	}
+	
+	/**
+	 * 3.1	20200611
+	 * 客户查看单条id下的细节详情图
+	 * @param MlbackProductSku
+	 * @return 
+	 */
+	@RequestMapping(value="/customerGetMlbackProductSkuListByPId",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg customerGetMlbackProductSkuListByPId(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackProductSku mlbackProductSku){
+		
+		
+		Integer productskuPid = mlbackProductSku.getProductskuPid();
+		Integer productskuStatus = mlbackProductSku.getProductskuStatus();
+		MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();
+		mlbackProductSkuReq.setProductskuPid(productskuPid);
+		mlbackProductSkuReq.setProductskuStatus(productskuStatus);
+		//接受信息
+		List<MlbackProductSku> mlbackProductSkuResList =mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuReq);
+		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
+					.add("mlbackProductSkuResList", mlbackProductSkuResList);
+	}
 
 	/**4.0	20200611
 	 * 批量插入产品下的skuList
