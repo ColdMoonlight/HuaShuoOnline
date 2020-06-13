@@ -2,28 +2,34 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 
 <footer>
-	<div class="follow-us">
-		<h3 class="follow-us-title wap-follow-us">FOLLOW US</h3>
-		<div class="follow-us-title pc-follow-us">
-			<img src="${APP_PATH }/static/common/dblogo.png" alt="" title="megalook" style="width:150px">
-			<div style="margin-top:6px;">Our Hair Your Glory</div>
+	<div class="footer-page-header">
+		<div class="follow-us">
+			<h3 class="follow-us-title wap-follow-us">FOLLOW US</h3>
+			<div class="follow-us-title pc-follow-us">
+				<img src="${APP_PATH }/static/common/dblogo.png" alt="" title="megalook" style="width:150px">
+				<div style="margin-top:6px;">Our Hair Your Glory</div>
+			</div>
+			<ul class="follow-us-list">
+				<li class="follow-icon facebook" title="megalook facebook"><a
+						href="https://www.facebook.com/MegalookHairCompany/"></a></li>
+				<li class="follow-icon instagram" title="megalook instagram"><a
+						href="https://www.instagram.com/megalookhair/"></a></li>
+				<li class="follow-icon pinterest" title="megalook pinterest"><a
+						href="https://www.pinterest.com/amegalook/"></a>
+				</li>
+				<li class="follow-icon snapchat" title="megalook snapchat"><a
+						href="https://www.snapchat.com/add/megalook-hair"></a></li>
+				<li class="follow-icon youtube" title="megablook youtube"><a
+						href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber"></a></li>
+			</ul>
 		</div>
-		<ul class="follow-us-list">
-			<li class="follow-icon facebook" title="megalook facebook"><a
-					href="https://www.facebook.com/MegalookHairCompany/"></a></li>
-			<li class="follow-icon instagram" title="megalook instagram"><a
-					href="https://www.instagram.com/megalookhair/"></a></li>
-			<li class="follow-icon pinterest" title="megalook pinterest"><a
-					href="https://www.pinterest.com/amegalook/"></a>
-			</li>
-			<li class="follow-icon snapchat" title="megalook snapchat"><a
-					href="https://www.snapchat.com/add/megalook-hair"></a></li>
-			<li class="follow-icon youtube" title="megablook youtube"><a
-					href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber"></a></li>
-		</ul>
+		<div class="footer-nav pc-footer"></div>
+		<div class="footer-nav wap-footer"></div>
 	</div>
-	<div class="footer-nav pc-footer"></div>
-	<div class="footer-nav wap-footer"></div>
+	<div class="footer-page-footer">
+		<p class="copyright">Copyright © 2019, MegaLook, All Rights Reserved</p>
+		<img src="${APP_PATH }/static/common/paypalcard.jpg" title="paypal card">
+	</div>
 </footer>
 <script>
 	var footerData = [{
