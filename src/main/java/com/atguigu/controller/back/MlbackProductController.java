@@ -25,6 +25,7 @@ import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackSuperCateService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.IfMobileUtils;
 
 @Controller
 @RequestMapping("/MlbackProduct")
@@ -352,5 +353,40 @@ public class MlbackProductController {
 		PageInfo page = new PageInfo(mlbackProductResList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
+	
+	/**
+	 * 8.0	onuse	200103
+	 * 前台详情页面wap/pc的productDetails
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping(value="/tofbProductDetailPageByhtml",method=RequestMethod.GET)
+	 public String tomfbProductDetailPageByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "productSeo") String productSeo) throws Exception{
+		
+		//System.out.println("访客通过productSeo进入落地页-productSeo:"+productSeo+" ,nowTime:"+nowTime);
+		//准备封装参数
+		MlbackProduct mlbackProductrepBySeo = new MlbackProduct();
+		mlbackProductrepBySeo.setProductSeo(productSeo);
+		//3.0.1记录落地页信息insertProView
+		//insertProView(productSeo,session);
+	
+		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductByParam(mlbackProductrepBySeo);
+	  
+		if(!(mlbackProductResList.size()>0)){
+			return "/";
+		}else{
+			MlbackProduct mlbackProductRes = mlbackProductResList.get(0);
+			Integer productIdReq = mlbackProductRes.getProductId();
+			//放回响应域中
+			res.setAttribute("productId", productIdReq);
+			//放回session域中
+			session.setAttribute("productDetailId", productIdReq);
+			session.setAttribute("mlbackProductMetaTitle", mlbackProductRes.getProductMetaTitle());
+			session.setAttribute("mlbackProductMetaKeywords", mlbackProductRes.getProductMetaKeywords());
+			session.setAttribute("mlbackProductMeteDesc", mlbackProductRes.getProductMetaDesc());
+			//返回视图
+			return "portal/product/productDetails";
+		}
+	 }
 
 }
