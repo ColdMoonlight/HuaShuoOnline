@@ -569,16 +569,24 @@ footer li {
 	background-position: 0 -160px;
 }
 
+.footer-page-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 20px;
+	font-size: 14px;
+}
+
 @media screen and (min-width: 576px) {
 	.pc-header,
 	.pc-follow-us {
 		display: block;
 	}
-	footer,
+	.footer-page-header,
 	.pc-footer {
 		display: flex;
 	}
-	footer {
+	.footer-page-header {
 		padding: 50px 20px;
 		background: #f7f8fa;
 	}
@@ -596,12 +604,17 @@ footer li {
 	.wap-footer {
 		display: block;
 	}
-	footer {
+	.footer-page-header {
 		background-color: #666;
 	}
 	.follow-us {
 		padding: 20px;
 		background-color: #fff;
+	}
+	.footer-page-footer {
+		display: none;
+		opacity: 0;
+		visibility: hidden;
 	}
 }
 /* icon */
@@ -770,7 +783,6 @@ footer li {
   display: flex;
   min-height: 6rem;
   flex-wrap: wrap;
-  margiin-left: -.5rem;
 }
 .product-item {
 	position: relative;
@@ -804,41 +816,55 @@ footer li {
 	opacity: 1;
 }
 
-@media screen and (max-width: 576px) {
-	.product-list {
-		margin-left: -2%;
+@media only screen and (max-width: 575px) {
+	main {
+		margin: 0 16px;
 	}
-	.product-item {
-		width: 48%;
-		margin-left: 2%;
-		margin-top: 2%;
+	.product-list {
+		margin-left: -16px;
+	}
+	.product-item-box {
+		width: 50%;
+		padding-left: 16px;
+		padding-top: 16px;
+	}
+}
+@media only screen and (max-width: 1078px) and (min-width: 576px) {
+	main {
+		margin: 0 20px;
+	} 
+	.product-list {
+		margin-left: -20px;
+	}
+	.product-item-box {
+		width: 33.333333%;
+		padding-left: 20px;
+		padding-top: 20px;
 	}
 }
 
-@media screen and (min-width: 576px) {
+@media only screen and (min-width: 1079px) {
 	main {
-		width: 1200px;
-		margin: 0 auto;
-	}
+		margin: 0 25px;
+	} 
 	.product-list {
-		width: 1210px;
-		margin-left: -10px;
+		margin-left: -25px;
 	}
-	.product-item {
-		width: 230px;
-		margin-left: 12px;
-		margin-top: 10px;
+	.product-item-box {
+		width: 20%;
+		padding-left: 25px;
+		padding-top: 25px;
 	}
 }
 .product-img {
   width: 100%;
-  height: 245px;
+  min-height: 60px;
   overflow: hidden;
 }
 
 .product-img a {
 	display: block;
-	width:100%;
+	width: 100%;
 	height: 100%;
 }
 
@@ -852,14 +878,14 @@ footer li {
   padding: .5em;
 }
 
-.product-name {
-  font-size: .875rem;
-  line-height: 1.5rem;
-  font-weight: 400;
-  color: #333333;
-  word-wrap:break-word;
-  text-overflow: initial;
-  overflow: visible;
+.product-name>a {
+	display: block;
+	font-size: .875rem;
+	line-height: 1.2rem;
+	font-weight: 400;
+	color: #333333;
+	word-wrap:break-word;
+	overflow: visible;
 }
 
 .product-data {

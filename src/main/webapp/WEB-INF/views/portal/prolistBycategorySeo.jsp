@@ -53,15 +53,16 @@
 			var htmlStr = '';
 			if(data.length) {
 				data.forEach(function(item) {
-					htmlStr += '<div class="product-item" data-productid="'+ item.productId +'">' +
+					var productLink = '${APP_PATH}/'+ item.productSeo +'.html';
+					htmlStr += '<div class="product-item-box"><div class="product-item" data-productid="'+ item.productId +'">' +
 					    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
 						'<div class="product-img">' +
-							'<a href="${APP_PATH}/'+ item.productSeo +'.html">' +
+							'<a href="'+ productLink +'">' +
 								'<img src="'+ item.productMainimgurl +'" alt="">' +
 							'</a>' +
 						'</div>' +
 						'<div class="product-desc">' +
-							'<div class="product-name">'+ item.productName +'</div>' +
+							'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
 							'<div class="product-data">' +
 								'<span class="product-pay-num">'+ (item.productHavesalenum || 0) +' Order(s)</span>' +
 								'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
@@ -71,7 +72,7 @@
 								'<span class="product-define-price">$'+ (item.productOriginalprice || 0) +'</span>' +
 							'</div>' +
 						'</div>' +
-					'</div>';					
+					'</div></div>';					
 				});
 			} else {
 				htmlStr += '<p class="data-info">Relevant product classification products have been removed from the shelves!</p>';
