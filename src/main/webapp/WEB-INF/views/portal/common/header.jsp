@@ -10,3 +10,11 @@
 <!-- common css -->
 <link href="${APP_PATH}/static/pc/css/main.css" rel="stylesheet">
 <script src="${APP_PATH}/static/common/jquery.min.js"></script>
+<script>
+	function addMeta(name, content) {
+		var meta = document.createElement('meta');
+		meta.name = name;
+		meta.content = content;
+		document.head.appendChild(meta);
+	}
+</script>
