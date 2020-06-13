@@ -478,6 +478,7 @@ footer li {
 }
 /* pc */
 .pc-footer li a {
+	font-size: .875rem;
 	color: #777777;
 	line-height: 1.5;
 	text-decoration: none;
