@@ -20,10 +20,11 @@
 		addMeta('description', seoDescription);
 	</script>
 	<style>
-		main { margin: 0; }
+		main { margin-left: 0; margin-right: 0; }
 		.product-details,
 		.product-body,
 		.product-footer { margin-left: 1rem; margin-right: 1rem; }
+		/* @media only screen and (min-width: 1024px) { .product-details { margin-right: 0} } */
 	</style>
 </head>
 
@@ -88,6 +89,20 @@
 				</div>
 			</div>
 			<div class="product-body">
+				<div class="product-service">
+					<div class="product-service-item">
+						<div class="icon car"></div>
+						<p>Free Shipping</p>
+					</div>
+					<div class="product-service-item">
+						<div class="icon back"></div>
+						<p>15 Days Returns</p>
+					</div>
+					<div class="product-service-item">
+						<div class="icon lock"></div>
+						<p>Secure Payment</p>
+					</div>
+				</div>
 				<div class="product-tab">
 					<div class="product-tab-item btn btn-primary" data-name="desc">Description</div>
 					<div class="product-tab-item btn btn-black" data-name="review">Reviews</div>

@@ -1,9 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-<div class="main-ad></div>
-<div class=" main-header">
+<div class="ml-ad"></div>
+<header>
 	<div class="pc-header">
-		<ul class="pc-nav ml-nav"></ul>
+		<div class="container">		
+			<div class="ml-search">
+				   	<a class="logo" href="${APP_PATH}/index.html">
+						 <img src="${APP_PATH }/static/common/dblogo.png" alt="">
+					</a>
+					 <div class="search-box">
+						<div class="search-inputgroup">
+							<input type="text" placeholder="Search Products..." />
+							<button class="btn" type="submit"><i class="icon search"></i></button>
+						</div>
+						<ul class="search-result">
+							<li>bob</li>
+							<li>wigs</li>
+							<li>bundle</li>
+							<li>613</li>
+							<li>Water</li>
+						</ul>
+					 </div>
+					 <div class="login">
+						<i class="icon person"></i>
+					 </div>
+			   </div>
+			<ul class="pc-nav ml-nav"></ul>
+		</div>
 	</div>
 	<div class="wap-header">
 		<div class="container">
@@ -24,7 +47,7 @@
 			<ul class="wap-nav ml-nav"></ul>
 		</div>
 	</div>
-</div>
+</header>
 <script>
 	// get Label Class
 	function getLabelClass(id) {
