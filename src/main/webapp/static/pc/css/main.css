@@ -209,6 +209,26 @@ select:focus {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
+/* table */
+.table,
+table {
+ 	width: 100% !important;
+	border-spacing: 0;
+    border-collapse: collapse;
+	border: 1px solid #ddd;
+}
+.table th,
+table th,
+.table td,
+table td {
+	padding: .5em;
+	border: 1px solid #ddd;
+}
+table tr td:nth-of-type(2) {
+	word-break: break-word;
+	font-size: 13px;
+}
+
 .container {
 	max-width: 1600px;
 	margin: 0 auto;
@@ -1203,13 +1223,6 @@ footer li {
     font-size: 1rem;
     line-height: 1.0;
     border-radius: .1rem;
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid #e5e5e5;
-}
-
-.paypal-button:hover {
-    filter: brightness(0.95);
 }
 
 .paypal-button>img {
@@ -1231,13 +1244,48 @@ footer li {
     background: #003087;
 }
 
-.paypal-button-container .btn-primary {
-	border-color: #333333;
+/* btn style */
+.btn-primary {
 	color: #000;
+    border: 1px solid #333333;
 	background-color: #fff;
 }
-
-.paypal-button-container .btn-black {
+.btn-black {
 	color: #fff;
+    border: 1px solid #000;
 	background-color: #000;
+}
+.btn {	
+	text-align: center;
+	cursor: pointer;
+}
+.btn:hover {
+    filter: brightness(0.95);
+}
+/* product body */
+.product-body {
+	margin-top: 1rem;
+}
+
+.product-tab {
+	display: flex;
+}
+.product-tab-item {
+	padding: .75rem 0;
+	width: 100%;
+}
+.product-tab-container {
+	display: none;
+	opacity: 0;
+	visibility: hidden;
+}
+.product-tab-container.active {
+	display: block;
+	opacity: 1;
+	visibility: visible;	
+}
+.product-tab-container[data-name="desc"] p {
+	font-size: .875rem;
+	line-height: 1.5;
+	color: #333;
 }
