@@ -19,6 +19,12 @@
 		addMeta('keyword', seoKeywords);
 		addMeta('description', seoDescription);
 	</script>
+	<style>
+		main { margin: 0; }
+		.product-details,
+		.product-body,
+		.product-footer { margin-left: 1rem; margin-right: 1rem; }
+	</style>
 </head>
 
 <body>
@@ -30,13 +36,20 @@
 					<div class="swiper-container product-slide product-zoom">
 						<div class="swiper-wrapper"></div>
 			   			<div class="swiper-pagination"></div>
-					    <div class="swiper-button-next"></div>
-			            <div class="swiper-button-prev"></div>
+					    <div class="swiper-btn swiper-button-next"></div>
+			            <div class="swiper-btn swiper-button-prev"></div>
 					</div>
 					<div class="swiper-container product-thumb-slide">
 						<div class="swiper-wrapper"></div>
 					    <div class="swiper-button-next"></div>
 			            <div class="swiper-button-prev"></div>
+					</div>
+					<div class="product-share">
+						<div class="share-item" data-url="https://plus.google.com/share?url=" title="share on google+">google + </div>
+						<div class="share-item" data-url="https://twitter.com/intent/tweet?url=" title="share on twitter">twitter</div>
+						<div class="share-item" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook">facebook</div>
+						<div class="share-item" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest">pinterest</div>
+						<div class="share-item" data-url="https://api.whatsapp.com/send?text=" title="share on whatsapp">whatsapp</div>
 					</div>
 				</div>
 				<div class="product-details">
@@ -240,6 +253,10 @@
 				$('.product-slide.product-zoom').find('.img').imagezoom();
 			}
 		}
+		// product share
+		$('.share-item').on('click', function() {
+			window.open($(this).data('url') + encodeURIComponent('https://megalook.com/B-3-Bundles-with-4x4-Closure-Deep-Wave.html'));
+		});
 		// product radio click
 		$(document.body).on('click', '.radio', function(e) {
 			var $this = $(this)
@@ -330,14 +347,17 @@
 			$('.product-thumb-slide .swiper-wrapper').html(htmlVideoThumb + htmlStr);
 			$('.product-slide .swiper-wrapper').html(htmlVideo + htmlStr);
 			// media video
-			var player = videojs('ml-video', {
-                autoPlay: false,
-                preload: 'auto',
-                controls: true,
-            });
+			var player = null;
+			if ($('#ml-video').length) {
+				player = videojs('ml-video', {
+	                autoPlay: false,
+	                preload: 'auto',
+	                controls: true,
+	            });
+			}
 			// video play event
             function listenPlay() {
-                player.on('play', function(e) {
+                player && player.on('play', function(e) {
                     this.bigPlayButton.eventBusEl_.style.display = 'none';
                     player.off('play');
                     listenPause();
@@ -345,7 +365,7 @@
             }
 			// video pause
             function listenPause() {
-                player.on('pause', function(e) {
+            	 player && player.on('pause', function(e) {
                     // console.log('pause');
                     this.bigPlayButton.eventBusEl_.style.display = 'block';
                     player.off('pause');
@@ -366,7 +386,7 @@
 				},
 				on: {
 					slideChangeTransitionStart: function() {
-					  	player.pause(); // swiper slide start, stop video play
+						 player && player.pause(); // swiper slide start, stop video play
 					},
 				},
 			});
@@ -381,7 +401,7 @@
 				},
 				on: {
 					slideChangeTransitionStart: function() {
-					  	player.pause(); // swiper slide start, stop video play
+						 player && player.pause(); // swiper slide start, stop video play
 					},
 				},
 				thumbs: { swiper: swiperThumb },
