@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.atguigu.bean.MlfrontCart;
 import com.atguigu.dao.MlfrontCartMapper;
 
-
 @Service
 public class MlfrontCartService {
 	
