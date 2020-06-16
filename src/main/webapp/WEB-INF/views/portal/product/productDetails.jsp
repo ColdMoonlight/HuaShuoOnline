@@ -8,7 +8,7 @@
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/pc/js/jqzoom/jqzoom.css" rel="stylesheet">
-	
+	<link href="${APP_PATH}/static/pc/js/video/video.min.css" rel="stylesheet">
 	<script>
 		// console.log('${sessionScope}')
 		var productId = '${sessionScope.productDetailId}';
@@ -19,6 +19,7 @@
 		addMeta('keyword', seoKeywords);
 		addMeta('description', seoDescription);
 	</script>
+	<style> main { max-width: 1300px; margin: 0 auto; }</style>
 </head>
 
 <body>
@@ -88,22 +89,24 @@
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqzoom/jquery.jqzoom.js"></script>
+	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
 	<script>
-		var mediaData = [];
+		var mediaData = {};
 		var mapSet = {};
 		var mapItems = {};
 		var optionObj = {};
 		getProductDetails(function(data) {
 			// media
 			if (data.productVideoUrl && data.productVideoImgUrl) {
-				mediaData.push({
+				mediaData.video = {
 					videoUrl: data.productVideoUrl,
 					posterUrl: data.productVideoImgUrl,
 					isVideo: true
-				});				
+				};				
 			}
 			getProductImgs(function(data) {
-				renderProductMedia(mediaData.concat(data))
+				mediaData.imgs = data;
+				renderProductMedia(mediaData);
 			});
 			// details
 			renderProductDetails(data);
@@ -113,7 +116,6 @@
 			});
 			// skus
 			getProductSkus(function(data) {
-				console.log(data)
 				data.length && buildResult(data);
 				
 			});
@@ -301,18 +303,52 @@
 		}
 		function renderProductMedia(data) {
 			var htmlStr = '';
-			data.forEach(function(item, idx) {
-				if (item.videoUrl && item.imgUrl) {
-					htmlStr += '<div class="swiper-slide">' +
-						'<img class="video" src="' + item.posterUrl + '" data-video="'+ item.videoUrl +'" />' +
-					'</div>';
-				} else {
-					htmlStr += '<div class="swiper-slide">' +
-						'<img class="img" src="' + item.productimgUrl + '" rel="' + item.productimgUrl + '" title="'+ item.productimgName +'">' +
-					'</div>';
-				}
+			var htmlVideoThumb = '';
+			var htmlVideo = '';
+			data.imgs && data.imgs.forEach(function(item, idx) {
+				htmlStr += '<div class="swiper-slide">' +
+					'<img class="img" src="' + item.productimgUrl + '" rel="' + item.productimgUrl + '">' +
+				'</div>';
 			});
-			$('.swiper-wrapper').html(htmlStr);
+			if (data.video) {
+				htmlVideoThumb = '<div class="swiper-slide">' +
+					'<img class="img" src="' + data.video.posterUrl + '">' +
+				'</div>';
+				
+				htmlVideo = '<div class="swiper-slide">' +
+					'<video id="ml-video" class="video-js" controls preload="auto" width="500" height="500" poster="' + data.video.posterUrl + '">' +
+				    	'<source src="'+ data.video.videoUrl +'" type="video/mp4" />' +
+				  	'</video>' +
+				'</div>';
+			}
+			$('.product-thumb-slide .swiper-wrapper').html(htmlVideoThumb + htmlStr);
+			$('.product-slide .swiper-wrapper').html(htmlVideo + htmlStr);
+			// media video
+			var player = videojs('ml-video', {
+                autoPlay: false,
+                preload: 'auto',
+                controls: true,
+            });
+			// video play event
+            function listenPlay() {
+                player.on('play', function(e) {
+                    this.bigPlayButton.eventBusEl_.style.display = 'none';
+                    player.off('play');
+                    listenPause();
+                });
+            }
+			// video pause
+            function listenPause() {
+                player.on('pause', function(e) {
+                    // console.log('pause');
+                    this.bigPlayButton.eventBusEl_.style.display = 'block';
+                    player.off('pause');
+                    listenPlay();
+                });
+            }
+            
+            listenPause();
+ 			// media imgs
 			var swiperThumb = new Swiper('.product-thumb-slide', {
 				direction: 'vertical',
 				slidesPerView: 6,
@@ -321,6 +357,11 @@
 				navigation: {
 					nextEl: '.swiper-button-next',
 					prevEl: '.swiper-button-prev',
+				},
+				on: {
+					slideChangeTransitionStart: function() {
+					  	player.pause(); // swiper slide start, stop video play
+					},
 				},
 			});
 			var swiperMain = new Swiper('.product-slide', {
@@ -332,8 +373,12 @@
 					nextEl: '.swiper-button-next',
 					prevEl: '.swiper-button-prev',
 				},
-				thumbs: { swiper: swiperThumb }
-
+				on: {
+					slideChangeTransitionStart: function() {
+					  	player.pause(); // swiper slide start, stop video play
+					},
+				},
+				thumbs: { swiper: swiperThumb },
 			});
 			imageZoomEvent();
 		}
