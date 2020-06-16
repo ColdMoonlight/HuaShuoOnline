@@ -6,6 +6,14 @@
 <head>
     <title>Insert title here</title>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
+	<script>
+		var categorySeo = '${sessionScope.categorySeo}';
+		var seoDescription = '${sessionScope.categoryMetaDesc}';
+		var seoKeywords = '${sessionScope.categoryMetaKeyWords}';
+		document.title = categorySeo;
+		addMeta('keyword', seoKeywords);
+		addMeta('description', seoDescription);
+	</script>
 </head>
 
 <body>
@@ -19,7 +27,6 @@
 	</main>
 	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
 	<script>
-		var categorySeo = '${sessionScope.categorySeo}';
 		getProductListByCategorySeo(categorySeo, false);
 		$(document.body).on('change', '.category-select', function() {
 			getProductListByCategorySeo($(this).val(), true);
