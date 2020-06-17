@@ -74,7 +74,7 @@
   </update>
   
   <!-- insertSelective -->
-  <insert id="insertSelective" keyProperty="cartitemId" useGeneratedKeys="true" parameterType="com.atguigu.bean.MlfrontCartItem">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="cartitemId" parameterType="com.atguigu.bean.MlfrontCartItem">
     insert into tb_mlfront_cartitem
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="cartitemId != null">
