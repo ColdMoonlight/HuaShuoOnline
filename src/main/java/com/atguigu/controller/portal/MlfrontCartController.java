@@ -219,7 +219,6 @@ public class MlfrontCartController {
 				mlfrontCartService.insertSelective(MlfrontCartItemReturn);
 				
 				Integer cartAfterId = MlfrontCartItemReturn.getCartId();
-
 				mlfrontCartItem.setCartitemId(cartItemId);
 				mlfrontCartItem.setCartitemCartId(cartAfterId);
 				mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
