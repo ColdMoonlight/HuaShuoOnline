@@ -116,6 +116,7 @@
 		</div>
 	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqzoom/jquery.jqzoom.js"></script>
 	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
@@ -262,7 +263,7 @@
 		// event
 		$(window).on('resize', imageZoomEvent);
 		function imageZoomEvent() {
-			if (window.innerWidth < 576) {
+			if (window.innerWidth < 1024) {
 				$('.product-slide.product-zoom').find('.img').off('mouseover');
 			} else {
 				$('.product-slide.product-zoom').find('.img').imagezoom();
@@ -387,7 +388,7 @@
                     listenPlay();
                 });
             }
-            
+
             listenPause();
  			// media imgs
 			var swiperThumb = new Swiper('.product-thumb-slide', {

@@ -6,20 +6,23 @@
 		<div class="container">		
 			<div class="ml-search">
 				   	<a class="logo" href="${APP_PATH}/index.html">
-						 <img src="${APP_PATH }/static/common/dblogo.png" alt="">
+						 <img src="${APP_PATH }/static/common/dblogo.png" alt="megalook" title="megalook">
 					</a>
 					 <div class="search-box">
 						<div class="search-inputgroup">
 							<input type="text" placeholder="Search Products..." />
 							<button class="btn" type="submit"><i class="icon search"></i></button>
 						</div>
-						<ul class="search-result">
-							<li>bob</li>
-							<li>wigs</li>
-							<li>bundle</li>
-							<li>613</li>
-							<li>Water</li>
-						</ul>
+						<div class="search-result-box">
+							<span class="icon close"></span>
+							<ul class="search-result">
+								<li class="search-result-item">bob</li>
+								<li class="search-result-item">wigs</li>
+								<li class="search-result-item">bundle</li>
+								<li class="search-result-item">613</li>
+								<li class="search-result-item">Water</li>
+							</ul>						
+						</div>
 					 </div>
 					 <div class="login">
 						<i class="icon person"></i>
@@ -29,19 +32,38 @@
 		</div>
 	</div>
 	<div class="wap-header">
-		<div class="container">
+		<div class="wap-navbar">
 			<span id="menu" class="icon menu"></span>
 			<span class="icon person"></span>
-			<a href="TEL:(501)7226336" class="icon myphone"></a>
-			<a href="${APP_PATH}/index.html">
-				<div class="logo">
-					<img src="${APP_PATH }/static/m/img/index/logo.png" alt="megalook">
-				</div>
+			<a href="TEL:(501)7226336" class="icon phone"></a>
+			<a class="logo" href="${APP_PATH}/index.html">
+				<img src="${APP_PATH }/static/common/dblogo.png" alt="megalook" title="megalook">
 			</a>
-			<span class="icon add_phone"></span>
-			<span class="icon cart"><span class="num hide">0</span></span>
+			<span class="icon iphone"></span>
+			<span class="icon cart"><span class="num">0</span></span>
 			<span class="icon search"></span>
+
+			<div class="search-box">
+				<div class="title">
+					<span class="icon close"></span>
+					<p>What are you Looking for?</p>				
+				</div>
+				<div class="search-inputgroup">
+					<input type="text" placeholder="Search Products..." />
+					<button class="btn" type="submit">Search</button>
+				</div>
+				<div class="search-result-box">
+					<ul class="search-result">
+						<li class="search-result-item">bob</li>
+						<li class="search-result-item">wigs</li>
+						<li class="search-result-item">bundle</li>
+						<li class="search-result-item">613</li>
+						<li class="search-result-item">Water</li>
+					</ul>						
+				</div>
+			 </div>
 		</div>
+
 		<div class="wap-nav-box">
     		<i class="icon close"></i>
 			<ul class="wap-nav ml-nav"></ul>
@@ -242,10 +264,27 @@
 	});
 	// listener search event
 	$('.search-inputgroup input').on('click', function() {
-		$('.search-result').addClass('active').slideDown();
+		addFixed();
+		$(this).parents('.search-box').addClass('active').find('.search-result-box').slideDown(300);
 	});
-	$(document.body).on('click', function(e) {
-		if (e.target != $('.search-inputgroup input')[0] && $('.search-result').hasClass('active')) $('.search-result').slideUp();
+	// close search-result box
+	$('.search-result-box').on('click', function(e) {
+		if(e.target == this) {
+			removeFixed();
+			$(this).slideUp(300);
+		}
 	});
-		
+	$('.wap-navbar .search-box .close, .search-result-item').on('click', function() {
+		$('.wap-navbar .search-box').hide();
+		removeFixed();
+	});
+	$('.pc-header .search-result-box .close').on('click', function() {
+		$('.pc-header .search-result-box').slideUp();
+		removeFixed();
+	});
+	// wap-navbar
+	$('.wap-navbar .search').on('click', function() {
+		addFixed();
+		$('.wap-navbar .search-box').show();
+	});
 </script>

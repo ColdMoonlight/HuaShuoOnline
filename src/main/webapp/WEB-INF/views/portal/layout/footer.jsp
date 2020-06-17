@@ -31,7 +31,7 @@
 	<div class="footer-page-footer">	
 		<div class="container">
 			<p class="copyright">Copyright © 2019, MegaLook, All Rights Reserved</p>
-			<img src="${APP_PATH }/static/common/paypalcard.jpg" title="paypal card">		
+			<img src="${APP_PATH }/static/pc/img/paypalcard.jpg" title="paypal card">		
 		</div>
 	</div>
 </footer>

@@ -26,6 +26,7 @@
 		<div class="product-list"></div>
 	</main>
 	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
+	<jsp:include page="common/footer.jsp" flush="true"></jsp:include>
 	<script>
 		getProductListByCategorySeo(categorySeo, false);
 		$(document.body).on('change', '.category-select', function() {
