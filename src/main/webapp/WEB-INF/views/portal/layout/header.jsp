@@ -219,19 +219,33 @@
 		$this.find('a').addClass('active');
 	}
 	// ajax fetch data
-	$.ajax({
-		url: '${APP_PATH}/MlbackCategory/getCategorySuperMenu',
-		method: 'post',
-		success: function (data) {
-			if (data.code === 100) {
-				renderMainCategory($('.ml-nav'), data.extend.categoryFirstList, data.extend.mlbackCategorySuperList);
-				// pc event
-				addNavEvent();
-				// wap event;
-				addWapNavEvent();
-			} else {
-				renderErrorMsg($('.pc-nav'), '未获取到目录相关的数据');
+	function getNavMenuData(callback) {
+		$.ajax({
+			url: '${APP_PATH}/MlbackCategory/getCategorySuperMenu',
+			method: 'post',
+			success: function (data) {
+				if (data.code === 100) {
+					callback(data.extend);
+				} else {
+					renderErrorMsg($('.pc-nav'), '未获取到目录相关的数据');
+				}
 			}
-		}
+		});
+	}
+	// initial header nav
+	getNavMenuData(function(data) {
+		renderMainCategory($('.ml-nav'), data.categoryFirstList, data.mlbackCategorySuperList);
+		// pc event
+		addNavEvent();
+		// wap event;
+		addWapNavEvent();
 	});
+	// listener search event
+	$('.search-inputgroup input').on('click', function() {
+		$('.search-result').addClass('active').slideDown();
+	});
+	$(document.body).on('click', function(e) {
+		if (e.target != $('.search-inputgroup input')[0] && $('.search-result').hasClass('active')) $('.search-result').slideUp();
+	});
+		
 </script>
