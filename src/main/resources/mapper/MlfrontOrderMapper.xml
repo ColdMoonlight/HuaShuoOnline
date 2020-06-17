@@ -37,10 +37,7 @@
     from tb_mlfront_order
     where order_id = #{orderId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_mlfront_order
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.atguigu.bean.MlfrontOrder">
     insert into tb_mlfront_order (order_id, order_uid, order_ip, 
       order_orderItemIdStr, order_money, order_coupon_id, 
@@ -59,7 +56,35 @@
       #{orderMotifytime,jdbcType=VARCHAR}, #{orderLogisticsid,jdbcType=INTEGER}, #{orderLogisticsname,jdbcType=VARCHAR}, 
       #{orderLogisticsnumber,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlfrontOrder">
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlfrontOrder">
+    update tb_mlfront_order
+    set order_uid = #{orderUid,jdbcType=INTEGER},
+      order_ip = #{orderIp,jdbcType=VARCHAR},
+      order_orderItemIdStr = #{orderOrderitemidstr,jdbcType=VARCHAR},
+      order_money = #{orderMoney,jdbcType=DECIMAL},
+      order_coupon_id = #{orderCouponId,jdbcType=INTEGER},
+      order_coupon_code = #{orderCouponCode,jdbcType=VARCHAR},
+      order_coupon_price = #{orderCouponPrice,jdbcType=DECIMAL},
+      order_addressinfo_id = #{orderAddressinfoId,jdbcType=INTEGER},
+      order_addressinfo_uname = #{orderAddressinfoUname,jdbcType=VARCHAR},
+      order_addressinfo_uemail = #{orderAddressinfoUemail,jdbcType=VARCHAR},
+      order_proNum_str = #{orderPronumStr,jdbcType=VARCHAR},
+      order_pay_plate = #{orderPayPlate,jdbcType=INTEGER},
+      order_pay_plateStr = #{orderPayPlatestr,jdbcType=VARCHAR},
+      order_buy_mess = #{orderBuyMess,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      order_createTime = #{orderCreatetime,jdbcType=VARCHAR},
+      order_motifyTime = #{orderMotifytime,jdbcType=VARCHAR},
+      order_logisticsId = #{orderLogisticsid,jdbcType=INTEGER},
+      order_logisticsName = #{orderLogisticsname,jdbcType=VARCHAR},
+      order_logisticsNumber = #{orderLogisticsnumber,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="orderId" parameterType="com.atguigu.bean.MlfrontOrder">
     insert into tb_mlfront_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -192,6 +217,12 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlfront_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlfrontOrder">
     update tb_mlfront_order
     <set>
@@ -258,28 +289,9 @@
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlfrontOrder">
-    update tb_mlfront_order
-    set order_uid = #{orderUid,jdbcType=INTEGER},
-      order_ip = #{orderIp,jdbcType=VARCHAR},
-      order_orderItemIdStr = #{orderOrderitemidstr,jdbcType=VARCHAR},
-      order_money = #{orderMoney,jdbcType=DECIMAL},
-      order_coupon_id = #{orderCouponId,jdbcType=INTEGER},
-      order_coupon_code = #{orderCouponCode,jdbcType=VARCHAR},
-      order_coupon_price = #{orderCouponPrice,jdbcType=DECIMAL},
-      order_addressinfo_id = #{orderAddressinfoId,jdbcType=INTEGER},
-      order_addressinfo_uname = #{orderAddressinfoUname,jdbcType=VARCHAR},
-      order_addressinfo_uemail = #{orderAddressinfoUemail,jdbcType=VARCHAR},
-      order_proNum_str = #{orderPronumStr,jdbcType=VARCHAR},
-      order_pay_plate = #{orderPayPlate,jdbcType=INTEGER},
-      order_pay_plateStr = #{orderPayPlatestr,jdbcType=VARCHAR},
-      order_buy_mess = #{orderBuyMess,jdbcType=VARCHAR},
-      order_status = #{orderStatus,jdbcType=INTEGER},
-      order_createTime = #{orderCreatetime,jdbcType=VARCHAR},
-      order_motifyTime = #{orderMotifytime,jdbcType=VARCHAR},
-      order_logisticsId = #{orderLogisticsid,jdbcType=INTEGER},
-      order_logisticsName = #{orderLogisticsname,jdbcType=VARCHAR},
-      order_logisticsNumber = #{orderLogisticsnumber,jdbcType=VARCHAR}
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </update>
+  <!-- selectMlfrontOrderAllHundred -->
+  <select id="selectMlfrontOrderAllHundred" parameterType="com.atguigu.bean.MlfrontOrder" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_order order by order_id desc limit 100
+  </select>
 </mapper>
