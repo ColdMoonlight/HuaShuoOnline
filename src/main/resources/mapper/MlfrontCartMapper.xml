@@ -31,7 +31,7 @@
       #{cartitemIdstr,jdbcType=VARCHAR}, #{cartStatus,jdbcType=INTEGER}, #{cartCreatetime,jdbcType=VARCHAR}, 
       #{cartMotifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlfrontCart">
+  <insert id="insertSelective" keyProperty="cartId" useGeneratedKeys="true" parameterType="com.atguigu.bean.MlfrontCart">
     insert into tb_mlfront_cart
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="cartId != null">
@@ -125,5 +125,24 @@
   <select id="selectMlfrontCartGetAllHundred" parameterType="com.atguigu.bean.MlfrontCart" resultMap="BaseResultMap">
     select *
     from tb_mlfront_cart order by cart_id desc limit 100
+  </select>
+  
+  <!-- selectMlfrontCartByIp使用中 -->
+  <select id="selectMlfrontCartByIp" parameterType="com.atguigu.bean.MlfrontCart" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_cart where cart_ip = #{cartIp,jdbcType=VARCHAR} and cart_status = #{cartStatus,jdbcType=INTEGER}
+  </select>
+  
+  <!-- selectMlfrontCartByUidAndStatus使用中 -->
+  <select id="selectMlfrontCartByUidAndStatus" parameterType="com.atguigu.bean.MlfrontCart" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_cart where cart_uid = #{cartUid,jdbcType=INTEGER} and cart_status = #{cartStatus,jdbcType=INTEGER}
+  </select>
+  
+  <!-- selectMlfrontCartByCartId -->
+  <select id="selectMlfrontCartByCartId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_cart
+    where cart_id = #{cartId,jdbcType=INTEGER}
   </select>
 </mapper>
