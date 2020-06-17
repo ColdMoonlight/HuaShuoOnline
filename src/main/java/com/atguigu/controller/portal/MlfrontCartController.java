@@ -89,9 +89,6 @@ public class MlfrontCartController {
 		
 		//insertAddCartView(mlfrontCartItem,session);
 		
-		//放回响应域中
-		session.setAttribute("mlfrontCartItem", mlfrontCartItem);
-		
 		String sessionId = session.getId();
 		String Userip =sessionId;
 		session.setAttribute("Userip", Userip);
