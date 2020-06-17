@@ -7,6 +7,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Product List</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
+	<link href="${APP_PATH}/static/back/lib/codemirror/codemirror.min.css" rel="stylesheet">
+	<link href="${APP_PATH}/static/back/lib/codemirror/blackboard.min.css" rel="stylesheet">
+	<link href="${APP_PATH}/static/back/lib/codemirror/monokai.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 </head>
@@ -352,6 +355,8 @@
 	<jsp:include page="../common/skuModal.jsp" flush="true"></jsp:include>
 
 	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
+	<script src="${APP_PATH}/static/back/lib/codemirror/codemirror.js"></script>
+	<script src="${APP_PATH}/static/back/lib/codemirror/xml.min.js"></script>
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
@@ -361,6 +366,12 @@
 		// init summernote editor for description
 		$('#productDesc').summernote({
 			height: 300,
+			codemirror: {
+				mode: 'text/html',
+				htmlMode: true,
+				lineNumbers: true,
+				theme: 'monokai'
+			},
 	        toolbar: [
 				['style', ['style', 'bold', 'italic', 'underline', 'clear']],
 				['fontsize', ['fontsize']],

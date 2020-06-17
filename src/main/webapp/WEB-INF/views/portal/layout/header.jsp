@@ -1,30 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-<div class="main-ad></div>
-<div class=" main-header">
+<div class="ml-ad"></div>
+<header>
 	<div class="pc-header">
-		<ul class="pc-nav ml-nav"></ul>
+		<div class="ml-search">
+			<div class="container">
+				<a class="logo" href="${APP_PATH}/index.html">
+					<img src="${APP_PATH }/static/common/dblogo.png" alt="megalook" title="megalook">
+				</a>
+				<div class="search-box">
+					<div class="search-inputgroup">
+						<input type="text" placeholder="Search Products..." />
+						<button class="btn" type="submit"><i class="icon search"></i></button>
+					</div>
+					<div class="search-result-box">
+						<span class="icon close"></span>
+						<ul class="search-result">
+							<li class="search-result-item">bob</li>
+							<li class="search-result-item">wigs</li>
+							<li class="search-result-item">bundle</li>
+							<li class="search-result-item">613</li>
+							<li class="search-result-item">Water</li>
+						</ul>
+					</div>
+				</div>
+				<div class="login">
+					<i class="icon person"></i>
+				</div>
+			</div>
+		</div>
+		<div class="pc-nav">
+			<div class="container">
+				<ul class="ml-nav"></ul>
+			</div>
+		</div>
 	</div>
 	<div class="wap-header">
-		<div class="container">
+		<div class="wap-navbar">
 			<span id="menu" class="icon menu"></span>
 			<span class="icon person"></span>
-			<a href="TEL:(501)7226336" class="icon myphone"></a>
-			<a href="${APP_PATH}/index.html">
-				<div class="logo">
-					<img src="${APP_PATH }/static/m/img/index/logo.png" alt="megalook">
-				</div>
+			<a href="TEL:(501)7226336" class="icon phone"></a>
+			<a class="logo" href="${APP_PATH}/index.html">
+				<img src="${APP_PATH }/static/common/dblogo.png" alt="megalook" title="megalook">
 			</a>
-			<span class="icon add_phone"></span>
-			<span class="icon cart"><span class="num hide">0</span></span>
+			<span class="icon iphone"></span>
+			<span class="icon cart"><span class="num">0</span></span>
 			<span class="icon search"></span>
+
+			<div class="search-box">
+				<div class="title">
+					<span class="icon close"></span>
+					<p>What are you Looking for?</p>
+				</div>
+				<div class="search-inputgroup">
+					<input type="text" placeholder="Search Products..." />
+					<button class="btn" type="submit">Search</button>
+				</div>
+				<div class="search-result-box">
+					<ul class="search-result">
+						<li class="search-result-item">bob</li>
+						<li class="search-result-item">wigs</li>
+						<li class="search-result-item">bundle</li>
+						<li class="search-result-item">613</li>
+						<li class="search-result-item">Water</li>
+					</ul>
+				</div>
+			</div>
 		</div>
+
 		<div class="wap-nav-box">
-    		<i class="icon close"></i>
+			<i class="icon close"></i>
 			<ul class="wap-nav ml-nav"></ul>
 		</div>
 	</div>
-</div>
+</header>
 <script>
 	// get Label Class
 	function getLabelClass(id) {
@@ -111,14 +160,14 @@
 		$('.pc-nav .menu-item').on('mouseenter', function (e) {
 			var $this = $(this);
 			timer = setTimeout(function () {
-				enterEvent($this, e);				
+				enterEvent($this, e);
 			}, 300);
 		}).on('mouseleave', function (e) {
 			var $this = $(this);
 			clearTimeout(timer);
 			$this.find('.sub-menu-container').removeClass('active');
 			$this.find('a').removeClass('active');
-		});		
+		});
 	}
 	function addWapNavEvent() {
 		$('#menu').on('click', function () {
@@ -131,7 +180,7 @@
 			$('.wap-nav-box').removeClass('active');
 		});
 		// dropdwon menu
-		$(".wap-nav .gw-i").click(function (e) {			
+		$(".wap-nav .gw-i").click(function (e) {
 			e.stopPropagation();
 			var $this = $(this);
 			var str = $this.next('.sub-menu-container').css('display');
@@ -196,19 +245,68 @@
 		$this.find('a').addClass('active');
 	}
 	// ajax fetch data
-	$.ajax({
-		url: '${APP_PATH}/MlbackCategory/getCategorySuperMenu',
-		method: 'post',
-		success: function (data) {
-			if (data.code === 100) {
-				renderMainCategory($('.ml-nav'), data.extend.categoryFirstList, data.extend.mlbackCategorySuperList);
-				// pc event
-				addNavEvent();
-				// wap event;
-				addWapNavEvent();
-			} else {
-				renderErrorMsg($('.pc-nav'), '未获取到目录相关的数据');
+	function getNavMenuData(callback) {
+		$.ajax({
+			url: '${APP_PATH}/MlbackCategory/getCategorySuperMenu',
+			method: 'post',
+			success: function (data) {
+				if (data.code === 100) {
+					callback(data.extend);
+				} else {
+					renderErrorMsg($('.pc-nav'), '未获取到目录相关的数据');
+				}
+			}
+		});
+	}
+	// initial header nav
+	getNavMenuData(function (data) {
+		renderMainCategory($('.ml-nav'), data.categoryFirstList, data.mlbackCategorySuperList);
+		// pc event
+		addNavEvent();
+		// wap event;
+		addWapNavEvent();
+	});
+	// listener search event
+	$('.search-inputgroup input').on('click', function () {
+		addFixed();
+		$(this).parents('.search-box').addClass('active').find('.search-result-box').slideDown(300);
+	});
+	// close search-result box
+	$('.search-result-box').on('click', function (e) {
+		if (e.target == this) {
+			removeFixed();
+			$(this).slideUp(300);
+		}
+	});
+	$('.wap-navbar .search-box .close, .search-result-item').on('click', function () {
+		$('.wap-navbar .search-box').hide();
+		removeFixed();
+	});
+	$('.pc-header .search-result-box .close').on('click', function () {
+		$('.pc-header .search-result-box').slideUp();
+		removeFixed();
+	});
+	// wap-navbar
+	$('.wap-navbar .search').on('click', function () {
+		addFixed();
+		$('.wap-navbar .search-box').show();
+	});
+	var startY = 0;
+	$(window).on('scroll', function () {
+		var currentY = window.pageYOffset;
+		if (currentY >= startY) {
+			if (window.innerWidth > 1024) {
+				$('.ml-search').hide();
+				$('main').css({ 'paddingTop': '4rem' });
 			}
 		}
+
+		if (currentY < startY && currentY < 60) {
+			if (window.innerWidth > 1024) {
+				$('.ml-search').show();
+				$('main').css({ 'paddingTop': '9rem' });
+			}
+		}
+		startY = currentY;
 	});
 </script>
