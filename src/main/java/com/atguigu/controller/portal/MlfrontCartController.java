@@ -1,6 +1,5 @@
 package com.atguigu.controller.portal;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlfrontCart;
 import com.atguigu.bean.MlfrontCartItem;
@@ -87,7 +87,7 @@ public class MlfrontCartController {
 	@ResponseBody
 	public Msg toAddToCart(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontCartItem mlfrontCartItem) throws Exception{
 		
-		//insertAddCartView(mlfrontCartItem,session);
+//		insertAddCartView(mlfrontCartItem,session);
 		
 		String sessionId = session.getId();
 		String Userip =sessionId;
@@ -405,43 +405,43 @@ public class MlfrontCartController {
 		return Msg.success().add("resMsg", "更新成功").add("number", number);
 	}
 	
-	/**6.0	zsh 200617
-	 * getCartitemIdDetails	get
-	 * @param
-	 */
-	@RequestMapping(value="/getCartitemIdDetails",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg getCartitemIdDetails(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
-		String sessionId = session.getId();
-		String Userip =sessionId;
-		MlfrontUser loginUser = (MlfrontUser) session.getAttribute("loginUser");
-		MlfrontCart MlfrontCartReq = new MlfrontCart();
-		MlfrontCartReq.setCartStatus(0);
-		List<MlfrontCart> mlfrontCartResList = new ArrayList<MlfrontCart>();
-		if(loginUser==null){
-			MlfrontCartReq.setCartIp(Userip);
-			mlfrontCartResList = mlfrontCartService.selectMlfrontCartByIp(MlfrontCartReq);
-		}else{
-			Integer Uid = loginUser.getUserId();
-			MlfrontCartReq.setCartUid(Uid);
-			mlfrontCartResList = mlfrontCartService.selectMlfrontCartByUidAndStatus(MlfrontCartReq);
-		}
-		String cartitemIdStr = mlfrontCartResList.get(0).getCartitemIdstr();
-		String[] aa = cartitemIdStr.split(",");
-		List<MlfrontCartItem> mlfrontCartItemListRes = new ArrayList<MlfrontCartItem>();
-		for(int i=0;i<aa.length;i++){
-			String CartItemId = aa[i];
-			Integer CartItemIdInt =Integer.parseInt(CartItemId);
-			MlfrontCartItem mlfrontCartItemFor = new MlfrontCartItem();
-			mlfrontCartItemFor.setCartitemId(CartItemIdInt);
-			//查看该id+该pid时候已经有了
-			List<MlfrontCartItem> mlfrontCartItemListFor= mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemFor);
-			if(mlfrontCartItemListFor.size()>0){
-				mlfrontCartItemListRes.add(mlfrontCartItemListFor.get(0));
-			}
-		}
-		return Msg.success().add("resMsg", "更新成功").add("mlfrontCartItemListRes", mlfrontCartItemListRes);
-	}
+//	/**6.0	zsh 200617
+//	 * getCartitemIdDetails	get
+//	 * @param
+//	 */
+//	@RequestMapping(value="/getCartitemIdDetails",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Msg getCartitemIdDetails(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
+//		String sessionId = session.getId();
+//		String Userip =sessionId;
+//		MlfrontUser loginUser = (MlfrontUser) session.getAttribute("loginUser");
+//		MlfrontCart MlfrontCartReq = new MlfrontCart();
+//		MlfrontCartReq.setCartStatus(0);
+//		List<MlfrontCart> mlfrontCartResList = new ArrayList<MlfrontCart>();
+//		if(loginUser==null){
+//			MlfrontCartReq.setCartIp(Userip);
+//			mlfrontCartResList = mlfrontCartService.selectMlfrontCartByIp(MlfrontCartReq);
+//		}else{
+//			Integer Uid = loginUser.getUserId();
+//			MlfrontCartReq.setCartUid(Uid);
+//			mlfrontCartResList = mlfrontCartService.selectMlfrontCartByUidAndStatus(MlfrontCartReq);
+//		}
+//		String cartitemIdStr = mlfrontCartResList.get(0).getCartitemIdstr();
+//		String[] aa = cartitemIdStr.split(",");
+//		List<MlfrontCartItem> mlfrontCartItemListRes = new ArrayList<MlfrontCartItem>();
+//		for(int i=0;i<aa.length;i++){
+//			String CartItemId = aa[i];
+//			Integer CartItemIdInt =Integer.parseInt(CartItemId);
+//			MlfrontCartItem mlfrontCartItemFor = new MlfrontCartItem();
+//			mlfrontCartItemFor.setCartitemId(CartItemIdInt);
+//			//查看该id+该pid时候已经有了
+//			List<MlfrontCartItem> mlfrontCartItemListFor= mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemFor);
+//			if(mlfrontCartItemListFor.size()>0){
+//				mlfrontCartItemListRes.add(mlfrontCartItemListFor.get(0));
+//			}
+//		}
+//		return Msg.success().add("resMsg", "更新成功").add("mlfrontCartItemListRes", mlfrontCartItemListRes);
+//	}
 	
 	/**
 	 * 7.0	zsh 190615
@@ -528,5 +528,67 @@ public class MlfrontCartController {
 		
 		return Msg.success().add("resMsg", "mlfrontCartItemUpdate successful");
 	}
+	
+	/**
+	 * 9.0	zsh 190624
+	 * 查看单条类目的详情细节
+	 * @param mlfrontOrderOne
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlfrontCartDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlfrontCartDetail(@RequestParam(value = "cartId") Integer cartId){
+		
+		//接受categoryId
+		MlfrontCart mlfrontCartReq = new MlfrontCart();
+		mlfrontCartReq.setCartId(cartId);
+		//查询本条
+		MlfrontCart mlfrontOrderResList =mlfrontCartService.selectMlfrontCartByCartId(cartId);
+		MlfrontCart mlfrontCartOne = new MlfrontCart();
+		if(mlfrontOrderResList!=null){
+			mlfrontCartOne =mlfrontOrderResList;
+		}
+		return Msg.success().add("resMsg", "查看单条mlfrontOrderOne的详情细节完毕").add("mlfrontCartOne", mlfrontCartOne);
+	}
+	
+
+	/**
+	 * 10.0	zsh 190624
+	 * 查看单条类目的详情细节
+	 * @param mlfrontOrderOne
+	 * @return 
+	 */
+	
+	
+	
+//	//记录加购数量
+//	private void insertAddCartView(MlfrontCartItem mlfrontCartItem, HttpSession session) {
+//		String nowViewTime = DateUtil.strTime14s();
+//		//获取该产品id
+//		Integer productId = mlfrontCartItem.getCartitemProductId();
+//		//通过pid查回该产品
+//		MlbackProduct mlbackProductrep = new MlbackProduct();
+//		mlbackProductrep.setProductId(productId);
+//		List<MlbackProduct> mlbackProductresList = mlbackProductService.selectMlbackProductByParam(mlbackProductrep);
+//		MlbackProduct mlbackProductres = mlbackProductresList.get(0);
+//		//拿到seo名字+产品名
+//		String addcartviewdetailSeoname = mlbackProductres.getProductSeo();
+//		String addcartviewdetailProname = mlbackProductres.getProductName();
+//		System.out.println("操作说明:nowViewTime,"+nowViewTime+",toAddToCart	:"+addcartviewdetailSeoname);
+//		//准备参数信息
+//		MlbackAddCartViewDetail mlbackAddCartViewDetailreq = new MlbackAddCartViewDetail();
+//		//浏览对象
+//		mlbackAddCartViewDetailreq.setAddcartviewdetailSeoname(addcartviewdetailSeoname);
+//		mlbackAddCartViewDetailreq.setAddcartviewdetailProname(addcartviewdetailProname);
+//		//sessionID
+//		String sessionId =  session.getId();
+//		mlbackAddCartViewDetailreq.setAddcartviewdetailSessionid(sessionId);
+//		//时间信息
+//		String nowTime = DateUtil.strTime14s();
+//		mlbackAddCartViewDetailreq.setAddcartviewdetailCreatetime(nowTime);
+//		mlbackAddCartViewDetailreq.setAddcartviewdetailMotifytime(nowTime);
+//		mlbackAddCartViewDetailreq.setAddcartviewdetailActNum(0); //计数用户行为，0纯加购	，1点buyNow附带的加购
+//		mlbackProductViewDetailService.insertSelective(mlbackAddCartViewDetailreq);
+//	}
 	
 }
