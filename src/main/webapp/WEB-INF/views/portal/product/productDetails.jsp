@@ -21,10 +21,13 @@
 	</script>
 	<style>
 		main { margin-left: 0; margin-right: 0; }
-		.product-details,
-		.product-body,
-		.product-footer { margin-left: 1rem; margin-right: 1rem; }
-		/* @media only screen and (min-width: 1024px) { .product-details { margin-right: 0} } */
+		@media only screen and (max-width: 1023px) {
+			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
+		}
+		@media only screen and (min-width: 1024px) {
+			.product-details { margin-left: 1rem; margin-right: 1rem; }
+		
+		}
 	</style>
 </head>
 

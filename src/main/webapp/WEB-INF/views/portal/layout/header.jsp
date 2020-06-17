@@ -3,32 +3,36 @@
 <div class="ml-ad"></div>
 <header>
 	<div class="pc-header">
-		<div class="container">		
-			<div class="ml-search">
-				   	<a class="logo" href="${APP_PATH}/index.html">
-						 <img src="${APP_PATH }/static/common/dblogo.png" alt="megalook" title="megalook">
-					</a>
-					 <div class="search-box">
-						<div class="search-inputgroup">
-							<input type="text" placeholder="Search Products..." />
-							<button class="btn" type="submit"><i class="icon search"></i></button>
-						</div>
-						<div class="search-result-box">
-							<span class="icon close"></span>
-							<ul class="search-result">
-								<li class="search-result-item">bob</li>
-								<li class="search-result-item">wigs</li>
-								<li class="search-result-item">bundle</li>
-								<li class="search-result-item">613</li>
-								<li class="search-result-item">Water</li>
-							</ul>						
-						</div>
-					 </div>
-					 <div class="login">
-						<i class="icon person"></i>
-					 </div>
-			   </div>
-			<ul class="pc-nav ml-nav"></ul>
+		<div class="ml-search">
+			<div class="container">
+				<a class="logo" href="${APP_PATH}/index.html">
+					<img src="${APP_PATH }/static/common/dblogo.png" alt="megalook" title="megalook">
+				</a>
+				<div class="search-box">
+					<div class="search-inputgroup">
+						<input type="text" placeholder="Search Products..." />
+						<button class="btn" type="submit"><i class="icon search"></i></button>
+					</div>
+					<div class="search-result-box">
+						<span class="icon close"></span>
+						<ul class="search-result">
+							<li class="search-result-item">bob</li>
+							<li class="search-result-item">wigs</li>
+							<li class="search-result-item">bundle</li>
+							<li class="search-result-item">613</li>
+							<li class="search-result-item">Water</li>
+						</ul>
+					</div>
+				</div>
+				<div class="login">
+					<i class="icon person"></i>
+				</div>
+			</div>
+		</div>
+		<div class="pc-nav">
+			<div class="container">
+				<ul class="ml-nav"></ul>
+			</div>
 		</div>
 	</div>
 	<div class="wap-header">
@@ -46,7 +50,7 @@
 			<div class="search-box">
 				<div class="title">
 					<span class="icon close"></span>
-					<p>What are you Looking for?</p>				
+					<p>What are you Looking for?</p>
 				</div>
 				<div class="search-inputgroup">
 					<input type="text" placeholder="Search Products..." />
@@ -59,13 +63,13 @@
 						<li class="search-result-item">bundle</li>
 						<li class="search-result-item">613</li>
 						<li class="search-result-item">Water</li>
-					</ul>						
+					</ul>
 				</div>
-			 </div>
+			</div>
 		</div>
 
 		<div class="wap-nav-box">
-    		<i class="icon close"></i>
+			<i class="icon close"></i>
 			<ul class="wap-nav ml-nav"></ul>
 		</div>
 	</div>
@@ -156,14 +160,14 @@
 		$('.pc-nav .menu-item').on('mouseenter', function (e) {
 			var $this = $(this);
 			timer = setTimeout(function () {
-				enterEvent($this, e);				
+				enterEvent($this, e);
 			}, 300);
 		}).on('mouseleave', function (e) {
 			var $this = $(this);
 			clearTimeout(timer);
 			$this.find('.sub-menu-container').removeClass('active');
 			$this.find('a').removeClass('active');
-		});		
+		});
 	}
 	function addWapNavEvent() {
 		$('#menu').on('click', function () {
@@ -176,7 +180,7 @@
 			$('.wap-nav-box').removeClass('active');
 		});
 		// dropdwon menu
-		$(".wap-nav .gw-i").click(function (e) {			
+		$(".wap-nav .gw-i").click(function (e) {
 			e.stopPropagation();
 			var $this = $(this);
 			var str = $this.next('.sub-menu-container').css('display');
@@ -255,7 +259,7 @@
 		});
 	}
 	// initial header nav
-	getNavMenuData(function(data) {
+	getNavMenuData(function (data) {
 		renderMainCategory($('.ml-nav'), data.categoryFirstList, data.mlbackCategorySuperList);
 		// pc event
 		addNavEvent();
@@ -263,28 +267,46 @@
 		addWapNavEvent();
 	});
 	// listener search event
-	$('.search-inputgroup input').on('click', function() {
+	$('.search-inputgroup input').on('click', function () {
 		addFixed();
 		$(this).parents('.search-box').addClass('active').find('.search-result-box').slideDown(300);
 	});
 	// close search-result box
-	$('.search-result-box').on('click', function(e) {
-		if(e.target == this) {
+	$('.search-result-box').on('click', function (e) {
+		if (e.target == this) {
 			removeFixed();
 			$(this).slideUp(300);
 		}
 	});
-	$('.wap-navbar .search-box .close, .search-result-item').on('click', function() {
+	$('.wap-navbar .search-box .close, .search-result-item').on('click', function () {
 		$('.wap-navbar .search-box').hide();
 		removeFixed();
 	});
-	$('.pc-header .search-result-box .close').on('click', function() {
+	$('.pc-header .search-result-box .close').on('click', function () {
 		$('.pc-header .search-result-box').slideUp();
 		removeFixed();
 	});
 	// wap-navbar
-	$('.wap-navbar .search').on('click', function() {
+	$('.wap-navbar .search').on('click', function () {
 		addFixed();
 		$('.wap-navbar .search-box').show();
+	});
+	var startY = 0;
+	$(window).on('scroll', function () {
+		var currentY = window.pageYOffset;
+		if (currentY >= startY) {
+			if (window.innerWidth > 1024) {
+				$('.ml-search').hide();
+				$('main').css({ 'paddingTop': '4rem' });
+			}
+		}
+
+		if (currentY < startY && currentY < 60) {
+			if (window.innerWidth > 1024) {
+				$('.ml-search').show();
+				$('main').css({ 'paddingTop': '9rem' });
+			}
+		}
+		startY = currentY;
 	});
 </script>
