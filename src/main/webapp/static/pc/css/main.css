@@ -463,6 +463,23 @@ header {
 .pc-header .person.active {
 	color: #ff1671;
 }
+.pc-header .icon.cart {
+	position: fixed;
+	top: 9rem;
+	right: 1rem;
+	z-index: 99999999;
+	width: 2.4rem;
+	height: 2.4rem;
+	font-size: 1.5rem;
+	color: #ff1671;
+	background-color: #e5e5e5;
+	border-radius: 2px;
+	text-decoration: none;
+}
+.pc-header .icon.cart:hover {
+	color: #f00;
+	background-color: #ccc;
+}
 /* wap navbar */
 .wap-navbar {
 	display: flex;
@@ -487,7 +504,8 @@ header {
 .wap-navbar .cart {
 	position: relative;
 }
-.wap-navbar .num {
+.wap-navbar .num,
+.pc-header .num {
 	position: absolute;
 	top: .1rem;
 	left: .1rem;
