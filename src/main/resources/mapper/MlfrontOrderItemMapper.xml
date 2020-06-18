@@ -14,7 +14,7 @@
     <result column="orderItem_product_accoff" jdbcType="INTEGER" property="orderitemProductAccoff" />
     <result column="orderItem_pSku_idStr" jdbcType="VARCHAR" property="orderitemPskuIdstr" />
     <result column="orderItem_pSku_idnameStr" jdbcType="VARCHAR" property="orderitemPskuIdnamestr" />
-    <result column="orderItem_pSku_id" jdbcType="Integer" property="orderitemPskuId" />
+    <result column="orderItem_pSku_id" jdbcType="INTEGER" property="orderitemPskuId" />
     <result column="orderItem_pSku_name" jdbcType="VARCHAR" property="orderitemPskuName" />
     <result column="orderItem_pSku_code" jdbcType="VARCHAR" property="orderitemPskuCode" />
     <result column="orderItem_pSku_moneyStr" jdbcType="VARCHAR" property="orderitemPskuMoneystr" />
@@ -52,7 +52,7 @@
       #{orderitemPseo,jdbcType=VARCHAR}, #{orderitemProductOriginalprice,jdbcType=DECIMAL}, 
       #{orderitemProductMainimgurl,jdbcType=VARCHAR}, #{orderitemProductAccoff,jdbcType=INTEGER}, 
       #{orderitemPskuIdstr,jdbcType=VARCHAR}, #{orderitemPskuIdnamestr,jdbcType=VARCHAR}, 
-      #{orderitemPskuId,jdbcType=Integer}, #{orderitemPskuName,jdbcType=VARCHAR}, #{orderitemPskuCode,jdbcType=VARCHAR}, 
+      #{orderitemPskuId,jdbcType=INTEGER}, #{orderitemPskuName,jdbcType=VARCHAR}, #{orderitemPskuCode,jdbcType=VARCHAR}, 
       #{orderitemPskuMoneystr,jdbcType=VARCHAR}, #{orderitemPskuNumber,jdbcType=INTEGER}, 
       #{orderitemPskuReamoney,jdbcType=VARCHAR}, #{orderitemCreatetime,jdbcType=VARCHAR}, 
       #{orderitemMotifytime,jdbcType=VARCHAR})
@@ -72,7 +72,7 @@
       orderItem_product_accoff = #{orderitemProductAccoff,jdbcType=INTEGER},
       orderItem_pSku_idStr = #{orderitemPskuIdstr,jdbcType=VARCHAR},
       orderItem_pSku_idnameStr = #{orderitemPskuIdnamestr,jdbcType=VARCHAR},
-      orderItem_pSku_id = #{orderitemPskuId,jdbcType=Integer},
+      orderItem_pSku_id = #{orderitemPskuId,jdbcType=INTEGER},
       orderItem_pSku_name = #{orderitemPskuName,jdbcType=VARCHAR},
       orderItem_pSku_code = #{orderitemPskuCode,jdbcType=VARCHAR},
       orderItem_pSku_moneyStr = #{orderitemPskuMoneystr,jdbcType=VARCHAR},
@@ -186,7 +186,7 @@
         #{orderitemPskuIdnamestr,jdbcType=VARCHAR},
       </if>
       <if test="orderitemPskuId != null">
-        #{orderitemPskuId,jdbcType=Integer},
+        #{orderitemPskuId,jdbcType=INTEGER},
       </if>
       <if test="orderitemPskuName != null">
         #{orderitemPskuName,jdbcType=VARCHAR},
@@ -254,7 +254,7 @@
         orderItem_pSku_idnameStr = #{orderitemPskuIdnamestr,jdbcType=VARCHAR},
       </if>
       <if test="orderitemPskuId != null">
-        orderItem_pSku_id = #{orderitemPskuId,jdbcType=Integer},
+        orderItem_pSku_id = #{orderitemPskuId,jdbcType=INTEGER},
       </if>
       <if test="orderitemPskuName != null">
         orderItem_pSku_name = #{orderitemPskuName,jdbcType=VARCHAR},
