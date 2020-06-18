@@ -27,6 +27,6 @@ public interface MlfrontCartItemMapper {
 //	List<MlfrontCartItem> selectMlfrontCartItemGetAll();
 	//查询全部登陆用户00
 	List<MlfrontCartItem> selectMlfrontCartItemById(MlfrontCartItem record);
-//	//查询最近的100条信息登陆用户00
-//	List<MlfrontCartItem> selectMlfrontCartItemGetAllHundred();
+	//查询最近的100条信息登陆用户00
+	List<MlfrontCartItem> selectMlfrontCartItemGetAllHundred();
 }
