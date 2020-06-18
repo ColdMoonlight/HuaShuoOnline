@@ -415,14 +415,11 @@ public class MlfrontCartController {
 		}
 		return Msg.success().add("resMsg", "更新成功").add("number", number);
 	}
-	
 
-
-	
 	/**
 	 * 6.0	0530
 	 * 选择购物车中的产品项，提交生成订单cartToOrder
-	 * 1接住传入的List《cartItem》，遍历 insert订单orderItem。插入order表，返回orderId
+	 * 1接住传入的List<cartItem>，遍历 insert订单orderItem。插入order表，返回orderId
 	 * 2遍历，更新orderItem中的orderId归属字段；
 	 * 3从cart中，把cartItemIdstr字段，更新。  这一步骤，不该出现在这，要放在生成订单那里。就没事了
 	 * @param Msg
@@ -463,7 +460,7 @@ public class MlfrontCartController {
 				cartId = mlfrontCartItemreturn.getCartitemCartId();
 				String cartitemIdIntStrOne = cartitemIdInt+"";
 				cartItemIdStr.add(cartitemIdIntStrOne);
-				//封装mlfrontOrderItem对象，准备insert进入mlfrontOrderItem表
+				//封装mlfrontOrderItem对象,准备insert进入mlfrontOrderItem表
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());
@@ -482,7 +479,6 @@ public class MlfrontCartController {
 				mlfrontOrderItemNew.setOrderitemMotifytime(nowTime);
 				mlfrontOrderItemService.insertSelective(mlfrontOrderItemNew);
 				//获取新生成的id
-				//MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAll().get(0);
 				MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAllHundred().get(0);
 				Integer orderItemNewId = MlfrontOrderItemReallOne.getOrderitemId();
 				String orderItemNewIdStr = orderItemNewId+"";
@@ -500,7 +496,6 @@ public class MlfrontCartController {
 			mlfrontOrderNew.setOrderMotifytime(nowTime);
 			mlfrontOrderService.insertSelective(mlfrontOrderNew);
 			//获取新生成的id
-			//MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAll().get(0);
 			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAllHundred().get(0);
 			//后更新每个orderItem对象
 			Integer orderId = mlfrontOrdergetAllOne.getOrderId();
@@ -531,7 +526,6 @@ public class MlfrontCartController {
 				String cartitemIdIntStrOne = cartitemIdInt+"";
 				cartItemIdStr.add(cartitemIdIntStrOne);
 				//封装mlfrontOrderItem对象，准备insert进入mlfrontOrderItem表
-//				mlfrontOrderItemNew.setOrderCartItemId(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());
@@ -550,7 +544,6 @@ public class MlfrontCartController {
 				mlfrontOrderItemNew.setOrderitemMotifytime(nowTime);
 				mlfrontOrderItemService.insertSelective(mlfrontOrderItemNew);
 				//获取新生成的id
-				//MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAll().get(0);
 				MlfrontOrderItem MlfrontOrderItemReallOne =mlfrontOrderItemService.selectMlfrontOrderItemAllHundred().get(0);
 				Integer orderItemNewId = MlfrontOrderItemReallOne.getOrderitemId();
 				String orderItemNewIdStr = orderItemNewId+"";
@@ -569,7 +562,6 @@ public class MlfrontCartController {
 			mlfrontOrderNew.setOrderMotifytime(nowTime);
 			mlfrontOrderService.insertSelective(mlfrontOrderNew);
 			//获取新生成的id
-			//MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAll().get(0);
 			MlfrontOrder mlfrontOrdergetAllOne = mlfrontOrderService.selectMlfrontOrderAllHundred().get(0);
 			//后更新每个orderItem对象
 			Integer orderId = mlfrontOrdergetAllOne.getOrderId();
@@ -584,7 +576,7 @@ public class MlfrontCartController {
 		}
 		session.setAttribute("orderId", orderIdFinally);
 		//返回视图
-		return Msg.success().add("resMsg", "订单提交成功");
+		return Msg.success().add("resMsg", "cartToOrder订单提交成功").add("orderId", orderIdFinally);
 	}
 	
 	/**6.0	zsh 200617
