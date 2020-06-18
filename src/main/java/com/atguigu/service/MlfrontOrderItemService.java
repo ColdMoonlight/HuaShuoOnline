@@ -68,17 +68,17 @@ public class MlfrontOrderItemService {
 //		List<MlfrontOrderItem>  mlfrontOrderItemList = mlfrontOrderItemMapper.selectMlfrontOrderItemById(mlfrontOrderItem);
 //		return mlfrontOrderItemList;
 //	}
-//	
-//	/**5
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 查看全部用户信息
-//	 * 
-//	 * */
-//	public List<MlfrontOrderItem> selectMlfrontOrderItemByOrderId(MlfrontOrderItem mlfrontOrderItem) {
-//		List<MlfrontOrderItem>  mlfrontOrderItemList = mlfrontOrderItemMapper.selectMlfrontOrderItemByOrderId(mlfrontOrderItem);
-//		return mlfrontOrderItemList;
-//	}
+	
+	/**5
+	 * @author Shinelon
+	 * @param 
+	 * @exception 查看全部用户信息
+	 * 
+	 * */
+	public List<MlfrontOrderItem> selectMlfrontOrderItemByOrderId(MlfrontOrderItem mlfrontOrderItem) {
+		List<MlfrontOrderItem>  mlfrontOrderItemList = mlfrontOrderItemMapper.selectMlfrontOrderItemByOrderId(mlfrontOrderItem);
+		return mlfrontOrderItemList;
+	}
 //	
 //	/**5
 //	 * @author Shinelon
@@ -108,4 +108,8 @@ public class MlfrontOrderItemService {
 		return mlfrontOrderItemList;
 	}
 
+	public List<MlfrontOrderItem> selectMlfrontOrderItemByParam(MlfrontOrderItem mlfrontOrderItem) {
+		List<MlfrontOrderItem>  mlfrontOrderItemList = mlfrontOrderItemMapper.selectMlfrontOrderItemByParam(mlfrontOrderItem);
+		return mlfrontOrderItemList;
+	}
 }
