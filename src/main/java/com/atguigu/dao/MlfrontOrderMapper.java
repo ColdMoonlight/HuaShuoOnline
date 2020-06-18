@@ -19,8 +19,8 @@ public interface MlfrontOrderMapper {
     int deleteByPrimaryKey(Integer orderId);
     //更新本条地区价格模板
     int updateByPrimaryKeySelective(MlfrontOrder record);
-//    //查询后台登陆用户00
-//    List<MlfrontOrder> selectMlfrontOrderById(MlfrontOrder example);
+    //查询后台登陆用户00
+    List<MlfrontOrder> selectMlfrontOrderById(MlfrontOrder example);
 //    //查询全部登陆用户00
 //	List<MlfrontOrder> selectMlfrontOrderGetAll();
 //	//通过日期查询全部登陆用户00

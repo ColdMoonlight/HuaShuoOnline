@@ -20,13 +20,13 @@
     <result column="user_couponidStr" jdbcType="VARCHAR" property="userCouponidstr" />
     <result column="user_times" jdbcType="INTEGER" property="userTimes" />
     <result column="user_vipLevel" jdbcType="INTEGER" property="userViplevel" />
-    <result column="user_str" jdbcType="VARCHAR" property="userStr" />
+    <result column="user_sign" jdbcType="VARCHAR" property="userSign" />
   </resultMap>
   <sql id="Base_Column_List">
     user_id, user_email, user_password, user_telephone, user_address_country, user_address_province, 
     user_address_city, user_address_streetaddress, user_address_postalcode, user_firstName, 
     user_lastName, user_createTime, user_motifyTime, user_lastonlineTime, user_point, 
-    user_couponidStr, user_times, user_vipLevel, user_str
+    user_couponidStr, user_times, user_vipLevel, user_sign
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -45,14 +45,14 @@
       user_address_postalcode, user_firstName, user_lastName, 
       user_createTime, user_motifyTime, user_lastonlineTime, 
       user_point, user_couponidStr, user_times, 
-      user_vipLevel, user_str)
+      user_vipLevel, user_sign)
     values (#{userId,jdbcType=INTEGER}, #{userEmail,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
       #{userTelephone,jdbcType=VARCHAR}, #{userAddressCountry,jdbcType=VARCHAR}, #{userAddressProvince,jdbcType=VARCHAR}, 
       #{userAddressCity,jdbcType=VARCHAR}, #{userAddressStreetaddress,jdbcType=VARCHAR}, 
       #{userAddressPostalcode,jdbcType=VARCHAR}, #{userFirstname,jdbcType=VARCHAR}, #{userLastname,jdbcType=VARCHAR}, 
       #{userCreatetime,jdbcType=VARCHAR}, #{userMotifytime,jdbcType=VARCHAR}, #{userLastonlinetime,jdbcType=VARCHAR}, 
       #{userPoint,jdbcType=INTEGER}, #{userCouponidstr,jdbcType=VARCHAR}, #{userTimes,jdbcType=INTEGER}, 
-      #{userViplevel,jdbcType=INTEGER}, #{userStr,jdbcType=VARCHAR})
+      #{userViplevel,jdbcType=INTEGER}, #{userSign,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.atguigu.bean.MlfrontUser">
     insert into tb_mlfront_user
@@ -111,8 +111,8 @@
       <if test="userViplevel != null">
         user_vipLevel,
       </if>
-      <if test="userStr != null">
-        user_str,
+      <if test="userSign != null">
+        user_sign,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -170,8 +170,8 @@
       <if test="userViplevel != null">
         #{userViplevel,jdbcType=INTEGER},
       </if>
-      <if test="userStr != null">
-        #{userStr,jdbcType=VARCHAR},
+      <if test="userSign != null">
+        #{userSign,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -229,8 +229,8 @@
       <if test="userViplevel != null">
         user_vipLevel = #{userViplevel,jdbcType=INTEGER},
       </if>
-      <if test="userStr != null">
-        user_str = #{userStr,jdbcType=VARCHAR},
+      <if test="userSign != null">
+        user_sign = #{userSign,jdbcType=VARCHAR},
       </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
@@ -254,7 +254,7 @@
       user_couponidStr = #{userCouponidstr,jdbcType=VARCHAR},
       user_times = #{userTimes,jdbcType=INTEGER},
       user_vipLevel = #{userViplevel,jdbcType=INTEGER},
-      user_str = #{userStr,jdbcType=VARCHAR}
+      user_sign = #{userSign,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

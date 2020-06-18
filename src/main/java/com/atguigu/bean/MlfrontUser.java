@@ -37,7 +37,7 @@ public class MlfrontUser {
 
     private Integer userViplevel;
 
-    private String userStr;
+    private String userSign;
 
     public Integer getUserId() {
         return userId;
@@ -183,12 +183,12 @@ public class MlfrontUser {
         this.userViplevel = userViplevel;
     }
 
-    public String getUserStr() {
-        return userStr;
+    public String getUserSign() {
+        return userSign;
     }
 
-    public void setUserStr(String userStr) {
-        this.userStr = userStr == null ? null : userStr.trim();
+    public void setUserSign(String userSign) {
+        this.userSign = userSign == null ? null : userSign.trim();
     }
 
 	public MlfrontUser() {
@@ -199,7 +199,7 @@ public class MlfrontUser {
 			String userAddressCountry, String userAddressProvince, String userAddressCity,
 			String userAddressStreetaddress, String userAddressPostalcode, String userFirstname, String userLastname,
 			String userCreatetime, String userMotifytime, String userLastonlinetime, Integer userPoint,
-			String userCouponidstr, Integer userTimes, Integer userViplevel, String userStr) {
+			String userCouponidstr, Integer userTimes, Integer userViplevel, String userSign) {
 		super();
 		this.userId = userId;
 		this.userEmail = userEmail;
@@ -219,7 +219,7 @@ public class MlfrontUser {
 		this.userCouponidstr = userCouponidstr;
 		this.userTimes = userTimes;
 		this.userViplevel = userViplevel;
-		this.userStr = userStr;
+		this.userSign = userSign;
 	}
 
 	@Override
@@ -231,7 +231,7 @@ public class MlfrontUser {
 				+ userAddressPostalcode + ", userFirstname=" + userFirstname + ", userLastname=" + userLastname
 				+ ", userCreatetime=" + userCreatetime + ", userMotifytime=" + userMotifytime + ", userLastonlinetime="
 				+ userLastonlinetime + ", userPoint=" + userPoint + ", userCouponidstr=" + userCouponidstr
-				+ ", userTimes=" + userTimes + ", userViplevel=" + userViplevel + ", userStr=" + userStr + "]";
+				+ ", userTimes=" + userTimes + ", userViplevel=" + userViplevel + ", userSign=" + userSign + "]";
 	}
     
 }
