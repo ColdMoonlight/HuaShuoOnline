@@ -352,7 +352,6 @@ public class MlfrontUserController {
 	public Msg getLoginUserDetail(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
 		//获取session中是否已经登陆
 		MlfrontUser loginUser =  (MlfrontUser) session.getAttribute("loginUser");
-		
 		Integer userId = loginUser.getUserId();
 		//接受信息
 		MlfrontUser mlfrontUserReq = new MlfrontUser();
