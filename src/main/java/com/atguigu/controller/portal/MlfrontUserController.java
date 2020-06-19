@@ -365,7 +365,6 @@ public class MlfrontUserController {
 	/**
 	 * 15.0	useOn	0505
 	 * to	tomCouponPage列表页面
-	 * @param jsp
 	 * @return  
 	 * */
 	@RequestMapping("/toCouponPage")
