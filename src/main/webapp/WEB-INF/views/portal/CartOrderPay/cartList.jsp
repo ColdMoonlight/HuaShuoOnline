@@ -10,7 +10,11 @@
 
 <body>
 	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main><div class="container"></div></main>
+	<main>
+		<div class="container">
+			
+		</div>
+	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
@@ -27,7 +31,8 @@
 			})
 		}
 		
-		getCartListData()
+		getCartListData();
+		var modal = createModal();
 	</script>
 </body>
 

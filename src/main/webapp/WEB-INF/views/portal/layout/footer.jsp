@@ -72,15 +72,27 @@
 		success: function (data) {
 			// console.log(data);
 			var resData = data.extend;
-			if (resData.isNav === 0) {
-				renderSysMsg('没获取到相关数据')
+			if (resData.isNav == 0) {
+				modal = createModal({
+        			body: {
+        				html: '<p>Failed to get to the relevant data !</p>'
+        			}
+        		});
 			}
 
-			if (resData.isNav === 1) {
+			if (resData.isNav == 1) {
 				initFooterData(resData);
 				renderFooterNav($('.footer-nav'), footerData);
 				addWapFooterNavEvent();
 			}
+		},
+		error: function(err) {
+			modal = createModal({
+    			body: {
+    				html: '<p>Error: '+ err + '</p>'
+    			},
+    			autoClose: true,
+    		});
 		}
 	});
 

@@ -42,15 +42,16 @@
 				success: function (data) {
 					if (data.code == 100) {
 						renderCategorySeo(data.extend, hasCategory);
-						// toastr.success(data.extend.resMsg);
-					} else {
-						// toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function () {
-					// toastr.error('please refresh the page to get again！');
-				},
-				complete: function () {}
+					modal = createModal({
+						body: {
+							html: '<p>please refresh the page to get again！</p>'
+						},
+		    			autoClose: true
+					});
+				}
 			});
 		}
 		function renderCategorySeo(data, hasCategory) {

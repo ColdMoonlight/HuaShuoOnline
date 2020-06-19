@@ -26,11 +26,18 @@ function removeFixed() {
 function productAdd(el, flag) {
 	var max = parseInt($('.product-num').data('count'));
 	var curr = parseInt($('.product-num').val());
-console.log(max, curr)
+
 	curr += 1;
 	if (curr > max) {
 		curr = max;
-		alert('现有库存： '+ curr);
+		modal = createModal({
+			body: {
+				html: '<p>Existing inventory <b>'+ curr + '</b> pieces !</p>'
+			}
+		});
+		setTimeout(function() {
+			removeModal(modal);
+		}, 1000);
 	}
 
 	$('.product-num').val(curr);
@@ -42,7 +49,14 @@ function productSub(el, flag) {
 	curr -= 1;
 	if (curr < 1) {
 		curr = 1;
-		alert('最少有一件产品 ');
+		modal = createModal({
+			body: {
+				html: '<p>At least one product !</p>'
+			}
+		});
+		setTimeout(function() {
+			removeModal(modal);
+		}, 1000);
 	}
 
 	$('.product-num').val(curr);
@@ -64,11 +78,95 @@ function updateCartNum(el, data) {
 		dataType: 'json',
 		contentType: 'application/json',
 		success: function (data) {
-			console.info('success');
 			updateProructNumberInCart();
+			modal = createModal({
+				body: {
+					html: '<p>Successfully adding products !</p>'
+				}
+			});
 		},
 		error: function () {
-			alert('add product fail.')
+			modal = createModal({
+				body: {
+					html: '<p>Failed to add products !</p>'
+				}
+			});
+		},
+		complete: function () {
+			setTimeout(function() {
+				removeModal(modal);
+			}, 1000);
 		}
 	})
 }
+
+/* modal */
+$(document.body).on('click', '.modal, .modal-close, .btn-no', function(e) {
+    if (e.target == this) {
+    	removeFixed();
+        $('.modal').remove();
+    }
+});
+
+function mergeOpts (opts1, opts2) {
+    var res = $.extend(true, {}, opts1, opts2);
+
+    $.each(opts2, function (key, value) {
+      if ($.isArray(value)) {
+        res[key] = value;
+      }
+    });
+
+    return res;
+}
+
+function createModal(option) {
+	var opt = mergeOpts({
+		header: {
+			html: '',
+			isShow: true,
+		},
+		body: {
+			html: '',
+			isShow: true,
+		},
+		footer: {
+			html: '',
+			isShow: false,
+		},
+		autoClose: false
+	}, option);
+	var htmlStr = '';
+	var modal = $('<div class="modal">' +
+	    '<div class="modal-close">x</div>' +
+	    '<div class="modal-container">' +
+	    	(opt.header.isShow ? ('<div class="modal-header">' + (opt.header.html ? opt.hedder.html : '<p>Megalook Tip !</p>') + '</div>') : '') +
+	    	('<div class="modal-body">' + opt.body.html + '</div>') +
+	    	(opt.footer.isShow
+	    			? ('<div class="modal-footer">' + 
+	    					(opt.footer.html ? opt.footer.html : '<button class="btn btn-no modal-no"> No </button><button class="btn btn-yes modal-ok"> Yes </button>') +
+	    				'</div>')
+	    			: '') +
+	    '</div>' +
+	'</div>');
+	$(document.body).append(modal);
+	setTimeout(function() {
+		modal.addClass('active');
+	});
+    addFixed();
+    
+    if (opt.autoClose) {
+    	setTimeout(function() {
+    		removeModal(modal);
+    	}, 1000);
+    }
+	return modal;
+}
+
+function removeModal(modal) {
+	modal.remove();
+    removeFixed();
+}
+
+/* varient */
+var modal = null, timer = null, timeStart = Date.now();
