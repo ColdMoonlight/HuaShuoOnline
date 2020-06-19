@@ -5,16 +5,29 @@
 
 <head>
 	<title>Cart List</title>
-	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 </head>
 
 <body>
-	<jsp:include page="layout/header.jsp" flush="true"></jsp:include>
+	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<main><div class="container"></div></main>
-	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
-	<jsp:include page="common/footer.jsp" flush="true"></jsp:include>
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
+		// ajax fetch cart-list
+		function getCartListData() {
+			$.ajax({
+				url: '${APP_PATH}/MlbackCart/getCartitemIdDetails',
+				type: 'post',
+				success: function (data) {
+					if (data.code == 100) {
+						console.log(data.extend.mlfrontCartItemListRes)	
+					}
+				}
+			})
+		}
 		
+		getCartListData()
 	</script>
 </body>
 

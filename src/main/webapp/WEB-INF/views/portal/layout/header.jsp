@@ -260,13 +260,13 @@
 		});
 	}
 	// ajax fetch productNum in the cart
-	function getProructNumberInCart(callback) {
+	function updateProructNumberInCart() {
 		$.ajax({
 			url: '${APP_PATH}/MlbackCart/getCartProductNumber',
 			method: 'post',
 			success: function (data) {
 				if (data.code === 100) {
-					callback(data.extend);
+					$('.cart .num').html(data.extend.number || 0);
 				}
 			}
 		});
@@ -280,9 +280,7 @@
 		addWapNavEvent();
 	});
 	// initial cart num
-	getProructNumberInCart(function(data) {
-		$('.cart .num').text(data.number || 0);
-	});
+	updateProructNumberInCart();
 	// listener search event
 	$('.search-inputgroup input').on('click', function () {
 		addFixed();

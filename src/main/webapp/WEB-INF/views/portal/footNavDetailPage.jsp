@@ -4,7 +4,7 @@
 <html>
 
 <head>
-	<title>Insert title here</title>
+	<title>megalook</title>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 </head>
 
