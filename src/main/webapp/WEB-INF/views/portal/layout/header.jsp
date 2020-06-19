@@ -34,6 +34,7 @@
 				<ul class="ml-nav"></ul>
 			</div>
 		</div>
+		<a href="${APP_PATH}/MlbackCart/toCartList" class="icon cart"><span class="num">0</span></a>
 	</div>
 	<div class="wap-header">
 		<div class="wap-navbar">
@@ -41,10 +42,10 @@
 			<span class="icon person"></span>
 			<a href="TEL:(501)7226336" class="icon phone"></a>
 			<a class="logo" href="${APP_PATH}/index.html">
-				<img src="${APP_PATH }/static/common/dblogo.png" alt="megalook" title="megalook">
+				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
 			</a>
 			<span class="icon iphone"></span>
-			<span class="icon cart"><span class="num">0</span></span>
+			<a href="${APP_PATH}/MlbackCart/toCartList" class="icon cart"><span class="num">0</span></a>
 			<span class="icon search"></span>
 
 			<div class="search-box">
@@ -244,7 +245,7 @@
 		}
 		$this.find('a').addClass('active');
 	}
-	// ajax fetch data
+	// ajax fetch nav data
 	function getNavMenuData(callback) {
 		$.ajax({
 			url: '${APP_PATH}/MlbackCategory/getCategorySuperMenu',
@@ -258,6 +259,18 @@
 			}
 		});
 	}
+	// ajax fetch productNum in the cart
+	function updateProructNumberInCart() {
+		$.ajax({
+			url: '${APP_PATH}/MlbackCart/getCartProductNumber',
+			method: 'post',
+			success: function (data) {
+				if (data.code === 100) {
+					$('.cart .num').html(data.extend.number || 0);
+				}
+			}
+		});
+	}
 	// initial header nav
 	getNavMenuData(function (data) {
 		renderMainCategory($('.ml-nav'), data.categoryFirstList, data.mlbackCategorySuperList);
@@ -266,6 +279,8 @@
 		// wap event;
 		addWapNavEvent();
 	});
+	// initial cart num
+	updateProructNumberInCart();
 	// listener search event
 	$('.search-inputgroup input').on('click', function () {
 		addFixed();

@@ -12,7 +12,9 @@
 	</head>
 	<body>
 		<jsp:include page="WEB-INF/views/portal/layout/header.jsp" flush="true"></jsp:include>
-		<h2>hello world!</h2>
+		<main>
+			<div class="container"><h2>hello world!</h2></div>
+		</main>
 		<jsp:include page="WEB-INF/views/portal/layout/footer.jsp" flush="true"></jsp:include>
 	</body>
 </html>
