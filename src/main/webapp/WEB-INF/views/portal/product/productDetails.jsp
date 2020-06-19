@@ -122,16 +122,18 @@
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqzoom/jquery.jqzoom.js"></script>
 	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
+	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
 	<script>
-		var mediaData = {}, mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], productData = {};
+		var mediaData = {}, mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], productData = {}, mainUrl;
 		getProductDetails(function(data) {
+			mainUrl = data.productMainimgurl;
 			// media
 			if (data.productVideoUrl && data.productVideoImgUrl) {
 				mediaData.video = {
 					videoUrl: data.productVideoUrl,
 					posterUrl: data.productVideoImgUrl,
 					isVideo: true
-				};				
+				};
 			}
 			getProductImgs(function(data) {
 				mediaData.imgs = data;
@@ -148,7 +150,26 @@
 				data.length && buildResult(data);
 				
 			});
-		});
+		});	
+		// fly bubble
+		function generateFlyBubble(event, callback) {
+			$('<img class="ml-flyer" src="'+ mainUrl +'" />').fly({
+			    start:{
+			    	left: event.pageX - window.pageXOffset,
+					top: event.pageY - window.pageYOffset
+			    },
+			    end:{
+			        left: window.innerWidth - 30,
+			        top: 150,
+			        width: 0,
+			        height: 0,
+			    },
+			    onEnd: function() {
+			    	this.destroy();
+			    	callback();
+			    }
+			});
+		}
 		// skus		
 		function buildResult(items) {
             var paths = getPaths(items);
@@ -259,15 +280,23 @@
         	for (var i = 0, len = optionItems.length; i < len; i += 1) {
         		var $optionItem = $(optionItems[i]);
         		if (!$optionItem.find('.radio.active').length) {
-            		alert('Please select a product specifications and options: '+ $optionItem.data('type'));
+            		modal = createModal({
+            			body: {
+            				html: '<p>Please select a product specifications and options: '+ $optionItem.data('type') + '</p>'
+            			}
+            		});
+            		setTimeout(function() {
+            			removeModal(modal);
+            		}, 1000);
             		flag = false;
             		break;
         		}
         	}
         	return flag;
-        }        
+        }
 		// event
 		$(window).on('resize', imageZoomEvent);
+		// image zoom resize
 		function imageZoomEvent() {
 			if (window.innerWidth < 1024) {
 				$('.product-slide.product-zoom').find('.img').off('mouseover');
@@ -296,7 +325,7 @@
             });
 		});
 		// add to cart
-		$('#add-to-cart').on('click', function() {
+		$('#add-to-cart').on('click', function(evt) {
 			function getProductData () {
 				var productData = {};
 				var productDetails = $('.product-details').data('product') && JSON.parse($('.product-details').data('product')) || {};
@@ -319,7 +348,7 @@
 				
 				return productData;
 			}
-			function addToCart(reqData) {
+			function addToCart(reqData, callback) {
 				$.ajax({
 					url: '${APP_PATH}/MlbackCart/toAddToCart',
 					data: JSON.stringify(reqData),
@@ -328,15 +357,40 @@
 					contentType: 'application/json',
 					success: function (data) {
 						if (data.code == 100) {
-							updateProructNumberInCart();
+							callback();
+						} else {
+							modal = createModal({
+			        			body: {
+			        				html: '<p>Failed to add products to cart !</p>'
+			        			},
+				    			autoClose: true
+			        		});
 						}
 					},
-					error: function (error) { }
+					error: function (err) {
+						modal = createModal({
+			    			body: {
+			    				html: '<p>Error: '+ err + '</p>'
+			    			},
+			    			autoClose: true
+			    		});
+					}				
 				});
 			}
-			if (isCorrectProduct()) {
-				addToCart(getProductData ());
-			}
+			var timeEnd = Date.now();
+			if (timeEnd - timeStart < 300) clearTimeout(timer);
+			timeStart = timeEnd;
+			timer = setTimeout(function() {
+				if (isCorrectProduct()) {
+					addToCart(getProductData(), function() {
+						if (window.innerWidth > 576) {
+							generateFlyBubble(evt, updateProructNumberInCart);							
+						} else {
+							updateProructNumberInCart();
+						}
+					});
+				}
+			}, 300);
 		});
 		// buy now
 		$('#buy-now').on('click', function() {

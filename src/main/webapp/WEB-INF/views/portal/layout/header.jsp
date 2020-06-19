@@ -251,11 +251,24 @@
 			url: '${APP_PATH}/MlbackCategory/getCategorySuperMenu',
 			method: 'post',
 			success: function (data) {
-				if (data.code === 100) {
+				if (data.code == 100) {
 					callback(data.extend);
 				} else {
-					renderErrorMsg($('.pc-nav'), '未获取到目录相关的数据');
+					modal = createModal({
+	        			body: {
+	        				html: '<p>Failed to get to the relevant data !</p>'
+	        			},
+		    			autoClose: true
+	        		});
 				}
+			},
+			error: function(err) {
+				modal = createModal({
+	    			body: {
+	    				html: '<p>Error: '+ err + '</p>'
+	    			},
+	    			autoClose: true
+	    		});
 			}
 		});
 	}
@@ -265,7 +278,7 @@
 			url: '${APP_PATH}/MlbackCart/getCartProductNumber',
 			method: 'post',
 			success: function (data) {
-				if (data.code === 100) {
+				if (data.code == 100) {
 					$('.cart .num').html(data.extend.number || 0);
 				}
 			}

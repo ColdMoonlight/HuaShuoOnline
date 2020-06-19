@@ -20,16 +20,17 @@
 			data: {"footnavId": '${sessionScope.footnavId}'},
 			success: function (data) {
 				if (data.code == 100) {
-					renderArticle(data.extend.MlbackFootNavOne)
-					// toastr.success(data.extend.resMsg);
-				} else {
-					// toastr.error(data.extend.resMsg);
+					renderArticle(data.extend.MlbackFootNavOne);
 				}
 			},
 			error: function () {
-				// toastr.error('please refresh the page to get again！');
-			},
-			complete: function () {}
+				modal = createModal({
+					body: {
+						html: '<p>please refresh the page to get again！</p>'
+					},
+	    			autoClose: true
+    			});
+			}
 		});
 		function renderArticle(data) {
 			var htmlStr = '';

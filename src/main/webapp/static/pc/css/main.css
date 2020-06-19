@@ -220,6 +220,16 @@ button:focus {
     border: 1px solid #000;
 	background-color: #000;
 }
+.btn-yes {
+	color: #fff;
+    border: 1px solid #2eb85c;
+	background-color: #2eb85c;
+}
+.btn-no {	
+	color: #fff;
+    border: 1px solid #ff1671;
+	background-color: #ff1671;
+}
 .btn {
 	padding: .5rem;
 	outline: none;
@@ -329,6 +339,100 @@ table tr td:nth-of-type(2) {
 	word-break: break-word;
 	font-size: 13px;
 }
+
+/* modal */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999999999;
+
+    padding: 2rem;
+    text-align: center;
+    background-color: rgba(0, 0, 0, .75);
+}
+.modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+
+    font-size: .875rem;
+    text-align: center;
+    color: #fff;
+    background-color: #000;
+    cursor: pointer;
+}
+.modal::before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 100%;
+    vertical-align: middle;
+}
+.modal-container {            
+    display: inline-block;
+    width: 100%;
+	margin-top: 1rem;
+    vertical-align: middle;
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 3px #fff;
+    box-shadow: 0 0 3px #fff;
+    opacity: 0;
+    
+    -webkit-transition: margin-top .3s ease-in-out, opacity .3s ease-in-out;
+    transition: margin-top .3s ease-in-out, opacity .3s ease-in-out;
+}
+.modal.active .modal-container {
+	margin-top: 0;
+	opacity: 1;
+}
+.modal-header {
+    padding: .75rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 500;
+	text-align: left;
+    border-bottom: 1px solid #e5e5e5;
+}
+.modal-header p {
+	margin: 0;
+}
+.modal-body {
+    min-height: 4rem;
+    max-height: calc(100vh - 9rem);
+    overflow: auto;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+.modal-footer {
+	border-top: 1px solid #ccc;
+	padding: .75rem 1.25rem;
+	text-align: right;
+}
+.modal-footer .btn {
+	padding: .3rem 1rem;
+	line-height: 1.0;
+}
+.modal-footer .btn-yes {
+	margin-left: .25rem;
+}
+
+@media only screen and (min-width: 1024px) {
+	.modal-header {
+		text-align: center;
+	}
+	.modal-container {	
+	    width: 900px;
+    }
+}
+/* other */
 
 .container {
 	max-width: 1400px;
@@ -1432,6 +1536,12 @@ footer li {
 
 .paypal-button-credit {
     background: #003087;
+}
+/* fly bubble */
+.ml-flyer {
+	width: 2.4rem;
+	height: 2.4rem;
+	z-index: 9999999;
 }
 /* product body */
 .product-body {
