@@ -472,8 +472,8 @@
 			// init formData
 			resetFormData();
 			// init option & skus-list			
-			$('.product-options').html('<p class="text-center"> no option, please add one option to generate skus. </p>');
-			$('.product-sku-body').html('<p class="text-center"> no skus ... </p>');
+			addProductOptionsTip();
+			addProductSkusTip();
 			getProductId();
 			isCreate = true;
 		});
@@ -737,15 +737,20 @@
 
 			if (!optionId) {
 				parentEl.remove();
+				if (!$('.product-options-item').length) {
+					addProductOptionsTip();
+					addProductSkusTip();
+				}
 				return false;
 			}
+			
 			deleteProductOption({
 				"productattrnameId": optionId
 			}, function() {
 				parentEl.remove();
 				if (!$('.product-options-item').length) {
-					$('.product-options').html('<p class="text-center"> no option, please add one option to generate skus. </p>');
-					$('.product-sku-body').html('<p class="text-center"> no skus ... </p>');
+					addProductOptionsTip();
+					addProductSkusTip();
 				}
 				if (isCreate) {
 					renderProductSkus(getOptionData(), true);					
@@ -1053,32 +1058,6 @@
 				}
 			});
 		}
-		/* // get product option id
-		function getProductOptionId(reqData, callback) {
-			$('.c-mask').show(); 
-			$.ajax({
-				url: "${APP_PATH }/MlbackProductAttributeName/save",
-				type: "post",
-				dataType: "json",
-				contentType: 'application/json',
-				async: false,
-				data: JSON.stringify(reqData),
-				success: function (data) {
-					if (data.code == 100) {
-						callback(data.extend.mlbackProductAttributeName);
-						toastr.success(data.extend.resMsg);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		} */
 		// render product option
 		function renderProductOption(data) {
 			if (data.length) {
@@ -1087,11 +1066,19 @@
 					createOptionItem(item, 1);
 				});				
 			} else {
-				$('.product-options').html('<p class="text-center"> no option, please add one option to generate skus. </p>');
+				addProductOptionsTip();
 			}
+		}
+		// add product-options tip
+		function addProductOptionsTip() {
+			$('.product-options').html('<p class="text-center"> no option, please add one option to generate skus. </p>');
+		}
+		function addProductSkusTip() {
+			$('.product-sku-body').html('<p class="text-center"> no skus ... </p>');
 		}
 		// create option item
 		function createOptionItem(data, flag) {
+			$('.product-options .text-center').remove();
 			// flag, 0/nul/undefined, create Prodcut/inital product create option; 1, edit-product initial option; 2, edit-product create option 
 			var optionItem = $('<div class="product-options-item" data-id="'+ (data.productattrnameId || '') +'" data-sort="'+ (data.productattrnameSort || '') +'">' +
 				'<div class="product-option-head">' +
