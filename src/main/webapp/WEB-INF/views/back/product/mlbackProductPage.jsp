@@ -796,7 +796,7 @@
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.mlbackProductAttributeName);
+						callback(data.extend.mlbackProductAttributeName || reqData.productattrnameId);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);

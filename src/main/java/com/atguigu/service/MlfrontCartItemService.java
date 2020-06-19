@@ -80,10 +80,10 @@ public class MlfrontCartItemService {
 		List<MlfrontCartItem>  mlfrontCartItemList = mlfrontCartItemMapper.selectMlfrontCartItemById(mlfrontCartItem);
 		return mlfrontCartItemList;
 	}
-//
-//	public List<MlfrontCartItem> selectMlfrontCartItemGetAllHundred() {
-//		List<MlfrontCartItem>  mlfrontCartItemList = mlfrontCartItemMapper.selectMlfrontCartItemGetAllHundred();
-//		return mlfrontCartItemList;
-//	}
+
+	public List<MlfrontCartItem> selectMlfrontCartItemGetAllHundred() {
+		List<MlfrontCartItem>  mlfrontCartItemList = mlfrontCartItemMapper.selectMlfrontCartItemGetAllHundred();
+		return mlfrontCartItemList;
+	}
 
 }

@@ -1,7 +1,5 @@
 package com.atguigu.bean;
 
-import java.sql.Timestamp;
-
 public class FileEntity {
 	
     private Integer fileId;

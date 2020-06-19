@@ -287,4 +287,63 @@
     from tb_mlfront_orderitem order by orderItem_id desc limit 100
   </select>
   
+  <!-- selectMlfrontOrderItemByOrderId -->
+  <select id="selectMlfrontOrderItemByOrderId" parameterType="com.atguigu.bean.MlfrontOrderItem" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_orderitem 
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- selectMlfrontOrderItemByOrderId -->
+  <select id="selectMlfrontOrderItemByParam" parameterType="com.atguigu.bean.MlfrontOrderItem" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_orderitem 
+    where orderItem_product_accoff >0
+      <if test="orderId != null">
+        and order_id = #{orderId,jdbcType=INTEGER}
+      </if>
+      <if test="orderUid != null">
+        and order_uid = #{orderUid,jdbcType=INTEGER}
+      </if>
+      <if test="orderCartitemid != null">
+        and order_cartItemId = #{orderCartitemid,jdbcType=INTEGER}
+      </if>
+      <if test="orderitemPid != null">
+        and orderItem_pid = #{orderitemPid,jdbcType=INTEGER}
+      </if>
+      <if test="orderitemPname != null">
+        and orderItem_pName = #{orderitemPname,jdbcType=VARCHAR}
+      </if>
+      <if test="orderitemPseo != null">
+        and orderItem_pSeo = #{orderitemPseo,jdbcType=VARCHAR}
+      </if>
+      <if test="orderitemProductOriginalprice != null">
+        and orderItem_product_originalPrice = #{orderitemProductOriginalprice,jdbcType=DECIMAL}
+      </if>
+      <if test="orderitemProductMainimgurl != null">
+        and orderItem_product_mainimgURL = #{orderitemProductMainimgurl,jdbcType=VARCHAR}
+      </if>
+      <if test="orderitemPskuIdstr != null">
+        and orderItem_pSku_idStr = #{orderitemPskuIdstr,jdbcType=VARCHAR}
+      </if>
+      <if test="orderitemPskuIdnamestr != null">
+        and orderItem_pSku_idnameStr = #{orderitemPskuIdnamestr,jdbcType=VARCHAR}
+      </if>
+      <if test="orderitemPskuId != null">
+        and orderItem_pSku_id = #{orderitemPskuId,jdbcType=INTEGER}
+      </if>
+      <if test="orderitemPskuName != null">
+        and orderItem_pSku_name = #{orderitemPskuName,jdbcType=VARCHAR}
+      </if>
+      <if test="orderitemPskuCode != null">
+        and orderItem_pSku_code = #{orderitemPskuCode,jdbcType=VARCHAR}
+      </if>
+      <if test="orderitemCreatetime != null">
+        and orderItem_createTime = #{orderitemCreatetime,jdbcType=VARCHAR}
+      </if>
+      <if test="orderitemMotifytime != null">
+        and orderItem_motifyTime = #{orderitemMotifytime,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
 </mapper>

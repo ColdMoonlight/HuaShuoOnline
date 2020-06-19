@@ -12,7 +12,6 @@ import com.atguigu.dao.MlfrontOrderMapper;
 @Service
 public class MlfrontOrderService {
 	
-	
 	@Autowired
 	MlfrontOrderMapper mlfrontOrderMapper;
 
@@ -60,16 +59,15 @@ public class MlfrontOrderService {
 //		return mlfrontOrderList;
 //	}
 //	
-//	/**5
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 查看全部用户信息
-//	 * 
-//	 * */
-//	public List<MlfrontOrder> selectMlfrontOrderById(MlfrontOrder mlfrontOrder) {
-//		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectMlfrontOrderById(mlfrontOrder);
-//		return mlfrontOrderList;
-//	}
+	/**5
+	 * @author Shinelon
+	 * @param 
+	 * @exception 查看全部用户信息
+	 * */
+	public List<MlfrontOrder> selectMlfrontOrderById(MlfrontOrder mlfrontOrder) {
+		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectMlfrontOrderById(mlfrontOrder);
+		return mlfrontOrderList;
+	}
 //
 //	public List<MlfrontOrder> selectMlfrontOrderByDate(MlfrontOrder mlfrontOrder) {
 //		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectMlfrontOrderByDate(mlfrontOrder);
