@@ -283,11 +283,9 @@
             		modal = createModal({
             			body: {
             				html: '<p>Please select a product specifications and options: '+ $optionItem.data('type') + '</p>'
-            			}
+            			},
+            			autoClose: true
             		});
-            		setTimeout(function() {
-            			removeModal(modal);
-            		}, 1000);
             		flag = false;
             		break;
         		}

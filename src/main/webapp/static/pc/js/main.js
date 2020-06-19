@@ -137,6 +137,7 @@ function createModal(option) {
 		autoClose: false
 	}, option);
 	var htmlStr = '';
+	var timer = null
 	var modal = $('<div class="modal">' +
 	    '<div class="modal-close">x</div>' +
 	    '<div class="modal-container">' +
@@ -149,17 +150,27 @@ function createModal(option) {
 	    			: '') +
 	    '</div>' +
 	'</div>');
+	function openTimer() {
+		timer = setTimeout(function() {
+    		removeModal(modal);
+    	}, 2000);
+	}
 	$(document.body).append(modal);
 	setTimeout(function() {
 		modal.addClass('active');
 	});
     addFixed();
     
-    if (opt.autoClose) {
-    	setTimeout(function() {
-    		removeModal(modal);
-    	}, 1000);
-    }
+    if (opt.autoClose) openTimer();
+    var modalContainer = modal.find('.modal-container');
+    modalContainer.on('mouseenter', function() {
+    	clearTimeout(timer);
+    });
+    
+    modalContainer.on('mouseleave', function() {
+    	openTimer();
+    });
+    
 	return modal;
 }
 
