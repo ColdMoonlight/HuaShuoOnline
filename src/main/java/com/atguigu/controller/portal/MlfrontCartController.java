@@ -589,18 +589,20 @@ public class MlfrontCartController {
 			MlfrontCartReq.setCartUid(Uid);
 			mlfrontCartResList = mlfrontCartService.selectMlfrontCartByUidAndStatus(MlfrontCartReq);
 		}
-		String cartitemIdStr = mlfrontCartResList.get(0).getCartitemIdstr();
-		String[] aa = cartitemIdStr.split(",");
 		List<MlfrontCartItem> mlfrontCartItemListRes = new ArrayList<MlfrontCartItem>();
-		for(int i=0;i<aa.length;i++){
-			String CartItemId = aa[i];
-			Integer CartItemIdInt =Integer.parseInt(CartItemId);
-			MlfrontCartItem mlfrontCartItemFor = new MlfrontCartItem();
-			mlfrontCartItemFor.setCartitemId(CartItemIdInt);
-			//查看该id+该pid时候已经有了
-			List<MlfrontCartItem> mlfrontCartItemListFor= mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemFor);
-			if(mlfrontCartItemListFor.size()>0){
-				mlfrontCartItemListRes.add(mlfrontCartItemListFor.get(0));
+		if(mlfrontCartResList.size()>0){
+			String cartitemIdStr = mlfrontCartResList.get(0).getCartitemIdstr();
+			String[] aa = cartitemIdStr.split(",");
+			for(int i=0;i<aa.length;i++){
+				String CartItemId = aa[i];
+				Integer CartItemIdInt =Integer.parseInt(CartItemId);
+				MlfrontCartItem mlfrontCartItemFor = new MlfrontCartItem();
+				mlfrontCartItemFor.setCartitemId(CartItemIdInt);
+				//查看该id+该pid时候已经有了
+				List<MlfrontCartItem> mlfrontCartItemListFor= mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemFor);
+				if(mlfrontCartItemListFor.size()>0){
+					mlfrontCartItemListRes.add(mlfrontCartItemListFor.get(0));
+				}
 			}
 		}
 		return Msg.success().add("resMsg", "更新成功").add("mlfrontCartItemListRes", mlfrontCartItemListRes);
