@@ -1695,12 +1695,22 @@ footer li {
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 }
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width: 575px) {
 	.cart-header {
 		border-top: 1px solid #e5e5e5;
 		border-bottom: 1px solid #e5e5e5;
 		padding-top: 7.74194%;
 		background-image: url('../img/step/wap-step-1.jpg');		
+	}
+}
+@media only screen and (min-width: 576px) {
+	.cart-header {
+		border-top: 1px solid #e5e5e5;
+		border-bottom: 1px solid #e5e5e5;
+		padding-top: 7.74194%;
+		background-image: url('../img/step/wap-step-1.jpg');
+		background-position: center;
+    	background-size: unset;
 	}
 }
 @media only screen and (min-width: 1024px) {

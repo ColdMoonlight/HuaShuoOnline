@@ -29,9 +29,19 @@
 			});
 		}
 		function renderCartList(data) {
-			var htmlHeader = '<div class="cart-header"></div>';
-			var htmlBody = '<div class="cart-body"></div>';
-			$('main .container').html(htmlHeader + htmlBody);
+			var cartHeader = '<div class="cart-header"></div>';
+			var cartList = '';
+			data.forEach(function(idx, item) {
+				cartList += '<div class="cart-item">' +
+					
+				'</div>';
+			});
+			var cartCal = '<div class="cart-cal">' +
+				'<div class="cart-cal-item"><div class="name">NUMTOTAL</div><div class="cart-cal-value cart-cal-total">'+ +'</div></div>' +
+				'<div class="cart-cal-item"><div class="name">SUBTOTAL</div><div class="cart-cal-value cart-cal-subtotal">$'+ +'</div></div>' +
+				'<div class="cart-cal-btn"><a href="${APP_PATH}/index.html" class="btn btn-gray">Continue Shopping</a><a href="javascript:;" class="btn btn-gray btn-checkout">Checkout</a></div>' +
+			'</div>';
+			$('main .container').html(cartHeader + '<div class="cart-body"><div class="cart-list">' + cartList + '</div>' + cartCal + '</div>');
 		}
 		function renderCartEmpty() {
 			var htmlStr = '<div class="cart-empty">' +
