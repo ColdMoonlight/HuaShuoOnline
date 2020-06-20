@@ -97,9 +97,8 @@ function updateCartNum(el, data) {
 				removeModal(modal);
 			}, 1000);
 		}
-	})
+	});
 }
-
 /* modal */
 $(document.body).on('click', '.modal, .modal-close, .btn-no', function(e) {
     if (e.target == this) {
