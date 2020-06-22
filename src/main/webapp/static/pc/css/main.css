@@ -1701,7 +1701,6 @@ footer li {
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 }
-
 .cart-item {
 	display: flex;
 	border-bottom: 1px solid #e5e5e5;
@@ -1712,6 +1711,9 @@ footer li {
 }
 .cart-item>.cart-box {
 	flex-grow: 1;
+}
+.cart-item .delete {
+	cursor: pointer;
 }
 .cart-sku-edit {
 	display: flex;

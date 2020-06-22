@@ -52,16 +52,16 @@
 								'<span class="product-now-price">$'+ (item.cartitemProductOriginalprice && item.cartitemProductActoff ? (item.cartitemProductOriginalprice * item.cartitemProductActoff / 100) : 0).toFixed(2) +'</span>' +
 								'<span class="product-define-price">$'+ (item.cartitemProductOriginalprice || 0).toFixed(2) +'</span>' +
 							'</div>' +
-							'<span class="icon delete" onclick="deleteCartItem(event)">' + '</span>' +
+							'<span class="icon delete product-delete">' + '</span>' +
 							'<div class="product-qty">' +
-								'<span class="group-addon" id="product-num-sub"><i class="icon sub"></i></span>' +
+								'<span class="group-addon product-sub"><i class="icon sub"></i></span>' +
 								'<input type="text" disabled class="product-num" value="' + (item.cartitemProductNumber) + '" />' +
-								'<span class="group-addon" id="product-num-add"><i class="icon plus"></i></span>' +
+								'<span class="group-addon product-add"><i class="icon plus"></i></span>' +
 							'</div>' +
 						'</div>' +
 					'</div>' +
 					'<div class="cart-sku-edit">EDIT</div>' +
-				'</div>').data('cartitem', JSON.stringify(item)));
+				'</div>').data('cartitem', item));
 			});
 			var $cartCal = $('<div class="cart-cal">' +
 				'<div class="cart-cal-item"><span class="name">NUMTOTAL</span><span class="value cart-cal-total">'+ 1+'</span></div>' +
@@ -88,12 +88,16 @@
 		});
 		// product event
 		// add product
-		$(document.body).on('click', '#product-num-add', function() {
+		$(document.body).on('click', '.product-add', function() {
 			productAdd($(this), true);
 		});
 		// sub product
-		$(document.body).on('click', '#product-num-sub', function() {
+		$(document.body).on('click', '.product-sub', function() {
 			productSub($(this), true);
+		});
+		// delete product
+		$(document.body).on('click', '.product-delete', function() {
+			deleteCartProduct($(this).parents('.cart-item'), updateProructNumberInCart, renderCartEmpty);
 		});
 	</script>
 </body>
