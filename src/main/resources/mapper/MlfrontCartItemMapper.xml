@@ -8,6 +8,7 @@
     <result column="cartitem_status" jdbcType="INTEGER" property="cartitemStatus" />
     <result column="cartItem_product_id" jdbcType="INTEGER" property="cartitemProductId" />
     <result column="cartItem_product_name" jdbcType="VARCHAR" property="cartitemProductName" />
+    <result column="cartItem_product_seo_name" jdbcType="VARCHAR" property="cartitemProductSeoName" />
     <result column="cartItem_product_originalPrice" jdbcType="DECIMAL" property="cartitemProductOriginalprice" />
     <result column="cartItem_product_mainimgurl" jdbcType="VARCHAR" property="cartitemProductMainimgurl" />
     <result column="cartItem_product_actoff" jdbcType="INTEGER" property="cartitemProductActoff" />
@@ -23,7 +24,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     cartItem_id, cartItem_uid, cartItem_cart_id, cartitem_status, cartItem_product_id, 
-    cartItem_product_name, cartItem_product_originalPrice, cartItem_product_mainimgurl, 
+    cartItem_product_name, cartItem_product_seo_name, cartItem_product_originalPrice, cartItem_product_mainimgurl, 
     cartItem_product_actoff, cartItem_productsku_idStr, cartItem_productsku_idnameStr, 
     cartItem_productsku_id,cartItem_productsku_name,cartItem_productsku_code, cartItem_productsku_moneyStr, cartItem_product_number, 
     cartItem_createTime, cartItem_motifyTime
@@ -37,14 +38,14 @@
 
   <insert id="insert" parameterType="com.atguigu.bean.MlfrontCartItem">
     insert into tb_mlfront_cartitem (cartItem_id, cartItem_uid, cartItem_cart_id, 
-      cartitem_status, cartItem_product_id, cartItem_product_name, 
+      cartitem_status, cartItem_product_id, cartItem_product_name, cartItem_product_seo_name,
       cartItem_product_originalPrice, cartItem_product_mainimgurl, 
       cartItem_product_actoff, cartItem_productsku_idStr, 
       cartItem_productsku_idnameStr, cartItem_productsku_id,cartItem_productsku_name,cartItem_productsku_code, 
       cartItem_productsku_moneyStr, cartItem_product_number, 
       cartItem_createTime, cartItem_motifyTime)
     values (#{cartitemId,jdbcType=INTEGER}, #{cartitemUid,jdbcType=INTEGER}, #{cartitemCartId,jdbcType=INTEGER}, 
-      #{cartitemStatus,jdbcType=INTEGER}, #{cartitemProductId,jdbcType=INTEGER}, #{cartitemProductName,jdbcType=VARCHAR}, 
+      #{cartitemStatus,jdbcType=INTEGER}, #{cartitemProductId,jdbcType=INTEGER}, #{cartitemProductName,jdbcType=VARCHAR}, #{cartitemProductSeoName,jdbcType=VARCHAR}, 
       #{cartitemProductOriginalprice,jdbcType=DECIMAL}, #{cartitemProductMainimgurl,jdbcType=VARCHAR}, 
       #{cartitemProductActoff,jdbcType=INTEGER}, #{cartitemProductskuIdstr,jdbcType=VARCHAR}, 
       #{cartitemProductskuIdnamestr,jdbcType=VARCHAR}, #{cartitemProductskuId,jdbcType=INTEGER}, #{cartitemProductskuName,jdbcType=VARCHAR}, #{cartitemProductskuCode,jdbcType=VARCHAR}, 
@@ -58,6 +59,7 @@
       cartitem_status = #{cartitemStatus,jdbcType=INTEGER},
       cartItem_product_id = #{cartitemProductId,jdbcType=INTEGER},
       cartItem_product_name = #{cartitemProductName,jdbcType=VARCHAR},
+      cartItem_product_seo_name = #{cartitemProductSeoName,jdbcType=VARCHAR}, 
       cartItem_product_originalPrice = #{cartitemProductOriginalprice,jdbcType=DECIMAL},
       cartItem_product_mainimgurl = #{cartitemProductMainimgurl,jdbcType=VARCHAR},
       cartItem_product_actoff = #{cartitemProductActoff,jdbcType=INTEGER},
@@ -94,6 +96,9 @@
       </if>
       <if test="cartitemProductName != null">
         cartItem_product_name,
+      </if>
+      <if test="cartitemProductSeoName != null">
+        cartItem_product_seo_name,
       </if>
       <if test="cartitemProductOriginalprice != null">
         cartItem_product_originalPrice,
@@ -150,6 +155,9 @@
       </if>
       <if test="cartitemProductName != null">
         #{cartitemProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="cartitemProductSeoName != null">
+        #{cartitemProductSeoName,jdbcType=VARCHAR},
       </if>
       <if test="cartitemProductOriginalprice != null">
         #{cartitemProductOriginalprice,jdbcType=DECIMAL},
@@ -212,6 +220,9 @@
       </if>
       <if test="cartitemProductName != null">
         cartItem_product_name = #{cartitemProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="cartitemProductSeoName != null">
+        cartItem_product_seo_name = #{cartitemProductSeoName,jdbcType=VARCHAR},
       </if>
       <if test="cartitemProductOriginalprice != null">
         cartItem_product_originalPrice = #{cartitemProductOriginalprice,jdbcType=DECIMAL},
@@ -276,6 +287,9 @@
       </if>
       <if test="cartitemProductName != null">
         and cartItem_product_name = #{cartitemProductName,jdbcType=VARCHAR}
+      </if>
+      <if test="cartitemProductSeoName != null">
+        cartItem_product_seo_name = #{cartitemProductSeoName,jdbcType=VARCHAR},
       </if>
       <if test="cartitemProductOriginalprice != null">
         and cartItem_product_originalPrice = #{cartitemProductOriginalprice,jdbcType=DECIMAL}

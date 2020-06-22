@@ -716,7 +716,7 @@ public class MlfrontCartController {
 	}
 	
 	/**
-	 * 14.0	useOn	0530
+	 * 10.0	useOn	0530
 	 * 加购+提交订单，全部一步生成to	BuyNow
 	 * @param Msg
 	 * @return 
@@ -1175,13 +1175,27 @@ public class MlfrontCartController {
 	}
 	
 	/**
-	 * 10.0	zsh 190624
-	 * 查看单条类目的详情细节
-	 * @param mlfrontOrderOne
+	 * 11.0	zsh 190624
+	 * cart位置更新sku的细节的接口
+	 * @param updateCartitemPku
 	 * @return 
 	 */
-	
-	
+	@RequestMapping(value="/updateCartitemPku",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg updateCartitemPku(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontCartItem mlfrontCartItem){
+		
+		System.out.println("mlfrontCartItem:"+mlfrontCartItem.toString());
+		mlfrontCartItem.getCartitemId();
+		mlfrontCartItem.getCartitemProductskuId();
+		mlfrontCartItem.getCartitemProductskuName();
+		mlfrontCartItem.getCartitemProductskuCode();
+		mlfrontCartItem.getCartitemProductskuMoneystr();
+		mlfrontCartItem.getCartitemProductNumber();
+		mlfrontCartItem.getCartitemProductskuIdstr();
+		mlfrontCartItem.getCartitemProductskuIdnamestr();
+		mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
+		return Msg.success().add("resMsg", "更新成功").add("mlfrontCartItem", mlfrontCartItem);
+	}
 	
 //	//记录加购数量
 //	private void insertAddCartView(MlfrontCartItem mlfrontCartItem, HttpSession session) {
@@ -1212,27 +1226,5 @@ public class MlfrontCartController {
 //		mlbackAddCartViewDetailreq.setAddcartviewdetailActNum(0); //计数用户行为，0纯加购	，1点buyNow附带的加购
 //		mlbackProductViewDetailService.insertSelective(mlbackAddCartViewDetailreq);
 //	}
-	
-	/**6.0	zsh 200617
-	 * getCartitemIdDetails	get
-	 * @param
-	 */
-	@RequestMapping(value="/updateCartitemPku",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg updateCartitemPku(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontCartItem mlfrontCartItem){
-		
-		System.out.println("mlfrontCartItem:"+mlfrontCartItem.toString());
-		mlfrontCartItem.getCartitemId();
-		mlfrontCartItem.getCartitemProductskuId();
-		mlfrontCartItem.getCartitemProductskuCode();
-		mlfrontCartItem.getCartitemProductNumber();
-		mlfrontCartItem.getCartitemProductskuIdstr();
-		mlfrontCartItem.getCartitemProductskuIdnamestr();
-		mlfrontCartItem.getCartitemProductskuName();
-		mlfrontCartItem.getCartitemProductskuMoneystr();
-		mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
-		
-		return Msg.success().add("resMsg", "更新成功").add("mlfrontCartItem", mlfrontCartItem);
-	}
 	
 }

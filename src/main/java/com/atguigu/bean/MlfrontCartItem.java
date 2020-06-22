@@ -14,6 +14,8 @@ public class MlfrontCartItem {
     private Integer cartitemProductId;
 
     private String cartitemProductName;
+    
+    private String cartitemProductSeoName;
 
     private BigDecimal cartitemProductOriginalprice;
 
@@ -86,8 +88,16 @@ public class MlfrontCartItem {
     public void setCartitemProductName(String cartitemProductName) {
         this.cartitemProductName = cartitemProductName == null ? null : cartitemProductName.trim();
     }
+    
+    public String getCartitemProductSeoName() {
+		return cartitemProductSeoName;
+	}
 
-    public BigDecimal getCartitemProductOriginalprice() {
+	public void setCartitemProductSeoName(String cartitemProductSeoName) {
+		this.cartitemProductSeoName = cartitemProductSeoName == null ? null : cartitemProductSeoName.trim();
+	}
+
+	public BigDecimal getCartitemProductOriginalprice() {
         return cartitemProductOriginalprice;
     }
 
@@ -188,11 +198,11 @@ public class MlfrontCartItem {
 	}
 
 	public MlfrontCartItem(Integer cartitemId, Integer cartitemUid, Integer cartitemCartId, Integer cartitemStatus,
-			Integer cartitemProductId, String cartitemProductName, BigDecimal cartitemProductOriginalprice,
-			String cartitemProductMainimgurl, Integer cartitemProductActoff, String cartitemProductskuIdstr,
-			String cartitemProductskuIdnamestr, Integer cartitemProductskuId, String cartitemProductskuName,
-			String cartitemProductskuCode, String cartitemProductskuMoneystr, Integer cartitemProductNumber,
-			String cartitemCreatetime, String cartitemMotifytime) {
+			Integer cartitemProductId, String cartitemProductName, String cartitemProductSeoName,
+			BigDecimal cartitemProductOriginalprice, String cartitemProductMainimgurl, Integer cartitemProductActoff,
+			String cartitemProductskuIdstr, String cartitemProductskuIdnamestr, Integer cartitemProductskuId,
+			String cartitemProductskuName, String cartitemProductskuCode, String cartitemProductskuMoneystr,
+			Integer cartitemProductNumber, String cartitemCreatetime, String cartitemMotifytime) {
 		super();
 		this.cartitemId = cartitemId;
 		this.cartitemUid = cartitemUid;
@@ -200,6 +210,7 @@ public class MlfrontCartItem {
 		this.cartitemStatus = cartitemStatus;
 		this.cartitemProductId = cartitemProductId;
 		this.cartitemProductName = cartitemProductName;
+		this.cartitemProductSeoName = cartitemProductSeoName;
 		this.cartitemProductOriginalprice = cartitemProductOriginalprice;
 		this.cartitemProductMainimgurl = cartitemProductMainimgurl;
 		this.cartitemProductActoff = cartitemProductActoff;
@@ -218,15 +229,15 @@ public class MlfrontCartItem {
 	public String toString() {
 		return "MlfrontCartItem [cartitemId=" + cartitemId + ", cartitemUid=" + cartitemUid + ", cartitemCartId="
 				+ cartitemCartId + ", cartitemStatus=" + cartitemStatus + ", cartitemProductId=" + cartitemProductId
-				+ ", cartitemProductName=" + cartitemProductName + ", cartitemProductOriginalprice="
-				+ cartitemProductOriginalprice + ", cartitemProductMainimgurl=" + cartitemProductMainimgurl
-				+ ", cartitemProductActoff=" + cartitemProductActoff + ", cartitemProductskuIdstr="
-				+ cartitemProductskuIdstr + ", cartitemProductskuIdnamestr=" + cartitemProductskuIdnamestr
-				+ ", cartitemProductskuId=" + cartitemProductskuId + ", cartitemProductskuName="
-				+ cartitemProductskuName + ", cartitemProductskuCode=" + cartitemProductskuCode
-				+ ", cartitemProductskuMoneystr=" + cartitemProductskuMoneystr + ", cartitemProductNumber="
-				+ cartitemProductNumber + ", cartitemCreatetime=" + cartitemCreatetime + ", cartitemMotifytime="
-				+ cartitemMotifytime + "]";
+				+ ", cartitemProductName=" + cartitemProductName + ", cartitemProductSeoName=" + cartitemProductSeoName
+				+ ", cartitemProductOriginalprice=" + cartitemProductOriginalprice + ", cartitemProductMainimgurl="
+				+ cartitemProductMainimgurl + ", cartitemProductActoff=" + cartitemProductActoff
+				+ ", cartitemProductskuIdstr=" + cartitemProductskuIdstr + ", cartitemProductskuIdnamestr="
+				+ cartitemProductskuIdnamestr + ", cartitemProductskuId=" + cartitemProductskuId
+				+ ", cartitemProductskuName=" + cartitemProductskuName + ", cartitemProductskuCode="
+				+ cartitemProductskuCode + ", cartitemProductskuMoneystr=" + cartitemProductskuMoneystr
+				+ ", cartitemProductNumber=" + cartitemProductNumber + ", cartitemCreatetime=" + cartitemCreatetime
+				+ ", cartitemMotifytime=" + cartitemMotifytime + "]";
 	}
 	
 }
