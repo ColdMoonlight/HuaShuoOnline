@@ -52,6 +52,7 @@
 		<table tableName="tb_mlback_product_attributeName" domainObjectName="MlbackProductAttributeName" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_product_sku" domainObjectName="MlbackProductSku" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_footnav" domainObjectName="MlbackFootNav" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_mlback_coupon" domainObjectName="MlbackCoupon" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 		<!--	tb_mlfront
 		<table tableName="tb_mlfront_cart" domainObjectName="MlfrontCart" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
