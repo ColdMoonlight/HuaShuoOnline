@@ -183,7 +183,7 @@ function renderProductOptions(data, selectedRadioArr) {
 		$('.product-options').append(optionItem);
 	}
 	data.forEach(function(item, idx) {
-		createOption(item, selectedRadioArr[idx]);
+		createOption(item, selectedRadioArr && selectedRadioArr[idx]);
 	});
 }
 
