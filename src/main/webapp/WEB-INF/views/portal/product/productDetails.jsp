@@ -201,9 +201,12 @@
 			function getProductData () {
 				var productData = {};
 				var productDetails = $('.product-details').data('product') || {};
-				var productSKu = $('.product-qty .product-num').data('productsku') || {};
+				var productSKu = $('.product-qty .product-num').data('productsku');
+
+				if (!Object.keys(productSKu).length) return false;
 
 				productData["cartitemProductId"] = productDetails.proudctId;
+				productData["cartitemProductSeoName"] = productDetails.productSeo;
 				productData["cartitemProductName"] = productDetails.productName;
 				productData["cartitemProductOriginalprice"] = productDetails.productPrice;
 				productData["cartitemProductMainimgurl"] = productDetails.productMainImgUrl;
@@ -254,7 +257,19 @@
 			timeStart = timeEnd;
 			timer = setTimeout(function() {
 				if (isCorrectProduct()) {
-					addToCart(getProductData(), function() {
+					// check product sku is error or not
+					var reqData = getProductData();
+					if (!reqData) {
+						var modal = createModal({
+			    			body: {
+			    				html: "<p>I'm sorry, the goods temporarily can't buy !</p>"
+			    			},
+			    			autoClose: true
+			    		});
+						return false;
+					}
+
+					addToCart(reqData, function() {
 						if (window.innerWidth > 1023) {
 							generateFlyBubble(evt, updateProructNumberInCart);							
 						} else {
@@ -375,6 +390,7 @@
 				'productDiscount': data.productActoffoff,
 				'productMainImgUrl': data.productMainimgurl,
 				'productPrice': data.productOriginalprice,
+				'productSeo': data.productSeo,
 			});
 			$('.product-name').text(data.productName);
 			$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ (data.productActoffoff * data.productOriginalprice / 100).toFixed(2) +'</div>');

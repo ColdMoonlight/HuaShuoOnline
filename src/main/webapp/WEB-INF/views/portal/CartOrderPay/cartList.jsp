@@ -42,10 +42,11 @@
 						'<span class="value">'+ skuNameArr[idx] +'</span>' +
 					'</div>';
 				});
+				var productLink = item.cartitemProductSeoName ? ('${APP_PATH}/'+ item.cartitemProductSeoName +'.html') : 'javascript:;';
 				$cartList.append($('<div class="cart-item">' +
-					'<img class="cart-img" src="'+ item.cartitemProductMainimgurl +'">' +
+					'<a href="'+ productLink +'"><img class="cart-img" src="'+ item.cartitemProductMainimgurl +'"></a>' +
 					'<div class="cart-box">' +
-						'<a class="cart-product-name" href="${APP_PATH}/'+ item.cartitemProductSeo + '.html">'+ item.cartitemProductName +'</a>' +
+						'<a class="cart-product-name" href="'+ productLink +'">'+ item.cartitemProductName +'</a>' +
 						'<div class="cart-sku-list">'+ cartSkuList +'</div>' +
 						'<div class="cart-product-num">' +
 							'<div class="cart-product-price">' +
