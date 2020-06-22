@@ -1213,4 +1213,26 @@ public class MlfrontCartController {
 //		mlbackProductViewDetailService.insertSelective(mlbackAddCartViewDetailreq);
 //	}
 	
+	/**6.0	zsh 200617
+	 * getCartitemIdDetails	get
+	 * @param
+	 */
+	@RequestMapping(value="/updateCartitemPku",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg updateCartitemPku(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontCartItem mlfrontCartItem){
+		
+		System.out.println("mlfrontCartItem:"+mlfrontCartItem.toString());
+		mlfrontCartItem.getCartitemId();
+		mlfrontCartItem.getCartitemProductskuId();
+		mlfrontCartItem.getCartitemProductskuCode();
+		mlfrontCartItem.getCartitemProductNumber();
+		mlfrontCartItem.getCartitemProductskuIdstr();
+		mlfrontCartItem.getCartitemProductskuIdnamestr();
+		mlfrontCartItem.getCartitemProductskuName();
+		mlfrontCartItem.getCartitemProductskuMoneystr();
+		mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
+		
+		return Msg.success().add("resMsg", "更新成功").add("mlfrontCartItem", mlfrontCartItem);
+	}
+	
 }
