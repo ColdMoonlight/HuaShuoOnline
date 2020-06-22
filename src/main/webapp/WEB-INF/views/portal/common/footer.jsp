@@ -35,14 +35,12 @@ function productAdd(el, flag, callback) {
 	curr += 1;
 	if (curr > max) {
 		curr = max;
-		modal = createModal({
+		var modal = createModal({
 			body: {
 				html: '<p>Existing inventory <b>'+ curr + '</b> pieces !</p>'
-			}
+			},
+			autoClose: true,
 		});
-		setTimeout(function() {
-			removeModal(modal);
-		}, 1000);
 	}
 
 	parentEl.find('.product-num').val(curr);
@@ -55,14 +53,12 @@ function productSub(el, flag, callback) {
 	curr -= 1;
 	if (curr < 1) {
 		curr = 1;
-		modal = createModal({
+		var modal = createModal({
 			body: {
 				html: '<p>At least one product !</p>'
-			}
+			},
+			autoClose: true
 		});
-		setTimeout(function() {
-			removeModal(modal);
-		}, 1000);
 	}
 
 	parentEl.find('.product-num').val(curr);
@@ -88,7 +84,7 @@ function updateCartNum(el, num, callback) {
 				targetData.cartitemProductNumber = num;
 				el.parents('.cart-item').data('cartitem', targetData);
 				callback && callback();
-				modal = createModal({
+				var modal = createModal({
 					body: {
 						html: '<p>Successfully updating the product !</p>'
 					},
@@ -96,7 +92,7 @@ function updateCartNum(el, num, callback) {
 				});				
 			} else {
 				el.find('.product-num').val(targetData.cartitemProductNumber);
-				modal = createModal({
+				var modal = createModal({
 					body: {
 						html: '<p>Failed to update the product !</p>'
 					},
@@ -106,7 +102,7 @@ function updateCartNum(el, num, callback) {
 		},
 		error: function () {
 			el.find('.product-num').val(targetData.cartitemProductNumber);
-			modal = createModal({
+			var modal = createModal({
 				body: {
 					html: '<p>Failed to update the product !</p>'
 				},
@@ -151,6 +147,202 @@ function deleteCartProduct(el, callback, callback2, callback3) {
 		}
 	});
 }
+
+/* product option */
+function getProductOption(callback) {
+	$.ajax({
+		url: '${APP_PATH}/MlbackProductAttributeName/getMlbackProductAttributeNameListByProductId',
+		data: JSON.stringify({ "productattrnamePid": productId }),
+		dataType: 'json',
+		contentType: 'application/json',
+		type: "post",
+		async: false,
+		success: function (data) {
+			if (data.code == 100) {
+				callback(data.extend.mbackProductAttributeNameResList);
+			}
+		}
+	});
+}
+function renderProductOptions(data, selectedRadioArr) {
+	function createOption(data, value) {
+		var optionName = data.productattrnameName;
+		var optionValue  = data.productattrnameValues.split(',');
+		var optionItem = $('<div class="product-option-item" data-type="'+ optionName +'" data-id="'+ data.productattrnameId +'" />');
+		var htmlStr = '<div class="name">'+ optionName +':</div>';
+
+		optionObj[optionName] = optionValue;
+		optionIdArr.push(data.productattrnameId);
+
+		htmlStr += '<div class="body">';
+		optionValue.forEach(function(item, idx) {
+			htmlStr += '<span class="radio'+ (value == item ? ' active' : '') +'" data-text="'+ item +'">'+ item +'</span>';
+		});
+		htmlStr += '</div>'
+		optionItem.html(htmlStr);
+		$('.product-options').append(optionItem);
+	}
+	data.forEach(function(item, idx) {
+		createOption(item, selectedRadioArr[idx]);
+	});
+}
+
+/* product sku-list status=1 */
+function getProductSkus(callback) {
+	$.ajax({
+		url: '${APP_PATH}/MlbackProductSku/customerGetMlbackProductSkuListByPId',
+		data: JSON.stringify({
+			"productskuPid": productId,
+			"productskuStatus": 1
+		}),
+		dataType: 'json',
+		contentType: 'application/json',
+		type: "post",
+		async: false,
+		success: function (data) {
+			if (data.code == 100) {
+				callback(data.extend.mlbackProductSkuResList);
+			}
+		}
+	});
+}	
+// skus		
+function buildResult(items) {
+    var paths = getPaths(items);
+    for (var i = 0; i < paths.length; i+=1) {
+        var curr = paths[i];
+        var stock = items[i].productskuStock || 0;
+        var arr = curr.split(',')
+        var allSets = powerset(arr);
+
+        for (var j = 0; j < allSets.length; j+=1) {
+            var subSet = allSets[j].join(',')
+            if (mapSet[subSet]) {
+                mapSet[subSet].count += stock
+            } else {
+                mapSet[subSet] = { 'count': stock }
+            }
+        }
+    }
+}
+function getPaths(items) {
+    return items.reduce(function(acc, item) {
+        mapItems[item.productskuName] = item
+        acc.push(item.productskuName)
+        return acc
+    }, [])
+}
+function trimSpliter(str) {
+    var reLeft = new RegExp('^,+', 'g');
+    var reRight = new RegExp(',+$', 'g');
+    var reSpliter = new RegExp(',+', 'g');
+
+    return str.replace(reLeft, '')
+        .replace(reRight, '')
+        .replace(reSpliter, ',')
+}
+function getSelectedItem() {
+    var selectedItems = [];
+    $('.product-option-item').each(function () {
+        var $selected = $(this).find('.radio.active');
+        if ($selected.length) {
+            selectedItems.push($selected.data('text'));
+        } else {
+            selectedItems.push('');
+        }
+    })
+
+    return selectedItems
+}
+function powerset(arr) {
+    var ps = [[]];
+    for (var i = 0; i < arr.length; i+=1) {
+        for (var j = 0, len = ps.length; j < len; j+=1) {
+            ps.push(ps[j].concat(arr[i]))
+        }
+    }
+    return ps;
+}
+function updateStatus(selected) {
+	var keys = Object.keys(optionObj);
+    for (var i = 0, len = keys.length; i < len; i+=1) {
+        var key = keys[i];
+        var data = optionObj[key];
+        var selectArr = selected.slice();
+
+        for (var j = 0; j < data.length; j+=1) {
+            var item = data[j];
+
+            if (selected[i] == item) continue;
+
+            selectArr[i] = item;
+
+            var curr = trimSpliter(selectArr.join(','), ',');
+            var $item = $('.product-option-item[data-type="' + key + '"]').find('.radio[data-text="' + item + '"]');
+
+            if (mapSet[curr] && mapSet[curr].count) {
+                $item.removeClass('disabled');
+            } else {
+                $item.addClass('disabled');
+            }
+        }
+    }
+}
+function handleNormalClick(el) {
+    el.hasClass('active')
+        ? (el.siblings().removeClass('disabled'), el.removeClass('active'))
+        : (el.siblings().removeClass('active'), el.addClass('active'))
+}
+function showResult() {
+    var selectedItems = getSelectedItem();
+    var selectedKeys = [];
+
+    for (var i = 0; i < selectedItems.length; i+=1) {
+        var item = selectedItems[i];
+        if (!!item) {
+            selectedKeys.push(item);
+        }
+    }
+
+    updateProductData(selectedKeys);
+}
+
+// check add/sub product; add-to-cart/buynow product;
+function isCorrectProduct() {
+	var optionItems = $('.product-option-item');
+	var flag = true;
+	// option check
+	for (var i = 0, len = optionItems.length; i < len; i += 1) {
+		var $optionItem = $(optionItems[i]);
+		if (!$optionItem.find('.radio.active').length) {
+    		var modal = createModal({
+    			body: {
+    				html: '<p>Please select a product specifications and options: '+ $optionItem.data('type') + '</p>'
+    			},
+    			autoClose: true
+    		});
+    		flag = false;
+    		break;
+		}
+	}
+	return flag;
+}
+// product radio click
+$(document.body).on('click', '.radio', function(e) {
+	var $this = $(this)
+
+    if (!$this.hasClass('disabled')) {
+        handleNormalClick($this);
+        updateStatus(getSelectedItem());
+        showResult();
+   	}
+
+	$('.radio').each(function () {
+        if (!mapSet[$(this).data('text')] && !$(this).hasClass('active')) {
+            $(this).addClass('disabled');
+        }
+    });
+});
 /* modal */
 $(document.body).on('click', '.modal, .modal-close, .btn-no', function(e) {
     if (e.target == this) {
@@ -192,7 +384,7 @@ function createModal(option) {
 	var modal = $('<div class="modal">' +
 	    '<div class="modal-close">x</div>' +
 	    '<div class="modal-container">' +
-	    	(opt.header.isShow ? ('<div class="modal-header">' + (opt.header.html ? opt.hedder.html : '<p>Megalook Tip !</p>') + '</div>') : '') +
+	    	(opt.header.isShow ? ('<div class="modal-header">' + (opt.header.html ? opt.header.html : '<p>Megalook Tip !</p>') + '</div>') : '') +
 	    	('<div class="modal-body">' + opt.body.html + '</div>') +
 	    	(opt.footer.isShow
 	    			? ('<div class="modal-footer">' + 
@@ -201,6 +393,8 @@ function createModal(option) {
 	    			: '') +
 	    '</div>' +
 	'</div>');
+	var modalLen = $('.modal').length;
+	if (modalLen) modal.css('z-index', getComputedStyle($('.modal')[0]).zIndex + modalLen + 1);
 	function openTimer() {
 		timer = setTimeout(function() {
     		removeModal(modal);
@@ -212,15 +406,17 @@ function createModal(option) {
 	});
     addFixed();
     
-    if (opt.autoClose) openTimer();
-    var modalContainer = modal.find('.modal-container');
-    modalContainer.on('mouseenter', function() {
-    	clearTimeout(timer);
-    });
-    
-    modalContainer.on('mouseleave', function() {
+    if (opt.autoClose) {
     	openTimer();
-    });
+	    var modalContainer = modal.find('.modal-container');
+	    modalContainer.on('mouseenter', function() {
+	    	clearTimeout(timer);
+	    });
+	    
+	    modalContainer.on('mouseleave', function() {
+	    	openTimer();
+	    });
+    }
     
 	return modal;
 }
@@ -231,5 +427,5 @@ function removeModal(modal) {
 }
 
 /* varient */
-var modal = null, timer = null, timeStart = Date.now();
+var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [];
 </script>

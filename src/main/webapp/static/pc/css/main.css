@@ -1783,6 +1783,9 @@ footer li {
 .cart-cal-btn .btn+.btn {
 	margin-left: 1rem;
 }
+.cartlist-modal .modal-body {
+	text-align: left;
+}
 @media only screen and (max-width: 575px) {
 	.cart-header {
 		border-bottom: 1px solid #e5e5e5;
@@ -1795,7 +1798,7 @@ footer li {
 	.cart-item>.cart-box {
 		padding-left: .2rem;
 	}
-	.cart-img {	
+	.cart-img {
 		width: 4.5rem;
 		height: 4.5rem;
 	}
@@ -1807,6 +1810,23 @@ footer li {
 	}
 	.cart-sku-edit {
 		width: 2.6rem;
+	}
+	.cartlist-modal .modal-container {
+		position: absolute;
+	    left: 0;
+	    bottom: 0;
+	}
+	.cartlist-modal .modal-body {
+		min-height: 50vh;
+	}
+	.cartlist-modal .modal-footer {
+		text-align: center;
+	}
+	.cartlist-modal .modal-footer .btn {
+		width: 30%;
+	}
+	.cartlist-modal .modal-footer .btn+.btn {
+		margin-left: 1.5rem;
 	}
 }
 @media only screen and (min-width: 576px) and (max-width: 1023px) {

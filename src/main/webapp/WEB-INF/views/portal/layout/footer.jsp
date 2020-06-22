@@ -73,7 +73,7 @@
 			// console.log(data);
 			var resData = data.extend;
 			if (resData.isNav == 0) {
-				modal = createModal({
+				var modal = createModal({
         			body: {
         				html: '<p>Failed to get to the relevant data !</p>'
         			}
@@ -87,7 +87,7 @@
 			}
 		},
 		error: function(err) {
-			modal = createModal({
+			var modal = createModal({
     			body: {
     				html: '<p>Error: '+ err + '</p>'
     			},

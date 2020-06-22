@@ -106,6 +106,10 @@
 				renderCartEmpty();
 			}			
 		});
+		// update product attr-data
+		function updateProductData(data) {
+			$('.cartlist-modal .product-options').data('productsku', mapItems[data.join(',')]);
+		}
 		// product event
 		// add product
 		$(document.body).on('click', '.product-add', function() {
@@ -118,6 +122,37 @@
 		// delete product
 		$(document.body).on('click', '.product-delete', function() {
 			deleteCartProduct($(this).parents('.cart-item'), updateProructNumberInCart, updateCalCart, renderCartEmpty);
+		});
+		// edit sku
+		var selectedRadioArr = [];
+		$(document.body).on('click', '.cart-sku-edit', function() {
+			var targetData = $(this).parents('.cart-item').data('cartitem');
+			selectedRadioArr = targetData.cartitemProductskuName.split(',');
+			productId = targetData.cartitemProductId;
+			var modal = createModal({
+				header: {
+					html: '<p>'+ targetData.cartitemProductName +'</p>'
+				},
+    			body: {
+    				html: '<div class="product-options"></div>'
+    			},
+    			footer: {
+    				isShow: true
+    			}
+    		});
+			modal.addClass('cartlist-modal');
+			// option
+			getProductOption(function(data) {
+				renderProductOptions(data, selectedRadioArr);
+			});
+			getProductSkus(function(data) {
+				data.length && buildResult(data);				
+			});
+		});
+		// update product sku
+		$(document.body).on('click', '.cartlist-modal .modal-ok', function() {
+			if (!isCorrectProduct()) return;
+			console.log($('.cartlist-modal .product-options').data('productsku'));
 		});
 	</script>
 </body>
