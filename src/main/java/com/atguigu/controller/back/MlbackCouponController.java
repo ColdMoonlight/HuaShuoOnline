@@ -1,23 +1,40 @@
 package com.atguigu.controller.back;
 
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackCoupon;
+import com.atguigu.common.Msg;
+import com.atguigu.service.MlbackCouponService;
+import com.atguigu.service.MlbackProductService;
+import com.atguigu.utils.DateUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/MlbackCoupon")
 public class MlbackCouponController {
-//		
-//	@Autowired
-//	MlbackCouponService mlbackCouponService;
+		
+	@Autowired
+	MlbackCouponService mlbackCouponService;
 //	
 //	@Autowired
 //	MlbackAdminService mlbackAdminService;
 //	
 //	@Autowired
 //	MlfrontUserService mlfrontUserService;
-//	
-//	@Autowired
-//	MlbackProductService mlbackProductService;
+	
+	@Autowired
+	MlbackProductService mlbackProductService;
 	
 	/**
 	 * 1.0	useOn	0505
@@ -31,112 +48,108 @@ public class MlbackCouponController {
 		return "back/operate/mlbackCouponPage";
 	}
 	
-//	
-//	/**2.0	useOn	0505
-//	 * 分类MlbackCoupon列表分页list数据
-//	 * @param pn
-//	 * @return
-//	 */
-//	@RequestMapping(value="/getMlbackCouponByPage")
-//	@ResponseBody
-//	public Msg getMlbackCouponWithJson(
-//			@RequestParam(value = "pn", defaultValue = "1") Integer pn
-//			,HttpSession session) {
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
-////		if(mlbackAdmin==null){
-////			//SysUsers对象为空
-////			return Msg.fail().add("resMsg", "session中adminuser对象为空");
-////		}else{
-//			int PagNum = 20;
-//			PageHelper.startPage(pn, PagNum);
-//			List<MlbackCoupon> mlbackCouponList = mlbackCouponService.selectMlbackCouponGetAll();
-//			PageInfo page = new PageInfo(mlbackCouponList, PagNum);
-//			return Msg.success().add("pageInfo", page);
-////		}
-//	}
-//	
-//	/**3.0	useOn	0505
-//	 * MlbackCoupon	insert
-//	 * @param MlbackCoupon
-//	 */
-//	@RequestMapping(value="/save",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackCoupon mlbackCoupon){
-//		//接受参数信息
-//		//System.out.println("mlbackCoupon:"+mlbackCoupon);
-//		//取出id
-//		Integer couponId = mlbackCoupon.getCouponId();
-//		String nowTime = DateUtil.strTime14s();
-//		mlbackCoupon.setCouponMotifytime(nowTime);
-//		//取出是否绑定单品字段
-//		Integer couponProductOnlyType = mlbackCoupon.getCouponProductOnlyType();
-//		
-//		Integer CouponProductOnlyType = mlbackCoupon.getCouponProductOnlyType();
-//		if(CouponProductOnlyType==null){
-//			mlbackCoupon.setCouponProductOnlyType(0);
-//		}
-//		if(couponProductOnlyType==0){
-//			mlbackCoupon.setCouponProductOnlyPId(0);
-//			
+	/**2.0	useOn	0505
+	 * 分类MlbackCoupon列表分页list数据
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/getMlbackCouponByPage")
+	@ResponseBody
+	public Msg getMlbackCouponByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
+//		if(mlbackAdmin==null){
+//			//SysUsers对象为空
+//			return Msg.fail().add("resMsg", "session中adminuser对象为空");
 //		}else{
-//			Integer productOnlyPId = mlbackCoupon.getCouponProductOnlyPId();
-//			MlbackProduct mlbackProductReq = new MlbackProduct();
-//			MlbackProduct mlbackProductRes = new MlbackProduct();
-//			mlbackProductReq.setProductId(productOnlyPId);
-//			List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProduct(mlbackProductReq);
-//			mlbackProductRes = mlbackProductResList.get(0);
-//			String Pname = mlbackProductRes.getProductName();
-//			String Pseoname = mlbackProductRes.getProductSeo();
-//			mlbackCoupon.setCouponProductProNameOnlyPId(Pname);//Pseoname
-//			mlbackCoupon.setCouponProductSeoNameOnlyPId(Pseoname);
+			int PagNum = 20;
+			PageHelper.startPage(pn, PagNum);
+			List<MlbackCoupon> mlbackCouponList = mlbackCouponService.selectMlbackCouponGetAll();
+			PageInfo page = new PageInfo(mlbackCouponList, PagNum);
+			return Msg.success().add("pageInfo", page);
 //		}
-//		
-//		if(couponId==null){
-//			//无id，insert
-//			mlbackCoupon.setCouponCreatetime(nowTime);
-//			mlbackCouponService.insertSelective(mlbackCoupon);
-//			//System.out.println("后台操作:couponId为null,走add+intResult:"+intResult);
-//			return Msg.success().add("resMsg", "插入成功");
-//		}else{
-//			//有id，update
-//			mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);
-//			//System.out.println("后台操作:couponId不为null,走update+intResult:"+intResult);
-//			return Msg.success().add("resMsg", "更新成功");
-//		}		
-//	}
-//	
-//	/**4.0	useOn	0505
-//	 * MlbackCoupon	delete
-//	 * @param id
-//	 */
-//	@RequestMapping(value="/delete",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg delete(@RequestBody MlbackCoupon mlbackCoupon){
-//		//接收id信息
-//		int couponIdInt = mlbackCoupon.getCouponId();
-//		int intResult = mlbackCouponService.deleteByPrimaryKey(couponIdInt);
-//		System.out.println("后台操作:MlbackCoupon,delete success+intResult:"+intResult);
-//		return Msg.success().add("resMsg", "delete success");
-//	}
-//	
-//	/**
-//	 * 5.0	useOn	0505
-//	 * 查单条Coupon详情
-//	 * @param MlbackCoupon
-//	 * @return 
-//	 */
-//	@RequestMapping(value="/getOneMlbackCouponDetailById",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getOneMlbackCouponDetailById(@RequestParam(value = "couponId") Integer couponId){
-//		
-//		//接受信息
-//		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
-//		mlbackCouponReq.setCouponId(couponId);
-//		List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCoupon(mlbackCouponReq);
-//		MlbackCoupon mlbackCouponOne =mlbackCouponResList.get(0);
-//		return Msg.success().add("resMsg", "查单条Coupon详情")
-//					.add("mlbackCouponOne", mlbackCouponOne);
-//	}
+	}
+	
+	
+	/**3.0	20200608
+	 * MlbackProduct	initializaCategory
+	 * @param MlbackProduct
+	 * @return
+	 */
+	@RequestMapping(value="/initializaCoupon",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg initializaCoupon(HttpServletResponse rep,HttpServletRequest res){
+		
+		MlbackCoupon mlbackCoupon = new MlbackCoupon();
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		mlbackCoupon.setCouponCreatetime(nowTime);
+		mlbackCoupon.setCouponProductonlyType(0);
+		mlbackCoupon.setCouponProductonlyPidstr("");
+		//无id，insert
+		System.out.println("插入前"+mlbackCoupon.toString());
+		mlbackCouponService.insertSelective(mlbackCoupon);
+		System.out.println("插入后"+mlbackCoupon.toString());
+		return Msg.success().add("resMsg", "Coupon初始化成功").add("mlbackCoupon", mlbackCoupon);
+	}
+	
+	/**3.1	useOn	0505
+	 * MlbackCoupon	insert
+	 * @param MlbackCoupon
+	 */
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackCoupon mlbackCoupon){
+		//接受参数信息
+		//System.out.println("mlbackCoupon:"+mlbackCoupon);
+		String nowTime = DateUtil.strTime14s();
+		mlbackCoupon.setCouponMotifytime(nowTime);
+		//取出是否绑定单品字段
+		Integer couponProductOnlyType = mlbackCoupon.getCouponProductonlyType();
+		
+		if(couponProductOnlyType==null){
+			mlbackCoupon.setCouponProductonlyType(0);
+		}
+		if(couponProductOnlyType==0){
+			mlbackCoupon.setCouponProductonlyPidstr("");
+		}
+		//有id，update
+		mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);
+		System.out.println("后台操作:CouponService.updateByPrimaryKeySelective:"+mlbackCoupon.toString());
+		return Msg.success().add("resMsg", "更新成功");
+	}
+	
+	/**4.0	useOn	0505
+	 * MlbackCoupon	delete
+	 * @param id
+	 */
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg delete(@RequestBody MlbackCoupon mlbackCoupon){
+		//接收id信息
+		int couponIdInt = mlbackCoupon.getCouponId();
+		int intResult = mlbackCouponService.deleteByPrimaryKey(couponIdInt);
+		System.out.println("后台操作:MlbackCoupon,delete success+intResult:"+intResult);
+		return Msg.success().add("resMsg", "delete success");
+	}
+	
+	/**
+	 * 5.0	useOn	0505
+	 * 查单条Coupon详情
+	 * @param MlbackCoupon
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlbackCouponDetailById",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlbackCouponDetailById(@RequestParam(value = "couponId") Integer couponId){
+		
+		//接受信息
+		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
+		mlbackCouponReq.setCouponId(couponId);
+		List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCoupon(mlbackCouponReq);
+		MlbackCoupon mlbackCouponOne =mlbackCouponResList.get(0);
+		return Msg.success().add("resMsg", "查单条Coupon详情")
+					.add("mlbackCouponOne", mlbackCouponOne);
+	}
 //	
 //	/**
 //	 * 6.0	useOn	0505
