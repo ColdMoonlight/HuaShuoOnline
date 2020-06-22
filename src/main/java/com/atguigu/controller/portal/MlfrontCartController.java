@@ -99,7 +99,6 @@ public class MlfrontCartController {
 	public Msg toAddToCart(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontCartItem mlfrontCartItem) throws Exception{
 		
 //		insertAddCartView(mlfrontCartItem,session);
-		
 		String sessionId = session.getId();
 		String Userip =sessionId;
 		session.setAttribute("Userip", Userip);
