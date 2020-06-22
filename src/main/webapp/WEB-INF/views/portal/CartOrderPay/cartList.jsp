@@ -30,10 +30,9 @@
 			});
 		}
 		function renderCartList(data) {
-			var cartHeader = '<div class="cart-header"></div>';
-			var cartList = '';
+			var $cartHeader = $('<div class="cart-header" />');
+			var $cartList = $('<div class="cart-list" />');
 			data.forEach(function(item, idx) {
-				console.log(item)
 				var cartSkuList = '';
 				var optionArr = item.cartitemProductskuIdnamestr.split(',');
 				var skuNameArr = item.cartitemProductskuName.split(',');
@@ -43,7 +42,7 @@
 						'<span class="value">'+ skuNameArr[idx] +'</span>' +
 					'</div>';
 				});
-				cartList += '<div class="cart-item" data-cartitem="'+ JSON.stringify(item) +'">' +
+				$cartList.append($('<div class="cart-item">' +
 					'<img class="cart-img" src="'+ item.cartitemProductMainimgurl +'">' +
 					'<div class="cart-box">' +
 						'<a class="cart-product-name" href="${APP_PATH}/'+ item.cartitemProductSeo + '.html">'+ item.cartitemProductName +'</a>' +
@@ -55,21 +54,21 @@
 							'</div>' +
 							'<span class="icon delete" onclick="deleteCartItem(event)">' + '</span>' +
 							'<div class="product-qty">' +
-								'<span class="group-addon" id="product-num-sub" onclick="subNum(event)"><i class="icon sub"></i></span>' +
+								'<span class="group-addon" id="product-num-sub"><i class="icon sub"></i></span>' +
 								'<input type="text" disabled class="product-num" value="' + (item.cartitemProductNumber) + '" />' +
-								'<span class="group-addon" id="product-num-add" onclick="addNum(event)"><i class="icon plus"></i></span>' +
+								'<span class="group-addon" id="product-num-add"><i class="icon plus"></i></span>' +
 							'</div>' +
 						'</div>' +
 					'</div>' +
 					'<div class="cart-sku-edit">EDIT</div>' +
-				'</div>';
+				'</div>').data('cartitem', JSON.stringify(item)));
 			});
-			var cartCal = '<div class="cart-cal">' +
+			var $cartCal = $('<div class="cart-cal">' +
 				'<div class="cart-cal-item"><span class="name">NUMTOTAL</span><span class="value cart-cal-total">'+ 1+'</span></div>' +
 				'<div class="cart-cal-item"><span class="name">SUBTOTAL</span><span class="value cart-cal-subtotal">$'+ 1+'</span></div>' +
 				'<div class="cart-cal-btn"><a href="${APP_PATH}/index.html" class="btn btn-gray">Continue Shopping</a><a href="javascript:;" class="btn btn-black btn-checkout">Checkout</a></div>' +
-			'</div>';
-			$('main .container').html(cartHeader + '<div class="cart-body"><div class="cart-list">' + cartList + '</div>' + cartCal + '</div>');
+			'</div>');
+			$('main .container').append($cartHeader).append($('<div class="cart-body" />').append($cartList).append($cartCal));
 		}
 		function renderCartEmpty() {
 			var htmlStr = '<div class="cart-empty">' +
@@ -79,12 +78,22 @@
 			'</div>';
 			$('main .container').html(htmlStr);
 		}
+		// initial cart list
 		getCartListData(function(data) {
 			if (data.length) {
 				renderCartList(data);
 			} else {
 				renderCartEmpty();
 			}			
+		});
+		// product event
+		// add product
+		$(document.body).on('click', '#product-num-add', function() {
+			productAdd($(this), true);
+		});
+		// sub product
+		$(document.body).on('click', '#product-num-sub', function() {
+			productSub($(this), true);
 		});
 	</script>
 </body>

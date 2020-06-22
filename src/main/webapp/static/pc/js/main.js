@@ -26,6 +26,7 @@ function removeFixed() {
 function productAdd(el, flag) {
 	var max = parseInt($('.product-num').data('count'));
 	var curr = parseInt($('.product-num').val());
+	var parentEl = el.parents('.cart-item');
 
 	curr += 1;
 	if (curr > max) {
@@ -40,12 +41,13 @@ function productAdd(el, flag) {
 		}, 1000);
 	}
 
-	$('.product-num').val(curr);
-	if (flag) updateCartNum(el, curr);
+	parentEl.find('.product-num').val(curr);
+	if (flag) updateCartNum(parentEl, curr);
 }
 
 function productSub(el, flag) {
 	var curr = parseInt($('.product-num').val());
+	var parentEl = el.parents('.cart-item');
 	curr -= 1;
 	if (curr < 1) {
 		curr = 1;
@@ -59,43 +61,42 @@ function productSub(el, flag) {
 		}, 1000);
 	}
 
-	$('.product-num').val(curr);
-	if (flag) updateCartNum(el, curr);
+	parentEl.find('.product-num').val(curr);
+	if (flag) updateCartNum(parentEl, curr);
 }
 // update cart product number
-function updateCartNum(el, data) {
-	var target = el.parent().parent().parent(),
+function updateCartNum(el, num) {
+	var targetData = el.data('cartitem') && JSON.parse(el.data('cartitem')) || null,
 		reqData = {
-			cartitemId: target.data('cartitemid'),
-			cartitemProductName: target.data('productname'),
+			cartitemId: targetData.cartitemId,
 			cartitemProductNumber: num
 		};
 
 	$.ajax({
-		url: '${APP_PATH}/MlbackCart/updateCartItemSkuNum',
+		url: '/MlbackCart/updateCartItemSkuNum',
 		data: JSON.stringify(reqData),
 		type: "post",
 		dataType: 'json',
 		contentType: 'application/json',
 		success: function (data) {
 			updateProructNumberInCart();
+			targetData.cartitemProductNumber = num;
+			el.data('cartitem', targetData);
 			modal = createModal({
 				body: {
 					html: '<p>Successfully adding products !</p>'
-				}
+				},
+				autoClose: true
 			});
 		},
 		error: function () {
+			el.find('.product-num').val(targetData.cartitemProductNumber);
 			modal = createModal({
 				body: {
 					html: '<p>Failed to add products !</p>'
-				}
+				},
+				autoClose: true
 			});
-		},
-		complete: function () {
-			setTimeout(function() {
-				removeModal(modal);
-			}, 1000);
 		}
 	});
 }
