@@ -28,9 +28,9 @@ function removeFixed() {
 }
 /* product add/sub */
 function productAdd(el, flag, callback) {
-	var max = parseInt($('.product-num').data('count'));
-	var curr = parseInt($('.product-num').val());
-	var parentEl = el.parents('.cart-item');
+	var parentEl = el.parents('.product-qty');
+	var max = parentEl.find('.product-num').data('count') && parseInt(parentEl.find('.product-num').data('count')) || Infinity;
+	var curr = parseInt(parentEl.find('.product-num').val());
 
 	curr += 1;
 	if (curr > max) {
@@ -50,8 +50,8 @@ function productAdd(el, flag, callback) {
 }
 
 function productSub(el, flag, callback) {
-	var curr = parseInt($('.product-num').val());
-	var parentEl = el.parents('.cart-item');
+	var parentEl = el.parents('.product-qty');
+	var curr = parseInt(parentEl.find('.product-num').val());
 	curr -= 1;
 	if (curr < 1) {
 		curr = 1;
@@ -70,7 +70,7 @@ function productSub(el, flag, callback) {
 }
 // update cart product number
 function updateCartNum(el, num, callback) {
-	var targetData = el.data('cartitem') || null,
+	var targetData = el.parents('.cart-item').data('cartitem') || null,
 		reqData = {
 			cartitemId: parseInt(targetData.cartitemId),
 			cartitemProductNumber: num
@@ -86,7 +86,7 @@ function updateCartNum(el, num, callback) {
 			if (data.code == 100) {
 				updateProructNumberInCart();
 				targetData.cartitemProductNumber = num;
-				el.data('cartitem', targetData);
+				el.parents('.cart-item').data('cartitem', targetData);
 				callback && callback();
 				modal = createModal({
 					body: {
