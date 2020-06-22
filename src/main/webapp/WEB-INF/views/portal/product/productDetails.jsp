@@ -166,7 +166,7 @@
 			});
 		}
 		// update product details attr-data
-        function updateProductData() {
+        function updateProductData(selectedKeys) {
         	var productQty = mapSet[selectedKeys.join(',')];
             var productSku = mapItems[selectedKeys.join(',')] || {};
            	$('.product-qty .product-num').data('count', productQty.count).data('productsku', productSku);
