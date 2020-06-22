@@ -1874,4 +1874,8 @@ footer li {
 	.cart-sku-list-item {
 		font-size: .875rem;
 	}
+	.cart-sku-edit {
+		width: 5rem;
+		height: 5rem;
+	}
 }
