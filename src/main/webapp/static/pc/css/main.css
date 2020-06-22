@@ -1370,16 +1370,13 @@ footer li {
 	align-items: center;
 }
 
-.product-price .origin {
+.product-price .product-define-price {
 	margin-left: 1rem;
 	font-size: 1.1rem;
-	text-decoration: line-through;
 }
-.product-price .dest {
+.product-price .product-now-price {
 	margin-left: .5rem;
 	font-size: 1.25rem;
-	font-weight: 500;
-	color: #ff186e;
 }
 
 .swiper-slide>img,
