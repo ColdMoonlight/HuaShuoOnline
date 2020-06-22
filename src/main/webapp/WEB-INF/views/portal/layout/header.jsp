@@ -254,7 +254,7 @@
 				if (data.code == 100) {
 					callback(data.extend);
 				} else {
-					modal = createModal({
+					var modal = createModal({
 	        			body: {
 	        				html: '<p>Failed to get to the relevant data !</p>'
 	        			},
@@ -263,7 +263,7 @@
 				}
 			},
 			error: function(err) {
-				modal = createModal({
+				var modal = createModal({
 	    			body: {
 	    				html: '<p>Error: '+ err + '</p>'
 	    			},

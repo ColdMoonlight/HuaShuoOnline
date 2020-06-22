@@ -20,13 +20,9 @@
 		addMeta('description', seoDescription);
 	</script>
 	<style>
-		main { margin-left: 0; margin-right: 0; }
 		@media only screen and (max-width: 1023px) {
+			main { margin: 0 }
 			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
-		}
-		@media only screen and (min-width: 1024px) {
-			.product-details { margin-left: 1rem; margin-right: 1rem; }
-		
 		}
 	</style>
 </head>
@@ -124,7 +120,7 @@
 	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
 	<script>
-		var mediaData = {}, mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], productData = {}, mainUrl;
+		var mediaData = {}, productData = {}, mainUrl;
 		getProductDetails(function(data) {
 			mainUrl = data.productMainimgurl;
 			// media
@@ -147,10 +143,9 @@
 			});
 			// skus
 			getProductSkus(function(data) {
-				data.length && buildResult(data);
-				
+				data.length && buildResult(data);				
 			});
-		});	
+		});
 		// fly bubble
 		function generateFlyBubble(event, callback) {
 			$('<img class="ml-flyer" src="'+ mainUrl +'" />').fly({
@@ -170,129 +165,22 @@
 			    }
 			});
 		}
-		// skus		
-		function buildResult(items) {
-            var paths = getPaths(items);
-            for (var i = 0; i < paths.length; i+=1) {
-                var curr = paths[i];
-                var stock = items[i].productskuStock || 0;
-                var arr = curr.split(',')
-                var allSets = powerset(arr);
-
-                for (var j = 0; j < allSets.length; j+=1) {
-                    var subSet = allSets[j].join(',')
-                    if (mapSet[subSet]) {
-                        mapSet[subSet].count += stock
-                    } else {
-                        mapSet[subSet] = { 'count': stock }
-                    }
-                }
-            }
-        }
-		function getPaths(items) {
-            return items.reduce(function(acc, item) {
-                mapItems[item.productskuName] = item
-                acc.push(item.productskuName)
-                return acc
-            }, [])
-        }
-        function trimSpliter(str) {
-            var reLeft = new RegExp('^,+', 'g');
-            var reRight = new RegExp(',+$', 'g');
-            var reSpliter = new RegExp(',+', 'g');
-
-            return str.replace(reLeft, '')
-                .replace(reRight, '')
-                .replace(reSpliter, ',')
-        }
-        function getSelectedItem() {
-            var selectedItems = [];
-            $('.product-option-item').each(function () {
-                var $selected = $(this).find('.radio.active');
-                if ($selected.length) {
-                    selectedItems.push($selected.data('text'));
-                } else {
-                    selectedItems.push('');
-                }
-            })
-
-            return selectedItems
-        }
-        function powerset(arr) {
-            var ps = [[]];
-            for (var i = 0; i < arr.length; i+=1) {
-                for (var j = 0, len = ps.length; j < len; j+=1) {
-                    ps.push(ps[j].concat(arr[i]))
-                }
-            }
-            return ps;
-        }
-        function updateStatus(selected) {
-        	var keys = Object.keys(optionObj);
-            for (var i = 0, len = keys.length; i < len; i+=1) {
-                var key = keys[i];
-                var data = optionObj[key];
-                var selectArr = selected.slice();
-
-                for (var j = 0; j < data.length; j+=1) {
-                    var item = data[j];
-
-                    if (selected[i] == item) continue;
-
-                    selectArr[i] = item;
-
-                    var curr = trimSpliter(selectArr.join(','), ',');
-                    var $item = $('.product-option-item[data-type="' + key + '"]').find('.radio[data-text="' + item + '"]');
-
-                    if (mapSet[curr] && mapSet[curr].count) {
-                        $item.removeClass('disabled');
-                    } else {
-                        $item.addClass('disabled');
-                    }
-                }
-            }
-        }
-        function showResult() {
-            var selectedItems = getSelectedItem();
-            var selectedKeys = [];
-
-            for (var i = 0; i < selectedItems.length; i+=1) {
-                var item = selectedItems[i];
-                if (!!item) {
-                    selectedKeys.push(item);
-                }
-            }
-
-            var productQty = mapSet[selectedKeys.join(',')];
+		// update product details attr-data
+        function updateProductData() {
+        	var productQty = mapSet[selectedKeys.join(',')];
             var productSku = mapItems[selectedKeys.join(',')] || {};
-           	$('.product-qty .product-num').data('count', productQty.count).data('productsku', JSON.stringify(productSku));
+           	$('.product-qty .product-num').data('count', productQty.count).data('productsku', productSku);
+           	var productSkuMoney = productSku.productskuMoney
+           	productSkuMoney ? updateProductPrice(productSkuMoney) : updateProductPrice();
         }
-        function handleNormalClick(el) {
-            el.hasClass('active')
-                ? (el.siblings().removeClass('disabled'), el.removeClass('active'))
-                : (el.siblings().removeClass('active'), el.addClass('active'))
-        }
-        // check add/sub product; add-to-cart/buynow product;
-        function isCorrectProduct() {
-        	var optionItems = $('.product-option-item');
-        	var flag = true;
-        	// option check
-        	for (var i = 0, len = optionItems.length; i < len; i += 1) {
-        		var $optionItem = $(optionItems[i]);
-        		if (!$optionItem.find('.radio.active').length) {
-            		modal = createModal({
-            			body: {
-            				html: '<p>Please select a product specifications and options: '+ $optionItem.data('type') + '</p>'
-            			}
-            		});
-            		setTimeout(function() {
-            			removeModal(modal);
-            		}, 1000);
-            		flag = false;
-            		break;
-        		}
-        	}
-        	return flag;
+		// update product price
+        function updateProductPrice(price) {
+        	var data = $('.product-details').data('product');
+			function getSkuPrice() {
+				return price ? (parseFloat(price) ? parseFloat(price) : 0) : 0
+			}
+       		$('.product-define-price').text('$'+ (data.productPrice + getSkuPrice()).toFixed(2));
+       		$('.product-now-price').text('$'+ (data.productDiscount * (data.productPrice +getSkuPrice()) / 100).toFixed(2));
         }
 		// event
 		$(window).on('resize', imageZoomEvent);
@@ -308,28 +196,12 @@
 		$('.share-item').on('click', function() {
 			window.open($(this).data('url') + encodeURIComponent('https://megalook.com/B-3-Bundles-with-4x4-Closure-Deep-Wave.html'));
 		});
-		// product radio click
-		$(document.body).on('click', '.radio', function(e) {
-			var $this = $(this)
-
-            if (!$this.hasClass('disabled')) {
-                handleNormalClick($this);
-                updateStatus(getSelectedItem());
-                showResult();
-           	}
-
-			$('.radio').each(function () {
-                if (!mapSet[$(this).data('text')] && !$(this).hasClass('active')) {
-                    $(this).addClass('disabled');
-                }
-            });
-		});
 		// add to cart
 		$('#add-to-cart').on('click', function(evt) {
 			function getProductData () {
 				var productData = {};
-				var productDetails = $('.product-details').data('product') && JSON.parse($('.product-details').data('product')) || {};
-				var productSKu = $('.product-qty .product-num').data('productsku') && JSON.parse($('.product-qty .product-num').data('productsku')) || {};
+				var productDetails = $('.product-details').data('product') || {};
+				var productSKu = $('.product-qty .product-num').data('productsku') || {};
 
 				productData["cartitemProductId"] = productDetails.proudctId;
 				productData["cartitemProductName"] = productDetails.productName;
@@ -359,7 +231,7 @@
 						if (data.code == 100) {
 							callback();
 						} else {
-							modal = createModal({
+							var modal = createModal({
 			        			body: {
 			        				html: '<p>Failed to add products to cart !</p>'
 			        			},
@@ -368,13 +240,13 @@
 						}
 					},
 					error: function (err) {
-						modal = createModal({
+						var modal = createModal({
 			    			body: {
 			    				html: '<p>Error: '+ err + '</p>'
 			    			},
 			    			autoClose: true
 			    		});
-					}				
+					}
 				});
 			}
 			var timeEnd = Date.now();
@@ -383,7 +255,7 @@
 			timer = setTimeout(function() {
 				if (isCorrectProduct()) {
 					addToCart(getProductData(), function() {
-						if (window.innerWidth > 576) {
+						if (window.innerWidth > 1023) {
 							generateFlyBubble(evt, updateProructNumberInCart);							
 						} else {
 							updateProructNumberInCart();
@@ -411,29 +283,7 @@
 			var $this = $(this);
 			if (!$this.hasClass('active')) $('.product-tab-container[data-name="'+ $this.data('name') +'"]').addClass('active').siblings().removeClass('active');
 		});
-		// sub product
-		function renderProductOptions(data) {
-			function createOption(data) {
-				var optionName = data.productattrnameName;
-				var optionValue  = data.productattrnameValues.split(',');
-				var optionItem = $('<div class="product-option-item" data-type="'+ optionName +'" data-id="'+ data.productattrnameId +'" />');
-				var htmlStr = '<div class="name">'+ optionName +':</div>';
-
-				optionObj[optionName] = optionValue;
-				optionIdArr.push(data.productattrnameId);
-
-				htmlStr += '<div class="body">';
-				optionValue.forEach(function(item, idx) {
-					htmlStr += '<span class="radio" data-text="'+ item +'">'+ item +'</span>';
-				});
-				htmlStr += '</div>'
-				optionItem.html(htmlStr);
-				$('.product-options').append(optionItem);
-			}
-			data.forEach(function(item, idx) {
-				createOption(item);
-			});
-		}
+		
 		function renderProductMedia(data) {
 			var htmlStr = '';
 			var htmlVideoThumb = '';
@@ -519,15 +369,15 @@
 			imageZoomEvent();
 		}
 		function renderProductDetails(data) {
-			$('.product-details').data('product', JSON.stringify({
+			$('.product-details').data('product', {
 				'proudctId': data.productId,
 				'productName': data.productName,
 				'productDiscount': data.productActoffoff,
 				'productMainImgUrl': data.productMainimgurl,
 				'productPrice': data.productOriginalprice,
-			}));
+			});
 			$('.product-name').text(data.productName);
-			$('.product-price').html('<div class="name">Total Price: </div><div class="origin">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="dest">$'+ (data.productActoffoff * data.productOriginalprice / 100).toFixed(2) +'</div>');
+			$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ (data.productActoffoff * data.productOriginalprice / 100).toFixed(2) +'</div>');
 			$('.product-tab-container[data-name="desc"]').html(data.productDesc);
 		}
 		/* product imgs */
@@ -560,40 +410,7 @@
 					}
 				}
 			});			
-		}
-		/* product option */
-		function getProductOption(callback) {
-			$.ajax({
-				url: '${APP_PATH}/MlbackProductAttributeName/getMlbackProductAttributeNameListByProductId',
-				data: JSON.stringify({ "productattrnamePid": productId }),
-				dataType: 'json',
-				contentType: 'application/json',
-				type: "post",
-				success: function (data) {
-					if (data.code == 100) {
-						callback(data.extend.mbackProductAttributeNameResList);
-					}
-				}
-			});			
-		}
-		/* product sku-list status=1 */
-		function getProductSkus(callback) {			
-			$.ajax({
-				url: '${APP_PATH}/MlbackProductSku/customerGetMlbackProductSkuListByPId',
-				data: JSON.stringify({
-					"productskuPid": productId,
-					"productskuStatus": 1
-				}),
-				dataType: 'json',
-				contentType: 'application/json',
-				type: "post",
-				success: function (data) {
-					if (data.code == 100) {
-						callback(data.extend.mlbackProductSkuResList);
-					}
-				}
-			});
-		}		
+		}	
 	</script>
 </body>
 </html>

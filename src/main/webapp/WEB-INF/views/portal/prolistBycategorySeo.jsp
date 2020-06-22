@@ -19,11 +19,13 @@
 <body>
     <jsp:include page="layout/header.jsp" flush="true"></jsp:include>
 	<main>
-		<div class="category-condition">
-			<span class="category-condition-name">style</span>
-			<select class="category-select"></select>
+		<div class="container">
+			<div class="category-condition">
+				<span class="category-condition-name">style</span>
+				<select class="category-select"></select>
+			</div>
+			<div class="product-list"></div>		
 		</div>
-		<div class="product-list"></div>
 	</main>
 	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="common/footer.jsp" flush="true"></jsp:include>
