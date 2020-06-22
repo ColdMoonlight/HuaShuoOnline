@@ -40,6 +40,22 @@
 				</li>
 			</ul>
 		</li>
+		<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+			<a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle">
+				<svg class="c-sidebar-nav-icon">
+					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cursor"></use>
+				</svg>
+				<span class="c-text">Coupon</span>
+			</a>
+			<ul class="c-child-menu">
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackCoupon/toMlbackCouponPage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">Coupon list</span>
+					</a>
+				</li>
+			</ul>
+		</li>
 		<li class="c-sidebar-nav-item">
 			<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackFootNav/toMlbackFootNavPage">
 				<svg class="c-sidebar-nav-icon">
