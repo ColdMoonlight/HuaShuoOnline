@@ -274,7 +274,7 @@
         function updateProductPrice(price) {
         	var data = $('.product-details').data('product');
 			function getSkuPrice() {
-				return price ? (parseInt(price) ? parseInt(price) : 0) : 0
+				return price ? (parseFloat(price) ? parseFloat(price) : 0) : 0
 			}
        		$('.product-define-price').text('$'+ (data.productPrice + getSkuPrice()).toFixed(2));
        		$('.product-now-price').text('$'+ (data.productDiscount * (data.productPrice +getSkuPrice()) / 100).toFixed(2));

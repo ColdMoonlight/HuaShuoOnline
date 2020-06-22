@@ -27,7 +27,7 @@ function removeFixed() {
 	});
 }
 /* product add/sub */
-function productAdd(el, flag) {
+function productAdd(el, flag, callback) {
 	var max = parseInt($('.product-num').data('count'));
 	var curr = parseInt($('.product-num').val());
 	var parentEl = el.parents('.cart-item');
@@ -46,10 +46,10 @@ function productAdd(el, flag) {
 	}
 
 	parentEl.find('.product-num').val(curr);
-	if (flag) updateCartNum(parentEl, curr);
+	if (flag) updateCartNum(parentEl, curr, callback);
 }
 
-function productSub(el, flag) {
+function productSub(el, flag, callback) {
 	var curr = parseInt($('.product-num').val());
 	var parentEl = el.parents('.cart-item');
 	curr -= 1;
@@ -66,10 +66,10 @@ function productSub(el, flag) {
 	}
 
 	parentEl.find('.product-num').val(curr);
-	if (flag) updateCartNum(parentEl, curr);
+	if (flag) updateCartNum(parentEl, curr, callback);
 }
 // update cart product number
-function updateCartNum(el, num) {
+function updateCartNum(el, num, callback) {
 	var targetData = el.data('cartitem') || null,
 		reqData = {
 			cartitemId: parseInt(targetData.cartitemId),
@@ -87,6 +87,7 @@ function updateCartNum(el, num) {
 				updateProructNumberInCart();
 				targetData.cartitemProductNumber = num;
 				el.data('cartitem', targetData);
+				callback && callback();
 				modal = createModal({
 					body: {
 						html: '<p>Successfully updating the product !</p>'
@@ -115,7 +116,7 @@ function updateCartNum(el, num) {
 	});
 }
 // delete cart product
-function deleteCartProduct(el, callback, callback2) {
+function deleteCartProduct(el, callback, callback2, callback3) {
 	var targetData = el.data('cartitem') || null,
 		reqData = {
 			cartitemId: parseInt(targetData.cartitemId)
@@ -130,7 +131,8 @@ function deleteCartProduct(el, callback, callback2) {
 		success: function (data) {
 			el.remove();
 			callback & callback();
-			if (!$('.cart-item').length) callback2 && callback2();
+			callback2 & callback2();
+			if (!$('.cart-item').length) callback3 && callback3();
 			modal = createModal({
 				body: {
 					html: '<p>Successfully deleting  the product !</p>'

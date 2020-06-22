@@ -49,7 +49,7 @@
 						'<div class="cart-sku-list">'+ cartSkuList +'</div>' +
 						'<div class="cart-product-num">' +
 							'<div class="cart-product-price">' +
-								'<span class="product-now-price">$'+ (item.cartitemProductOriginalprice && item.cartitemProductActoff ? (item.cartitemProductOriginalprice * item.cartitemProductActoff / 100) : 0).toFixed(2) +'</span>' +
+								'<span class="product-now-price">$'+ (item.cartitemProductOriginalprice && item.cartitemProductActoff ? ((item.cartitemProductOriginalprice  + parseFloat(item.cartitemProductskuMoneystr)) * item.cartitemProductActoff / 100) : 0).toFixed(2) +'</span>' +
 								'<span class="product-define-price">$'+ (item.cartitemProductOriginalprice || 0).toFixed(2) +'</span>' +
 							'</div>' +
 							'<span class="icon delete product-delete">' + '</span>' +
@@ -63,12 +63,32 @@
 					'<div class="cart-sku-edit">EDIT</div>' +
 				'</div>').data('cartitem', item));
 			});
+			var calCart = calCartList($cartList.find('.cart-item'));
 			var $cartCal = $('<div class="cart-cal">' +
-				'<div class="cart-cal-item"><span class="name">NUMTOTAL</span><span class="value cart-cal-total">'+ 1+'</span></div>' +
-				'<div class="cart-cal-item"><span class="name">SUBTOTAL</span><span class="value cart-cal-subtotal">$'+ 1+'</span></div>' +
+				'<div class="cart-cal-item"><span class="name">NUMTOTAL</span><span class="value cart-cal-total">'+ calCart.count +'</span></div>' +
+				'<div class="cart-cal-item"><span class="name">SUBTOTAL</span><span class="value cart-cal-subtotal">$'+ (calCart.price).toFixed(2) +'</span></div>' +
 				'<div class="cart-cal-btn"><a href="${APP_PATH}/index.html" class="btn btn-gray">Continue Shopping</a><a href="javascript:;" class="btn btn-black btn-checkout">Checkout</a></div>' +
 			'</div>');
 			$('main .container').append($cartHeader).append($('<div class="cart-body" />').append($cartList).append($cartCal));
+		}
+		// cal cartList data
+		function calCartList (els) {
+			var resData = {
+					count: 0,
+					price: 0,
+				};
+			els.each(function(idx, item) {
+				var data = $(item).data('cartitem');
+				resData.count += data.cartitemProductNumber;
+				resData.price += parseFloat((parseFloat(((data.cartitemProductOriginalprice + parseInt(data.cartitemProductskuMoneystr)) * data.cartitemProductActoff / 100).toFixed(2)) * data.cartitemProductNumber).toFixed(2));
+			});
+			return resData;
+		}
+		// update cart cal
+		function updateCalCart() {
+			var calCart = calCartList($('.cart-item'));
+			$('.cart-cal-total').text(calCart.count);
+			$('.cart-cal-subtotal').text('$' + (calCart.price).toFixed(2));
 		}
 		function renderCartEmpty() {
 			var htmlStr = '<div class="cart-empty">' +
@@ -89,15 +109,15 @@
 		// product event
 		// add product
 		$(document.body).on('click', '.product-add', function() {
-			productAdd($(this), true);
+			productAdd($(this), true, updateCalCart);
 		});
 		// sub product
 		$(document.body).on('click', '.product-sub', function() {
-			productSub($(this), true);
+			productSub($(this), true, updateCalCart);
 		});
 		// delete product
 		$(document.body).on('click', '.product-delete', function() {
-			deleteCartProduct($(this).parents('.cart-item'), updateProructNumberInCart, renderCartEmpty);
+			deleteCartProduct($(this).parents('.cart-item'), updateProructNumberInCart, updateCalCart, renderCartEmpty);
 		});
 	</script>
 </body>
