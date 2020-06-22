@@ -314,5 +314,9 @@
         and coupon_productonly_type = #{couponProductonlyType,jdbcType=INTEGER}
       </if>
   </select>
-  <!-- deleteByPrimaryKey -->
+  <!-- selectMlbackCouponGetAll -->
+  <select id="selectMlbackCouponGetAll" parameterType="com.atguigu.bean.MlbackCoupon" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_coupon order by coupon_id desc
+  </select>
 </mapper>
