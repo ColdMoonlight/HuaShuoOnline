@@ -28,7 +28,6 @@ public class MlbackCouponService {
 	 * @author Shinelon
 	 * @param MlbackCoupon
 	 * @exception 删除本条mlbackCoupon
-	 * 
 	 * */
 	public int deleteByPrimaryKey(int couponId) {
 		int  intReslut = mlbackCouponMapper.deleteByPrimaryKey(couponId);
