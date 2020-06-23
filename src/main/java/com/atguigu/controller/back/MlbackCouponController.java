@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.common.Msg;
+import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCouponService;
 import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -26,12 +28,12 @@ public class MlbackCouponController {
 		
 	@Autowired
 	MlbackCouponService mlbackCouponService;
-//	
-//	@Autowired
-//	MlbackAdminService mlbackAdminService;
-//	
-//	@Autowired
-//	MlfrontUserService mlfrontUserService;
+	
+	@Autowired
+	MlbackAdminService mlbackAdminService;
+	
+	@Autowired
+	MlfrontUserService mlfrontUserService;
 	
 	@Autowired
 	MlbackProductService mlbackProductService;
@@ -150,7 +152,7 @@ public class MlbackCouponController {
 		return Msg.success().add("resMsg", "查单条Coupon详情")
 					.add("mlbackCouponOne", mlbackCouponOne);
 	}
-//	
+	
 //	/**
 //	 * 6.0	useOn	0505
 //	 * 通过优惠码Code-查单条Coupon详情
@@ -163,7 +165,8 @@ public class MlbackCouponController {
 //	    
 //	    String couponCode = mlbackCoupon.getCouponCode();
 //	    
-//	    String couponStr =  mlbackCoupon.getCouponAdminOperatorname();
+////	    String couponStr =  mlbackCoupon.getCouponAdminOperatorname();//当前这堆产品的id
+//	    String nowOrderListPidstr =  mlbackCoupon.getCouponCreatetime();
 //	    //接受信息
 //	    MlbackCoupon mlbackCouponReq = new MlbackCoupon();
 //	    mlbackCouponReq.setCouponCode(couponCode);
@@ -175,16 +178,17 @@ public class MlbackCouponController {
 //	      //1判断优惠码存在不存在
 //	      mlbackCouponOne =mlbackCouponResList.get(0);
 //	      //取出本优惠券中的绑定产品字段，如果未绑定产品0，过，
-//	      Integer couponProductOnlyType =  mlbackCouponOne.getCouponProductOnlyType();
+////	      Integer couponProductOnlyType =  mlbackCouponOne.getCouponProductOnlyType();
+//	      Integer couponProductOnlyType =  mlbackCouponOne.getCouponProductonlyType();
 //	      if(couponProductOnlyType==null){
 //	    	  couponProductOnlyType = 0;
 //	      }
 //	      if(couponProductOnlyType==1){
-//	        Integer couponPid = mlbackCouponOne.getCouponProductOnlyPId();
+//	        //Integer couponPid = mlbackCouponOne.getCouponProductOnlyPId();
 //	        String couponPidStr = couponPid+"";
 //	        String temPidStr="";
-//	        if(couponStr.contains(",")){
-//	          String couponStrPidsStrArr [] =couponStr.split(",");
+//	        if(nowOrderListPidstr.contains(",")){
+//	          String couponStrPidsStrArr [] =nowOrderListPidstr.split(",");
 //	          for(int i=0;i<couponStrPidsStrArr.length;i++){
 //	            temPidStr = couponStrPidsStrArr[i];
 //	            if(couponPidStr.equals(temPidStr)){
@@ -193,7 +197,7 @@ public class MlbackCouponController {
 //	            }
 //	          }
 //	        }else{
-//	          temPidStr = couponStr;
+//	          temPidStr = nowOrderListPidstr;
 //	          if(couponPidStr.equals(temPidStr)){
 //	            couponProductOnlyTypeifHave = 1;
 //	          }
