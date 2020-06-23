@@ -387,5 +387,20 @@ public class MlbackProductController {
 			return "portal/product/productDetails";
 		}
 	 }
-
+	
+	
+	/**
+	 * 8.0	onuse	200103
+	 * 前台详情页面wap/pc的productDetails
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping(value="/lownLoadProduct",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg lownLoadProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
+		
+		MlbackProduct mlbackProductReq = new MlbackProduct();
+		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductSimpleByParam(mlbackProductReq);
+		return Msg.success().add("mlbackProductResList", mlbackProductResList);
+	}
 }
