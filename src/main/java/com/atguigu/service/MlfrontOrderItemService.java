@@ -58,16 +58,16 @@ public class MlfrontOrderItemService {
 //		return mlfrontOrderItemList;
 //	}
 //	
-//	/**5
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 查看全部用户信息
-//	 * 
-//	 * */
-//	public List<MlfrontOrderItem> selectMlfrontOrderItemById(MlfrontOrderItem mlfrontOrderItem) {
-//		List<MlfrontOrderItem>  mlfrontOrderItemList = mlfrontOrderItemMapper.selectMlfrontOrderItemById(mlfrontOrderItem);
-//		return mlfrontOrderItemList;
-//	}
+	/**5
+	 * @author Shinelon
+	 * @param 
+	 * @exception 查看全部用户信息
+	 * 
+	 * */
+	public List<MlfrontOrderItem> selectMlfrontOrderItemById(MlfrontOrderItem mlfrontOrderItem) {
+		List<MlfrontOrderItem>  mlfrontOrderItemList = mlfrontOrderItemMapper.selectMlfrontOrderItemById(mlfrontOrderItem);
+		return mlfrontOrderItemList;
+	}
 	
 	/**5
 	 * @author Shinelon

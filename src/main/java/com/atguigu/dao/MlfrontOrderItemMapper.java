@@ -20,7 +20,7 @@ public interface MlfrontOrderItemMapper {
     //更新本条地区价格模板
     int updateByPrimaryKeySelective(MlfrontOrderItem record);
     //查询后台登陆用户00
-//    List<MlfrontOrderItem> selectMlfrontOrderItemById(MlfrontOrderItem example);
+    List<MlfrontOrderItem> selectMlfrontOrderItemById(MlfrontOrderItem example);
     //查询后台登陆用户00
     List<MlfrontOrderItem> selectMlfrontOrderItemByOrderId(MlfrontOrderItem example);
 //    
