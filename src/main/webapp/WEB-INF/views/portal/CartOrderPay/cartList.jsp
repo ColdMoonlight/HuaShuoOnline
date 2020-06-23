@@ -153,6 +153,50 @@
 				$(item).find('.value').text(data[idx]);
 			});			
 		}
+		// to checkout 
+		function cartListCheckout(reqData, callback) {
+			$.ajax({
+				url: '${APP_PATH}/MlbackCart/cartToOrder',
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				type: "post",
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						callback & callback();
+					} else {
+						var modal = createModal({
+			    			body: {
+			    				html: "<p>I'm sorry, temporarily unable to settlement, please try again later !</p>"
+			    			},
+			    			autoClose: true
+			    		});
+					}
+				},
+				error: function(err) {
+					var modal = createModal({
+		    			body: {
+		    				html: '<p>Error: '+ err + '</p>'
+		    			},
+		    			autoClose: true
+		    		});
+				}
+			});
+		}
+		// get checkout reqData
+		function getCheckoutData() {
+			var checkoutData = [];
+			$('.cart-item').each(function(idx, item) {
+				var targetData = $(item).data('cartitem')
+				checkoutData.push({
+					"cartitemId": targetData.cartitemId,
+			        "cartitemProductId": targetData.cartitemProductId,
+			        "cartitemProductNumber": targetData.cartitemProductNumber
+				});
+			});
+			return checkoutData;
+		}
 		// product event
 		// add product
 		$(document.body).on('click', '.product-add', function() {
@@ -217,10 +261,24 @@
 					removeModal(cartlistModal);
 				} else {
 					window.location.href = window.location.href;
-				}				
-			})
+				}
+			});
 		});
-	</script>
+		// cartlist checkout
+		$(document.body).on('click', '.btn-checkout', function() {
+			var reqData = getCheckoutData();
+			if (!reqData.length) {
+				var modal = createModal({
+	    			body: {
+	    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+	    			},
+	    			autoClose: true
+	    		});
+				return ;
+			}
+			cartListCheckout(reqData, goToCheckout);
+		});
+		</script>
 </body>
 
 </html>

@@ -282,7 +282,7 @@
 		// buy now
 		$('#buy-now').on('click', function() {
 			if (isCorrectProduct()) {
-				window.location.href = '${APP_PATH}/MlbackCart/toCheakOut';
+				goToCheckout();
 			}
 		});
 		// add product
