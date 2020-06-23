@@ -27,7 +27,7 @@ function removeFixed() {
 	});
 }
 /* product add/sub */
-function productAdd(el, flag, callback) {
+function productAdd(el, callback) {
 	var parentEl = el.parents('.product-qty');
 	var max = parentEl.find('.product-num').data('count') && parseInt(parentEl.find('.product-num').data('count')) || Infinity;
 	var curr = parseInt(parentEl.find('.product-num').val());
@@ -44,10 +44,10 @@ function productAdd(el, flag, callback) {
 	}
 
 	parentEl.find('.product-num').val(curr);
-	if (flag) updateCartNum(parentEl, curr, callback);
+	callback & callback(parentEl, curr);
 }
 
-function productSub(el, flag, callback) {
+function productSub(el, callback) {
 	var parentEl = el.parents('.product-qty');
 	var curr = parseInt(parentEl.find('.product-num').val());
 	curr -= 1;
@@ -62,90 +62,7 @@ function productSub(el, flag, callback) {
 	}
 
 	parentEl.find('.product-num').val(curr);
-	if (flag) updateCartNum(parentEl, curr, callback);
-}
-// update cart product number
-function updateCartNum(el, num, callback) {
-	var targetData = el.parents('.cart-item').data('cartitem') || null,
-		reqData = {
-			cartitemId: parseInt(targetData.cartitemId),
-			cartitemProductNumber: num
-		};
-
-	$.ajax({
-		url: '${APP_PATH}/MlbackCart/updateCartItemSkuNum',
-		data: JSON.stringify(reqData),
-		type: "post",
-		dataType: 'json',
-		contentType: 'application/json',
-		success: function (data) {
-			if (data.code == 100) {
-				updateProructNumberInCart();
-				targetData.cartitemProductNumber = num;
-				el.parents('.cart-item').data('cartitem', targetData);
-				callback && callback();
-				var modal = createModal({
-					body: {
-						html: '<p>Successfully updating the product !</p>'
-					},
-					autoClose: true
-				});				
-			} else {
-				el.find('.product-num').val(targetData.cartitemProductNumber);
-				var modal = createModal({
-					body: {
-						html: '<p>Failed to update the product !</p>'
-					},
-					autoClose: true
-				});
-			}
-		},
-		error: function () {
-			el.find('.product-num').val(targetData.cartitemProductNumber);
-			var modal = createModal({
-				body: {
-					html: '<p>Failed to update the product !</p>'
-				},
-				autoClose: true
-			});
-		}
-	});
-}
-// delete cart product
-function deleteCartProduct(el, callback, callback2, callback3) {
-	var targetData = el.data('cartitem') || null,
-		reqData = {
-			cartitemId: parseInt(targetData.cartitemId)
-		};
-
-	$.ajax({
-		url: '${APP_PATH}/MlbackCart/delCartItem',
-		data: JSON.stringify(reqData),
-		type: "post",
-		dataType: 'json',
-		contentType: 'application/json',
-		success: function (data) {
-			el.remove();
-			callback & callback();
-			callback2 & callback2();
-			if (!$('.cart-item').length) callback3 && callback3();
-			modal = createModal({
-				body: {
-					html: '<p>Successfully deleting  the product !</p>'
-				},
-				autoClose: true
-			});
-		},
-		error: function () {
-			el.find('.product-num').val(targetData.cartitemProductNumber);
-			modal = createModal({
-				body: {
-					html: '<p>Failed to delete the product !</p>'
-				},
-				autoClose: true
-			});
-		}
-	});
+	callback & callback(parentEl, curr);
 }
 
 /* product option */
@@ -429,6 +346,9 @@ function removeModal(modal) {
 /* jump link function */
 function goToCheckout() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCheakOut';
+}
+function goToCartList() {
+	window.location.href = '${APP_PATH}/MlbackCart/toCartList';
 }
 /* varient */
 var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [];
