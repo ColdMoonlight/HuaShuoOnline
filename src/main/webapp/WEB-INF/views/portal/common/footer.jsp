@@ -426,6 +426,10 @@ function removeModal(modal) {
     removeFixed();
 }
 
+/* jump link function */
+function goToCheckout() {
+	window.location.href = '${APP_PATH}/MlbackCart/toCheakOut';
+}
 /* varient */
 var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [];
 </script>
