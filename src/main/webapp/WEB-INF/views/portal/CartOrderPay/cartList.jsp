@@ -177,7 +177,7 @@
 				error: function(err) {
 					var modal = createModal({
 		    			body: {
-		    				html: '<p>Error: '+ err + '</p>'
+		    				html: '<p>Error: '+ err.toString() + '</p>'
 		    			},
 		    			autoClose: true
 		    		});

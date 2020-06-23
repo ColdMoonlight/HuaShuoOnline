@@ -120,32 +120,6 @@
 	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
 	<script>
-		var mediaData = {}, productData = {}, mainUrl;
-		getProductDetails(function(data) {
-			mainUrl = data.productMainimgurl;
-			// media
-			if (data.productVideoUrl && data.productVideoImgUrl) {
-				mediaData.video = {
-					videoUrl: data.productVideoUrl,
-					posterUrl: data.productVideoImgUrl,
-					isVideo: true
-				};
-			}
-			getProductImgs(function(data) {
-				mediaData.imgs = data;
-				renderProductMedia(mediaData);
-			});
-			// details
-			renderProductDetails(data);
-			// option
-			getProductOption(function(data) {
-				renderProductOptions(data);
-			});
-			// skus
-			getProductSkus(function(data) {
-				data.length && buildResult(data);				
-			});
-		});
 		// fly bubble
 		function generateFlyBubble(event, callback) {
 			$('<img class="ml-flyer" src="'+ mainUrl +'" />').fly({
@@ -182,123 +156,93 @@
        		$('.product-define-price').text('$'+ (data.productPrice + getSkuPrice()).toFixed(2));
        		$('.product-now-price').text('$'+ (data.productDiscount * (data.productPrice +getSkuPrice()) / 100).toFixed(2));
         }
-		// event
-		$(window).on('resize', imageZoomEvent);
-		// image zoom resize
-		function imageZoomEvent() {
-			if (window.innerWidth < 1024) {
-				$('.product-slide.product-zoom').find('.img').off('mouseover');
-			} else {
-				$('.product-slide.product-zoom').find('.img').imagezoom();
-			}
+		// get product data
+		function getProductData () {
+			var productData = {};
+			var productDetails = $('.product-details').data('product') || {};
+			var productSKu = $('.product-qty .product-num').data('productsku');
+
+			if (!Object.keys(productSKu).length) return false;
+
+			productData["cartitemProductId"] = productDetails.proudctId;
+			productData["cartitemProductSeoName"] = productDetails.productSeo;
+			productData["cartitemProductName"] = productDetails.productName;
+			productData["cartitemProductOriginalprice"] = productDetails.productPrice;
+			productData["cartitemProductMainimgurl"] = productDetails.productMainImgUrl;
+			productData["cartitemProductActoff"] = productDetails.productDiscount;
+
+			productData["cartitemProductskuIdstr"] = optionIdArr.join(',');
+			productData["cartitemProductskuIdnamestr"] = Object.keys(optionObj).join(',');
+
+			productData["cartitemProductskuId"] = productSKu.productskuId;
+			productData["cartitemProductskuName"] = productSKu.productskuName;
+			productData["cartitemProductskuCode"] = productSKu.productskuCode;
+			productData["cartitemProductskuMoneystr"] = productSKu.productskuMoney;
+			productData["cartitemProductNumber"] =  parseInt($('.product-qty .product-num').val());
+			
+			return productData;
 		}
-		// product share
-		$('.share-item').on('click', function() {
-			window.open($(this).data('url') + encodeURIComponent('https://megalook.com/B-3-Bundles-with-4x4-Closure-Deep-Wave.html'));
-		});
-		// add to cart
-		$('#add-to-cart').on('click', function(evt) {
-			function getProductData () {
-				var productData = {};
-				var productDetails = $('.product-details').data('product') || {};
-				var productSKu = $('.product-qty .product-num').data('productsku');
-
-				if (!Object.keys(productSKu).length) return false;
-
-				productData["cartitemProductId"] = productDetails.proudctId;
-				productData["cartitemProductSeoName"] = productDetails.productSeo;
-				productData["cartitemProductName"] = productDetails.productName;
-				productData["cartitemProductOriginalprice"] = productDetails.productPrice;
-				productData["cartitemProductMainimgurl"] = productDetails.productMainImgUrl;
-				productData["cartitemProductActoff"] = productDetails.productDiscount;
-
-				productData["cartitemProductskuIdstr"] = optionIdArr.join(',');
-				productData["cartitemProductskuIdnamestr"] = Object.keys(optionObj).join(',');
-
-				productData["cartitemProductskuId"] = productSKu.productskuId;
-				productData["cartitemProductskuName"] = productSKu.productskuName;
-				productData["cartitemProductskuCode"] = productSKu.productskuCode;
-				productData["cartitemProductskuMoneystr"] = productSKu.productskuMoney;
-				productData["cartitemProductNumber"] =  parseInt($('.product-qty .product-num').val());
-				
-				return productData;
-			}
-			function addToCart(reqData, callback) {
-				$.ajax({
-					url: '${APP_PATH}/MlbackCart/toAddToCart',
-					data: JSON.stringify(reqData),
-					type: "post",
-					dataType: 'json',
-					contentType: 'application/json',
-					success: function (data) {
-						if (data.code == 100) {
-							callback();
-						} else {
-							var modal = createModal({
-			        			body: {
-			        				html: '<p>Failed to add products to cart !</p>'
-			        			},
-				    			autoClose: true
-			        		});
-						}
-					},
-					error: function (err) {
+		// to add cart
+		function addToCart(reqData, callback) {
+			$.ajax({
+				url: '${APP_PATH}/MlbackCart/toAddToCart',
+				data: JSON.stringify(reqData),
+				type: "post",
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						callback & callback();
+					} else {
 						var modal = createModal({
-			    			body: {
-			    				html: '<p>Error: '+ err + '</p>'
-			    			},
+		        			body: {
+		        				html: '<p>Failed to add products to cart !</p>'
+		        			},
 			    			autoClose: true
-			    		});
+		        		});
 					}
-				});
-			}
-			var timeEnd = Date.now();
-			if (timeEnd - timeStart < 300) clearTimeout(timer);
-			timeStart = timeEnd;
-			timer = setTimeout(function() {
-				if (isCorrectProduct()) {
-					// check product sku is error or not
-					var reqData = getProductData();
-					if (!reqData) {
-						var modal = createModal({
-			    			body: {
-			    				html: "<p>I'm sorry, the goods temporarily can't buy !</p>"
-			    			},
-			    			autoClose: true
-			    		});
-						return false;
-					}
-
-					addToCart(reqData, function() {
-						if (window.innerWidth > 1023) {
-							generateFlyBubble(evt, updateProructNumberInCart);							
-						} else {
-							updateProructNumberInCart();
-						}
-					});
+				},
+				error: function (err) {
+					var modal = createModal({
+		    			body: {
+		    				html: '<p>Error: '+ err + '</p>'
+		    			},
+		    			autoClose: true
+		    		});
 				}
-			}, 300);
-		});
-		// buy now
-		$('#buy-now').on('click', function() {
-			if (isCorrectProduct()) {
-				goToCheckout();
-			}
-		});
-		// add product
-		$('#product-num-add').on('click', function() {
-			productAdd($(this), false);
-		});
-		// sub product
-		$('#product-num-sub').on('click', function() {
-			productSub($(this), false);
-		});
-		// product-body product-tab
-		$('.product-tab-item').on('click', function() {
-			var $this = $(this);
-			if (!$this.hasClass('active')) $('.product-tab-container[data-name="'+ $this.data('name') +'"]').addClass('active').siblings().removeClass('active');
-		});
-		
+			});
+		}
+		// to buy now
+		function toBuyNow(reqData, callback) {
+			$.ajax({
+				url: '${APP_PATH}/MlbackCart/toBuyNow',
+				data: JSON.stringify(reqData),
+				type: "post",
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						callback & callback();
+					} else {
+						var modal = createModal({
+			    			body: {
+			    				html: "<p>I'm sorry, temporarily unable to settlement, please try again later !</p>"
+			    			},
+			    			autoClose: true
+			    		});
+					}
+				},
+				error: function(err) {
+					var modal = createModal({
+		    			body: {
+		    				html: '<p>Error: '+ err.toString() + '</p>'
+		    			},
+		    			autoClose: true
+		    		});
+				}
+			});
+		}
+		// render product media
 		function renderProductMedia(data) {
 			var htmlStr = '';
 			var htmlVideoThumb = '';
@@ -383,6 +327,7 @@
 			});
 			imageZoomEvent();
 		}
+		// render product detials
 		function renderProductDetails(data) {
 			$('.product-details').data('product', {
 				'proudctId': data.productId,
@@ -426,7 +371,107 @@
 					}
 				}
 			});			
-		}	
+		}
+		// varients
+		var mediaData = {}, productData = {}, mainUrl;
+		// initial
+		getProductDetails(function(data) {
+			mainUrl = data.productMainimgurl;
+			// media
+			if (data.productVideoUrl && data.productVideoImgUrl) {
+				mediaData.video = {
+					videoUrl: data.productVideoUrl,
+					posterUrl: data.productVideoImgUrl,
+					isVideo: true
+				};
+			}
+			getProductImgs(function(data) {
+				mediaData.imgs = data;
+				renderProductMedia(mediaData);
+			});
+			// details
+			renderProductDetails(data);
+			// option
+			getProductOption(function(data) {
+				renderProductOptions(data);
+			});
+			// skus
+			getProductSkus(function(data) {
+				data.length && buildResult(data);				
+			});
+		});
+		// event
+		$(window).on('resize', imageZoomEvent);
+		// image zoom resize
+		function imageZoomEvent() {
+			if (window.innerWidth < 1024) {
+				$('.product-slide.product-zoom').find('.img').off('mouseover');
+			} else {
+				$('.product-slide.product-zoom').find('.img').imagezoom();
+			}
+		}
+		// product share
+		$('.share-item').on('click', function() {
+			window.open($(this).data('url') + encodeURIComponent('https://megalook.com/B-3-Bundles-with-4x4-Closure-Deep-Wave.html'));
+		});
+		// add product
+		$('#product-num-add').on('click', function() {
+			productAdd($(this), false);
+		});
+		// sub product
+		$('#product-num-sub').on('click', function() {
+			productSub($(this), false);
+		});
+		// product-body product-tab
+		$('.product-tab-item').on('click', function() {
+			var $this = $(this);
+			if (!$this.hasClass('active')) $('.product-tab-container[data-name="'+ $this.data('name') +'"]').addClass('active').siblings().removeClass('active');
+		});
+		// add to cart
+		$('#add-to-cart').on('click', function(evt) {
+			var timeEnd = Date.now();
+			if (timeEnd - timeStart < 300) clearTimeout(timer);
+			timeStart = timeEnd;
+			timer = setTimeout(function() {
+				if (isCorrectProduct()) {
+					// check product sku is error or not
+					var reqData = getProductData();
+					if (!reqData) {
+						var modal = createModal({
+			    			body: {
+			    				html: "<p>I'm sorry, the goods temporarily can't buy !</p>"
+			    			},
+			    			autoClose: true
+			    		});
+						return false;
+					}
+
+					addToCart(reqData, function() {
+						if (window.innerWidth > 1023) {
+							generateFlyBubble(evt, updateProructNumberInCart);							
+						} else {
+							updateProructNumberInCart();
+						}
+					});
+				}
+			}, 300);
+		});
+		// buy now
+		$('#buy-now').on('click', function() {
+			if (isCorrectProduct()) {
+				var reqData = getProductData();;
+				if (!reqData) {
+					var modal = createModal({
+		    			body: {
+		    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+		    			},
+		    			autoClose: true
+		    		});
+					return ;
+				}
+				toBuyNow(reqData, goToCheckout);
+			}
+		});
 	</script>
 </body>
 </html>
