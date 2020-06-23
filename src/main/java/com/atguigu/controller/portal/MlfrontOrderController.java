@@ -51,9 +51,9 @@ public class MlfrontOrderController {
 	 * @param jsp
 	 * @return 
 	 * */
-	@RequestMapping(value="/tomOrderDetailOne",method=RequestMethod.GET)
+	@RequestMapping(value="/getNowOrderDetail",method=RequestMethod.GET)
 	@ResponseBody
-	public Msg tomOrderDetailOne(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
+	public Msg getNowOrderDetail(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
 		//接收传递进来的参数
 		MlfrontUser loginUser =(MlfrontUser) session.getAttribute("loginUser");
 		Integer usertype = 0;
