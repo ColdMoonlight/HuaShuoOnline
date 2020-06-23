@@ -83,8 +83,7 @@
     where orderItem_id = #{orderitemId,jdbcType=INTEGER}
   </update>
   
-  <!-- insertSelective
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="orderitemId" parameterType="com.atguigu.bean.MlfrontOrderItem"> -->
+  <!-- insertSelective -->
   <insert id="insertSelective" parameterType="com.atguigu.bean.MlfrontOrderItem">
     insert into tb_mlfront_orderitem
     <trim prefix="(" suffix=")" suffixOverrides=",">
