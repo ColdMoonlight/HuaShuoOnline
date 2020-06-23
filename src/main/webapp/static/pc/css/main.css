@@ -1913,13 +1913,20 @@ footer li {
 	}
 }
 @media only screen and (max-width: 1023px) {	
-	.cart-cal,
-	.order-cal {
+	.cart-cal {
 		padding: 1rem 1.5rem;
 	}
-	.cart-cal-btn .btn,
-	.order-cal-btn .btn {
+	.order-cal {
+		padding: 1rem;
+	}
+	.cart-cal-btn .btn {
 		width: 50%;
+	}	
+	.order-cal-btn .btn {
+		width: 100%;
+	}
+	.address-box {
+		padding: 0 1rem;
 	}
 }
 @media only screen and (min-width: 1024px ) {
@@ -1977,6 +1984,9 @@ footer li {
 }
 
 /* checkout */
+.cart-box-title {
+	padding: .5rem 1rem;
+}
 .order-sort {
 	display: inline-block;
 	width: 1.2rem;
@@ -1989,7 +1999,7 @@ footer li {
 	background-color: #ff1671;
 }
 .cart-box-time {
-	padding: .5rem;
+	padding: .5rem 1rem;
 	font-size: .75rem;
 	text-align: right;
 }
@@ -2019,7 +2029,7 @@ footer li {
 .order-address-shipping {
 	display: flex;
 	align-items: center;
-	padding: .5rem 0;
+	padding: .5rem 1rem;
 	font-size: .875rem;
 }
 .order-address-shipping>.name {

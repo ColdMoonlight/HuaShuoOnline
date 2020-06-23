@@ -16,9 +16,7 @@
 			<div class="order-header"></div>			
 			<div class="order-body">
 				<div class="cart-box">
-					<div class="cart-box-title">						
-						<div class="cart-box-title"><span class="order-sort">1</span>SHIPPING ADDRESS</div>
-					</div>
+					<div class="cart-box-title"><span class="order-sort">1</span>SHIPPING ADDRESS</div>
 					<div class="cart-box-body">
 						<div class="address-box">
 							<!-- address id -->
