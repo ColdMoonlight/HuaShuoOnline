@@ -25,6 +25,8 @@ public interface MlbackProductMapper {
 	List<MlbackProduct> selectMlbackProductGetAll();
     //查询ProductByParam
     List<MlbackProduct> selectMlbackProductByParam(MlbackProduct example);
+  //查询ProductByParam
+    List<MlbackProduct> selectMlbackProductSimpleByParam(MlbackProduct example);
     //查询BackSearch
     List<MlbackProduct> selectMlbackProductBackSearch(MlbackProduct mlbackProductReq);
     
