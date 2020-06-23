@@ -50,11 +50,10 @@ public class MlfrontAddressController {
 		//接受参数信息
 		System.out.println("客户点击结算按钮的时候,接收到的mlfrontAddress:"+mlfrontAddress);
 		//拿到国家的code
-		String areafreightCountryEnglish = mlfrontAddress.getAddressCountry();
+		String areafreightCountryCode = mlfrontAddress.getAddressCountry();
 		//封装国家code
 		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
-//		mlbackAreafreightReq.setAreafreightCountryEnglish(areafreightCountryEnglish);
-		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryEnglish);
+		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
 		//查询该国家的全称
 		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
 		Integer areafreightMoney = 0;
@@ -64,12 +63,12 @@ public class MlfrontAddressController {
 			addressCountryAll = mlbackAreafreightResList.get(0).getAreafreightCountry();//拿到国家全称
 		}
 		//拿到省份的code
-		String addressProvinceAll = mlfrontAddress.getAddressProvince();
+		String addressProvinceName = mlfrontAddress.getAddressProvince();
 		
 		//封装省份code
 		MlPaypalStateprovince mlPaypalStateprovinceReq = new MlPaypalStateprovince();
-		mlPaypalStateprovinceReq.setStateprovinceCountryCode(areafreightCountryEnglish);
-		mlPaypalStateprovinceReq.setStateprovinceName(addressProvinceAll);
+		mlPaypalStateprovinceReq.setStateprovinceCountryCode(areafreightCountryCode);
+		mlPaypalStateprovinceReq.setStateprovinceName(addressProvinceName);
 		
 		List<MlPaypalStateprovince> mlPaypalStateprovinceList =  mlPaypalStateprovinceService.selectMlPaypalStateprovinceByCountryCodeAndProvince(mlPaypalStateprovinceReq);
 		String stateprovinceNameCode ="";
@@ -164,11 +163,11 @@ public class MlfrontAddressController {
 		//接受参数信息
 		System.out.println("选地址的时候,获取邮费操作:mlfrontAddress:"+mlfrontAddress);
 		
-		String areafreightCountryEnglish = mlfrontAddress.getAddressCountry();
+		String areafreightCountryCode = mlfrontAddress.getAddressCountry();
 		
 		//接受categoryId
 		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
-		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryEnglish);
+		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
 		//查询本条
 		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
 		Integer areafreightMoney = 0;
@@ -178,8 +177,8 @@ public class MlfrontAddressController {
 			areafreightCountry = mlbackAreafreightResList.get(0).getAreafreightCountry();
 		}
 		//取出id
-		System.out.println(1);
-		Integer addressId = mlfrontAddress.getAddressId();
+//		System.out.println(1);
+//		Integer addressId = mlfrontAddress.getAddressId();
 		String nowTime = DateUtil.strTime14s();
 		mlfrontAddress.setAddressMotifytime(nowTime);
 		MlfrontUser loginUser =  (MlfrontUser) session.getAttribute("loginUser");
@@ -191,7 +190,7 @@ public class MlfrontAddressController {
 		}
 		//查询该国家的二级省份
 		MlPaypalStateprovince mlPaypalStateprovinceReq = new MlPaypalStateprovince();
-		mlPaypalStateprovinceReq.setStateprovinceCountryCode(areafreightCountryEnglish);
+		mlPaypalStateprovinceReq.setStateprovinceCountryCode(areafreightCountryCode);
 		List<MlPaypalStateprovince> mlPaypalStateprovinceList =  mlPaypalStateprovinceService.selectMlPaypalStateprovinceByCountryCode(mlPaypalStateprovinceReq);
 		return Msg.success().add("resMsg", "查询运费成功").add("areafreightMoney", areafreightMoney).add("areafreightCountry", areafreightCountry).add("usertype", usertype).add("mlPaypalStateprovinceList", mlPaypalStateprovinceList);//新增以后，返回去的这里，有id，你从这里拿
 	}
