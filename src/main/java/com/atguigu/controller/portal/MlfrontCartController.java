@@ -452,6 +452,7 @@ public class MlfrontCartController {
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());
+				mlfrontOrderItemNew.setOrderitemPseo(mlfrontCartItemreturn.getCartitemProductSeoName());
 				mlfrontOrderItemNew.setOrderitemProductMainimgurl(mlfrontCartItemreturn.getCartitemProductMainimgurl());
 				mlfrontOrderItemNew.setOrderitemProductOriginalprice(mlfrontCartItemreturn.getCartitemProductOriginalprice());
 				mlfrontOrderItemNew.setOrderitemProductAccoff(mlfrontCartItemreturn.getCartitemProductActoff());
@@ -517,6 +518,7 @@ public class MlfrontCartController {
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());
+				mlfrontOrderItemNew.setOrderitemPseo(mlfrontCartItemreturn.getCartitemProductSeoName());
 				mlfrontOrderItemNew.setOrderitemProductMainimgurl(mlfrontCartItemreturn.getCartitemProductMainimgurl());
 				mlfrontOrderItemNew.setOrderitemProductOriginalprice(mlfrontCartItemreturn.getCartitemProductOriginalprice());
 				mlfrontOrderItemNew.setOrderitemProductAccoff(mlfrontCartItemreturn.getCartitemProductActoff());
@@ -1046,6 +1048,7 @@ public class MlfrontCartController {
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());
+				mlfrontOrderItemNew.setOrderitemPseo(mlfrontCartItemreturn.getCartitemProductSeoName());
 				mlfrontOrderItemNew.setOrderitemProductMainimgurl(mlfrontCartItemreturn.getCartitemProductMainimgurl());
 				mlfrontOrderItemNew.setOrderitemProductOriginalprice(mlfrontCartItemreturn.getCartitemProductOriginalprice());
 				mlfrontOrderItemNew.setOrderitemProductAccoff(mlfrontCartItemreturn.getCartitemProductActoff());
@@ -1118,6 +1121,7 @@ public class MlfrontCartController {
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());
+				mlfrontOrderItemNew.setOrderitemPseo(mlfrontCartItemreturn.getCartitemProductSeoName());
 				mlfrontOrderItemNew.setOrderitemProductMainimgurl(mlfrontCartItemreturn.getCartitemProductMainimgurl());
 				mlfrontOrderItemNew.setOrderitemProductOriginalprice(mlfrontCartItemreturn.getCartitemProductOriginalprice());
 				mlfrontOrderItemNew.setOrderitemProductAccoff(mlfrontCartItemreturn.getCartitemProductActoff());
