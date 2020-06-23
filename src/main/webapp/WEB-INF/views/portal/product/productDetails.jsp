@@ -416,11 +416,11 @@
 		});
 		// add product
 		$('#product-num-add').on('click', function() {
-			productAdd($(this), false);
+			productAdd($(this));
 		});
 		// sub product
 		$('#product-num-sub').on('click', function() {
-			productSub($(this), false);
+			productSub($(this));
 		});
 		// product-body product-tab
 		$('.product-tab-item').on('click', function() {

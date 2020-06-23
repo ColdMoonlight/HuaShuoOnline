@@ -24,11 +24,95 @@
 				type: 'post',
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.mlfrontCartItemListRes);
+						callback && callback(data.extend.mlfrontCartItemListRes);
 					}
 				}
 			});
 		}
+		// update cart product number
+		function updateCartNum(el, num, callback) {
+			var targetData = el.parents('.cart-item').data('cartitem') || null,
+				reqData = {
+					cartitemId: parseInt(targetData.cartitemId),
+					cartitemProductNumber: num
+				};
+
+			$.ajax({
+				url: '${APP_PATH}/MlbackCart/updateCartItemSkuNum',
+				data: JSON.stringify(reqData),
+				type: "post",
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						updateProructNumberInCart();
+						targetData.cartitemProductNumber = num;
+						el.parents('.cart-item').data('cartitem', targetData);
+						callback && callback();
+						var modal = createModal({
+							body: {
+								html: '<p>Successfully updating the product !</p>'
+							},
+							autoClose: true
+						});				
+					} else {
+						el.find('.product-num').val(targetData.cartitemProductNumber);
+						var modal = createModal({
+							body: {
+								html: '<p>Failed to update the product !</p>'
+							},
+							autoClose: true
+						});
+					}
+				},
+				error: function () {
+					el.find('.product-num').val(targetData.cartitemProductNumber);
+					var modal = createModal({
+						body: {
+							html: '<p>Failed to update the product !</p>'
+						},
+						autoClose: true
+					});
+				}
+			});
+		}
+		// delete cart product
+		function deleteCartProduct(el, callback, callback2, callback3) {
+			var targetData = el.data('cartitem') || null,
+				reqData = {
+					cartitemId: parseInt(targetData.cartitemId)
+				};
+
+			$.ajax({
+				url: '${APP_PATH}/MlbackCart/delCartItem',
+				data: JSON.stringify(reqData),
+				type: "post",
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					el.remove();
+					callback & callback();
+					callback2 & callback2();
+					if (!$('.cart-item').length) callback3 && callback3();
+					modal = createModal({
+						body: {
+							html: '<p>Successfully deleting  the product !</p>'
+						},
+						autoClose: true
+					});
+				},
+				error: function () {
+					el.find('.product-num').val(targetData.cartitemProductNumber);
+					modal = createModal({
+						body: {
+							html: '<p>Failed to delete the product !</p>'
+						},
+						autoClose: true
+					});
+				}
+			});
+		}
+		// render cart list
 		function renderCartList(data) {
 			var $cartHeader = $('<div class="cart-header" />');
 			var $cartList = $('<div class="cart-list" />');
@@ -45,7 +129,7 @@
 				var productLink = item.cartitemProductSeoName ? ('${APP_PATH}/'+ item.cartitemProductSeoName +'.html') : 'javascript:;';
 				$cartList.append($('<div class="cart-item">' +
 					'<a href="'+ productLink +'"><img class="cart-img" src="'+ item.cartitemProductMainimgurl +'"></a>' +
-					'<div class="cart-box">' +
+					'<div class="cart-product">' +
 						'<a class="cart-product-name" href="'+ productLink +'">'+ item.cartitemProductName +'</a>' +
 						'<div class="cart-sku-list">'+ cartSkuList +'</div>' +
 						'<div class="cart-product-num">' +
@@ -200,11 +284,15 @@
 		// product event
 		// add product
 		$(document.body).on('click', '.product-add', function() {
-			productAdd($(this), true, updateCalCart);
+			productAdd($(this), function(el, num) {
+				updateCartNum(el, num, updateCalCart);
+			});
 		});
 		// sub product
 		$(document.body).on('click', '.product-sub', function() {
-			productSub($(this), true, updateCalCart);
+			productSub($(this), function(el, num) {
+				updateCartNum(el, num, updateCalCart);
+			});
 		});
 		// delete product
 		$(document.body).on('click', '.product-delete', function() {
