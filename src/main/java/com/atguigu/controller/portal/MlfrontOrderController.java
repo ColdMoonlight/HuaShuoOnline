@@ -110,7 +110,8 @@ public class MlfrontOrderController {
 			//通过cartitem的之间查回该条信息，从中取出cartId
 			MlfrontOrderItem mlfrontOrderItemReq  =new MlfrontOrderItem();
 			mlfrontOrderItemReq.setOrderitemId(orderitemIdOriginal);
-			List<MlfrontOrderItem> mlfrontOrderItemResList = mlfrontOrderItemService.selectMlfrontOrderItemByParam(mlfrontOrderItemReq);
+//			List<MlfrontOrderItem> mlfrontOrderItemResList = mlfrontOrderItemService.selectMlfrontOrderItemByParam(mlfrontOrderItemReq);
+			List<MlfrontOrderItem> mlfrontOrderItemResList = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemReq);
 			if(mlfrontOrderItemResList.size()>0){
 				Integer orderId = mlfrontOrderItemResList.get(0).getOrderId();
 				String orderitemIdOriginalStr = orderitemIdOriginal+"";
