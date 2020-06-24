@@ -66,6 +66,7 @@
 		-->
 		<!--	tb_paypal
 		<table tableName="tb_paypal_stateprovince" domainObjectName="MlPaypalStateprovince" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_paypal_shippingaddress" domainObjectName="MlPaypalShipAddress" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 	</context>
 </generatorConfiguration>
