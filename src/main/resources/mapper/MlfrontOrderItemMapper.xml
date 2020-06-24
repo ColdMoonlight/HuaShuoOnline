@@ -346,4 +346,10 @@
       </if>
   </select>
   
+  <select id="selectMlfrontOrderItemById" parameterType="com.atguigu.bean.MlfrontOrderItem" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_orderitem 
+    where orderItem_id = #{orderitemId,jdbcType=INTEGER}
+  </select>
+  
 </mapper>
