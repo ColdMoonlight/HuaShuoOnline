@@ -25,4 +25,6 @@ public interface MlbackCouponMapper {
 	List<MlbackCoupon> selectMlbackCouponGetAll();
 	//查询全部生效中的可抽奖优惠券
 	List<MlbackCoupon> selectMlbackCouponByLuckDrawType(MlbackCoupon mlbackCoupon);
+
+	List<MlbackCoupon> selectMlbackCouponBackSearch(MlbackCoupon mlbackCouponReq);
 }

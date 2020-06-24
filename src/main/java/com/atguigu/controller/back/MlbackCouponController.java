@@ -153,6 +153,28 @@ public class MlbackCouponController {
 					.add("mlbackCouponOne", mlbackCouponOne);
 	}
 	
+	/**
+	 * 7.0	20200608
+	 * 后端获取backSearchByProduct产品list
+	 * @return 
+	 * */
+	@RequestMapping(value="/backSearchByCoupon",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg backSearchByCoupon(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "couponName") String couponName) throws Exception{
+		
+		//接收传递进来的参数
+		int PagNum = 30;
+		PageHelper.startPage(pn, PagNum);
+		
+		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
+		mlbackCouponReq.setCouponName(couponName);
+		List<MlbackCoupon> mlbackCouponResList = mlbackCouponService.selectMlbackCouponBackSearch(mlbackCouponReq);
+		PageInfo page = new PageInfo(mlbackCouponResList, PagNum);
+		return Msg.success().add("pageInfo", page);
+	}
+	
 //	/**
 //	 * 6.0	useOn	0505
 //	 * 通过优惠码Code-查单条Coupon详情

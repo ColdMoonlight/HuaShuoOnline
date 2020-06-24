@@ -319,4 +319,16 @@
     select *
     from tb_mlback_coupon order by coupon_id desc
   </select>
+  <!-- selectMlbackCouponBackSearch -->
+  <select id="selectMlbackCouponBackSearch" parameterType="com.atguigu.bean.MlbackCoupon" resultMap="BaseResultMap">
+  	select 
+    coupon_id, coupon_name, coupon_price, coupon_priceoff, coupon_price_baseline, coupon_status, 
+    coupon_code, coupon_type, coupon_luckdraw_type, coupon_luckdraw_weight, coupon_times, 
+    coupon_alltimes,coupon_startTime, coupon_endtime, 
+    coupon_productonly_type, coupon_productonly_pidStr, coupon_productseonamesStronly_pid, 
+    coupon_productpronamesStronly_pid
+  	from tb_mlback_coupon 
+  	where coupon_name like concat(concat("%",#{couponName}),"%")
+    order by coupon_id desc
+  </select>
 </mapper>

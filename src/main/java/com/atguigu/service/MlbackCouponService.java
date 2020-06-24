@@ -87,4 +87,9 @@ public class MlbackCouponService {
 		List<MlbackCoupon>  mlbackCouponList = mlbackCouponMapper.selectMlbackCouponByLuckDrawType(mlbackCoupon);
 		return mlbackCouponList;
 	}
+
+	public List<MlbackCoupon> selectMlbackCouponBackSearch(MlbackCoupon mlbackCouponReq) {
+		List<MlbackCoupon>  mlbackCouponList = mlbackCouponMapper.selectMlbackCouponBackSearch(mlbackCouponReq);
+		return mlbackCouponList;
+	}
 }
