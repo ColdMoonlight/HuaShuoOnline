@@ -153,60 +153,83 @@ public class MlbackCouponController {
 					.add("mlbackCouponOne", mlbackCouponOne);
 	}
 	
-//	/**
-//	 * 6.0	useOn	0505
-//	 * 通过优惠码Code-查单条Coupon详情
-//	 * @param MlbackCoupon
-//	 * @return 
-//	 */
-//	@RequestMapping(value="/getOneMlbackCouponDetailByCode",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getOneMlbackCouponDetailByCode(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackCoupon mlbackCoupon){
-//	    
-//	    String couponCode = mlbackCoupon.getCouponCode();
-//	    
-////	    String couponStr =  mlbackCoupon.getCouponAdminOperatorname();//当前这堆产品的id
-//	    String nowOrderListPidstr =  mlbackCoupon.getCouponCreatetime();
-//	    //接受信息
-//	    MlbackCoupon mlbackCouponReq = new MlbackCoupon();
-//	    mlbackCouponReq.setCouponCode(couponCode);
-//	    mlbackCouponReq.setCouponStatus(1);//进查询生效的优惠码
-//	    List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCouponBYCode(mlbackCouponReq);
-//	    MlbackCoupon mlbackCouponOne = null;
-//	    Integer couponProductOnlyTypeifHave = 0;
-//	    if(mlbackCouponResList.size()>0){
-//	      //1判断优惠码存在不存在
-//	      mlbackCouponOne =mlbackCouponResList.get(0);
-//	      //取出本优惠券中的绑定产品字段，如果未绑定产品0，过，
-////	      Integer couponProductOnlyType =  mlbackCouponOne.getCouponProductOnlyType();
-//	      Integer couponProductOnlyType =  mlbackCouponOne.getCouponProductonlyType();
-//	      if(couponProductOnlyType==null){
-//	    	  couponProductOnlyType = 0;
-//	      }
-//	      if(couponProductOnlyType==1){
-//	        //Integer couponPid = mlbackCouponOne.getCouponProductOnlyPId();
+	/**
+	 * 7.0	20200608
+	 * 后端获取backSearchByProduct产品list
+	 * @return 
+	 * */
+	@RequestMapping(value="/backSearchByCoupon",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg backSearchByCoupon(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "couponName") String couponName) throws Exception{
+		
+		//接收传递进来的参数
+		int PagNum = 30;
+		PageHelper.startPage(pn, PagNum);
+		
+		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
+		mlbackCouponReq.setCouponName(couponName);
+		List<MlbackCoupon> mlbackCouponResList = mlbackCouponService.selectMlbackCouponBackSearch(mlbackCouponReq);
+		PageInfo page = new PageInfo(mlbackCouponResList, PagNum);
+		return Msg.success().add("pageInfo", page);
+	}
+	
+	/**
+	 * 6.0	useOn	0505
+	 * 通过优惠码Code-查单条Coupon详情
+	 * @param MlbackCoupon
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlbackCouponDetailByCode",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlbackCouponDetailByCode(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackCoupon mlbackCoupon){
+	    
+	    String couponCode = mlbackCoupon.getCouponCode();
+	    
+//	    String couponStr =  mlbackCoupon.getCouponAdminOperatorname();//当前这堆产品的id
+	    String nowOrderListPidstr =  mlbackCoupon.getCouponCreatetime();
+	    //接受信息
+	    MlbackCoupon mlbackCouponReq = new MlbackCoupon();
+	    mlbackCouponReq.setCouponCode(couponCode);
+	    mlbackCouponReq.setCouponStatus(1);//进查询生效的优惠码
+	    List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCouponBYCode(mlbackCouponReq);
+	    MlbackCoupon mlbackCouponOne = null;
+	    Integer couponProductOnlyTypeifHave = 0;
+	    if(mlbackCouponResList.size()>0){
+	      //1判断优惠码存在不存在
+	      mlbackCouponOne =mlbackCouponResList.get(0);
+	      //取出本优惠券中的绑定产品字段，如果未绑定产品0，过，
+//	      Integer couponProductOnlyType =  mlbackCouponOne.getCouponProductOnlyType();
+	      Integer couponProductOnlyType =  mlbackCouponOne.getCouponProductonlyType();
+	      if(couponProductOnlyType==null){
+	    	  couponProductOnlyType = 0;
+	      }
+	      if(couponProductOnlyType==1){
+//	        Integer couponPid = mlbackCouponOne.getCouponProductOnlyPId();
 //	        String couponPidStr = couponPid+"";
-//	        String temPidStr="";
-//	        if(nowOrderListPidstr.contains(",")){
-//	          String couponStrPidsStrArr [] =nowOrderListPidstr.split(",");
-//	          for(int i=0;i<couponStrPidsStrArr.length;i++){
-//	            temPidStr = couponStrPidsStrArr[i];
-//	            if(couponPidStr.equals(temPidStr)){
-//	              couponProductOnlyTypeifHave = 1;
-//	              break;
-//	            }
-//	          }
-//	        }else{
-//	          temPidStr = nowOrderListPidstr;
-//	          if(couponPidStr.equals(temPidStr)){
-//	            couponProductOnlyTypeifHave = 1;
-//	          }
-//	        }
-//	      }
-//	    }
-//	    return Msg.success().add("resMsg", "getOneMCouponDetailByCode完毕")
-//	          .add("mlbackCouponOne", mlbackCouponOne).add("couponProductOnlyTypeifHave", couponProductOnlyTypeifHave);
-//	  }
+	        String couponPidStr = mlbackCouponOne.getCouponProductonlyPidstr();
+	        String temPidStr="";
+	        if(nowOrderListPidstr.contains(",")){
+	          String couponStrPidsStrArr [] =nowOrderListPidstr.split(",");
+	          for(int i=0;i<couponStrPidsStrArr.length;i++){
+	            temPidStr = couponStrPidsStrArr[i];
+	            if(couponPidStr.equals(temPidStr)){
+	              couponProductOnlyTypeifHave = 1;
+	              break;
+	            }
+	          }
+	        }else{
+	          temPidStr = nowOrderListPidstr;
+	          if(couponPidStr.equals(temPidStr)){
+	            couponProductOnlyTypeifHave = 1;
+	          }
+	        }
+	      }
+	    }
+	    return Msg.success().add("resMsg", "getOneMCouponDetailByCode完毕")
+	          .add("mlbackCouponOne", mlbackCouponOne).add("couponProductOnlyTypeifHave", couponProductOnlyTypeifHave);
+	  }
 //	
 //	/**
 //	 * 7.0	useOn	0505

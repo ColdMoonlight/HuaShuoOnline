@@ -33,6 +33,8 @@ public class MlfrontAddress {
     private String addressCreatetime;
 
     private String addressMotifytime;
+    
+    private Integer addressStatus;
 
     public Integer getAddressId() {
         return addressId;
@@ -162,6 +164,14 @@ public class MlfrontAddress {
         this.addressMotifytime = addressMotifytime == null ? null : addressMotifytime.trim();
     }
 
+	public Integer getAddressStatus() {
+		return addressStatus;
+	}
+
+	public void setAddressStatus(Integer addressStatus) {
+		this.addressStatus = addressStatus;
+	}
+
 	public MlfrontAddress() {
 		super();
 	}
@@ -169,7 +179,7 @@ public class MlfrontAddress {
 	public MlfrontAddress(Integer addressId, Integer addressUid, String addressIp, String addressEmail,
 			String addressTelephone, String addressUserfirstname, String addressUserlastname, String addressCountryCode,
 			String addressCountry, String addressProvince, String addressProvincecode, String addressCity,
-			String addressDetail, String addressPost, String addressCreatetime, String addressMotifytime) {
+			String addressDetail, String addressPost, String addressCreatetime, String addressMotifytime,Integer addressStatus) {
 		super();
 		this.addressId = addressId;
 		this.addressUid = addressUid;
@@ -187,6 +197,7 @@ public class MlfrontAddress {
 		this.addressPost = addressPost;
 		this.addressCreatetime = addressCreatetime;
 		this.addressMotifytime = addressMotifytime;
+		this.addressStatus = addressStatus;
 	}
 
 	@Override
@@ -197,7 +208,8 @@ public class MlfrontAddress {
 				+ ", addressCountryCode=" + addressCountryCode + ", addressCountry=" + addressCountry
 				+ ", addressProvince=" + addressProvince + ", addressProvincecode=" + addressProvincecode
 				+ ", addressCity=" + addressCity + ", addressDetail=" + addressDetail + ", addressPost=" + addressPost
-				+ ", addressCreatetime=" + addressCreatetime + ", addressMotifytime=" + addressMotifytime + "]";
+				+ ", addressCreatetime=" + addressCreatetime + ", addressMotifytime=" + addressMotifytime
+				+ ", addressStatus=" + addressStatus + "]";
 	}
     
 }
