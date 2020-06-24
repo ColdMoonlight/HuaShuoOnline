@@ -55,7 +55,6 @@
 		<table tableName="tb_mlback_coupon" domainObjectName="MlbackCoupon" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_areafreight" domainObjectName="MlbackAreafreight" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
-		
 		<!--	tb_mlfront
 		<table tableName="tb_mlfront_cart" domainObjectName="MlfrontCart" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlfront_cartitem" domainObjectName="MlfrontCartItem" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
@@ -63,8 +62,8 @@
 		<table tableName="tb_mlfront_orderitem" domainObjectName="MlfrontOrderItem" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlfront_order" domainObjectName="MlfrontOrder" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlfront_address" domainObjectName="MlfrontAddress" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_mlfront_payinfo" domainObjectName="MlfrontPayInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
-		
 		<!--	tb_paypal
 		<table tableName="tb_paypal_stateprovince" domainObjectName="MlPaypalStateprovince" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
