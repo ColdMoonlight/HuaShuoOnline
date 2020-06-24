@@ -19,9 +19,9 @@ public interface MlfrontPayInfoMapper {
     //更新本条00
     int updateByPrimaryKeySelective(MlfrontPayInfo record);
     //查询后台登陆用户00
-//    List<MlfrontPayInfo> selectMlfrontPayInfoById(MlfrontPayInfo record);
-//    //查询全部登陆用户00
-//	List<MlfrontPayInfo> selectMlfrontPayInfoGetAll();
+    List<MlfrontPayInfo> selectMlfrontPayInfoById(MlfrontPayInfo record);
+    //查询全部登陆用户00
+	List<MlfrontPayInfo> selectMlfrontPayInfoGetAll();
 //	//通过时间查询全部登陆用户00
 //	List<MlfrontPayInfo> selectMlfrontPayInfoByDate(MlfrontPayInfo mlfrontPayInfo);
 //	//高级查询,多条件筛选

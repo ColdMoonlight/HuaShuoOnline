@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.dao.MlfrontPayInfoMapper;
 
-
 @Service
 public class MlfrontPayInfoService {
 	
@@ -43,32 +42,31 @@ public class MlfrontPayInfoService {
 	 * 
 	 * */
 	public int updateByPrimaryKeySelective(MlfrontPayInfo mlfrontPayInfo) {
-		// TODO Auto-generated method stub
 		int  intReslut = mlfrontPayInfoMapper.updateByPrimaryKeySelective(mlfrontPayInfo);
 		return intReslut;
 	}
 	
-//	/**4
-//	 * @author Shinelon
-//	 * @param MlbackProduct
-//	 * @exception 查看全部的地址信息
-//	 * 
-//	 * */
-//	public List<MlfrontPayInfo> selectMlfrontPayInfoAll() {
-//		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoGetAll();
-//		return mlfrontPayInfoList;
-//	}
-//	
-//	/**5
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 查看全部用户信息
-//	 * 
-//	 * */
-//	public List<MlfrontPayInfo> selectMlfrontPayInfoById(MlfrontPayInfo mlfrontPayInfo) {
-//		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoById(mlfrontPayInfo);
-//		return mlfrontPayInfoList;
-//	}
+	/**4
+	 * @author Shinelon
+	 * @param MlbackProduct
+	 * @exception 查看全部的地址信息
+	 * 
+	 * */
+	public List<MlfrontPayInfo> selectMlfrontPayInfoAll() {
+		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoGetAll();
+		return mlfrontPayInfoList;
+	}
+	
+	/**5
+	 * @author Shinelon
+	 * @param 
+	 * @exception 查看全部用户信息
+	 * 
+	 * */
+	public List<MlfrontPayInfo> selectMlfrontPayInfoById(MlfrontPayInfo mlfrontPayInfo) {
+		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoById(mlfrontPayInfo);
+		return mlfrontPayInfoList;
+	}
 //
 //	public List<MlfrontPayInfo> selectMlfrontPayInfoByDate(MlfrontPayInfo mlfrontPayInfo) {
 //		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoByDate(mlfrontPayInfo);
