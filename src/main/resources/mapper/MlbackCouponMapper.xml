@@ -331,4 +331,10 @@
   	where coupon_name like concat(concat("%",#{couponName}),"%")
     order by coupon_id desc
   </select>
+  <!-- selectMlbackCouponBYCode -->  
+  <select id="selectMlbackCouponBYCode" parameterType="com.atguigu.bean.MlbackCoupon" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_coupon 
+    where coupon_code = #{couponCode,jdbcType=VARCHAR}
+  </select>
 </mapper>
