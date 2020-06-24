@@ -16,13 +16,11 @@
 			<div class="order-header"></div>			
 			<div class="order-body">
 				<div class="cart-box">
-					<div class="cart-box-title">						
-						<div class="cart-box-title"><span class="order-sort">1</span>SHIPPING ADDRESS</div>
-					</div>
+					<div class="cart-box-title"><span class="order-sort">1</span>SHIPPING ADDRESS</div>
 					<div class="cart-box-body">
 						<div class="address-box">
 							<!-- address id -->
-							<input type="hidden" id="addressId" name="addressId">
+							<input type="hidden" id="addressId" class="form-control" name="addressId">
 							<!-- first name -->
 							<div class="form-group">
 								<label for="addressUserfirstname" class="form-label">First Name</label>
@@ -108,7 +106,7 @@
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.mlfrontOrderItemList);
+						callback && callback(data.extend);
 					}
 				}
 			});
@@ -212,6 +210,66 @@
 				}
 			});
 		}
+		// save user address
+		function orderSaveAddress(reqData, callback) {
+			$.ajax({
+				url: '${APP_PATH}/MlfrontAddress/save',
+				type: 'post',
+				dataType: 'json',
+				data: JSON.stringify(reqData),
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend.mlfrontAddress);
+					} else {
+						var modal = createModal({
+			    			body: {
+			    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+			    			},
+			    			autoClose: true
+			    		});
+					}
+				},
+				error: function () {
+					var modal = createModal({
+		    			body: {
+		    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+		    			},
+		    			autoClose: true
+		    		});
+				}
+			});
+		}
+		// order pay
+		function orderPay(reqData, callback) {
+			$.ajax({
+				url: '${APP_PATH}/MlfrontOrder/orderToPayInfo',
+				data: JSON.stringify(reqData),
+				type: 'post',
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback();
+					} else {
+						var modal = createModal({
+			    			body: {
+			    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+			    			},
+			    			autoClose: true
+			    		});
+					}
+				},
+				error: function(err) {
+					var modal = createModal({
+		    			body: {
+		    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+		    			},
+		    			autoClose: true
+		    		});
+				}
+			});
+		}
 		// country combine with province
 		function countryCombineWithProvince() {
 			getProvinceData({
@@ -224,12 +282,13 @@
 
 				if (provinceList && provinceList.length > 0) {
 					renderProvince(provinceList);
+					$('#addressProvince').data('status', false);
 
 					hasProvince = true;
 					$("#addressProvince").parents('.form-group').show();
 					$("#addressCountry").parents('.form-group').css("width", "50%");
 				} else {
-					$('#addressProvince').val('');
+					$('#addressProvince').val('').data('status', true);
 
 					hasProvince = false;
 					$("#addressProvince").parents('.form-group').hide();
@@ -294,19 +353,28 @@
 		}
 		// renderd order list
 		function renderOrderList(data) {
-			var $cartList = $('<div class="order-list" />');
+			var $orderList = $('<div class="order-list" />'),
+				orderProductIdArr = [],
+				orderItemIdArr = [],
+				orderProductNumArr = [];
 			data.forEach(function(item, idx) {
-				var orderSkuList = '';
-				var optionArr = item.orderitemPskuIdnamestr.split(',');
-				var skuNameArr = item.orderitemPskuName.split(',');
+				var orderSkuList = '',
+					optionArr = item.orderitemPskuIdnamestr.split(','),
+					skuNameArr = item.orderitemPskuName.split(',');
+				
 				optionArr.forEach(function(item, idx) {
 					orderSkuList += '<div class="order-sku-list-item">' +
 						'<span class="name">'+ item +' :</span>' +
 						'<span class="value">'+ skuNameArr[idx] +'</span>' +
 					'</div>';
 				});
-				var productLink = item.orderitemProductSeoName ? ('${APP_PATH}/'+ item.orderitemPseo +'.html') : 'javascript:;';
-				$cartList.append($('<div class="order-item">' +
+
+				orderProductIdArr.push(item.orderitemPid);
+				orderItemIdArr.push(item.orderitemId);
+				orderProductNumArr.push(item.orderitemPskuNumber);
+
+				var productLink = item.orderitemPseo ? ('${APP_PATH}/'+ item.orderitemPseo +'.html') : 'javascript:;';
+				$orderList.append($('<div class="order-item">' +
 					'<a href="'+ productLink +'"><img class="order-img" src="'+ item.orderitemProductMainimgurl +'"></a>' +
 					'<div class="order-product">' +
 						'<a class="order-product-name" href="'+ productLink +'">'+ item.orderitemPname +'</a>' +
@@ -326,15 +394,68 @@
 					'</div>' +
 				'</div>').data('orderitem', item));
 			});
+			$orderList.data('itemidarr', orderItemIdArr.join(',')).data('productidarr', orderProductIdArr.join(',')).data('itemnumarr', orderProductNumArr.join(','))
 			var $cartReviewBox = $('<div class="cart-box">'+
 					'<div class="cart-box-title"><span class="order-sort">2</span>Checkout Review</div>'+
 					'<div class="cart-box-body">'+
 						'<div class="cart-box-time">'+ getTime() +'</div>' +
 					'</div>'+
 				'</div>');
-			$cartReviewBox.find('.cart-box-body').append($cartList);
+			$cartReviewBox.find('.cart-box-body').append($orderList);
 
 			$('main .order-body').append($cartReviewBox);
+		}
+		// render order couopons
+		function renderOrderCoupons() {
+			var $cartCouponBox = $('<div class="cart-box">'+
+					'<div class="cart-box-title"><span class="order-sort">5</span>ADDITIONAL INFORMATION</div>'+
+					'<div class="cart-box-body">'+
+						'<div class="order-coupons">'+
+							'<div class="order-coupon-list"></div>'+
+							'<div class="order-coupon-group" data-coupon='+ JSON.stringify({id: '', code: ''})+'>'+
+								'<input type="text" placeholder="Please enter code" />'+
+								'<button id="order-check-coupon" class="btn btn-gray">check it</button>'+
+							'</div>'+
+							'<div class="order-coupon-tip"></div>'+
+						'</div>'+
+					'</div>'+
+				'</div>');
+			$('main .order-body').append($cartCouponBox);
+		}
+		// render order payment method
+		function renderOrderPaymentMethod() {
+			var $cartPaymentBox = $('<div class="cart-box">'+
+					'<div class="cart-box-title"><span class="order-sort">4</span>PAYMENT METHOD</div>'+
+					'<div class="cart-box-body">'+
+						'<div class="order-payment" data-pay="0">' +
+							'<div class="order-payment-item custom-check">'+
+								'<input type="radio" name="payment" id="payment-paypal" checked value="0">' +
+								'<label for="payment-paypal">' +
+									'<img src="${APP_PATH}/static/pc/img/paypal-1.png">' +
+									'<span>Pay with PayPal account</span>' +
+								'</label>' +
+							'</div>' +
+							'<div class="order-payment-item custom-check">'+
+								'<input type="radio" name="payment" id="payment-paypalcard" value="1">' +
+								'<label for="payment-paypalcard">' +
+									'<img src="${APP_PATH}/static/pc/img/paypal-2.png">' +
+									'<span>Credit card via PayPal</span>' +
+								'</label>' +
+							'</div>' +
+						'</div>'+
+					'</div>'+
+				'</div>');
+			$('main .order-body').append($cartPaymentBox);
+		}
+		// render order buyer message
+		function renderOrderBuyerMsg() {
+			var $cartBuyerMsgBox = $('<div class="cart-box">'+
+					'<div class="cart-box-title"><span class="order-sort">5</span>ADDITIONAL INFORMATION</div>'+
+					'<div class="cart-box-body">'+
+						'<div class="order-buyer-msg"><textarea rows="4" placeholder="Buyer message"></textarea></div>'+
+					'</div>'+
+				'</div>');
+			$('main .order-body').append($cartBuyerMsgBox);
 		}
 		// render order cal
 		function rednerOrderCal() {
@@ -347,21 +468,86 @@
 							'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ calOrder.shipping +'</span></div>' +
 							'<div class="order-cal-item"><span class="name">coupon</span><span class="value order-cal-coupon">-$'+ calOrder.coupon +'</span></div>' +
 							'<div class="order-cal-item"><span class="name">subtotal</span><span class="value order-cal-subtotal">$'+ (calOrder.subtotal).toFixed(2) +'</span></div>' +
-							'<div class="order-cal-btn"><a href="javascript:;" class="btn btn-no btn-pay-now">Pay Securely Now</a></div>' +
+							'<div class="order-cal-btn"><a href="javascript:;" id="pay-now" class="btn btn-no">Pay Securely Now</a></div>' +
 						'</div>'+
 					'</div>'+
 				'</div>');
 			$('main .order-body').append($cartCalBox);
 		}
-		
+		// check user input address info
+		function checkInputAdressInfo() {
+			var flag = true;
+			for(var idx = 0, len = $('.address-box .form-group').length; idx < len; idx += 1) {
+				var item = $('.address-box .form-group')[idx];
+				if ($(item).find('.form-control').data('status')) continue;
+				if (!$(item).find('.form-control').val() || $(item).find('.form-control').val() == 'state') {
+					createModal({
+		    			body: {
+		    				html: '<p>Address information <i style="color: #f00">'+ $(item).find('.form-label').text() +"</i> can't be empty !</p>"
+		    			},
+		    			autoClose: true
+		    		});
+					$(item).find('.form-control').focus();
+					flag = false;
+					break;
+				}
+			}
+			return flag;
+		}
+		// check couopon code
+		function checkCouponCode(reqData, calblack) {
+			$.ajax({
+				url: '${APP_PATH}/MlbackCoupon/getOneMlbackCouponDetailByCode',
+				data: JSON.stringify(reqData),
+				type: 'post',
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						calblack && callback();
+					}
+				},
+				error: function(err) {
+					createModal({
+		    			body: {
+		    				html: '<p>Error: '+ err.toString() +' </p>'
+		    			},
+		    			autoClose: true
+		    		});
+				}
+			});
+		}
+		// get order address
+		function getOrderAddress() {
+			var addressData = {};
+			$('.address-box .form-control').each(function(idx, item) {
+				addressData[item.name] = (item.value || '').trim();
+			});
+			return addressData;
+		}
+		// get order pay info
+		function getOrderPayInfo() {
+			var couponData = $('.order-coupon-group').data('coupon');
+			return {
+				"orderId": $('.order-list').data('orderid'),
+				"orderOrderitemidstr": $('.order-list').data('itemidarr'),
+				"orderCouponId": couponData && couponData.id,
+				"orderCouponCode": couponData && couponData.code,
+				"orderPayPlate": $('input[name="payment"]:checked').val(),
+				"orderProNumStr": $('.order-list').data('itemnumarr'),
+				"orderBuyMess": $('.order-buyer-msg').val(),
+				"addressinfoId": $('#addressId').val(),	
+			}
+		}
 		// initial order for checkout 
 		function initialOrder() {
-			renderCountry();
-			
+			// 1
+			renderCountry();			
 			countryCombineWithProvince();
-
+			// 2
 			getProductOrderList(function(data) {
-				if (!data.length) {
+				var orderListData = data.mlfrontOrderItemList;
+				if (!orderListData.length) {
 					var modal = createModal({
 		    			body: {
 		    				html: "<p>Don't have to pay for goods, please to add items in the shopping cart, and then to pay !</p>"
@@ -371,11 +557,13 @@
 					goToCartList();
 					return ;
 				}
-
-				renderOrderList(data);
+				$('.order-list').data('orderid', data.orderId);
+				renderOrderList(orderListData);
 			});
-
-			rednerOrderCal();
+			renderOrderCoupons(); // 3
+			renderOrderPaymentMethod(); // 4
+			renderOrderBuyerMsg(); // 5
+			rednerOrderCal(); // 6
 		}
 		var hasProvince = true;
 		// initial
@@ -400,6 +588,38 @@
 		// delete product
 		$(document.body).on('click', '.product-delete', function() {
 			deleteOrderProduct($(this).parents('.order-item'), resetOrderCal);
+		});
+		// check input coupon-code
+		$(document.body).on('click', '#order-check-coupon', function() {
+			var couponCode = $('.order-coupon-group input').val().trim();
+			if (couponCode) {
+				checkCouponCode({
+					"couponCreatetime": $('.cart-list').data('productidarr'),
+					"couponCode": couponCode
+				}, function(data) {
+					$('.order-coupon-group').data('coupon', {
+						id: '',
+						code: ''
+					});
+					resetOrderCal();
+				});				
+			} else {
+				createModal({
+	    			body: {
+	    				html: '<p>Please enter a valid coupon code !</p>'
+	    			},
+	    			autoClose: true
+	    		});
+			}
+		});
+		// pay event
+		$(document.body).on('click', '#pay-now', function() {
+			if (checkInputAdressInfo()) {
+				orderSaveAddress(getOrderAddress(), function(data) {
+					$('#addressId').val(data.addressId);
+					orderPay(getOrderPayInfo(), goToPay);
+				});
+			}
 		});
 	</script>
 </body>
