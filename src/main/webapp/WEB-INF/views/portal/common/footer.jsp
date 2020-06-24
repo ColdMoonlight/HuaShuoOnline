@@ -350,6 +350,9 @@ function goToCheckout() {
 function goToCartList() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCartList';
 }
+function goToPay() {
+	window.location.href = '${APP_PATH }/paypal/mpay';
+}
 /* varient */
 var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [];
 </script>
