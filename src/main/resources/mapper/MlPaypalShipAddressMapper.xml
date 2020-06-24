@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.MlPaypalShipAddressMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.MlPaypalShipAddress">
+    <id column="shippingAddress_id" jdbcType="INTEGER" property="shippingaddressId" />
+    <result column="shippingAddress_payInfoid" jdbcType="VARCHAR" property="shippingaddressPayinfoid" />
+    <result column="shippingAddress_paymentid" jdbcType="VARCHAR" property="shippingaddressPaymentid" />
+    <result column="shippingAddress_recipient_name" jdbcType="VARCHAR" property="shippingaddressRecipientName" />
+    <result column="shippingAddress_country_code" jdbcType="VARCHAR" property="shippingaddressCountryCode" />
+    <result column="shippingAddress_city" jdbcType="VARCHAR" property="shippingaddressCity" />
+    <result column="shippingAddress_line1" jdbcType="VARCHAR" property="shippingaddressLine1" />
+    <result column="shippingAddress_line2" jdbcType="VARCHAR" property="shippingaddressLine2" />
+    <result column="shippingAddress_postal_code" jdbcType="VARCHAR" property="shippingaddressPostalCode" />
+    <result column="shippingAddress_email" jdbcType="VARCHAR" property="shippingaddressEmail" />
+    <result column="shippingAddress_state" jdbcType="VARCHAR" property="shippingaddressState" />
+    <result column="shippingAddress_createTime" jdbcType="VARCHAR" property="shippingaddressCreatetime" />
+    <result column="shippingAddress_motifyTime" jdbcType="VARCHAR" property="shippingaddressMotifytime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    shippingAddress_id, shippingAddress_payInfoid, shippingAddress_paymentid, shippingAddress_recipient_name, 
+    shippingAddress_country_code, shippingAddress_city, shippingAddress_line1, shippingAddress_line2, 
+    shippingAddress_postal_code, shippingAddress_email, shippingAddress_state, shippingAddress_createTime, 
+    shippingAddress_motifyTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_paypal_shippingaddress
+    where shippingAddress_id = #{shippingaddressId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.atguigu.bean.MlPaypalShipAddress">
+    insert into tb_paypal_shippingaddress (shippingAddress_id, shippingAddress_payInfoid, 
+      shippingAddress_paymentid, shippingAddress_recipient_name, 
+      shippingAddress_country_code, shippingAddress_city, 
+      shippingAddress_line1, shippingAddress_line2, 
+      shippingAddress_postal_code, shippingAddress_email, 
+      shippingAddress_state, shippingAddress_createTime, 
+      shippingAddress_motifyTime)
+    values (#{shippingaddressId,jdbcType=INTEGER}, #{shippingaddressPayinfoid,jdbcType=VARCHAR}, 
+      #{shippingaddressPaymentid,jdbcType=VARCHAR}, #{shippingaddressRecipientName,jdbcType=VARCHAR}, 
+      #{shippingaddressCountryCode,jdbcType=VARCHAR}, #{shippingaddressCity,jdbcType=VARCHAR}, 
+      #{shippingaddressLine1,jdbcType=VARCHAR}, #{shippingaddressLine2,jdbcType=VARCHAR}, 
+      #{shippingaddressPostalCode,jdbcType=VARCHAR}, #{shippingaddressEmail,jdbcType=VARCHAR}, 
+      #{shippingaddressState,jdbcType=VARCHAR}, #{shippingaddressCreatetime,jdbcType=VARCHAR}, 
+      #{shippingaddressMotifytime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlPaypalShipAddress">
+    update tb_paypal_shippingaddress
+    set shippingAddress_payInfoid = #{shippingaddressPayinfoid,jdbcType=VARCHAR},
+      shippingAddress_paymentid = #{shippingaddressPaymentid,jdbcType=VARCHAR},
+      shippingAddress_recipient_name = #{shippingaddressRecipientName,jdbcType=VARCHAR},
+      shippingAddress_country_code = #{shippingaddressCountryCode,jdbcType=VARCHAR},
+      shippingAddress_city = #{shippingaddressCity,jdbcType=VARCHAR},
+      shippingAddress_line1 = #{shippingaddressLine1,jdbcType=VARCHAR},
+      shippingAddress_line2 = #{shippingaddressLine2,jdbcType=VARCHAR},
+      shippingAddress_postal_code = #{shippingaddressPostalCode,jdbcType=VARCHAR},
+      shippingAddress_email = #{shippingaddressEmail,jdbcType=VARCHAR},
+      shippingAddress_state = #{shippingaddressState,jdbcType=VARCHAR},
+      shippingAddress_createTime = #{shippingaddressCreatetime,jdbcType=VARCHAR},
+      shippingAddress_motifyTime = #{shippingaddressMotifytime,jdbcType=VARCHAR}
+    where shippingAddress_id = #{shippingaddressId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!--insertSelective-->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="shippingaddressId" parameterType="com.atguigu.bean.MlPaypalShipAddress">
+    insert into tb_paypal_shippingaddress
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shippingaddressId != null">
+        shippingAddress_id,
+      </if>
+      <if test="shippingaddressPayinfoid != null">
+        shippingAddress_payInfoid,
+      </if>
+      <if test="shippingaddressPaymentid != null">
+        shippingAddress_paymentid,
+      </if>
+      <if test="shippingaddressRecipientName != null">
+        shippingAddress_recipient_name,
+      </if>
+      <if test="shippingaddressCountryCode != null">
+        shippingAddress_country_code,
+      </if>
+      <if test="shippingaddressCity != null">
+        shippingAddress_city,
+      </if>
+      <if test="shippingaddressLine1 != null">
+        shippingAddress_line1,
+      </if>
+      <if test="shippingaddressLine2 != null">
+        shippingAddress_line2,
+      </if>
+      <if test="shippingaddressPostalCode != null">
+        shippingAddress_postal_code,
+      </if>
+      <if test="shippingaddressEmail != null">
+        shippingAddress_email,
+      </if>
+      <if test="shippingaddressState != null">
+        shippingAddress_state,
+      </if>
+      <if test="shippingaddressCreatetime != null">
+        shippingAddress_createTime,
+      </if>
+      <if test="shippingaddressMotifytime != null">
+        shippingAddress_motifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shippingaddressId != null">
+        #{shippingaddressId,jdbcType=INTEGER},
+      </if>
+      <if test="shippingaddressPayinfoid != null">
+        #{shippingaddressPayinfoid,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressPaymentid != null">
+        #{shippingaddressPaymentid,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressRecipientName != null">
+        #{shippingaddressRecipientName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressCountryCode != null">
+        #{shippingaddressCountryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressCity != null">
+        #{shippingaddressCity,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressLine1 != null">
+        #{shippingaddressLine1,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressLine2 != null">
+        #{shippingaddressLine2,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressPostalCode != null">
+        #{shippingaddressPostalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressEmail != null">
+        #{shippingaddressEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressState != null">
+        #{shippingaddressState,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressCreatetime != null">
+        #{shippingaddressCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressMotifytime != null">
+        #{shippingaddressMotifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!--deleteByPrimaryKey-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_paypal_shippingaddress
+    where shippingAddress_id = #{shippingaddressId,jdbcType=INTEGER}
+  </delete>
+  <!--updateByPrimaryKeySelective-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlPaypalShipAddress">
+    update tb_paypal_shippingaddress
+    <set>
+      <if test="shippingaddressPayinfoid != null">
+        shippingAddress_payInfoid = #{shippingaddressPayinfoid,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressPaymentid != null">
+        shippingAddress_paymentid = #{shippingaddressPaymentid,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressRecipientName != null">
+        shippingAddress_recipient_name = #{shippingaddressRecipientName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressCountryCode != null">
+        shippingAddress_country_code = #{shippingaddressCountryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressCity != null">
+        shippingAddress_city = #{shippingaddressCity,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressLine1 != null">
+        shippingAddress_line1 = #{shippingaddressLine1,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressLine2 != null">
+        shippingAddress_line2 = #{shippingaddressLine2,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressPostalCode != null">
+        shippingAddress_postal_code = #{shippingaddressPostalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressEmail != null">
+        shippingAddress_email = #{shippingaddressEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressState != null">
+        shippingAddress_state = #{shippingaddressState,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressCreatetime != null">
+        shippingAddress_createTime = #{shippingaddressCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressMotifytime != null">
+        shippingAddress_motifyTime = #{shippingaddressMotifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where shippingAddress_id = #{shippingaddressId,jdbcType=INTEGER}
+  </update>
+  <!--selectMlPaypalShipAddressByPayinfoid-->
+  <select id="selectMlPaypalShipAddressByPayinfoid" parameterType="com.atguigu.bean.MlPaypalShipAddress" resultMap="BaseResultMap">
+    select *
+    from tb_paypal_shippingaddress  where shippingAddress_payInfoid = #{shippingaddressPayinfoid,jdbcType=VARCHAR}
+  </select>
+</mapper>
