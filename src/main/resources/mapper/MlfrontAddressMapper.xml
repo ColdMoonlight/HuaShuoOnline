@@ -66,7 +66,7 @@
     where address_id = #{addressId,jdbcType=INTEGER}
   </update>
   <!-- insertSelective -->
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlfrontAddress">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="addressId" parameterType="com.atguigu.bean.MlfrontAddress">
     insert into tb_mlfront_address
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="addressId != null">
