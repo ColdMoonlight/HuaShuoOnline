@@ -25,7 +25,9 @@
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
-							<div class="c-table-tab-item active">All</div>
+							<div class="c-table-tab-item" data-idx="0">All</div>
+							<div class="c-table-tab-list"></div>
+							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
 							<div class="input-group c-search">
@@ -33,10 +35,9 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div  class="form-control">
-									<input name="searchCollection" type="text" disabled placeholder="Search Collections">
-									<select></select>
+									<input name="searchCollection" id="searchCollection" type="text"  placeholder="Search Collections" />
 								</div>
-								<a class="btn btn-primary input-group-addon btn-save-search" disabled>Save search</a>
+								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
 							<table class="c-table-table table table-responsive-sm">
 								<thead>
@@ -117,7 +118,7 @@
 										<label class="col-form-label" for="couponPriceoff">Preferential percentage</label>
 										<div class="controls">
 											<select id="couponPriceoff" name="couponPriceOff" class="form-control">
-											   <option value="5">5%</option>
+											   <option value="5" selected="selected">5%</option>
 											   <option value="6">6%</option>
 											   <option value="7">7%</option>
 											   <option value="8">8%</option>
@@ -247,37 +248,79 @@
 	
 	<!-- custom script -->
 	<script>
-		// var hasSuperCategory = false;
-		// var hasParentCategory = false;
-		// var isCreate = false;
-		// if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
-		
-		
-		var inputSearchEl = $('input[name="searchCollection"]');
+		var hasParentCategory = false;
 		var isCreate = false;
 		// init
-		renderTabItems();
 		getCollectionsData();
-		// search
+		renderTabItems();
 		$('.btn-save-search').on('click', function () {
-			var searchCollectionVal = inputSearchEl.val().trim();
-			if (searchCollectionVal) {
+			var searchCollectionVal = {
+				// supercate: $('#searchSupercate').find('option:selected').text(),
+				// supercateId: $('#searchSupercate').val(),
+				collection: $('#searchCollection').val()
+			};
+			// cancel repeat add save-search
+			if (checkNewItem(searchCollectionVal)) return;
+			// if (parseInt(searchCollectionVal.supercateId) < 0) searchCollectionVal.supercate = "";
+			if (searchCollectionVal.collection) {
 				addCollectionItem(searchCollectionVal);
-				addTabItemEl(searchCollectionVal);
+				createCollectionItem(searchCollectionVal).addClass('active')
+				addTableTabItem(searchCollectionVal);
+				$('.c-table-tab-tempory').html('');
 			}
 		});
+		// search it
+
+		var oldTime = (new Date()).getTime(),
+			timer = null;
+		$('#searchCollection').on('keyup', function() {
+			var distanceTime = 1000,
+				newTime =  (new Date()).getTime();
+			if (newTime - oldTime < 1000) clearTimeout(timer);
+			oldTime = newTime;
+			timer = setTimeout(function() {
+				updateSearchData();
+			}, distanceTime);
+		});
+		// search status change
+		function updateSearchData() {
+			var searchCollectionVal = {
+				collection: $('#searchCollection').val()
+			};
+			// inital pagination num
+			setPageNum(1);
+			// check searchCollection
+		
+			$('.c-table-tab-item.active').removeClass('active');
+			$('.c-table-tab-tempory').html(createCollectionItem(searchCollectionVal).addClass('active'));
+			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
+		}
 		// tab-item click
-		$(document.body).on('click', '.c-table-tab-item', function () {
+		$(document.body).on('click', '.c-table-tab-item', function (e) {
 			$('.c-table-tab-item').removeClass('active');
 			$(this).addClass('active');
+			// inital pagination num
 			setPageNum(1);
-			getCollectionsData($(this).text());
+			setActiveItemNum($(this).data('idx'));
+			getTabSearchData($(this));
 		});
+		// get Data for table
+		function getTabSearchData($this) {
+			var dataVal = $this.data('val');
+			if (dataVal) {
+				$('#searchCollection').val(dataVal.collection || '');
+				getSearchCollectionsData();
+			} else {
+				$('#searchCollection').val('');
+				getCollectionsData();
+			}
+		}
 		// tab delete
-		$(document.body).on('click', '.delete-table-tab-item', deleteCollectionEl);
-		// pagination
+		// tab delete
+		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
+		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
-			getCollectionsData($(this).text());
+			getTabSearchData($('.c-table-tab-item.active'));
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
@@ -286,7 +329,7 @@
 			// init formData
 			resetFormData();
 			getCollectionId();
-			getProductList()
+			getProductList(renderProductList);
 			isCreate = true;
 		});
 		// edit collection
@@ -298,7 +341,7 @@
 				$('.c-create c-option-title').text('Edit Collection');
 				showCreateBlock();
 				initFormData(resData);
-				getProductList()
+				// getProductList(renderProductList);
 			});
 		});
 		// delete collection
@@ -309,15 +352,19 @@
 			$('#deleteModal .btn-ok').one('click', function () {
 				deleteCollectionData({
 					couponId: couponId,
-				}, getCollectionsData);
+				}, function() {
+					getCollectionsData();
+					getProductList(renderProductList);
+				});
 
 			});
 		});
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
 			saveCollectionData(getFormData(), function() {
-				getCollectionsData();
 				showInitBlock();
+				getCollectionsData();
+				getProductList(renderProductList);
 				isCreate = false;
 			});
 		});
@@ -338,6 +385,7 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
+			if (!hasParentCategory) getProductList(renderProductList);
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
@@ -352,7 +400,7 @@
 			$('#couponStatus').prop('checked', false);
 			$('#couponPriceBaseline').val('');
 			$('#couponCode').val('');
-			$('#couponPriceoff').val('');
+			$('#couponPriceoff').val('5');
 			$('#couponType').val('0');
 			$('#couponLuckdrawType').val('0');
 			$('#couponLuckdrawWeight').val('');
@@ -376,8 +424,12 @@
 			data.couponLuckdrawType = $('#couponLuckdrawType').val();
             data.couponLuckdrawWeight = $('#couponLuckdrawWeight').val();
 			data.couponProductonlyType = $('#couponProductonlyType').val();
-			// data.couponProductonlyPidstr = $('#couponProductonlyPidstr').val();
-			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').data('name');
+			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').val();
+			// data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
+			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
+			
+			
+			
 			data.couponStarttime = $('#couponStarttime').val();
 			data.couponEndtime = $('#couponEndtime').val();
 			return data;
@@ -413,8 +465,8 @@
 			if(showproduct==1){
 				$(".open_product").show();
 			};
-			// $('#couponProductonlyPidstr').val(data.couponProductonlyPidstr);
 			$('#couponProductonlyPidstr').val(data.couponProductonlyPidstr || '-1');
+			$('#couponProductonlyPidstr').attr('data-val', data.couponProductonlyPidstr || '-1');
 			$("#couponStarttime").val(data.couponStarttime);
 			$("#couponEndtime").val(data.couponEndtime);
 			
@@ -498,32 +550,6 @@
 				}
 			});
 		}
-		/****************/
-		function getProductList() {
-			$.ajax({
-				url: "${APP_PATH}/MlbackProduct/lownLoadProduct",
-				data:"productSupercateid=" +125,
-				type: "post",
-				async: false,
-				success: function (result) {
-					if (result.code == 100) {
-						console.log(result)
-						renderProductList($('#couponProductonlyPidstr'), result.extend.mlbackProductResList);
-					} else {
-						alert("联系管理员");
-					}
-				}
-			});
-		}
-		function renderProductList(el, data) {
-			var html = '<option value="-1">---无绑定产品---</option>';
-			for (var i = 0; i < data.length; i += 1) {
-				html += '<option value="' + data[i].productId + '">'+ data[i].productId+"    " + data[i].productName + '</option>';
-			}
-			el.html(html);
-		}
-		
-		
 		/**************/
 		// callback save
 		function saveCollectionData(reqData, callback) {
@@ -619,52 +645,149 @@
 			}
 			$('.c-table-table tbody').html(htmlStr);
 		}
+		/************/
 		function renderTabItems() {
 			var collections = getCollectionList(),
 				len = collections.length,
-				htmlStr = '';
+				htmlStr = '',
+				activeNum = parseInt(getActiveItemNum());
+		
 			if (len > 0) {
 				for (var i = 0; i < len; i += 1) {
-					htmlStr += createCollectionItem(collections[i])[0].outerHTML;
+					var $item = createCollectionItem(collections[i]);
+					$item.attr('data-idx', i+1);
+		
+					if (activeNum == i + 1) {
+						$item.addClass('active')
+					}
+		
+					htmlStr += $item[0].outerHTML;
 				}
-				$('.c-table-tab').append(htmlStr);
-				$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
+		
+				$('.c-table-tab-list').append(htmlStr);
 			}
+			// check activeItem exsits or not.
+			if ($('.c-table-tab-item.active').length < 1) {
+				$('.c-table-tab-item').eq(0).addClass('active');
+			}
+		
+			getTabSearchData($('.c-table-tab-item.active'));
 		}
-		function addTabItemEl(val) {
+		function checkNewItem(val) {
+			var collecitonList = getCollectionList();
+			if (collecitonList.length >= 6) {
+				// save-search-item num <= 6
+				toastr.info('You can add up to six search records！');
+				return true;
+			}
+				
+			var filterArr = collecitonList.filter(function(item) {
+				if (JSON.stringify(val) === JSON.stringify(item)) {
+					return item;
+				}
+			});
+		
+			if (filterArr.length > 0) {
+				toastr.info('You can not add it repeatedly！');
+				return true;
+			}
+			return false;
+		}
+		function addTableTabItem(val) {
 			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab').append(createCollectionItem(val));
+			$('.c-table-tab-list').append(createCollectionItem(val).addClass('active'));
+			setActiveItemNum($('.c-table-tab-item').length - 1);
 		}
 		function createCollectionItem(val) {
-			return $('<div class="c-table-tab-item active">' + val +
-				'<div class="delete-table-tab-item c-icon" data-item="' + val + '">x</div></div>');
+			var textArr = [];
+			// if (val.supercate) {
+			// 	textArr.push(val.supercate)
+			// }
+			if (val.collection) {
+				textArr.push(val.collection)
+			}
+		
+			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
 		}
-		function deleteCollectionEl(e) {
+		function deleteTableTabItem(e) {
 			e.stopPropagation();
 			var targetEl = $(e.target),
-				itemVal = targetEl.data('item'),
-				parentEl = targetEl.parent('.c-table-tab-item');
+				parentEl = targetEl.parent('.c-table-tab-item'),
+				itemVal = $(parentEl).data('val');
+
 			deleteCollectionItem(itemVal);
 			$(parentEl).remove();
+
 			$('.c-table-tab-item').eq(0).addClass('active');
-			getCollectionsData();
+			getTabSearchData($('.c-table-tab-item').eq(0));
 		}
 		function getCollectionList() {
-			return JSON.parse(storage.getItem('supercates')) || [];
+			return JSON.parse(storage.getItem('collections')) || [];
 		}
 		function deleteCollectionItem(name) {
 			var oldCollections = getCollectionList();
 			var newCollections = oldCollections.filter(function (item) {
-				if (item != name) return item;
+				if (JSON.stringify(item) != JSON.stringify(name)) return item;
 			});
-			storage.setItem('supercates', JSON.stringify(newCollections));
+			storage.setItem('collections', JSON.stringify(newCollections));
 		}
 		function addCollectionItem(name) {
 			var collections = getCollectionList();
-			collections.unshift(name);
-			storage.setItem('supercates', JSON.stringify(collections));
+			collections.push(name);
+			storage.setItem('collections', JSON.stringify(collections));
 		}
-		
+		// tab active-item cache (get & set)
+		function getActiveItemNum() {
+			return storage.getItem('itemNum') || 0;
+		}
+		function setActiveItemNum(num) {
+			storage.setItem('itemNum', num);
+		}
+		// initial activeItem
+		function initActiveItemNum() {
+			$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
+			setActiveItemNum(0);
+			setPageNum(1);
+		}
+		/************************************************************************************/
+		function getProductList(callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackProduct/lownLoadProduct",
+				type: "post",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					console.log(data)
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						callback(data.extend.mlbackProductResList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		function renderProductList(data) {
+			var htmlStr = '<option value="-1">Please Select parent-category</option>';
+			for (var i = 0; i < data.length; i += 1) {
+					htmlStr += '<option value="' + data[i].productId + '">'+ data[i].productId+"    " + data[i].productName + '</option>';
+				}
+			$('#couponProductonlyPidstr').html(htmlStr);
+			hasParentCategory = true;
+			initFormFiled();
+		}
+		function initFormFiled() {
+			$('#couponProductonlyPidstr').val($('#couponProductonlyPidstr').data('val') || '-1');
+		}
+
+
 		$(".choose_coup select").change(function () {
 			if ($(this).val() == 0) {
 				$(".open_1").hide();
@@ -688,6 +811,43 @@
 				$(".open_product").show();
 			}
 		});
+		/********************************/
+		// callback get search data
+		function getSearchCollectionsData(data) {
+			$('.c-mask').show();
+		
+			var formData = new FormData();
+			formData.append('couponName', $('#searchCollection').val());
+			formData.append('pn', getPageNum());
+			$.ajax({
+				url: "${APP_PATH }/MlbackCoupon/backSearchByCoupon",
+				type: "post",
+				processData: false,
+				contentType: false,
+				cache: false,
+				data: formData,
+				success: function (data) {
+					if (data.code == 100) {
+						console.log("******************")
+						console.log(data)
+						console.log("******************")
+						renderTable(data.extend.pageInfo.list);
+						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get Categeory, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		
+		
 		/*****************************/
 		function  datePickerint(){
 			$('.J-datepicker').datePicker({
