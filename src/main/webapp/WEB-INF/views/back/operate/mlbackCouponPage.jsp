@@ -114,7 +114,7 @@
 											<input class="form-control" id="couponPrice" type="text" />
 										</div>
 									</div>
-									<div class="form-group open_1" style="display: none;">
+									<div class="form-group open_1">
 										<label class="col-form-label" for="couponPriceoff">Preferential percentage</label>
 										<div class="controls">
 											<select id="couponPriceoff" name="couponPriceOff" class="form-control">
@@ -235,17 +235,12 @@
 		</div>
 		<jsp:include page="../layout/backfooter.jsp" flush="true"></jsp:include>
 	</div>
-
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
-
 	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
-	
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/daterangepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/daterangepicker/datepicker.min.js"></script>
-	
-	
 	<!-- custom script -->
 	<script>
 		var hasParentCategory = false;
@@ -325,11 +320,14 @@
 		// create collection
 		$('.btn-create').on('click', function () {
 			$('.c-create c-option-title').text('Create Collection');
+			$(".open_product").hide();
+			$(".open_draw").hide();
+			$(".open_1").hide();
 			showCreateBlock();
 			// init formData
 			resetFormData();
 			getCollectionId();
-			getProductList(renderProductList);
+			// getProductList(renderProductList);
 			isCreate = true;
 		});
 		// edit collection
@@ -403,7 +401,7 @@
 			$('#couponPriceoff').val('5');
 			$('#couponType').val('0');
 			$('#couponLuckdrawType').val('0');
-			$('#couponLuckdrawWeight').val('');
+			$('#couponLuckdrawWeight').val('0');
 			$('#couponProductonlyType').val('0');
 			$('#couponProductonlyPidstr').val('-1');
 			$('#couponStarttime').val('');
@@ -427,9 +425,6 @@
 			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').val();
 			// data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
 			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
-			
-			
-			
 			data.couponStarttime = $('#couponStarttime').val();
 			data.couponEndtime = $('#couponEndtime').val();
 			return data;
@@ -447,10 +442,11 @@
 			var coupontypezt = data.couponType;
 			console.log(coupontypezt)
 			if(coupontypezt==0){
-				$(".open_0").show()
+				$(".open_0").show();
+				$(".open_1").hide();
 			}else if(coupontypezt==1){
-				$(".open_1").show()
-				$(".open_0").hide()
+				$(".open_1").show();
+				$(".open_0").hide();
 			}
 			$('#couponLuckdrawType').val(data.couponLuckdrawType);
 			var drawtype = data.couponLuckdrawType;
@@ -462,9 +458,11 @@
 			$('#couponLuckdrawWeight').val(data.couponLuckdrawWeight);
 			$('#couponProductonlyType').val(data.couponProductonlyType);
 			var showproduct = data.couponProductonlyType;
-			if(showproduct==1){
+			if(showproduct==0){
+				$(".open_product").hide();
+			}else if(showproduct==1){
 				$(".open_product").show();
-			};
+			}
 			$('#couponProductonlyPidstr').val(data.couponProductonlyPidstr || '-1');
 			$('#couponProductonlyPidstr').attr('data-val', data.couponProductonlyPidstr || '-1');
 			$("#couponStarttime").val(data.couponStarttime);
@@ -611,6 +609,8 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var coupontype =data[i].couponType;
 			    var couponLuckdrawtype = data[i].couponLuckdrawType;
+			   var couponProductonlytype = data[i].couponProductonlyType;
+				
 				
 				// var couponPrice = $("<td></td>").append(type == 0 ? parseFloat(item.couponPrice) : '');
 				// var couponPriceOff = $("<td></td>").append(type == 1 ? item.couponPriceOff + '%' : '');
@@ -626,8 +626,8 @@
 					 '<td>' + data[i].couponCode + '</td>' +
 					 '<td>'+(couponLuckdrawtype == 1 ? 'yes' : 'no')+'</td>' +
 					  '<td>' + data[i].couponLuckdrawWeight + '%</td>' +
-					   '<td>' + data[i].couponProductonlyType +'</td>' +
-					   
+					   // '<td>' + data[i].couponProductonlyType +'</td>' +
+					   '<td>'+(couponProductonlytype == 1 ? 'yes' : 'no')+'</td>' +
 					   '<td>' + (data[i].couponStatus ? 'enable' : 'disable') + '</td>' +
 					 
 					'<td>' +

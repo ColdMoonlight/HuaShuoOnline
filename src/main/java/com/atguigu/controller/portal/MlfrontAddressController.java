@@ -54,6 +54,7 @@ public class MlfrontAddressController {
 		//封装国家code
 		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
 		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
+		mlfrontAddress.setAddressCountryCode(areafreightCountryCode);
 		//查询该国家的全称
 		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
 		Integer areafreightMoney = 0;
