@@ -15,83 +15,87 @@
 		<div class="container">
 			<div class="order-header"></div>			
 			<div class="order-body">
-				<div class="cart-box">
-					<div class="cart-box-title"><span class="order-sort">1</span>SHIPPING ADDRESS</div>
-					<div class="cart-box-body">
-						<div class="address-box">
-							<!-- address id -->
-							<input type="hidden" id="addressId" class="form-control" name="addressId">
-							<!-- first name -->
-							<div class="form-group">
-								<label for="addressUserfirstname" class="form-label">First Name</label>
-								<div class="form-input">
-									<input type="text" name="addressUserfirstname" id="addressUserfirstname" class="form-control">
+				<div class="order-left">
+					<div class="cart-box">
+						<div class="cart-box-title"><span class="order-sort">1</span>SHIPPING ADDRESS</div>
+						<div class="cart-box-body">
+							<div class="address-box">
+								<!-- address id -->
+								<input type="hidden" id="addressId" class="form-control" name="addressId">
+								<!-- first name -->
+								<div class="form-group">
+									<label for="addressUserfirstname" class="form-label">First Name</label>
+									<div class="form-input">
+										<input type="text" name="addressUserfirstname" id="addressUserfirstname" class="form-control">
+									</div>
+								</div>
+								<!-- last name -->
+								<div class="form-group">
+									<label for="addressUserlastname" class="form-label">Last Name</label>
+									<div class="form-input">
+										<input type="text" name="addressUserlastname" id="addressUserlastname" class="form-control">
+									</div>
+								</div>
+								<!-- email address -->
+								<div class="form-group">
+									<label for="addressEmail" class="form-label">Email Adress</label>
+									<div class="form-input">
+										<input type="text" name="addressEmail" id="addressEmail" class="form-control" placeholder="eg:@gmail.com,and so on">
+									</div>
+								</div>
+								<!-- telephone -->
+								<div class="form-group">
+									<label for="addressTelephone" class="form-label">Telephone</label>
+									<div class="form-input">
+										<input type="text" name="addressTelephone" id="addressTelephone" class="form-control">
+									</div>
+								</div>
+								<!-- address -->
+								<div class="form-group" style="width: 100%">
+									<label for="addressDetail" class="form-label required">Address</label>
+									<span class="address-detail-tip">Don't forget the apartment No.</span>
+									<div class="form-input">
+										<input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="street address (Dont't forget the apartment)">
+									</div>
+								</div>
+								<!-- country -->
+								<div class="form-group">
+									<label for="addressCountry" class="form-label">Country</label>
+									<div class="form-input">
+										<select name="addressCountry" id="addressCountry" class="form-control" value="US"></select>
+									</div>
+								</div>
+								<!-- stateprovinceName -->
+								<div class="form-group">
+									<label for="addressProvince" class="form-label">State/Province</label>
+									<div class="form-input">
+										<select name="addressProvince" id="addressProvince" class="form-control"></select>
+									</div>
+								</div>
+								<!-- city -->
+								<div class="form-group">
+									<label for="addressCity" class="form-label">City</label>
+									<div class="form-input">
+										<input type="text" name="addressCity" id="addressCity" class="form-control">
+									</div>
+								</div>
+								<!-- Zip/Postal code -->
+								<div class="form-group">
+									<label for="addressPost" class="form-label">Zip/Postal code</label>
+									<div class="form-input">
+										<input type="text" name="addressPost" id="addressPost" class="form-control">
+									</div>
 								</div>
 							</div>
-							<!-- last name -->
-							<div class="form-group">
-								<label for="addressUserlastname" class="form-label">Last Name</label>
-								<div class="form-input">
-									<input type="text" name="addressUserlastname" id="addressUserlastname" class="form-control">
-								</div>
+							<div class="order-address-shipping">
+								<div class="name">SHIPPING COST:</div>
+								<div class="value">$0</div>
 							</div>
-							<!-- email address -->
-							<div class="form-group">
-								<label for="addressEmail" class="form-label">Email Adress</label>
-								<div class="form-input">
-									<input type="text" name="addressEmail" id="addressEmail" class="form-control" placeholder="eg:@gmail.com,and so on">
-								</div>
-							</div>
-							<!-- telephone -->
-							<div class="form-group">
-								<label for="addressTelephone" class="form-label">Telephone</label>
-								<div class="form-input">
-									<input type="text" name="addressTelephone" id="addressTelephone" class="form-control">
-								</div>
-							</div>
-							<!-- address -->
-							<div class="form-group" style="width: 100%">
-								<label for="addressDetail" class="form-label required">Address</label>
-								<span class="address-detail-tip">Don't forget the apartment No.</span>
-								<div class="form-input">
-									<input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="street address (Dont't forget the apartment)">
-								</div>
-							</div>
-							<!-- country -->
-							<div class="form-group">
-								<label for="addressCountry" class="form-label">Country</label>
-								<div class="form-input">
-									<select name="addressCountry" id="addressCountry" class="form-control" value="US"></select>
-								</div>
-							</div>
-							<!-- stateprovinceName -->
-							<div class="form-group">
-								<label for="addressProvince" class="form-label">State/Province</label>
-								<div class="form-input">
-									<select name="addressProvince" id="addressProvince" class="form-control"></select>
-								</div>
-							</div>
-							<!-- city -->
-							<div class="form-group">
-								<label for="addressCity" class="form-label">City</label>
-								<div class="form-input">
-									<input type="text" name="addressCity" id="addressCity" class="form-control">
-								</div>
-							</div>
-							<!-- Zip/Postal code -->
-							<div class="form-group">
-								<label for="addressPost" class="form-label">Zip/Postal code</label>
-								<div class="form-input">
-									<input type="text" name="addressPost" id="addressPost" class="form-control">
-								</div>
-							</div>
-						</div>
-						<div class="order-address-shipping">
-							<div class="name">SHIPPING COST:</div>
-							<div class="value">$0</div>
 						</div>
 					</div>
 				</div>
+				
+				<div class="order-right"></div>
 			</div>
 		</div>
 	</main>
@@ -463,12 +467,12 @@
 				'</div>');
 			$cartReviewBox.find('.cart-box-body').append($orderList);
 
-			$('main .order-body').append($cartReviewBox);
+			$('main .order-left').append($cartReviewBox);
 		}
 		// render order couopons
 		function renderOrderCoupons() {
 			var $cartCouponBox = $('<div class="cart-box">'+
-					'<div class="cart-box-title"><span class="order-sort">5</span>ADDITIONAL INFORMATION</div>'+
+					'<div class="cart-box-title"><span class="order-sort">5</span>DISCOUNT CODES</div>'+
 					'<div class="cart-box-body">'+
 						'<div class="order-coupons">'+
 							'<div class="order-coupon-list"></div>'+
@@ -480,7 +484,7 @@
 						'</div>'+
 					'</div>'+
 				'</div>');
-			$('main .order-body').append($cartCouponBox);
+			$('main .order-right').append($cartCouponBox);
 		}
 		// render order payment method
 		function renderOrderPaymentMethod() {
@@ -505,7 +509,7 @@
 						'</div>'+
 					'</div>'+
 				'</div>');
-			$('main .order-body').append($cartPaymentBox);
+			$('main .order-right').append($cartPaymentBox);
 		}
 		// render order buyer message
 		function renderOrderBuyerMsg() {
@@ -515,7 +519,7 @@
 						'<div class="order-buyer-msg"><textarea rows="4" placeholder="Buyer message"></textarea></div>'+
 					'</div>'+
 				'</div>');
-			$('main .order-body').append($cartBuyerMsgBox);
+			$('main .order-right').append($cartBuyerMsgBox);
 		}
 		// render order cal
 		function rednerOrderCal() {
@@ -532,7 +536,7 @@
 						'</div>'+
 					'</div>'+
 				'</div>');
-			$('main .order-body').append($cartCalBox);
+			$('main .order-right').append($cartCalBox);
 		}
 		// check user input address info
 		function checkInputAdressInfo() {
@@ -596,10 +600,10 @@
 		function getOrderPayInfo() {
 			var couponData = $('.order-coupon-group').data('coupon');
 			return {
-				"orderId": $('.order-list').data('orderid'),
+				"orderId": $('.order-list').data('orderid') || null,
 				"orderOrderitemidstr": $('.order-list').data('itemidarr'),
-				"orderCouponId": couponData && couponData.mlbackCouponOne.couponId,
-				"orderCouponCode": couponData && couponData.mlbackCouponOne.couponCode,
+				"orderCouponId": couponData && couponData.mlbackCouponOne.couponId || '',
+				"orderCouponCode": couponData && couponData.mlbackCouponOne.couponCode || '',
 				"orderPayPlate": $('input[name="payment"]:checked').val(),
 				"orderProNumStr": $('.order-list').data('itemnumarr'),
 				"orderBuyMess": $('.order-buyer-msg textarea').val(),
@@ -624,8 +628,9 @@
 					goToCartList();
 					return ;
 				}
-				$('.order-list').data('orderid', data.orderId);
+
 				renderOrderList(orderListData);
+				$('.order-list').data('orderid', data.orderId);
 			});
 			renderOrderCoupons(); // 3
 			renderOrderPaymentMethod(); // 4
