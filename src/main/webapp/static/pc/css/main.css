@@ -1928,8 +1928,7 @@ footer li {
 	.order-header {		
 		background-image: url('../img/step/wap-step-2.jpg');
 	}
-	.cart-item,
-	.order-item {
+	.cart-item {
 		padding: 1rem;
 	}
 	.cart-item>.cart-product,
@@ -1960,7 +1959,6 @@ footer li {
 		border-top: 1px solid #e5e5e5;
 	}
 	.order-cal {
-		padding: 1rem;
 		border-top: 1px solid #e5e5e5;
 	}
 	.cart-cal-btn .btn {
@@ -2017,9 +2015,11 @@ footer li {
 	.order-cal {
 		flex-shrink: 0;
 		width: 20rem;
-		padding: 1rem;
 		margin-left: 1rem;
 		border: 2px solid #ccc;
+	}
+	.cart-cal {	
+		padding: 1rem;
 	}
 }
 
@@ -2099,10 +2099,6 @@ footer li {
 	color: #f00;
 	text-align: center;
 }
-.order-payment {
-	padding-top: 1rem;
-	padding-bottom: 1rem;
-}
 .order-payment-item {
 	display: flex;
 	align-items: center;
@@ -2126,13 +2122,12 @@ footer li {
 .order-buyer-msg>textarea {
 	width: 100%;
 }
-.address-box,
-.order-payment{
-	padding: 0 1rem;
-}
 
+.address-box,
 .order-item,
-.order-coupons {
+.order-coupons,
+.order-payment,
+.order-cal {
 	padding: 1rem;
 }
 @media only screen and (max-width: 575px) {
