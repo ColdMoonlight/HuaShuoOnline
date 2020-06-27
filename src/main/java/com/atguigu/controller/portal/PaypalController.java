@@ -77,9 +77,9 @@ public class PaypalController {
      * 组装参数,WAP端发起真实的支付
      * paypal/mpay
      * */
-    @RequestMapping(method = RequestMethod.GET, value = "pay")
+    @RequestMapping(method = RequestMethod.GET, value = "mpay")
     public String pay(HttpServletRequest request,HttpSession session){
-    	System.out.println("into**********/paypal/pay**********");
+    	System.out.println("into**********/paypal/mpay**********");
     	//99.0.1,准备支付前,从session中读取getPayInfo参数
     	ToPaypalInfo toPaypalInfo = getPayInfo(session);
     	//99.0.2,准备支付前,从session中获取优惠券减去额度
