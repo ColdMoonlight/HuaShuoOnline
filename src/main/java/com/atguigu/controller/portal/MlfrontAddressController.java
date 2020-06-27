@@ -50,7 +50,8 @@ public class MlfrontAddressController {
 		//接受参数信息
 		System.out.println("客户点击结算按钮的时候,接收到的mlfrontAddress:"+mlfrontAddress);
 		//拿到国家的code
-		String areafreightCountryCode = mlfrontAddress.getAddressCountry();
+//		String areafreightCountryCode = mlfrontAddress.getAddressCountry();
+		String areafreightCountryCode = mlfrontAddress.getAddressCountryCode();
 		//封装国家code
 		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
 		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
