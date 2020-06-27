@@ -309,17 +309,104 @@
 		}
 		// cal orderList data
 		function calOrderList () {
+			var couponData = $('.order-coupon-group').data('coupon');
 			var resData = {
 					prototal: 0,
 					subtotal: 0,
 					shipping: $('.order-address-shipping').data('shipping') || 0,
-					coupon: $('.order-coupon-price').data('coupon') || 0,
+					coupon: 0,
 				};
+			
 			$('.order-item').each(function(idx, item) {
-				var data = $(item).data('orderitem');
-				resData.count += data.orderitemPskuNumber;
-				resData.prototal += parseFloat((parseFloat(((data.orderitemProductOriginalprice + parseInt(data.orderitemPskuMoneystr || 0)) * data.orderitemProductAccoff / 100).toFixed(2)) * data.orderitemPskuNumber).toFixed(2));
+				var $data = $(item).data('orderitem');
+
+				var orderitemPrice = parseFloat((parseFloat((($data.orderitemProductOriginalprice + parseInt($data.orderitemPskuMoneystr || 0)) * ($data.orderitemProductAccoff) / 100).toFixed(2)) * $data.orderitemPskuNumber).toFixed(2));
+				// bind single-product discount
+				if (couponData && couponData.couponProductOnlyTypeifHave && couponData.mlbackCouponOne && (couponData.mlbackCouponOne.couponProductonlyPidstr == $data.orderitemPid)) {
+					if (couponData.mlbackCouponOne.couponType == '0') {
+						resData.coupon = couponData.mlbackCouponOne.couponPrice;
+					} else {
+						resData.coupon = parseFloat((orderitemPrice * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+					}
+				}
+
+				resData.prototal += orderitemPrice;
 			});
+			
+			// coupon code
+			if (couponData && !couponData.mlbackCouponOne) {
+				resData.coupon = 0;
+				createModal({
+	    			body: {
+	    				html: '<p>Code invalid !</p>'
+	    			},
+	    			autoClose: true
+	    		});
+			}
+
+			if (couponData && couponData.mlbackCouponOne) {
+				if (!couponData.couponProductOnlyTypeifHave) {
+					createModal({
+		    			body: {
+		    				html: '<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>'
+		    			},
+		    			autoClose: true
+		    		});
+					if (couponData.mlbackCouponOne.couponType == '0') {
+						if (!couponData.mlbackCouponOne.couponPriceBaseline) {
+							resData.coupon = couponData.mlbackCouponOne.couponPrice;
+						} else {
+							if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
+								resData.coupon = couponData.mlbackCouponOne.couponPrice;
+							} else {
+								resData.coupon = 0;
+								createModal({
+					    			body: {
+					    				html: '<p>The minimum usage price of this coupon is <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>'
+					    			},
+					    			autoClose: true
+					    		});
+							}
+						}
+					}
+
+					if (couponData.mlbackCouponOne.couponType == '1') {
+						if (!couponData.mlbackCouponOne.couponPriceBaseline) {
+							resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+						} else {
+							if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
+								resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+							} else {
+								resData.coupon = 0;
+								createModal({
+					    			body: {
+					    				html: '<p>The minimum usage price of this coupon is + <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>'
+					    			},
+					    			autoClose: true
+					    		});
+							}
+						}
+					}
+				} else {
+					var singProductId = couponData.mlbackCouponOne.couponProductonlyPidstr;
+					if (singProductId && $('.order-list').data('productidarr').indexOf(parseInt(singProductId)) > -1) {
+						createModal({
+			    			body: {
+			    				html: '<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>'
+			    			},
+			    			autoClose: true
+			    		});
+					} else {
+						createModal({
+			    			body: {
+			    				html: '<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> The coupon is invalid for the purchase of products, it is only applicable to specific products ! </p>'
+			    			},
+			    			autoClose: true
+			    		});
+					}					
+				}
+			}
+
 			resData.subtotal = resData.prototal + resData.shipping - resData.coupon;
 
 			return resData;
@@ -412,7 +499,7 @@
 					'<div class="cart-box-body">'+
 						'<div class="order-coupons">'+
 							'<div class="order-coupon-list"></div>'+
-							'<div class="order-coupon-group" data-coupon='+ JSON.stringify({id: '', code: ''})+'>'+
+							'<div class="order-coupon-group">'+
 								'<input type="text" placeholder="Please enter code" />'+
 								'<button id="order-check-coupon" class="btn btn-gray">check it</button>'+
 							'</div>'+
@@ -495,7 +582,7 @@
 			return flag;
 		}
 		// check couopon code
-		function checkCouponCode(reqData, calblack) {
+		function checkCouponCode(reqData, callback) {
 			$.ajax({
 				url: '${APP_PATH}/MlbackCoupon/getOneMlbackCouponDetailByCode',
 				data: JSON.stringify(reqData),
@@ -504,7 +591,14 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						calblack && callback();
+						callback && callback(data.extend);
+					} else {
+						createModal({
+			    			body: {
+			    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+			    			},
+			    			autoClose: true
+			    		});
 					}
 				},
 				error: function(err) {
@@ -531,18 +625,18 @@
 			return {
 				"orderId": $('.order-list').data('orderid'),
 				"orderOrderitemidstr": $('.order-list').data('itemidarr'),
-				"orderCouponId": couponData && couponData.id,
-				"orderCouponCode": couponData && couponData.code,
+				"orderCouponId": couponData && couponData.mlbackCouponOne.couponId,
+				"orderCouponCode": couponData && couponData.mlbackCouponOne.couponCode,
 				"orderPayPlate": $('input[name="payment"]:checked').val(),
 				"orderProNumStr": $('.order-list').data('itemnumarr'),
-				"orderBuyMess": $('.order-buyer-msg').val(),
+				"orderBuyMess": $('.order-buyer-msg textarea').val(),
 				"addressinfoId": $('#addressId').val(),	
 			}
 		}
 		// initial order for checkout 
 		function initialOrder() {
 			// 1
-			renderCountry();			
+			renderCountry();
 			countryCombineWithProvince();
 			// 2
 			getProductOrderList(function(data) {
@@ -594,15 +688,12 @@
 			var couponCode = $('.order-coupon-group input').val().trim();
 			if (couponCode) {
 				checkCouponCode({
-					"couponCreatetime": $('.cart-list').data('productidarr'),
+					"couponCreatetime": $('.order-list').data('productidarr'),
 					"couponCode": couponCode
-				}, function(data) {
-					$('.order-coupon-group').data('coupon', {
-						id: '',
-						code: ''
-					});
+				}, function(data) {					
+					$('.order-coupon-group').data('coupon', data);
 					resetOrderCal();
-				});				
+				});	
 			} else {
 				createModal({
 	    			body: {
