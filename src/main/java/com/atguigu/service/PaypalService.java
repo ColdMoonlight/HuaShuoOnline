@@ -166,6 +166,7 @@ public class PaypalService {
   		redirectUrls.setReturnUrl(successUrl);
   		payment.setRedirectUrls(redirectUrls);
 
+  		System.out.println(payment.toJSON());
         return payment.create(apiContext);
     }
 
@@ -269,7 +270,7 @@ public class PaypalService {
 		shippingAddress.setPhone(Phone);
 		String PostalCode = mlfrontAddress.getAddressPost();
 		shippingAddress.setPostalCode(PostalCode);
-		String CountryCode = mlfrontAddress.getAddressCountry();
+		String CountryCode = mlfrontAddress.getAddressCountryCode();
         shippingAddress.setCountryCode(CountryCode);
 		return shippingAddress;
 	}
