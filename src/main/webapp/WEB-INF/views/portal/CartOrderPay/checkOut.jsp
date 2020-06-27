@@ -318,61 +318,95 @@
 				};
 			
 			$('.order-item').each(function(idx, item) {
-				var data = $(item).data('orderitem');
-				var twoDiscount = !couponData
-					? 1 : couponData.couponProductOnlyTypeifHave && (couponData.mlbackCouponOne && (couponData.mlbackCouponOne.couponProductonlyPidstr == data.orderitemPid))
-						? couponData.mlbackCouponOne.couponPriceoff / 100 : 1;
-				if (twoDiscount < 1) resData.coupon = parseFloat((parseFloat(((data.orderitemProductOriginalprice + parseInt(data.orderitemPskuMoneystr || 0)) * (data.orderitemProductAccoff) / 100 * (1 - twoDiscount)).toFixed(2)) * data.orderitemPskuNumber).toFixed(2))
-				resData.prototal += parseFloat((parseFloat(((data.orderitemProductOriginalprice + parseInt(data.orderitemPskuMoneystr || 0)) * (data.orderitemProductAccoff) / 100).toFixed(2)) * data.orderitemPskuNumber).toFixed(2));
+				var $data = $(item).data('orderitem');
+
+				var orderitemPrice = parseFloat((parseFloat((($data.orderitemProductOriginalprice + parseInt($data.orderitemPskuMoneystr || 0)) * ($data.orderitemProductAccoff) / 100).toFixed(2)) * $data.orderitemPskuNumber).toFixed(2));
+				// bind single-product discount
+				if (couponData && couponData.couponProductOnlyTypeifHave && couponData.mlbackCouponOne && (couponData.mlbackCouponOne.couponProductonlyPidstr == $data.orderitemPid)) {
+					if (couponData.mlbackCouponOne.couponType == '0') {
+						resData.coupon = couponData.mlbackCouponOne.couponPrice;
+					} else {
+						resData.coupon = parseFloat((orderitemPrice * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+					}
+				}
+
+				resData.prototal += orderitemPrice;
 			});
 			
 			// coupon code
-			if (!couponData) {
+			if (couponData && !couponData.mlbackCouponOne) {
 				resData.coupon = 0;
-			} else {
-				if (!couponData.mlbackCouponOne) {
-					resData.coupon = 0;
-				} else {
-					if (!couponData.couponProductOnlyTypeifHave) {
-						if (couponData.mlbackCouponOne.couponType == '0') {
-							if (!couponData.mlbackCouponOne.couponPriceBaseline) {
-								resData.coupon = couponData.mlbackCouponOne.couponPrice
-							} else {
-								if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
-									resData.coupon = couponData.mlbackCouponOne.couponPrice;
-								} else {
-									resData.coupon = 0;
-									var modal = createModal({
-						    			body: {
-						    				html: '<p>The minimum usage price of this coupon is + <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>'
-						    			},
-						    			autoClose: true
-						    		});
-								}
-							}
-						}
+				createModal({
+	    			body: {
+	    				html: '<p>Code invalid !</p>'
+	    			},
+	    			autoClose: true
+	    		});
+			}
 
-						if (couponData.mlbackCouponOne.couponType == '1') {
-							if (!couponData.mlbackCouponOne.couponPriceBaseline) {
-								resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+			if (couponData && couponData.mlbackCouponOne) {
+				if (!couponData.couponProductOnlyTypeifHave) {
+					createModal({
+		    			body: {
+		    				html: '<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>'
+		    			},
+		    			autoClose: true
+		    		});
+					if (couponData.mlbackCouponOne.couponType == '0') {
+						if (!couponData.mlbackCouponOne.couponPriceBaseline) {
+							resData.coupon = couponData.mlbackCouponOne.couponPrice;
+						} else {
+							if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
+								resData.coupon = couponData.mlbackCouponOne.couponPrice;
 							} else {
-								if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
-									resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
-								} else {
-									resData.coupon = 0;
-									var modal = createModal({
-						    			body: {
-						    				html: '<p>The minimum usage price of this coupon is + <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>'
-						    			},
-						    			autoClose: true
-						    		});
-								}
+								resData.coupon = 0;
+								createModal({
+					    			body: {
+					    				html: '<p>The minimum usage price of this coupon is <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>'
+					    			},
+					    			autoClose: true
+					    		});
 							}
 						}
 					}
+
+					if (couponData.mlbackCouponOne.couponType == '1') {
+						if (!couponData.mlbackCouponOne.couponPriceBaseline) {
+							resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+						} else {
+							if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
+								resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+							} else {
+								resData.coupon = 0;
+								createModal({
+					    			body: {
+					    				html: '<p>The minimum usage price of this coupon is + <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>'
+					    			},
+					    			autoClose: true
+					    		});
+							}
+						}
+					}
+				} else {
+					var singProductId = couponData.mlbackCouponOne.couponProductonlyPidstr;
+					if (singProductId && $('.order-list').data('productidarr').indexOf(parseInt(singProductId)) > -1) {
+						createModal({
+			    			body: {
+			    				html: '<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>'
+			    			},
+			    			autoClose: true
+			    		});
+					} else {
+						createModal({
+			    			body: {
+			    				html: '<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> The coupon is invalid for the purchase of products, it is only applicable to specific products ! </p>'
+			    			},
+			    			autoClose: true
+			    		});
+					}					
 				}
 			}
-			
+
 			resData.subtotal = resData.prototal + resData.shipping - resData.coupon;
 
 			return resData;
@@ -557,22 +591,6 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						if (!data.extend.mlbackCouponOne) {
-							createModal({
-				    			body: {
-				    				html: '<p>Code invalid !</p>'
-				    			},
-				    			autoClose: true
-				    		});
-						} else {
-							createModal({
-				    			body: {
-				    				html: '<p><i style="color: #f00">'+ reqData.couponCode +'</i> Has been used ! </p>'
-				    			},
-				    			autoClose: true
-				    		});
-						}
-
 						callback && callback(data.extend);
 					} else {
 						createModal({
