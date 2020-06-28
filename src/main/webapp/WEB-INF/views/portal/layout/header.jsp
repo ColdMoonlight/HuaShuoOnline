@@ -5,7 +5,7 @@
 	<div class="pc-header">
 		<div class="ml-search">
 			<div class="container">
-				<a class="logo" href="${APP_PATH}/index.html">
+				<a class="logo" href="${APP_PATH}">
 					<img src="${APP_PATH }/static/common/dblogo.png" alt="megalook" title="megalook">
 				</a>
 				<div class="search-box">
@@ -41,7 +41,7 @@
 			<span id="menu" class="icon menu"></span>
 			<span class="icon person"></span>
 			<a href="TEL:(501)7226336" class="icon phone"></a>
-			<a class="logo" href="${APP_PATH}/index.html">
+			<a class="logo" href="${APP_PATH}">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
 			</a>
 			<span class="icon iphone"></span>
