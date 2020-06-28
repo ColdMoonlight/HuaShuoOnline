@@ -317,6 +317,7 @@
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
 		});
+		
 		// create collection
 		$('.btn-create').on('click', function () {
 			$('.c-create c-option-title').text('Create Collection');
