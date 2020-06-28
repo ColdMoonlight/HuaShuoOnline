@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCoupon;
+import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCouponService;
@@ -113,6 +114,23 @@ public class MlbackCouponController {
 		}
 		if(couponProductOnlyType==0){
 			mlbackCoupon.setCouponProductonlyPidstr("");
+		}else{
+			String productIdStr = mlbackCoupon.getCouponProductonlyPidstr();
+			
+			Integer productId = Integer.valueOf(productIdStr);
+			
+			MlbackProduct mlbackProduct = new MlbackProduct();
+			mlbackProduct.setProductId(productId);
+			List<MlbackProduct> mlbackProductList = mlbackProductService.selectMlbackProductByParam(mlbackProduct);
+			if(mlbackProductList.size()>0){
+				MlbackProduct mlbackProductOne = new MlbackProduct();
+				mlbackProductOne = mlbackProductList.get(0);
+				String pSeo = mlbackProductOne.getProductSeo();
+				String pName = mlbackProductOne.getProductName();
+				
+				mlbackCoupon.setCouponProductseonamesstronlyPid(pSeo);
+				mlbackCoupon.setCouponProductpronamesstronlyPid(pName);
+			}
 		}
 		//有id，update
 		mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);
