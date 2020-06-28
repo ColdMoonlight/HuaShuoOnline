@@ -27,8 +27,28 @@
 </head>
 
 <body>
-
 paySuccess页面
+<script type="text/javascript">
+function getsuccessinfo(){
+		  $.ajax({
+		  	url: '${APP_PATH }/MlfrontPayInfo/getsuccessPayinfo',
+		  	type: "POST",
+		  	success: function (data) {
+		  		//console.log(data)
+		  		var mlfrontOrderOne = data.extend.mlfrontOrderOne;
+		  		var payinfoId = data.extend.payinfoId;
+		  		var orderMoney = mlfrontOrderOne.orderMoney;
+		  		// console.log(mlfrontOrderOne);
+		  		//console.log("orderMoney:"+orderMoney);
+		  		getPayInfo(payinfoId,orderMoney);
+		  		
+		  		$(".order-id").val(mlfrontOrderOne.orderId);
+		  		
+		  	}
+		  });
+	  }
+	  
+</script>
 </body>
 
 </html>
