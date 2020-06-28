@@ -138,13 +138,13 @@
 									<div class="form-group">
 										<label class="col-form-label" for="productOriginalprice">Basic Price</label>
 										<div class="controls">
-											<input class="form-control" id="productOriginalprice" type="number" />
+											<input class="form-control" id="productOriginalprice" min="0" type="number" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="productActoffoff">Discount</label>
 										<div class="controls">
-											<input class="form-control" id="productActoffoff" type="number" />
+											<input class="form-control" id="productActoffoff" type="number" min="1" max="99" />
 										</div>
 									</div>
 									<div class="form-group">
@@ -299,13 +299,13 @@
 									<div class="form-group">
 										<label class="col-form-label" for="productReviewnum">Reviews Number</label>
 										<div class="controls">
-											 <input class="form-control" id="productReviewnum" type="number" />
+											 <input class="form-control" id="productReviewnum" type="number" min="0" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="productHavesalenum">Sale Number</label>
 										<div class="controls">
-											<input class="form-control" id="productHavesalenum" type="number" />
+											<input class="form-control" id="productHavesalenum" type="number" min="0" />
 										</div>
 									</div>
 								</div>
