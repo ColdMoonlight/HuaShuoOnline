@@ -114,23 +114,6 @@ public class MlbackCouponController {
 		}
 		if(couponProductOnlyType==0){
 			mlbackCoupon.setCouponProductonlyPidstr("");
-		}else{
-			String productIdStr = mlbackCoupon.getCouponProductonlyPidstr();
-			
-			Integer productId = Integer.valueOf(productIdStr);
-			
-			MlbackProduct mlbackProduct = new MlbackProduct();
-			mlbackProduct.setProductId(productId);
-			List<MlbackProduct> mlbackProductList = mlbackProductService.selectMlbackProductByParam(mlbackProduct);
-			if(mlbackProductList.size()>0){
-				MlbackProduct mlbackProductOne = new MlbackProduct();
-				mlbackProductOne = mlbackProductList.get(0);
-				String pSeo = mlbackProductOne.getProductSeo();
-				String pName = mlbackProductOne.getProductName();
-				
-				mlbackCoupon.setCouponProductseonamesstronlyPid(pSeo);
-				mlbackCoupon.setCouponProductpronamesstronlyPid(pName);
-			}
 		}
 		//有id，update
 		mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);
@@ -217,8 +200,7 @@ public class MlbackCouponController {
 	    if(mlbackCouponResList.size()>0){
 	      //1判断优惠码存在不存在
 	      mlbackCouponOne =mlbackCouponResList.get(0);
-	      //取出本优惠券中的绑定产品字段，如果未绑定产品0，过，
-//	      Integer couponProductOnlyType =  mlbackCouponOne.getCouponProductOnlyType();
+	      //取出本优惠券中的绑定产品字段，如果未绑定产品0，过
 	      Integer couponProductOnlyType =  mlbackCouponOne.getCouponProductonlyType();
 	      if(couponProductOnlyType==null){
 	    	  couponProductOnlyType = 0;
