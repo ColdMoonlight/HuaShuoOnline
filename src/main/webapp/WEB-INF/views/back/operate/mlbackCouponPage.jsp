@@ -317,6 +317,7 @@
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
 		});
+		
 		// create collection
 		$('.btn-create').on('click', function () {
 			$('.c-create c-option-title').text('Create Collection');
@@ -425,8 +426,19 @@
 			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').val();
 			// data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
 			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
+			data.couponProductseonamesstronlyPid = $('#couponProductonlyPidstr').find('option:selected').data("seo");
+			// var str = "999333aa5555123456789";
+			// str = str.match(/aa(\S*)/)[1];
+			// alert(str);//结果bbbcccdddeeefff
+			var str =$('#couponProductonlyPidstr').find('option:selected').text();
+			data.couponProductpronamesstronlyPid = str.match(/-(\S*)/)[1];
+			
+			
 			data.couponStarttime = $('#couponStarttime').val();
 			data.couponEndtime = $('#couponEndtime').val();
+			console.log("1111111111")
+			console.log(data)
+			console.log("1111111111")
 			return data;
 		}
 		// initFormData
@@ -777,7 +789,7 @@
 		function renderProductList(data) {
 			var htmlStr = '<option value="-1">Please Select parent-category</option>';
 			for (var i = 0; i < data.length; i += 1) {
-					htmlStr += '<option value="' + data[i].productId + '">'+ data[i].productId+"    " + data[i].productName + '</option>';
+					htmlStr += '<option value="' + data[i].productId + '" data-seo="' + data[i].productSeo + '">' + data[i].productId + '-'+ data[i].productName + '</option>';
 				}
 			$('#couponProductonlyPidstr').html(htmlStr);
 			hasParentCategory = true;
