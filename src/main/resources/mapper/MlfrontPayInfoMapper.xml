@@ -253,4 +253,13 @@
     where payInfo_id = #{payinfoId,jdbcType=INTEGER}
   </update>
   <!-- insertSelective -->
+  <!-- selectOneBy使用中selectMlfrontPayInfoById -->
+  <select id="selectMlfrontPayInfoById" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_payinfo 
+    where payInfo_id = #{payinfoId,jdbcType=INTEGER}
+  </select>
+  <!-- insertSelective -->
+  <!-- insertSelective -->
+  <!-- insertSelective -->
 </mapper>
