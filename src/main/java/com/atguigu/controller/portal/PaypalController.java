@@ -195,9 +195,9 @@ public class PaypalController {
             System.out.println(payment.toJSON());
             
             if(payment.getState().equals("approved")){
-                return "mfront/paySuccess";
+                return "portal/CartOrderPay/paySuccess";
             }else{
-            	return "mfront/payFail";
+            	return "portal/CartOrderPay/payFail";
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
