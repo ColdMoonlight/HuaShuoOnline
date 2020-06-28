@@ -477,6 +477,7 @@
 			
 		}
 		// callback id
+		
 		function getCollectionId() {
 			$('.c-mask').show();
 			$.ajax({
