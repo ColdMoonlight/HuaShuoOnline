@@ -41,7 +41,6 @@ public class MlbackCouponService {
 	 * 
 	 * */
 	public int updateByPrimaryKeySelective(MlbackCoupon mlbackCoupon) {
-		// TODO Auto-generated method stub
 		int  intReslut = mlbackCouponMapper.updateByPrimaryKeySelective(mlbackCoupon);
 		return intReslut;
 	}
