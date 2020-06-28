@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlPaypalShipAddress;
+import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
@@ -170,6 +171,20 @@ public class PaypalController {
         return "redirect:/MlbackCart/toCheakOut";
     }
     
+	/**
+	 * 1.0	onuse	20191225	检查
+	 * to分类MlbackAreafreight列表页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/toPaySuccessPage")
+	public String toPaySuccessPage(HttpSession session) throws Exception{
+		
+
+		return "portal/CartOrderPay/paySuccess";
+	}
+		
+    
     
     /**2.0
      * wap端返回成功页面
@@ -207,6 +222,8 @@ public class PaypalController {
         }
     	return "redirect:/MlbackCart/toCheakOut";
     }
+    
+    
     
 	/**3.0
      * wap端页面处理toUpdatePayInfoSuccess
