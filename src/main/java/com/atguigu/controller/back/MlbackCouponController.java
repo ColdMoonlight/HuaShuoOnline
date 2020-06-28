@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCoupon;
-import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCouponService;
@@ -188,8 +187,7 @@ public class MlbackCouponController {
 	    
 	    String couponCode = mlbackCoupon.getCouponCode();
 	    
-//	    String couponStr =  mlbackCoupon.getCouponAdminOperatorname();//当前这堆产品的id
-	    String nowOrderListPidstr =  mlbackCoupon.getCouponCreatetime();
+	    String nowOrderListPidstr =  mlbackCoupon.getCouponCreatetime();//当前这堆产品的id
 	    //接受信息
 	    MlbackCoupon mlbackCouponReq = new MlbackCoupon();
 	    mlbackCouponReq.setCouponCode(couponCode);
@@ -206,8 +204,6 @@ public class MlbackCouponController {
 	    	  couponProductOnlyType = 0;
 	      }
 	      if(couponProductOnlyType==1){
-//	        Integer couponPid = mlbackCouponOne.getCouponProductOnlyPId();
-//	        String couponPidStr = couponPid+"";
 	        String couponPidStr = mlbackCouponOne.getCouponProductonlyPidstr();
 	        String temPidStr="";
 	        if(nowOrderListPidstr.contains(",")){

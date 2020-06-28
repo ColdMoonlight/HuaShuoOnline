@@ -18,7 +18,7 @@ public class MlbackCoupon {
 
     private String couponCode;//优惠码  如  OFF15,,,,OFF15%    手动输入  
 
-    private String couponType;//优惠码类型  0满减的,1百分比折扣的    手动输入
+    private String couponType;//优惠码类型  0满减的,1百分比折扣的(手动输入)
 
     private Integer couponLuckdrawType;//优惠码是否支持抽奖  0不支持抽奖,1支持抽奖    手动输入
 
