@@ -191,7 +191,7 @@ public class MlfrontOrderController {
 	@ResponseBody
 	public Msg orderToPayInfo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontOrder mlfrontOrder){
 		//0.0接受参数信息
-		//System.out.println("mlfrontOrder:"+mlfrontOrder);
+		System.out.println("mlfrontOrder:"+mlfrontOrder);
 		Integer originalOrderId = mlfrontOrder.getOrderId();
 		String filnanyNumber = mlfrontOrder.getOrderPronumStr();
 		Integer CouponId =mlfrontOrder.getOrderCouponId();
@@ -248,7 +248,6 @@ public class MlfrontOrderController {
 		 * */
 		//2.0计算地址价格，计算优惠价格，插入order项目价格
 		//2.1拿到地址ID,
-//		Integer AddressId = mlfrontOrder.getAddressinfoId();
 		Integer AddressId = mlfrontOrder.getOrderAddressinfoId();
 		
 		if(AddressId==null){
@@ -280,7 +279,6 @@ public class MlfrontOrderController {
 		mlfrontOrderEnd.setOrderCouponCode(CouponCode);//优惠券字段
 		mlfrontOrderEnd.setOrderCouponPrice(CouponCodeMoney);//优惠券money
 		mlfrontOrderEnd.setOrderPayPlate(orderPayPlateInt);//结算方式
-//		mlfrontOrderEnd.setOrderProNumStr(filnanyNumber);//最终各个产品数量
 		mlfrontOrderEnd.setOrderPronumStr(filnanyNumber);//最终各个产品数量
 		mlfrontOrderEnd.setOrderBuyMess(buyMessStr);//留言
 		BigDecimal bigTotalprice = new BigDecimal(totalpriceStr);//总价的价格
@@ -291,7 +289,6 @@ public class MlfrontOrderController {
 		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderEnd);
 		//3.0将order信息写入payInfo信息中心//uid oid 支付方式，交易订单号，支付信息
 		//从orderId中查询uid,地址id,buyMess字段;
-//		Integer payAddressinfoId = mlfrontOrderEnd.getAddressinfoId();
 		Integer payAddressinfoId = mlfrontOrderEnd.getOrderAddressinfoId();
 		MlfrontAddress mlfrontAddress =new MlfrontAddress();
 		mlfrontAddress.setAddressId(payAddressinfoId);
