@@ -187,7 +187,7 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback & callback();
+						callback && callback();
 					} else {
 						var modal = createModal({
 		        			body: {
