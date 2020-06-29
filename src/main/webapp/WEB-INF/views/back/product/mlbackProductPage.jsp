@@ -828,7 +828,11 @@
 		});
 		// add one product sku
 		$('.product-sku-add').on('click', function() {
-			productSkuModal();
+			if (isCreate) {
+				toastr.warning('Create product status, the function is not available !');
+			} else {
+				productSkuModal();
+			}
 		});
 		// product sku form modal
 		function productSkuModal(data) {
@@ -847,10 +851,15 @@
 				});
 				$('#productSkuName').html(htmlStr);
 				if (data) {
-					$('#productSkuId').val(data.id);
-					$('#productSkuStock').val(data.stock);
-				    $('#productSkuPrice').val(data.price);
-				    $('#productSkuSku').val(data.sku);
+					$('#productSkuId').val(data.id || '');
+					$('#productSkuStock').val(data.stock || 0);
+				    $('#productSkuPrice').val(data.price || 0);
+				    $('#productSkuSku').val(data.sku || '');
+				} else {
+					$('#productSkuId').val('');
+					$('#productSkuStock').val(0);
+				    $('#productSkuPrice').val(0);
+				    $('#productSkuSku').val('');
 				}
 				$('#skuModal').modal('show');
 			});
