@@ -2,7 +2,6 @@
 <% pageContext.setAttribute("APP_PATH" , request.getContextPath()); %>
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>coupon list</title>
@@ -11,7 +10,6 @@
 	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 </head>
-
 <body class="c-app">
 	<jsp:include page="../layout/backheader.jsp" flush="true"></jsp:include>
 	<jsp:include page="../layout/backsidebar.jsp" flush="true"></jsp:include>
@@ -44,14 +42,15 @@
 									<tr>
 										<th>id</th>
 										<th>Name</th>
+										<th>couponCode</th>
 										<th>scope</th>
 										<th>couponType</th>
 										<th>couponPrice</th>
 										<th>couponPriceoff</th>
-										<th>couponCode</th>
 										<th>Draw or no</th>
 										<th>Weight</th>
 										<th>Product or no</th>
+										<th>Productid,SEO</th>
 										<th>state</th>
 										<th>operate</th>
 									</tr>
@@ -137,7 +136,6 @@
 											</select>
 										</div>
 									</div>
-									
 									<div class="form-group">
 										<label class="col-form-label" for="couponCode">Discount code:</label>
 										<div class="controls">
@@ -183,7 +181,6 @@
 									</div>
 								</div>
 							</div>
-
 						</div>
 						<!-- right panel -->
 						<div class="right-panel col-lg-5 col-md-12">
@@ -250,13 +247,10 @@
 		renderTabItems();
 		$('.btn-save-search').on('click', function () {
 			var searchCollectionVal = {
-				// supercate: $('#searchSupercate').find('option:selected').text(),
-				// supercateId: $('#searchSupercate').val(),
 				collection: $('#searchCollection').val()
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchCollectionVal)) return;
-			// if (parseInt(searchCollectionVal.supercateId) < 0) searchCollectionVal.supercate = "";
 			if (searchCollectionVal.collection) {
 				addCollectionItem(searchCollectionVal);
 				createCollectionItem(searchCollectionVal).addClass('active')
@@ -265,7 +259,6 @@
 			}
 		});
 		// search it
-
 		var oldTime = (new Date()).getTime(),
 			timer = null;
 		$('#searchCollection').on('keyup', function() {
@@ -285,7 +278,6 @@
 			// inital pagination num
 			setPageNum(1);
 			// check searchCollection
-		
 			$('.c-table-tab-item.active').removeClass('active');
 			$('.c-table-tab-tempory').html(createCollectionItem(searchCollectionVal).addClass('active'));
 			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
@@ -317,7 +309,6 @@
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
 		});
-		
 		// create collection
 		$('.btn-create').on('click', function () {
 			$('.c-create c-option-title').text('Create Collection');
@@ -325,10 +316,8 @@
 			$(".open_draw").hide();
 			$(".open_1").hide();
 			showCreateBlock();
-			// init formData
 			resetFormData();
 			getCollectionId();
-			// getProductList(renderProductList);
 			isCreate = true;
 		});
 		// edit collection
@@ -340,7 +329,6 @@
 				$('.c-create c-option-title').text('Edit Collection');
 				showCreateBlock();
 				initFormData(resData);
-				// getProductList(renderProductList);
 			});
 		});
 		// delete collection
@@ -355,7 +343,6 @@
 					getCollectionsData();
 					getProductList(renderProductList);
 				});
-
 			});
 		});
 		// save collection
@@ -377,7 +364,6 @@
 					isCreate = false;					
 				});
 			}
-
 			showInitBlock();
 		});
 		// tab create/init
@@ -407,7 +393,6 @@
 			$('#couponProductonlyPidstr').val('-1');
 			$('#couponStarttime').val('');
 			$('#couponEndtime').val('');
-			
 		}
 		// getFormdData
 		function getFormData() {
@@ -473,8 +458,6 @@
 			$('#couponProductonlyPidstr').attr('data-val', data.couponProductonlyPidstr || '-1');
 			$("#couponStarttime").val(data.couponStarttime);
 			$("#couponEndtime").val(data.couponEndtime);
-			
-			
 		}
 		// callback id
 		function getCollectionId() {
@@ -534,9 +517,6 @@
 				url: "${APP_PATH}/MlbackCoupon/getOneMlbackCouponDetailById",
 				type: "post",
 				data: reqData,
-				// data: JSON.stringify(reqData),
-				// dataType: 'json',
-				// contentType: 'application/json', 
 				success: function (data) {
 					if (data.code == 100) {
 						console.log(data.extend.mlbackCouponOne)
@@ -616,26 +596,18 @@
 				var coupontype =data[i].couponType;
 			    var couponLuckdrawtype = data[i].couponLuckdrawType;
 			   var couponProductonlytype = data[i].couponProductonlyType;
-				
-				
-				// var couponPrice = $("<td></td>").append(type == 0 ? parseFloat(item.couponPrice) : '');
-				// var couponPriceOff = $("<td></td>").append(type == 1 ? item.couponPriceOff + '%' : '');
-				
 				htmlStr += '<tr><td>' + data[i].couponId + '</td>' +
 					'<td>' + data[i].couponName + '</td>' +
+					 '<td>' + data[i].couponCode + '</td>' +
 					 '<td>' + data[i].couponPriceBaseline + '</td>' +
 					 '<td>'+(coupontype == 1 ? 'Discount' : 'Full')+'</td>' +
-					 // '<td>' + data[i].couponPrice + '</td>' +
 					 '<td>' +(coupontype == 0 ? parseFloat(data[i].couponPrice) : '')+ '</td>' +
-					 // '<td>' + data[i].couponPriceoff + '%</td>' +
-					  '<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff)+'%' : '')+ '</td>' +
-					 '<td>' + data[i].couponCode + '</td>' +
+					 '<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff)+'%' : '')+ '</td>' +
 					 '<td>'+(couponLuckdrawtype == 1 ? 'yes' : 'no')+'</td>' +
-					  '<td>' + data[i].couponLuckdrawWeight + '%</td>' +
-					   // '<td>' + data[i].couponProductonlyType +'</td>' +
-					   '<td>'+(couponProductonlytype == 1 ? 'yes' : 'no')+'</td>' +
-					   '<td>' + (data[i].couponStatus ? 'enable' : 'disable') + '</td>' +
-					 
+					 '<td>' + data[i].couponLuckdrawWeight + '%</td>' +
+					 '<td>'+(couponProductonlytype == 1 ? 'yes' : 'no')+'</td>' +
+					 '<td>'+(couponProductonlytype == 1 ? (data[i].couponProductonlyPidstr+' * '+data[i].couponProductseonamesstronlyPid) : 'All Product')+'</td>' +
+					 '<td>' + (data[i].couponStatus ? 'enable' : 'disable') + '</td>' +
 					'<td>' +
 					'<button class="btn btn-primary btn-edit" data-id="' + data[i].couponId + '">' +
 					'<svg class="c-icon">' +
@@ -666,17 +638,14 @@
 					if (activeNum == i + 1) {
 						$item.addClass('active')
 					}
-		
 					htmlStr += $item[0].outerHTML;
 				}
-		
 				$('.c-table-tab-list').append(htmlStr);
 			}
 			// check activeItem exsits or not.
 			if ($('.c-table-tab-item.active').length < 1) {
 				$('.c-table-tab-item').eq(0).addClass('active');
 			}
-		
 			getTabSearchData($('.c-table-tab-item.active'));
 		}
 		function checkNewItem(val) {
@@ -686,7 +655,6 @@
 				toastr.info('You can add up to six search records！');
 				return true;
 			}
-				
 			var filterArr = collecitonList.filter(function(item) {
 				if (JSON.stringify(val) === JSON.stringify(item)) {
 					return item;
@@ -706,13 +674,9 @@
 		}
 		function createCollectionItem(val) {
 			var textArr = [];
-			// if (val.supercate) {
-			// 	textArr.push(val.supercate)
-			// }
 			if (val.collection) {
 				textArr.push(val.collection)
 			}
-		
 			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
 		}
 		function deleteTableTabItem(e) {
@@ -720,10 +684,8 @@
 			var targetEl = $(e.target),
 				parentEl = targetEl.parent('.c-table-tab-item'),
 				itemVal = $(parentEl).data('val');
-
 			deleteCollectionItem(itemVal);
 			$(parentEl).remove();
-
 			$('.c-table-tab-item').eq(0).addClass('active');
 			getTabSearchData($('.c-table-tab-item').eq(0));
 		}
@@ -783,7 +745,7 @@
 		function renderProductList(data) {
 			var htmlStr = '<option value="-1">Please Select parent-category</option>';
 			for (var i = 0; i < data.length; i += 1) {
-					htmlStr += '<option value="' + data[i].productId + '" data-name="'+ data[i].productName + '" data-seo="' + data[i].productSeo + '">' + data[i].productId + '-'+ data[i].productName + '</option>';
+					htmlStr += '<option value="' + data[i].productId + '" data-name="'+ data[i].productName + '" data-seo="' + data[i].productSeo + '">' + data[i].productId + ' * '+ data[i].productName + '</option>';
 				}
 			$('#couponProductonlyPidstr').html(htmlStr);
 			hasParentCategory = true;
@@ -792,8 +754,6 @@
 		function initFormFiled() {
 			$('#couponProductonlyPidstr').val($('#couponProductonlyPidstr').data('val') || '-1');
 		}
-
-
 		$(".choose_coup select").change(function () {
 			if ($(this).val() == 0) {
 				$(".open_1").hide();
@@ -852,8 +812,6 @@
 				}
 			});
 		}
-		
-		
 		/*****************************/
 		function  datePickerint(){
 			$('.J-datepicker').datePicker({
@@ -880,9 +838,6 @@
 				 datePickerint()
 				
 			});
-		
-		
-		
 	</script>
 </body>
 
