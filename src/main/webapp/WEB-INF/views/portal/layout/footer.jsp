@@ -95,7 +95,7 @@
     		});
 		}
 	});
-
+	backTop();
 	function initFooterData(data) {
 		for (var key in footerData) {
 			var blockData = data[footerData[key]["data-key"]];
@@ -149,5 +149,31 @@
 			$('.footer-nav-body').slideUp().parents('.footer-nav').find('.icon').removeClass('sub').addClass('plus');
 			$(this).find('.icon').addClass('sub').removeClass('plus').parents('.footer-nav-item').find('.footer-nav-body').slideDown();
 		});
+	}
+	
+	function backTop() {
+		function toTop() {
+			if (window.pageYOffset > window.innerHeight) {
+				var $backTop = $('.back-top');
+				if (!$backTop.length) {
+					$backTop = $('<div id="back-top" class="back-top" title="back top"><span class="icon backtop"></span></div>');
+					$(document.body).append($backTop);
+				}
+				setTimeout(function() {
+					$backTop.addClass('active');
+				}, 100);
+			} else {
+				$('.back-top').hasClass('active') & $('.back-top').removeClass('active');
+			}
+		}
+		$(window).on('scroll', function() {
+			var timeEnd = Date.now();
+			if (timeEnd - timeStart < 100) clearTimeout(timer);
+			timeStart = timeEnd;
+			timer = setTimeout(toTop, 100);
+		});
+		$(document.body).on('click', '#back-top', function() {
+			$('html').animate({scrollTop: 0}, 500); 
+		})
 	}
 </script>
