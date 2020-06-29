@@ -2,7 +2,6 @@ package com.atguigu.controller.portal;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,16 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlPaypalShipAddress;
-import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.portal.ToPaypalInfo;
-import com.atguigu.common.Msg;
 import com.atguigu.enumC.PaypalPaymentIntent;
 import com.atguigu.enumC.PaypalPaymentMethod;
 import com.atguigu.service.MlPaypalShipAddressService;
@@ -35,9 +31,7 @@ import com.atguigu.service.PaypalService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.utils.URLUtils;
-import com.paypal.api.payments.Address;
 import com.paypal.api.payments.Links;
-import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
@@ -168,21 +162,6 @@ public class PaypalController {
         }
         return "redirect:/MlbackCart/toCheakOut";
     }
-//    
-//	/**
-//	 * 1.0	onuse	20191225	检查
-//	 * to分类MlbackAreafreight列表页面
-//	 * @param jsp
-//	 * @return 
-//	 * */
-//	@RequestMapping("/toPaySuccessPage")
-//	public String toPaySuccessPage(HttpSession session) throws Exception{
-//		
-//
-//		return "portal/CartOrderPay/paySuccess";
-//	}
-//		
-    
     
     /**2.0
      * wap端返回成功页面
