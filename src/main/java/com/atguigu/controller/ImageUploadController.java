@@ -27,7 +27,7 @@ import com.atguigu.utils.ImageNameUtil;
 import com.atguigu.utils.URLLocationUtils;
 
 /**
- * HomePage
+ * ImageUploadPage
  * @author
  */
 @Controller
@@ -64,7 +64,7 @@ public class ImageUploadController {
 		String categoryIdStr = categoryId+"";
 		String imgName = ImageNameUtil.getfilename(typeName,categoryIdStr);
 		
-		String uploadPath = "static/img/category";
+		String uploadPath = "static/upload/img/category";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		
 		//当前服务器路径
@@ -84,7 +84,7 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/imagecompress/category";
+		String uploadPathcompress = "static/upload/imagecompress/category";
 		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
 		
 		try {
@@ -124,7 +124,7 @@ public class ImageUploadController {
 		String productIdStr = productId+"";
 		String imgName = ImageNameUtil.getfilename(typeName,productIdStr);
 		
-		String uploadPath = "static/img/product";
+		String uploadPath = "static/upload/img/product";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		
 		//当前服务器路径
@@ -144,7 +144,7 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/imagecompress/product";
+		String uploadPathcompress = "static/upload/imagecompress/product";
 		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
 		
 		try {
@@ -181,7 +181,7 @@ public class ImageUploadController {
 		String productimgSortIdstr = productimgSortOrder+"";
 		String imgName = ImageNameUtil.getImageAllfilename(productIdStr,productimgSortIdstr);
 		
-		String uploadPath = "static/img/productAll";
+		String uploadPath = "static/upload/img/productAll";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		
 		//当前服务器路径
@@ -201,7 +201,7 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/imagecompress/productAll";
+		String uploadPathcompress = "static/upload/imagecompress/productAll";
 		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
 		
 		try {
@@ -272,7 +272,7 @@ public class ImageUploadController {
 		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
         System.out.println("basePathStr:"+basePathStr);
 		
-		String uploadPath = "static/img/productDiscount";
+		String uploadPath = "static/upload/img/productDiscount";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 				
 		String imageUrl ="";
@@ -288,7 +288,7 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/imagecompress/productDiscount";
+		String uploadPathcompress = "static/upload/imagecompress/productDiscount";
 		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
 		
 		try {
@@ -328,7 +328,7 @@ public class ImageUploadController {
 		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
         System.out.println("basePathStr:"+basePathStr);
 		
-		String uploadPath = "static/video/productVideoImage";
+		String uploadPath = "static/upload/video/productVideoImage";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 				
 		String imageUrl ="";
