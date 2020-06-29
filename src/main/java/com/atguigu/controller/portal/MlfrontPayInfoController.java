@@ -70,14 +70,14 @@ public class MlfrontPayInfoController {
 	
 	/**
 	 * 1.0	UseNow	0505
-	 * toMlfrontPayInfoSuccess列表页面
+	 * toPaySuccessPage列表页面
 	 * @param jsp
 	 * @return 
 	 * */
-	@RequestMapping("/toMlfrontPayInfoSuccess")
-	public String toMlfrontPayInfoSuccess() throws Exception{
+	@RequestMapping("/toPaySuccessPage")
+	public String toPaySuccessPage() throws Exception{
 	
-		return "mfront/paySuccess";
+		return "portal/CartOrderPay/paySuccess";
 	}
 	
 	/**
@@ -195,20 +195,6 @@ public class MlfrontPayInfoController {
 			
 		}		
 	}
-	
-	/**7.0	useOn	0505
-	 * MlfrontPayInfo	delete
-	 * @param id
-	 */
-	@RequestMapping(value="/delete",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg delete(@RequestBody MlfrontPayInfo mlfrontPayInfo){
-		//接收id信息
-		Integer payinfoIdId = mlfrontPayInfo.getPayinfoId();
-		mlfrontPayInfoService.deleteByPrimaryKey(payinfoIdId);
-		return Msg.success().add("resMsg", "delete success");
-	}
-	
 	
 	/**
 	 * 8.0	useOn	0505
