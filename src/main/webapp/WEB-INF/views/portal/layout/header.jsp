@@ -344,6 +344,7 @@
 			$iphoneAdvice = $('<div class="iphone-advice"><img src="${APP_PATH }/static/pc/img/iphone-advice.gif" /><span class="icon close"></span></div>');
 			$(document.body).append($iphoneAdvice)
 		}
+		$iphoneAdvice.show();
 	});
 	$(document.body).on('click', '.iphone-advice .close', function() {
 		$('.iphone-advice').hide();
