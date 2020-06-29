@@ -35,9 +35,12 @@ import com.atguigu.service.PaypalService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.utils.URLUtils;
+import com.paypal.api.payments.Address;
 import com.paypal.api.payments.Links;
+import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
 
 @Controller
@@ -48,11 +51,6 @@ public class PaypalController {
     public static final String PAYPAL_CANCEL_M_URL = "paypal/mcancel";
     public static final String PAYPAL_SUCCESS_M_URLIn = "msuccess";
     public static final String PAYPAL_CANCEL_M_URLIn = "mcancel";
-    //pc端相关路径
-//    public static final String PAYPAL_SUCCESS_P_URL = "paypal/psuccess";
-//    public static final String PAYPAL_CANCEL_P_URL = "paypal/pcancel";
-//    public static final String PAYPAL_SUCCESS_P_URLIn = "psuccess";
-//    public static final String PAYPAL_CANCEL_P_URLIn = "pcancel";
 
     private Logger log = LoggerFactory.getLogger(getClass());
     
@@ -505,12 +503,18 @@ public class PaypalController {
     private void toUpdatePayInfoStateSuccess(HttpSession session, String payerId, String paymentId, Payment payment) {
     	
     	//20200611
-    	//从交易信息中获取Transactions
-    	String paypalDescription =  payment.getTransactions().get(0).getDescription();
-    	
-    	String transactionId = payment.getTransactions().get(0).getRelatedResources().get(0).getSale().getId();
-    	
-    	String transactionState = payment.getTransactions().get(0).getRelatedResources().get(0).getSale().getState();
+    	//从交易信息中获取Transactions,
+    	Transaction TransactionReturn = payment.getTransactions().get(0);
+    	//包括交易id,交易标记,支付状态,
+    	String transactionId = TransactionReturn.getRelatedResources().get(0).getSale().getId();
+    	String paypalDescription =  TransactionReturn.getDescription();
+    	String transactionState = TransactionReturn.getRelatedResources().get(0).getSale().getState();
+    	//从交易信息中获取PayerInfo,
+    	PayerInfo payerInfoReturn = payment.getPayer().getPayerInfo();
+		//支付人,name,支付邮箱
+    	String paypayEmail = payerInfoReturn.getEmail();
+    	String paypayFirstName = payerInfoReturn.getFirstName();
+    	String paypayLastName = payerInfoReturn.getLastName();
     	
     	//从交易信息中获取Transactions
     	String paypalDescriptionArr[] = paypalDescription.split(",");
@@ -523,6 +527,9 @@ public class PaypalController {
     	DescIdStr = DescVipIdStr.replace("VIP", "");
     	Integer payinfoId =  Integer.parseInt(DescIdStr);
     	session.setAttribute("payinfoId", payinfoId);
+    	
+    	//paypal返回的付款地址
+    	insertMlPaypalShipAddressInfo(paymentId,DescIdStr,payerInfoReturn);
     	//修改支付单状态
     	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
 		mlfrontPayInfoNew.setPayinfoId(payinfoId);
@@ -556,8 +563,10 @@ public class PaypalController {
 		String payinfoPlateNum = teamLogo+payInfoTime+payinfoIdStr;
 		mlfrontPayInfoIOne.setPayinfoPlatenum(payinfoPlateNum);
 		mlfrontPayInfoIOne.setPayinfoTransidnum(transactionId);
-		mlfrontPayInfoIOne.setPayinfoTransStatus(transactionState);		
-		//从payment中获取id,state
+		mlfrontPayInfoIOne.setPayinfoTransStatus(transactionState);	
+		mlfrontPayInfoIOne.setPayinfoUemail(paypayEmail);
+		mlfrontPayInfoIOne.setPayinfoUname(paypayFirstName+" "+paypayLastName);
+		
 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoIOne);
 		session.setAttribute("mlfrontPayInfoIOne", mlfrontPayInfoIOne);
 		session.setAttribute("payinfoIdStr", payinfoIdStr);
@@ -566,6 +575,29 @@ public class PaypalController {
 	}
     
     /**
+     * 99.1.1wap+pc端
+     * insertMlPaypalShipAddressInfo
+     * 从返回中插入Paypal地址
+     * @param payment 
+     * */
+    private void insertMlPaypalShipAddressInfo(String paymentId, String payinfoIdStr, PayerInfo payerInfoReturn) {
+    	
+    	MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
+    	mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
+    	mlPaypalShipAddressReq.setShippingaddressState(payerInfoReturn.getShippingAddress().getState());
+    	mlPaypalShipAddressReq.setShippingaddressCity(payerInfoReturn.getShippingAddress().getCity());
+    	mlPaypalShipAddressReq.setShippingaddressPostalCode(payerInfoReturn.getShippingAddress().getPostalCode());
+    	mlPaypalShipAddressReq.setShippingaddressLine1(payerInfoReturn.getShippingAddress().getLine1());
+    	mlPaypalShipAddressReq.setShippingaddressLine2(payerInfoReturn.getShippingAddress().getLine2());
+    	mlPaypalShipAddressReq.setShippingaddressRecipientName(payerInfoReturn.getShippingAddress().getRecipientName());
+    	mlPaypalShipAddressReq.setShippingaddressRecipientName(payerInfoReturn.getEmail());
+    	mlPaypalShipAddressReq.setShippingaddressPayinfoid(payinfoIdStr);
+    	mlPaypalShipAddressReq.setShippingaddressPaymentid(paymentId);
+    	mlPaypalShipAddressService.insertSelective(mlPaypalShipAddressReq);
+		
+	}
+
+	/**
      * 
      * 99.2.1wap/pc端处理toUpdatePayInfoSuccess
      * @param payment 
