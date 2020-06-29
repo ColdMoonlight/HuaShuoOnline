@@ -1,31 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
+<!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>Pay Failure</title>
-	<% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <!--  禁用telphone -->
-  <meta name="format-detection" content="telephone=no">
-  <!-- 关闭下拉刷新 -->
-  <meta id="WV.Meta.DisableRefresh" value="true">
-  <!-- 禁用ios的bounces效果 -->
-  <meta id="WV.Meta.Share.Disabled" value="true">
-  <!-- uc 字体放大-->
-  <meta name="wap-font-scale" content="no">
-  <meta name="aplus-touch" content="1">
-  <link rel="stylesheet" href="${APP_PATH }/static/common/swiper/swiper.min.css">
-  <script src="${APP_PATH }/static/common/swiper/swiper.min.js"></script>
+	<title>Checkout</title>
+	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+	<style>main { margin: 0; }</style>
 </head>
 
 <body>
-payFail页面
+	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
+	<main>
+		<div class="container">
+		</div>
+	</main>
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+	<script>
+	
+	</script>
 </body>
-
 </html>

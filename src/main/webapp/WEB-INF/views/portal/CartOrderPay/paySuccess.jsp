@@ -1,54 +1,158 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
+<!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>Pay Success</title>
-  <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <!--  禁用telphone -->
-  <meta name="format-detection" content="telephone=no">
-  <!-- 关闭下拉刷新 -->
-  <meta id="WV.Meta.DisableRefresh" value="true">
-  <!-- 禁用ios的bounces效果 -->
-  <meta id="WV.Meta.Share.Disabled" value="true">
-  <!-- uc 字体放大-->
-  <meta name="wap-font-scale" content="no">
-  <meta name="aplus-touch" content="1">
-  <link rel="stylesheet" href="${APP_PATH }/static/common/swiper/swiper.min.css">
-  <script src="${APP_PATH }/static/common/swiper/swiper.min.js"></script>
-
-	
+	<title>Payment Success</title>
+	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+	<style>
+		main {
+			margin: 0;
+		}
+	</style>
 </head>
 
 <body>
-paySuccess页面
-<script type="text/javascript">
-function getsuccessinfo(){
-		  $.ajax({
-		  	url: '${APP_PATH }/MlfrontPayInfo/getsuccessPayinfo',
-		  	type: "POST",
-		  	success: function (data) {
-		  		//console.log(data)
-		  		var mlfrontOrderOne = data.extend.mlfrontOrderOne;
-		  		var payinfoId = data.extend.payinfoId;
-		  		var orderMoney = mlfrontOrderOne.orderMoney;
-		  		// console.log(mlfrontOrderOne);
-		  		//console.log("orderMoney:"+orderMoney);
-		  		getPayInfo(payinfoId,orderMoney);
-		  		
-		  		$(".order-id").val(mlfrontOrderOne.orderId);
-		  		
-		  	}
-		  });
-	  }
-	  
-</script>
+	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
+	<main>
+		<div class="container">
+			<div class="payment-header"></div>
+			<div class="payment-box payment-order">
+				<div class="payment-box-title">
+					<span class="icon cart"></span>
+					<span class="value">Show order summary</span>
+					<span class="icon arrow bottom"></span>
+					<span class="total-money"></span>
+				</div>
+				<div class="payment-box-body active">
+					<div class="payment-product"></div>
+					<div class="payment-cal"></div>
+				</div>
+			</div>
+			<div class="payment-box payment-buyer">
+				<div class="payment-box-title">
+					<span class="icon wallet"></span>
+					<div class="revceiver-info"></div>
+				</div>
+				<div class="payment-box-body">
+					<div class="payment-address payment-shipping-address"></div>
+					<div class="payment-address payment-billing-address"></div>
+				</div>
+			</div>
+			<p class="payment-tip">If there's any questions, plz contact the customer service </p>
+			<div class="payment-btn">
+				<a href="${APP_PATH}" class="btn btn-black">Continue Shopping</a>
+			</div>
+		</div>
+	</main>
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+	<script type="text/javascript">
+		function getPayInfo(reqData, callback) {
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayInfo/successPageGetPaymentInfo",
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				type: "post",
+				success: function (data) {
+					if (data.code == 100) {
+						callback & callback(data.extend);
+					}
+				}
+			});
+		}
+
+		function renerPaymentInfo(data) {
+			$('.payment-order .total-money').html('$' + data.payinfoMoney);
+
+			var paymentProductHtml = '';
+			data.list.forEach(function (item, idx) {
+				var productLink = item.orderitemPseo ? ('${APP_PATH}/' + item.orderitemPseo + '.html') : 'javascript:;';
+				paymentProductHtml += '<div class="payment-product-item">' +
+					'<a href="' + productLink + '"><img class="order-img" src="' + item.orderitemProductMainimgurl + '"></a>' +
+					'<div class="payment-product-details">' +
+					'<a class="payment-product-name" href="' + productLink + '">' + item.orderitemPname + '</a>' +
+					'<div class="payment-sku-list">' + item.orderitemPskuName + '</div>' +
+					'</div>' +
+					'<div class="payment-product-num">' +
+					'<span class="product-num">x' + item.orderitemPskuNumber + '</span>' +
+					'<span class="product-price">$' + (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? ((item.orderitemProductOriginalprice + parseFloat(item.orderitemPskuMoneystr)) * item.orderitemProductAccoff / 100) : 0).toFixed(2) + '</span>' +
+					'</div>' +
+					'</div>'
+			});
+			$('.payment-order .payment-product').html(paymentProductHtml);
+
+			var paymentCalHtml = '';
+			paymentCalHtml = '<div class="payment-cal-item">' +
+				'<span class="name">prototal: </span>' +
+				'<span class="value">$' + (parseFloat(data.payinfoMoney) + parseFloat(data.orderCouponPrice) - data.shipping).toFixed(2) + '</span>' +
+				'</div>' +
+				'<div class="payment-cal-item">' +
+				'<span class="name">shipping: </span>' +
+				'<span class="value">$' + data.shipping + '</span>' +
+				'</div>' +
+				'<div class="payment-cal-item">' +
+				'<span class="name">coupon: </span>' +
+				'<span class="value">-$' + data.orderCouponPrice + '</span></div>' +
+				'<div class="payment-cal-item">' +
+				'<span class="name">subtotal: </span>' +
+				'<span class="value">$' + data.payinfoMoney + '</span>' +
+				'</div>';
+			$('.payment-order .payment-cal').html(paymentCalHtml);
+
+		}
+
+		$(".payment-order .payment-box-title").on('click', function () {
+			if ($(".payment-order .payment-box-body").hasClass('active')) {
+				$(".payment-order .payment-box-body").removeClass('active').slideUp();
+				$(".payment-order .icon.arrow").removeClass('bottom').addClass('top');
+			} else {
+				$(".payment-order .payment-box-body").addClass('active').slideDown();
+				$(".payment-order .icon.arrow").removeClass('top').addClass('bottom');
+			}
+		});
+
+		function renderReceiverinfo(data) {
+			$('.revceiver-info').html('<div class="payment-buyer-name"><span class="name">Thank You </span><span class="value">' + data.addressUserfirstname + '</span></div>' +
+				'<div class="payment-orderid"><span class="name">Your Order ID: </span><span class="value">' + data.payinfoPlatenum + '</span></div>');
+
+			$(".payment-shipping-address").html('<div class="payment-address-title">Shipping Address</div>' +
+				'<div class="payment-address-item"><span class="name">Phone: </span><span class="value">' + data.addressTelephone + '</span></div>' +
+				'<div class="payment-address-item"><span class="name">Address: </span><span class="value">' + data.addressCountry + ' ' + data.addressProvince + ' ' + data.addressCity + ' ' + data.addressDetail + '</span></div>' +
+				'</div');
+		}
+		function renderPaypaladdress(data) {
+			$(".payment-billing-address").html('<div class="payment-address-title">Billing Address</div>' +
+				'<div class="payment-address-item"><span class="name">Postcode: </span><span class="value">' + data.shippingaddressPostalCode + '</span></div>' +
+				'<div class="payment-address-item"><span class="name">Address: </span><span class="value">' + data.shippingaddressCountryCode + ' ' + data.shippingaddressCity + ' ' + data.shippingaddressLine1 + '</span></div>' +
+				'</div');
+		}
+		
+
+		var payinfoId = '${sessionScope.payinfoId}';
+
+		getPayInfo({ "payinfoId":  payinfoId}, function (data) {
+			var resDataPayInfoOne = data.mlfrontPayInfoOne;
+			var resDataOrderItemList = data.mlfrontOrderItemList;
+			var resDataOrderPayOne = data.mlfrontOrderPayOneRes;
+			var resDataAddressOne = data.mlfrontAddressOne;
+			var mlPaypalShipAddressOne = data.mlPaypalShipAddressOne;
+			if (data.mlfrontPayInfoOne) {
+				var orderData = resDataOrderPayOne;
+				orderData.shipping = data.areafreightMoney;
+				orderData.list = resDataOrderItemList;
+				orderData.payinfoMoney = resDataPayInfoOne.payinfoMoney;
+	
+				resDataAddressOne.payinfoPlatenum = resDataPayInfoOne.payinfoPlatenum;
+	
+				renerPaymentInfo(orderData);
+				renderReceiverinfo(resDataAddressOne);
+				renderPaypaladdress(mlPaypalShipAddressOne);				
+			}
+		});
+	</script>
 </body>
 
 </html>
