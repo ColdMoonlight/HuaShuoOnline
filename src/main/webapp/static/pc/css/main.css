@@ -685,9 +685,38 @@ header {
 	border-radius: 50%;
 	background-color: #ff1671;
 }
-.wap-navbar>.iphone {
-	background: url('../img/common/icon-iphone.gif') no-repeat center;
-	background-size: 1.5rem;
+.wap-navbar>.share {
+	-webkit-animation: iphoneShare 0.5s ease-in-out alternate infinite;
+    animation: iphoneShare 0.5s ease-in-out alternate infinite;
+}
+@-webkit-keyframes iphoneShare {
+	0% { color: #333 }
+	100% { color: #fff }
+}
+@keyframes iphoneShare {
+	0% { color: #333 }
+	100% { color: #fff }
+}
+.iphone-advice {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 99999;
+	width: 100vw;
+	height: 100vh;
+	background-color: #333;
+}
+.iphone-advice>img {
+	width: 100%;
+	height: 100%;
+}
+.iphoen-advice>.close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 3rem;
+	height: 3rem;
+	font-size: 1.8rem;
 }
 .wap-navbar .search-box {
 	position: fixed;
