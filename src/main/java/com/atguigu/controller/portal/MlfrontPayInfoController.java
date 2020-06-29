@@ -1,5 +1,6 @@
 package com.atguigu.controller.portal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.atguigu.bean.MlPaypalShipAddress;
+import com.atguigu.bean.MlbackAreafreight;
+import com.atguigu.bean.MlfrontAddress;
+import com.atguigu.bean.MlfrontOrder;
+import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
+import com.atguigu.bean.MlfrontUser;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -200,8 +208,103 @@ public class MlfrontPayInfoController {
 		mlfrontPayInfoService.deleteByPrimaryKey(payinfoIdId);
 		return Msg.success().add("resMsg", "delete success");
 	}
-//	
-//	
+	
+	
+	/**
+	 * 8.0	useOn	0505
+	 * 查看单条类目的详情细节
+	 * @param MlfrontPayInfo
+	 * @return 
+	 */
+	@RequestMapping(value="/successPageGetPaymentInfo",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg successPageGetPaymentInfo(HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo){
+		
+		Integer payinfoId = mlfrontPayInfo.getPayinfoId();
+		//接受payinfoId
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		mlfrontPayInfoReq.setPayinfoId(payinfoId);
+		//1.查询本条pay支付单
+		List<MlfrontPayInfo> mlfrontPayInfoResList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoReq);
+		MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
+		if(mlfrontPayInfoResList.size()>0){
+			mlfrontPayInfoOne =mlfrontPayInfoResList.get(0);
+			//2.获取本条单子的orderId，2.1查询本条的order详情;2.2从详情中拿到addressid;2.3orderItemIDStr;2.4uid信息，历史购买次数;
+			//2.1查询本条的order详情;
+			Integer payinfoOid = mlfrontPayInfoOne.getPayinfoOid();
+			MlfrontOrder mlfrontOrderPay = new MlfrontOrder();
+			mlfrontOrderPay.setOrderId(payinfoOid);
+			List<MlfrontOrder> mlfrontOrderPayResList= mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPay);
+			MlfrontOrder mlfrontOrderPayOneRes = mlfrontOrderPayResList.get(0);
+			//2.2从详情中拿到addressid;
+			Integer addressinfoId = mlfrontOrderPayOneRes.getOrderAddressinfoId();
+			MlfrontAddress MlfrontAddressReq = new MlfrontAddress();
+			MlfrontAddressReq.setAddressId(addressinfoId);
+			List<MlfrontAddress> MlfrontAddressList = mlfrontAddressService.selectMlfrontAddressByParam(MlfrontAddressReq);
+			MlfrontAddress mlfrontAddressOne = MlfrontAddressList.get(0);
+			//2.2.1从地址中取出国家字段	addressCountry: "US"	addressCountryAll: "United States"
+			//从地址中拿到国家的code
+			String areafreightCountryCode = mlfrontAddressOne.getAddressCountryCode();
+			//封装国家code
+			MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
+			mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
+			//查询该国家的运费
+			List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
+			Integer areafreightMoney = 0;
+			if(mlbackAreafreightResList.size()>0){
+				areafreightMoney =mlbackAreafreightResList.get(0).getAreafreightPrice();	//拿到国家运费
+			}
+			//2.3从详情中拿到orderItemIDStr;
+			String orderItemIdsStr = mlfrontOrderPayOneRes.getOrderOrderitemidstr();
+			List<MlfrontOrderItem>  mlfrontOrderItemList = new ArrayList<MlfrontOrderItem>();
+			MlfrontOrderItem mlfrontOrderItemOne = new MlfrontOrderItem();
+			MlfrontOrderItem mlfrontOrderItemOneReq = new MlfrontOrderItem();
+			String orderItemIdStrArr [] = orderItemIdsStr.split(",");
+			String orderItemIdStr = "";
+			Integer orderItemIdInt = 0;
+			for(int i =0;i<orderItemIdStrArr.length;i++){
+				orderItemIdStr = orderItemIdStrArr[i];
+				orderItemIdInt = Integer.parseInt(orderItemIdStr);
+				mlfrontOrderItemOneReq.setOrderitemId(orderItemIdInt);
+				List<MlfrontOrderItem> mlfrontOrderItemResList = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemOneReq);
+				mlfrontOrderItemOne = mlfrontOrderItemResList.get(0);
+				mlfrontOrderItemList.add(mlfrontOrderItemOne);
+			}
+			//2.4uid信息
+			Integer uid = mlfrontOrderPayOneRes.getOrderUid();
+			MlfrontUser mlfrontUserOne = new MlfrontUser();
+			if(uid==null){
+				mlfrontUserOne = null;
+			}else{
+				MlfrontUser mlfrontUserReq = new MlfrontUser();
+				mlfrontUserReq.setUserId(uid);
+				List<MlfrontUser> mlfrontUserList = mlfrontUserService.selectMlfrontUserByConditionS(mlfrontUserReq);
+				mlfrontUserOne = mlfrontUserList.get(0);
+			}
+			//3.获取本payinfoid的paypal_shippingaddress地址;
+			MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
+			String shippingaddressPayinfoid=payinfoId+"";
+			mlPaypalShipAddressReq.setShippingaddressPayinfoid(shippingaddressPayinfoid);
+			List<MlPaypalShipAddress> mlPaypalShipAddressResList =mlPaypalShipAddressService.selectMlPaypalShipAddressByPayinfoid(mlPaypalShipAddressReq);
+			MlPaypalShipAddress mlPaypalShipAddressRes = new MlPaypalShipAddress();
+			if(mlPaypalShipAddressResList.size()==0){
+				System.out.println("xx调用了getOneMlfrontPayInfoDetail接口,paypal那边返回的地址为null,没有payment的返回地址");
+			}else{
+				mlPaypalShipAddressRes = mlPaypalShipAddressResList.get(0);
+			}
+			//完毕回传
+			return Msg.success().add("resMsg", "查看单条mlfrontPayInfoOne的详情细节完毕")
+						.add("mlfrontPayInfoOne", mlfrontPayInfoOne).add("mlfrontOrderPayOneRes", mlfrontOrderPayOneRes)
+						.add("mlfrontAddressOne", mlfrontAddressOne).add("mlfrontOrderItemList", mlfrontOrderItemList)
+						.add("mlfrontUserOne", mlfrontUserOne).add("mlPaypalShipAddressOne", mlPaypalShipAddressRes).add("areafreightMoney", areafreightMoney);
+		}else{
+			mlfrontPayInfoOne = null;
+			//账户异常
+			return Msg.success().add("resMsg", "查看单条mlfrontPayInfoOne的详情细节完毕").add("mlfrontPayInfoOne", mlfrontPayInfoOne);
+		}
+	}
+	
+	
 //	/**
 //	 * 8.0	useOn	0505
 //	 * 查看单条类目的详情细节
