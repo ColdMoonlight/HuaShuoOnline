@@ -10,7 +10,6 @@
 	<link href="${APP_PATH}/static/pc/js/jqzoom/jqzoom.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/pc/js/video/video.min.css" rel="stylesheet">
 	<script>
-		// console.log('${sessionScope}')
 		var productId = '${sessionScope.productDetailId}';
 		var seoTitle = '${sessionScope.mlbackProductMetaTitle}';
 		var seoDescription = '${sessionScope.mlbackProductMeteDesc}';

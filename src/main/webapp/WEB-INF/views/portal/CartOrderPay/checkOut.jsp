@@ -357,7 +357,7 @@
 			
 			if (couponData && couponData.mlbackCouponOne) {
 				if (!couponData.couponProductOnlyTypeifHave) {
-					if (couponData.couponProductonlyType) {
+					if (couponData.mlbackCouponOne.couponProductonlyType) {
 						$('.order-coupon-tip').html('<p>Code invalid !</p>');
 					} else {
 						if (couponData.mlbackCouponOne.couponType == '0') {
@@ -627,8 +627,8 @@
 			return {
 				"orderId": $('.order-list').data('orderid') || null,
 				"orderOrderitemidstr": $('.order-list').data('itemidarr'),
-				"orderCouponId": couponData && couponData.mlbackCouponOne.couponId || '',
-				"orderCouponCode": couponData && couponData.mlbackCouponOne.couponCode || '',
+				"orderCouponId": (couponData && couponData.mlbackCouponOne.couponId) || '',
+				"orderCouponCode": (couponData && couponData.mlbackCouponOne.couponCode) || '',
 				"orderPayPlate": $('input[name="payment"]:checked').val(),
 				"orderProNumStr": $('.order-list').data('itemnumarr'),
 				"orderBuyMess": $('.order-buyer-msg textarea').val(),
