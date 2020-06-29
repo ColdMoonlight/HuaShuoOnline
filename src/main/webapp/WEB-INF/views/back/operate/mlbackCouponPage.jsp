@@ -415,9 +415,6 @@
 			data.couponProductpronamesstronlyPid = $('#couponProductonlyPidstr').find('option:selected').data("name");
 			data.couponStarttime = $('#couponStarttime').val();
 			data.couponEndtime = $('#couponEndtime').val();
-			console.log("1111111111")
-			console.log(data)
-			console.log("1111111111")
 			return data;
 		}
 		// initFormData
@@ -431,7 +428,6 @@
 			$('#couponCode').val(data.couponCode);
 			$('#couponType').val(data.couponType);
 			var coupontypezt = data.couponType;
-			console.log(coupontypezt)
 			if(coupontypezt==0){
 				$(".open_0").show();
 				$(".open_1").hide();
@@ -469,7 +465,6 @@
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
-					console.log(data)
 					if (data.code == 100) {
 						$('#couponId').val(data.extend.mlbackCoupon.couponId);
 						toastr.success(data.extend.resMsg);
@@ -493,7 +488,6 @@
 				type: "post",
 				data: "pn=" + getPageNum(),
 				success: function (data) {
-					console.log(data)
 					if (data.code == 100) {
 						renderTable(data.extend.pageInfo.list);
 						renderTablePagination(data.extend.pageInfo);
@@ -519,7 +513,6 @@
 				data: reqData,
 				success: function (data) {
 					if (data.code == 100) {
-						console.log(data.extend.mlbackCouponOne)
 						callback(data.extend.mlbackCouponOne);
 						toastr.success(data.extend.resMsg);
 					} else {
@@ -545,7 +538,6 @@
 				contentType: 'application/json',
 				type: "post",
 				success: function (data) {
-					console.log(data)
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
 						callback();
@@ -572,7 +564,6 @@
 				contentType: 'application/json',
 				data: JSON.stringify(reqData),
 				success: function (data) {
-					console.log(data)
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
 						$('#deleteModal').modal('hide');
@@ -726,7 +717,6 @@
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
-					console.log(data)
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
 						callback(data.extend.mlbackProductResList);
@@ -794,9 +784,6 @@
 				data: formData,
 				success: function (data) {
 					if (data.code == 100) {
-						console.log("******************")
-						console.log(data)
-						console.log("******************")
 						renderTable(data.extend.pageInfo.list);
 						renderTablePagination(data.extend.pageInfo);
 						toastr.success(data.extend.resMsg);
