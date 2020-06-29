@@ -135,7 +135,6 @@ public class MlfrontOrderController {
 			//通过cartitem的之间查回该条信息，从中取出cartId
 			MlfrontOrderItem mlfrontOrderItemReq  =new MlfrontOrderItem();
 			mlfrontOrderItemReq.setOrderitemId(orderitemIdOriginal);
-//			List<MlfrontOrderItem> mlfrontOrderItemResList = mlfrontOrderItemService.selectMlfrontOrderItemByParam(mlfrontOrderItemReq);
 			List<MlfrontOrderItem> mlfrontOrderItemResList = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemReq);
 			if(mlfrontOrderItemResList.size()>0){
 				Integer orderId = mlfrontOrderItemResList.get(0).getOrderId();
@@ -191,7 +190,7 @@ public class MlfrontOrderController {
 	@ResponseBody
 	public Msg orderToPayInfo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontOrder mlfrontOrder){
 		//0.0接受参数信息
-		System.out.println("mlfrontOrder:"+mlfrontOrder);
+		//System.out.println("mlfrontOrder:"+mlfrontOrder);
 		Integer originalOrderId = mlfrontOrder.getOrderId();
 		String filnanyNumber = mlfrontOrder.getOrderPronumStr();
 		Integer CouponId =mlfrontOrder.getOrderCouponId();

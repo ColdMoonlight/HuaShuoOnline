@@ -206,7 +206,7 @@ public class MlfrontAddressController {
 	public Msg delete(@RequestBody MlfrontAddress mlfrontAddress){
 		//接收id信息
 		int addressId = mlfrontAddress.getAddressId();
-		int intResult = mlfrontAddressService.deleteByPrimaryKey(addressId);
+		mlfrontAddressService.deleteByPrimaryKey(addressId);
 		return Msg.success().add("resMsg", "delete success");
 	}
 	
@@ -223,7 +223,6 @@ public class MlfrontAddressController {
 		mlfrontAddress.setAddressMotifytime(nowtime);
 		//更新本条状态
 		mlfrontAddressService.updateByPrimaryKeySelective(mlfrontAddress);
-		//System.out.println(intResult);
 		return Msg.success().add("resMsg", "更新成功");
 	}
 	
