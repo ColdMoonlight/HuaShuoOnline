@@ -44,7 +44,7 @@
 			<a class="logo" href="${APP_PATH}">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
 			</a>
-			<span class="icon share" id="ml-share"></span>
+			<span class="icon share" id="iphone-share"></span>
 			<a href="${APP_PATH}/MlbackCart/toCartList" class="icon cart"><span class="num">0</span></a>
 			<span class="icon search"></span>
 
@@ -340,8 +340,8 @@
 	// iphone share
 	$('#iphone-share').on('click', function() {
 		var $iphoneAdvice = $('.iphone-advice');
-		if (!$iphoneAdvice) {
-			$iphoneAdvice = $('<div class="iphone-advice"><img src="${APP_PATH }/static/common/iphone-advice.gif" /><span class="icon close"></span></div>');
+		if (!$iphoneAdvice.length) {
+			$iphoneAdvice = $('<div class="iphone-advice"><img src="${APP_PATH }/static/pc/img/iphone-advice.gif" /><span class="icon close"></span></div>');
 			$(document.body).append($iphoneAdvice)
 		}
 	});
