@@ -1136,11 +1136,15 @@
 		// upload main img
 		$('#productImgurl').on('change', function(e) {
 			var $this = $(this);
+			var file = $this[0].files[0];
+			var formData = new FormData();
+
+			if (!file) return false;
+
 			$this.parent().find('.spinner').show();
 
-			var formData = new FormData();
 			formData.append('type', 'product');
-			formData.append('image', $this[0].files[0]);
+			formData.append('image', file);
 			formData.append('productId', parseInt($('#productId').val()));
 			formData.append('productSeo', $('#productSeo').val());
 
@@ -1173,11 +1177,15 @@
 		// upload discount img
 		$('#productDiscoutimgurl').on('change', function(e) {
 			var $this = $(this);
+			var file = $this[0].files[0];
+			var formData = new FormData();
+
+			if (!file) return false;
+
 			$this.parent().find('.spinner').show();
 
-			var formData = new FormData();
 			formData.append('type', 'productDiscout');
-			formData.append('image', $this[0].files[0]);
+			formData.append('image', file);
 			formData.append('productId', parseInt($('#productId').val()));
 
 			$.ajax({
@@ -1219,7 +1227,11 @@
 			var videoFile = $this[0].files[0];
 			var productId = parseInt($('#productId').val());
 			var resVideoData = {};
+
+			if (!videoFile) return false;
+
 			$this.parent().find('.spinner').show();
+
 			generateVideoPoster(videoFile, function(data) {
 				// poster
 				var posterFormData = new FormData();            	
@@ -1322,10 +1334,14 @@
 		// upload details img
 		$(document.body).on('change', '.productAllImgurl', function(e) {
 			var $this = $(this);
-			$this.parent().find('.spinner').show();
-
+			var file = $this[0].files[0];
 			var formData = new FormData();
-			formData.append('imageAll', $this[0].files[0]);
+
+			if (!file) return false;
+
+			$this.parent().find('.spinner').show();
+			
+			formData.append('imageAll', file);
 			formData.append('productId', parseInt($('#productId').val()));
 			formData.append('productimgSortOrder', $this.data('order'));
 
