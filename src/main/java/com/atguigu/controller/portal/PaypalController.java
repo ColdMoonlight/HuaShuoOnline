@@ -2,7 +2,6 @@ package com.atguigu.controller.portal;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,16 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlPaypalShipAddress;
-import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.portal.ToPaypalInfo;
-import com.atguigu.common.Msg;
 import com.atguigu.enumC.PaypalPaymentIntent;
 import com.atguigu.enumC.PaypalPaymentMethod;
 import com.atguigu.service.MlPaypalShipAddressService;
@@ -35,9 +31,7 @@ import com.atguigu.service.PaypalService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.utils.URLUtils;
-import com.paypal.api.payments.Address;
 import com.paypal.api.payments.Links;
-import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
@@ -169,21 +163,6 @@ public class PaypalController {
         return "redirect:/MlbackCart/toCheakOut";
     }
     
-	/**
-	 * 1.0	onuse	20191225	检查
-	 * to分类MlbackAreafreight列表页面
-	 * @param jsp
-	 * @return 
-	 * */
-	@RequestMapping("/toPaySuccessPage")
-	public String toPaySuccessPage(HttpSession session) throws Exception{
-		
-
-		return "portal/CartOrderPay/paySuccess";
-	}
-		
-    
-    
     /**2.0
      * wap端返回成功页面
      * mfront/paySuccess
@@ -221,107 +200,105 @@ public class PaypalController {
     	return "redirect:/MlbackCart/toCheakOut";
     }
     
-    
-    
-	/**3.0
-     * wap端页面处理toUpdatePayInfoSuccess
-     * 
-     * */
-    @RequestMapping(value = "/tomUpdatePayInfoSuccess",method = RequestMethod.POST)
-    @ResponseBody
-    public Msg msuccessPage(HttpSession session,@RequestParam("pageStr") String pageStr){
-    	
-    	//判断是否客户第一次成功页面执行
-    	String lastSuccessPayinfoid = (String) session.getAttribute("lastSuccessPayinfoid");
-    	if(lastSuccessPayinfoid==null){
-    		//如果这个字段不存在,第一次来
-    		System.out.println("判断是否客户第一次成功页面执行-如果这个字段不存在,说明是第一次执行");
-    		String paymentId = (String) session.getAttribute("successpaymentId");
-        	String payerId = (String) session.getAttribute("successpayerId");
-        	//
-        	Payment payment = (Payment) session.getAttribute("successpayment"); 
-        	//99.2.1wap+pc端处理toUpdatePayInfoSuccess(更新order表的状态+发送邮件+更新user表的vip等级)
-        	toUpdateOrderInfoSuccess(session,payerId,paymentId);
-        	
-        	PayerInfo PayerInfo = payment.getPayer().getPayerInfo();//临时注释，必须放开
-        	
-        	Integer payinfoId = (Integer) session.getAttribute("payinfoId");
-        	//3.0.2wap+pc端处理insertPaypalReturnAddress
-        	insertPaypalReturnAddress(PayerInfo,payinfoId,paymentId);//临时注释，必须放开
-        	session.setAttribute("lastSuccessPayinfoid", payinfoId+"");
-        	
-        	// 获取session中所有的键值  
-        	Enumeration<String> attrs = session.getAttributeNames();  
-        	// 遍历attrs中的
-        	while(attrs.hasMoreElements()){
-        		// 获取session键值
-        	    String name = attrs.nextElement().toString();
-        	    // 根据键值取session中的值  
-        	    Object vakue = session.getAttribute(name);
-        	    // 打印结果 
-        	    //System.out.println("------" + name + ":" + vakue +"--------\n");
-        	}    		
-    	}else{
-    		Integer lastSuccessPayinfoidInt = Integer.parseInt(lastSuccessPayinfoid);
-    		Integer payinfoId = (Integer) session.getAttribute("payinfoId");
-    		if(lastSuccessPayinfoidInt.equals(payinfoId)){
-    			//如果这个字段存在,相等
-    			System.out.println("如果这个字段存在,且相等,不再执行,直接跳过即可,再此输出说明一下");
-    		}else{
-    			//如果这个字段存在,但是不等,说明是此用户重复购买，继续执行
-    			System.out.println("如果这个字段存在,但是不等,说明是此用户重复购买，继续执行");
-    			String paymentId = (String) session.getAttribute("successpaymentId");
-            	String payerId = (String) session.getAttribute("successpayerId");
-            	//
-            	Payment payment = (Payment) session.getAttribute("successpayment"); 
-            	//99.2.1wap+pc端处理toUpdatePayInfoSuccess(更新order表的状态+发送邮件+更新user表的vip等级)
-            	toUpdateOrderInfoSuccess(session,payerId,paymentId);
-            	
-            	PayerInfo PayerInfo = payment.getPayer().getPayerInfo();//临时注释，必须放开
-            	
-            	payinfoId = (Integer) session.getAttribute("payinfoId");
-            	//3.0.2wap+pc端处理insertPaypalReturnAddress
-            	insertPaypalReturnAddress(PayerInfo,payinfoId,paymentId);//临时注释，必须放开
-            	session.setAttribute("lastSuccessPayinfoid", payinfoId+"");
-    		}
-    		
-    	}
-    	
-    	return Msg.success().add("resMsg", "UpdatePayInfoSuccess");
-    }
+//	/**3.0
+//     * wap端页面处理toUpdatePayInfoSuccess
+//     * 
+//     * */
+//    @RequestMapping(value = "/tomUpdatePayInfoSuccess",method = RequestMethod.POST)
+//    @ResponseBody
+//    public Msg msuccessPage(HttpSession session,@RequestParam("pageStr") String pageStr){
+//    	
+//    	//判断是否客户第一次成功页面执行
+//    	String lastSuccessPayinfoid = (String) session.getAttribute("lastSuccessPayinfoid");
+//    	if(lastSuccessPayinfoid==null){
+//    		//如果这个字段不存在,第一次来
+//    		System.out.println("判断是否客户第一次成功页面执行-如果这个字段不存在,说明是第一次执行");
+//    		String paymentId = (String) session.getAttribute("successpaymentId");
+//        	String payerId = (String) session.getAttribute("successpayerId");
+//        	//
+//        	Payment payment = (Payment) session.getAttribute("successpayment"); 
+//        	//99.2.1wap+pc端处理toUpdatePayInfoSuccess(更新order表的状态+发送邮件+更新user表的vip等级)
+//        	toUpdateOrderInfoSuccess(session,payerId,paymentId);
+//        	
+//        	PayerInfo PayerInfo = payment.getPayer().getPayerInfo();//临时注释，必须放开
+//        	
+//        	Integer payinfoId = (Integer) session.getAttribute("payinfoId");
+//        	//3.0.2wap+pc端处理insertPaypalReturnAddress
+//        	insertPaypalReturnAddress(PayerInfo,payinfoId,paymentId);//临时注释，必须放开
+//        	session.setAttribute("lastSuccessPayinfoid", payinfoId+"");
+//        	
+//        	// 获取session中所有的键值  
+//        	Enumeration<String> attrs = session.getAttributeNames();  
+//        	// 遍历attrs中的
+//        	while(attrs.hasMoreElements()){
+//        		// 获取session键值
+//        	    String name = attrs.nextElement().toString();
+//        	    // 根据键值取session中的值  
+//        	    Object vakue = session.getAttribute(name);
+//        	    // 打印结果 
+//        	    //System.out.println("------" + name + ":" + vakue +"--------\n");
+//        	}    		
+//    	}else{
+//    		Integer lastSuccessPayinfoidInt = Integer.parseInt(lastSuccessPayinfoid);
+//    		Integer payinfoId = (Integer) session.getAttribute("payinfoId");
+//    		if(lastSuccessPayinfoidInt.equals(payinfoId)){
+//    			//如果这个字段存在,相等
+//    			System.out.println("如果这个字段存在,且相等,不再执行,直接跳过即可,再此输出说明一下");
+//    		}else{
+//    			//如果这个字段存在,但是不等,说明是此用户重复购买，继续执行
+//    			System.out.println("如果这个字段存在,但是不等,说明是此用户重复购买，继续执行");
+//    			String paymentId = (String) session.getAttribute("successpaymentId");
+//            	String payerId = (String) session.getAttribute("successpayerId");
+//            	//
+//            	Payment payment = (Payment) session.getAttribute("successpayment"); 
+//            	//99.2.1wap+pc端处理toUpdatePayInfoSuccess(更新order表的状态+发送邮件+更新user表的vip等级)
+//            	toUpdateOrderInfoSuccess(session,payerId,paymentId);
+//            	
+//            	PayerInfo PayerInfo = payment.getPayer().getPayerInfo();//临时注释，必须放开
+//            	
+//            	payinfoId = (Integer) session.getAttribute("payinfoId");
+//            	//3.0.2wap+pc端处理insertPaypalReturnAddress
+//            	insertPaypalReturnAddress(PayerInfo,payinfoId,paymentId);//临时注释，必须放开
+//            	session.setAttribute("lastSuccessPayinfoid", payinfoId+"");
+//    		}
+//    		
+//    	}
+//    	
+//    	return Msg.success().add("resMsg", "UpdatePayInfoSuccess");
+//    }
   
-    /**
-     * 3.0.2wap端处理
-     * insertPaypalReturnAddress
-     * */
-    @SuppressWarnings("deprecation")
-	private void insertPaypalReturnAddress(PayerInfo payerInfo, Integer payinfoId, String paymentId) {
-    	
-    	String email =  payerInfo.getEmail();
-    	String RecipientName =  payerInfo.getShippingAddress().getRecipientName();
-    	String Line1 =  payerInfo.getShippingAddress().getLine1();
-    	String Line2 =  payerInfo.getShippingAddress().getLine2();
-    	String City =  payerInfo.getShippingAddress().getCity();
-    	String countryCode =  payerInfo.getShippingAddress().getCountryCode();
-    	String PostalCode =  payerInfo.getShippingAddress().getPostalCode();
-    	String State =  payerInfo.getShippingAddress().getState();
-    	
-    	String payinfoIdStr =  payinfoId+"";
-    	MlPaypalShipAddress mlPaypalShipAddress = new MlPaypalShipAddress();
-    	mlPaypalShipAddress.setShippingaddressPayinfoid(payinfoIdStr);
-    	mlPaypalShipAddress.setShippingaddressPaymentid(paymentId);
-    	mlPaypalShipAddress.setShippingaddressEmail(email);
-    	mlPaypalShipAddress.setShippingaddressRecipientName(RecipientName);
-    	mlPaypalShipAddress.setShippingaddressLine1(Line1);
-    	mlPaypalShipAddress.setShippingaddressLine2(Line2);
-    	mlPaypalShipAddress.setShippingaddressCity(City);
-    	mlPaypalShipAddress.setShippingaddressCountryCode(countryCode);
-    	mlPaypalShipAddress.setShippingaddressPostalCode(PostalCode);
-    	mlPaypalShipAddress.setShippingaddressState(State);
-    	
-    	mlPaypalShipAddressService.insertSelective(mlPaypalShipAddress);
-    	
-	}
+//    /**
+//     * 3.0.2wap端处理
+//     * insertPaypalReturnAddress
+//     * */
+//    @SuppressWarnings("deprecation")
+//	private void insertPaypalReturnAddress(PayerInfo payerInfo, Integer payinfoId, String paymentId) {
+//    	
+//    	String email =  payerInfo.getEmail();
+//    	String RecipientName =  payerInfo.getShippingAddress().getRecipientName();
+//    	String Line1 =  payerInfo.getShippingAddress().getLine1();
+//    	String Line2 =  payerInfo.getShippingAddress().getLine2();
+//    	String City =  payerInfo.getShippingAddress().getCity();
+//    	String countryCode =  payerInfo.getShippingAddress().getCountryCode();
+//    	String PostalCode =  payerInfo.getShippingAddress().getPostalCode();
+//    	String State =  payerInfo.getShippingAddress().getState();
+//    	
+//    	String payinfoIdStr =  payinfoId+"";
+//    	MlPaypalShipAddress mlPaypalShipAddress = new MlPaypalShipAddress();
+//    	mlPaypalShipAddress.setShippingaddressPayinfoid(payinfoIdStr);
+//    	mlPaypalShipAddress.setShippingaddressPaymentid(paymentId);
+//    	mlPaypalShipAddress.setShippingaddressEmail(email);
+//    	mlPaypalShipAddress.setShippingaddressRecipientName(RecipientName);
+//    	mlPaypalShipAddress.setShippingaddressLine1(Line1);
+//    	mlPaypalShipAddress.setShippingaddressLine2(Line2);
+//    	mlPaypalShipAddress.setShippingaddressCity(City);
+//    	mlPaypalShipAddress.setShippingaddressCountryCode(countryCode);
+//    	mlPaypalShipAddress.setShippingaddressPostalCode(PostalCode);
+//    	mlPaypalShipAddress.setShippingaddressState(State);
+//    	
+//    	mlPaypalShipAddressService.insertSelective(mlPaypalShipAddress);
+//    	
+//	}
     
     /**
      * 3.0.1.1	wap+pc同时处理邮件
@@ -411,7 +388,6 @@ public class PaypalController {
     	BigDecimal totalprice = (BigDecimal) session.getAttribute("totalprice");
     	ToPaypalInfo toPaypalInfo = new ToPaypalInfo();
 		//从对象中获取参数
-//		String toPayEmail = mlfrontAddressToPay.getAddressEmail();
 		String toPayTelephone = mlfrontAddressToPay.getAddressTelephone();
 		String toPayCountry = mlfrontAddressToPay.getAddressCountry();
 		String toPayProvince = mlfrontAddressToPay.getAddressProvince();
@@ -423,15 +399,12 @@ public class PaypalController {
 		String toPayDesc = "";
 		toPayDesc+="VIP";
 		toPayDesc+=payinfoIdStr+",";
-//		toPayDesc=toPayDesc+toPayEmail+",";
 		toPayDesc+=toPayTelephone+",";
 		toPayDesc+=toPayCountry+",";
 		toPayDesc+=toPayProvince+",";
 		toPayDesc+=toPayCity+",";
 		toPayDesc+=toPayDetail+",";
 		toPayDesc+=toPayUserfirstname+",";
-//		toPayDesc+=toPayUserlastname+",VIP";
-//		toPayDesc+=payinfoIdStr;
 		toPayDesc+=toPayUserlastname;
 		toPaypalInfo.setMoneyNum(totalprice);
 		toPaypalInfo.setMoneyType("USD");
