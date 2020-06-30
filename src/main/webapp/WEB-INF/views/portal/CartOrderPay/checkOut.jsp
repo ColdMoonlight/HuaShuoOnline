@@ -127,7 +127,7 @@
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						callback & callback(data.extend);
+						callback && callback(data.extend);
 					}					
 				}
 			});
@@ -140,7 +140,7 @@
 				dataType: 'json',
 				async: false,
 				success: function (data) {
-					callback & callback(data.extend);
+					callback && callback(data.extend);
 				}
 			});
 		}
@@ -207,7 +207,7 @@
 				success: function (data) {
 					el.remove();
 					if (!$('.cart-item').length) goToCartList();
-					callback & callback();
+					callback && callback();
 					modal = createModal({
 						body: {
 							html: '<p>Successfully deleting  the product !</p>'
