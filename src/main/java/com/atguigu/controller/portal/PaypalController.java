@@ -188,7 +188,6 @@ public class PaypalController {
             
             if(payment.getState().equals("approved")){
             	return "redirect:/Success.html";
-            	
             }else{
             	return "portal/CartOrderPay/payFail";
             }
