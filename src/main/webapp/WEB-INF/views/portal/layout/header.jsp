@@ -25,7 +25,7 @@
 					</div>
 				</div>
 				<div class="login">
-					<i class="icon person"></i>
+					<i class="icon person unactive"></i>
 				</div>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 	<div class="wap-header">
 		<div class="wap-navbar">
 			<span id="menu" class="icon menu"></span>
-			<span class="icon person"></span>
+			<span class="icon person unactive"></span>
 			<a href="TEL:(501)7226336" class="icon phone"></a>
 			<a class="logo" href="${APP_PATH}">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
@@ -350,7 +350,58 @@
 		$('.iphone-advice').hide();
 	});
 	// login-register
-	$('.icon.person').on('click', function() {
+	$('.icon.person.unactive').on('click', function() {
+		function loginModalTip(text) {
+			var modal = createModal({
+				body: {
+					html: '<p>'+ text +'</p>'
+				},
+				autoClose: true
+			});
+		}
+		
+		function registerFn(reqData, callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlfrontUser/register",
+				type: 'post',
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.extend.registerYes) {
+						 loginModalTip('Registered successfully !');
+						 callback && callback();
+					} else {
+						loginModalTip('Registered failed !');
+					}
+				},
+				error: function() {
+					sysModalTip();
+				}
+			});
+		}
+
+		function loginFn(reqData, callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlfrontUser/login",
+				type: 'post',
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.extend.loginYes) {
+						 loginModalTip('Login successfully !');
+						 callback && callback();
+					} else {
+						loginModalTip('Login failed !');
+					}
+				},
+				error: function() {
+					sysModalTip();
+				}
+			});
+		}
+		var emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 		var loginRegisterHtml = '<div class="tab">' +
 				'<div class="tab-item active" data-id="signin">Sign In</div>' +
 				'<div class="tab-item" data-id="register">Register</div>' +
@@ -388,7 +439,7 @@
 				'</form>' +
 				'<div class="btn-group">' +
 					'<a href="javascript:;" class="btn btn-black register"> REGISTER </a>' +
-					'<a href="${APP_PATH}" class="btn btn-black go_home">Go Home</a>' +
+					'<a href="${APP_PATH}" class="btn btn-no">Go Home</a>' +
 				'</div>' +
 			'</div>';
 		var loginRegisterModal = createModal({
@@ -405,6 +456,68 @@
 				$(this).addClass('active').siblings().removeClass('active');
 				$('.tab-pane.'+ $(this).data('id')).addClass('active').siblings().removeClass('active');
 			}
-		})
+		});
+		$('.btn.sigin').on('click', function () {
+			var email = $('#signin input[name=userEmail]').val();
+			var password = $('#signin input[name=userPassword]').val();
+
+			if (!email || !emailPattern.text(email)) {
+				loginModalTip('It is illegal to enter an email address ！');
+				return ;
+			}
+
+			if (password.length < 6) {
+				loginModalTip('The password entered is invalid ！');
+				return ;
+			}
+
+			loginFn({
+				'userEmail': email,
+				'userPassword': password
+			}, function () {
+				removeModal(loginRegisterModal);
+				updateProructNumberInCart();
+				$('.icon.person').removeClass('active').addClass('active');
+			});
+		});
+
+		$('.btn.register').on('click', function () {
+			var email = $('#register input[name=userEmail]').val();
+			var password = $('#register input[name=userPassword]').val();
+			var password2 = $('#register input[name=ConfirmPassword]').val();
+
+			if (!email || !emailPattern.text(email)) {
+				loginModalTip('It is illegal to enter an email address ！');
+				return ;
+			}
+
+			if (password.length < 6) {
+				loginModalTip('The password entered is invalid ！');
+				return ;
+			}
+
+			if (!password2.length) {
+				loginModalTip('Please enter a confirmation password ！');
+				return ;
+			}
+
+			if (password2.length < 6) {
+				loginModalTip('The confirm password entered is invalid ！');
+				return ;				
+			}
+
+			if (password != password2) {
+				loginModalTip('Twice the password is double, please re-enter the password ！');
+				$('#register input[name=ConfirmPassword]').val('');
+				return ;				
+			}
+
+			registerFn({
+				'userEmail': email,
+				'userPassword': password
+			}, function() {
+				removeModal(loginRegisterModal);
+			});
+		});
 	});
 </script>
