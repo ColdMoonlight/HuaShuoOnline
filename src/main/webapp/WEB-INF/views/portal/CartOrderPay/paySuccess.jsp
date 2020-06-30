@@ -57,7 +57,12 @@
 				success: function (data) {
 					if (data.code == 100) {
 						callback && callback(data.extend);
+					} else {
+						refreshPageModal();
 					}
+				},
+				error: function(err) {
+					sysModalTip();
 				}
 			});
 		}
@@ -121,13 +126,13 @@
 				'<div class="payment-address-item"><span class="name">Address: </span><span class="value">' + data.addressCountry + ' ' + data.addressProvince + ' ' + data.addressCity + ' ' + data.addressDetail + '</span></div>' +
 				'</div');
 		}
+
 		function renderPaypaladdress(data) {
 			$(".payment-billing-address").html('<div class="payment-address-title">Billing Address</div>' +
 				'<div class="payment-address-item"><span class="name">Postcode: </span><span class="value">' + data.shippingaddressPostalCode + '</span></div>' +
 				'<div class="payment-address-item"><span class="name">Address: </span><span class="value">' + data.shippingaddressCountryCode + ' ' + data.shippingaddressCity + ' ' + data.shippingaddressLine1 + '</span></div>' +
 				'</div');
 		}
-		
 
 		var payinfoId = '${sessionScope.payinfoId}';
 

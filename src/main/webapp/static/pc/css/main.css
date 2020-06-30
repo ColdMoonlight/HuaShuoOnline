@@ -290,6 +290,7 @@ textarea:focus {
 	background-color: #ff1671;
 }
 .btn {
+	display: inline-block;
 	padding: .5rem;
 	line-height: 1.0;
 	outline: none;
@@ -1898,7 +1899,8 @@ footer li {
 	text-decoration: none;
 }
 .cart-cal-btn .btn+.btn {
-	margin-left: 1rem;
+	flex-grow: 1;
+	margin-left: .5rem;
 }
 .cartlist-modal .modal-body {
 	text-align: left;
@@ -2427,4 +2429,82 @@ footer li {
 .payment-btn>.btn {
 	display: block;
 	width: 100%;
+}
+/* login register */
+
+.input-group+.input-group {
+	margin-top: 1rem;
+}
+
+.input-group>label {
+	display: block;
+	font-size: .875rem;
+	font-weight: 500;
+	text-align: left;
+}
+.input-group>label::after {
+	content: '*';
+	display: inline-block;
+	margin-left: .25rem;
+	font-size: .875rem;
+	color: #fe186e;
+	vertical-align: middle;
+}
+
+.input-group>input {
+	width: 100%;
+	padding: .5rem 1rem;
+	margin-top: .75rem;
+	text-align:left;
+	border-radius: .25rem;
+	border: 1px solid #ccc;
+	outline: none;
+}
+
+.login-register {}
+
+.login-register .modal-container {
+	max-width: 800px;
+}
+
+.login-register .tab {
+	display: flex;
+	padding: 0 1.25rem;
+	border-bottom: 1px solid #ccc;
+}
+
+.login-register .tab-item {
+	flex-grow: 1;
+	padding: 1rem 0;
+	text-align: center;
+	font-size: .875rem;
+	font-weight: 500;
+    cursor: pointer;
+}
+
+.login-register .tab-item.active {
+	box-sizing: border-box;
+	border-bottom: 2px solid #f23030;
+	color: #f23030;
+}
+
+.login-register .tab-pane {
+	padding: 1.25rem;
+	display: none;
+}
+
+.login-register .tab-pane.active {
+	display: block;
+}
+
+.login-register .btn {
+	width: 100%;
+	padding: .5em 0;
+	margin: 1.25rem 0;
+}
+
+.login-register .forget-password {
+	font-size: .875rem;
+	color: #333;
+	text-align: right;
 }

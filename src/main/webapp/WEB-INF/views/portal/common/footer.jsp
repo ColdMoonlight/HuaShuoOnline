@@ -343,25 +343,29 @@ function removeModal(modal) {
     removeFixed();
 }
 
+function sysModalTip() {
+	var modal = createModal({
+		body: {
+			html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+		},
+		autoClose: true
+	});
+}
+
+function refreshPageModal() {
+	var modal = createModal({
+		body: {
+			html: '<p>please refresh the page to get again！</p>'
+		},
+		autoClose: true
+	});
+}
+
 // pay loading
 function payLoading() {
 	var $payLoading = $('<div class="pay-loading"><div class="load-list"><div class="loader-item"></div><div class="loader-item"></div><div class="loader-item"></div></div>');
 	$(document.body).append($payLoading);
 	addFixed();
-}
-
-// check reqData
-function checkReqData(reqData) {
-	if (!Object.keys(reqData).length) {
-		var modal = createModal({
-			body: {
-				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-			},
-			autoClose: true
-		});
-		return false;
-	}
-	return true;
 }
 
 /* jump link function */

@@ -21,15 +21,12 @@
 			success: function (data) {
 				if (data.code == 100) {
 					renderArticle(data.extend.MlbackFootNavOne);
+				} else {
+					refreshPageModal();
 				}
 			},
 			error: function () {
-				modal = createModal({
-					body: {
-						html: '<p>please refresh the page to get again！</p>'
-					},
-	    			autoClose: true
-    			});
+				refreshPageModal();
 			}
 		});
 		function renderArticle(data) {

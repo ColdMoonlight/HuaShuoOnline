@@ -308,37 +308,29 @@
 							dataType: 'json',
 							contentType: 'application/json',
 							success: function (data) {
-								console.log(data)
 								if (data.code == 100) {								
 									goTopayInstance();					
 								} else {
-									var modal = createModal({
-						    			body: {
-						    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-						    			},
-						    			autoClose: true
-						    		});
+									sysModalTip();
 								}
 							}
 						});
 					} else {
-						var modal = createModal({
-							body: {
-								html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-							},
-							autoClose: true
-						});
+						sysModalTip();
 					}
 				},
 				error: function (err) {
-					var modal = createModal({
-						body: {
-							html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-						},
-						autoClose: true
-					});
+					sysModalTip();
 				}
 			});
+		}
+		// check reqData
+		function checkReqData(reqData) {
+			if (!reqData.length) {
+				sysModalTip();
+				return false;
+			}
+			return true;
 		}
 		// product event
 		// add product
