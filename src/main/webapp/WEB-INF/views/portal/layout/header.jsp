@@ -349,4 +349,62 @@
 	$(document.body).on('click', '.iphone-advice .close', function() {
 		$('.iphone-advice').hide();
 	});
+	// login-register
+	$('.icon.person').on('click', function() {
+		var loginRegisterHtml = '<div class="tab">' +
+				'<div class="tab-item active" data-id="signin">Sign In</div>' +
+				'<div class="tab-item" data-id="register">Register</div>' +
+			'</div>' +
+			'<div class="tab-pane signin active">' +
+				'<form id="signin">' +
+					'<div class="input-group">' +
+						'<label for="userEmail">E-mail</label>' +
+						'<input type="email" name="userEmail" placeholder="eamil" required>' +
+					'</div>' +
+					'<div class="input-group">' +
+						'<label for="userPassword">Password</label>' +
+						'<input type="password" name="userPassword" placeholder="password at least six figures">' +
+					'</div>' +
+				'</form>' +
+				'<div class="btn-group">' +
+					'<a href="javascript:;" class="btn btn-black sigin">SIGN IN</a>' +
+				'</div>' +
+				'<p class="forget-password"><a href="${APP_PATH}/MlfrontUser/tomForgetPassWord">Forget PassWord?</a></p>' +
+			'</div>' +
+			'<div class="tab-pane register">' +
+				'<form id="register">' +
+					'<div class="input-group">' +
+						'<label for="userEmail">E-mail</label>' +
+						'<input type="email" name="userEmail" placeholder="please input eamil" required>' +
+					'</div>' +
+					'<div class="input-group">' +
+						'<label for="userPassword">Password</label>' +
+						'<input type="password" name="userPassword" placeholder="password at least six figures">' +
+					'</div>' +
+					'<div class="input-group">' +
+						'<label for="ConfirmPassword">ConfirmPassword</label>' +
+						'<input type="password" name="ConfirmPassword" placeholder="ConfirmPassword">' +
+					'</div>' +
+				'</form>' +
+				'<div class="btn-group">' +
+					'<a href="javascript:;" class="btn btn-black register"> REGISTER </a>' +
+					'<a href="${APP_PATH}" class="btn btn-black go_home">Go Home</a>' +
+				'</div>' +
+			'</div>';
+		var loginRegisterModal = createModal({
+			header: {
+				html: '<p>MegaLook</p>'
+			},
+			body: {
+				html: loginRegisterHtml
+			}
+		});
+		loginRegisterModal.addClass('login-register');
+		$(document.body).on('click', '.tab-item', function() {
+			if (!$(this).hasClass('active')) {
+				$(this).addClass('active').siblings().removeClass('active');
+				$('.tab-pane.'+ $(this).data('id')).addClass('active').siblings().removeClass('active');
+			}
+		})
+	});
 </script>
