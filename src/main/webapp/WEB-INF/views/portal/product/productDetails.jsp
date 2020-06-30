@@ -76,8 +76,8 @@
 					<div class="product-pay paypal-button-container">
 						<div class="btn paypal-button btn-primary" id="add-to-cart">Add To Cart</div>
 		   				<div class="btn paypal-button btn-black" id="buy-now">Buy Now</div>
-						<div title="paypal" class="btn paypal-button paypal-button-paypal"></div>
-				        <div title="credit" class="btn paypal-button paypal-button-credit"></div>
+						<div title="paypal" class="btn paypal-button paypal-now paypal-button-paypal"></div>
+				        <div title="credit" class="btn paypal-button paypal-now paypal-button-credit"></div>
 					</div>
 				</div>
 			</div>
@@ -166,7 +166,7 @@
 			var productDetails = $('.product-details').data('product') || {};
 			var productSKu = $('.product-qty .product-num').data('productsku');
 
-			if (!Object.keys(productSKu).length) return false;
+			if (!productSKu || !Object.keys(productSKu).length) return false;
 
 			productData["cartitemProductId"] = productDetails.proudctId;
 			productData["cartitemProductSeoName"] = productDetails.productSeo;
@@ -505,14 +505,12 @@
 		});
 		// buy now
 		$('#buy-now').on('click', function() {
-			if (isCorrectProduct()) {
-				var reqData = getProductData();
-				checkReqData(reqData) && toBuyNow(reqData, goToCheckout);
-			}
-		});
-		$('.paypal-button').on('click', function() {
 			var reqData = getProductData();
-			isCorrectProduct() && checkReqData(reqData) && (payLoading(), toPayInstance(reqData));
+			isCorrectProduct() && reqData && toBuyNow(reqData, goToCheckout);
+		});
+		$('.paypal-button.paypal-now').on('click', function() {
+			var reqData = getProductData();
+			isCorrectProduct() && reqData && (payLoading(), toPayInstance(reqData));
 		})
 	</script>
 </body>

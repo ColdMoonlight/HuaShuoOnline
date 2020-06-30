@@ -368,15 +368,6 @@ function payLoading() {
 	addFixed();
 }
 
-// check reqData
-function checkReqData(reqData) {
-	if (!Object.keys(reqData).length) {
-		sysModalTip();
-		return false;
-	}
-	return true;
-}
-
 /* jump link function */
 function goToCheckout() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCheakOut';

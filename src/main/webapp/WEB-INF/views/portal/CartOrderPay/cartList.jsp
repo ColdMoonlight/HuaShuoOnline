@@ -324,6 +324,14 @@
 				}
 			});
 		}
+		// check reqData
+		function checkReqData(reqData) {
+			if (!reqData.length) {
+				sysModalTip();
+				return false;
+			}
+			return true;
+		}
 		// product event
 		// add product
 		$(document.body).on('click', '.product-add', function() {

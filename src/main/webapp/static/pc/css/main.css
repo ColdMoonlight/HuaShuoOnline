@@ -1898,7 +1898,8 @@ footer li {
 	text-decoration: none;
 }
 .cart-cal-btn .btn+.btn {
-	margin-left: 1rem;
+	flex-grow: 1;
+	margin-left: .5rem;
 }
 .cartlist-modal .modal-body {
 	text-align: left;
