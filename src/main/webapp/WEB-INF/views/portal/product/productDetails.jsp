@@ -403,39 +403,19 @@
 								if (data.code == 100) {								
 									goTopayInstance();					
 								} else {
-									var modal = createModal({
-						    			body: {
-						    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-						    			},
-						    			autoClose: true
-						    		});
+									sysModalTip();
 								}
 							},
 							error: function(err) {
-								var modal = createModal({
-					    			body: {
-					    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-					    			},
-					    			autoClose: true
-					    		});
+								sysModalTip();
 							}
 						});
 					} else {
-						var modal = createModal({
-			    			body: {
-			    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-			    			},
-			    			autoClose: true
-			    		});
+						sysModalTip();
 					}
 				},
 				error: function (data) {
-					var modal = createModal({
-		    			body: {
-		    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-		    			},
-		    			autoClose: true
-		    		});
+					sysModalTip();
 				}
 			});
 		}

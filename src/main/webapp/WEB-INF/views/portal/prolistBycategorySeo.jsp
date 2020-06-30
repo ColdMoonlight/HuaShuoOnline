@@ -44,15 +44,12 @@
 				success: function (data) {
 					if (data.code == 100) {
 						renderCategorySeo(data.extend, hasCategory);
+					} else {
+						refreshPageModal();
 					}
 				},
 				error: function () {
-					modal = createModal({
-						body: {
-							html: '<p>please refresh the page to get again！</p>'
-						},
-		    			autoClose: true
-					});
+					refreshPageModal();
 				}
 			});
 		}

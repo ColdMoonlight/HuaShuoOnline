@@ -238,21 +238,11 @@
 					if (data.code == 100) {
 						callback && callback(data.extend.mlfrontAddress);
 					} else {
-						var modal = createModal({
-			    			body: {
-			    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-			    			},
-			    			autoClose: true
-			    		});
+						sysModalTip();
 					}
 				},
 				error: function () {
-					var modal = createModal({
-		    			body: {
-		    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-		    			},
-		    			autoClose: true
-		    		});
+					sysModalTip();
 				}
 			});
 		}
@@ -268,21 +258,11 @@
 					if (data.code == 100) {
 						callback && callback();
 					} else {
-						var modal = createModal({
-			    			body: {
-			    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-			    			},
-			    			autoClose: true
-			    		});
+						sysModalTip();
 					}
 				},
 				error: function(err) {
-					var modal = createModal({
-		    			body: {
-		    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-		    			},
-		    			autoClose: true
-		    		});
+					sysModalTip();
 				}
 			});
 		}
@@ -587,12 +567,7 @@
 					if (data.code == 100) {
 						callback && callback(data.extend);
 					} else {
-						createModal({
-			    			body: {
-			    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-			    			},
-			    			autoClose: true
-			    		});
+						sysModalTip();
 					}
 				},
 				error: function(err) {
