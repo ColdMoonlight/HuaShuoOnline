@@ -44,7 +44,7 @@ function productAdd(el, callback) {
 	}
 
 	parentEl.find('.product-num').val(curr);
-	callback & callback(parentEl, curr);
+	callback && callback(parentEl, curr);
 }
 
 function productSub(el, callback) {
@@ -62,7 +62,7 @@ function productSub(el, callback) {
 	}
 
 	parentEl.find('.product-num').val(curr);
-	callback & callback(parentEl, curr);
+	callback && callback(parentEl, curr);
 }
 
 /* product option */

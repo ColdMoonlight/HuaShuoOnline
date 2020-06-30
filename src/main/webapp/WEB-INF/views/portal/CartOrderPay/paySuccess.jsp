@@ -7,9 +7,7 @@
 	<title>Payment Success</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>
-		main {
-			margin: 0;
-		}
+		main { margin: 0; }
 	</style>
 </head>
 
@@ -58,7 +56,7 @@
 				type: "post",
 				success: function (data) {
 					if (data.code == 100) {
-						callback & callback(data.extend);
+						callback && callback(data.extend);
 					}
 				}
 			});

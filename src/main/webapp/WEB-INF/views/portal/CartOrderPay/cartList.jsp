@@ -91,8 +91,8 @@
 				contentType: 'application/json',
 				success: function (data) {
 					el.remove();
-					callback & callback();
-					callback2 & callback2();
+					callback && callback();
+					callback2 && callback2();
 					if (!$('.cart-item').length) callback3 && callback3();
 					modal = createModal({
 						body: {
@@ -248,7 +248,7 @@
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						callback & callback();
+						callback && callback();
 					} else {
 						var modal = createModal({
 			    			body: {

@@ -138,6 +138,15 @@
         function updateProductData(selectedKeys) {
         	var productQty = mapSet[selectedKeys.join(',')];
             var productSku = mapItems[selectedKeys.join(',')] || {};
+            if (parseInt($('.product-qty .product-num').val()) > productQty.count) {
+            	$('.product-qty .product-num').val(productQty.count);
+            	var modal = createModal({
+        			body: {
+        				html: '<p>Under the current options can buy at most <i style="font-weight: blold">'+ productQty.count +'</i> product !</p>'
+        			},
+	    			autoClose: true
+        		});
+            }
            	$('.product-qty .product-num').data('count', productQty.count).data('productsku', productSku);
            	var productSkuMoney = productSku.productskuMoney
            	productSkuMoney ? updateProductPrice(productSkuMoney) : updateProductPrice();
@@ -187,7 +196,7 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback & callback();
+						callback && callback();
 					} else {
 						var modal = createModal({
 		        			body: {
