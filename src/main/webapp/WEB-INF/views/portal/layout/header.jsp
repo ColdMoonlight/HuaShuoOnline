@@ -25,7 +25,7 @@
 					</div>
 				</div>
 				<div class="login">
-					<i class="icon person"></i>
+					<i class="icon person unactive"></i>
 				</div>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 	<div class="wap-header">
 		<div class="wap-navbar">
 			<span id="menu" class="icon menu"></span>
-			<span class="icon person"></span>
+			<span class="icon person unactive"></span>
 			<a href="TEL:(501)7226336" class="icon phone"></a>
 			<a class="logo" href="${APP_PATH}">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
@@ -350,46 +350,139 @@
 		$('.iphone-advice').hide();
 	});
 	// login-register
-	$('.icon.person').on('click', function() {
-		var loginRegisterHtml = '<div class="tab">' +
-				'<div class="tab-item active" data-id="signin">Sign In</div>' +
-				'<div class="tab-item" data-id="register">Register</div>' +
-			'</div>' +
-			'<div class="tab-pane signin active">' +
-				'<form id="signin">' +
-					'<div class="input-group">' +
-						'<label for="userEmail">E-mail</label>' +
-						'<input type="email" name="userEmail" placeholder="eamil" required>' +
-					'</div>' +
-					'<div class="input-group">' +
-						'<label for="userPassword">Password</label>' +
-						'<input type="password" name="userPassword" placeholder="password at least six figures">' +
-					'</div>' +
-				'</form>' +
-				'<div class="btn-group">' +
-					'<a href="javascript:;" class="btn btn-black sigin">SIGN IN</a>' +
+	$(document.body).on('click', '.icon.person.unactive', function() {
+		function loginModalTip(text) {
+			var modal = createModal({
+				body: {
+					html: '<p>'+ text +'</p>'
+				},
+				autoClose: true
+			});
+		}
+		
+		function registerFn(reqData, callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlfrontUser/register",
+				type: 'post',
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.extend.registerYes) {
+						 loginModalTip('Registered successfully !');
+						 callback && callback();
+					} else {
+						loginModalTip('Registered failed !');
+					}
+				},
+				error: function() {
+					sysModalTip();
+				}
+			});
+		}
+		
+		function forgetFn(reqData, callback) {
+			$.ajax({
+				url: "${APP_PATH}/MlfrontUser/reSetPwd",
+				type: 'post',
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						 loginModalTip('Password change successfully !');
+						 callback && callback();
+					} else {
+						loginModalTip('Password change failed !');
+					}
+				},
+				error: function() {
+					sysModalTip();
+				}
+			});
+		}
+
+		function loginFn(reqData, callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlfrontUser/login",
+				type: 'post',
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.extend.loginYes) {
+						 loginModalTip('Login successfully !');
+						 callback && callback();
+					} else {
+						loginModalTip('Login failed !');
+					}
+				},
+				error: function() {
+					sysModalTip();
+				}
+			});
+		}
+		var emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		var loginRegisterHtml = '<div class="left-box">' +
+				'<div class="tab">' +
+					'<div class="tab-item active" data-id="signin">Sign In</div>' +
+					'<div class="tab-item" data-id="register">Register</div>' +
 				'</div>' +
-				'<p class="forget-password"><a href="${APP_PATH}/MlfrontUser/tomForgetPassWord">Forget PassWord?</a></p>' +
+				'<div class="tab-pane signin active">' +
+					'<form id="signin">' +
+						'<div class="input-group">' +
+							'<label for="userEmail">E-mail</label>' +
+							'<input type="email" id="userEmail" name="userEmail" placeholder="eamil" required>' +
+						'</div>' +
+						'<div class="input-group">' +
+							'<label for="userPassword">Password</label>' +
+							'<input type="password" id="userPassword" name="userPassword" placeholder="password at least six figures">' +
+						'</div>' +
+					'</form>' +
+					'<div class="btn-group">' +
+						'<a href="javascript:;" class="btn btn-black sigin">SIGN IN</a>' +
+					'</div>' +
+					'<p class="forget-password"><a id="forget-password">Forget PassWord?</a></p>' +
+				'</div>' +
+				'<div class="tab-pane register">' +
+					'<form id="register">' +
+						'<div class="input-group">' +
+							'<label for="userEmail">E-mail</label>' +
+							'<input type="email" id="userEmail" name="userEmail" placeholder="please input eamil" required>' +
+						'</div>' +
+						'<div class="input-group">' +
+							'<label for="userPassword">Password</label>' +
+							'<input type="password" id="userPassword" name="userPassword" placeholder="password at least six figures">' +
+						'</div>' +
+						'<div class="input-group">' +
+							'<label for="ConfirmPassword">ConfirmPassword</label>' +
+							'<input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="ConfirmPassword">' +
+						'</div>' +
+					'</form>' +
+					'<div class="btn-group">' +
+						'<a href="javascript:;" class="btn btn-black register"> REGISTER </a>' +
+						'<a href="${APP_PATH}" class="btn btn-no">Go Home</a>' +
+					'</div>' +
+				'</div>' +
 			'</div>' +
-			'<div class="tab-pane register">' +
-				'<form id="register">' +
+			'<div class="right-box">' +
+				'<form id="forget-password">' +
 					'<div class="input-group">' +
 						'<label for="userEmail">E-mail</label>' +
-						'<input type="email" name="userEmail" placeholder="please input eamil" required>' +
+						'<input type="email" id="userEmail" name="userEmail" placeholder="please input eamil" required>' +
 					'</div>' +
 					'<div class="input-group">' +
 						'<label for="userPassword">Password</label>' +
-						'<input type="password" name="userPassword" placeholder="password at least six figures">' +
+						'<input type="password" id="userPassword" name="userPassword" placeholder="password at least six figures">' +
 					'</div>' +
 					'<div class="input-group">' +
 						'<label for="ConfirmPassword">ConfirmPassword</label>' +
-						'<input type="password" name="ConfirmPassword" placeholder="ConfirmPassword">' +
+						'<input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="ConfirmPassword">' +
 					'</div>' +
 				'</form>' +
 				'<div class="btn-group">' +
-					'<a href="javascript:;" class="btn btn-black register"> REGISTER </a>' +
-					'<a href="${APP_PATH}" class="btn btn-black go_home">Go Home</a>' +
-				'</div>' +
+					'<a href="javascript:;" class="btn btn-black forget-password"> Confirm </a>' +
+				'</div>'
 			'</div>';
 		var loginRegisterModal = createModal({
 			header: {
@@ -400,11 +493,119 @@
 			}
 		});
 		loginRegisterModal.addClass('login-register');
+		// tab event
 		$(document.body).on('click', '.tab-item', function() {
 			if (!$(this).hasClass('active')) {
 				$(this).addClass('active').siblings().removeClass('active');
 				$('.tab-pane.'+ $(this).data('id')).addClass('active').siblings().removeClass('active');
 			}
-		})
+		});
+		// login event
+		$('.btn.sigin').on('click', function () {
+			var email = $('#signin input[name=userEmail]').val();
+			var password = $('#signin input[name=userPassword]').val();
+
+			if (!email || !emailPattern.test(email)) {
+				loginModalTip('It is illegal to enter an email address ！');
+				return ;
+			}
+
+			if (password.length < 6) {
+				loginModalTip('The password entered is invalid ！');
+				return ;
+			}
+
+			loginFn({
+				'userEmail': email,
+				'userPassword': password
+			}, function () {
+				removeModal(loginRegisterModal);
+				updateProructNumberInCart();
+				$('.icon.person').removeClass('unactive').addClass('active');
+			});
+		});
+		// register event
+		$('.btn.register').on('click', function () {
+			var email = $('#register input[name=userEmail]').val();
+			var password = $('#register input[name=userPassword]').val();
+			var password2 = $('#register input[name=ConfirmPassword]').val();
+
+			if (!email || !emailPattern.test(email)) {
+				loginModalTip('It is illegal to enter an email address ！');
+				return ;
+			}
+
+			if (password.length < 6) {
+				loginModalTip('The password entered is invalid ！');
+				return ;
+			}
+
+			if (!password2.length) {
+				loginModalTip('Please enter a confirmation password ！');
+				return ;
+			}
+
+			if (password2.length < 6) {
+				loginModalTip('The confirm password entered is invalid ！');
+				return ;				
+			}
+
+			if (password != password2) {
+				loginModalTip('Twice the password is double, please re-enter the password ！');
+				$('#register input[name=ConfirmPassword]').val('');
+				return ;				
+			}
+
+			registerFn({
+				'userEmail': email,
+				'userPassword': password
+			}, function() {
+				removeModal(loginRegisterModal);
+			});
+		});
+		// forget event
+		$('#forget-password').on('click', function() {
+			$('.left-box').hide();
+			$('.right-box').show();
+		});
+		$('.btn.forget-password').on('click', function () {
+			var email = $('#forget-password input[name=userEmail]').val();
+			var password = $('#forget-password input[name=userPassword]').val();
+			var password2 = $('#forget-password input[name=ConfirmPassword]').val();
+
+			if (!email || !emailPattern.test(email)) {
+				loginModalTip('It is illegal to enter an email address ！');
+				return ;
+			}
+
+			if (password.length < 6) {
+				loginModalTip('The password entered is invalid ！');
+				return ;
+			}
+
+			if (!password2.length) {
+				loginModalTip('Please enter a confirmation password ！');
+				return ;
+			}
+
+			if (password2.length < 6) {
+				loginModalTip('The confirm password entered is invalid ！');
+				return ;				
+			}
+
+			if (password != password2) {
+				loginModalTip('Twice the password is double, please re-enter the password ！');
+				$('#register input[name=ConfirmPassword]').val('');
+				return ;				
+			}
+
+			forgetFn({
+				'userEmail': email,
+				'userPassword': password
+			}, function() {
+				$('.left-box').show();
+				$('.right-box').hide();
+			});
+		});
 	});
 </script>
