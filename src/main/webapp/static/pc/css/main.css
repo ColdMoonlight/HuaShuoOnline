@@ -2470,6 +2470,9 @@ footer li {
 .login-register .modal-container {
 	max-width: 800px;
 }
+.login-register .right-box {
+	display: none;
+}
 .login-register .tab {
 	display: flex;
 	padding: 0 1.25rem;
@@ -2477,7 +2480,6 @@ footer li {
 }
 .login-register .tab-item {
 	flex-grow: 1;
-	padding: 1rem 0;
 	text-align: center;
 	font-size: .875rem;
 	font-weight: 500;
@@ -2489,7 +2491,6 @@ footer li {
 	color: #f23030;
 }
 .login-register .tab-pane {
-	padding: 1.25rem;
 	display: none;
 }
 .login-register .tab-pane.active {
@@ -2500,10 +2501,41 @@ footer li {
 	padding: .5em 0;
 	margin: 1.25rem 0;
 }
+.login-register .btn+.btn {
+	margin-top: 0;
+}
 .login-register .forget-password {
 	font-size: .875rem;
 	text-align: right;
 }
-.login-register .forget-password>a {	
+.login-register .signin .forget-password>a {
 	color: #666;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.login-register .forget-password>a:hover {
+	color: #111;
+}
+.login-register .btn.forget-password {
+	font-size: 1rem;
+	text-align: center;
+}
+@media only screen and (max-width: 575px) {
+	.login-register .tab-item {
+		padding: .5rem 0;
+	}
+	.login-register .tab-pane {
+		padding: 1rem 0;
+	}
+	.login-register .signin .forget-password {
+		margin: 0;
+	}
+}
+@media only screen and (min-width: 576px) {
+	.login-register .tab-item {
+		padding: 1rem 0;
+	}
+	.login-register .tab-pane {
+		padding: 1.25rem;
+	}
 }
