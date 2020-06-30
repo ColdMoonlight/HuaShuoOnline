@@ -42,4 +42,8 @@
         <from>^/Activty.html</from>
         <to>/MlActive/NowActiveIndex</to>
     </rule>
+    <rule>
+        <from>^/Success.html</from>
+        <to>/MlfrontPayInfo/toPaySuccessPage</to>
+    </rule>
 </urlrewrite>
