@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.common.Msg;
@@ -44,30 +45,30 @@ public class MlfrontUserController {
 		}
 		return Msg.success().add("resMsg", "初始化验证是否登录").add("ifLogin", ifLogin);
 	}
+//	
+//	/**2.0	zsh 200619
+//	 * ifSession	去登录/注册页面
+//	 * @param ifSession
+//	 */
+//	@RequestMapping(value="/toLoginRegisterPage")
+//	public String toLoginRegisterPage() throws Exception{
+//		
+//		return "portal/user/loginRegister";
+//	}
+//	
+//	/**2.1	zsh 200619
+//	 * ifSession	重置密码
+//	 * @param ifSession
+//	 */
+//	@RequestMapping(value="/toForgetPassWord")
+//	public String tomForgetPassWord() throws Exception{
+//		
+//		return "portal/user/resetpassword";
+//	}
 	
-	/**2.0	zsh 200619
-	 * ifSession	去登录/注册页面
-	 * @param ifSession
-	 */
-	@RequestMapping(value="/toLoginRegisterPage")
-	public String toLoginRegisterPage() throws Exception{
-		
-		return "portal/user/loginRegister";
-	}
-	
-	/**2.1	zsh 200619
-	 * ifSession	重置密码
-	 * @param ifSession
-	 */
-	@RequestMapping(value="/toForgetPassWord")
-	public String tomForgetPassWord() throws Exception{
-		
-		return "portal/user/resetpassword";
-	}
-	
-	/**2.3	zsh 200619
+	/**2	zsh 200619
 	 * MlfrontUser	update
-	 * @param id MlbackProduct
+	 * @param id MlfrontUser
 	 * @return
 	 */
 	@RequestMapping(value="/reSetPwd",method=RequestMethod.POST)
@@ -102,7 +103,7 @@ public class MlfrontUserController {
 			MlfrontUser mlfrontUserres = mlfrontUserList.get(0);
 			String alreadyPwd= mlfrontUserres.getUserPassword();
 			Integer UserId = mlfrontUserres.getUserId();
-			
+			//3.1修改登录时间
 			updateLoginTime(UserId);
 			if(alreadyPwd.equals(userPassword)){
 				System.out.println("密码正确,登陆成功");
@@ -118,6 +119,7 @@ public class MlfrontUserController {
 		}
 	}
 	
+	//3.1修改登录时间
 	private void updateLoginTime(Integer userId) {
 		
 		String nowtime = DateUtil.strTime14s();
@@ -126,7 +128,6 @@ public class MlfrontUserController {
 		mlfrontUser.setUserMotifytime(nowtime);
 		mlfrontUser.setUserLastonlinetime(nowtime);
 		mlfrontUserService.updateByPrimaryKeySelective(mlfrontUser);
-		System.out.println(mlfrontUser);
 	}
 
 	/**4.0	zsh 200619
@@ -206,6 +207,64 @@ public class MlfrontUserController {
 		
 		return "portal/user/userCenter";
 	}
+	
+	/**7.0	zsh 200630
+	 * MlfrontUser	update
+	 * @param id MlbackProduct
+	 * @return
+	 */
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg update(@RequestBody MlfrontUser mlfrontUser){
+		//接受信息
+		String nowtime = DateUtil.strTime14s();
+		mlfrontUser.setUserMotifytime(nowtime);
+		mlfrontUser.setUserLastonlinetime(nowtime);
+		//更新本条状态
+		mlfrontUserService.updateByPrimaryKeySelective(mlfrontUser);
+		return Msg.success().add("resMsg", "Update Successful").add("mlfrontUser", mlfrontUser);
+	}
+	
+	
+	/**
+	 * 8.0	zsh 200630
+	 * 查看单条MlfrontUser的详情细节
+	 * @param MlfrontUser
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlfrontUserDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlfrontUserDetail(@RequestBody MlfrontUser mlfrontUser){
+		
+		//接受信息
+		Integer userId = mlfrontUser.getUserId();
+		MlfrontUser mlfrontUserReq = new MlfrontUser();
+		mlfrontUserReq.setUserId(userId);
+		List<MlfrontUser> mlfrontUserResList =mlfrontUserService.selectMlfrontUserByConditionS(mlfrontUserReq);
+		MlfrontUser mlfrontUserOne =mlfrontUserResList.get(0);
+		return Msg.success().add("resMsg", "查看单条UserOne详情细节完毕").add("mlfrontUserOne", mlfrontUserOne);
+	}	
+	
+	/**
+	 * 9.0	useOn	0505
+	 * 查看单条MlfrontUser的详情细节
+	 * @param MlfrontUser
+	 * @return 
+	 */
+	@RequestMapping(value="/getLoginUserDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getLoginUserDetail(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
+		//获取session中是否已经登陆
+		MlfrontUser loginUser =  (MlfrontUser) session.getAttribute("loginUser");
+		Integer userId = loginUser.getUserId();
+		//接受信息
+		MlfrontUser mlfrontUserReq = new MlfrontUser();
+		mlfrontUserReq.setUserId(userId);
+		List<MlfrontUser> mlfrontUserResList =mlfrontUserService.selectMlfrontUserByConditionS(mlfrontUserReq);
+		MlfrontUser mlfrontUserOne =mlfrontUserResList.get(0);
+		return Msg.success().add("resMsg", "查看单条类目的详情细节完毕")
+					.add("mlfrontUserOne", mlfrontUserOne);
+	}	
 	
 //	/**
 //	 * 7.0	UseNow	0505
@@ -293,43 +352,6 @@ public class MlfrontUserController {
 //		return Msg.success().add("resMsg", "delete success");
 //	}
 	
-//	/**11.0	useOn	0505
-//	 * MlfrontUser	update
-//	 * @param id MlbackProduct
-//	 * @return
-//	 */
-//	@RequestMapping(value="/update",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg update(@RequestBody MlfrontUser mlfrontUser){
-//		//接受信息
-//		String nowtime = DateUtil.strTime14s();
-//		mlfrontUser.setUserMotifytime(nowtime);
-//		mlfrontUser.setUserLastonlinetime(nowtime);
-//		//更新本条状态
-//		mlfrontUserService.updateByPrimaryKeySelective(mlfrontUser);
-//		//System.out.println(mlfrontUser);
-//		return Msg.success().add("resMsg", "Update Successful").add("mlfrontUser", mlfrontUser);
-//	}
-	
-//	/**
-//	 * 12.0	useOn	0505
-//	 * 查看单条MlfrontUser的详情细节
-//	 * @param MlfrontUser
-//	 * @return 
-//	 */
-//	@RequestMapping(value="/getOneMlfrontUserDetail",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getOneMlfrontUserDetail(@RequestParam(value = "userId") Integer userId){
-//		
-//		//接受信息
-//		MlfrontUser mlfrontUserReq = new MlfrontUser();
-//		mlfrontUserReq.setUserId(userId);
-//		List<MlfrontUser> mlfrontUserResList =mlfrontUserService.selectMlfrontUser(mlfrontUserReq);
-//		MlfrontUser mlfrontUserOne =mlfrontUserResList.get(0);
-//		return Msg.success().add("resMsg", "查看单条类目的详情细节完毕")
-//					.add("mlfrontUserOne", mlfrontUserOne);
-//	}	
-	
 	/**
 	 * 13.0	zsh 200619
 	 * to	toPersonInfoPage列表页面
@@ -340,27 +362,7 @@ public class MlfrontUserController {
 	
 		return "portal/user/PersonInfo";
 	}
-	
-	/**
-	 * 14.0	useOn	0505
-	 * 查看单条MlfrontUser的详情细节
-	 * @param MlfrontUser
-	 * @return 
-	 */
-	@RequestMapping(value="/getLoginUserDetail",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg getLoginUserDetail(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
-		//获取session中是否已经登陆
-		MlfrontUser loginUser =  (MlfrontUser) session.getAttribute("loginUser");
-		Integer userId = loginUser.getUserId();
-		//接受信息
-		MlfrontUser mlfrontUserReq = new MlfrontUser();
-		mlfrontUserReq.setUserId(userId);
-		List<MlfrontUser> mlfrontUserResList =mlfrontUserService.selectMlfrontUserByConditionS(mlfrontUserReq);
-		MlfrontUser mlfrontUserOne =mlfrontUserResList.get(0);
-		return Msg.success().add("resMsg", "查看单条类目的详情细节完毕")
-					.add("mlfrontUserOne", mlfrontUserOne);
-	}	
+
 	
 	/**
 	 * 15.0	useOn	0505
