@@ -635,12 +635,6 @@
 				"addressinfoId": $('#addressId').val(),	
 			}
 		}
-		// pay loading
-		function payLoading() {
-			var $payLoading = $('<div class="pay-loading"><div class="load-list"><div class="loader-item"></div><div class="loader-item"></div><div class="loader-item"></div></div>');
-			$(document.body).append($payLoading);
-			addFixed();
-		}
 		// initial order for checkout 
 		function initialOrder() {
 			// 1

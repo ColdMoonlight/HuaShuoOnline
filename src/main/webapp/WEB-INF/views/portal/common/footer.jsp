@@ -343,6 +343,27 @@ function removeModal(modal) {
     removeFixed();
 }
 
+// pay loading
+function payLoading() {
+	var $payLoading = $('<div class="pay-loading"><div class="load-list"><div class="loader-item"></div><div class="loader-item"></div><div class="loader-item"></div></div>');
+	$(document.body).append($payLoading);
+	addFixed();
+}
+
+// check reqData
+function checkReqData(reqData) {
+	if (!Object.keys(reqData).length) {
+		var modal = createModal({
+			body: {
+				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+			},
+			autoClose: true
+		});
+		return false;
+	}
+	return true;
+}
+
 /* jump link function */
 function goToCheckout() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCheakOut';
@@ -352,6 +373,9 @@ function goToCartList() {
 }
 function goToPay() {
 	window.location.href = '${APP_PATH }/paypal/mpay';
+}
+function goTopayInstance() {
+	window.location.href = '${APP_PATH}/paypalProDetailExpress/mpay';
 }
 /* varient */
 var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [];
