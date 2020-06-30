@@ -28,7 +28,7 @@ import com.atguigu.utils.URLLocationUtils;
 
 /**
  * ImageUploadPage
- * @author
+ * @author	zsh
  */
 @Controller
 @RequestMapping("/ImageUpload")

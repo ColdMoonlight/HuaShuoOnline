@@ -288,5 +288,121 @@ public class PaypalService {
 //        shippingAddress.setCountryCode("US");
 //		return shippingAddress;
 //	}
+	
+	
+	public Payment proDetailCreatePayment(
+            Double total, 
+            String currency, 
+            MlfrontAddress mlfrontAddress,
+            List<MlfrontOrderItem> mlfrontOrderItemList,
+            PaypalPaymentMethod method, 
+            PaypalPaymentIntent intent, 
+            String description, 
+            String Shopdiscount, 
+            String addressMoney, 
+            String cancelUrl, 
+            String successUrl) throws PayPalRESTException{
+		      
+        
+      //获取总价格
+  		String totalStr = (String.format("%.2f", total));
+  		System.out.println(totalStr);
+  		System.out.println(description);
+
+  		// ###Transaction
+  		// A transaction defines the contract of a
+  		// payment - what is the payment for and who
+  		// is fulfilling it. Transaction is created with
+  		// a `Payee` and `Amount` types
+  		Transaction transaction = new Transaction();
+//  	transaction.setDescription("This is the payment transaction description.");
+  		
+  		transaction.setDescription(description);
+  		
+  		String subMoney = "";
+  		
+  		ItemList itemList = new ItemList();
+  		if(mlfrontOrderItemList.size()>1){
+  			itemList = getItemList(mlfrontOrderItemList);
+  			subMoney = getItemListsMoney(mlfrontOrderItemList);
+  		}else{
+  			MlfrontOrderItem mlfrontOrderItem = mlfrontOrderItemList.get(0);
+  			Item item = new Item();
+  			String name=mlfrontOrderItem.getOrderitemPname();
+//  			if(name.length()>40){
+//  				name= name.substring(0, 40);
+  				name=name+"...";
+//  			}
+  			Integer skuNum=mlfrontOrderItem.getOrderitemPskuNumber();
+  			String skuNumStr = skuNum+"";
+  			String money = mlfrontOrderItem.getOrderitemPskuReamoney();
+  			String oneMoney = getOnemoney(skuNum,money);
+//  		demo:	item.setName(name).setQuantity("1").setCurrency("USD").setPrice(money);
+  			item.setName(name).setQuantity(skuNumStr).setCurrency("USD").setPrice(oneMoney);
+  			money = getOneAllMoney(skuNum,oneMoney);
+  			subMoney = money;
+  			List<Item> items = new ArrayList<Item>();
+  			items.add(item);
+  			itemList.setItems(items);
+  		}
+  	  	//地址参数
+//        ShippingAddress shippingAddress = getShippingAddress(mlfrontAddress);
+//  		ShippingAddress shippingAddress = getShippingAddressSDK(mlfrontAddress);
+//        itemList.setShippingAddress(shippingAddress); 		
+  		
+  		Details details = new Details();
+  		details.setShipping("0");
+  		details.setSubtotal(subMoney);
+  		details.setTax("0");//税
+  		String shopdiscountMoney = "-"+Shopdiscount;
+  		details.setShippingDiscount(shopdiscountMoney);
+//  		details.setShipping((addressMoney));
+
+  		// ###Amount
+  		// Let's you specify a payment amount.
+  		Amount amount = new Amount();
+  		amount.setCurrency("USD");
+  		// Total must be equal to sum of shipping, tax and subtotal.
+  		
+  		String amTotal = getamountTotal(subMoney,Shopdiscount,addressMoney);
+  		amount.setTotal(amTotal);
+  		amount.setDetails(details);
+  		transaction.setAmount(amount);
+  		transaction.setItemList(itemList);
+  		
+  		
+  		// The Payment creation API requires a list of
+  		// Transaction; add the created `Transaction`
+  		// to a List
+  		List<Transaction> transactions = new ArrayList<Transaction>();
+  		transactions.add(transaction);
+
+  		// ###Payer
+  		// A resource representing a Payer that funds a payment
+  		// Payment Method
+  		// as 'paypal'
+  		Payer payer = new Payer();
+  		payer.setPaymentMethod("paypal");
+
+  		// ###Payment
+  		// A Payment Resource; create one using
+  		// the above types and intent as 'sale'
+  		Payment payment = new Payment();
+  		payment.setIntent("sale");
+  		payment.setPayer(payer);
+  		payment.setTransactions(transactions);
+  		System.out.println(payment.getTransactions().get(0).getAmount().toJSON());
+  		
+  		RedirectUrls redirectUrls = new RedirectUrls();
+  		redirectUrls.setCancelUrl(cancelUrl);
+  		redirectUrls.setReturnUrl(successUrl);
+  		payment.setRedirectUrls(redirectUrls);
+  		
+  		System.out.println("paymentcreate,before");
+  		System.out.println(payment.toJSON());
+  		System.out.println("paymentcreate,after");
+
+        return payment.create(apiContext);
+    }
 
 }
