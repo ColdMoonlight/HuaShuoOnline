@@ -153,6 +153,10 @@
 				'<div class="cart-cal-item"><span class="name">NUMTOTAL</span><span class="value cart-cal-total">'+ calCart.count +'</span></div>' +
 				'<div class="cart-cal-item"><span class="name">SUBTOTAL</span><span class="value cart-cal-subtotal">$'+ (calCart.price).toFixed(2) +'</span></div>' +
 				'<div class="cart-cal-btn"><a href="${APP_PATH}/index.html" class="btn btn-gray">Continue Shopping</a><a href="javascript:;" class="btn btn-black btn-checkout">Checkout</a></div>' +
+				'<div class="paypal-button-container">'+
+					'<div title="paypal" class="btn paypal-button paypal-button-paypal"></div>' +
+		        	'<div title="credit" class="btn paypal-button paypal-button-credit"></div>' +
+		        '</div>' +
 			'</div>');
 			$('main .container').append($cartHeader).append($('<div class="cart-body" />').append($cartList).append($cartCal));
 		}
@@ -281,6 +285,61 @@
 			});
 			return checkoutData;
 		}
+		// to pay instance
+		function toPayInstance(reqData) {
+			console.log(reqData)
+			$.ajax({
+				url: '${APP_PATH}/ProPay/cartToOrderPay',
+				data: JSON.stringify(reqData),
+				type: "post",
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						// create payment id
+						$.ajax({
+							url: '${APP_PATH}/MlfrontOrder/proDetailOrderToPayInfo',
+							data: JSON.stringify({
+								"orderId": data.extend.OrderIdcartToOrderPay,
+								"orderPayPlate": 1, //选择的付款方式,int类型   paypal传0，后来再有信用卡传1
+								"orderProNumStr": parseInt($('.cart-cal-total').text()),
+							}),
+							type: 'post',
+							dataType: 'json',
+							contentType: 'application/json',
+							success: function (data) {
+								console.log(data)
+								if (data.code == 100) {								
+									goTopayInstance();					
+								} else {
+									var modal = createModal({
+						    			body: {
+						    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+						    			},
+						    			autoClose: true
+						    		});
+								}
+							}
+						});
+					} else {
+						var modal = createModal({
+							body: {
+								html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+							},
+							autoClose: true
+						});
+					}
+				},
+				error: function (err) {
+					var modal = createModal({
+						body: {
+							html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+						},
+						autoClose: true
+					});
+				}
+			});
+		}
 		// product event
 		// add product
 		$(document.body).on('click', '.product-add', function() {
@@ -355,16 +414,13 @@
 		// cartlist checkout
 		$(document.body).on('click', '.btn-checkout', function() {
 			var reqData = getCheckoutData();
-			if (!reqData.length) {
-				var modal = createModal({
-	    			body: {
-	    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-	    			},
-	    			autoClose: true
-	    		});
-				return ;
-			}
-			cartListCheckout(reqData, goToCheckout);
+			checkReqData(reqData) && cartListCheckout(reqData, goToCheckout);
+		});
+		// paypal button
+		// cartlist checkout
+		$(document.body).on('click', '.paypal-button', function() {
+			var reqData = getCheckoutData();
+			checkReqData(reqData) && (payLoading(), toPayInstance(reqData));
 		});
 		</script>
 </body>

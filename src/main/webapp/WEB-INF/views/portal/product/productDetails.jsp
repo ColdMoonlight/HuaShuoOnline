@@ -376,6 +376,69 @@
 				}
 			});			
 		}
+
+		// to pay instance
+		function toPayInstance(reqData) {
+			console.log(reqData)
+			$.ajax({
+				url: '${APP_PATH}/ProPay/toBuyNowPay',					
+				data: JSON.stringify(reqData),
+				type: "post",
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						// create payment id
+						$.ajax({
+							url: '${APP_PATH}/MlfrontOrder/proDetailOrderToPayInfo',
+							data: JSON.stringify({
+								"orderId": data.extend.OrderIdBuyNowPay,
+								"orderPayPlate": 1, //选择的付款方式,int类型   paypal传0，后来再有信用卡传1
+								"orderProNumStr": reqData.cartitemProductNumber
+							}),
+							type: 'post',
+							dataType: 'json',
+							contentType: 'application/json',
+							success: function (data) {
+								if (data.code == 100) {								
+									goTopayInstance();					
+								} else {
+									var modal = createModal({
+						    			body: {
+						    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+						    			},
+						    			autoClose: true
+						    		});
+								}
+							},
+							error: function(err) {
+								var modal = createModal({
+					    			body: {
+					    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+					    			},
+					    			autoClose: true
+					    		});
+							}
+						});
+					} else {
+						var modal = createModal({
+			    			body: {
+			    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+			    			},
+			    			autoClose: true
+			    		});
+					}
+				},
+				error: function (data) {
+					var modal = createModal({
+		    			body: {
+		    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+		    			},
+		    			autoClose: true
+		    		});
+				}
+			});
+		}
 		// varients
 		var mediaData = {}, productData = {}, mainUrl;
 		// initial
@@ -463,19 +526,14 @@
 		// buy now
 		$('#buy-now').on('click', function() {
 			if (isCorrectProduct()) {
-				var reqData = getProductData();;
-				if (!reqData) {
-					var modal = createModal({
-		    			body: {
-		    				html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-		    			},
-		    			autoClose: true
-		    		});
-					return ;
-				}
-				toBuyNow(reqData, goToCheckout);
+				var reqData = getProductData();
+				checkReqData(reqData) && toBuyNow(reqData, goToCheckout);
 			}
 		});
+		$('.paypal-button').on('click', function() {
+			var reqData = getProductData();
+			isCorrectProduct() && checkReqData(reqData) && (payLoading(), toPayInstance(reqData));
+		})
 	</script>
 </body>
 </html>
