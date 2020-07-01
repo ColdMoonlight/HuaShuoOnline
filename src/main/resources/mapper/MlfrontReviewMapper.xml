@@ -230,9 +230,7 @@
   </update>
   <!-- selectMlfrontReviewGetAll -->
   <select id="selectMlfrontReviewGetAll" parameterType="com.atguigu.bean.MlfrontReview" resultMap="BaseResultMap">
-    select 
-    review_id, review_uname, review_uimgUrl, review_pid,review_pseoname, review_superCateIdStr, review_status, 
-    review_detailStr, review_proStarNum, review_from
+    select *
     from tb_mlfront_review order by review_id desc
   </select>
   <!-- selectMlfrontReviewById -->
