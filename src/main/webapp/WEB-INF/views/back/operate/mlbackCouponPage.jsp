@@ -303,7 +303,6 @@
 			}
 		}
 		// tab delete
-		// tab delete
 		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
