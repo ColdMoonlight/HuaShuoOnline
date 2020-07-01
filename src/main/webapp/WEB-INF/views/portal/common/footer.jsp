@@ -180,7 +180,7 @@ function powerset(arr) {
     }
     return ps;
 }
-function updateStatus(selected) {
+function updateProductStatus(selected) {
 	var keys = Object.keys(optionObj);
     for (var i = 0, len = keys.length; i < len; i+=1) {
         var key = keys[i];
@@ -250,7 +250,7 @@ $(document.body).on('click', '.radio', function(e) {
 
     if (!$this.hasClass('disabled')) {
         handleNormalClick($this);
-        updateStatus(getSelectedItem());
+        updateProductStatus(getSelectedItem());
         showResult();
    	}
 
@@ -343,22 +343,41 @@ function removeModal(modal) {
     removeFixed();
 }
 
-function sysModalTip() {
+function mlModalTip(text) {
 	var modal = createModal({
 		body: {
-			html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
+			html: '<p>'+ text +'</p>'
 		},
 		autoClose: true
 	});
 }
 
+function sysModalTip() {
+	mlModalTip('Settlement system error, temporarily unable to, please try again later !');
+}
+
+function sysModalErrorTip (err) {
+	mlModalTip('Error: '+ JSON.stringify(err));
+}
+
 function refreshPageModal() {
-	var modal = createModal({
-		body: {
-			html: '<p>please refresh the page to get again！</p>'
-		},
-		autoClose: true
-	});
+	mlModalTip('please refresh the page to get again !');
+}
+
+function deleteProductSuccessModal() {
+	mlModalTip('Successfully deleting  the product !');
+}
+
+function deleteProductFailModal() {
+	mlModalTip('Failed to delete the product !');
+}
+
+function updateProductNumSuccessModal() {
+	mlModalTip('Successfully updating the product !');	
+}
+
+function updateProductNumFailModal() {
+	mlModalTip('Failed to update the product !');
 }
 
 // pay loading
@@ -369,6 +388,9 @@ function payLoading() {
 }
 
 /* jump link function */
+function goToIndex() {
+	window.location.href = '${APP_PATH}';
+}
 function goToCheckout() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCheakOut';
 }
@@ -381,6 +403,9 @@ function goToPay() {
 function goTopayInstance() {
 	window.location.href = '${APP_PATH}/paypalProDetailExpress/mpay';
 }
+function goToUserCenter() {
+	 window.location.href = "${APP_PATH }/MlfrontUser/toUserCenter";
+}
 /* varient */
-var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [];
+var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 </script>

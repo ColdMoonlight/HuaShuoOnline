@@ -140,12 +140,7 @@
             var productSku = mapItems[selectedKeys.join(',')] || {};
             if (parseInt($('.product-qty .product-num').val()) > productQty.count) {
             	$('.product-qty .product-num').val(productQty.count);
-            	var modal = createModal({
-        			body: {
-        				html: '<p>Under the current options can buy at most <i style="font-weight: blold">'+ productQty.count +'</i> product !</p>'
-        			},
-	    			autoClose: true
-        		});
+            	mlModalTip('Under the current options can buy at most <i style="font-weight: blold">'+ productQty.count +'</i> product !');
             }
            	$('.product-qty .product-num').data('count', productQty.count).data('productsku', productSku);
            	var productSkuMoney = productSku.productskuMoney
@@ -198,21 +193,11 @@
 					if (data.code == 100) {
 						callback && callback();
 					} else {
-						var modal = createModal({
-		        			body: {
-		        				html: '<p>Failed to add products to cart !</p>'
-		        			},
-			    			autoClose: true
-		        		});
+						mlModalTip('Failed to add products to cart !</p>');
 					}
 				},
 				error: function (err) {
-					var modal = createModal({
-		    			body: {
-		    				html: '<p>Error: '+ err + '</p>'
-		    			},
-		    			autoClose: true
-		    		});
+					sysModalErrorTip (err);
 				}
 			});
 		}
@@ -228,21 +213,11 @@
 					if (data.code == 100) {
 						callback & callback();
 					} else {
-						var modal = createModal({
-			    			body: {
-			    				html: "<p>I'm sorry, temporarily unable to settlement, please try again later !</p>"
-			    			},
-			    			autoClose: true
-			    		});
+						mlModalTip("I'm sorry, temporarily unable to settlement, please try again later !");
 					}
 				},
 				error: function(err) {
-					var modal = createModal({
-		    			body: {
-		    				html: '<p>Error: '+ err.toString() + '</p>'
-		    			},
-		    			autoClose: true
-		    		});
+					sysModalErrorTip (err);
 				}
 			});
 		}
@@ -484,12 +459,7 @@
 					// check product sku is error or not
 					var reqData = getProductData();
 					if (!reqData) {
-						var modal = createModal({
-			    			body: {
-			    				html: "<p>I'm sorry, the goods temporarily can't buy !</p>"
-			    			},
-			    			autoClose: true
-			    		});
+						mlModalTip("I'm sorry, the goods temporarily can't buy !");
 						return false;
 					}
 

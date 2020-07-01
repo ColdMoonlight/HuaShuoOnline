@@ -164,30 +164,15 @@
 						targetData.orderitemPskuNumber = num;
 						el.parents('.order-item').data('orderitem', targetData);
 						callback && callback();
-						var modal = createModal({
-							body: {
-								html: '<p>Successfully updating the product !</p>'
-							},
-							autoClose: true
-						});				
+						updateProductNumSuccessModal();
 					} else {
 						el.find('.product-num').val(targetData.orderitemPskuNumber);
-						var modal = createModal({
-							body: {
-								html: '<p>Failed to update the product !</p>'
-							},
-							autoClose: true
-						});
+						updateProductNumFailModal();
 					}
 				},
 				error: function () {
 					el.find('.product-num').val(targetData.cartitemProductNumber);
-					var modal = createModal({
-						body: {
-							html: '<p>Failed to update the product !</p>'
-						},
-						autoClose: true
-					});
+					updateProductNumFailModal();
 				}
 			});
 		}
@@ -208,21 +193,11 @@
 					el.remove();
 					if (!$('.cart-item').length) goToCartList();
 					callback && callback();
-					modal = createModal({
-						body: {
-							html: '<p>Successfully deleting  the product !</p>'
-						},
-						autoClose: true
-					});
+					deleteProductSuccessModal();
 				},
 				error: function () {
 					el.find('.product-num').val(targetData.cartitemProductNumber);
-					modal = createModal({
-						body: {
-							html: '<p>Failed to delete the product !</p>'
-						},
-						autoClose: true
-					});
+					deleteProductFailModal();
 				}
 			});
 		}
@@ -542,12 +517,7 @@
 				var item = $('.address-box .form-group')[idx];
 				if ($(item).find('.form-control').data('status')) continue;
 				if (!$(item).find('.form-control').val() || $(item).find('.form-control').val() == 'state') {
-					createModal({
-		    			body: {
-		    				html: '<p>Address information <i style="color: #f00">'+ $(item).find('.form-label').text() +"</i> can't be empty !</p>"
-		    			},
-		    			autoClose: true
-		    		});
+					mlModalTip('Address information <i style="color: #f00">'+ $(item).find('.form-label').text() +"</i> can't be empty !");
 					$(item).find('.form-control').focus();
 					flag = false;
 					break;
@@ -571,12 +541,7 @@
 					}
 				},
 				error: function(err) {
-					createModal({
-		    			body: {
-		    				html: '<p>Error: '+ err.toString() +' </p>'
-		    			},
-		    			autoClose: true
-		    		});
+					sysModalErrorTip (err);
 				}
 			});
 		}
@@ -627,12 +592,7 @@
 			getProductOrderList(function(data) {
 				var orderListData = data.mlfrontOrderItemList;
 				if (!orderListData.length) {
-					var modal = createModal({
-		    			body: {
-		    				html: "<p>Don't have to pay for goods, please to add items in the shopping cart, and then to pay !</p>"
-		    			},
-		    			autoClose: true
-		    		});
+					mlModalTip("Don't have to pay for goods, please to add items in the shopping cart, and then to pay !");
 					goToCartList();
 					return ;
 				}
@@ -681,12 +641,7 @@
 					resetOrderCal();
 				});	
 			} else {
-				createModal({
-	    			body: {
-	    				html: '<p>Please enter a valid coupon code !</p>'
-	    			},
-	    			autoClose: true
-	    		});
+				mlModalTip('Please enter a valid coupon code !');
 			}
 		});
 		// pay event

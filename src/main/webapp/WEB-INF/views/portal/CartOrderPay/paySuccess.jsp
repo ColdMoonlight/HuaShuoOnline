@@ -6,9 +6,7 @@
 <head>
 	<title>Payment Success</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<style>
-		main { margin: 0; }
-	</style>
+	<style> main { margin: 0; } </style>
 </head>
 
 <body>
@@ -40,7 +38,7 @@
 			</div>
 			<p class="payment-tip">If there's any questions, plz contact the customer service </p>
 			<div class="payment-btn">
-				<a href="${APP_PATH}" class="btn btn-black">Continue Shopping</a>
+				<a href="javascript:goToIndex();" class="btn btn-black">Continue Shopping</a>
 			</div>
 		</div>
 	</main>
@@ -135,7 +133,13 @@
 		}
 
 		var payinfoId = '${sessionScope.payinfoId}';
-
+		
+		if (!payinfoId) {
+			mlModalTip('Please contact customer service for abnormal orders !');
+			$('main').html('');
+			setTimeout(goToIndex, 3000);
+		}
+		
 		getPayInfo({ "payinfoId":  payinfoId}, function (data) {
 			var resDataPayInfoOne = data.mlfrontPayInfoOne;
 			var resDataOrderItemList = data.mlfrontOrderItemList;
