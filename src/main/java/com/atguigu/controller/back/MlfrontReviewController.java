@@ -61,17 +61,16 @@ public class MlfrontReviewController {
 	@ResponseBody
 	public Msg getMlfrontReviewWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return Msg.fail().add("resMsg", "session中adminuser对象为空");
-		}else{
-			int PagNum = 50;
+//		if(mlbackAdmin==null){
+//			//SysUsers对象为空
+//			return Msg.fail().add("resMsg", "session中adminuser对象为空");
+//		}else{
+			int PagNum = 30;
 			PageHelper.startPage(pn, PagNum);
 			List<MlfrontReview> mlfrontReviewList = mlfrontReviewService.selectMlfrontReviewAll();
-			
 			PageInfo page = new PageInfo(mlfrontReviewList, PagNum);
 			return Msg.success().add("pageInfo", page);
-		}
+//		}
 	}
 
 	/**3.0	useOn	0505
