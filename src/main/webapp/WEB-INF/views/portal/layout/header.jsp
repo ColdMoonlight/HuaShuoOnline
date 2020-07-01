@@ -5,7 +5,7 @@
 	<div class="pc-header">
 		<div class="ml-search">
 			<div class="container">
-				<a class="logo" href="${APP_PATH}">
+				<a class="logo" href="javascript:goToIndex();">
 					<img src="${APP_PATH }/static/common/dblogo.png" alt="megalook" title="megalook">
 				</a>
 				<div class="search-box">
@@ -41,7 +41,7 @@
 			<span id="menu" class="icon menu"></span>
 			<span class="icon person unactive"></span>
 			<a href="TEL:(501)7226336" class="icon phone"></a>
-			<a class="logo" href="${APP_PATH}">
+			<a class="logo" href="javascript:goToIndex();">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
 			</a>
 			<span class="icon share" id="iphone-share"></span>
@@ -254,21 +254,11 @@
 				if (data.code == 100) {
 					callback(data.extend);
 				} else {
-					var modal = createModal({
-	        			body: {
-	        				html: '<p>Failed to get to the relevant data !</p>'
-	        			},
-		    			autoClose: true
-	        		});
+					mlModalTip('Failed to get to the relevant data !');
 				}
 			},
 			error: function(err) {
-				var modal = createModal({
-	    			body: {
-	    				html: '<p>Error: '+ err + '</p>'
-	    			},
-	    			autoClose: true
-	    		});
+				sysModalErrorTip (err);
 			}
 		});
 	}
@@ -409,7 +399,7 @@
 					'</form>' +
 					'<div class="btn-group">' +
 						'<a href="javascript:;" class="btn btn-black register"> REGISTER </a>' +
-						'<a href="${APP_PATH}" class="btn btn-no">Go Home</a>' +
+						'<a href="javascript:goToIndex();" class="btn btn-no">Go Home</a>' +
 					'</div>' +
 				'</div>' +
 			'</div>' +
@@ -529,12 +519,12 @@
 		var password = $('#signin input[name=userPassword]').val();
 
 		if (!email || !emailPattern.test(email)) {
-			loginModalTip('It is illegal to enter an email address ！');
+			mlModalTip('It is illegal to enter an email address !');
 			return ;
 		}
 
 		if (password.length < 6) {
-			loginModalTip('The password entered is invalid ！');
+			mlModalTip('The password entered is invalid !');
 			return ;
 		}
 
@@ -554,27 +544,27 @@
 		var password2 = $('#register input[name=ConfirmPassword]').val();
 
 		if (!email || !emailPattern.test(email)) {
-			loginModalTip('It is illegal to enter an email address ！');
+			mlModalTip('It is illegal to enter an email address !');
 			return ;
 		}
 
 		if (password.length < 6) {
-			loginModalTip('The password entered is invalid ！');
+			mlModalTip('The password entered is invalid !');
 			return ;
 		}
 
 		if (!password2.length) {
-			loginModalTip('Please enter a confirmation password ！');
+			mlModalTip('Please enter a confirmation password !');
 			return ;
 		}
 
 		if (password2.length < 6) {
-			loginModalTip('The confirm password entered is invalid ！');
+			mlModalTip('The confirm password entered is invalid !');
 			return ;				
 		}
 
 		if (password != password2) {
-			loginModalTip('Twice the password is double, please re-enter the password ！');
+			mlModalTip('Twice the password is double, please re-enter the password !');
 			$('#register input[name=ConfirmPassword]').val('');
 			return ;				
 		}
@@ -593,27 +583,27 @@
 		var password2 = $('#forget-password input[name=ConfirmPassword]').val();
 
 		if (!email || !emailPattern.test(email)) {
-			loginModalTip('It is illegal to enter an email address ！');
+			mlModalTip('It is illegal to enter an email address !');
 			return ;
 		}
 
 		if (password.length < 6) {
-			loginModalTip('The password entered is invalid ！');
+			mlModalTip('The password entered is invalid !');
 			return ;
 		}
 
 		if (!password2.length) {
-			loginModalTip('Please enter a confirmation password ！');
+			mlModalTip('Please enter a confirmation password !');
 			return ;
 		}
 
 		if (password2.length < 6) {
-			loginModalTip('The confirm password entered is invalid ！');
+			mlModalTip('The confirm password entered is invalid !');
 			return ;				
 		}
 
 		if (password != password2) {
-			loginModalTip('Twice the password is double, please re-enter the password ！');
+			mlModalTip('Twice the password is double, please re-enter the password !');
 			$('#register input[name=ConfirmPassword]').val('');
 			return ;				
 		}

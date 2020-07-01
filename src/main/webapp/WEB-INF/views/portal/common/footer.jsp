@@ -343,24 +343,6 @@ function removeModal(modal) {
     removeFixed();
 }
 
-function sysModalTip() {
-	var modal = createModal({
-		body: {
-			html: "<p>Settlement system error, temporarily unable to, please try again later !</p>"
-		},
-		autoClose: true
-	});
-}
-
-function refreshPageModal() {
-	var modal = createModal({
-		body: {
-			html: '<p>please refresh the page to get again！</p>'
-		},
-		autoClose: true
-	});
-}
-
 function mlModalTip(text) {
 	var modal = createModal({
 		body: {
@@ -369,6 +351,35 @@ function mlModalTip(text) {
 		autoClose: true
 	});
 }
+
+function sysModalTip() {
+	mlModalTip('Settlement system error, temporarily unable to, please try again later !');
+}
+
+function sysModalErrorTip (err) {
+	mlModalTip('Error: '+ JSON.stringify(err));
+}
+
+function refreshPageModal() {
+	mlModalTip('please refresh the page to get again !');
+}
+
+function deleteProductSuccessModal() {
+	mlModalTip('Successfully deleting  the product !');
+}
+
+function deleteProductFailModal() {
+	mlModalTip('Failed to delete the product !');
+}
+
+function updateProductNumSuccessModal() {
+	mlModalTip('Successfully updating the product !');	
+}
+
+function updateProductNumFailModal() {
+	mlModalTip('Failed to update the product !');
+}
+
 // pay loading
 function payLoading() {
 	var $payLoading = $('<div class="pay-loading"><div class="load-list"><div class="loader-item"></div><div class="loader-item"></div><div class="loader-item"></div></div>');
@@ -377,6 +388,9 @@ function payLoading() {
 }
 
 /* jump link function */
+function goToIndex() {
+	window.location.href = '${APP_PATH}';
+}
 function goToCheckout() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCheakOut';
 }
