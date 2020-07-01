@@ -101,8 +101,8 @@
 					<div class="product-tab-item btn btn-black" data-name="review">Reviews</div>
 				</div>
 				<div class="product-tab-body">
-					<div class="product-tab-container active" data-name="desc"></div>
-					<div class="product-tab-container" data-name="review"> review list</div>
+					<div class="product-tab-container" data-name="desc"></div>
+					<div class="product-tab-container active" data-name="review"> review list</div>
 				</div>
 			</div>
 			<div class="product-footer"></div>
