@@ -133,7 +133,13 @@
 		}
 
 		var payinfoId = '${sessionScope.payinfoId}';
-
+		
+		if (!payinfoId) {
+			mlModalTip('Please contact customer service for abnormal orders !');
+			$('main').html('');
+			setTimeout(goToIndex, 3000);
+		}
+		
 		getPayInfo({ "payinfoId":  payinfoId}, function (data) {
 			var resDataPayInfoOne = data.mlfrontPayInfoOne;
 			var resDataOrderItemList = data.mlfrontOrderItemList;
