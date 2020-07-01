@@ -49,30 +49,15 @@
 						targetData.cartitemProductNumber = num;
 						el.parents('.cart-item').data('cartitem', targetData);
 						callback && callback();
-						var modal = createModal({
-							body: {
-								html: '<p>Successfully updating the product !</p>'
-							},
-							autoClose: true
-						});				
+						updateProductNumSuccessModal();				
 					} else {
 						el.find('.product-num').val(targetData.cartitemProductNumber);
-						var modal = createModal({
-							body: {
-								html: '<p>Failed to update the product !</p>'
-							},
-							autoClose: true
-						});
+						updateProductNumFailModal();
 					}
 				},
 				error: function () {
 					el.find('.product-num').val(targetData.cartitemProductNumber);
-					var modal = createModal({
-						body: {
-							html: '<p>Failed to update the product !</p>'
-						},
-						autoClose: true
-					});
+					updateProductNumFailModal();
 				}
 			});
 		}
@@ -94,21 +79,11 @@
 					callback && callback();
 					callback2 && callback2();
 					if (!$('.cart-item').length) callback3 && callback3();
-					modal = createModal({
-						body: {
-							html: '<p>Successfully deleting  the product !</p>'
-						},
-						autoClose: true
-					});
+					deleteProductSuccessModal();
 				},
 				error: function () {
 					el.find('.product-num').val(targetData.cartitemProductNumber);
-					modal = createModal({
-						body: {
-							html: '<p>Failed to delete the product !</p>'
-						},
-						autoClose: true
-					});
+					deleteProductFailModal();
 				}
 			});
 		}
@@ -183,7 +158,7 @@
 			var htmlStr = '<div class="cart-empty">' +
 				'<img src="${APP_PATH}/static/pc/img/cart-empty.png">' +
 				'<p>The shopping cart is empty. Come and fill it up!</p>' +
-				'<a href="${APP_PATH}/index.html" class="btn"> Shop Now </a>' +
+				'<a href="javascript:goToIndex();" class="btn"> Shop Now </a>' +
 			'</div>';
 			$('main .container').html(htmlStr);
 		}
@@ -210,29 +185,14 @@
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						var modal = createModal({
-			    			body: {
-			    				html: '<p>Successful update product skus.</p>'
-			    			},
-			    			autoClose: true
-			    		});
+						mlModalTip('Successful update product skus !');
 						callback(data.extend.mlfrontCartItem);
 					} else {
-						var mpodal = createModal({
-			    			body: {
-			    				html: '<p>Failed to update product skus.</p>'
-			    			},
-			    			autoClose: true
-			    		});
+						mlModalTip('Failed to update product skus !');
 					}
 				},
 				error: function(err) {
-					var modal = createModal({
-		    			body: {
-		    				html: '<p>Failed to update product skus.</p>'
-		    			},
-		    			autoClose: true
-		    		});
+					mlModalTip('Failed to update product skus !');
 				}
 			});
 		}
@@ -254,21 +214,11 @@
 					if (data.code == 100) {
 						callback && callback();
 					} else {
-						var modal = createModal({
-			    			body: {
-			    				html: "<p>I'm sorry, temporarily unable to settlement, please try again later !</p>"
-			    			},
-			    			autoClose: true
-			    		});
+						sysModalTip();
 					}
 				},
 				error: function(err) {
-					var modal = createModal({
-		    			body: {
-		    				html: '<p>Error: '+ err.toString() + '</p>'
-		    			},
-		    			autoClose: true
-		    		});
+					sysModalErrorTip (err);
 				}
 			});
 		}
