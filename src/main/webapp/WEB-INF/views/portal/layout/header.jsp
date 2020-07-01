@@ -284,6 +284,20 @@
 			}
 		});
 	}
+	// update user login status fn
+	function updateUserLoginStatus() {
+		$.ajax({
+			url: "${APP_PATH}/MlfrontUser/ifLogin",
+			type: 'post',
+			success: function (data) {
+			 	var resData = data.extend,
+			 		$pserson = $('.icon.person');
+			 	if (resData.ifLogin && !$pserson.hasClass('active')) $pserson.addClass('active');
+			
+			 	if (!resData.ifLogin && $pserson.hasClass('active')) $person.removeClass('active');
+			}
+		});
+	}
 	// initial header nav
 	getNavMenuData(function (data) {
 		renderMainCategory($('.ml-nav'), data.categoryFirstList, data.mlbackCategorySuperList);
@@ -292,137 +306,71 @@
 		// wap event;
 		addWapNavEvent();
 	});
-	// initial cart num
-	updateProructNumberInCart();
-	// listener search event
-	$('.search-inputgroup input').on('click', function () {
-		addFixed();
-		$(this).parents('.search-box').addClass('active').find('.search-result-box').slideDown(300);
-	});
-	// close search-result box
-	$('.search-result-box').on('click', function (e) {
-		if (e.target == this) {
-			removeFixed();
-			$(this).slideUp(300);
-		}
-	});
-	$('.wap-navbar .search-box .close, .search-result-item').on('click', function () {
-		$('.wap-navbar .search-box').hide();
-		removeFixed();
-	});
-	$('.pc-header .search-result-box .close').on('click', function () {
-		$('.pc-header .search-result-box').slideUp();
-		removeFixed();
-	});
-	// wap-navbar
-	$('.wap-navbar .search').on('click', function () {
-		addFixed();
-		$('.wap-navbar .search-box').show();
-	});
-	var startY = 0;
-	$(window).on('scroll', function () {
-		var currentY = window.pageYOffset;
-		if (currentY >= startY) {
-			if (window.innerWidth > 1024) {
-				$('.ml-search').hide();
-				$('main').css({ 'paddingTop': '4rem' });
+	// login register fn
+	function registerFn(reqData, callback) {
+		$.ajax({
+			url: "${APP_PATH }/MlfrontUser/register",
+			type: 'post',
+			data: JSON.stringify(reqData),
+			dataType: 'json',
+			contentType: 'application/json',
+			success: function (data) {
+				if (data.extend.registerYes) {
+					mlModalTip('Registered successfully !');
+					 callback && callback();
+				} else {
+					mlModalTip('Registered failed !');
+				}
+			},
+			error: function() {
+				sysModalTip();
 			}
-		}
-
-		if (currentY < startY && currentY < 60) {
-			if (window.innerWidth > 1024) {
-				$('.ml-search').show();
-				$('main').css({ 'paddingTop': '9rem' });
+		});
+	}
+	
+	function forgetFn(reqData, callback) {
+		$.ajax({
+			url: "${APP_PATH}/MlfrontUser/reSetPwd",
+			type: 'post',
+			data: JSON.stringify(reqData),
+			dataType: 'json',
+			contentType: 'application/json',
+			success: function (data) {
+				if (data.code == 100) {
+					mlModalTip('Password change successfully !');
+					 callback && callback();
+				} else {
+					mlModalTip('Password change failed !');
+				}
+			},
+			error: function() {
+				sysModalTip();
 			}
-		}
-		startY = currentY;
-	});
-	// iphone share
-	$('#iphone-share').on('click', function() {
-		var $iphoneAdvice = $('.iphone-advice');
-		if (!$iphoneAdvice.length) {
-			$iphoneAdvice = $('<div class="iphone-advice"><img src="${APP_PATH }/static/pc/img/iphone-advice.gif" /><span class="icon close"></span></div>');
-			$(document.body).append($iphoneAdvice)
-		}
-		$iphoneAdvice.show();
-	});
-	$(document.body).on('click', '.iphone-advice .close', function() {
-		$('.iphone-advice').hide();
-	});
-	// login-register
-	$(document.body).on('click', '.icon.person.unactive', function() {
-		function loginModalTip(text) {
-			var modal = createModal({
-				body: {
-					html: '<p>'+ text +'</p>'
-				},
-				autoClose: true
-			});
-		}
-		
-		function registerFn(reqData, callback) {
-			$.ajax({
-				url: "${APP_PATH }/MlfrontUser/register",
-				type: 'post',
-				data: JSON.stringify(reqData),
-				dataType: 'json',
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.extend.registerYes) {
-						 loginModalTip('Registered successfully !');
-						 callback && callback();
-					} else {
-						loginModalTip('Registered failed !');
-					}
-				},
-				error: function() {
-					sysModalTip();
-				}
-			});
-		}
-		
-		function forgetFn(reqData, callback) {
-			$.ajax({
-				url: "${APP_PATH}/MlfrontUser/reSetPwd",
-				type: 'post',
-				data: JSON.stringify(reqData),
-				dataType: 'json',
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						 loginModalTip('Password change successfully !');
-						 callback && callback();
-					} else {
-						loginModalTip('Password change failed !');
-					}
-				},
-				error: function() {
-					sysModalTip();
-				}
-			});
-		}
+		});
+	}
 
-		function loginFn(reqData, callback) {
-			$.ajax({
-				url: "${APP_PATH }/MlfrontUser/login",
-				type: 'post',
-				data: JSON.stringify(reqData),
-				dataType: 'json',
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.extend.loginYes) {
-						 loginModalTip('Login successfully !');
-						 callback && callback();
-					} else {
-						loginModalTip('Login failed !');
-					}
-				},
-				error: function() {
-					sysModalTip();
+	function loginFn(reqData, callback) {
+		$.ajax({
+			url: "${APP_PATH }/MlfrontUser/login",
+			type: 'post',
+			data: JSON.stringify(reqData),
+			dataType: 'json',
+			contentType: 'application/json',
+			success: function (data) {
+				if (data.extend.loginYes) {
+					mlModalTip('Login successfully !');
+					 callback && callback();
+				} else {
+					mlModalTip('Login failed !');
 				}
-			});
-		}
-		var emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+			},
+			error: function() {
+				sysModalTip();
+			}
+		});
+	}
+	// login-register box	
+	function loginRegisterBox () {		
 		var loginRegisterHtml = '<div class="left-box">' +
 				'<div class="tab">' +
 					'<div class="tab-item active" data-id="signin">Sign In</div>' +
@@ -484,7 +432,7 @@
 					'<a href="javascript:;" class="btn btn-black forget-password"> Confirm </a>' +
 				'</div>'
 			'</div>';
-		var loginRegisterModal = createModal({
+		loginRegisterModal = createModal({
 			header: {
 				html: '<p>MegaLook</p>'
 			},
@@ -493,119 +441,189 @@
 			}
 		});
 		loginRegisterModal.addClass('login-register');
-		// tab event
-		$(document.body).on('click', '.tab-item', function() {
-			if (!$(this).hasClass('active')) {
-				$(this).addClass('active').siblings().removeClass('active');
-				$('.tab-pane.'+ $(this).data('id')).addClass('active').siblings().removeClass('active');
+	}
+	// initial cart num
+	updateProructNumberInCart();
+	// initial login status
+	updateUserLoginStatus();
+	// listener search event
+	$('.search-inputgroup input').on('click', function () {
+		addFixed();
+		$(this).parents('.search-box').addClass('active').find('.search-result-box').slideDown(300);
+	});
+	// close search-result box
+	$('.search-result-box').on('click', function (e) {
+		if (e.target == this) {
+			removeFixed();
+			$(this).slideUp(300);
+		}
+	});
+	$('.wap-navbar .search-box .close, .search-result-item').on('click', function () {
+		$('.wap-navbar .search-box').hide();
+		removeFixed();
+	});
+	$('.pc-header .search-result-box .close').on('click', function () {
+		$('.pc-header .search-result-box').slideUp();
+		removeFixed();
+	});
+	// wap-navbar
+	$('.wap-navbar .search').on('click', function () {
+		addFixed();
+		$('.wap-navbar .search-box').show();
+	});
+	var startY = 0,
+		loginRegisterModal = null;
+	$(window).on('scroll', function () {
+		var currentY = window.pageYOffset;
+		if (currentY >= startY) {
+			if (window.innerWidth > 1024) {
+				$('.ml-search').hide();
+				$('main').css({ 'paddingTop': '4rem' });
 			}
+		}
+
+		if (currentY < startY && currentY < 60) {
+			if (window.innerWidth > 1024) {
+				$('.ml-search').show();
+				$('main').css({ 'paddingTop': '9rem' });
+			}
+		}
+		startY = currentY;
+	});
+	// iphone share
+	$('#iphone-share').on('click', function() {
+		var $iphoneAdvice = $('.iphone-advice');
+		if (!$iphoneAdvice.length) {
+			$iphoneAdvice = $('<div class="iphone-advice"><img src="${APP_PATH }/static/pc/img/iphone-advice.gif" /><span class="icon close"></span></div>');
+			$(document.body).append($iphoneAdvice)
+		}
+		$iphoneAdvice.show();
+	});
+	$(document.body).on('click', '.iphone-advice .close', function() {
+		$('.iphone-advice').hide();
+	});
+	// login-register
+	$('.icon.person').on('click', function() {
+		if ($(this).hasClass('active')) {
+			goToUserCenter();
+			return ;
+		} else {
+			loginRegisterBox();
+		}
+	});
+	// login-register tab event
+	$(document.body).on('click', '.login-register .tab-item', function() {
+		if (!$(this).hasClass('active')) {
+			$(this).addClass('active').siblings().removeClass('active');
+			$('.tab-pane.'+ $(this).data('id')).addClass('active').siblings().removeClass('active');
+		}
+	});
+	// tab forget-password box
+	$(document.body).on('click', '#forget-password', function() {
+		$('.left-box').hide();
+		$('.right-box').show();
+	});
+	// login event
+	$(document.body).on('click', '.btn.sigin', function () {
+		var email = $('#signin input[name=userEmail]').val();
+		var password = $('#signin input[name=userPassword]').val();
+
+		if (!email || !emailPattern.test(email)) {
+			loginModalTip('It is illegal to enter an email address ！');
+			return ;
+		}
+
+		if (password.length < 6) {
+			loginModalTip('The password entered is invalid ！');
+			return ;
+		}
+
+		loginFn({
+			'userEmail': email,
+			'userPassword': password
+		}, function () {
+			removeModal(loginRegisterModal);
+			updateProructNumberInCart();
+			$('.icon.person').addClass('active');
 		});
-		// login event
-		$('.btn.sigin').on('click', function () {
-			var email = $('#signin input[name=userEmail]').val();
-			var password = $('#signin input[name=userPassword]').val();
+	});
+	// register event
+	$(document.body).on('click', '.btn.register', function () {
+		var email = $('#register input[name=userEmail]').val();
+		var password = $('#register input[name=userPassword]').val();
+		var password2 = $('#register input[name=ConfirmPassword]').val();
 
-			if (!email || !emailPattern.test(email)) {
-				loginModalTip('It is illegal to enter an email address ！');
-				return ;
-			}
+		if (!email || !emailPattern.test(email)) {
+			loginModalTip('It is illegal to enter an email address ！');
+			return ;
+		}
 
-			if (password.length < 6) {
-				loginModalTip('The password entered is invalid ！');
-				return ;
-			}
+		if (password.length < 6) {
+			loginModalTip('The password entered is invalid ！');
+			return ;
+		}
 
-			loginFn({
-				'userEmail': email,
-				'userPassword': password
-			}, function () {
-				removeModal(loginRegisterModal);
-				updateProructNumberInCart();
-				$('.icon.person').removeClass('unactive').addClass('active');
-			});
+		if (!password2.length) {
+			loginModalTip('Please enter a confirmation password ！');
+			return ;
+		}
+
+		if (password2.length < 6) {
+			loginModalTip('The confirm password entered is invalid ！');
+			return ;				
+		}
+
+		if (password != password2) {
+			loginModalTip('Twice the password is double, please re-enter the password ！');
+			$('#register input[name=ConfirmPassword]').val('');
+			return ;				
+		}
+
+		registerFn({
+			'userEmail': email,
+			'userPassword': password
+		}, function() {
+			removeModal(loginRegisterModal);
 		});
-		// register event
-		$('.btn.register').on('click', function () {
-			var email = $('#register input[name=userEmail]').val();
-			var password = $('#register input[name=userPassword]').val();
-			var password2 = $('#register input[name=ConfirmPassword]').val();
+	});
+	// forget password event
+	$(document.body).on('click', '.btn.forget-password', function () {
+		var email = $('#forget-password input[name=userEmail]').val();
+		var password = $('#forget-password input[name=userPassword]').val();
+		var password2 = $('#forget-password input[name=ConfirmPassword]').val();
 
-			if (!email || !emailPattern.test(email)) {
-				loginModalTip('It is illegal to enter an email address ！');
-				return ;
-			}
+		if (!email || !emailPattern.test(email)) {
+			loginModalTip('It is illegal to enter an email address ！');
+			return ;
+		}
 
-			if (password.length < 6) {
-				loginModalTip('The password entered is invalid ！');
-				return ;
-			}
+		if (password.length < 6) {
+			loginModalTip('The password entered is invalid ！');
+			return ;
+		}
 
-			if (!password2.length) {
-				loginModalTip('Please enter a confirmation password ！');
-				return ;
-			}
+		if (!password2.length) {
+			loginModalTip('Please enter a confirmation password ！');
+			return ;
+		}
 
-			if (password2.length < 6) {
-				loginModalTip('The confirm password entered is invalid ！');
-				return ;				
-			}
+		if (password2.length < 6) {
+			loginModalTip('The confirm password entered is invalid ！');
+			return ;				
+		}
 
-			if (password != password2) {
-				loginModalTip('Twice the password is double, please re-enter the password ！');
-				$('#register input[name=ConfirmPassword]').val('');
-				return ;				
-			}
+		if (password != password2) {
+			loginModalTip('Twice the password is double, please re-enter the password ！');
+			$('#register input[name=ConfirmPassword]').val('');
+			return ;				
+		}
 
-			registerFn({
-				'userEmail': email,
-				'userPassword': password
-			}, function() {
-				removeModal(loginRegisterModal);
-			});
-		});
-		// forget event
-		$('#forget-password').on('click', function() {
-			$('.left-box').hide();
-			$('.right-box').show();
-		});
-		$('.btn.forget-password').on('click', function () {
-			var email = $('#forget-password input[name=userEmail]').val();
-			var password = $('#forget-password input[name=userPassword]').val();
-			var password2 = $('#forget-password input[name=ConfirmPassword]').val();
-
-			if (!email || !emailPattern.test(email)) {
-				loginModalTip('It is illegal to enter an email address ！');
-				return ;
-			}
-
-			if (password.length < 6) {
-				loginModalTip('The password entered is invalid ！');
-				return ;
-			}
-
-			if (!password2.length) {
-				loginModalTip('Please enter a confirmation password ！');
-				return ;
-			}
-
-			if (password2.length < 6) {
-				loginModalTip('The confirm password entered is invalid ！');
-				return ;				
-			}
-
-			if (password != password2) {
-				loginModalTip('Twice the password is double, please re-enter the password ！');
-				$('#register input[name=ConfirmPassword]').val('');
-				return ;				
-			}
-
-			forgetFn({
-				'userEmail': email,
-				'userPassword': password
-			}, function() {
-				$('.left-box').show();
-				$('.right-box').hide();
-			});
+		forgetFn({
+			'userEmail': email,
+			'userPassword': password
+		}, function() {
+			$('.left-box').show();
+			$('.right-box').hide();
 		});
 	});
 </script>

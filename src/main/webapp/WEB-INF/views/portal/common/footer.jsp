@@ -180,7 +180,7 @@ function powerset(arr) {
     }
     return ps;
 }
-function updateStatus(selected) {
+function updateProductStatus(selected) {
 	var keys = Object.keys(optionObj);
     for (var i = 0, len = keys.length; i < len; i+=1) {
         var key = keys[i];
@@ -250,7 +250,7 @@ $(document.body).on('click', '.radio', function(e) {
 
     if (!$this.hasClass('disabled')) {
         handleNormalClick($this);
-        updateStatus(getSelectedItem());
+        updateProductStatus(getSelectedItem());
         showResult();
    	}
 
@@ -361,6 +361,14 @@ function refreshPageModal() {
 	});
 }
 
+function mlModalTip(text) {
+	var modal = createModal({
+		body: {
+			html: '<p>'+ text +'</p>'
+		},
+		autoClose: true
+	});
+}
 // pay loading
 function payLoading() {
 	var $payLoading = $('<div class="pay-loading"><div class="load-list"><div class="loader-item"></div><div class="loader-item"></div><div class="loader-item"></div></div>');
@@ -381,6 +389,9 @@ function goToPay() {
 function goTopayInstance() {
 	window.location.href = '${APP_PATH}/paypalProDetailExpress/mpay';
 }
+function goToUserCenter() {
+	 window.location.href = "${APP_PATH }/MlfrontUser/toUserCenter";
+}
 /* varient */
-var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [];
+var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 </script>
