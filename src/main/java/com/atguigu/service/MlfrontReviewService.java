@@ -69,7 +69,7 @@ public class MlfrontReviewService {
 	 * 
 	 * */
 	public List<MlfrontReview> selectMlfrontReviewAll() {
-		List<MlfrontReview>  MlfrontReviewList = mlfrontReviewMapper.selectMlfrontReviewGetAll();
+		List<MlfrontReview>  MlfrontReviewList = mlfrontReviewMapper.selectMlfrontReviewAll();
 		return MlfrontReviewList;
 	}
 	/**6
