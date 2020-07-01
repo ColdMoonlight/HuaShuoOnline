@@ -16,5 +16,6 @@
 			<div class="container"><h2>hello world!</h2></div>
 		</main>
 		<jsp:include page="WEB-INF/views/portal/layout/footer.jsp" flush="true"></jsp:include>
+		<jsp:include page="WEB-INF/views/portal/common/footer.jsp" flush="true"></jsp:include>		
 	</body>
 </html>
