@@ -45,8 +45,6 @@
       #{reviewDetailstr,jdbcType=VARCHAR}, #{reviewImgidstr,jdbcType=VARCHAR}, #{reviewProstarnum,jdbcType=INTEGER}, 
       #{reviewFrom,jdbcType=INTEGER})
   </insert>
-  
-  
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlfrontReview">
     update tb_mlfront_review
     set review_uid = #{reviewUid,jdbcType=INTEGER},
@@ -228,9 +226,11 @@
     </set>
     where review_id = #{reviewId,jdbcType=INTEGER}
   </update>
-  <!-- selectMlfrontReviewGetAll -->
-  <select id="selectMlfrontReviewGetAll" parameterType="com.atguigu.bean.MlfrontReview" resultMap="BaseResultMap">
-    select *
+  <!-- selectMlfrontReviewAll -->
+  <select id="selectMlfrontReviewAll" parameterType="com.atguigu.bean.MlfrontReview" resultMap="BaseResultMap">
+    select 
+    review_id, review_uname, review_pid,review_createTime, review_pseoname, review_superCateIdStr, 
+    review_status, review_detailStr, review_imgIdStr, review_proStarNum, review_from
     from tb_mlfront_review order by review_id desc
   </select>
   <!-- selectMlfrontReviewById -->

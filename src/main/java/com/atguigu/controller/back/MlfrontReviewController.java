@@ -59,7 +59,7 @@ public class MlfrontReviewController {
 	 */
 	@RequestMapping(value="/getMlfrontReviewByPage")
 	@ResponseBody
-	public Msg getMlfrontReviewWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+	public Msg getMlfrontReviewByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
 //		if(mlbackAdmin==null){
 //			//SysUsers对象为空

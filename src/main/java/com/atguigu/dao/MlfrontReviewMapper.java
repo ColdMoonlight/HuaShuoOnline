@@ -21,7 +21,7 @@ public interface MlfrontReviewMapper {
     //通过id查询
     List<MlfrontReview> selectMlfrontReviewById(MlfrontReview example);
     //查询全部
-    List<MlfrontReview> selectMlfrontReviewGetAll();
+    List<MlfrontReview> selectMlfrontReviewAll();
     //查询一个产品下的全部review
 	List<MlfrontReview> selectMlfrontReviewListByPId(MlfrontReview mlfrontReview);
 	//条件搜索selectMlfrontReviewListBySearch
