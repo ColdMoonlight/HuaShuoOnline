@@ -190,7 +190,7 @@ function updateProductStatus(selected) {
         for (var j = 0; j < data.length; j+=1) {
             var item = data[j];
 
-            if (selected[i] == item) continue;
+            /* if (selected[i] == item) continue; */
 
             selectArr[i] = item;
 
@@ -200,7 +200,7 @@ function updateProductStatus(selected) {
             if (mapSet[curr] && mapSet[curr].count) {
                 $item.removeClass('disabled');
             } else {
-                $item.addClass('disabled');
+            	 $item.addClass('disabled').removeClass('active');
             }
         }
     }
@@ -406,6 +406,99 @@ function goTopayInstance() {
 function goToUserCenter() {
 	 window.location.href = "${APP_PATH }/MlfrontUser/toUserCenter";
 }
+
+/* pagination */
+/* pageNum */
+function getPageNum() {
+	return storage.getItem('pageNum') || 1
+}
+
+function setPageNum(val) {
+	storage.setItem('pageNum', val);
+}
+
+function makerArray(n) {
+	var arr = []
+	for (var i = 0; i < n; i++) {
+		arr.push(i + 1);
+	}
+	return arr;
+}
+function renderTablePagination(data) {
+	if (data) {
+		$("#table-pagination").empty();
+		//构建元素
+		var pageUl = $('<ul class="pagination" />'),
+			firstPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('first').attr('href', 'javascript:;')),
+			prePageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&laquo;')),
+			nextPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&raquo;')),
+			lastPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('last').attr('href', 'javascript:;')),
+			pageCurrentNum = data.pageNum,
+			pageNums = data.pages,
+			pageArr = [];
+		prePageLi.on('click', function () {
+			pageCurrentNum > 1 && setPageNum(pageCurrentNum - 1);
+		});
+		nextPageLi.on('click', function () {
+			pageCurrentNum < pageNums && setPageNum(pageCurrentNum + 1);
+		});
+		if (pageNums > 5) {
+			if (pageCurrentNum <= 5) {
+				pageArr = [1, 2, 3, 4, 5];
+			} else if (pageCurrentNum > pageNums - 5) {
+				pageArr = [pageNums - 4, pageNums - 3, pageNums - 2, pageNums - 1, pageNums];
+			} else {
+				pageArr = [pageCurrentNum - 2, pageCurrentNum - 1, pageCurrentNum, pageCurrentNum + 1, pageCurrentNum + 2];
+			}
+		} else {
+			pageArr = makerArray(pageNums || 1);
+		}
+
+		if (data.hasPreviousPage == false) {
+			firstPageLi.addClass('disabled');
+			prePageLi.addClass('disabled');
+		} else {
+			//为元素添加点击翻页的事件
+			firstPageLi.click(function () {
+				setPageNum(1);
+			});
+			prePageLi.click(function () {
+				setPageNum(pageCurrentNum - 1);
+			});
+		}
+
+		if (data.hasNextPage == false) {
+			nextPageLi.addClass('disabled');
+			lastPageLi.addClass('disabled');
+		} else {
+			nextPageLi.click(function () {
+				setPageNum(pageCurrentNum + 1);
+			});
+			lastPageLi.click(function () {
+				setPageNum(pageNums);
+			});
+		}
+
+		pageUl.append(firstPageLi).append(prePageLi);
+
+		$.each(pageArr, function (i, item) {
+			var numLi = $('<li class="page-item" />').append($('<a class="page-link" href="javascript:;" />').append(item));
+			if (pageCurrentNum == item) {
+				numLi.addClass('active');
+			}
+			numLi.click(function () {
+				setPageNum(item);
+			});
+			pageUl.append(numLi);
+		});
+
+		pageUl.append(nextPageLi).append(lastPageLi);
+
+		var navEle = $('<nav aria-label="Page navigation" />').append(pageUl);
+		navEle.appendTo('#table-pagination');
+	}
+}
 /* varient */
 var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+var storage = window.localStorage;
 </script>
