@@ -53,6 +53,7 @@ public class ImageNameUtil {
 	
 	//获取图片的转化名
 	public static String getReviewFilename(String typeName,String productSeo, String reviewIdStr, String reviewimgSortOrderStr) {
+		
 		Calendar c = Calendar.getInstance();//可以对每个时间域单独修改   对时间进行加减操作等
 		int year = c.get(Calendar.YEAR);  
 		int month = c.get(Calendar.MONTH);   
