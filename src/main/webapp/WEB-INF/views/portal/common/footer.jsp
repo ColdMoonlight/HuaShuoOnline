@@ -190,7 +190,7 @@ function updateProductStatus(selected) {
         for (var j = 0; j < data.length; j+=1) {
             var item = data[j];
 
-            if (selected[i] == item) continue;
+            /* if (selected[i] == item) continue; */
 
             selectArr[i] = item;
 
@@ -200,7 +200,7 @@ function updateProductStatus(selected) {
             if (mapSet[curr] && mapSet[curr].count) {
                 $item.removeClass('disabled');
             } else {
-                $item.addClass('disabled');
+            	 $item.addClass('disabled').removeClass('active');
             }
         }
     }

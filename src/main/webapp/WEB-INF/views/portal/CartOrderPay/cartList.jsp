@@ -325,6 +325,8 @@
 				renderProductOptions(data, selectedRadioArr);
 			});
 			getProductSkus(function(data) {
+				mapSet = {};
+				mapItems = {};
 				data.length && buildResult(data);				
 			});
 		});
