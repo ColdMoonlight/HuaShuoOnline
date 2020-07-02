@@ -6,3 +6,6 @@
 <script src="${APP_PATH}/static/common/toastr/toastr.min.js"></script>
 <script src="${APP_PATH}/static/back/lib/bootstrap/bootstrap.min.js"></script>
 <script src="${APP_PATH}/static/back/js/main.js"></script>
+<script>
+	var format = 'YYYY-MM-DD hh:mm:ss';
+</script>
