@@ -113,11 +113,15 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<input id="reviewCreatetime" hidden type="text" />
-										<input id="reviewConfirmtime" hidden type="text" />
-										<label class="col-form-label" for="reviewTime">Range Time</label>
+										<label class="col-form-label" for="reviewTime">Create Time</label>
 										<div class="controls">
-											<input type="text" class="form-control datetimepicker" id="reviewTime" placeholder="example: 2020-08-01 00:00:00 - 2020-08-01 23:59:59" />
+											<input type="text" class="form-control datetimepicker" id="reviewCreatetime" placeholder="@exmaple 2020-01-01 00:00:59" autocomplete="off"  />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="reviewTime">Confirm Time</label>
+										<div class="controls">
+											<input type="text" class="form-control datetimepicker" id="reviewConfirmtime" placeholder="@exmaple 2020-01-01 00:00:59" autocomplete="off" />
 										</div>
 									</div>
 								</div>
@@ -128,23 +132,6 @@
 									<div class="card-title-name">Review Media</div>
 								</div>
 								<div class="card-body">
-									<div class="row">
-										<!-- main img  -->
-										<div class="col-md-6">
-											<h3>Profile Picture</h3>
-											<div class="c-upload-img">
-												<svg class="c-icon">
-													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-												</svg>
-												<div class="c-backshow"></div>						
-												<input id="reviewUimgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
-												<!-- spinner -->
-												<div class="spinner">
-													<div class="spinner-border" role="status" aria-hidden="true"></div>
-												</div>
-											</div>
-										</div>
-									</div>
 									<div class="pictureDetails">
 										<h3>Review Details Picture</h3>
 										<i class="text-danger">Upload up to 6 images！</i>
@@ -204,10 +191,7 @@
 
 		getReviewsData();
 		getAllProductData(renderAllProduct);
-		bindDateRangeEvent(function(startTime, endTime) {
-			$('#reviewCreatetime').val(startTime);
-			$('#reviewConfirmtime').val(endTime);
-		});
+		bindDateTimepicker();
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getReviewsData();
@@ -281,64 +265,25 @@
 				});
 			}
 		});
-
-		// upload main img
-		$('#productImgurl').on('change', function(e) {
+		// upload review details img
+		$(document.body).on('change', '.reviewUimgurl', function(e) {
 			var $this = $(this);
 			var file = $this[0].files[0];
 			var formData = new FormData();
-
-			if (!file) return false;
-
-			$this.parent().find('.spinner').show();
-
-			formData.append('type', 'product');
-			formData.append('image', file);
-			formData.append('productId', parseInt($('#productId').val()));
-			formData.append('productSeo', $('#productSeo').val());
-
-			$.ajax({
-				url: "${APP_PATH}/ImageUpload/thumImageProduct",
-				type: "post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				cache: false,
-				dataType: 'json',
-				success: function (data) {
-					if (data.code == 100) {
-						addPicture($this, {
-							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl
-						});
-					} else {
-						toastr.error('网络错误， 请稍后重试！');	
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$this.parent().find('.spinner').hide();
-				}
-			});
-		});
-		// upload details img
-		$(document.body).on('change', '.productAllImgurl', function(e) {
-			var $this = $(this);
-			var file = $this[0].files[0];
-			var formData = new FormData();
+			var productSeo = $('#reviewProduct').data('productseo');
 
 			if (!file) return false;
 
 			$this.parent().find('.spinner').show();
 			
-			formData.append('imageAll', file);
-			formData.append('productId', parseInt($('#productId').val()));
-			formData.append('productimgSortOrder', $this.data('order'));
+			formData.append('image', file);
+			formData.append('type', 'reviewDetail');
+			formData.append('productSeo', productSeo);
+			formData.append('reviewId', parseInt($('#reviewId').val()));
+			formData.append('reviewimgSortOrder', $this.data('order'));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/thumImageProductAll",
+				url: "${APP_PATH}/ImageUpload/thumImageReviewAll",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -385,7 +330,7 @@
 					'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>' +
 				'</svg>' +
 				'<div class="c-backshow"></div>' +
-				'<input class="productAllImgurl" data-order="'+ idx +'" type="file" accept="image/png, image/jpeg, image/gif" />' +
+				'<input class="reviewUimgurl" data-order="'+ idx +'" type="file" accept="image/png, image/jpeg, image/gif" />' +
 				'<div class="spinner">' +
 					'<div class="spinner-border" role="status" aria-hidden="true"></div>' +
 				'</div>' +
@@ -413,10 +358,8 @@
 			$('#reviewFrom').val('0');
 
 			var initTime = initDate();
-			$('#reviewCreatetime').val(initTime);
-			$('#reviewConfirmtime').val(initTime);
-			$('.datetimepicker').data('daterangepicker').setStartDate(initTime);
-			$('.datetimepicker').data('daterangepicker').setEndDate(initTime);
+			$('#reviewCreatetime').val('');
+			$('#reviewConfirmtime').val('');
 			
 			resetPicture($('#reviewUimgurl'));
 
@@ -460,25 +403,20 @@
 
 			$('#reviewFrom').val(data.reviewFrom || 0);
 
-			var startTime = data.reviewCreatetime || initDate();
-			var endTime = data.reviewConfirmtime || initDate();
-			$('#reviewCreatetime').val(startTime);
-			$('#reviewConfirmtime').val(endTime);
-			$('.datetimepicker').data('daterangepicker').setStartDate(startTime);
-			$('.datetimepicker').data('daterangepicker').setEndDate(endTime);
-			
+			$('#reviewCreatetime').val(data.reviewCreatetime || '');
+			$('#reviewConfirmtime').val(data.reviewConfirmtime || '');
 			
 			if (data.reviewUimgurl) {
 				addPicture($('#reviewUimgurl'), {
 					imageUrl: data.reviewUimgurl
 				});
 			} else {
-				resetPicture($('#productImgurl'));
+				resetPicture($('#reviewUimgurl'));
 			}
 			
-			getReviewAllImgData({
+			/* getReviewAllImgData({
 				productId: data.reviewPid
-			}, renderReviewAllImgData);
+			}, renderReviewAllImgData); */
 
 			$('#reviewProduct').val(data.reviewPid || -1);
 		}
@@ -718,7 +656,7 @@
 
 			for (var i = 0; i < len; i+=1) {
 				addUploadBlock(data[i].productimgSortOrder);
-				addPicture($('.product-img-item').last().find('.productAllImgurl'), {
+				addPicture($('.product-img-item').last().find('.reviewUimgurl'), {
 					imageUrl: data[i].productimgurl,
 					thumImageUrl: data[i].productimgSmallturl
 				});
