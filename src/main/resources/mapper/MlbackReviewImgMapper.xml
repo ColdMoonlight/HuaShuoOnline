@@ -5,13 +5,14 @@
     <id column="reviewImg_id" jdbcType="INTEGER" property="reviewimgId" />
     <result column="reviewImg_name" jdbcType="VARCHAR" property="reviewimgName" />
     <result column="reviewImg_url" jdbcType="VARCHAR" property="reviewimgUrl" />
+    <result column="reviewsmallImg_url" jdbcType="VARCHAR" property="reviewsmallimgUrl" />
     <result column="review_id" jdbcType="INTEGER" property="reviewId" />
     <result column="reviewImg_sort_order" jdbcType="INTEGER" property="reviewimgSortOrder" />
     <result column="reviewImg_createTime" jdbcType="VARCHAR" property="reviewimgCreatetime" />
     <result column="reviewImg_motifyTime" jdbcType="VARCHAR" property="reviewimgMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    reviewImg_id, reviewImg_name, reviewImg_url, review_id, reviewImg_sort_order, reviewImg_createTime, 
+    reviewImg_id, reviewImg_name, reviewImg_url, reviewsmallImg_url, review_id, reviewImg_sort_order, reviewImg_createTime, 
     reviewImg_motifyTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -21,10 +22,10 @@
     where reviewImg_id = #{reviewimgId,jdbcType=INTEGER}
   </select>
   <insert id="insert" parameterType="com.atguigu.bean.MlbackReviewImg">
-    insert into tb_mlback_reviewimg (reviewImg_id, reviewImg_name, reviewImg_url, 
+    insert into tb_mlback_reviewimg (reviewImg_id, reviewImg_name, reviewImg_url,reviewsmallImg_url,  
       review_id, reviewImg_sort_order, reviewImg_createTime, 
       reviewImg_motifyTime)
-    values (#{reviewimgId,jdbcType=INTEGER}, #{reviewimgName,jdbcType=VARCHAR}, #{reviewimgUrl,jdbcType=VARCHAR}, 
+    values (#{reviewimgId,jdbcType=INTEGER}, #{reviewimgName,jdbcType=VARCHAR}, #{reviewimgUrl,jdbcType=VARCHAR}, #{reviewsmallimgUrl,jdbcType=VARCHAR}, 
       #{reviewId,jdbcType=INTEGER}, #{reviewimgSortOrder,jdbcType=INTEGER}, #{reviewimgCreatetime,jdbcType=VARCHAR}, 
       #{reviewimgMotifytime,jdbcType=VARCHAR})
   </insert>
@@ -32,6 +33,7 @@
     update tb_mlback_reviewimg
     set reviewImg_name = #{reviewimgName,jdbcType=VARCHAR},
       reviewImg_url = #{reviewimgUrl,jdbcType=VARCHAR},
+      reviewsmallImg_url = #{reviewsmallimgUrl,jdbcType=VARCHAR},
       review_id = #{reviewId,jdbcType=INTEGER},
       reviewImg_sort_order = #{reviewimgSortOrder,jdbcType=INTEGER},
       reviewImg_createTime = #{reviewimgCreatetime,jdbcType=VARCHAR},
@@ -51,6 +53,9 @@
       </if>
       <if test="reviewimgUrl != null">
         reviewImg_url,
+      </if>
+      <if test="reviewsmallimgUrl != null">
+        reviewsmallImg_url,
       </if>
       <if test="reviewId != null">
         review_id,
@@ -74,6 +79,9 @@
       </if>
       <if test="reviewimgUrl != null">
         #{reviewimgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewsmallimgUrl != null">
+         #{reviewsmallimgUrl,jdbcType=VARCHAR}, 
       </if>
       <if test="reviewId != null">
         #{reviewId,jdbcType=INTEGER},
@@ -103,6 +111,9 @@
       </if>
       <if test="reviewimgUrl != null">
         reviewImg_url = #{reviewimgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewsmallimgUrl != null">
+        reviewsmallImg_url = #{reviewsmallimgUrl,jdbcType=VARCHAR}, 
       </if>
       <if test="reviewId != null">
         review_id = #{reviewId,jdbcType=INTEGER},

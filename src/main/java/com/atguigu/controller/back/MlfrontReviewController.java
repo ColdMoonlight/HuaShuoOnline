@@ -302,7 +302,7 @@ public class MlfrontReviewController {
 		return Msg.success().add("pageInfo", page).add("mlfrontReviewResreturn", mlfrontReviewResreturn).add("imgUrlStrListst", imgUrlStrListst);
 	}
 	
-	/**8.0	useOn	0505
+	/**7.0	useOn	0505
 	 * review的汇总接口
 	 * @param pn
 	 * @return
@@ -321,7 +321,6 @@ public class MlfrontReviewController {
 		//各个星级评论数	
 		List<StartNum> StartNumList =  staryStartDetail(mlfrontReviewResList);
 		return Msg.success().add("StartNumList", StartNumList).add("allReviewNum", allReviewNum);
-//		}
 	}
 	
 	/**8.1	useOn	0505
