@@ -113,15 +113,11 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="reviewStarttime">Start Time</label>
+										<input id="reviewCreatetime" hidden type="text" />
+										<input id="reviewConfirmtime" hidden type="text" />
+										<label class="col-form-label" for="reviewTime">Range Time</label>
 										<div class="controls">
-											<input class="form-control datetimepicker" id="reviewStarttime" type="text" />
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="reviewEndtime">End Time</label>
-										<div class="controls">
-											<input class="form-control datetimepicker" id="reviewEndtime" type="text" />
+											<input class="form-control datetimepicker" id="reviewTime" type="text" />
 										</div>
 									</div>
 								</div>
@@ -237,7 +233,7 @@
 			$('#deleteModal').find('.modal-title').html('Delete Review!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteProductData({
+				deleteReviewData({
 					"reviewId": reviewId,
 				}, function() {
 					getReviewsData();
@@ -246,7 +242,13 @@
 		});
 		// save review
 		$('.c-create .btn-save').on('click', function () {
-			saveProductData(getFormData(), function() {
+			var reqData = getFormData();
+			if (reqData.reviewCreatetime > reqData.reviewConfirmtime) {
+				toastr.error('The start time must be less than the end time !');
+				$('#reviewCreatetime').focus();
+				return false;
+			}
+			saveReviewData(reqData, function() {
 				// redirect tab-active & then search-data
 				if (isCreate) {
 					isCreate = false;
@@ -257,23 +259,19 @@
 		// cancel review save
 		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
-				isCreate = false;
-				/* initActiveItemNum(); */
-				// delete null product
-				deleteProductData({
+				// delete null review
+				deleteReviewData({
 					productId: $('#productId').val(),
 				}, function() {
 					console.log("cancel create-product");
 				});
-				// fetch default product
-				// getProductsData();
 			}
 			showInitBlock();
 		});
 		$(window).on('beforeunload', function() {
 			if (isCreate) {
 				// delete null product
-				deleteProductData({
+				deleteReviewData({
 					productId: $('#productId').val(),
 				}, function() {
 					console.log("cancel create-product");
@@ -322,47 +320,6 @@
 				}
 			});
 		});
-		// upload discount img
-		$('#productDiscoutimgurl').on('change', function(e) {
-			var $this = $(this);
-			var file = $this[0].files[0];
-			var formData = new FormData();
-
-			if (!file) return false;
-
-			$this.parent().find('.spinner').show();
-
-			formData.append('type', 'productDiscout');
-			formData.append('image', file);
-			formData.append('productId', parseInt($('#productId').val()));
-
-			$.ajax({
-				url: "${APP_PATH}/ImageUpload/productDiscount",
-				type: "post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				cache: false,
-				dataType: 'json',
-				success: function (data) {
-					if (data.code == 100) {
-						addPicture($this, {
-							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlimageUrl
-						});
-					} else {
-						toastr.error('网络错误， 请稍后重试！');	
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$this.parent().find('.spinner').hide();
-				}
-			});
-		});
-
 		// upload details img
 		$(document.body).on('change', '.productAllImgurl', function(e) {
 			var $this = $(this);
@@ -452,8 +409,8 @@
 
 			$('#reviewFrom').val('0');
 
-			$('#reviewStarttime').val(initDate());
-			$('#reviewEndtime').val(initDate());
+			$('#reviewCreatetime').val(initDate());
+			$('#reviewConfirmtime').val(initDate());
 			
 			resetPicture($('#reviewUimgurl'));
 
@@ -474,8 +431,8 @@
 			
 			data.reviewFrom = $('#reviewFrom').val();
 
-			data.reviewStarttime = $('#reviewStarttime').val();
-			data.reviewEndtime = $('#reviewEndtime').val();
+			data.reviewCreatetime = $('#reviewCreatetime').val();
+			data.reviewConfirmtime = $('#reviewConfirmtime').val();
 
 			var imageData = $('#reviewUimgurl').attr('data-val') && JSON.parse($('#reviewUimgurl').attr('data-val'));
 			data.reviewUimgurl = imageData.imageUrl || null;
@@ -497,9 +454,14 @@
 
 			$('#reviewFrom').val(data.reviewFrom || 0);
 
-			$('#reviewStarttime').val(data.reviewStarttime || initDate());
-			$('#reviewEndtime').val(data.reviewStarttime || initDate());
-
+			var startTime = data.reviewCreatetime || initDate();
+			var endTime = data.reviewConfirmtime || initDate();
+			$('#reviewCreatetime').val(startTime);
+			$('#reviewConfirmtime').val(endTime);
+			$('.datetimepicker').data('daterangepicker').setStartDate(startTime);
+			$('.datetimepicker').data('daterangepicker').setEndDate(endTime);
+			
+			
 			if (data.reviewUimgurl) {
 				addPicture($('#reviewUimgurl'), {
 					imageUrl: data.reviewUimgurl
@@ -582,7 +544,9 @@
 			$.ajax({
 				url: "${APP_PATH}/MlfrontReview/getOneMlfrontReviewDetailById",
 				type: "post",
-				data: reqData,
+				data: JSON.stringify(reqData),
+				dataType: "json",
+				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
 						callback(data.extend.mlfrontReviewOne);
@@ -600,10 +564,10 @@
 			});
 		}
 		// callback save
-		function saveProductData(reqData, callback) {
+		function saveReviewData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackProduct/save",
+				url: "${APP_PATH}/MlfrontReview/save",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -626,10 +590,10 @@
 			});
 		}
 		// callback delete
-		function deleteProductData(reqData, callback) {
+		function deleteReviewData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackProduct/delete",
+				url: "${APP_PATH}/MlfrontReview/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -761,26 +725,26 @@
 		// daterange
 		function bindDateRangeEvent() {
 			$('.datetimepicker').daterangepicker({
-				singleDatePicker: true,
+				timePicker: true,
+				timePicker24Hour: true,
+				timePickerSeconds: true,
 				locale: {
 					format: format,
-				}
+				},
+				ranges: {
+			        'Today': [moment(), moment()],
+			        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+			        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+			        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+			        'This Month': [moment().startOf('month'), moment().endOf('month')],
+			        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+			    }
 			}, function(start, end, label) {
-			    var years = moment().diff(start, 'years');
-			    console.log("You are " + years + " years old!");
+				var startTime = moment(new Date(start)).format(format);
+				var endTime = moment(new Date(end)).format(format);
+				$('#reviewCreatetime').val(startTime);
+				$('#reviewConfirmtime').val(endTime);
 			});
-		}
-		// intitial date
-		function initDate() {
-			var date = new Date();
-			return moment()
-				.set({
-					'date': date.getDate() - 1,
-					'hour': date.getHours(),
-					'minute': date.getMinutes(),
-					'second': date.getSeconds()
-				})
-				.format(format);
 		}
 	</script>
 </body>

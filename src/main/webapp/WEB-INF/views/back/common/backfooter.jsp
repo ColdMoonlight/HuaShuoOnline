@@ -8,4 +8,9 @@
 <script src="${APP_PATH}/static/back/js/main.js"></script>
 <script>
 	var format = 'YYYY-MM-DD hh:mm:ss';
+
+	// intitial date
+	function initDate() {
+		return moment(new Date()).format(format);
+	}
 </script>
