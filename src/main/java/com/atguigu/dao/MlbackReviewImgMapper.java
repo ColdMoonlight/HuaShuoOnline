@@ -18,8 +18,6 @@ public interface MlbackReviewImgMapper {
     int deleteByPrimaryKey(Integer reviewimgId);
     //更新本条图片00
     int updateByPrimaryKeySelective(MlbackReviewImg record);
-    //查询所有图片00
-	List<MlbackReviewImg> selectMlbackReviewImgGetAll();
 	//查询本产品下的多张图00
 	List<MlbackReviewImg> selectMlbackReviewImgByReviewId(Integer reviewimgId);
 	//查询本条图片否存在
