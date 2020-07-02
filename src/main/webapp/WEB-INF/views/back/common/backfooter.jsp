@@ -42,16 +42,12 @@
 	function bindDateTimepicker() {
 		$('.datetimepicker').daterangepicker({
 			singleDatePicker: true,
-			autoUpdateInput: false,
 			timePicker: true,
 			timePicker24Hour: true,
 			timePickerSeconds: true,
 			locale: {
 				format: format,
 			},
-		});
-		$('.datetimepicker').on('cancel.daterangepicker', function(ev, picker) {
-			$(this).val('');
 		});
 	}
 </script>
