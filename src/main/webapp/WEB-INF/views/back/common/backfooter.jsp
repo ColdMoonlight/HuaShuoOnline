@@ -37,4 +37,17 @@
 			callback && callback(startTime, endTime);
 		});
 	}
+	
+	// timepicker
+	function bindDateTimepicker() {
+		$('.datetimepicker').daterangepicker({
+			singleDatePicker: true,
+			timePicker: true,
+			timePicker24Hour: true,
+			timePickerSeconds: true,
+			locale: {
+				format: format,
+			},
+		});
+	}
 </script>
