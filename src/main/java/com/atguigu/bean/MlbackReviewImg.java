@@ -6,6 +6,8 @@ public class MlbackReviewImg {
     private String reviewimgName;
 
     private String reviewimgUrl;
+    
+    private String reviewsmallimgUrl;
 
     private Integer reviewId;
 
@@ -38,8 +40,16 @@ public class MlbackReviewImg {
     public void setReviewimgUrl(String reviewimgUrl) {
         this.reviewimgUrl = reviewimgUrl == null ? null : reviewimgUrl.trim();
     }
+    
+    public String getReviewsmallimgUrl() {
+		return reviewsmallimgUrl;
+	}
 
-    public Integer getReviewId() {
+	public void setReviewsmallimgUrl(String reviewsmallimgUrl) {
+		this.reviewsmallimgUrl = reviewsmallimgUrl == null ? null : reviewsmallimgUrl.trim();
+	}
+
+	public Integer getReviewId() {
         return reviewId;
     }
 
@@ -70,4 +80,30 @@ public class MlbackReviewImg {
     public void setReviewimgMotifytime(String reviewimgMotifytime) {
         this.reviewimgMotifytime = reviewimgMotifytime == null ? null : reviewimgMotifytime.trim();
     }
+
+	public MlbackReviewImg() {
+		super();
+	}
+
+	public MlbackReviewImg(Integer reviewimgId, String reviewimgName, String reviewimgUrl, String reviewsmallimgUrl,
+			Integer reviewId, Integer reviewimgSortOrder, String reviewimgCreatetime, String reviewimgMotifytime) {
+		super();
+		this.reviewimgId = reviewimgId;
+		this.reviewimgName = reviewimgName;
+		this.reviewimgUrl = reviewimgUrl;
+		this.reviewsmallimgUrl = reviewsmallimgUrl;
+		this.reviewId = reviewId;
+		this.reviewimgSortOrder = reviewimgSortOrder;
+		this.reviewimgCreatetime = reviewimgCreatetime;
+		this.reviewimgMotifytime = reviewimgMotifytime;
+	}
+
+	@Override
+	public String toString() {
+		return "MlbackReviewImg [reviewimgId=" + reviewimgId + ", reviewimgName=" + reviewimgName + ", reviewimgUrl="
+				+ reviewimgUrl + ", reviewsmallimgUrl=" + reviewsmallimgUrl + ", reviewId=" + reviewId
+				+ ", reviewimgSortOrder=" + reviewimgSortOrder + ", reviewimgCreatetime=" + reviewimgCreatetime
+				+ ", reviewimgMotifytime=" + reviewimgMotifytime + "]";
+	}
+    
 }
