@@ -536,8 +536,36 @@ table tr td:nth-of-type(2) {
 	    width: 900px;
     }
 }
-/* other */
 
+/* pageination */
+.pagination {
+	display: flex;
+	justify-content: center;
+	padding: 1rem;
+}
+.pagination li {
+ 	display: inline-block;
+ 	padding: .5rem 1rem;
+ 	border: 1px solid #ccc;
+ 	border-radius: .2rem;
+ 	font-size: .875rem;
+ 	background-color: #fff;
+}
+.pagination li.active {
+	background-color: #ff1671;
+	border-color: #ff1671;
+}
+.pagination li.active a {
+	color: #fff;
+}
+.pagination li.disabled {
+	cursor: not-allowed;
+}
+.pagination li+li {
+	margin-left: .25rem;
+}
+
+/* other */
 .container {
 	max-width: 1400px;
 	margin: 0 auto;

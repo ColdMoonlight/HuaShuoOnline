@@ -101,8 +101,12 @@
 					<div class="product-tab-item btn btn-black" data-name="review">Reviews</div>
 				</div>
 				<div class="product-tab-body">
-					<div class="product-tab-container active" data-name="desc"></div>
-					<div class="product-tab-container" data-name="review"> review list</div>
+					<div class="product-tab-container" data-name="desc"></div>
+					<div class="product-tab-container active" data-name="review">
+						<div class="product-review-cal></div>
+						<div class="product-review-list></div>
+						<div id="table-pagination"></div>
+					</div>
 				</div>
 			</div>
 			<div class="product-footer"></div>
@@ -394,6 +398,42 @@
 				}
 			});
 		}
+		// get review cal data
+		function getReviewCalData(callback) {
+			$.ajax({
+				url: '${APP_PATH}/MlfrontReview/getMlfrontReviewCount',
+				data: { "productId": productId },
+				type: "post",
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend);
+					} else {
+						refreshPageModal();
+					}
+				},
+				error: function(err) {
+					refreshPageModal();
+				}
+			});
+		}
+		// get review list data
+		function getReviewListData(pn, callback) {
+			$.ajax({
+				url: "${APP_PATH}/MlfrontReview/getMlfrontReviewByPage",
+				data: { "productId": productId, "pn": getPageNum() },
+				type: "post",
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend);
+					} else {
+						refreshPageModal();
+					}
+				},
+				error: function(err) {
+					refreshPageModal();					
+				}
+			});
+		}
 		// varients
 		var mediaData = {}, productData = {}, mainUrl;
 		// initial
@@ -422,6 +462,14 @@
 				data.length && buildResult(data);				
 			});
 		});
+		// review count
+		getReviewCalData(function(data) {
+			console.log(data)
+		});
+		// review list
+		getReviewListData(function(data) {
+			console.log(data)
+		})
 		// event
 		$(window).on('resize', imageZoomEvent);
 		// image zoom resize
@@ -481,7 +529,7 @@
 		$('.paypal-button.paypal-now').on('click', function() {
 			var reqData = getProductData();
 			isCorrectProduct() && reqData && (payLoading(), toPayInstance(reqData));
-		})
+		});
 	</script>
 </body>
 </html>

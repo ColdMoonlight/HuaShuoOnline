@@ -4,8 +4,7 @@
             xzoom: 300,
             yzoom: 300,
             offset:0,
-            position: "BTR",
-            // preload: 1
+            position: "BTR"
         };
         if (options) {
             $.extend(settings, options);
@@ -24,8 +23,7 @@
             var boxHeight = $(this).parent().height();
             noalt = $(this).attr("alt");
             var bigimage1 = $(this).attr("rel");
-//            alert(bigimage)
-//             console.log(bigimage)
+
             $(this).attr("alt", '');
             if ($("div.zoomDiv").get().length == 0) {
                 $(document.body).append("<div class='zoomDiv'><img class='bigimg' src='" + bigimage1 + "'/></div>");
@@ -87,18 +85,9 @@
             $("div.zoomMask").remove();
             $("div.zoomDiv").remove();
         }
-        count = 0;
-        if (settings.preload) {
-            $('body').append("<div style='display:none;' class='jqPreload" + count + "'></div>");
-            $(this).each(function() {
-                var imagetopreload = $(this).attr("rel");
-                var content = jQuery('div.jqPreload' + count + '').html();
-                jQuery('div.jqPreload' + count + '').html(content + '<img src=\"' + imagetopreload + '\">');
-            });
-        }
+    }
+    function MouseEvent(e) {
+    	this.x = e.pageX;
+    	this.y = e.pageY;
     }
 })(jQuery);
-function MouseEvent(e) {
-    this.x = e.pageX;
-    this.y = e.pageY;
-}
