@@ -117,7 +117,7 @@
 										<input id="reviewConfirmtime" hidden type="text" />
 										<label class="col-form-label" for="reviewTime">Range Time</label>
 										<div class="controls">
-											<input class="form-control datetimepicker" id="reviewTime" type="text" />
+											<input type="text" class="form-control datetimepicker" id="reviewTime" placeholder="example: 2020-08-01 00:00:00 - 2020-08-01 23:59:59" />
 										</div>
 									</div>
 								</div>
@@ -204,7 +204,10 @@
 
 		getReviewsData();
 		getAllProductData(renderAllProduct);
-		bindDateRangeEvent();
+		bindDateRangeEvent(function(startTime, endTime) {
+			$('#reviewCreatetime').val(startTime);
+			$('#reviewConfirmtime').val(endTime);
+		});
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getReviewsData();
@@ -245,7 +248,7 @@
 			var reqData = getFormData();
 			if (reqData.reviewCreatetime > reqData.reviewConfirmtime) {
 				toastr.error('The start time must be less than the end time !');
-				$('#reviewCreatetime').focus();
+				$('#reviewTime').focus();
 				return false;
 			}
 			saveReviewData(reqData, function() {
@@ -409,8 +412,11 @@
 
 			$('#reviewFrom').val('0');
 
-			$('#reviewCreatetime').val(initDate());
-			$('#reviewConfirmtime').val(initDate());
+			var initTime = initDate();
+			$('#reviewCreatetime').val(initTime);
+			$('#reviewConfirmtime').val(initTime);
+			$('.datetimepicker').data('daterangepicker').setStartDate(initTime);
+			$('.datetimepicker').data('daterangepicker').setEndDate(initTime);
 			
 			resetPicture($('#reviewUimgurl'));
 
@@ -721,30 +727,6 @@
 			if (len < 0) addUploadBlock(1);
 
 			if (len < 6) addUploadBlock(len);
-		}
-		// daterange
-		function bindDateRangeEvent() {
-			$('.datetimepicker').daterangepicker({
-				timePicker: true,
-				timePicker24Hour: true,
-				timePickerSeconds: true,
-				locale: {
-					format: format,
-				},
-				ranges: {
-			        'Today': [moment(), moment()],
-			        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-			        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-			        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-			        'This Month': [moment().startOf('month'), moment().endOf('month')],
-			        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-			    }
-			}, function(start, end, label) {
-				var startTime = moment(new Date(start)).format(format);
-				var endTime = moment(new Date(end)).format(format);
-				$('#reviewCreatetime').val(startTime);
-				$('#reviewConfirmtime').val(endTime);
-			});
 		}
 	</script>
 </body>
