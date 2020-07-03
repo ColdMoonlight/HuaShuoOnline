@@ -378,9 +378,6 @@ public class ImageUploadController {
 			@RequestParam("reviewId")Integer reviewId,@RequestParam("reviewimgSortOrder")Integer reviewimgSortOrder,@RequestParam("type")String type,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
-		System.out.println("reviewId:"+reviewId);
-		System.out.println("reviewimgSortOrder:"+reviewimgSortOrder);
-		
 		//判断参数,确定信息
 		String typeName=ImageNameUtil.gettypeName(type);
 		
