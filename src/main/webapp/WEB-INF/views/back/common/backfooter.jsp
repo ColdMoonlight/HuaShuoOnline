@@ -20,6 +20,7 @@
 			timePicker: true,
 			timePicker24Hour: true,
 			timePickerSeconds: true,
+			showWeekNumbers: true,
 			locale: {
 				format: format,
 			},
@@ -45,6 +46,7 @@
 			timePicker: true,
 			timePicker24Hour: true,
 			timePickerSeconds: true,
+			showWeekNumbers: true,
 			locale: {
 				format: format,
 			},
