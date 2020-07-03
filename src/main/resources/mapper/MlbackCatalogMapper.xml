@@ -6,6 +6,7 @@
     <result column="catalog_name" jdbcType="VARCHAR" property="catalogName" />
     <result column="catalog_parent_id" jdbcType="INTEGER" property="catalogParentId" />
     <result column="catalog_parent_name" jdbcType="VARCHAR" property="catalogParentName" />
+    <result column="catalog_desc" jdbcType="VARCHAR" property="catalogDesc" />
     <result column="catalog_superCate_id" jdbcType="INTEGER" property="catalogSupercateId" />
     <result column="catalog_superCate_name" jdbcType="VARCHAR" property="catalogSupercateName" />
     <result column="catalog_status" jdbcType="INTEGER" property="catalogStatus" />
@@ -24,7 +25,7 @@
     <result column="catalog_motifyTime" jdbcType="VARCHAR" property="catalogMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_superCate_id, 
+    catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_superCate_id, 
     catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifproORcateORpage, 
     catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
     catalog_cateSeoname, catalog_pagename, catalog_pageSeoname, catalog_createTime, catalog_motifyTime
@@ -35,13 +36,10 @@
     from tb_mlback_catalog
     where catalog_id = #{catalogId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_mlback_catalog
-    where catalog_id = #{catalogId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.atguigu.bean.MlbackCatalog">
     insert into tb_mlback_catalog (catalog_id, catalog_name, catalog_parent_id, 
-      catalog_parent_name, catalog_superCate_id, 
+      catalog_parent_name, catalog_desc, catalog_superCate_id, 
       catalog_superCate_name, catalog_status, catalog_lable, 
       catalog_firth_num, catalog_ifproORcateORpage, 
       catalog_proid, catalog_proname, catalog_seoname, 
@@ -49,7 +47,7 @@
       catalog_pagename, catalog_pageSeoname, catalog_createTime, 
       catalog_motifyTime)
     values (#{catalogId,jdbcType=INTEGER}, #{catalogName,jdbcType=VARCHAR}, #{catalogParentId,jdbcType=INTEGER}, 
-      #{catalogParentName,jdbcType=VARCHAR}, #{catalogSupercateId,jdbcType=INTEGER}, 
+      #{catalogParentName,jdbcType=VARCHAR}, #{catalogDesc,jdbcType=VARCHAR}, #{catalogSupercateId,jdbcType=INTEGER}, 
       #{catalogSupercateName,jdbcType=VARCHAR}, #{catalogStatus,jdbcType=INTEGER}, #{catalogLable,jdbcType=INTEGER}, 
       #{catalogFirthNum,jdbcType=INTEGER}, #{catalogIfproorcateorpage,jdbcType=INTEGER}, 
       #{catalogProid,jdbcType=INTEGER}, #{catalogProname,jdbcType=VARCHAR}, #{catalogSeoname,jdbcType=VARCHAR}, 
@@ -57,7 +55,35 @@
       #{catalogPagename,jdbcType=VARCHAR}, #{catalogPageseoname,jdbcType=VARCHAR}, #{catalogCreatetime,jdbcType=VARCHAR}, 
       #{catalogMotifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackCatalog">
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackCatalog">
+    update tb_mlback_catalog
+    set catalog_name = #{catalogName,jdbcType=VARCHAR},
+      catalog_parent_id = #{catalogParentId,jdbcType=INTEGER},
+      catalog_parent_name = #{catalogParentName,jdbcType=VARCHAR},
+      catalog_desc = #{catalogDesc,jdbcType=VARCHAR},
+      catalog_superCate_id = #{catalogSupercateId,jdbcType=INTEGER},
+      catalog_superCate_name = #{catalogSupercateName,jdbcType=VARCHAR},
+      catalog_status = #{catalogStatus,jdbcType=INTEGER},
+      catalog_lable = #{catalogLable,jdbcType=INTEGER},
+      catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER},
+      catalog_ifproORcateORpage = #{catalogIfproorcateorpage,jdbcType=INTEGER},
+      catalog_proid = #{catalogProid,jdbcType=INTEGER},
+      catalog_proname = #{catalogProname,jdbcType=VARCHAR},
+      catalog_seoname = #{catalogSeoname,jdbcType=VARCHAR},
+      catalog_cateid = #{catalogCateid,jdbcType=INTEGER},
+      catalog_catename = #{catalogCatename,jdbcType=VARCHAR},
+      catalog_cateSeoname = #{catalogCateseoname,jdbcType=VARCHAR},
+      catalog_pagename = #{catalogPagename,jdbcType=VARCHAR},
+      catalog_pageSeoname = #{catalogPageseoname,jdbcType=VARCHAR},
+      catalog_createTime = #{catalogCreatetime,jdbcType=VARCHAR},
+      catalog_motifyTime = #{catalogMotifytime,jdbcType=VARCHAR}
+    where catalog_id = #{catalogId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="catalogId" parameterType="com.atguigu.bean.MlbackCatalog">
     insert into tb_mlback_catalog
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="catalogId != null">
@@ -71,6 +97,9 @@
       </if>
       <if test="catalogParentName != null">
         catalog_parent_name,
+      </if>
+      <if test="catalogDesc != null">
+        catalog_desc,
       </if>
       <if test="catalogSupercateId != null">
         catalog_superCate_id,
@@ -134,6 +163,9 @@
       <if test="catalogParentName != null">
         #{catalogParentName,jdbcType=VARCHAR},
       </if>
+      <if test="catalogDesc != null">
+        #{catalogDesc,jdbcType=VARCHAR},
+      </if>
       <if test="catalogSupercateId != null">
         #{catalogSupercateId,jdbcType=INTEGER},
       </if>
@@ -184,6 +216,12 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlback_catalog
+    where catalog_id = #{catalogId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackCatalog">
     update tb_mlback_catalog
     <set>
@@ -195,6 +233,9 @@
       </if>
       <if test="catalogParentName != null">
         catalog_parent_name = #{catalogParentName,jdbcType=VARCHAR},
+      </if>
+      <if test="catalogDesc != null">
+        catalog_desc = #{catalogDesc,jdbcType=VARCHAR},
       </if>
       <if test="catalogSupercateId != null">
         catalog_superCate_id = #{catalogSupercateId,jdbcType=INTEGER},
@@ -247,27 +288,7 @@
     </set>
     where catalog_id = #{catalogId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackCatalog">
-    update tb_mlback_catalog
-    set catalog_name = #{catalogName,jdbcType=VARCHAR},
-      catalog_parent_id = #{catalogParentId,jdbcType=INTEGER},
-      catalog_parent_name = #{catalogParentName,jdbcType=VARCHAR},
-      catalog_superCate_id = #{catalogSupercateId,jdbcType=INTEGER},
-      catalog_superCate_name = #{catalogSupercateName,jdbcType=VARCHAR},
-      catalog_status = #{catalogStatus,jdbcType=INTEGER},
-      catalog_lable = #{catalogLable,jdbcType=INTEGER},
-      catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER},
-      catalog_ifproORcateORpage = #{catalogIfproorcateorpage,jdbcType=INTEGER},
-      catalog_proid = #{catalogProid,jdbcType=INTEGER},
-      catalog_proname = #{catalogProname,jdbcType=VARCHAR},
-      catalog_seoname = #{catalogSeoname,jdbcType=VARCHAR},
-      catalog_cateid = #{catalogCateid,jdbcType=INTEGER},
-      catalog_catename = #{catalogCatename,jdbcType=VARCHAR},
-      catalog_cateSeoname = #{catalogCateseoname,jdbcType=VARCHAR},
-      catalog_pagename = #{catalogPagename,jdbcType=VARCHAR},
-      catalog_pageSeoname = #{catalogPageseoname,jdbcType=VARCHAR},
-      catalog_createTime = #{catalogCreatetime,jdbcType=VARCHAR},
-      catalog_motifyTime = #{catalogMotifytime,jdbcType=VARCHAR}
-    where catalog_id = #{catalogId,jdbcType=INTEGER}
-  </update>
+  <!-- insertSelective -->
+  <!-- insertSelective -->
+  <!-- insertSelective -->
 </mapper>
