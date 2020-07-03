@@ -64,7 +64,6 @@
       review_from = #{reviewFrom,jdbcType=INTEGER}
     where review_id = #{reviewId,jdbcType=INTEGER}
   </update>
-  
   <!-- insertSelective -->
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="reviewId" parameterType="com.atguigu.bean.MlfrontReview">
     insert into tb_mlfront_review
