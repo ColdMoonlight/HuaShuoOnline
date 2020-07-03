@@ -22,6 +22,67 @@
 						<button class="btn btn-primary btn-create">Create Review</button>
 					</div>
 					<div class="c-table">
+						<div class="c-table-header">
+							<div class="row">
+								<div class="form-group col-md-5">
+									<label class="col-form-label" for="search-supercate">Supercate</label>
+									<div class="controls">
+										<select class="form-control" id="search-supercate"></select>
+									</div>
+								</div>
+								<div class="form-group col-md-5">
+									<label class="col-form-label" for="search-product">Product</label>
+									<div class="controls">
+										<select class="form-control review-product" id="search-product"></select>
+									</div>
+								</div>
+								<div class="form-group col-md-5">
+									<label class="col-form-label" for="search-review-time">Range Time</label>
+									<div class="controls">
+										<input hidden id="search-review-create-time" />
+										<input hidden id="search-review-confirm-time" />
+										<input class="form-control daterangetimepicker" id="search-review-time" type="text" />
+									</div>
+								</div>
+								<div class="form-group col-md-5">
+									<label class="col-form-label" for="search-product">Rating Star</label>
+									<div class="controls">
+										<select class="form-control" id="search-review-star">
+											<option value="-1">All</option>
+											<option value="1">1 star</option>
+											<option value="2">2 star</option>
+											<option value="3">3 star</option>
+											<option value="4">4 star</option>
+											<option value="5">5 star</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group col-md-5">
+									<label class="col-form-label" for="search-product">Review Status</label>
+									<div class="controls">
+										<select class="form-control" id="search-review-status">
+											<option value="-1">All</option>
+											<option value="0">disable</option>
+											<option value="1">enable</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group col-md-5">
+									<label class="col-form-label" for="search-product">Review Source</label>
+									<div class="controls">
+										<select class="form-control" id="search-review-source">
+											<option value="-1">All</option>
+											<option value="0">self</option>
+											<option value="1">customer</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<!-- search btn -->
+							<div class="search-review-search">
+								<button id="search-review-search" class="btn btn-primary">SEARCH</button>
+							</div>
+						</div>
 						<div class="c-table-content">
 							<table class="c-table-table table table-responsive-sm">
 								<thead>
@@ -143,7 +204,7 @@
 									<div class="form-group">
 										<label class="col-form-label" for="reviewProduct">Product</label>
 										<div class="controls">
-											<select class="form-control" id="reviewProduct" /></select>
+											<select class="form-control review-product" id="reviewProduct" /></select>
 										</div>
 									</div>
 								</div>
@@ -187,11 +248,43 @@
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	<!-- custom script -->
 	<script>
+		function getSelectReviewsData() {
+			function checkSearchTime() {
+				if (($('#search-review-create-time').val() >= $('#search-review-confirm-time').val())) {
+					toastr.error('The start time must be less than the end time !');
+					$('#search-review-time').focus();
+					return false;
+				}
+				return true;
+			}
+			if (
+					($('#search-supercate').val() != "-1")
+					|| ($('#search-product').val() != "-1")
+					|| ($('#search-review-star').val() != "-1")
+					|| ($('#search-review-source').val() != "-1")
+					|| ($('#search-review-status').val() != "-1")
+			) {				
+				checkSearchTime() && getSearchReviewsData();
+			} else {
+				if (($('#search-review-create-time').val() < $('#search-review-confirm-time').val())) {
+					getSearchReviewsData();
+				} else {
+					getReviewsData();
+				}
+			}
+		}
+
 		var isCreate = false;
 
-		getReviewsData();
 		getAllProductData(renderAllProduct);
+		getSuperCategoryData(renderSuperCategory);
 		bindDateTimepicker();
+		bindDateRangeEvent(function(startTime, endTime) {
+			$('#search-review-create-time').val(startTime);
+			$('#search-review-confirm-time').val(endTime);
+		});
+		getSelectReviewsData();
+		$('#search-review-search').on('click', getSelectReviewsData);
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getReviewsData();
@@ -223,7 +316,7 @@
 				deleteReviewData({
 					"reviewId": reviewId,
 				}, function() {
-					getReviewsData();
+					getSelectReviewsData();
 				});
 			});
 		});
@@ -238,7 +331,7 @@
 			}
 			saveReviewData(reqData, function() {
 				if (isCreate) isCreate = false;
-				getReviewsData();
+				getSelectReviewsData();
 				showInitBlock();
 			});
 		});
@@ -414,6 +507,38 @@
 
 			$('#reviewProduct').val(data.reviewPid || -1);
 		}
+		// callback superCategory
+		function getSuperCategoryData(callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackSuperCate/getSuperCateDownList",
+				type: "post",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						callback(data.extend.mlbackSuperCateResList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// render superCategoryData
+		function renderSuperCategory(data) {
+			var htmlStr = '<option value="-1">Please Select Super-category</option>';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
+			}
+			$('#search-supercate').html(htmlStr);
+		}
 		// callback get id
 		function getReviewId() {
 			$('.c-mask').show();
@@ -439,6 +564,44 @@
 				},
 				error: function (err) {
 					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback get search data
+		function getSearchReviewsData() {
+			$('.c-mask').show();
+
+			$.ajax({
+				url: "${APP_PATH}/MlfrontReview/selectMlblackReviewListBySearch",
+				type: "post",
+				cache: false,
+				data: JSON.stringify({
+					'reviewUid': parseInt(getPageNum()),
+					'reviewSupercateidstr': $('#search-supercate').val() == '-1' ? 999 : $('#search-supercate').val(),
+					'reviewPid': $('#search-product').val() == '-1' ? 999 : $('#search-product').val(),
+					'reviewCreatetime': $('#search-review-create-time').val(),
+					'reviewMotifytime': $('#search-review-confirm-time').val(),
+					'reviewStatus': $('#search-review-status').val() == '-1' ? 999 : $('#search-review-status').val(),
+					'reviewFrom': $('#search-review-source').val() == '-1' ? 999 : $('#search-review-source').val(),
+					'reviewProstarnum': $('#search-review-star').val() == '-1' ? 999 : $('#search-review-star').val(),
+					
+				}),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						renderTable(data.extend.pageInfo.list);
+						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get Reviews, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -611,7 +774,7 @@
 			for (var i = 0; i < data.length; i += 1) {
 					htmlStr += '<option value="' + data[i].productId + '" data-seo="'+ data[i].productSeo +'" data-name="'+ data[i].productName + '" data-supercate="' + data[i].productSupercateid + '">' + data[i].productId + ' * '+ data[i].productName + '</option>';
 				}
-			$('#reviewProduct').html(htmlStr);
+			$('.review-product').html(htmlStr);
 		}
 		// init table-list
 		function renderTable(data) {

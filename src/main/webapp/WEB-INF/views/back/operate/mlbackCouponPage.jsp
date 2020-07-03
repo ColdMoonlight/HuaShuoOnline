@@ -208,7 +208,7 @@
 										<input id="couponEndtime" hidden type="text" />
 										<label for="couponTime" class="control-label">Range Time:</label>
 										<div class="controls">
-											<input type="text" class="form-control datetimepicker" id="couponTime" placeholder="example: 2020-08-01 00:00:00 - 2020-08-01 23:59:59">
+											<input type="text" class="form-control daterangetimepicker" id="couponTime" placeholder="example: 2020-08-01 00:00:00 - 2020-08-01 23:59:59">
 										</div>
 									</div>
 								</div>
