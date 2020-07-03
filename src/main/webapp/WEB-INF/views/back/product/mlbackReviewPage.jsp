@@ -652,8 +652,8 @@
 			for (var i = 0; i < len; i+=1) {
 				addUploadBlock(data[i].productimgSortOrder);
 				addPicture($('.product-img-item').last().find('.reviewImgurl'), {
-					imageUrl: data[i].productimgurl,
-					thumImageUrl: data[i].productimgSmallturl
+					imageUrl: data[i].reviewimgUrl,
+					thumImageUrl: data[i].reviewsmallimgUrl
 				});
 			}
 
