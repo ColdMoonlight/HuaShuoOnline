@@ -430,16 +430,18 @@
 		// get review list data
 		function getReviewListData() {
 			$.ajax({
-				url: "${APP_PATH}/MlfrontReview/getMlfrontReviewByPage",
-				data: { "reviewPid": productId, "reviewUid": getPageNum() },
+				url: "${APP_PATH}/MlfrontReview/getMlfrontReviewByProductIdAndPage",
+				data: JSON.stringify({ "reviewPid": productId, "reviewUid": getPageNum() }),
 				type: "post",
+				dataType: 'json',
+				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
 						var pageInfo = data.extend.pageInfo;
 						if (!pageInfo.list.length) {
 							$('.product-review-body').html('<p class="text-error">here are no comments yet, you can just click the <i>Write a Reveiw</i> button to write a comment</p>');
 						} else {
-							renderProductReviewList(pageInfo.list);
+							renderProductReviewList(pageInfo.list, data.extend.imgUrlStrListst);
 							renderTablePagination(pageInfo);				
 						}
 					} else {
@@ -505,32 +507,32 @@
 			getReviewListData();
 		});
 		// redner pruduct review list
-		function renderProductReviewList(data) {
+		function renderProductReviewList(reviewList, imgList) {
 			var htmlStr = '';
-			for (var i = 0, len = data.length; i < len; i++) {
+			for (var i = 0, len = reviewList.length; i < len; i++) {
 				htmlStr += '<div class="product-review-item">' +
 						'<div class="product-review-item-title">' +
-							'<img src="' + data[i].reviewUimgurl + '" alt="'+ data[i].reviewUname +'">' +
+							'<img src="' + reviewList[i].reviewUimgurl + '" alt="'+ reviewList[i].reviewUname +'">' +
 							'<div class="product-review-item-data">' +
 								'<div class="product-review-stars">';
 								for (var j = 0; j < 5; j++) {
-									if (j < data[i].reviewProstarnum) {
+									if (j < reviewList[i].reviewProstarnum) {
 										htmlStr += '<span class="icon star2"></span>';
 									} else {
 										htmlStr += '<span class="icon star"></span>';
 									}
 								}
 						htmlStr += '</div>' +
-								'<div class="product-review-author">' + data[i].reviewUname + '</div>' +
+								'<div class="product-review-author">' + reviewList[i].reviewUname + '</div>' +
 							'</div>' +
-						'<div class="product-review-date">' + (new RelativeTIime({ date: data[i].reviewCreatetime }).output) + '</div>' +
+						'<div class="product-review-date">' + (new RelativeTIime({ date: reviewList[i].reviewCreatetime }).output) + '</div>' +
 					'</div>' +
-					'<div class="proudct-review-item-text">'+ data[i].reviewDetailstr + '</div>' +
+					'<div class="proudct-review-item-text">'+ reviewList[i].reviewDetailstr + '</div>' +
 					'<div class="product-review-item-imgs">';
-						/* var imgLen = img[i].length <= 5 ? img[i].length : 5;
+						var imgLen = imgList[i].length <= 5 ? imgList[i].length : 5;
 						for (var k = 0; k < imgLen; k++) {
-							htmlStr += '<img src="' + img[i][k] + '">';
-						} */
+							htmlStr += '<div class="product-review-imgs-item"><img src="' + imgList[i][k] + '"></div>';
+						}
 						htmlStr += '</div></div>';
 			}
 			$('.product-review-list').html(htmlStr);

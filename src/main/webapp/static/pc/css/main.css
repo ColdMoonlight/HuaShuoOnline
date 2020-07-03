@@ -584,6 +584,7 @@ table tr td:nth-of-type(2) {
  	border-radius: .2rem;
  	font-size: .875rem;
  	background-color: #fff;
+	cursor: pointer;
 }
 .pagination li.active {
 	background-color: #ff1671;
@@ -2684,6 +2685,23 @@ footer li {
 	right: 0;
 	color: #555;
 }
+.product-review-item-imgs {
+	display: flex;
+}
+.product-review-imgs-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #eee;
+	cursor: zoom-in;
+}
+.product-review-imgs-item>img {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auo;
+	background-color: #d5d5d5;
+}
 @media only screen and (max-width: 1023px) {
 	.product-review-cal {
 		padding: 0 1rem;
@@ -2712,6 +2730,13 @@ footer li {
 	.product-review-date,
 	.proudct-review-item-text {
 		font-size: .875rem;
+	}
+	.product-review-imgs-item {
+		width: 3.6rem;
+		height: 3.6rem;
+	}
+	.product-review-imgs-item+.product-review-imgs-item {
+		margin-left: .5rem;
 	}
 }
 @media only screen and (min-width: 1024px) {
@@ -2746,5 +2771,12 @@ footer li {
 	}
 	.proudct-review-item-text {
 		font-size: 1rem;
+	}
+	.product-review-imgs-item {
+		width: 5rem;
+		height: 5rem;
+	}
+	.product-review-imgs-item+.product-review-imgs-item {
+		margin-left: 1rem;
 	}
 }
