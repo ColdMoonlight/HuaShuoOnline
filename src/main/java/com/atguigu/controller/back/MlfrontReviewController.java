@@ -424,11 +424,6 @@ public class MlfrontReviewController {
 	@RequestMapping(value="/selectMlblackReviewListBySearch",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg selectMlfrontReviewListBySearch(@RequestBody MlfrontReview mlfrontReviewInfo,HttpSession session) {
-//	public Msg selectMlfrontReviewListBySearch(@RequestParam(value = "pn", defaultValue = "1") Integer pn,@RequestParam(value = "reviewPid") Integer reviewPid,
-//			@RequestParam(value = "reviewStatus") Integer reviewStatus,@RequestParam(value = "reviewProstarnum") Integer reviewProstarnum,
-//			@RequestParam(value = "reviewFrom") Integer reviewFrom,@RequestParam(value = "reviewSupercateidstr") String reviewSupercateidstr,
-//			@RequestParam(value = "reviewStarttime") String reviewStarttime,@RequestParam(value = "reviewEndtime") String reviewEndtime,
-//			HttpSession session) {
 		
 		//传进来		页码,行业,归属pid,状态,几级,来源,开始时间,结束时间,
 		Integer pn = mlfrontReviewInfo.getReviewUid();
