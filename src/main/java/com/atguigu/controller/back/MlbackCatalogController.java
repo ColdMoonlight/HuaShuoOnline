@@ -44,13 +44,13 @@ public class MlbackCatalogController {
 	@RequestMapping("/toMlbackCatalogPage")
 	public String tologin(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return "back/mlbackAdminLogin";
-		}else{
+//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+//		if(mlbackAdmin==null){
+//			//SysUsers对象为空
+//			return "back/mlbackAdminLogin";
+//		}else{
 			return "back/marketing/mlbackCatalogPage";
-		}
+//		}
 	}
 	
 	/**2.0	20200703
@@ -60,9 +60,9 @@ public class MlbackCatalogController {
 	 */
 	@RequestMapping(value="/getMlbackCatalogByPage")
 	@ResponseBody
-	public Msg getGroupDisplayWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+	public Msg getMlbackCatalogByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
 
-		int PagNum = 30;
+		int PagNum = Const.PAGE_NUM_CATEGORY;
 		PageHelper.startPage(pn, PagNum);
 		List<MlbackCatalog> mlbackCatalogList = mlbackCatalogService.selectMlbackCatalogGetAll();
 		PageInfo page = new PageInfo(mlbackCatalogList, PagNum);
