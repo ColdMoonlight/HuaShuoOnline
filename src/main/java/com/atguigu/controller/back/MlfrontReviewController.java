@@ -299,8 +299,7 @@ public class MlfrontReviewController {
 			imgUrlStrListst.add(imgUrlOneList);
 		}
 		//return 分页信息pageInfo,5条评论内容，5条评论中的图片
-		//return Msg.success().add("pageInfo", page).add("mlfrontReviewResreturn", mlfrontReviewResreturn).add("imgUrlStrListst", imgUrlStrListst);
-		return Msg.success().add("pageInfo", page).add("imgUrlStrListst", imgUrlStrListst);
+		return Msg.success().add("pageInfo", page).add("mlfrontReviewResreturn", mlfrontReviewResreturn).add("imgUrlStrListst", imgUrlStrListst);
 	}
 	
 	/**7.0	useOn	0505
