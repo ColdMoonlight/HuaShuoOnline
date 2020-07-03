@@ -132,7 +132,7 @@ public class MlfrontReviewController {
 	private String GetUImgUrlByUname(HttpServletRequest res,String reviewUname) {
 		
 		String contextPathStr = res.getContextPath();    
-        System.out.println("contextPathStr:"+contextPathStr);
+        //System.out.println("contextPathStr:"+contextPathStr);
         
         String realPathStr = res.getSession().getServletContext().getRealPath("/");    
         System.out.println("realPathStr:"+realPathStr);
