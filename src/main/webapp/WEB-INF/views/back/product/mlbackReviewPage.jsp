@@ -408,9 +408,9 @@
 			$('#reviewCreatetime').val(data.reviewCreatetime || '');
 			$('#reviewConfirmtime').val(data.reviewConfirmtime || '');
 			
-			/* getReviewAllImgData({
-				productId: data.reviewPid
-			}, renderReviewAllImgData); */
+			getReviewAllImgData({
+				reviewId: data.reviewId
+			}, renderReviewAllImgData);
 
 			$('#reviewProduct').val(data.reviewPid || -1);
 		}
@@ -494,7 +494,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get review details, please refresh the page to get again！');
+					toastr.error('Failed to get review details, please refresh the page to get again !');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -558,16 +558,17 @@
 		function getReviewAllImgData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackProductImg/getMlbackProductImgListByProductId",
+				url: "${APP_PATH}/MlbackReviewImg/getMlbackReviewImgListByReviewId",
 				type: "post",
 				cache: false,
-				dataType: "json",
+				/* dataType: "json",
 				contentType: 'application/json',
-				data: JSON.stringify(reqData),
+				data: JSON.stringify(reqData), */
+				data: reqData,
 				success: function (data) {
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
-						callback(data.extend.mbackProductImgResList);
+						callback(data.extend.mlbackReviewImgResList);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
