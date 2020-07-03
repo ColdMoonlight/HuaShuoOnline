@@ -21,9 +21,9 @@
 			</a>
 			<ul class="c-child-menu">
 				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackProduct/toMlbackProductPage">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackSuperCate/toMlbackSuperCatePage">
 						<span class="c-sidebar-nav-icon"></span>
-						<span class="c-text">All Products</span>
+						<span class="c-text">SuperCate</span>
 					</a>
 				</li>
 				<li class="c-sidebar-nav-item">
@@ -33,9 +33,15 @@
 					</a>
 				</li>
 				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackSuperCate/toMlbackSuperCatePage">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackProduct/toMlbackProductPage">
 						<span class="c-sidebar-nav-icon"></span>
-						<span class="c-text">SuperCate</span>
+						<span class="c-text">All Products</span>
+					</a>
+				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontReview/toMlfrontReviewPage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">Reviews</span>
 					</a>
 				</li>
 			</ul>

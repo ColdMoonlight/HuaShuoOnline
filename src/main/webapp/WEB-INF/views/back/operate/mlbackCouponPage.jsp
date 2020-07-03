@@ -6,9 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>coupon list</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/daterangepicker/datepicker.css">
-	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
-	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 </head>
 <body class="c-app">
 	<jsp:include page="../layout/backheader.jsp" flush="true"></jsp:include>
@@ -205,18 +203,12 @@
 											</select>
 										</div>
 									</div>
-									<div class="date-timepicker2">
-										<div class="form-group">
-											<label for="couponStarttime" class="control-label">Start time:</label>
-											<div class="controls J-datepicker">
-												<input type="text" id="couponStarttime" value="" autocomplete="off" class="form-control countdown-start" placeholder="example: 2020-08-01 12:30:00" name="couponStarttime">
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="couponEndtime" class="control-label">End time:</label>
-											<div class="controls J-datepicker">
-												<input type="text" id="couponEndtime" autocomplete="off" class="form-control countdown-end" placeholder="example: 2020-08-01 12:30:00" name="couponStarttime">
-											</div>
+									<div class="form-group">
+										<input id="couponStarttime" hidden type="text" />
+										<input id="couponEndtime" hidden type="text" />
+										<label for="couponTime" class="control-label">Range Time:</label>
+										<div class="controls">
+											<input type="text" class="form-control datetimepicker" id="couponTime" placeholder="example: 2020-08-01 00:00:00 - 2020-08-01 23:59:59">
 										</div>
 									</div>
 								</div>
@@ -234,10 +226,8 @@
 	</div>
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
-	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
-	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
-	<script type="text/javascript" src="${APP_PATH}/static/back/lib/daterangepicker/moment.min.js"></script>
-	<script type="text/javascript" src="${APP_PATH}/static/back/lib/daterangepicker/datepicker.min.js"></script>
+	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
+	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	<!-- custom script -->
 	<script>
 		var hasParentCategory = false;
@@ -245,6 +235,10 @@
 		// init
 		getCollectionsData();
 		renderTabItems();
+		bindDateRangeEvent(function(startTime, endTime) {
+			$('#couponStarttime').val(startTime);
+			$('#couponEndtime').val(endTime);
+		});
 		$('.btn-save-search').on('click', function () {
 			var searchCollectionVal = {
 				collection: $('#searchCollection').val()
@@ -346,7 +340,13 @@
 		});
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
-			saveCollectionData(getFormData(), function() {
+			var reqData = getFormData();
+			if (reqData.couponStarttime > couponEndtime) {
+				toastr.error('The start time must be less than the end time !');
+				$('#couponTime').focus();
+				return false;
+			}
+			saveCollectionData(reqData, function() {
 				showInitBlock();
 				getCollectionsData();
 				getProductList(renderProductList);
@@ -390,8 +390,12 @@
 			$('#couponLuckdrawWeight').val('0');
 			$('#couponProductonlyType').val('0');
 			$('#couponProductonlyPidstr').val('-1');
-			$('#couponStarttime').val('');
-			$('#couponEndtime').val('');
+
+			var initTime = initDate();
+			$('#couponStarttime').val(initTime);
+			$('#couponEndtime').val(initTime);
+			$('.datetimepicker').data('daterangepicker').setStartDate(initTime);
+			$('.datetimepicker').data('daterangepicker').setEndDate(initTime);
 		}
 		// getFormdData
 		function getFormData() {
@@ -451,8 +455,12 @@
 			}
 			$('#couponProductonlyPidstr').val(data.couponProductonlyPidstr || '-1');
 			$('#couponProductonlyPidstr').attr('data-val', data.couponProductonlyPidstr || '-1');
-			$("#couponStarttime").val(data.couponStarttime);
-			$("#couponEndtime").val(data.couponEndtime);
+			var startTime = data.couponStarttime || initDate();
+			var endTime = data.couponEndtime || initDate();
+			$("#couponStarttime").val(startTime);
+			$("#couponEndtime").val(endTime);
+			$('.datetimepicker').data('daterangepicker').setStartDate(startTime);
+			$('.datetimepicker').data('daterangepicker').setEndDate(endTime);
 		}
 		// callback id
 		function getCollectionId() {
@@ -798,32 +806,6 @@
 				}
 			});
 		}
-		/*****************************/
-		function  datePickerint(){
-			$('.J-datepicker').datePicker({
-			  hasShortcut:true,
-			  min:'2018-01-01 04:00:00',
-			  max:'2050-09-09 20:59:59',
-			  shortcutOptions:[{
-				name: '今天',
-				day: '0'
-			  }, {
-				name: '昨天',
-				day: '-1',
-				time: '00:00:00'
-			  }, {
-				name: '一周前',
-				day: '-7'
-			  }],
-			  hide:function(){
-				console.info(this)
-			  }
-			}); 
-		}
-			$(function () {
-				 datePickerint()
-				
-			});
 	</script>
 </body>
 

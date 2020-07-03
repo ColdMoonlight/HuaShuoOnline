@@ -1,7 +1,6 @@
 package com.atguigu.controller;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,14 +11,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackProductImg;
+import com.atguigu.bean.MlbackReviewImg;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductImgService;
 import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlbackReviewImgService;
 import com.atguigu.service.ThumbnailService;
 import com.atguigu.service.UploadService;
 import com.atguigu.utils.DateUtil;
@@ -48,6 +48,9 @@ public class ImageUploadController {
 	
 	@Autowired
 	MlbackProductImgService mlbackProductImgService;
+	
+	@Autowired
+	MlbackReviewImgService mlbackReviewImgService;
 	
 	/**
 	 * 	onuse	20200103	检查
@@ -107,7 +110,6 @@ public class ImageUploadController {
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
 	}
-	
 	
 	/**
 	 * 	onuse	20200103	检查
@@ -362,6 +364,71 @@ public class ImageUploadController {
 		mlbackProduct.setProductVideoImgUrl(sqlimageUrl);
 		
 		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
+				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
+	}
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/thumImageReviewAll",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg thumImageReview(@RequestParam("image")CommonsMultipartFile file,@RequestParam("productSeo")String productSeo,
+			@RequestParam("reviewId")Integer reviewId,@RequestParam("reviewimgSortOrder")Integer reviewimgSortOrder,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		System.out.println("reviewId:"+reviewId);
+		System.out.println("reviewimgSortOrder:"+reviewimgSortOrder);
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);
+		
+		String reviewIdStr = reviewId+"";
+		
+		String reviewimgSortOrderStr = reviewimgSortOrder+"";
+		
+		String imgName = ImageNameUtil.getReviewFilename(typeName,productSeo,reviewIdStr,reviewimgSortOrderStr);
+		
+		String uploadPath = "static/upload/img/reviewAllImg";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String imageUrl ="";
+		String thumImageUrl ="";
+		String sqlimageUrl="";
+		String sqlthumImageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		String uploadPathcompress = "static/upload/imagecompress/reviewAllImg";
+		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+		
+		try {
+			
+			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+			sqlthumImageUrl=basePathStr+thumImageUrl;
+			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		MlbackReviewImg mlbackReviewImg = new MlbackReviewImg();
+		mlbackReviewImg.setReviewId(reviewId);
+		mlbackReviewImg.setReviewimgSortOrder(reviewimgSortOrder);
+		mlbackReviewImg.setReviewimgUrl(sqlimageUrl);
+		mlbackReviewImg.setReviewsmallimgUrl(sqlimageUrl);
+		
+		mlbackReviewImgService.updateByPrimaryKeySelective(mlbackReviewImg);
 		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);

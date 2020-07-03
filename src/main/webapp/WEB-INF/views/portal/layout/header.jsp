@@ -574,6 +574,11 @@
 			'userPassword': password
 		}, function() {
 			removeModal(loginRegisterModal);
+			updateProructNumberInCart();
+			$('.icon.person').addClass('active');
+			setTimeout(function() {
+				mlModalTip('The new account has been automatically logged in !');
+			}, 2000);
 		});
 	});
 	// forget password event

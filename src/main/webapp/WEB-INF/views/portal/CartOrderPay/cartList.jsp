@@ -197,7 +197,7 @@
 			});
 		}
 		function updateCartItemSku(data) {
-			$('.cart-sku-list-item').each(function(idx, item) {
+			$selectedItem.find('.cart-sku-list-item').each(function(idx, item) {
 				$(item).find('.value').text(data[idx]);
 			});			
 		}
@@ -301,11 +301,11 @@
 		});
 		// edit sku
 		// var selectedRadioArr = [];
-		var selectedItem = null;
+		var $selectedItem = null;
 		var cartlistModal = null;
 		$(document.body).on('click', '.cart-sku-edit', function() {
-			selectedItem =  $(this).parents('.cart-item');
-			var targetData = selectedItem.data('cartitem');
+			$selectedItem =  $(this).parents('.cart-item');
+			var targetData = $selectedItem.data('cartitem');
 			var selectedRadioArr = targetData.cartitemProductskuName.split(',');
 			productId = targetData.cartitemProductId;
 			cartlistModal = createModal({
@@ -325,6 +325,8 @@
 				renderProductOptions(data, selectedRadioArr);
 			});
 			getProductSkus(function(data) {
+				mapSet = {};
+				mapItems = {};
 				data.length && buildResult(data);				
 			});
 		});
@@ -340,12 +342,12 @@
 			    "cartitemProductskuMoneystr": reqData.productskuMoney
 			}, function(data) {
 				if (data) {
-					var targetData = selectedItem.data('cartitem');
+					var targetData = $selectedItem.data('cartitem');
 					targetData.cartitemProductskuId = data.cartitemProductskuId;
 					targetData.cartitemProductskuName = data.cartitemProductskuName;
 					targetData.cartitemProductskuMoneystr = data.cartitemProductskuMoneystr;
 					targetData.cartitemProductskuCode = data.cartitemProductskuCode;
-					selectedItem.data('cartitem', targetData);
+					$selectedItem.data('cartitem', targetData);
 					updateCartItemSku(data.cartitemProductskuName.split(','));
 					removeModal(cartlistModal);
 				} else {

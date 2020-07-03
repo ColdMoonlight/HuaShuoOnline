@@ -66,7 +66,7 @@
   </update>
   
   <!-- insertSelective -->
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlfrontReview">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="reviewId" parameterType="com.atguigu.bean.MlfrontReview">
     insert into tb_mlfront_review
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="reviewId != null">

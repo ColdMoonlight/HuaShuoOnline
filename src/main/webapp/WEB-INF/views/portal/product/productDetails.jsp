@@ -101,8 +101,22 @@
 					<div class="product-tab-item btn btn-black" data-name="review">Reviews</div>
 				</div>
 				<div class="product-tab-body">
-					<div class="product-tab-container active" data-name="desc"></div>
-					<div class="product-tab-container" data-name="review"> review list</div>
+					<div class="product-tab-container" data-name="desc"></div>
+					<div class="product-tab-container active" data-name="review">
+						<div class="product-review-title">
+							<div class="product-review-cal">
+								<div class="product-review-total">Based on <span>0</span> Customer Reviews</div>
+								<div class="product-review-star-list"></div>
+							</div>
+							<div class="product-review-add">
+								<button class="btn btn-black">Write A Review</button>
+							</div>
+						</div>
+						<div class="product-reivew-body">
+							<div class="product-review-list"></div>
+							<div id="table-pagination"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="product-footer"></div>
@@ -354,7 +368,6 @@
 
 		// to pay instance
 		function toPayInstance(reqData) {
-			console.log(reqData)
 			$.ajax({
 				url: '${APP_PATH}/ProPay/toBuyNowPay',					
 				data: JSON.stringify(reqData),
@@ -394,6 +407,48 @@
 				}
 			});
 		}
+		// get review cal data
+		function getReviewCalData(callback) {
+			$.ajax({
+				url: '${APP_PATH}/MlfrontReview/getMlfrontReviewCount',
+				data: { "productId": productId },
+				type: "post",
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend.StartNumList);
+					} else {
+						refreshPageModal();
+					}
+				},
+				error: function(err) {
+					refreshPageModal();
+				}
+			});
+		}
+		// get review list data
+		function getReviewListData() {
+			$.ajax({
+				url: "${APP_PATH}/MlfrontReview/getMlfrontReviewByPage",
+				data: { "reviewPid": productId, "reviewUid": getPageNum() },
+				type: "post",
+				success: function (data) {
+					if (data.code == 100) {
+						var pageInfo = data.extend.pageInfo;
+						if (!pageInfo.list.length) {
+							$('.product-review-body').html('<p class="text-error">here are no comments yet, you can just click the <i>Write a Reveiw</i> button to write a comment</p>');
+						} else {
+							renderProductReviewList(pageInfo.list);
+							renderTablePagination(pageInfo);				
+						}
+					} else {
+						refreshPageModal();
+					}
+				},
+				error: function(err) {
+					refreshPageModal();					
+				}
+			});
+		}
 		// varients
 		var mediaData = {}, productData = {}, mainUrl;
 		// initial
@@ -422,6 +477,62 @@
 				data.length && buildResult(data);				
 			});
 		});
+		// review count
+		getReviewCalData(renderProudctReviewCal);
+		// render product review count
+		function renderProudctReviewCal (data) {
+			var total = data ? data.reduce(function(acc, item) {acc += item.startCount; return acc;}, 0) : 0;
+			var htmlStr = '';
+			$('.product-review-total span').text(total);
+			for (var i = 4, percent = 0; i >= 0; i-=1) {
+				percent = (total ? data[i].startCount * 100 / total : 0);
+				htmlStr += '<div class="product-review-star-item">' +
+	     	 		'<div class="stars">'+ (i+1) +' star</div>' +
+	     	 		'<div class="progress">' +
+	     	 			'<div class="progress-inner" style="width: ' + percent + '%"></div>' +
+	     	 		'</div>' +
+	     	 		'<div class="data">'+ percent.toFixed(2)  +'%</div>' +
+	     	 	'</div>';
+			}
+			$('.product-review-star-list').html(htmlStr);
+		}
+		// review list
+		getReviewListData();
+		// pagination a-click
+		$(document.body).on('click', '#table-pagination li', function (e) {
+			getReviewListData();
+		});
+		// redner pruduct review list
+		function renderProductReviewList(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i++) {
+				htmlStr += '<div class="product-review-item" data-reviewid="' + data[i].reviewId + '">' +
+						'<div class="product-review-item-title">' +
+							'<img src="' + data[i].reviewUimgurl + '" alt="'+ data[i].reviewUname +'">' +
+							'<div class="product-review-data">' +
+								'<div class="product-review-stars">';
+								for (var j = 0; j < 5; j++) {
+									if (j < data[i].reviewProstarnum) {
+										htmlStr += '<span class="icon star2"></span>';
+									} else {
+										htmlStr += '<span class="icon star"></span>';
+									}
+								}
+						htmlStr += '</div>' +
+								'<div class="product-review-author">' + data[i].reviewUname + '</div>' +
+							'</div>' +
+						'<div class="proudct-review-date">' + (new RelativeTIime({ date: data[i].reviewCreatetime }).output) + '</div>' +
+					'</div>' +
+					'<div class="proudct-review-item-text">'+ data[i].reviewDetailstr + '</div>' +
+					'<div class="product-review-item-imgs">';
+						/* var imgLen = img[i].length <= 5 ? img[i].length : 5;
+						for (var k = 0; k < imgLen; k++) {
+							htmlStr += '<img src="' + img[i][k] + '">';
+						} */
+						htmlStr += '</div></div>';
+			}
+			$('.product-review-list').html(htmlStr);
+		}
 		// event
 		$(window).on('resize', imageZoomEvent);
 		// image zoom resize
@@ -481,7 +592,7 @@
 		$('.paypal-button.paypal-now').on('click', function() {
 			var reqData = getProductData();
 			isCorrectProduct() && reqData && (payLoading(), toPayInstance(reqData));
-		})
+		});
 	</script>
 </body>
 </html>
