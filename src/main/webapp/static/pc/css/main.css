@@ -409,7 +409,9 @@ textarea:focus {
 .icon.person:before {
   content: "\e614";
 }
-
+.icon.person.active:before {
+	color: #ff1671;
+}
 .icon.plus:before {
   content: "\e662";
 }
