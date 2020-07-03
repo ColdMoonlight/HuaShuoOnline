@@ -97,7 +97,7 @@ public class MlfrontReviewController {
 	@ResponseBody
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlfrontReview mlfrontReview){
 		//接受参数信息
-		System.out.println("mlfrontReview Save 前:"+mlfrontReview.toString());
+		//System.out.println("mlfrontReview Save 前:"+mlfrontReview.toString());
 		
 		String nowTime = DateUtil.strTime14s();
 		mlfrontReview.setReviewMotifytime(nowTime);
