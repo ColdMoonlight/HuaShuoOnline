@@ -46,4 +46,8 @@
         <from>^/Success.html</from>
         <to>/MlfrontPayInfo/toPaySuccessPage</to>
     </rule>
+    <rule>
+        <from>^/MyCenter.html</from>
+        <to>/MlfrontUser/toUserCenter</to>
+    </rule>
 </urlrewrite>

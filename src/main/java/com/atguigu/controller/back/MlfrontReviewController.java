@@ -309,10 +309,8 @@ public class MlfrontReviewController {
 	 */
 	@RequestMapping(value="/getMlfrontReviewCount",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getMlfrontReviewCount(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "productId") Integer productId){
+	public Msg getMlfrontReviewCount(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlfrontReview mlfrontReview){
 		//封装参数
-		MlfrontReview mlfrontReview = new MlfrontReview();
-		mlfrontReview.setReviewPid(productId);
 		mlfrontReview.setReviewStatus(1);
 		//封装完毕
 		List<MlfrontReview> mlfrontReviewResList =mlfrontReviewService.selectMlfrontReviewListByPId(mlfrontReview);
