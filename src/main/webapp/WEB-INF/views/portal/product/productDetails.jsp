@@ -349,6 +349,41 @@
 				}
 			});			
 		}
+		/* create review swiper */
+		function createReviewSwiper(imgs, activeNum) {
+			var slideImgs = imgs.reduce(function(acc, img) {acc += '<div class="swiper-slide"><img src="'+ img +'" /></div>'; return acc;}, '');
+			if (!reviewSwiper) {
+				var $reviewSwiper = $('<div class="review-swiper-box">' +
+						'<div id="review-swiper" class="swiper-container">' +
+						    '<div class="swiper-wrapper">'+ slideImgs +'</div>' +
+						    '<div class="swiper-pagination"></div>' +
+						    '<div class="swiper-button-next"></div>' +
+						    '<div class="swiper-button-prev"></div>' +
+					    '</div>' +
+					    '<div class="review-swiper-close"><span class="icon close"></span></div>' +
+					'<div>');
+				$(document.body).append($reviewSwiper);
+				reviewSwiper = new Swiper('#review-swiper', {
+					pagination: {
+				    	el: '.swiper-pagination',
+				    	type: 'fraction',
+					},
+				    navigation: {
+				    	nextEl: '.swiper-button-next',
+				    	prevEl: '.swiper-button-prev',
+					},
+				});
+
+				reviewSwiper.slideTo(activeNum, 0, false);
+			} else {
+				$('.review-swiper-box .swiper-wrapper').html(slideImgs);
+
+				reviewSwiper.updateSlides();
+				reviewSwiper.slideTo(activeNum, 0, false);
+				
+				$('.review-swiper-box').show();
+			}
+		}
 		/* details of main */
 		function getProductDetails(callback) {
 			$.ajax({
@@ -454,7 +489,7 @@
 			});
 		}
 		// varients
-		var mediaData = {}, productData = {}, mainUrl;
+		var mediaData = {}, productData = {}, mainUrl, reviewSwiper;
 		// initial
 		getProductDetails(function(data) {
 			mainUrl = data.productMainimgurl;
@@ -596,6 +631,22 @@
 		$('.paypal-button.paypal-now').on('click', function() {
 			var reqData = getProductData();
 			isCorrectProduct() && reqData && (payLoading(), toPayInstance(reqData));
+		});
+		// open reiview swiper
+		$(document.body).on('click', '.product-review-imgs-item', function() {
+			var activeImg = $(this).find('img')[0].src;
+			var activeNum = 0;
+			var imgs = [];
+			$(this).parent().find('img').each(function(idx, item) {
+				var img = item.src;
+				if (img == activeImg) activeNum = idx;
+				imgs.push(img);
+			});
+			createReviewSwiper(imgs, activeNum);
+		});
+		// clsoe reivew swiper		
+		$(document.body).on('click', '.review-swiper-close', function() {
+			$('.review-swiper-box').hide();
 		});
 	</script>
 </body>
