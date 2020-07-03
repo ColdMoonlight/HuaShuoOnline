@@ -286,7 +286,7 @@
 			formData.append('type', 'reviewDetail');
 			formData.append('productSeo', productSeo);
 			formData.append('reviewId', parseInt($('#reviewId').val()));
-			formData.append('reviewimgSortOrder', $this.data('order'));
+			formData.append('reviewimgSortOrder', $this.attr('data-order'));
 
 			$.ajax({
 				url: "${APP_PATH}/ImageUpload/thumImageReviewAll",
@@ -391,7 +391,7 @@
 			data.reviewPid = $('#reviewProduct').val();
 			data.reviewPname = $ReviewProductSelected.data('name');
 			data.reviewSupercateidstr = $ReviewProductSelected.data('supercate');
-			data.reviewPseoname = $ReviewProductSelected.data('name');
+			data.reviewPseoname = $ReviewProductSelected.data('seo');
 
 			return data;
 		}
@@ -650,7 +650,7 @@
 			$('.product-img-list').html('');
 
 			for (var i = 0; i < len; i+=1) {
-				addUploadBlock(data[i].productimgSortOrder);
+				addUploadBlock(data[i].reviewimgSortOrder);
 				addPicture($('.product-img-item').last().find('.reviewImgurl'), {
 					imageUrl: data[i].reviewimgUrl,
 					thumImageUrl: data[i].reviewsmallimgUrl

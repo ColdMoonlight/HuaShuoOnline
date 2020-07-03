@@ -2662,7 +2662,6 @@ footer li {
 .product-review-add>.btn {
 	width: 100%;
 }
-
 .product-review-stars,
 .product-review-item-title {
 	position: relative;
@@ -2684,9 +2683,6 @@ footer li {
 	top: 0;
 	right: 0;
 	color: #555;
-}
-.proudct-review-item-text {
-	color: #333;
 }
 @media only screen and (max-width: 1023px) {
 	.product-review-cal {
