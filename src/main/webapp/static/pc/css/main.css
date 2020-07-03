@@ -2611,11 +2611,13 @@ footer li {
 .product-review-title .star2,
 .product-reivew-body .star,
 .product-reivew-body .star2 {
-	font-size: 1.5rem;
 	color: #FDDA05;
 }
-.product-review-title .icon+.icon,
-.product-reivew-body .icon+.icon {
+.product-review-title .star,
+.product-review-title .star2 { 
+	font-size: 1.5rem;
+}
+.product-review-title .icon+.icon {
 	margin-left: .75rem;
 }
 .product-review-total {
@@ -2663,20 +2665,57 @@ footer li {
 
 .product-review-stars,
 .product-review-item-title {
+	position: relative;
 	display: flex;
 }
 .product-review-item {
 	padding: 1rem;
+	border-bottom: 1px solid #d5d5d5;
+}
+.product-review-item-title>img {
+	border-radius: 50%;
 }
 .proudct-review-item-text {
 	margin: 1rem 0;
-	font-size: .875rem;
 	color: #333;
 }
-
+.product-review-date {
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: #555;
+}
+.proudct-review-item-text {
+	color: #333;
+}
 @media only screen and (max-width: 1023px) {
+	.product-review-cal {
+		padding: 0 1rem;
+	}
 	.product-review-add {
 		margin-top: 1rem;
+	}
+	.product-review-item-title>img {
+		width: 2.25rem;
+		height: 2.25rem;
+	}
+	.product-reivew-body .star,
+	.product-reivew-body .star2 {
+		font-size: 1.25rem;
+	}
+	.product-reivew-body .icon+.icon {
+		margin-left: .5rem;
+	}
+	.product-review-item-data {
+		margin-left: .5rem;
+	}
+	.product-review-author {
+		margin-top: .5rem;
+		font-size: 1rem;
+	}
+	.product-review-date,
+	.proudct-review-item-text {
+		font-size: .875rem;
 	}
 }
 @media only screen and (min-width: 1024px) {
@@ -2686,5 +2725,30 @@ footer li {
 	.product-review-cal,
 	.product-review-add {
 		width: 50%;
+		padding: 1rem;
+	}
+	.product-review-item-title>img {
+		width: 3rem;
+		height: 3rem;background-color: #d5d5d5;
+	}
+	.product-reivew-body .star,
+	.product-reivew-body .star2 {
+		font-size: 1.5rem;
+	}
+	.product-reivew-body .icon+.icon {
+		margin-left: .75rem;
+	}	
+	.product-review-item-data {
+		margin-left: .75rem;
+	}
+	.product-review-author {
+		margin-top: .75rem;
+		font-wight: 500;
+	}
+	.product-review-date {	
+		font-size: 1rem;
+	}
+	.proudct-review-item-text {
+		font-size: 1rem;
 	}
 }

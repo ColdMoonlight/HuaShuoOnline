@@ -506,10 +506,10 @@
 		function renderProductReviewList(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i++) {
-				htmlStr += '<div class="product-review-item" data-reviewid="' + data[i].reviewId + '">' +
+				htmlStr += '<div class="product-review-item">' +
 						'<div class="product-review-item-title">' +
 							'<img src="' + data[i].reviewUimgurl + '" alt="'+ data[i].reviewUname +'">' +
-							'<div class="product-review-data">' +
+							'<div class="product-review-item-data">' +
 								'<div class="product-review-stars">';
 								for (var j = 0; j < 5; j++) {
 									if (j < data[i].reviewProstarnum) {
@@ -521,7 +521,7 @@
 						htmlStr += '</div>' +
 								'<div class="product-review-author">' + data[i].reviewUname + '</div>' +
 							'</div>' +
-						'<div class="proudct-review-date">' + (new RelativeTIime({ date: data[i].reviewCreatetime }).output) + '</div>' +
+						'<div class="product-review-date">' + (new RelativeTIime({ date: data[i].reviewCreatetime }).output) + '</div>' +
 					'</div>' +
 					'<div class="proudct-review-item-text">'+ data[i].reviewDetailstr + '</div>' +
 					'<div class="product-review-item-imgs">';
