@@ -370,7 +370,7 @@ textarea:focus {
   content: "\e607";
 }
 
-.icon.back-top:before {
+.icon.backtop:before {
   content: "\e6c9";
 }
 
