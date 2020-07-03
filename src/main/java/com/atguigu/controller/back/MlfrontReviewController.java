@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackReviewImg;
 import com.atguigu.bean.MlfrontReview;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.common.StartNum;
 import com.github.pagehelper.PageHelper;
@@ -97,7 +98,7 @@ public class MlfrontReviewController {
 	@ResponseBody
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlfrontReview mlfrontReview){
 		//接受参数信息
-		System.out.println("mlfrontReview Save 前:"+mlfrontReview.toString());
+		//System.out.println("mlfrontReview Save 前:"+mlfrontReview.toString());
 		
 		String nowTime = DateUtil.strTime14s();
 		mlfrontReview.setReviewMotifytime(nowTime);
@@ -132,7 +133,7 @@ public class MlfrontReviewController {
 	private String GetUImgUrlByUname(HttpServletRequest res,String reviewUname) {
 		
 		String contextPathStr = res.getContextPath();    
-        System.out.println("contextPathStr:"+contextPathStr);
+        //System.out.println("contextPathStr:"+contextPathStr);
         
         String realPathStr = res.getSession().getServletContext().getRealPath("/");    
         System.out.println("realPathStr:"+realPathStr);
@@ -299,7 +300,8 @@ public class MlfrontReviewController {
 			imgUrlStrListst.add(imgUrlOneList);
 		}
 		//return 分页信息pageInfo,5条评论内容，5条评论中的图片
-		return Msg.success().add("pageInfo", page).add("mlfrontReviewResreturn", mlfrontReviewResreturn).add("imgUrlStrListst", imgUrlStrListst);
+		//return Msg.success().add("pageInfo", page).add("mlfrontReviewResreturn", mlfrontReviewResreturn).add("imgUrlStrListst", imgUrlStrListst);
+		return Msg.success().add("pageInfo", page).add("imgUrlStrListst", imgUrlStrListst);
 	}
 	
 	/**7.0	useOn	0505
@@ -321,7 +323,7 @@ public class MlfrontReviewController {
 		return Msg.success().add("StartNumList", StartNumList).add("allReviewNum", allReviewNum);
 	}
 	
-	/**8.1	useOn	0505
+	/**7.1	useOn	0505
 	 * 分类StartNum
 	 * @param pn
 	 * @return
@@ -421,37 +423,75 @@ public class MlfrontReviewController {
 	 */
 	@RequestMapping(value="/selectMlblackReviewListBySearch",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg selectMlfrontReviewListBySearch(@RequestParam(value = "pn", defaultValue = "1") Integer pn,@RequestParam(value = "reviewPid") Integer reviewPid,
-			@RequestParam(value = "reviewStatus") Integer reviewStatus,@RequestParam(value = "reviewProstarnum") Integer reviewProstarnum,
-			@RequestParam(value = "reviewFrom") Integer reviewFrom,@RequestParam(value = "reviewStarttime") String reviewStarttime,@RequestParam(value = "reviewEndtime") String reviewEndtime,
-			HttpSession session) {
-
+	public Msg selectMlfrontReviewListBySearch(@RequestBody MlfrontReview mlfrontReviewInfo,HttpSession session) {
+//	public Msg selectMlfrontReviewListBySearch(@RequestParam(value = "pn", defaultValue = "1") Integer pn,@RequestParam(value = "reviewPid") Integer reviewPid,
+//			@RequestParam(value = "reviewStatus") Integer reviewStatus,@RequestParam(value = "reviewProstarnum") Integer reviewProstarnum,
+//			@RequestParam(value = "reviewFrom") Integer reviewFrom,@RequestParam(value = "reviewSupercateidstr") String reviewSupercateidstr,
+//			@RequestParam(value = "reviewStarttime") String reviewStarttime,@RequestParam(value = "reviewEndtime") String reviewEndtime,
+//			HttpSession session) {
+		
+		//传进来		页码,行业,归属pid,状态,几级,来源,开始时间,结束时间,
+		Integer pn = mlfrontReviewInfo.getReviewUid();
+		String reviewSupercateidstr = mlfrontReviewInfo.getReviewSupercateidstr();
+		Integer reviewPid = mlfrontReviewInfo.getReviewPid();
+		Integer reviewStatus = mlfrontReviewInfo.getReviewStatus();
+		Integer reviewProstarnum = mlfrontReviewInfo.getReviewProstarnum();
+		Integer reviewFrom = mlfrontReviewInfo.getReviewFrom();
+		String reviewStarttime = mlfrontReviewInfo.getReviewCreatetime();
+		String reviewEndtime = mlfrontReviewInfo.getReviewMotifytime();
+		
+		String nowTime = DateUtil.strTime14s();
 		MlfrontReview mlfrontReviewReq = new MlfrontReview();
-		if(reviewPid==999){
-			System.out.println("eviewPid==999");
+		//写入时间
+		if(reviewStarttime.length()>0){
+			mlfrontReviewReq.setReviewCreatetime(reviewStarttime);
+		}else{
+			mlfrontReviewReq.setReviewCreatetime(nowTime);
+		}
+		if(reviewEndtime.length()>0){
+			mlfrontReviewReq.setReviewMotifytime(reviewEndtime);
+		}else{
+			mlfrontReviewReq.setReviewMotifytime(nowTime);
+		}
+		//如果没传,默认0
+		if(("".equals(reviewSupercateidstr))||reviewSupercateidstr==null){
+			mlfrontReviewReq.setReviewSupercateidstr("1");
+		}else{
+			mlfrontReviewReq.setReviewSupercateidstr(reviewSupercateidstr);
+		}
+		//如果没传,默认0
+		if(reviewPid==0){
+			System.out.println("reviewPid==0");
 		}else{
 			mlfrontReviewReq.setReviewPid(reviewPid);
 		}
+		//如果没传,默认0
 		if(reviewProstarnum==0){
 			System.out.println("reviewProstarnum==0");
 		}else{
 			mlfrontReviewReq.setReviewProstarnum(reviewProstarnum);
 		}
+		//如果没传,默认999
 		if(reviewStatus==999){
 			System.out.println("reviewStatus==999");
 		}else{
 			mlfrontReviewReq.setReviewStatus(reviewStatus);
 		}
+		//如果没传,默认999
 		if(reviewFrom==999){
 			System.out.println("reviewFrom==999");
 		}else{
 			mlfrontReviewReq.setReviewFrom(reviewFrom);
 		}
-//		mlfrontReviewReq.setReviewStarttime(reviewStarttime);
-//		mlfrontReviewReq.setReviewEndtime(reviewEndtime);
-		int PagNum = 20;
+		//如果没传,默认999
+		if(pn>=1){
+			System.out.println("getMlfrontReviewByProductIdAndPage:pn:"+pn);
+		}else{
+			pn = 1;
+		}
+		int PagNum = Const.PAGE_NUM_CATEGORY;
 		PageHelper.startPage(pn, PagNum);
-		List<MlfrontReview> mlfrontReviewList = mlfrontReviewService.selectMlfrontReviewListBySearch(mlfrontReviewReq);
+		List<MlfrontReview> mlfrontReviewList = mlfrontReviewService.selectMlbackReviewListBySearch(mlfrontReviewReq);
 		
 		PageInfo page = new PageInfo(mlfrontReviewList, PagNum);
 		return Msg.success().add("pageInfo", page);

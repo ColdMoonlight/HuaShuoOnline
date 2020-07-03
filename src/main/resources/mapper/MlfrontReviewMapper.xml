@@ -243,15 +243,15 @@
     select *
     from tb_mlfront_review where review_pid = #{reviewPid,jdbcType=INTEGER} and review_status = #{reviewStatus,jdbcType=INTEGER} order by review_createTime desc
   </select>
-  <!-- selectMlfrontReviewListBySearch使用中 -->
-  <select id="selectMlfrontReviewListBySearch" parameterType="com.atguigu.bean.MlfrontReview" resultMap="BaseResultMap">
+  <!-- selectMlbackReviewListBySearch使用中 -->
+  <select id="selectMlbackReviewListBySearch" parameterType="com.atguigu.bean.MlfrontReview" resultMap="BaseResultMap">
   	select * from tb_mlfront_review where
    	review_createTime between #{reviewCreatetime,jdbcType=VARCHAR} and #{reviewMotifytime,jdbcType=VARCHAR} 
    	<if test="reviewPid != null">
       and review_pid = #{reviewPid,jdbcType=INTEGER}
     </if>
     <if test="reviewSupercateidstr != null">
-      and review_superCateIdStr = #{reviewSupercateidstr,jdbcType=VARCHAR},
+      and review_superCateIdStr = #{reviewSupercateidstr,jdbcType=VARCHAR}
     </if>
     <if test="reviewStatus != null">
       and review_status = #{reviewStatus,jdbcType=INTEGER}
