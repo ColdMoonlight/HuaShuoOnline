@@ -19,12 +19,12 @@ public interface MlbackCatalogMapper {
     int deleteByPrimaryKey(Integer CatalogId);
     //更新本条
     int updateByPrimaryKeySelective(MlbackCatalog record);
+    //查询全部登陆用户
+    List<MlbackCatalog> selectMlbackCatalogGetAll();
     //查询后台登陆用户
     List<MlbackCatalog> selectMlbackCatalog(MlbackCatalog example);
     //查询后台登陆用户
     MlbackCatalog selectMlbackCatalogById(MlbackCatalog example);
-    //查询全部登陆用户
-	List<MlbackCatalog> selectMlbackCatalogGetAll();
 	//查询全部Catalog的parentid信息
 	List<MlbackCatalog> selectMlbackCatalogGetAllByParentId();
 

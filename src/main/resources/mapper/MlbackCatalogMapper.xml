@@ -288,7 +288,121 @@
     </set>
     where catalog_id = #{catalogId,jdbcType=INTEGER}
   </update>
-  <!-- insertSelective -->
-  <!-- insertSelective -->
-  <!-- insertSelective -->
+  <!-- selectMlbackCatalogGetAll -->
+  <select id="selectMlbackCatalogGetAll" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
+    select
+    catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_superCate_id, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifproORcateORpage, 
+    catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
+    catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
+    from tb_mlback_catalog order by catalog_id desc
+  </select>
+  <!-- selectMlbackCatalog -->
+  <select id="selectMlbackCatalog" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_catalog
+    where catalog_id = #{catalogId,jdbcType=INTEGER}
+      <if test="catalogName != null">
+        and catalog_name = #{catalogName,jdbcType=VARCHAR}
+      </if>
+      <if test="catalogParentId != null">
+        and catalog_parent_id = #{catalogParentId,jdbcType=INTEGER}
+      </if>
+      <if test="catalogParentName != null">
+        and catalog_parent_name = #{catalogParentName,jdbcType=VARCHAR}
+      </if>
+      <if test="catalogSupercateId != null">
+        and catalog_superCate_id = #{catalogSupercateId,jdbcType=INTEGER}
+      </if>
+      <if test="catalogSupercateName != null">
+        and catalog_superCate_name = #{catalogSupercateName,jdbcType=VARCHAR}
+      </if>
+      <if test="catalogStatus != null">
+        and catalog_status = #{catalogStatus,jdbcType=INTEGER}
+      </if>
+      <if test="catalogLable != null">
+        and catalog_lable = #{catalogLable,jdbcType=INTEGER}
+      </if>
+      <if test="catalogFirthNum != null">
+        and catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER}
+      </if>
+      <if test="catalogIfproorcateorpage != null">
+        and catalog_ifproORcateORpage = #{catalogIfproorcateorpage,jdbcType=INTEGER}
+      </if>
+      <if test="catalogProid != null">
+        and catalog_proid = #{catalogProid,jdbcType=INTEGER}
+      </if>
+      <if test="catalogProname != null">
+        and catalog_proname = #{catalogProname,jdbcType=VARCHAR}
+      </if>
+      <if test="catalogSeoname != null">
+        and catalog_seoname = #{catalogSeoname,jdbcType=VARCHAR}
+      </if>
+      <if test="catalogCateid != null">
+        and catalog_cateid = #{catalogCateid,jdbcType=INTEGER}
+      </if>
+      <if test="catalogCatename != null">
+        and catalog_catename = #{catalogCatename,jdbcType=VARCHAR}
+      </if>
+      <if test="catalogCateseoname != null">
+        and catalog_cateSeoname = #{catalogCateseoname,jdbcType=VARCHAR}
+      </if>
+      <if test="catalogPagename != null">
+        and catalog_pagename = #{catalogPagename,jdbcType=VARCHAR}
+      </if>
+      <if test="catalogPageseoname != null">
+        and catalog_pageSeoname = #{catalogPageseoname,jdbcType=VARCHAR}
+      </if>
+  </select>
+  <!-- selectMlbackCatalogGetAllByParentId,下拉 -->
+  <select id="selectMlbackCatalogGetAllByParentId" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
+    select
+    catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc,
+    from tb_mlback_catalog order by catalog_parent_id,catalog_id
+  </select>
+  <!-- 使用中selectMlbackCatalogBackSearch -->
+  <select id="selectMlbackCatalogBackSearch" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
+  	select
+  	catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_superCate_id, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifproORcateORpage, 
+    catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
+    catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
+  	from tb_mlback_catalog 
+  	where catalog_name like concat(concat("%",#{catalogName}),"%")
+     <if test="categorySuperCateId != null">
+     	and catalog_superCate_id = #{catalogSupercateId,jdbcType=INTEGER}
+     </if>
+    order by catalog_id desc,catalog_parent_id
+  </select>
+  <!-- selectMenuMlbackCatalogGetAll -->
+  <select id="selectMenuMlbackCatalogGetAll" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
+    select
+    catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_superCate_id, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifproORcateORpage, 
+    catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
+    catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
+    from tb_mlback_catalog where catalog_status = 1 order by catalog_parent_id,catalog_firth_num
+  </select>
+  <!-- 使用中selectCataloglistByParam -->
+  <select id="selectCataloglistByParam" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
+  	select
+  	catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_superCate_id, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifproORcateORpage, 
+    catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
+    catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
+  	from tb_mlback_catalog where catalog_status = 1
+    <if test="catalogId != null">
+      and catalog_id = #{catalogId,jdbcType=INTEGER}
+    </if>
+    <if test="catalogName != null">
+      and catalog_name = #{catalogName,jdbcType=VARCHAR}
+    </if>
+    <if test="catalogParentId != null">
+      and catalog_parent_id = #{catalogParentId,jdbcType=INTEGER}
+    </if>
+    <if test="catalogLable != null">
+      and catalog_lable = #{catalogLable,jdbcType=INTEGER}
+    </if>
+    order by catalog_parent_id
+  </select>
 </mapper>

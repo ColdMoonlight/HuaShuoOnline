@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCatalog;
-import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
@@ -70,7 +69,7 @@ public class MlbackCatalogController {
 		return Msg.success().add("pageInfo", page);
 	}
 	
-	/**3.0	20200608
+	/**3.0	20200703
 	 * MlbackCatalog	initializaCatalog
 	 * @param MlbackCatalog
 	 * @return
@@ -79,28 +78,28 @@ public class MlbackCatalogController {
 	@ResponseBody
 	public Msg initializaCatalog(HttpServletResponse rep,HttpServletRequest res){
 		
-		MlbackCatalog MlbackCatalog = new MlbackCatalog();
+		MlbackCatalog mlbackCatalog = new MlbackCatalog();
 		//接受参数信息
 		String CatalogParentName="---none---";
 		String CatalogDesc="";
 		CatalogParentName ="---none---";
 		//判断归属是否为none
 		Integer	CatalogParentId = -1;
-		MlbackCatalog.setCatalogParentId(CatalogParentId);
-		MlbackCatalog.setCatalogDesc(CatalogDesc);
-		MlbackCatalog.setCatalogParentName(CatalogParentName);
+		mlbackCatalog.setCatalogParentId(CatalogParentId);
+		mlbackCatalog.setCatalogDesc(CatalogDesc);
+		mlbackCatalog.setCatalogParentName(CatalogParentName);
 		//取出id
 		String nowTime = DateUtil.strTime14s();
-		MlbackCatalog.setCatalogCreatetime(nowTime);
-		MlbackCatalog.setCatalogStatus(0);//0未上架1上架中
+		mlbackCatalog.setCatalogCreatetime(nowTime);
+		mlbackCatalog.setCatalogStatus(0);//0未上架1上架中
 		//无id，insert
-		System.out.println("插入前"+MlbackCatalog.toString());
-		mlbackCatalogService.insertSelective(MlbackCatalog);
-		System.out.println("插入后"+MlbackCatalog.toString());
-		return Msg.success().add("resMsg", "Catalog初始化成功").add("MlbackCatalog", MlbackCatalog);
+		System.out.println("插入前"+mlbackCatalog.toString());
+		mlbackCatalogService.insertSelective(mlbackCatalog);
+		System.out.println("插入后"+mlbackCatalog.toString());
+		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackCatalog", mlbackCatalog);
 	}
 	
-	/**4.0	20200608
+	/**4.0	20200703
 	 * MlbackCatalog	update
 	 * @param MlbackCatalog
 	 * @return
@@ -138,7 +137,7 @@ public class MlbackCatalogController {
 		return Msg.success().add("resMsg", "Catalog保存成功");
 	}
 	
-	/**5.0	20200608
+	/**5.0	20200703
 	 * MlbackCatalog	delete
 	 * @param MlbackCatalog-CatalogId
 	 * @return 
@@ -153,7 +152,7 @@ public class MlbackCatalogController {
 	}
 	
 	/**
-	 * 6.0	20200608
+	 * 6.0	20200703
 	 * 查单条MlbackCatalog详情
 	 * @param MlbackCatalog-CatalogId
 	 * @return 
@@ -173,7 +172,7 @@ public class MlbackCatalogController {
 	}
 	
 	/**
-	 * 7.0	20200608
+	 * 7.0	20200703
 	 * 获取全部类目，以便于下拉选择
 	 * @param 无参
 	 * @return 
@@ -183,21 +182,21 @@ public class MlbackCatalogController {
 	public Msg getMlbackCatalogDropdownSelect(HttpServletResponse rep,HttpServletRequest res){
 		
 		//查询全部的Catalog信息，便于下拉选择
-		List<MlbackCatalog> MlbackCatalogdownList = mlbackCatalogService.selectMlbackCatalogGetAllByParentId();
+		List<MlbackCatalog> mlbackCatalogdownList = mlbackCatalogService.selectMlbackCatalogGetAllByParentId();
 		//System.out.println("操作说明:管理员查-CatalogdownList菜单");
 		
-		List<MlbackCatalog> MlbackCatalogdownEr =new ArrayList<MlbackCatalog>();
-		for(MlbackCatalog MlbackCatalogOne :MlbackCatalogdownList){
+		List<MlbackCatalog> mlbackCatalogdownEr =new ArrayList<MlbackCatalog>();
+		for(MlbackCatalog MlbackCatalogOne :mlbackCatalogdownList){
 			Integer CatalogParentId = MlbackCatalogOne.getCatalogParentId();
 			if(CatalogParentId>0){
-				MlbackCatalogdownEr.add(MlbackCatalogOne);
+				mlbackCatalogdownEr.add(MlbackCatalogOne);
 			}
 		}
-		return Msg.success().add("resMsg", "success").add("MlbackCatalogdownList", MlbackCatalogdownList).add("MlbackCatalogdownEr", MlbackCatalogdownEr);
+		return Msg.success().add("resMsg", "success").add("mlbackCatalogdownList", mlbackCatalogdownList).add("mlbackCatalogdownEr", mlbackCatalogdownEr);
 	}
 	
 	/**
-	 * 8.0	20200608
+	 * 8.0	20200703
 	 * 后端获取类下产品list详情页面wap/pc
 	 * @param jsp
 	 * @return 
@@ -224,176 +223,69 @@ public class MlbackCatalogController {
 			
 	}
 	
-//	/**
-//	 * 9.0	20200608
-//	 * 前台获取类下产品list页面
-//	 * @param jsp
-//	 * @return 
-//	 * */
-//	@RequestMapping(value="/toprolistByCatalogSeoPage",method=RequestMethod.GET)
-//	public String toprolistByCatalogSeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "CatalogSeo") String CatalogSeo) throws Exception{
-//		//接收传递进来的参数
-//		String CatalogSeoReq = CatalogSeo;
-//		
-//		//放回响应域中
-//		res.setAttribute("CatalogSeo", CatalogSeoReq);
-//		//放回session域中
-//		session.setAttribute("CatalogSeo", CatalogSeoReq);
-//		
-//		MlbackCatalog MlbackCatalogReq = new MlbackCatalog();
-//		
-//		MlbackCatalogReq.setCatalogSeo(CatalogSeoReq);
-//		
-//		List<MlbackCatalog> MlbackCatalogResList = mlbackCatalogService.selectMlbackCatalogBySeo(MlbackCatalogReq);
-//		
-//		if(MlbackCatalogResList.size()>0){
-//			
-//			MlbackCatalog MlbackCatalogRes = MlbackCatalogResList.get(0);
-//			
-//			String CatalogMetaTitle = MlbackCatalogRes.getCatalogMetatitle();
-//			String CatalogMetaKeyWords = MlbackCatalogRes.getCatalogMetakeywords();
-//			String CatalogMetaDesc = MlbackCatalogRes.getCatalogMetadesc();
-//			session.setAttribute("CatalogMetaTitle", CatalogMetaTitle);
-//			session.setAttribute("CatalogMetaKeyWords", CatalogMetaKeyWords);
-//			session.setAttribute("CatalogMetaDesc", CatalogMetaDesc);
-//		}else{
-//			
-//			return "redirect:https://www.megalook.com";
-//			
-//		}
-//		//返回视图
-//		return "portal/prolistByCatalogSeo";
-//	}
-//	
-//	/**
-//	  * 10.0	20200608
-//	  * 通过产品名查看单条产品的详情
-//	  * @param MlbackCatalog-CatalogSeo
-//	  * @return 
-//	  */
-//	 @RequestMapping(value="/searchByCatalogSeo",method=RequestMethod.POST)
-//	 @ResponseBody
-//	 public Msg searchByCatalogSeo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackCatalog MlbackCatalog){
-//		 
-//		 //初始化返回下拉所需
-//		 //查询all-Catalog信息，便于下拉选择
-//		 List<MlbackCatalog> MlbackCatalogdownList = mlbackCatalogService.selectMlbackCatalogGetAllByParentId();
-//		 
-//		 List<MlbackCatalog> MlbackCatalogdownEr =new ArrayList<MlbackCatalog>();
-//		 for(MlbackCatalog MlbackCatalogOne :MlbackCatalogdownList){
-//			 Integer CatalogParentId = MlbackCatalogOne.getCatalogParentId();
-//			 if(CatalogParentId>0){
-//				 MlbackCatalogdownEr.add(MlbackCatalogOne);
-//			 }
-//		 }
-//		 
-//		 //接受信息
-//		 String CatalogSeoReq = MlbackCatalog.getCatalogSeo();
-//		 MlbackCatalog MlbackCatalogReq = new MlbackCatalog();
-//		 MlbackCatalogReq.setCatalogSeo(CatalogSeoReq);
-//		 List<MlbackCatalog> MlbackCatalogList = mlbackCatalogService.selectMlbackCatalogBySeo(MlbackCatalogReq);
-//		 
-//		 if(!(MlbackCatalogList.size()>0)){
-//			 return Msg.success().add("resMsg", "通过CatalogSeo未查到该Catalog").add("mlbackProductResList", null).add("MlbackCatalogdownEr", MlbackCatalogdownEr);
-//		 }
-//		 
-//		 MlbackCatalog MlbackCatalogres = MlbackCatalogList.get(0);
-//		 //System.out.println("操作说明:客户点击类菜单-searchByCatalogSeo");
-//	 
-//		 String CatalogProductIdsStr = MlbackCatalogres.getCatalogProductIds();
-//		 
-//		 if(CatalogProductIdsStr==null){
-//			 return Msg.success().add("resMsg", "该类下无prolist").add("mlbackProductResList", null).add("MlbackCatalogdownEr", MlbackCatalogdownEr);
-//		 }
-//		 if("".equals(CatalogProductIdsStr)){
-//			 return Msg.success().add("resMsg", "该类下无prolist").add("mlbackProductResList", null).add("MlbackCatalogdownEr", MlbackCatalogdownEr);
-//		 }
-//		
-//		 String productidsStrArr [] =CatalogProductIdsStr.split(",");
-//		 String productidStr ="";
-//		 Integer productidInt =0;
-//		 List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
-//		 List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
-//		 MlbackProduct mlbackProductResOne = new MlbackProduct();
-//		 for(int i=0;i<productidsStrArr.length;i++){
-//			 productidStr = productidsStrArr[i];
-//			 productidInt = Integer.parseInt(productidStr);
-//			 //查询白pid的产品详情
-//			 MlbackProduct mlbackProductReq = new MlbackProduct();
-//			 mlbackProductReq.setProductId(productidInt);
-//			 mlbackProductReqList =mlbackProductService.selectMlbackProductbyCatalogSeo(mlbackProductReq);
-//			 if(mlbackProductReqList.size()>0){
-//				 mlbackProductResOne = mlbackProductReqList.get(0);
-//				 mlbackProductResList.add(mlbackProductResOne);
-//			 }
-//		 }
-//		 return Msg.success().add("resMsg", "searchByCatalogSeo完毕")
-//				 .add("mlbackProductResList", mlbackProductResList).add("MlbackCatalogdownEr", MlbackCatalogdownEr);
-//	 }
-//	 
-//	/**
-//	 * 11.0	onuse	20191225	检查
-//	 * 获取getCatalogSuperMenu
-//	 * @param rep res
-//	 * @return 
-//	 */
-//	@RequestMapping(value="/getCatalogSuperMenu",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getCatalogSuperMenu(HttpServletResponse rep,HttpServletRequest res){
-//		
-//		//查询全部的Catalog信息
-//		List<MlbackCatalog> MlbackCatalogdownList = mlbackCatalogService.selectMenuMlbackCatalogGetAll();
-//		//System.out.println("操作说明:客户查询-getCatalogSuperMenu");
-//		
-//		List<MlbackCatalog> MlbackCatalogdownFirst =new ArrayList<MlbackCatalog>();
-//		for(MlbackCatalog MlbackCatalogOne :MlbackCatalogdownList){
-//			Integer CatalogParentId = MlbackCatalogOne.getCatalogParentId();
-//			if(CatalogParentId>0){
-//				//System.out.println("CatalogParentId:"+CatalogParentId);
-//			}else{
-//				//筛选出一级菜单(patentId=-1)的类，//第一级别的导航
-//				//存到list中，存一下这些ids,这些是一级类
-//				MlbackCatalogdownFirst.add(MlbackCatalogOne);//一级类list;
-//			}
-//		}
-//		List<List<List<MlbackCatalog>>> MlbackCatalogSuperList =new ArrayList<List<List<MlbackCatalog>>>();
-//		//遍历第一等级导航
-//		for(MlbackCatalog CatalogFirstOne :MlbackCatalogdownFirst){
-//			Integer CatalogFirstId = CatalogFirstOne.getCatalogId();
-//			
-//			MlbackCatalog MlbackCatalogSecReq = new MlbackCatalog();
-//			MlbackCatalogSecReq.setCatalogParentId(CatalogFirstId);
-//			
-//			//查询该父id下的全部Catalog信息
-//			List<MlbackCatalog> CatalogNowSecondList = mlbackCatalogService.selectCataloglistByParam(MlbackCatalogSecReq);
-//			//System.out.println("操作说明:客户查询-本二级的菜单完毕Catalog-菜单");
-//			
-//			List<List<MlbackCatalog>> MlbackCatalogfirstdownList =new ArrayList<List<MlbackCatalog>>();
-//			for(MlbackCatalog CatalogOne :CatalogNowSecondList){
-//				Integer CatalogId = CatalogOne.getCatalogId();
-//				List<MlbackCatalog> MlbackCatalogdownEr =new ArrayList<MlbackCatalog>();
-//				//
-//				MlbackCatalogdownEr.add(CatalogOne);
-//				//准备参数，请求此二级下的三级菜单
-//				MlbackCatalog MlbackCatalogReq = new MlbackCatalog();
-//				MlbackCatalogReq.setCatalogParentId(CatalogId);
-//				List<MlbackCatalog> MlbackCatalogReqList = mlbackCatalogService.selectCataloglistByParam(MlbackCatalogReq);
-//				
-//				if(MlbackCatalogReqList.size()>0){
-//					for(int i=0;i<MlbackCatalogReqList.size();i++){
-//						MlbackCatalog MlbackCatalogThreeOne = MlbackCatalogReqList.get(i);
-//						MlbackCatalogdownEr.add(MlbackCatalogThreeOne);
-//					}
-//					
-//					MlbackCatalogfirstdownList.add(MlbackCatalogdownEr);
-//				}else{
-//					MlbackCatalogfirstdownList.add(MlbackCatalogdownEr);
-//					//System.out.println("该二级下没有三级分类");
-//				}
-//			}
-//			MlbackCatalogSuperList.add(MlbackCatalogfirstdownList);
-//		}
-//		
-//		return Msg.success().add("resMsg", "getCatalogMenuSenond-end").add("MlbackCatalogSuperList", MlbackCatalogSuperList).add("CatalogFirstList", MlbackCatalogdownFirst);
-//	}
+	/**
+	 * 9.0	20200703
+	 * 获取getCatalogSuperMenu
+	 * @param rep res
+	 * @return 
+	 */
+	@RequestMapping(value="/getCatalogSuperMenu",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getCatalogSuperMenu(HttpServletResponse rep,HttpServletRequest res){
+		
+		//查询全部的Catalog信息
+		List<MlbackCatalog> MlbackCatalogdownList = mlbackCatalogService.selectMenuMlbackCatalogGetAll();
+		//System.out.println("操作说明:客户查询-getCatalogSuperMenu");
+		
+		List<MlbackCatalog> MlbackCatalogdownFirst =new ArrayList<MlbackCatalog>();
+		for(MlbackCatalog MlbackCatalogOne :MlbackCatalogdownList){
+			Integer CatalogParentId = MlbackCatalogOne.getCatalogParentId();
+			if(CatalogParentId>0){
+				//System.out.println("CatalogParentId:"+CatalogParentId);
+			}else{
+				//筛选出一级菜单(patentId=-1)的类，//第一级别的导航
+				//存到list中，存一下这些ids,这些是一级类
+				MlbackCatalogdownFirst.add(MlbackCatalogOne);//一级类list;
+			}
+		}
+		List<List<List<MlbackCatalog>>> MlbackCatalogSuperList =new ArrayList<List<List<MlbackCatalog>>>();
+		//遍历第一等级导航
+		for(MlbackCatalog CatalogFirstOne :MlbackCatalogdownFirst){
+			Integer CatalogFirstId = CatalogFirstOne.getCatalogId();
+			
+			MlbackCatalog MlbackCatalogSecReq = new MlbackCatalog();
+			MlbackCatalogSecReq.setCatalogParentId(CatalogFirstId);
+			
+			//查询该父id下的全部Catalog信息
+			List<MlbackCatalog> CatalogNowSecondList = mlbackCatalogService.selectCataloglistByParam(MlbackCatalogSecReq);
+			//System.out.println("操作说明:客户查询-本二级的菜单完毕Catalog-菜单");
+			
+			List<List<MlbackCatalog>> MlbackCatalogfirstdownList =new ArrayList<List<MlbackCatalog>>();
+			for(MlbackCatalog CatalogOne :CatalogNowSecondList){
+				Integer CatalogId = CatalogOne.getCatalogId();
+				List<MlbackCatalog> MlbackCatalogdownEr =new ArrayList<MlbackCatalog>();
+				//
+				MlbackCatalogdownEr.add(CatalogOne);
+				//准备参数，请求此二级下的三级菜单
+				MlbackCatalog MlbackCatalogReq = new MlbackCatalog();
+				MlbackCatalogReq.setCatalogParentId(CatalogId);
+				List<MlbackCatalog> MlbackCatalogReqList = mlbackCatalogService.selectCataloglistByParam(MlbackCatalogReq);
+				
+				if(MlbackCatalogReqList.size()>0){
+					for(int i=0;i<MlbackCatalogReqList.size();i++){
+						MlbackCatalog MlbackCatalogThreeOne = MlbackCatalogReqList.get(i);
+						MlbackCatalogdownEr.add(MlbackCatalogThreeOne);
+					}
+					
+					MlbackCatalogfirstdownList.add(MlbackCatalogdownEr);
+				}else{
+					MlbackCatalogfirstdownList.add(MlbackCatalogdownEr);
+					//System.out.println("该二级下没有三级分类");
+				}
+			}
+			MlbackCatalogSuperList.add(MlbackCatalogfirstdownList);
+		}
+		
+		return Msg.success().add("resMsg", "getCatalogMenuSenond-end").add("MlbackCatalogSuperList", MlbackCatalogSuperList).add("CatalogFirstList", MlbackCatalogdownFirst);
+	}
 }
