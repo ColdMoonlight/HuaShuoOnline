@@ -46,7 +46,6 @@ public class MlfrontReviewService {
 	 * 
 	 * */
 	public int updateByPrimaryKeySelective(MlfrontReview mlfrontReview) {
-		// TODO Auto-generated method stub
 		int  intReslut = mlfrontReviewMapper.updateByPrimaryKeySelective(mlfrontReview);
 		return intReslut;
 	}
@@ -88,8 +87,8 @@ public class MlfrontReviewService {
 	 * @exception 条件搜索
 	 * 
 	 * */
-	public List<MlfrontReview> selectMlfrontReviewListBySearch(MlfrontReview mlfrontReview) {
-		List<MlfrontReview>  MlfrontReviewList = mlfrontReviewMapper.selectMlfrontReviewListBySearch(mlfrontReview);
+	public List<MlfrontReview> selectMlbackReviewListBySearch(MlfrontReview mlfrontReview) {
+		List<MlfrontReview>  MlfrontReviewList = mlfrontReviewMapper.selectMlbackReviewListBySearch(mlfrontReview);
 		return MlfrontReviewList;
 	}
 
