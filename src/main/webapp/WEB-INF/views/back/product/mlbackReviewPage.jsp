@@ -101,7 +101,7 @@
 									<div class="form-group">
 										<label class="col-form-label" for="reviewDetailstr">Review Text</label>
 										<div class="controls">
-											<textarea class="form-control" rows="5" id="reviewDetailstr"></textarea>
+											<textarea class="form-control" rows="5" id="reviewDetailstr" placeholder="pleasse input review content..."></textarea>
 										</div>
 									</div>
 								</div>
@@ -202,7 +202,7 @@
 			showCreateBlock();
 			// init formData
 			resetFormData();
-			getProductId();
+			getReviewId();
 			isCreate = true;
 		});
 		// edit review
@@ -237,10 +237,8 @@
 				return false;
 			}
 			saveReviewData(reqData, function() {
-				// redirect tab-active & then search-data
-				if (isCreate) {
-					isCreate = false;
-				}
+				if (isCreate) isCreate = false;
+				getReviewsData();
 				showInitBlock();
 			});
 		});
@@ -249,9 +247,9 @@
 			if (isCreate) {
 				// delete null review
 				deleteReviewData({
-					productId: $('#productId').val(),
+					reviewId: $('#reviewId').val(),
 				}, function() {
-					console.log("cancel create-product");
+					console.log("cancel create-review");
 				});
 			}
 			showInitBlock();
@@ -260,9 +258,9 @@
 			if (isCreate) {
 				// delete null product
 				deleteReviewData({
-					productId: $('#productId').val(),
+					reviewId: $('#reviewId').val(),
 				}, function() {
-					console.log("cancel create-product");
+					console.log("cancel create-review !");
 				});
 			}
 		});
@@ -283,7 +281,7 @@
 			if (!file) return false;
 
 			$this.parent().find('.spinner').show();
-			
+
 			formData.append('image', file);
 			formData.append('type', 'reviewDetail');
 			formData.append('productSeo', productSeo);
@@ -359,7 +357,7 @@
 			$('#reviewId').val('');
 			$('#reviewUname').val('');
 			$('#reviewStatus').prop('checked', false);
-			$('#reviewProstarnum').val('0');
+			$('#reviewProstarnum').val(1);
 
 			$('#reviewDetailstr').val('');
 
@@ -417,22 +415,22 @@
 			$('#reviewProduct').val(data.reviewPid || -1);
 		}
 		// callback get id
-		function getProductId() {
+		function getReviewId() {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackProduct/initializaProduct",
+				url: "${APP_PATH }/MlfrontReview/initializaReview",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						var productId = data.extend&& data.extend.mlbackProduct && data.extend.mlbackProduct.productId;
-						if (productId) {
-							$('#productId').val(data.extend.mlbackProduct.productId);
+						var reviewId = data.extend&& data.extend.mlfrontReview && data.extend.mlfrontReview.reviewId;
+						if (reviewId) {
+							$('#reviewId').val(reviewId);
 							toastr.success(data.extend.resMsg);
 						} else {
-							toastr.error('create collecion fail! Please try again.');
+							toastr.error('create review fail! Please try again.');
 						}
 					} else {
 						showInitBlock();
