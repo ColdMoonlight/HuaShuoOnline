@@ -419,11 +419,31 @@ public class ImageUploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		//查询文件是否在
+		MlbackReviewImg mlbackReviewImgIf = new MlbackReviewImg();
+		
+		mlbackReviewImgIf.setReviewId(reviewId);
+		mlbackReviewImgIf.setReviewimgSortOrder(reviewimgSortOrder);
+		List<MlbackReviewImg> mlbackReviewImgIfList = mlbackReviewImgService.selectMlbackReviewImgByRIdAndImgSort(mlbackReviewImgIf);
+		
 		MlbackReviewImg mlbackReviewImg = new MlbackReviewImg();
 		mlbackReviewImg.setReviewId(reviewId);
 		mlbackReviewImg.setReviewimgSortOrder(reviewimgSortOrder);
 		mlbackReviewImg.setReviewimgUrl(sqlimageUrl);
 		mlbackReviewImg.setReviewsmallimgUrl(sqlimageUrl);
+		String nowTime = DateUtil.strTime14s();
+		if(mlbackReviewImgIfList.size()>0){
+			//取出id
+			int rImgId = mlbackReviewImgIfList.get(0).getReviewimgId();
+			mlbackReviewImg.setReviewimgId(rImgId);
+			//存在update
+			mlbackReviewImgService.updateByPrimaryKeySelective(mlbackReviewImg);
+		}else{
+			mlbackReviewImg.setReviewimgCreatetime(nowTime);
+			//存在insert
+			mlbackReviewImgService.insertSelective(mlbackReviewImg);
+		}
 		
 		mlbackReviewImgService.updateByPrimaryKeySelective(mlbackReviewImg);
 		
