@@ -106,6 +106,13 @@
 						<div class="product-review-title">
 							<div class="product-review-cal">
 								<div class="product-review-total">Based on <span>0</span> Customer Reviews</div>
+								<div class="product-review-avgstar">
+									<span class="icon star"></span>
+									<span class="icon star"></span>
+									<span class="icon star"></span>
+									<span class="icon star"></span>
+									<span class="icon star"></span>
+								</div>
 								<div class="product-review-star-list"></div>
 							</div>
 							<div class="product-review-add">
@@ -452,7 +459,7 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.StartNumList);
+						callback && callback(data.extend);
 					} else {
 						refreshPageModal();
 					}
@@ -517,14 +524,19 @@
 			});
 		});
 		// review count
-		getReviewCalData(renderProudctReviewCal);
+		getReviewCalData(function(data) {
+			$('.product-review-total span').text(data.allReviewNum);
+			renderProudctReviewCal(data);
+		});
 		// render product review count
 		function renderProudctReviewCal (data) {
-			var total = data ? data.reduce(function(acc, item) {acc += item.startCount; return acc;}, 0) : 0;
-			var htmlStr = '';
-			$('.product-review-total span').text(total);
+			var reivewNum = data.allReviewNum,
+				reviewStarList = data.StartNumList,
+				total = reviewStarList ? reviewStarList.reduce(function(acc, item) {acc += item.startCount; return acc;}, 0) : 0,
+				avgStar = Math.ceil(total/reviewNum);
+				htmlStr = '';
 			for (var i = 4, percent = 0; i >= 0; i-=1) {
-				percent = (total ? data[i].startCount * 100 / total : 0);
+				percent = (total ? reviewStarList[i].startCount * 100 / total : 0);
 				htmlStr += '<div class="product-review-star-item">' +
 	     	 		'<div class="stars">'+ (i+1) +' star</div>' +
 	     	 		'<div class="progress">' +
@@ -533,6 +545,11 @@
 	     	 		'<div class="data">'+ percent.toFixed(2)  +'%</div>' +
 	     	 	'</div>';
 			}
+			// avg
+			$('.product-review-avgstar .icon').each(function(idx, item) {
+				if (idx < avgStar) $(item).removeClass('.star').addClass('star2');
+			});
+			// percent
 			$('.product-review-star-list').html(htmlStr);
 		}
 		// review list

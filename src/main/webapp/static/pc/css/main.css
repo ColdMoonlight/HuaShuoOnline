@@ -2632,9 +2632,13 @@ footer li {
 .product-review-star-list {
 	padding: .5rem 0;
 }
-.product-review-star-item {
+.product-review-star-item,
+.product-review-avgstar {
 	display: flex;
   	align-items: center;
+}
+.product-review-avgstar {
+	padding: .5rem 0;
 }
 .product-review-star-item+.product-review-star-item {
 	margin-top: .5rem;
