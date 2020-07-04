@@ -106,6 +106,13 @@
 						<div class="product-review-title">
 							<div class="product-review-cal">
 								<div class="product-review-total">Based on <span>0</span> Customer Reviews</div>
+								<div class="product-review-avgstar">
+									<span class="icon star"></span>
+									<span class="icon star"></span>
+									<span class="icon star"></span>
+									<span class="icon star"></span>
+									<span class="icon star"></span>
+								</div>
 								<div class="product-review-star-list"></div>
 							</div>
 							<div class="product-review-add">
@@ -349,6 +356,41 @@
 				}
 			});			
 		}
+		/* create review swiper */
+		function createReviewSwiper(imgs, activeNum) {
+			var slideImgs = imgs.reduce(function(acc, img) {acc += '<div class="swiper-slide"><img src="'+ img +'" /></div>'; return acc;}, '');
+			if (!reviewSwiper) {
+				var $reviewSwiper = $('<div class="review-swiper-box">' +
+						'<div id="review-swiper" class="swiper-container">' +
+						    '<div class="swiper-wrapper">'+ slideImgs +'</div>' +
+						    '<div class="swiper-pagination"></div>' +
+						    '<div class="swiper-button-next"></div>' +
+						    '<div class="swiper-button-prev"></div>' +
+					    '</div>' +
+					    '<div class="review-swiper-close"><span class="icon close"></span></div>' +
+					'<div>');
+				$(document.body).append($reviewSwiper);
+				reviewSwiper = new Swiper('#review-swiper', {
+					pagination: {
+				    	el: '.swiper-pagination',
+				    	type: 'fraction',
+					},
+				    navigation: {
+				    	nextEl: '.swiper-button-next',
+				    	prevEl: '.swiper-button-prev',
+					},
+				});
+
+				reviewSwiper.slideTo(activeNum, 0, false);
+			} else {
+				$('.review-swiper-box .swiper-wrapper').html(slideImgs);
+
+				reviewSwiper.updateSlides();
+				reviewSwiper.slideTo(activeNum, 0, false);
+				
+				$('.review-swiper-box').show();
+			}
+		}
 		/* details of main */
 		function getProductDetails(callback) {
 			$.ajax({
@@ -411,11 +453,13 @@
 		function getReviewCalData(callback) {
 			$.ajax({
 				url: '${APP_PATH}/MlfrontReview/getMlfrontReviewCount',
-				data: { "productId": productId },
+				data: JSON.stringify({ "productId": productId }),
 				type: "post",
+				dataType: 'json',
+				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.StartNumList);
+						callback && callback(data.extend);
 					} else {
 						refreshPageModal();
 					}
@@ -428,16 +472,18 @@
 		// get review list data
 		function getReviewListData() {
 			$.ajax({
-				url: "${APP_PATH}/MlfrontReview/getMlfrontReviewByPage",
-				data: { "reviewPid": productId, "reviewUid": getPageNum() },
+				url: "${APP_PATH}/MlfrontReview/getMlfrontReviewByProductIdAndPage",
+				data: JSON.stringify({ "reviewPid": productId, "reviewUid": getPageNum() }),
 				type: "post",
+				dataType: 'json',
+				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
 						var pageInfo = data.extend.pageInfo;
 						if (!pageInfo.list.length) {
 							$('.product-review-body').html('<p class="text-error">here are no comments yet, you can just click the <i>Write a Reveiw</i> button to write a comment</p>');
 						} else {
-							renderProductReviewList(pageInfo.list);
+							renderProductReviewList(pageInfo.list, data.extend.imgUrlStrListst);
 							renderTablePagination(pageInfo);				
 						}
 					} else {
@@ -450,7 +496,7 @@
 			});
 		}
 		// varients
-		var mediaData = {}, productData = {}, mainUrl;
+		var mediaData = {}, productData = {}, mainUrl, reviewSwiper;
 		// initial
 		getProductDetails(function(data) {
 			mainUrl = data.productMainimgurl;
@@ -478,14 +524,19 @@
 			});
 		});
 		// review count
-		getReviewCalData(renderProudctReviewCal);
+		getReviewCalData(function(data) {
+			$('.product-review-total span').text(data.allReviewNum);
+			renderProudctReviewCal(data);
+		});
 		// render product review count
 		function renderProudctReviewCal (data) {
-			var total = data ? data.reduce(function(acc, item) {acc += item.startCount; return acc;}, 0) : 0;
-			var htmlStr = '';
-			$('.product-review-total span').text(total);
+			var reivewNum = data.allReviewNum,
+				reviewStarList = data.StartNumList,
+				total = reviewStarList ? reviewStarList.reduce(function(acc, item) {acc += item.startCount; return acc;}, 0) : 0,
+				avgStar = Math.ceil(total/reviewNum);
+				htmlStr = '';
 			for (var i = 4, percent = 0; i >= 0; i-=1) {
-				percent = (total ? data[i].startCount * 100 / total : 0);
+				percent = (total ? reviewStarList[i].startCount * 100 / total : 0);
 				htmlStr += '<div class="product-review-star-item">' +
 	     	 		'<div class="stars">'+ (i+1) +' star</div>' +
 	     	 		'<div class="progress">' +
@@ -494,6 +545,11 @@
 	     	 		'<div class="data">'+ percent.toFixed(2)  +'%</div>' +
 	     	 	'</div>';
 			}
+			// avg
+			$('.product-review-avgstar .icon').each(function(idx, item) {
+				if (idx < avgStar) $(item).removeClass('.star').addClass('star2');
+			});
+			// percent
 			$('.product-review-star-list').html(htmlStr);
 		}
 		// review list
@@ -503,32 +559,32 @@
 			getReviewListData();
 		});
 		// redner pruduct review list
-		function renderProductReviewList(data) {
+		function renderProductReviewList(reviewList, imgList) {
 			var htmlStr = '';
-			for (var i = 0, len = data.length; i < len; i++) {
-				htmlStr += '<div class="product-review-item" data-reviewid="' + data[i].reviewId + '">' +
+			for (var i = 0, len = reviewList.length; i < len; i++) {
+				htmlStr += '<div class="product-review-item">' +
 						'<div class="product-review-item-title">' +
-							'<img src="' + data[i].reviewUimgurl + '" alt="'+ data[i].reviewUname +'">' +
-							'<div class="product-review-data">' +
+							'<img src="' + reviewList[i].reviewUimgurl + '" alt="'+ reviewList[i].reviewUname +'">' +
+							'<div class="product-review-item-data">' +
 								'<div class="product-review-stars">';
 								for (var j = 0; j < 5; j++) {
-									if (j < data[i].reviewProstarnum) {
+									if (j < reviewList[i].reviewProstarnum) {
 										htmlStr += '<span class="icon star2"></span>';
 									} else {
 										htmlStr += '<span class="icon star"></span>';
 									}
 								}
 						htmlStr += '</div>' +
-								'<div class="product-review-author">' + data[i].reviewUname + '</div>' +
+								'<div class="product-review-author">' + reviewList[i].reviewUname + '</div>' +
 							'</div>' +
-						'<div class="proudct-review-date">' + (new RelativeTIime({ date: data[i].reviewCreatetime }).output) + '</div>' +
+						'<div class="product-review-date">' + (new RelativeTIime({ date: reviewList[i].reviewCreatetime }).output) + '</div>' +
 					'</div>' +
-					'<div class="proudct-review-item-text">'+ data[i].reviewDetailstr + '</div>' +
+					'<div class="proudct-review-item-text">'+ reviewList[i].reviewDetailstr + '</div>' +
 					'<div class="product-review-item-imgs">';
-						/* var imgLen = img[i].length <= 5 ? img[i].length : 5;
+						var imgLen = imgList[i].length <= 5 ? imgList[i].length : 5;
 						for (var k = 0; k < imgLen; k++) {
-							htmlStr += '<img src="' + img[i][k] + '">';
-						} */
+							htmlStr += '<div class="product-review-imgs-item"><img src="' + imgList[i][k] + '"></div>';
+						}
 						htmlStr += '</div></div>';
 			}
 			$('.product-review-list').html(htmlStr);
@@ -592,6 +648,22 @@
 		$('.paypal-button.paypal-now').on('click', function() {
 			var reqData = getProductData();
 			isCorrectProduct() && reqData && (payLoading(), toPayInstance(reqData));
+		});
+		// open reiview swiper
+		$(document.body).on('click', '.product-review-imgs-item', function() {
+			var activeImg = $(this).find('img')[0].src;
+			var activeNum = 0;
+			var imgs = [];
+			$(this).parent().find('img').each(function(idx, item) {
+				var img = item.src;
+				if (img == activeImg) activeNum = idx;
+				imgs.push(img);
+			});
+			createReviewSwiper(imgs, activeNum);
+		});
+		// clsoe reivew swiper		
+		$(document.body).on('click', '.review-swiper-close', function() {
+			$('.review-swiper-box').hide();
 		});
 	</script>
 </body>

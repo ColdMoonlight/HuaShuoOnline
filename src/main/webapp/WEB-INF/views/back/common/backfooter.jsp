@@ -7,7 +7,7 @@
 <script src="${APP_PATH}/static/back/lib/bootstrap/bootstrap.min.js"></script>
 <script src="${APP_PATH}/static/back/js/main.js"></script>
 <script>
-	var format = 'YYYY-MM-DD hh:mm:ss';
+	var format = 'YYYY-MM-DD HH:mm:ss';
 
 	// intitial date
 	function initDate() {
@@ -16,7 +16,7 @@
 
 	// daterange
 	function bindDateRangeEvent(callback) {
-		$('.datetimepicker').daterangepicker({
+		$('.daterangetimepicker').daterangepicker({
 			timePicker: true,
 			timePicker24Hour: true,
 			timePickerSeconds: true,
@@ -44,12 +44,15 @@
 		$('.datetimepicker').daterangepicker({
 			singleDatePicker: true,
 			timePicker: true,
-			timePicker24Hour: true,
 			timePickerSeconds: true,
 			showWeekNumbers: true,
 			locale: {
 				format: format,
 			},
 		});
+	}
+
+	function getMilliseconds(value) {
+		return moment(value, format).utc().valueOf();
 	}
 </script>

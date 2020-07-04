@@ -298,6 +298,16 @@
 .c-search>.form-control select:focus {
 	border-radius: .25rem;
 }
+.c-table-header {
+	padding: 1rem;
+	border-bottom: 1px solid #d5d5d5;
+}
+.search-review-search {
+	text-align: center;
+}
+.search-review-search .btn {
+	width: 30%;
+}
 #table-pagination>nav {
 	text-align: center;;
 }
