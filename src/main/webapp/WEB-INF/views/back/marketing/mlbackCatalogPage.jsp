@@ -5,7 +5,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Collection</title>
+	<title>Marketing</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
@@ -19,8 +19,8 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Collections</span>
-						<button class="btn btn-primary btn-create">Create collection</button>
+						<span class="c-option-title">Marketing</span>
+						<button class="btn btn-primary btn-create">Create Marketing</button>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -34,7 +34,7 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="searchCollection" type="text" placeholder="Search Collections">						
+									<input id="searchCatalog" type="text" placeholder="Search Marketing">						
 									<select id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
@@ -43,13 +43,12 @@
 								<thead>
 									<tr>
 										<th>id</th>
-										<th>image</th>
 										<th>name</th>
 										<th>parent-id</th>
 										<th>parent-name</th>
 										<th>tag</th>
-										<th>status</th>
 										<th>order</th>
+										<th>status</th>
 										<th>path-desc</th>
 										<th>operate</th>
 									</tr>
@@ -63,14 +62,14 @@
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">Edit Collections</span>
+						<span class="c-option-title">Edit Marketing</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save collection</button>
+							<button class="btn btn-primary btn-save">Save Marketing</button>
 						</div>
 					</div>
 					<div class="c-form row">
-						<input id="categoryId" hidden>
+						<input id="catalogId" hidden>
 						<!-- left panel  -->
 						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
@@ -79,21 +78,15 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="categoryName">Collection Name</label>
+										<label class="col-form-label" for="catalogName">Marketing Name</label>
 										<div class="controls">
-											<input class="form-control" id="categoryName" type="text" />
+											<input class="form-control" id="catalogName" type="text" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="categorySeo">Collection SEO</label>
+										<label class="col-form-label" for="catalogFirthNum">Sort</label>
 										<div class="controls">
-											 <input class="form-control" id="categorySeo" type="text">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="categorySortOrder">Sort</label>
-										<div class="controls">
-											<select class="form-control" id="categorySortOrder" />
+											<select class="form-control" id="catalogFirthNum" />
 												<option value="0">Please select category sort-order</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -109,18 +102,18 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="categoryStatus">Status</label>
+										<label class="col-md-3 col-form-label" for="catalogStatus">Status</label>
 										<div class="controls col-md-3">
 											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="categoryStatus" type="checkbox">
+												<input class="c-switch-input" id="catalogStatus" type="checkbox">
 												<span class="c-switch-slider"></span>
 											</label>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="categoryLable">Label</label>
+										<label class="col-form-label" for="catalogLable">Label</label>
 										<div class="controls">
-											<select class="form-control" id="categoryLable" />
+											<select class="form-control" id="catalogLable" />
 												<option value="0" selected="selected">0-无图</option>
 												<option value="1">1-hot</option>
 												<option value="2">2-new</option>
@@ -135,29 +128,65 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="categoryDesc">Description</label>
+										<label class="col-form-label" for="catalogDesc">Description</label>
 										<div class="controls">
-											<input class="form-control" id="categoryDesc" type="text" disabled />
+											<input class="form-control" id="catalogDesc" type="text" disabled />
 										</div>
 									</div>
 								</div>
 							</div>
+							<!-- product or subject -->
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Collection Image</div>
+									<div class="card-title-name">Product & Subject & Category</div>
 								</div>
 								<div class="card-body">
-									<div id="uploadImg" class="c-upload-img">
-										<svg class="c-icon">
-											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-										</svg>
-										<div class="c-backshow"></div>						
-										<input id="categoryImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
-										<!-- spinner -->
-										<div class="spinner">
-											<div class="spinner-border" role="status" aria-hidden="true"></div>
+									<div class="form-group">
+										<label class="col-form-label" for="catalogIfproorcateorpage">Product Or Subject Or Category</label>
+										<div class="controls">
+											<select class="form-control" id="catalogIfproorcateorpage" />
+												<option value="0" data-class="ml-product">product</option>
+												<option value="1" data-class="ml-category">category</option>
+												<option value="2" data-class="ml-subject">subject</option>
+											</select>
 										</div>
 									</div>
+									<div>
+										<div class="form-group ml-product">
+											<label class="col-form-label" for="catalogProid">Product</label>
+											<div class="controls">
+												<select class="form-control product-list" id="catalogProid" /></select>
+											</div>
+										</div>
+										<div class="form-group ml-category hide">
+											<label class="col-form-label" for="catalogCateid">Category</label>
+											<div class="controls">
+												<select class="form-control collection-list" id="catalogCateid" /></select>
+											</div>
+										</div>	
+										<div class="form-group ml-subject hide">
+											<label class="col-form-label" for="catalogPageseoname">Subject</label>
+											<div class="controls">
+												<select class="form-control" id="catalogPageseoname" />
+													<option value="Friday">Friday</option>
+													<option value="Activty">Activty</option>
+													<option value="MlfrontReview/toReviewCustomer">Shop by look</option>
+													<option value="MlfrontReview/toReviewInsPage">Ins Show</option>
+													<option value="MlbackVideoShowArea/toVideoListPage">CUSTOMER VOICE</option>
+												</select>
+											</div>
+										</div>								
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="scatalogParentId">click entry or not</label>
+										<div class="controls">
+											<select class="form-control" id="catalogPageseoname" />
+												<option value="0" selected="selected">disable</option>
+					  							<option value="1">enalbe</option>
+											</select>
+										</div>
+									</div>	
+									
 								</div>
 							</div>
 						</div>
@@ -169,48 +198,15 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="categorySuperCateId">Super Category</label>
+										<label class="col-form-label" for="catalogSupercateId">Super Category</label>
 										<div class="controls">
-											<select class="form-control" id="categorySuperCateId" /></select>
+											<select class="form-control" id="catalogSupercateId" /></select>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="categoryParentId">Parent Category</label>
+										<label class="col-form-label" for="catalogParentId">Parent Category</label>
 										<div class="controls">
-											<select class="form-control" id="categoryParentId" /></select>
-										</div>
-									</div>
-									<input type="hidden" id="categoryProductIds" />
-									<input type="hidden" id="categoryProductNames" />
-									<div class="form-group">
-										<label class="col-form-label" for="categoryProductList">Products Under Category</label>
-										<div class="controls">
-											<textarea class="form-control" rows="5" id="categoryProductList"></textarea>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Search engine listing preview</div>
-								</div>
-								<div class="card-body">
-									<div class="form-group">
-										<label class="col-form-label" for="categoryMetatitle">Page title</label>
-										<div class="controls">
-											<input class="form-control" id="categoryMetatitle" type="text" />
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="categoryMetakeywords">Page keywords</label>
-										<div class="controls">
-											<textarea class="form-control" rows="5" id="categoryMetakeywords"></textarea>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="categoryMetadesc">Page Description</label>
-										<div class="controls">
-											<textarea class="form-control" rows="5" id="categoryMetadesc"></textarea>
+											<select class="form-control" id="catalogParentId" /></select>
 										</div>
 									</div>
 								</div>
@@ -236,9 +232,15 @@
 	<script>
 		var hasSuperCategory = false;
 		var hasParentCategory = false;
+		var hasCollectionList = false;
+		var hasProductList = false;
 		var isCreate = false;
 
-		if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
+		$('#catalogIfproorcateorpage').on('change', function() {
+			$('.' + $(this).find('option:checked').data('class')).removeClass('hide').siblings().addClass('hide').find('select').val('-1');
+		});
+		
+		if (!hasSuperCategory) getSuperCateData(renderSuperCategory);
 
 		// init
 		renderTabItems();
@@ -247,7 +249,7 @@
 			var searchCollectionVal = {
 				supercate: $('#searchSupercate').find('option:selected').text(),
 				supercateId: $('#searchSupercate').val(),
-				collection: $('#searchCollection').val()
+				collection: $('#searchCatalog').val()
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchCollectionVal)) return;
@@ -266,7 +268,7 @@
 		});
 		var oldTime = (new Date()).getTime(),
 			timer = null;
-		$('#searchCollection').on('keyup', function() {
+		$('#searchCatalog').on('keyup', function() {
 			var distanceTime = 1000,
 				newTime =  (new Date()).getTime();
 			if (newTime - oldTime < 1000) clearTimeout(timer);
@@ -280,7 +282,7 @@
 			var searchCollectionVal = {
 				supercate: $('#searchSupercate').find('option:selected').text(),
 				supercateId: $('#searchSupercate').val(),
-				collection: $('#searchCollection').val()
+				collection: $('#searchCatalog').val()
 			};
 			// inital pagination num
 			setPageNum(1);
@@ -304,14 +306,14 @@
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
 			if (dataVal) {
-				$('#searchCollection').val(dataVal.collection || '');
+				$('#searchCatalog').val(dataVal.collection || '');
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
-				getSearchCollectionsData();
+				getSearchMarkegingsData();
 			} else {
 				$('#searchSupercate').val('-1');
-				$('#searchCollection').val('');
-				getCollectionsData();
+				$('#searchCatalog').val('');
+				getMarketingsData();
 			}
 		}
 		// tab delete
@@ -322,49 +324,49 @@
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create .c-option-title').text('Create Collection');
+			$('.c-create .c-option-title').text('Create Marketing');
 			showCreateBlock();
 			// init formData
 			resetFormData();
-			getCollectionId();
+			getMarketingId();
 			isCreate = true;
 		});
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
-			var categoryId = $(this).data('id');
-			getOneCollectionData({
-			 categoryId: categoryId
+			var catalogId = $(this).data('id');
+			getOneMarketingData({
+			 catalogId: catalogId
 			}, function(resData) {
-			 	$('.c-create .c-option-title').text('Edit Collection');
+			 	$('.c-create .c-option-title').text('Edit Marketing');
 				showCreateBlock();
 				initFormData(resData);
 			});			
 		});
 		// delete collection
 		$(document.body).on('click', '.btn-delete', function (e) {
-			var categoryId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete collection!');
+			var catalogId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('Delete Marketing!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteCollectionData({
-					categoryId: categoryId,
+				deleteMarketingData({
+					catalogId: catalogId,
 				}, function() {
-					getCollectionsData();
+					getMarketingsData();
 					// update parentCategory data
-					getParentCategoryData(renderParentCategory);
+					getParentMarketingData(renderParentMarketing);
 				});
 			});
 		});
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
-			saveCollectionData(getFormData(), function() {
+			saveMarketingData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) {
 					isCreate = false;
 					initActiveItemNum();
 					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
 					// update parentCategory data
-					getParentCategoryData(renderParentCategory);
+					getParentMarketingData(renderParentMarketing);
 				}
 
 				getTabSearchData($('.c-table-tab-item.active'));
@@ -377,85 +379,37 @@
 				isCreate = false;
 				/* initActiveItemNum(); */
 				// delete null collection
-				deleteCollectionData({
-					categoryId: $('#categoryId').val(),
+				deleteMarketingData({
+					catalogId: $('#catalogId').val(),
 				}, function() {
-					console.log("cancel create-collection");
+					console.log("cancel create marketing");
 				});
-				// fetch default collection
-				// getCollectionsData();
 			}
 
 			showInitBlock();
 		});
 		// status combinewith supercate
-		$('#categoryStatus').on('click', function(e) {
-			if (parseInt($('#categorySuperCateId').val()) < 0) {
+		$('#catalogStatus').on('click', function(e) {
+			if (parseInt($('#catalogSupercateId').val()) < 0) {
 				toastr.info('Please Select super-category!');
-				$('#categorySuperCateId').focus();
-				$('#categoryStatus').prop('checked', false);
+				$('#catalogSupercateId').focus();
+				$('#catalogStatus').prop('checked', false);
 			}
 		});
-		// supercate & categoryStatus combinewith
-		$('#categorySuperCateId').on('change', function(e) {
+		// supercate & catalogStatus combinewith
+		$('#catalogSupercateId').on('change', function(e) {
 			if (parseInt($(this).val()) < 0) {
-				$('#categoryStatus').prop('checked', false);
+				$('#catalogStatus').prop('checked', false);
 			}
 		});
-		// upload img
-		$('#categoryImgurl').on('change', function(e) {
-			var $this = $(this);
-			$('.c-upload-img .spinner').show();
-
-			var formData = new FormData();
-			formData.append('type', 'category');
-			formData.append('image', $this[0].files[0]);
-			formData.append('categoryId', parseInt($('#categoryId').val()));
-			formData.append('categorySeo', $('#categorySeo').val());
-
-			$.ajax({
-				url: "${APP_PATH}/ImageUpload/thumImageCategory",
-				type: "post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				cache: false,
-				dataType: 'json',
-				success: function (data) {
-					if (data.code == 100) {
-						addPicture($this, {
-							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl
-						});
-					} else {
-						toastr.error('网络错误， 请稍后重试！');	
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-upload-img .spinner').hide();
-				}
-			});
-		});
-		function addPicture(el, data) {
-			var parentEl = el.parent();
-			el.attr('data-val', JSON.stringify(data));
-			parentEl.addClass('active');
-			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.thumImageUrl) + '" />');
-		}
-		function resetPicture(el) {
-			var parentEl = el.parent();
-			el.attr('data-val', '');
-			parentEl.removeClass('active');
-			parentEl.find('.c-backshow').html('');
-		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
 
-			if (!hasParentCategory) getParentCategoryData(renderParentCategory);
+			if (!hasParentCategory) getParentMarketingData(renderParentMarketing);
+			if (!hasCollectionList) getAllCollectionData(renderAllCollection);
+			if (!hasProductList) getAllProductData(renderAllProduct);
+			
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
@@ -464,106 +418,109 @@
 		// handle formData
 		// reset data
 		function resetFormData() {
-			$('#categoryId').val('');
-			$('#categoryName').val('');
-			$('#categorySortOrder').val('0');
-			$('#categoryStatus').prop('checked', false);
-			$('#categoryLable').val('0');
-			$('#categoryDesc').val('');
+			$('#catalogId').val('');
+			$('#catalogName').val('');
+			$('#catalogFirthNum').val('0');
+			$('#catalogStatus').prop('checked', false);
+			$('#catalogLable').val('0');
+			$('#catalogDesc').val('');
 
-			resetPicture($('#categoryImgurl'));
+			$('#catalogIfproorcateorpage').val('0');
+			$('#catalogProid').val('-1');
+			$('#catalogCateid').val('-1');
+			$('#catalogPageseoname').val('-1');
+			$('#catalogIfinto').val('0')
 
-			$('#categorySuperCateId').val('-1');
-			$('#categoryParentId').val('-1');
-			$('#categoryProductIds').val('');
-			$('#categoryProductNames').val('')
-			$('#categoryProductList').val('No product！');
+			$('#catalogSupercateId').val('-1');
+			$('#catalogParentId').val('-1');
 
-			$('#categorySeo').val('');
-			$('#categoryMetatitle').val('');
-			$('#categoryMetakeywords').val('');
-			$('#categoryMetadesc').val('');
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
-			data.categoryId = parseInt($('#categoryId').val());
-			data.categoryName = $('#categoryName').val();
-			data.categoryStatus = $('#categoryStatus').prop('checked') ? 1 : 0;
-			data.categorySortOrder = $('#categorySortOrder').val();
-			data.categoryLable = parseInt($('#categoryLable').val());
-			data.categoryDesc = $('#categoryDesc').val();
+			data.catalogId = parseInt($('#catalogId').val());
+			data.catalogName = $('#catalogName').val();
+			data.catalogStatus = $('#catalogStatus').prop('checked') ? 1 : 0;
+			data.catalogFirthNum = $('#catalogFirthNum').val();
+			data.catalogLable = parseInt($('#catalogLable').val());
+			data.catalogDesc = $('#catalogDesc').val();
+			
+			var catalogIfproorcateorpage = $('#catalogIfproorcateorpage').val();
+			data.catalogIfproorcateorpage = catalogIfproorcateorpage;
+			if (catalogIfproorcateorpage == 0) {
+				data.catalogProid = $('#catalogProid').val();
+				data.catalogProname = $('#catalogProid').find('option:checked').data('name');
+				data.catalogSeoname = $('#catalogProid').find('option:checked').data('seo');
+				data.catalogCateid = '';
+				data.catalogCatename = '';
+				data.catalogCateseoname = '';
+				data.catalogPageseoname = '';
+			} else if (catalogIfproorcateorpage == 1) {
+				data.catalogProid = '';
+				data.catalogProname = '';
+				data.catalogSeoname = '';
+				data.catalogCateid = $('#catalogCateid').val();
+				data.catalogCatename = $('#catalogCateid').find('option:checked').data('name');
+				data.catalogCateseoname = $('#catalogCateid').find('option:checked').data('seo');
+				data.catalogPageseoname = '';
+			} else if (catalogIfproorcateorpage == 2) {
+				data.catalogProid = '';
+				data.catalogProname = '';
+				data.catalogSeoname = '';
+				data.catalogCateid ='';
+				data.catalogCatename = '';
+				data.catalogCateseoname = '';
+				data.catalogPageseoname = $('#catalogPageseoname').val();
+			}
+			data.catalogIfinto = $('#catalogIfinto').val();
 
-			var imageData = $('#categoryImgurl').attr('data-val') && JSON.parse($('#categoryImgurl').attr('data-val'));
-			data.categoryImgpcurl = imageData.imageUrl;
-			data.categoryImgurl = imageData.thumImageUrl;
+			data.catalogSupercateId = $('#catalogSupercateId').val();
+			data.catalogSupercateName = $('#catalogSupercateId').find('option:selected').text();
 
-			data.categorySuperCateId = $('#categorySuperCateId').val();
-			data.categorySuperCateName = $('#categorySuperCateId').find('option:selected').text();
-
-			data.categoryParentId = $('#categoryParentId').val();
-			data.categoryParentName = $('#categoryParentId').find('option:selected').data('name');
-
-			data.categoryProductIds = $('#categoryProductIds').val();
-			data.categoryProductNames = $('#categoryProductNames').val();
-
-			data.categorySeo = $('#categorySeo').val();
-			data.categoryMetatitle = $('#categoryMetatitle').val();
-			data.categoryMetakeywords = $('#categoryMetakeywords').val();
-			data.categoryMetadesc = $('#categoryMetadesc').val();
+			data.catalogParentId = $('#catalogParentId').val();
+			data.catalogParentName = $('#catalogParentId').find('option:selected').data('name');
 
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
-			$('#categoryId').val(data.categoryId);
-			$('#categoryName').val(data.categoryName);
-			$('#categorySortOrder').val(data.categorySortOrder ? data.categorySortOrder : '0');
-			$('#categoryStatus').prop('checked', (data.categorySuperCateId > 0 ? data.categoryStatus : 0));
-			$('#categoryLable').val(data.categoryLable);
-			$('#categoryDesc').val(data.categoryDesc);
+			$('#catalogId').val(data.catalogId);
+			$('#catalogName').val(data.catalogName);
+			$('#catalogFirthNum').val(data.catalogFirthNum ? data.catalogFirthNum : '0');
+			$('#catalogStatus').prop('checked', (data.catalogSupercateId > 0 ? data.catalogStatus : 0));
+			$('#catalogLable').val(data.catalogLable);
+			$('#catalogDesc').val(data.catalogDesc);
 
-			if (hasSuperCategory && hasParentCategory) {
-				// value
-				$('#categorySuperCateId').val(data.categorySuperCateId || '-1');
-				$('#categoryParentId').val(data.categoryParentId || '-1');
+			var catalogIfproorcateorpage = data.catalogIfproorcateorpage;
+			$('#catalogIfproorcateorpage').val(catalogIfproorcateorpage || 0);
+			if (catalogIfproorcateorpage == 0) {
+				$('#catalogProid').val(data.catalogProid || '-1');
+			} else if (catalogIfproorcateorpage == 1) {
+				$('#catalogCateid').val(data.catalogCateid || '-1');
+			} else if (catalogIfproorcateorpage == 2) {
+				$('#catalogPageseoname').val(data.catalogPageseoname || -'-1');
 			}
-			// attr
-			$('#categorySuperCateId').attr('data-val', data.categorySuperCateId || '-1');
-			$('#categoryParentId').attr('data-val', data.categoryParentId || '-1');
+			
+			$('#catalogIfinto').val(data.catalogIfinto);
+			
+			$('#catalogSupercateId').val(data.catalogSupercateId || '-1');
+			$('#catalogParentId').val(data.catalogParentId || '-1');
 
-			$('#categoryProductIds').val(data.categoryProductIds);
-			$('#categoryProductNames').val(data.categoryProductNames);
-			$('#categoryProductList').val(data.categoryProductNames ? ' * ' + data.categoryProductNames.replace(/\,/g, '\n * '): 'No product！').attr('data-val', data.categoryProductNames);
-
-			if (data.categoryImgurl) {
-				addPicture($('#categoryImgurl'), {
-					imageUrl: data.categoryImgpcurl,
-					thumImageUrl: data.categoryImgurl
-				});				
-			} else {
-				resetPicture($('#categoryImgurl'));
-			}
-
-			$('#categorySeo').val(data.categorySeo);
-			$('#categoryMetatitle').val(data.categoryMetatitle);
-			$('#categoryMetakeywords').val(data.categoryMetakeywords);
-			$('#categoryMetadesc').val(data.categoryMetadesc);
 		}
 		// callback get id
-		function getCollectionId() {
+		function getMarketingId() {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackCategory/initializaCategory",
+				url: "${APP_PATH }/MlbackCatalog/initializaCatalog",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						var categoryId = data.extend&& data.extend.mlbackCategory && data.extend.mlbackCategory.categoryId;
-						if (categoryId) {
-							$('#categoryId').val(data.extend.mlbackCategory.categoryId);
+						var catalogId = data.extend&& data.extend.mlbackCatalog && data.extend.mlbackCatalog.catalogId;
+						if (catalogId) {
+							$('#catalogId').val(catalogId);
 							toastr.success(data.extend.resMsg);
 						} else {
 							toastr.error('create collecion fail! Please try again.');
@@ -582,14 +539,14 @@
 			});
 		}
 		// callback get all data
-		function getCollectionsData() {
+		function getMarketingsData() {
 			$('.c-mask').show();
 
 			var formData = new FormData();
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH }/MlbackCategory/getMlbackCategoryByPage",
+				url: "${APP_PATH}/MlbackCatalog/getMlbackCatalogByPage",
 				type: "post",
 				processData: false,
 				contentType: false,
@@ -605,7 +562,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Categeory, please refresh the page to get again！');
+					toastr.error('Failed to get Marketing, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -613,24 +570,24 @@
 			});
 		}
 		// callback get one data
-		function getOneCollectionData(reqData, callback) {
+		function getOneMarketingData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackCategory/getOneMlbackCategoryDetail",
+				url: "${APP_PATH}/MlbackCatalog/getOneMlbackCatalogDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: 'json',
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.mlbackCategoryOne);
+						callback(data.extend.MlbackCatalogOne);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Categeory, please refresh the page to get again！');
+					toastr.error('Failed to get Marketing, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -638,16 +595,16 @@
 			});
 		}
 		// callback get search data
-		function getSearchCollectionsData(data) {
+		function getSearchMarkegingsData(data) {
 			$('.c-mask').show();
 
 			var formData = new FormData();
-			formData.append('categoryName', $('#searchCollection').val());
-			formData.append('categorySuperCateId', ($('#searchSupercate').attr('data-val') || '-1'));
+			formData.append('catalogName', $('#searchCatalog').val());
+			formData.append('catalogSupercateId', ($('#searchSupercate').attr('data-val') || '-1'));
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH }/MlbackCategory/backSearchBycategory",
+				url: "${APP_PATH}/MlbackCatalog/backSearchByCatalog",
 				type: "post",
 				processData: false,
 				contentType: false,
@@ -663,7 +620,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Categeory, please refresh the page to get again！');
+					toastr.error('Failed to get Marketing, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -671,10 +628,10 @@
 			});
 		}
 		// callback save
-		function saveCollectionData(reqData, callback) {
+		function saveMarketingData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCategory/save",
+				url: "${APP_PATH}/MlbackCatalog/save",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -697,10 +654,10 @@
 			});
 		}
 		// callback delete
-		function deleteCollectionData(reqData, callback) {
+		function deleteMarketingData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCategory/delete",
+				url: "${APP_PATH}/MlbackCatalog/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -724,7 +681,7 @@
 			});
 		}
 		// callback superCategory
-		function getSuperCategoryData(callback) {
+		function getSuperCateData(callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackSuperCate/getSuperCateDownList",
@@ -748,17 +705,17 @@
 		}
 
 		// callback parentCategory
-		function getParentCategoryData(callback) {
+		function getParentMarketingData(callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCategory/getMlbackCategoryDropdownSelect",
+				url: "${APP_PATH}/MlbackCatalog/getMlbackCatalogDropdownSelect",
 				type: "post",
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackCategorydownList);
+						callback(data.extend.mlbackCatalogdownEr);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
@@ -775,26 +732,21 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<tr><td>' + data[i].categoryId + '</td>' +
+				htmlStr += '<tr><td>' + data[i].catalogId + '</td>' +
+					'<td>' + data[i].catalogName + '</td>' +
+					'<td>' + data[i].catalogParentId + '</td>' +
+					'<td>' + data[i].catalogParentName + '</td>' +
+					'<td>' + data[i].catalogLable + '</td>' +
+					'<td>' + data[i].catalogFirthNum + '</td>' +
+					'<td><a class="badge '+ (data[i].catalogStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].catalogStatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td>' + data[i].catalogDesc + '</td>' +
 					'<td>' +
-						(data[i].categoryImgurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].categoryImgurl) +'" /></div>'
-							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
-					'</td>' +
-					'<td>' + data[i].categoryName + '</td>' +
-					'<td>' + data[i].categoryParentId + '</td>' +
-					'<td>' + data[i].categoryParentName + '</td>' +
-					'<td>' + data[i].categoryLable + '</td>' +
-					'<td><a class="badge '+ (data[i].categoryStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].categoryStatus ? 'enable' : 'disable') + '</a></td>' +
-					'<td>' + data[i].categorySortOrder + '</td>' +
-					'<td>' + data[i].categoryDesc + '</td>' +
-					'<td>' +
-						'<button class="btn btn-primary btn-edit" data-id="' + data[i].categoryId + '">' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].catalogId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
 						'</button>' +
-						'<button class="btn btn-danger btn-delete" data-id="' + data[i].categoryId + '">' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].catalogId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
 							'</svg>' +
@@ -809,30 +761,30 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
 			}
-			$('#categorySuperCateId').html(htmlStr);
+			$('#catalogSupercateId').html(htmlStr);
 			$('#searchSupercate').html(htmlStr);
 			hasSuperCategory = true;
 			// init select default value
 			initFormFiled();
 		}
 		// render parentCategoryData
-		function renderParentCategory(data) {
+		function renderParentMarketing(data) {
 			var htmlStr = '<option value="-1">Please Select parent-category</option>';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].categoryId + '" data-name="' + data[i].categoryName + '">' + data[i].categoryDesc + '</option>';
+				htmlStr += '<option value="' + data[i].catalogId + '" data-name="' + data[i].catalogName + '">' + data[i].catalogDesc + '</option>';
 			}
-			$('#categoryParentId').html(htmlStr);
+			$('#catalogParentId').html(htmlStr);
 			hasParentCategory = true;
 			// init select default value
 			initFormFiled();
 		}
-		
+
 		function initFormFiled() {
 			// search
 			$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
 			// form
-			$('#categorySuperCateId').val($('#categorySuperCateId').data('val') || '-1');
-			$('#categoryParentId').val($('#categoryParentId').data('val') || '-1');
+			$('#catalogSupercateId').val($('#catalogSupercateId').data('val') || '-1');
+			$('#catalogParentId').val($('#catalogParentId').data('val') || '-1');
 		}
 		function renderTabItems() {
 			var collections = getCollectionList(),
@@ -910,19 +862,19 @@
 			getTabSearchData($('.c-table-tab-item').eq(0));
 		}
 		function getCollectionList() {
-			return JSON.parse(storage.getItem('collections')) || [];
+			return JSON.parse(storage.getItem('marketing')) || [];
 		}
 		function deleteCollectionItem(name) {
 			var oldCollections = getCollectionList();
 			var newCollections = oldCollections.filter(function (item) {
 				if (JSON.stringify(item) != JSON.stringify(name)) return item;
 			});
-			storage.setItem('collections', JSON.stringify(newCollections));
+			storage.setItem('marketing', JSON.stringify(newCollections));
 		}
 		function addCollectionItem(name) {
 			var collections = getCollectionList();
 			collections.push(name);
-			storage.setItem('collections', JSON.stringify(collections));
+			storage.setItem('marketing', JSON.stringify(collections));
 		}
 		// tab active-item cache (get & set)
 		function getActiveItemNum() {
