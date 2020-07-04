@@ -394,8 +394,8 @@
 			var initTime = initDate();
 			$('#couponStarttime').val(initTime);
 			$('#couponEndtime').val(initTime);
-			$('.datetimepicker').data('daterangepicker').setStartDate(initTime);
-			$('.datetimepicker').data('daterangepicker').setEndDate(initTime);
+			$('.daterangetimepicker').data('daterangepicker').setStartDate(initTime);
+			$('.daterangetimepicker').data('daterangepicker').setEndDate(initTime);
 		}
 		// getFormdData
 		function getFormData() {
@@ -459,8 +459,8 @@
 			var endTime = data.couponEndtime || initDate();
 			$("#couponStarttime").val(startTime);
 			$("#couponEndtime").val(endTime);
-			$('.datetimepicker').data('daterangepicker').setStartDate(startTime);
-			$('.datetimepicker').data('daterangepicker').setEndDate(endTime);
+			$('.daterangetimepicker').data('daterangepicker').setStartDate(startTime);
+			$('.daterangetimepicker').data('daterangepicker').setEndDate(endTime);
 		}
 		// callback id
 		function getCollectionId() {

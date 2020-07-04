@@ -250,7 +250,7 @@
 	<script>
 		function getSelectReviewsData() {
 			function checkSearchTime() {
-				if (($('#search-review-create-time').val() >= $('#search-review-confirm-time').val())) {
+				if (getMilliseconds($('#search-review-create-time').val()) >= getMilliseconds($('#search-review-confirm-time').val())) {
 					toastr.error('The start time must be less than the end time !');
 					$('#search-review-time').focus();
 					return false;
@@ -266,7 +266,7 @@
 			) {				
 				checkSearchTime() && getSearchReviewsData();
 			} else {
-				if (($('#search-review-create-time').val() < $('#search-review-confirm-time').val())) {
+				if (getMilliseconds($('#search-review-create-time').val()) < getMilliseconds($('#search-review-confirm-time').val())) {
 					getSearchReviewsData();
 				} else {
 					getReviewsData();
@@ -287,7 +287,7 @@
 		$('#search-review-search').on('click', getSelectReviewsData);
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
-			getReviewsData();
+			getSelectReviewsData();
 		});
 		// create review
 		$('.btn-create').on('click', function () {
@@ -580,13 +580,13 @@
 				cache: false,
 				data: JSON.stringify({
 					'reviewUid': parseInt(getPageNum()),
-					'reviewSupercateidstr': $('#search-supercate').val() == '-1' ? 999 : $('#search-supercate').val(),
-					'reviewPid': $('#search-product').val() == '-1' ? 999 : $('#search-product').val(),
+					'reviewSupercateidstr': $('#search-supercate').val() == '-1' ? 0 : $('#search-supercate').val(),
+					'reviewPid': $('#search-product').val() == '-1' ? 0 : parseInt($('#search-product').val()),
 					'reviewCreatetime': $('#search-review-create-time').val(),
 					'reviewMotifytime': $('#search-review-confirm-time').val(),
 					'reviewStatus': $('#search-review-status').val() == '-1' ? 999 : $('#search-review-status').val(),
 					'reviewFrom': $('#search-review-source').val() == '-1' ? 999 : $('#search-review-source').val(),
-					'reviewProstarnum': $('#search-review-star').val() == '-1' ? 999 : $('#search-review-star').val(),
+					'reviewProstarnum': $('#search-review-star').val() == '-1' ? 0 : $('#search-review-star').val(),
 					
 				}),
 				dataType: "json",

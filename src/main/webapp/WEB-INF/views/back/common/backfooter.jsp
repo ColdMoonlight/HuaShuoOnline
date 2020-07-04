@@ -51,4 +51,8 @@
 			},
 		});
 	}
+
+	function getMilliseconds(value) {
+		return moment(value, format).utc().valueOf();
+	}
 </script>
