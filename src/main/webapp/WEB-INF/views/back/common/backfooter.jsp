@@ -55,4 +55,70 @@
 	function getMilliseconds(value) {
 		return moment(value, format).utc().valueOf();
 	}
+	// callback get all product
+	function getAllProductData(callback) {
+		$('.c-mask').show();
+		$.ajax({
+			url: "${APP_PATH}/MlbackProduct/lownLoadProduct",
+			type: "post",
+			contentType: 'application/json',
+			async: false,
+			success: function (data) {
+				if (data.code == 100) {
+					toastr.success(data.extend.resMsg);
+					callback(data.extend.mlbackProductResList);
+				} else {
+					toastr.error(data.extend.resMsg);
+				}
+			},
+			error: function (err) {
+				toastr.error(err);
+			},
+			complete: function () {
+				$('.c-mask').hide();
+			}
+		});
+	}
+	// render all product data
+	function renderAllProduct(data) {
+		var htmlStr = '<option value="-1">Please Select product</option>';
+		for (var i = 0; i < data.length; i += 1) {
+				htmlStr += '<option value="' + data[i].productId + '" data-seo="'+ data[i].productSeo +'" data-name="'+ data[i].productName + '">' + data[i].productId + ' * '+ data[i].productName + '</option>';
+			}
+		$('.product-list').html(htmlStr);
+		hasProductList = true;
+	}
+	// get all collection
+	function getAllCollectionData(callback) {
+		$('#editModal .spinner').show();
+		$.ajax({
+			url: "${APP_PATH}/MlbackCategory/getMlbackCategoryDropdownSelect",
+			type: "post",
+			contentType: 'application/json',
+			async: false,
+			success: function (data) {
+				if (data.code == 100) {
+					toastr.success(data.extend.resMsg);
+					callback(data.extend.mlbackCategorydownList);
+				} else {
+					toastr.error(data.extend.resMsg);
+				}
+			},
+			error: function (err) {
+				toastr.error(err);
+			},
+			complete: function () {
+				$('#editModal .spinner').hide();
+			}
+		});
+	}
+	// render all collection
+	function renderAllCollection(data) {
+		var htmlStr = '<option value="-1">Please Select collection</option>';
+		for (var i = 0; i < data.length; i += 1) {
+				htmlStr += '<option value="' + data[i].categoryId + '" data-seo="'+ data[i].categorySeo +'" data-name="'+ data[i].categoryName + '">' + data[i].categoryId + ' * '+ data[i].categoryDesc + '</option>';
+			}
+		$('.collection-list').html(htmlStr);
+		hasCollectionList = true;
+	}
 </script>
