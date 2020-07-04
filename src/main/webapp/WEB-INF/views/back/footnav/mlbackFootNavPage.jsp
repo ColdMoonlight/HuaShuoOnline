@@ -35,7 +35,7 @@
 								</svg>
 								<div class="form-control">
 									<input id="searchFootnav" type="text" placeholder="Search FooterNavs">
-									<select id="searchSupercate"></select>
+									<select class="supercate-list" id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
@@ -197,7 +197,7 @@
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
-		var hasSuperCategory = false;
+		var hasSuperCateList = false;
 		var isCreate = false;
 
 		// init
@@ -217,7 +217,8 @@
 	        ]
 	   	});
 		// inital supercategory
-		if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
+		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
+	 	$('#searchSupercate').val($('#searchSupercate').data('val'));
 		// save search
 		$('.btn-save-search').on('click', function () {
 			var searchFootnavVal = {
@@ -424,39 +425,6 @@
 			$('#footnavMetatitle').val(data.footnavMetatitle);
 			$('#footnavMetakeywords').val(data.footnavMetakeywords);
 			$('#footnavMetadesc').val(data.footnavMetadesc);
-		}
-		// callback superCategory
-		function getSuperCategoryData(callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackSuperCate/getSuperCateDownList",
-				type: "post",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackSuperCateResList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
-		// render superCategoryData
-		function renderSuperCategory(data) {
-			var htmlStr = '<option value="-1">Please Select Super-category</option>';
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
-			}
-			$('#footnavSuperCateId').html(htmlStr);
-			$('#searchSupercate').html(htmlStr);
-			hasSuperCategory = true;
 		}
 		// callback get id
 		function getFootnavId() {

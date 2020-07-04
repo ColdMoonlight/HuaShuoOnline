@@ -35,7 +35,7 @@
 								</svg>
 								<div class="form-control">
 									<input id="searchCollection" type="text" placeholder="Search Collections">						
-									<select id="searchSupercate"></select>
+									<select class="supercate-list" id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
@@ -171,13 +171,13 @@
 									<div class="form-group">
 										<label class="col-form-label" for="categorySuperCateId">Super Category</label>
 										<div class="controls">
-											<select class="form-control" id="categorySuperCateId" /></select>
+											<select class="form-control supercate-list" id="categorySuperCateId" /></select>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="categoryParentId">Parent Category</label>
 										<div class="controls">
-											<select class="form-control" id="categoryParentId" /></select>
+											<select class="form-control collection-list" id="categoryParentId" /></select>
 										</div>
 									</div>
 									<input type="hidden" id="categoryProductIds" />
@@ -234,11 +234,12 @@
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
-		var hasSuperCategory = false;
-		var hasParentCategory = false;
+		var hasSuperCateList = false;
+		var hasCollectionList = false;
 		var isCreate = false;
 
-		if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
+		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
+	 	$('#searchSupercate').val($('#searchSupercate').data('val'));
 
 		// init
 		renderTabItems();
@@ -351,7 +352,7 @@
 				}, function() {
 					getCollectionsData();
 					// update parentCategory data
-					getParentCategoryData(renderParentCategory);
+					getAllCollectionData(renderAllCollection);
 				});
 			});
 		});
@@ -364,7 +365,7 @@
 					initActiveItemNum();
 					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
 					// update parentCategory data
-					getParentCategoryData(renderParentCategory);
+					getAllCollectionData(renderAllCollection);
 				}
 
 				getTabSearchData($('.c-table-tab-item.active'));
@@ -455,7 +456,7 @@
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
 
-			if (!hasParentCategory) getParentCategoryData(renderParentCategory);
+			if (!hasCollectionList) getAllCollectionData(renderAllCollection);
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
@@ -523,7 +524,7 @@
 			$('#categoryLable').val(data.categoryLable);
 			$('#categoryDesc').val(data.categoryDesc);
 
-			if (hasSuperCategory && hasParentCategory) {
+			if (hasSuperCateList && hasCollectionList) {
 				// value
 				$('#categorySuperCateId').val(data.categorySuperCateId || '-1');
 				$('#categoryParentId').val(data.categoryParentId || '-1');
@@ -723,54 +724,7 @@
 				}
 			});
 		}
-		// callback superCategory
-		function getSuperCategoryData(callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackSuperCate/getSuperCateDownList",
-				type: "post",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackSuperCateResList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
 
-		// callback parentCategory
-		function getParentCategoryData(callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackCategory/getMlbackCategoryDropdownSelect",
-				type: "post",
-				contentType: 'application/json',
-				async: false,
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackCategorydownList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
@@ -803,37 +757,7 @@
 			}
 			$('.c-table-table tbody').html(htmlStr);
 		}
-		// render superCategoryData
-		function renderSuperCategory(data) {
-			var htmlStr = '<option value="-1">Please Select Super-category</option>';
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
-			}
-			$('#categorySuperCateId').html(htmlStr);
-			$('#searchSupercate').html(htmlStr);
-			hasSuperCategory = true;
-			// init select default value
-			initFormFiled();
-		}
-		// render parentCategoryData
-		function renderParentCategory(data) {
-			var htmlStr = '<option value="-1">Please Select parent-category</option>';
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].categoryId + '" data-name="' + data[i].categoryName + '">' + data[i].categoryDesc + '</option>';
-			}
-			$('#categoryParentId').html(htmlStr);
-			hasParentCategory = true;
-			// init select default value
-			initFormFiled();
-		}
-		
-		function initFormFiled() {
-			// search
-			$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
-			// form
-			$('#categorySuperCateId').val($('#categorySuperCateId').data('val') || '-1');
-			$('#categoryParentId').val($('#categoryParentId').data('val') || '-1');
-		}
+
 		function renderTabItems() {
 			var collections = getCollectionList(),
 				len = collections.length,

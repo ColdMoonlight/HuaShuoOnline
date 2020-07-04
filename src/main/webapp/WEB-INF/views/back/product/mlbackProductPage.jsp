@@ -38,7 +38,7 @@
 								</svg>
 								<div class="form-control">
 									<input id="searchProduct" type="text" placeholder="Search Products">						
-									<select id="searchSupercate"></select>
+									<select class="supercate-list" id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
@@ -276,7 +276,7 @@
 									<div class="form-group">
 										<label class="col-form-label" for="productSupercateid">Super Category</label>
 										<div class="controls">
-											<select class="form-control" id="productSupercateid" /></select>
+											<select class="form-control supercate-list" id="productSupercateid" /></select>
 										</div>
 									</div>
 									<div class="form-group">
@@ -360,7 +360,7 @@
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
-		var hasSuperCategory = false;
+		var hasSuperCateList = false;
 		var isCreate = false;
 		var isSaveSku = false;
 		// init summernote editor for description
@@ -383,8 +383,8 @@
 				['view', ['codeview']]
 	        ]
 	   	});
-		if (!hasSuperCategory) getSuperCategoryData(renderSuperCategory);
-
+		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
+	 	$('#searchSupercate').val($('#searchSupercate').data('val'));
 		// init
 		renderTabItems();
 		// save search
@@ -581,7 +581,7 @@
 			$('#editModal').find('.modal-title').html('selete category for product');
 			$('#editModal').modal('show');
 			// get parentCategory data
-			getParentCategoryData(renderParentCategory);
+			getAllCollectionData(renderParentCategory);
 			$('#editModal .btn-ok').one('click', function () {
 				var checkData = getSelectedCategoryData();
 				$('#productCategoryIdsstr').val(checkData.productCategoryIds.join(','));
@@ -1502,7 +1502,7 @@
 			}
 			$('#productDiscoutimgShow').prop('checked', data.productDiscoutimgShow);
 
-			if (hasSuperCategory) {
+			if (hasSuperCateList) {
 				// value
 				$('#productSupercateid').val(data.productSupercateid || '-1');
 			}
@@ -1717,54 +1717,6 @@
 				}
 			});
 		}
-		// callback superCategory
-		function getSuperCategoryData(callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackSuperCate/getSuperCateDownList",
-				type: "post",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackSuperCateResList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
-
-		// callback parentCategory
-		function getParentCategoryData(callback) {
-			$('#editModal .spinner').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackCategory/getMlbackCategoryDropdownSelect",
-				type: "post",
-				contentType: 'application/json',
-				async: false,
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackCategorydownList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('#editModal .spinner').hide();
-				}
-			});
-		}
 		// callback get all img data
 		function getProductAllImgData(reqData, callback) {
 			$('.c-mask').show();
@@ -1841,18 +1793,7 @@
 
 			if (len < 6) addUploadBlock(len);
 		}
-		// render superCategoryData
-		function renderSuperCategory(data) {
-			var htmlStr = '<option value="-1">Please Select Super-category</option>';
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
-			}
-			$('#productSupercateid').html(htmlStr);
-			$('#searchSupercate').html(htmlStr);
-			hasSuperCategory = true;
-			// init select default value
-			initFormFiled();
-		}
+		
 		// render parentCategoryData
 		function renderParentCategory(data) {
 			var htmlStr = '';
@@ -1869,13 +1810,6 @@
 			$('#editModal .modal-body-body').html(htmlStr);
 		}
 
-		function initFormFiled() {
-			// search
-			$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
-			// form
-			$('#productSupercateid').val($('#productSupercateid').data('val') || '-1');
-			$('#categoryParentId').val($('#categoryParentId').data('val') || '-1');
-		}
 		function renderTabItems() {
 			var products = getProductList(),
 				len = products.length,
