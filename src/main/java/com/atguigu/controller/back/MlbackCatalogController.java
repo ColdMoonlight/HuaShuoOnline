@@ -207,14 +207,14 @@ public class MlbackCatalogController {
 	public Msg backSearchByCatalog(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
 			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
 			@RequestParam(value = "catalogName") String catalogName,
-			@RequestParam(value = "catalogSuperCateId", defaultValue = "1") Integer catalogSuperCateId) throws Exception{
+			@RequestParam(value = "catalogSupercateId", defaultValue = "1") Integer catalogSupercateId) throws Exception{
 		
 		//接收传递进来的参数
 		int PagNum = 30;
 		PageHelper.startPage(pn, PagNum);
 		
 		MlbackCatalog MlbackCatalogReq = new MlbackCatalog();
-		MlbackCatalogReq.setCatalogCateid(catalogSuperCateId);
+		MlbackCatalogReq.setCatalogSupercateId(catalogSupercateId);
 		MlbackCatalogReq.setCatalogName(catalogName);
 		List<MlbackCatalog> MlbackCatalogResList = mlbackCatalogService.selectMlbackCatalogBackSearch(MlbackCatalogReq);
 		

@@ -382,12 +382,13 @@
     catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
     catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
   	from tb_mlback_catalog 
-  	where catalog_name like concat(concat("%",#{catalogName}),"%")
+    where catalog_name like concat(concat("%",#{catalogName}),"%")
      <if test="catalogSupercateId != null">
      	and catalog_superCate_id = #{catalogSupercateId,jdbcType=INTEGER}
      </if>
     order by catalog_id desc,catalog_parent_id
   </select>
+  
   <!-- selectMenuMlbackCatalogGetAll -->
   <select id="selectMenuMlbackCatalogGetAll" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
     select
