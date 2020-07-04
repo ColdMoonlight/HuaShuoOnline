@@ -135,6 +135,7 @@
 	<script src="${APP_PATH}/static/pc/js/jqzoom/jquery.jqzoom.js"></script>
 	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
+	<script src="${APP_PATH}/static/pc/js/relativeTime.min.js"></script>
 	<script>
 		// fly bubble
 		function generateFlyBubble(event, callback) {
@@ -530,10 +531,10 @@
 		});
 		// render product review count
 		function renderProudctReviewCal (data) {
-			var reivewNum = data.allReviewNum,
+			var reviewNum = data.allReviewNum,
 				reviewStarList = data.StartNumList,
 				total = reviewStarList ? reviewStarList.reduce(function(acc, item) {acc += item.startCount; return acc;}, 0) : 0,
-				avgStar = Math.ceil(total/reviewNum);
+				avgStar = Math.ceil(total / reviewNum);
 				htmlStr = '';
 			for (var i = 4, percent = 0; i >= 0; i-=1) {
 				percent = (total ? reviewStarList[i].startCount * 100 / total : 0);
@@ -577,7 +578,7 @@
 						htmlStr += '</div>' +
 								'<div class="product-review-author">' + reviewList[i].reviewUname + '</div>' +
 							'</div>' +
-						'<div class="product-review-date">' + (new RelativeTIime({ date: reviewList[i].reviewCreatetime }).output) + '</div>' +
+						'<div class="product-review-date">' + (reviewList[i].reviewCreatetime) + '</div>' +
 					'</div>' +
 					'<div class="proudct-review-item-text">'+ reviewList[i].reviewDetailstr + '</div>' +
 					'<div class="product-review-item-imgs">';
