@@ -386,7 +386,7 @@
      <if test="catalogSupercateId != null">
      	and catalog_superCate_id = #{catalogSupercateId,jdbcType=INTEGER}
      </if>
-    order by catalog_id desc
+    order by catalog_id desc,catalog_parent_id
   </select>
   
   <!-- selectMenuMlbackCatalogGetAll -->
