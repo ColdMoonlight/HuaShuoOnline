@@ -12,6 +12,7 @@
     <result column="catalog_status" jdbcType="INTEGER" property="catalogStatus" />
     <result column="catalog_lable" jdbcType="INTEGER" property="catalogLable" />
     <result column="catalog_firth_num" jdbcType="INTEGER" property="catalogFirthNum" />
+    <result column="catalog_ifinto" jdbcType="INTEGER" property="catalogIfinto" />
     <result column="catalog_ifproORcateORpage" jdbcType="INTEGER" property="catalogIfproorcateorpage" />
     <result column="catalog_proid" jdbcType="INTEGER" property="catalogProid" />
     <result column="catalog_proname" jdbcType="VARCHAR" property="catalogProname" />
@@ -26,7 +27,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_superCate_id, 
-    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifproORcateORpage, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num,catalog_ifinto, catalog_ifproORcateORpage, 
     catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
     catalog_cateSeoname, catalog_pagename, catalog_pageSeoname, catalog_createTime, catalog_motifyTime
   </sql>
@@ -41,7 +42,7 @@
     insert into tb_mlback_catalog (catalog_id, catalog_name, catalog_parent_id, 
       catalog_parent_name, catalog_desc, catalog_superCate_id, 
       catalog_superCate_name, catalog_status, catalog_lable, 
-      catalog_firth_num, catalog_ifproORcateORpage, 
+      catalog_firth_num, catalog_ifinto, catalog_ifproORcateORpage, 
       catalog_proid, catalog_proname, catalog_seoname, 
       catalog_cateid, catalog_catename, catalog_cateSeoname, 
       catalog_pagename, catalog_pageSeoname, catalog_createTime, 
@@ -49,7 +50,7 @@
     values (#{catalogId,jdbcType=INTEGER}, #{catalogName,jdbcType=VARCHAR}, #{catalogParentId,jdbcType=INTEGER}, 
       #{catalogParentName,jdbcType=VARCHAR}, #{catalogDesc,jdbcType=VARCHAR}, #{catalogSupercateId,jdbcType=INTEGER}, 
       #{catalogSupercateName,jdbcType=VARCHAR}, #{catalogStatus,jdbcType=INTEGER}, #{catalogLable,jdbcType=INTEGER}, 
-      #{catalogFirthNum,jdbcType=INTEGER}, #{catalogIfproorcateorpage,jdbcType=INTEGER}, 
+      #{catalogFirthNum,jdbcType=INTEGER}, #{catalogIfinto,jdbcType=INTEGER}, #{catalogIfproorcateorpage,jdbcType=INTEGER}, 
       #{catalogProid,jdbcType=INTEGER}, #{catalogProname,jdbcType=VARCHAR}, #{catalogSeoname,jdbcType=VARCHAR}, 
       #{catalogCateid,jdbcType=INTEGER}, #{catalogCatename,jdbcType=VARCHAR}, #{catalogCateseoname,jdbcType=VARCHAR}, 
       #{catalogPagename,jdbcType=VARCHAR}, #{catalogPageseoname,jdbcType=VARCHAR}, #{catalogCreatetime,jdbcType=VARCHAR}, 
@@ -68,6 +69,7 @@
       catalog_status = #{catalogStatus,jdbcType=INTEGER},
       catalog_lable = #{catalogLable,jdbcType=INTEGER},
       catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER},
+      catalog_ifinto = #{catalogIfinto,jdbcType=INTEGER},
       catalog_ifproORcateORpage = #{catalogIfproorcateorpage,jdbcType=INTEGER},
       catalog_proid = #{catalogProid,jdbcType=INTEGER},
       catalog_proname = #{catalogProname,jdbcType=VARCHAR},
@@ -115,6 +117,9 @@
       </if>
       <if test="catalogFirthNum != null">
         catalog_firth_num,
+      </if>
+      <if test="catalogIfinto != null">
+        catalog_ifinto,
       </if>
       <if test="catalogIfproorcateorpage != null">
         catalog_ifproORcateORpage,
@@ -180,6 +185,9 @@
       </if>
       <if test="catalogFirthNum != null">
         #{catalogFirthNum,jdbcType=INTEGER},
+      </if>
+      <if test="catalogIfinto != null">
+        #{catalogIfinto,jdbcType=INTEGER},
       </if>
       <if test="catalogIfproorcateorpage != null">
         #{catalogIfproorcateorpage,jdbcType=INTEGER},
@@ -252,6 +260,9 @@
       <if test="catalogFirthNum != null">
         catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER},
       </if>
+      <if test="catalogIfinto != null">
+        catalog_ifinto = #{catalogIfinto,jdbcType=INTEGER},
+      </if>
       <if test="catalogIfproorcateorpage != null">
         catalog_ifproORcateORpage = #{catalogIfproorcateorpage,jdbcType=INTEGER},
       </if>
@@ -292,7 +303,7 @@
   <select id="selectMlbackCatalogGetAll" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
     select
     catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_superCate_id, 
-    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifproORcateORpage, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifinto, catalog_ifproORcateORpage, 
     catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
     catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
     from tb_mlback_catalog order by catalog_id desc
@@ -325,6 +336,9 @@
       </if>
       <if test="catalogFirthNum != null">
         and catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER}
+      </if>
+      <if test="catalogIfinto != null">
+        and catalog_ifinto = #{catalogIfinto,jdbcType=INTEGER}
       </if>
       <if test="catalogIfproorcateorpage != null">
         and catalog_ifproORcateORpage = #{catalogIfproorcateorpage,jdbcType=INTEGER}
@@ -364,7 +378,7 @@
   <select id="selectMlbackCatalogBackSearch" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
   	select
   	catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_superCate_id, 
-    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifproORcateORpage, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifinto, catalog_ifproORcateORpage, 
     catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
     catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
   	from tb_mlback_catalog 
@@ -378,7 +392,7 @@
   <select id="selectMenuMlbackCatalogGetAll" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
     select
     catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_superCate_id, 
-    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifproORcateORpage, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifinto, catalog_ifproORcateORpage, 
     catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
     catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
     from tb_mlback_catalog where catalog_status = 1 order by catalog_parent_id,catalog_firth_num
@@ -387,7 +401,7 @@
   <select id="selectCataloglistByParam" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
   	select
   	catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_superCate_id, 
-    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifproORcateORpage, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifinto, catalog_ifproORcateORpage, 
     catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
     catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
   	from tb_mlback_catalog where catalog_status = 1

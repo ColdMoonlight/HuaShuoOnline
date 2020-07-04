@@ -20,7 +20,9 @@ public class MlbackCatalog {
     private Integer catalogLable;
 
     private Integer catalogFirthNum;
-
+    
+    private Integer catalogIfinto;
+    
     private Integer catalogIfproorcateorpage;
 
     private Integer catalogProid;
@@ -122,8 +124,16 @@ public class MlbackCatalog {
     public void setCatalogFirthNum(Integer catalogFirthNum) {
         this.catalogFirthNum = catalogFirthNum;
     }
+    
+    public Integer getCatalogIfinto() {
+		return catalogIfinto;
+	}
 
-    public Integer getCatalogIfproorcateorpage() {
+	public void setCatalogIfinto(Integer catalogIfinto) {
+		this.catalogIfinto = catalogIfinto;
+	}
+
+	public Integer getCatalogIfproorcateorpage() {
         return catalogIfproorcateorpage;
     }
 
@@ -210,4 +220,54 @@ public class MlbackCatalog {
     public void setCatalogMotifytime(String catalogMotifytime) {
         this.catalogMotifytime = catalogMotifytime == null ? null : catalogMotifytime.trim();
     }
+
+	public MlbackCatalog() {
+		super();
+	}
+
+	public MlbackCatalog(Integer catalogId, String catalogName, Integer catalogParentId, String catalogParentName,
+			String catalogDesc, Integer catalogSupercateId, String catalogSupercateName, Integer catalogStatus,
+			Integer catalogLable, Integer catalogFirthNum, Integer catalogIfinto, Integer catalogIfproorcateorpage,
+			Integer catalogProid, String catalogProname, String catalogSeoname, Integer catalogCateid,
+			String catalogCatename, String catalogCateseoname, String catalogPagename, String catalogPageseoname,
+			String catalogCreatetime, String catalogMotifytime) {
+		super();
+		this.catalogId = catalogId;
+		this.catalogName = catalogName;
+		this.catalogParentId = catalogParentId;
+		this.catalogParentName = catalogParentName;
+		this.catalogDesc = catalogDesc;
+		this.catalogSupercateId = catalogSupercateId;
+		this.catalogSupercateName = catalogSupercateName;
+		this.catalogStatus = catalogStatus;
+		this.catalogLable = catalogLable;
+		this.catalogFirthNum = catalogFirthNum;
+		this.catalogIfinto = catalogIfinto;
+		this.catalogIfproorcateorpage = catalogIfproorcateorpage;
+		this.catalogProid = catalogProid;
+		this.catalogProname = catalogProname;
+		this.catalogSeoname = catalogSeoname;
+		this.catalogCateid = catalogCateid;
+		this.catalogCatename = catalogCatename;
+		this.catalogCateseoname = catalogCateseoname;
+		this.catalogPagename = catalogPagename;
+		this.catalogPageseoname = catalogPageseoname;
+		this.catalogCreatetime = catalogCreatetime;
+		this.catalogMotifytime = catalogMotifytime;
+	}
+
+	@Override
+	public String toString() {
+		return "MlbackCatalog [catalogId=" + catalogId + ", catalogName=" + catalogName + ", catalogParentId="
+				+ catalogParentId + ", catalogParentName=" + catalogParentName + ", catalogDesc=" + catalogDesc
+				+ ", catalogSupercateId=" + catalogSupercateId + ", catalogSupercateName=" + catalogSupercateName
+				+ ", catalogStatus=" + catalogStatus + ", catalogLable=" + catalogLable + ", catalogFirthNum="
+				+ catalogFirthNum + ", catalogIfinto=" + catalogIfinto + ", catalogIfproorcateorpage="
+				+ catalogIfproorcateorpage + ", catalogProid=" + catalogProid + ", catalogProname=" + catalogProname
+				+ ", catalogSeoname=" + catalogSeoname + ", catalogCateid=" + catalogCateid + ", catalogCatename="
+				+ catalogCatename + ", catalogCateseoname=" + catalogCateseoname + ", catalogPagename="
+				+ catalogPagename + ", catalogPageseoname=" + catalogPageseoname + ", catalogCreatetime="
+				+ catalogCreatetime + ", catalogMotifytime=" + catalogMotifytime + "]";
+	}
+    
 }
