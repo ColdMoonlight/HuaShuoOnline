@@ -419,10 +419,10 @@ function renderTablePagination(data) {
 		$("#table-pagination").empty();
 		//构建元素
 		var pageUl = $('<ul class="pagination" />'),
-			firstPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('first').attr('href', 'javascript:;')),
+			firstPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('first')),
 			prePageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&laquo;')),
 			nextPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&raquo;')),
-			lastPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('last').attr('href', 'javascript:;')),
+			lastPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('last')),
 			pageCurrentNum = data.pageNum,
 			pageNums = data.pages,
 			pageArr = [];
