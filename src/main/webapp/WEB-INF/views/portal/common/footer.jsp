@@ -250,7 +250,7 @@ $(document.body).on('click', '.radio', function(e) {
     });
 });
 /* modal */
-$(document.body).on('click', '.modal, .modal-close, .btn-no', function(e) {
+$(document.body).on('click', '.modal, .modal-close, .modal-no', function(e) {
     if (e.target == this) {
     	removeFixed();
         $('.modal').remove();
@@ -294,7 +294,7 @@ function createModal(option) {
 	    	('<div class="modal-body">' + opt.body.html + '</div>') +
 	    	(opt.footer.isShow
 	    			? ('<div class="modal-footer">' + 
-	    					(opt.footer.html ? opt.footer.html : '<button class="btn btn-no modal-no"> No </button><button class="btn btn-yes modal-ok"> Yes </button>') +
+	    					(opt.footer.html ? opt.footer.html : '<button class="btn btn-pink modal-no"> No </button><button class="btn btn-yes modal-ok"> Yes </button>') +
 	    				'</div>')
 	    			: '') +
 	    '</div>' +

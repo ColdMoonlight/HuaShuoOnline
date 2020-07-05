@@ -326,12 +326,6 @@
 		// save review
 		$('.c-create .btn-save').on('click', function () {
 			var reqData = getFormData();
-			if (reqData.reviewCreatetime > reqData.reviewConfirmtime) {
-				toastr.error('The start time must be less than the end time !');
-				$('#reviewConfirmtime').focus();
-				$('html').animate({scrollTop: 0}, 500);
-				return false;
-			}
 			saveReviewData(reqData, function() {
 				if (isCreate) isCreate = false;
 				getSelectReviewsData();
@@ -730,7 +724,7 @@
 					'<td>' + data[i].reviewCreatetime + '</td>' +
 					'<td><a class="badge '+ (data[i].reviewStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].reviewStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].reviewProstarnum + '</td>' +
-					'<td>' + (data[i].from ? 'customer' : 'self') + '</td>' +
+					'<td>' + (data[i].reviewFrom  ? 'customer' : 'self') + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="'+ data[i].reviewId +'">' +
 							'<svg class="c-icon">' +

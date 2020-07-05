@@ -11,6 +11,8 @@
 	<link href="${APP_PATH}/static/pc/js/video/video.min.css" rel="stylesheet">
 	<script>
 		var productId = '${sessionScope.productDetailId}';
+		var productSeo;
+		var productName;
 		var seoTitle = '${sessionScope.mlbackProductMetaTitle}';
 		var seoDescription = '${sessionScope.mlbackProductMeteDesc}';
 		var seoKeywords = '${sessionScope.mlbackProductMetaKeyWords}';
@@ -116,7 +118,7 @@
 								<div class="product-review-star-list"></div>
 							</div>
 							<div class="product-review-add">
-								<button class="btn btn-black">Write A Review</button>
+								<button class="btn btn-black" id="write-review">Write A Review</button>
 							</div>
 						</div>
 						<div class="product-reivew-body">
@@ -496,39 +498,6 @@
 				}
 			});
 		}
-		// varients
-		var mediaData = {}, productData = {}, mainUrl, reviewSwiper;
-		// initial
-		getProductDetails(function(data) {
-			mainUrl = data.productMainimgurl;
-			// media
-			if (data.productVideoUrl && data.productVideoImgUrl) {
-				mediaData.video = {
-					videoUrl: data.productVideoUrl,
-					posterUrl: data.productVideoImgUrl,
-					isVideo: true
-				};
-			}
-			getProductImgs(function(data) {
-				mediaData.imgs = data;
-				renderProductMedia(mediaData);
-			});
-			// details
-			renderProductDetails(data);
-			// option
-			getProductOption(function(data) {
-				renderProductOptions(data);
-			});
-			// skus
-			getProductSkus(function(data) {
-				data.length && buildResult(data);				
-			});
-		});
-		// review count
-		getReviewCalData(function(data) {
-			$('.product-review-total span').text(data.allReviewNum);
-			renderProudctReviewCal(data);
-		});
 		// render product review count
 		function renderProudctReviewCal (data) {
 			var reviewNum = data.allReviewNum,
@@ -553,12 +522,6 @@
 			// percent
 			$('.product-review-star-list').html(htmlStr);
 		}
-		// review list
-		getReviewListData();
-		// pagination a-click
-		$(document.body).on('click', '#table-pagination li', function (e) {
-			getReviewListData();
-		});
 		// redner pruduct review list
 		function renderProductReviewList(reviewList, imgList) {
 			var htmlStr = '';
@@ -582,7 +545,7 @@
 					'</div>' +
 					'<div class="proudct-review-item-text">'+ reviewList[i].reviewDetailstr + '</div>' +
 					'<div class="product-review-item-imgs">';
-						var imgLen = imgList[i].length <= 5 ? imgList[i].length : 5;
+						var imgLen = imgList[i].length <= 6 ? imgList[i].length : 6;
 						for (var k = 0; k < imgLen; k++) {
 							htmlStr += '<div class="product-review-imgs-item"><img src="' + imgList[i][k] + '"></div>';
 						}
@@ -590,6 +553,103 @@
 			}
 			$('.product-review-list').html(htmlStr);
 		}
+		// callback delete revie id
+		function deleteReviewId() {
+			reviewId && $.ajax({
+				url: "${APP_PATH }/MlfrontReview/delete",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify({
+					"reviewId": reviewId
+				}),
+				success: function (data) {}
+			});
+		}
+		// callback get review id
+		function getReviewId() {
+			deleteReviewId();
+			$.ajax({
+				url: "${APP_PATH }/MlfrontReview/initializaReview",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						reviewId = data.extend&& data.extend.mlfrontReview && data.extend.mlfrontReview.reviewId;
+					} else {
+						sysModalTip();
+					}
+				},
+				error: function (err) {
+					sysModalTip();
+				}
+			});
+		}
+		// callback save review data
+		function saveReviewData(reqData) {
+			$.ajax({
+				url: "${APP_PATH}/MlfrontReview/save",
+				type: "post",
+				data: JSON.stringify(reqData),
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (result) {
+					if (result.code == 100) {
+						mlModalTip('Successful operation. New comment information needs to be reviewed before it can be displayed !');
+						reviewId = null;
+					} else {
+						mlModalTip('Operation Failed !');
+					}
+				},
+				error: function() {
+					mlModalTip('Operation Failed !');					
+				}
+			});
+		}
+		// varients
+		var mediaData = {}, productData = {}, mainUrl, reviewSwiper, reviewModal, reviewId;
+		// initial
+		getProductDetails(function(data) {
+			mainUrl = data.productMainimgurl;
+			// media
+			if (data.productVideoUrl && data.productVideoImgUrl) {
+				mediaData.video = {
+					videoUrl: data.productVideoUrl,
+					posterUrl: data.productVideoImgUrl,
+					isVideo: true
+				};
+			}
+			getProductImgs(function(data) {
+				mediaData.imgs = data;
+				renderProductMedia(mediaData);
+			});
+			// details
+			productSeo = data.productSeo;
+			productName = data.proudctName;
+			renderProductDetails(data);
+			// option
+			getProductOption(function(data) {
+				renderProductOptions(data);
+			});
+			// skus
+			getProductSkus(function(data) {
+				data.length && buildResult(data);				
+			});
+		});
+		// review count
+		getReviewCalData(function(data) {
+			$('.product-review-total span').text(data.allReviewNum);
+			renderProudctReviewCal(data);
+		});
+		// review list
+		getReviewListData();
+		// pagination a-click
+		$(document.body).on('click', '#table-pagination li', function (e) {
+			getReviewListData();
+		});
 		// event
 		$(window).on('resize', imageZoomEvent);
 		// image zoom resize
@@ -627,6 +687,7 @@
 					// check product sku is error or not
 					var reqData = getProductData();
 					if (!reqData) {
+						removeModal(reviewModal);
 						mlModalTip("I'm sorry, the goods temporarily can't buy !");
 						return false;
 					}
@@ -666,6 +727,142 @@
 		$(document.body).on('click', '.review-swiper-close', function() {
 			$('.review-swiper-box').hide();
 		});
+		// write review
+		$('#write-review').on('click', function(e) {
+			var writeReviewHtml = '<div class="write-review-content">' +
+				'<div class="input-group">' +
+					'<label for="write-review-name">User Name</label>' +
+					'<input type="text" id="write-review-name" placeholder="Enter your name (public)">' +
+				'</div>' +
+				'<div class="input-group">' +
+					'<label class="name">Star Ranting</label>' +
+					'<div class="write-review-star">' +
+						'<span class="icon star" data-id="1"></span>' +
+						'<span class="icon star" data-id="2"></span>' +
+						'<span class="icon star" data-id="3"></span>' +
+						'<span class="icon star" data-id="4"></span>' +
+						'<span class="icon star" data-id="5"></span>' +
+					'</div>' +
+				'</div>' +
+				'<div class="input-group">' +
+					'<label for="write-review-details">Review Text</label>' +
+					'<textarea id="write-review-details" placeholder="Write your comments here" rows="5"></textarea>' +
+				'</div>' +
+				'<div class="input-group">' +
+					'<label>Picture Zone (optional)</label>' +
+					'<div class="write-review-img-box">' +
+						'<div class="ml-upload">' +
+							'<input class="upload-review-picture" type="file">' +
+							'<i class="icon plus"></i>' +
+							'<div class="spinner">' +
+								'<div class="spinner-border" role="status" aria-hidden="true"></div>' +
+							'</div>'+
+						'</div>' +
+						'<div class="write-review-imglist hide"></div>' +
+					'</div>' +
+				'</div>' +
+				'<div class="input-group">' +
+					'<button class="btn btn-pink write-review-publish">publish</button>' +
+				'</div>' +
+			'</div>';
+			getReviewId();
+			reviewModal = createModal({
+				header: {
+					html: '<p>Write A Review...</p>'
+				},
+    			body: {
+    				html: writeReviewHtml,
+    			}
+    		});
+			reviewModal.addClass('review-modal');
+		});
+		// select star
+		$(document.body).on('click', '.write-review-star .icon', function (e) {
+			$('.write-review-star').data('star', $(this).data('id'));
+			$(this).removeClass('star').addClass('star2').prevAll('.icon').removeClass('star').addClass('star2');
+			$(this).nextAll('.icon').removeClass('star2').addClass('star');
+		});
+		// upload review picture
+		$(document.body).on('change', '.upload-review-picture', function(e) {
+			var $this = $(this);
+			var file = $this[0].files[0];
+			var formData = new FormData();
+			var reviewImgLen = $('.write-review-imglist-item').length || 0;
+			var reviewImgOrder = reviewImgLen + 1;
+
+			if (!file) return false;
+
+			$this.parent().find('.spinner').show();
+
+			formData.append('image', file);
+			formData.append('type', 'reviewDetail');
+			formData.append('productSeo', productSeo);
+			formData.append('reviewId', reviewId);
+			formData.append('reviewimgSortOrder', reviewImgOrder);
+
+			if (reviewImgLen >= 6) {
+				mlModalTip('Upload up to 6 pictures !');
+				return false;
+			}
+
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/thumImageReviewAll",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						$('.write-review-imglist').hasClass('hide') && $('.write-review-imglist').removeClass('hide');
+						$('.write-review-imglist').append($('<div class="write-review-imglist-item"><img src="'+ data.extend.sqlimageUrl +'"></div>'));
+					} else {
+						mlModalTip('Failed to upload comment picture !');
+					}
+				},
+				error: function (err) {
+					mlModalTip('Failed to upload comment picture !');
+				},
+				complete: function () {
+					$this.parent().find('.spinner').hide();
+				}
+			});
+		});
+		// publish a review
+		$(document.body).on('click', '.write-review-publish', function(e) {
+			var username = $('#write-review-name').val(),
+				starNum = $('.write-review-star').data('star'),
+				details = $('#write-review-details').val();
+
+			if (!username || !username.trim()) {
+				mlModalTip('Please enter user name !');
+				return;
+			}
+	
+			if (!starNum) {
+				mlModalTip('Please Rating Star !');
+				return;
+			}
+	
+			if (!details || !details.trim()) {
+				mlModalTip('Comment content cannot be empty !');
+				return;
+			}
+
+			saveReviewData({
+				reviewId: reviewId,
+				reviewUname: username,
+				reviewPid: productId,
+				reviewPseoname: productSeo,
+				reviewPname: productName,
+				reviewDetailstr: details,
+				reviewProstarnum: starNum,
+				reviewFrom: 1,
+			});
+		});
+		// delte unused reiview
+		$(window).on('beforeunload', deleteReviewId);
 	</script>
 </body>
 </html>
