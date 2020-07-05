@@ -200,7 +200,7 @@
 									<div class="form-group">
 										<label class="col-form-label" for="catalogSupercateId">Super Category</label>
 										<div class="controls">
-											<select class="form-control" id="catalogSupercateId" /></select>
+											<select class="form-control supercate-list" id="catalogSupercateId" /></select>
 										</div>
 									</div>
 									<div class="form-group">

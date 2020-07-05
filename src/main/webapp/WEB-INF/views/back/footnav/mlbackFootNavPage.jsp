@@ -147,7 +147,7 @@
 									<div class="form-group">
 										<label class="col-form-label" for="footnavSuperCateId">Super Category</label>
 										<div class="controls">
-											<select class="form-control" id="footnavSuperCateId"></select>
+											<select class="form-control supercate-list" id="footnavSuperCateId"></select>
 										</div>
 									</div>
 								</div>
