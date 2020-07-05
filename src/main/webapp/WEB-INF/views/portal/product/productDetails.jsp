@@ -103,8 +103,8 @@
 					<div class="product-tab-item btn btn-black" data-name="review">Reviews</div>
 				</div>
 				<div class="product-tab-body">
-					<div class="product-tab-container" data-name="desc"></div>
-					<div class="product-tab-container active" data-name="review">
+					<div class="product-tab-container active" data-name="desc"></div>
+					<div class="product-tab-container" data-name="review">
 						<div class="product-review-title">
 							<div class="product-review-cal">
 								<div class="product-review-total">Based on <span>0</span> Customer Reviews</div>
