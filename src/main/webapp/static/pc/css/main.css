@@ -1846,6 +1846,7 @@ footer li {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+    margin: .5rem 0;
 }
 .product-service-item {
 	display: flex;
@@ -2787,6 +2788,7 @@ footer li {
 .product-review-item-title>img {
 	border-radius: 50%;
 	overflow: hidden;
+	background-color: #ccc;
 }
 .proudct-review-item-text {
 	margin: 1rem 0;
