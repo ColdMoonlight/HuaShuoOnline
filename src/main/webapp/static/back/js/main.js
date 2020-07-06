@@ -97,10 +97,10 @@ function renderTablePagination(data) {
 		$("#table-pagination").empty();
 		//构建元素
 		var pageUl = $('<ul class="pagination" />'),
-			firstPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('首页').attr('href', '#')),
+			firstPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('first')),
 			prePageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&laquo;')),
 			nextPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&raquo;')),
-			lastPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('末页').attr('href', '#')),
+			lastPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('last')),
 			pageCurrentNum = data.pageNum,
 			pageNums = data.pages,
 			pageArr = [];
@@ -150,7 +150,7 @@ function renderTablePagination(data) {
 		pageUl.append(firstPageLi).append(prePageLi);
 
 		$.each(pageArr, function (i, item) {
-			var numLi = $('<li class="page-item" />').append($('<a class="page-link" href="#" />').append(item));
+			var numLi = $('<li class="page-item" />').append($('<a class="page-link" />').append(item));
 			if (pageCurrentNum == item) {
 				numLi.addClass('active');
 			}
