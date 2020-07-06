@@ -219,6 +219,7 @@
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
+	
 	<!-- custom script -->
 	<script>
 		var hasProductList = false;
@@ -264,6 +265,7 @@
 				});
 			});
 		});
+		
 		$(window).on('beforeunload', function() {
 			var couponId = $('#couponId').val();
 			couponId && deleteCollectionData({
