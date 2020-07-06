@@ -399,7 +399,7 @@
 					'</form>' +
 					'<div class="btn-group">' +
 						'<a href="javascript:;" class="btn btn-black register"> REGISTER </a>' +
-						'<a href="javascript:goToIndex();" class="btn btn-no">Go Home</a>' +
+						'<a href="javascript:goToIndex();" class="btn btn-pink">Go Home</a>' +
 					'</div>' +
 				'</div>' +
 			'</div>' +

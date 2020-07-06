@@ -35,7 +35,7 @@
 								</svg>
 								<div class="form-control">
 									<input id="searchCatalog" type="text" placeholder="Search Marketing">						
-									<select id="searchSupercate"></select>
+									<select class="supercate-list" id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
@@ -200,7 +200,7 @@
 									<div class="form-group">
 										<label class="col-form-label" for="catalogSupercateId">Super Category</label>
 										<div class="controls">
-											<select class="form-control" id="catalogSupercateId" /></select>
+											<select class="form-control supercate-list" id="catalogSupercateId" /></select>
 										</div>
 									</div>
 									<div class="form-group">
@@ -230,17 +230,18 @@
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
-		var hasSuperCategory = false;
-		var hasParentCategory = false;
+		var hasSuperCateList = false;
 		var hasCollectionList = false;
 		var hasProductList = false;
+		var hasParentCategory = false;
 		var isCreate = false;
 
 		$('#catalogIfproorcateorpage').on('change', function() {
 			$('.' + $(this).find('option:checked').data('class')).removeClass('hide').siblings().addClass('hide').find('select').val('-1');
 		});
-		
-		if (!hasSuperCategory) getSuperCateData(renderSuperCategory);
+
+		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
+	 	$('#searchSupercate').val($('#searchSupercate').data('val'));
 
 		// init
 		renderTabItems();
@@ -680,29 +681,6 @@
 				}
 			});
 		}
-		// callback superCategory
-		function getSuperCateData(callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackSuperCate/getSuperCateDownList",
-				type: "post",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackSuperCateResList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
 
 		// callback parentCategory
 		function getParentMarketingData(callback) {
@@ -755,18 +733,6 @@
 			}
 			$('.c-table-table tbody').html(htmlStr);
 		}
-		// render superCategoryData
-		function renderSuperCategory(data) {
-			var htmlStr = '<option value="-1">Please Select Super-category</option>';
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
-			}
-			$('#catalogSupercateId').html(htmlStr);
-			$('#searchSupercate').html(htmlStr);
-			hasSuperCategory = true;
-			// init select default value
-			initFormFiled();
-		}
 		// render parentCategoryData
 		function renderParentMarketing(data) {
 			var htmlStr = '<option value="-1">Please Select parent-category</option>';
@@ -775,17 +741,8 @@
 			}
 			$('#catalogParentId').html(htmlStr);
 			hasParentCategory = true;
-			// init select default value
-			initFormFiled();
 		}
 
-		function initFormFiled() {
-			// search
-			$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
-			// form
-			$('#catalogSupercateId').val($('#catalogSupercateId').data('val') || '-1');
-			$('#catalogParentId').val($('#catalogParentId').data('val') || '-1');
-		}
 		function renderTabItems() {
 			var collections = getCollectionList(),
 				len = collections.length,

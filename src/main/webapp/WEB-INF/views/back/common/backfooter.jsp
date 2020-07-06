@@ -55,6 +55,42 @@
 	function getMilliseconds(value) {
 		return moment(value, format).utc().valueOf();
 	}
+	
+	// callback superCategory
+	function getSuperCategoryData(callback) {
+		$('.c-mask').show();
+		$.ajax({
+			url: "${APP_PATH}/MlbackSuperCate/getSuperCateDownList",
+			type: "post",
+			contentType: 'application/json',
+			async: false,
+			success: function (data) {
+				if (data.code == 100) {
+					toastr.success(data.extend.resMsg);
+					callback(data.extend.mlbackSuperCateResList);
+				} else {
+					toastr.error(data.extend.resMsg);
+				}
+			},
+			error: function (err) {
+				toastr.error(err);
+			},
+			complete: function () {
+				$('.c-mask').hide();
+			}
+		});
+	}
+	// render superCategoryData
+	function renderSuperCategory(data) {
+		var htmlStr = '<option value="-1">Please Select Super-category</option>';
+		for (var i = 0, len = data.length; i < len; i += 1) {
+			htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
+		}
+		$('.supercate-list').html(htmlStr);
+		$('#searchSupercate').html(htmlStr);
+		hasSuperCateList = true;
+	}
+	
 	// callback get all product
 	function getAllProductData(callback) {
 		$('.c-mask').show();
