@@ -12,7 +12,6 @@ import com.atguigu.dao.MlbackSlideMapper;
 @Service
 public class MlbackSlideService {
 	
-	
 	@Autowired
 	MlbackSlideMapper mlbackSlideMapper;
 	
