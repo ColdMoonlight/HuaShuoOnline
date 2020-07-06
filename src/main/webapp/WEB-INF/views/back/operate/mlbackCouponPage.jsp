@@ -264,6 +264,12 @@
 				});
 			});
 		});
+		$(window).on('beforeunload', function() {
+			var couponId = $('#couponId').val();
+			couponId && deleteCollectionData({
+				couponId: couponId,
+			});
+		});
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
 			var reqData = getFormData();
@@ -276,6 +282,7 @@
 				showInitBlock();
 				getCollectionsData();
 				isCreate = false;
+				$('#couponId').val('');
 			});
 		});
 		// cancel collection save

@@ -356,6 +356,12 @@
 				});
 			});
 		});
+		$(window).on('beforeunload', function() {
+			var categoryId = $('#categoryId').val();
+			categoryId && deleteCollectionData({
+				categoryId: categoryId,
+			});
+		});
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
 			saveCollectionData(getFormData(), function() {
@@ -370,6 +376,7 @@
 
 				getTabSearchData($('.c-table-tab-item.active'));
 				showInitBlock();
+				$('#categoryId').val('');
 			});
 		});
 		// cancel collection save
