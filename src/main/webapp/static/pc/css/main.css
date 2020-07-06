@@ -839,6 +839,7 @@ header {
 	height: 2.4rem;
 	font-size: 1.5rem;
 	color: #333333;
+	cursor: pointer;
 }
 .wap-navbar>a {
 	text-decoration: none;

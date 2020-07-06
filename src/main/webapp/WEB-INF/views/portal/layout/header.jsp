@@ -25,7 +25,7 @@
 					</div>
 				</div>
 				<div class="login">
-					<i class="icon person unactive"></i>
+					<i class="icon person"></i>
 				</div>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 	<div class="wap-header">
 		<div class="wap-navbar">
 			<span id="menu" class="icon menu"></span>
-			<span class="icon person unactive"></span>
+			<span class="icon person"></span>
 			<a href="TEL:(501)7226336" class="icon phone"></a>
 			<a class="logo" href="javascript:goToIndex();">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
