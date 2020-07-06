@@ -326,11 +326,17 @@
 				}, getFootnavsData);
 			});
 		});
+		$(window).on('beforeunload', function() {
+			var footnavId = $('#footnavId').val();
+			footnavId && deleteFootnavData({
+				footnavId: footnavId,
+			});
+		});
 		// save Footnav
 		$('.c-create .btn-save').on('click', function () {
 			var reqData = getFormData();
 			if (!reqData.footnavName.trim()) {
-				toastr.error('Footernav name cannot be empty！');
+				toastr.error('Footernav name cannot be empty !');
 				return ;
 			}
 			saveFootnavData(reqData, function() {
@@ -342,6 +348,7 @@
 				}
 
 				getTabSearchData($('.c-table-tab-item.active'));
+				$('#footnavId').val('');
 				showInitBlock();
 			});
 		});

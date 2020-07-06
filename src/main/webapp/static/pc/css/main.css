@@ -2708,10 +2708,8 @@ footer li {
 }
 
 /* product details review */
-.product-review-title .star,
-.product-review-title .star2,
-.product-reivew-body .star,
-.product-reivew-body .star2,
+.product-review-avgstar .icon,
+.product-review-stars .icon,
 .write-review-star .icon {
 	color: #FDDA05;
 }

@@ -102,7 +102,7 @@
 			if (secondNavSeo == "") {
 				menuHhtml += '<a href="${APP_PATH}/search/nowig.html">' + secondNavName + '</a>';
 			} else if (secondNavSeo == "home") {
-				menuHhtml += '<a href="${APP_PATH}/index.html">' + secondNavName + '</a>';
+				menuHhtml += '<a href="javascript:goToIndex();">' + secondNavName + '</a>';
 			} else if (secondNavSeo == "Activty") {
 				menuHhtml += '<a href="${APP_PATH}/Activty.html">' + secondNavName + '</a>';
 			} else if (secondNavSeo == "CUSTOMER-VOICE") {
