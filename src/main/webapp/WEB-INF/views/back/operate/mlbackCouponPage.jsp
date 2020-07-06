@@ -83,7 +83,7 @@
 									<div class="form-group">
 										<label class="col-form-label" for="couponPriceBaseline">Scope of application</label>
 										<div class="controls">
-											<input class="form-control" id="couponPriceBaseline" type="text" />
+											<input class="form-control" id="couponPriceBaseline" type="number" min="0" value="0" />
 										</div>
 									</div>
 									<div class="form-group choose_coup">
@@ -99,7 +99,7 @@
 									<div class="form-group open_0">
 										<label class="col-form-label" for="couponPrice">Preferential strength</label>
 										<div class="controls">
-											<input class="form-control" id="couponPrice" type="text" />
+											<input class="form-control" id="couponPrice" type="number" min="0" value="0" />
 										</div>
 									</div>
 									<div class="form-group open_1">
@@ -336,12 +336,20 @@
 			var data = {};
 			data.couponId = parseInt($('#couponId').val());
 			data.couponName = $('#couponName').val();
-			data.couponPrice = $('#couponPrice').val();
 			data.couponStatus = $('#couponStatus').prop('checked') ? 1 : 0;
 			data.couponPriceBaseline = $('#couponPriceBaseline').val();
-			data.couponPriceoff = $('#couponPriceoff').val();
 			data.couponCode = $('#couponCode').val();
-			data.couponType = $('#couponType').val();
+			var couponType = $('#couponType').val();
+			data.couponType = couponType;
+			if (couponType) {
+				data.couponPrice = 0;
+				data.couponPriceoff = $('#couponPriceoff').val();
+			} else {
+				data.couponPrice = $('#couponPrice').val();
+				data.couponPriceoff = 0;
+			}
+			data.couponPrice = $('#couponPrice').val();
+			data.couponPriceoff = $('#couponPriceoff').val();
 			data.couponLuckdrawType = $('#couponLuckdrawType').val();
             data.couponLuckdrawWeight = $('#couponLuckdrawWeight').val();
 			data.couponProductonlyType = $('#couponProductonlyType').val();

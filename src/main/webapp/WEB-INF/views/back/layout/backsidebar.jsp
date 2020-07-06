@@ -67,7 +67,7 @@
 				<svg class="c-sidebar-nav-icon">
 					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cursor"></use>
 				</svg>
-				<span class="c-text">Marketing</span>
+				<span class="c-text">CateLog</span>
 			</a>
 			<ul class="c-child-menu">
 				<li class="c-sidebar-nav-item">

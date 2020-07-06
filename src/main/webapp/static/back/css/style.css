@@ -3299,6 +3299,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .pagination > li {
   display: inline;
+  cursor: pointer;
 }
 .pagination > li > a,
 .pagination > li > span {

@@ -384,7 +384,7 @@
 	        ]
 	   	});
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
-	 	$('#searchSupercate').val($('#searchSupercate').data('val'));
+	 	$('#searchSupercate').val($('#searchSupercate').data('val') || -1);
 		// init
 		renderTabItems();
 		// save search
