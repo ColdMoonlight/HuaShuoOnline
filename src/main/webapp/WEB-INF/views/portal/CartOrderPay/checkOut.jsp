@@ -297,7 +297,8 @@
 					if (couponData.mlbackCouponOne.couponType == '0') {
 						resData.coupon = couponData.mlbackCouponOne.couponPrice;
 					} else {
-						resData.coupon = parseFloat((orderitemPrice * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+						// resData.coupon = parseFloat((orderitemPrice * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+						resData.coupon = 0;
 					}
 				}
 
@@ -311,47 +312,49 @@
 			}
 			
 			if (couponData && couponData.mlbackCouponOne) {
-				if (!couponData.couponProductOnlyTypeifHave) {
-					if (couponData.mlbackCouponOne.couponProductonlyType) {
+				if (couponData.mlbackCouponOne.couponProductonlyType) {
+					if (couponData.mlbackCouponOne.couponType == '1') {
 						$('.order-coupon-tip').html('<p>Code invalid !</p>');
-					} else {
-						if (couponData.mlbackCouponOne.couponType == '0') {
-							if (!couponData.mlbackCouponOne.couponPriceBaseline) {
+					}
+					if (couponData.mlbackCouponOne.couponType == '0') {
+						var singProductId = couponData.mlbackCouponOne.couponProductonlyPidstr;
+						
+						if (singProductId && $('.order-list').data('productidarr').indexOf(parseInt(singProductId)) > -1) {
+							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
+						} else {
+							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> The coupon is invalid for the purchase of products, it is only applicable to specific products ! </p>' +
+									'<p>eg: <a style="color: #333;" href="${APP_PATH}/'+ couponData.mlbackCouponOne.couponProductseonamesstronlyPid +'.html">'+ couponData.mlbackCouponOne.couponProductpronamesstronlyPid +'</a></p>');
+						}
+					}
+				} else {
+					if (couponData.mlbackCouponOne.couponType == '0') {
+						if (!couponData.mlbackCouponOne.couponPriceBaseline) {
+							resData.coupon = couponData.mlbackCouponOne.couponPrice;
+							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
+						} else {
+							if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
 								resData.coupon = couponData.mlbackCouponOne.couponPrice;
 								$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
 							} else {
-								if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
-									resData.coupon = couponData.mlbackCouponOne.couponPrice;
-									$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
-								} else {
-									resData.coupon = 0;
-									$('.order-coupon-tip').html('<p>The minimum usage price of this coupon is + <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>');
-								}
-							}
-						}
-
-						if (couponData.mlbackCouponOne.couponType == '1') {
-							if (!couponData.mlbackCouponOne.couponPriceBaseline) {
-								resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
-								$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
-							} else {
-								if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
-									resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
-									$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
-								} else {
-									resData.coupon = 0;
-									$('.order-coupon-tip').html('<p>The minimum usage price of this coupon is + <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>');
-								}
+								resData.coupon = 0;
+								$('.order-coupon-tip').html('<p>The minimum usage price of this coupon is + <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>');
 							}
 						}
 					}
-					
-				} else {
-					var singProductId = couponData.mlbackCouponOne.couponProductonlyPidstr;
-					if (singProductId && $('.order-list').data('productidarr').indexOf(parseInt(singProductId)) > -1) {
-						$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
-					} else {
-						$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> The coupon is invalid for the purchase of products, it is only applicable to specific products ! </p>');
+
+					if (couponData.mlbackCouponOne.couponType == '1') {
+						if (!couponData.mlbackCouponOne.couponPriceBaseline) {
+							resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
+						} else {
+							if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
+								resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+								$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
+							} else {
+								resData.coupon = 0;
+								$('.order-coupon-tip').html('<p>The minimum usage price of this coupon is + <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>');
+							}
+						}
 					}
 				}
 			}

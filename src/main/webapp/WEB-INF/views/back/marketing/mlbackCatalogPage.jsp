@@ -20,7 +20,7 @@
 				<div class="c-init">
 					<div class="c-option">
 						<span class="c-option-title">Marketing</span>
-						<button class="btn btn-primary btn-create">Create Marketing</button>
+						<button class="btn btn-primary btn-create">Create CateLog</button>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -34,7 +34,7 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="searchCatalog" type="text" placeholder="Search Marketing">						
+									<input id="searchCatalog" type="text" placeholder="Search CateLog">						
 									<select class="supercate-list" id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
@@ -48,6 +48,9 @@
 										<th>parent-name</th>
 										<th>tag</th>
 										<th>order</th>
+										<th>product/subject/colleciton</th>
+										<th>seo</th>
+										<th>ifInto</th>
 										<th>status</th>
 										<th>path-desc</th>
 										<th>operate</th>
@@ -62,10 +65,10 @@
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">Edit Marketing</span>
+						<span class="c-option-title">Edit CateLog</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save Marketing</button>
+							<button class="btn btn-primary btn-save">Save CateLog</button>
 						</div>
 					</div>
 					<div class="c-form row">
@@ -78,7 +81,7 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="catalogName">Marketing Name</label>
+										<label class="col-form-label" for="catalogName">CateLog Name</label>
 										<div class="controls">
 											<input class="form-control" id="catalogName" type="text" />
 										</div>
@@ -87,7 +90,7 @@
 										<label class="col-form-label" for="catalogFirthNum">Sort</label>
 										<div class="controls">
 											<select class="form-control" id="catalogFirthNum" />
-												<option value="0">Please select category sort-order</option>
+												<option value="0">Please select CateLog sort-order</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -138,15 +141,15 @@
 							<!-- product or subject -->
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Product & Subject & Category</div>
+									<div class="card-title-name">Product & Subject & Collection</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="catalogIfproorcateorpage">Product Or Subject Or Category</label>
+										<label class="col-form-label" for="catalogIfproorcateorpage">Product Or Subject Or Collection</label>
 										<div class="controls">
 											<select class="form-control" id="catalogIfproorcateorpage" />
 												<option value="0" data-class="ml-product">product</option>
-												<option value="1" data-class="ml-category">category</option>
+												<option value="1" data-class="ml-category">collection</option>
 												<option value="2" data-class="ml-subject">subject</option>
 											</select>
 										</div>
@@ -241,7 +244,7 @@
 		});
 
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
-	 	$('#searchSupercate').val($('#searchSupercate').data('val'));
+	 	$('#searchSupercate').val($('#searchSupercate').data('val') || -1);
 
 		// init
 		renderTabItems();
@@ -325,7 +328,7 @@
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create .c-option-title').text('Create Marketing');
+			$('.c-create .c-option-title').text('Create CateLog');
 			showCreateBlock();
 			// init formData
 			resetFormData();
@@ -338,7 +341,7 @@
 			getOneMarketingData({
 			 catalogId: catalogId
 			}, function(resData) {
-			 	$('.c-create .c-option-title').text('Edit Marketing');
+			 	$('.c-create .c-option-title').text('Edit CateLog');
 				showCreateBlock();
 				initFormData(resData);
 			});			
@@ -346,7 +349,7 @@
 		// delete collection
 		$(document.body).on('click', '.btn-delete', function (e) {
 			var catalogId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete Marketing!');
+			$('#deleteModal').find('.modal-title').html('Delete CateLog!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
 				deleteMarketingData({
@@ -390,7 +393,7 @@
 				deleteMarketingData({
 					catalogId: $('#catalogId').val(),
 				}, function() {
-					console.log("cancel create marketing");
+					console.log("cancel create CateLog");
 				});
 			}
 
@@ -570,7 +573,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Marketing, please refresh the page to get again！');
+					toastr.error('Failed to get CateLog, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -717,12 +720,25 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
+				var logName, logSeo;
+				if (data[i].catalogIfproorcateorpage == 0) {
+					logName = '<b>product</b> ' + data[i].catalogProid;
+					logSeo = data[i].catalogSeoname;
+				} else if (data[i].catalogIfproorcateorpage == 1) {
+					logName = '<b>collection</b> ' + data[i].catalogCateid;
+					logSeo = data[i].catalogCateseoname;
+				} else if (data[i].catalogIfproorcateorpage == 2) {
+					logName = '<b>subject</b> ' + data[i].catalogPageseoname;
+				}
 				htmlStr += '<tr><td>' + data[i].catalogId + '</td>' +
 					'<td>' + data[i].catalogName + '</td>' +
 					'<td>' + data[i].catalogParentId + '</td>' +
 					'<td>' + data[i].catalogParentName + '</td>' +
 					'<td>' + data[i].catalogLable + '</td>' +
 					'<td>' + data[i].catalogFirthNum + '</td>' +
+					'<td>' + (logName || '') + '</td>' +
+					'<td>' + (logSeo || '') + '</td>' +
+					'<td>' + (data[i].catalogIfinto ? 'YES' : 'NO') + '</td>' +
 					'<td><a class="badge '+ (data[i].catalogStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].catalogStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].catalogDesc + '</td>' +
 					'<td>' +
