@@ -121,7 +121,7 @@
 								<button class="btn btn-black" id="write-review">Write A Review</button>
 							</div>
 						</div>
-						<div class="product-reivew-body">
+						<div class="product-review-body">
 							<div class="product-review-list"></div>
 							<div id="table-pagination"></div>
 						</div>
