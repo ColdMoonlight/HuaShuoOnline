@@ -235,12 +235,19 @@
 
 			});
 		});
+		$(window).on('beforeunload', function() {
+			var supercateId = $('#supercateId').val();
+			supercateId && deleteCollectionData({
+				supercateId: supercateId,
+			});
+		});
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
 			saveCollectionData(getFormData(), function() {
 				getCollectionsData();
 				showInitBlock();
 				isCreate = false;
+				$('#supercateId').val('');
 			});
 		});
 		// cancel collection save

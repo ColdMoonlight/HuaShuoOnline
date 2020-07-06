@@ -508,6 +508,12 @@
 				});
 			});
 		});
+		$(window).on('beforeunload', function() {
+			var productId = $('#productId').val();
+			productId && deleteProductData({
+				productId: productId,
+			});
+		});
 		// save product
 		$('.c-create .btn-save').on('click', function () {
 			if (isSaveSku) {
@@ -530,6 +536,7 @@
 
 				getTabSearchData($('.c-table-tab-item.active'));
 				showInitBlock();
+				$('#productId').val('');
 			});
 		});
 		// cancel product save

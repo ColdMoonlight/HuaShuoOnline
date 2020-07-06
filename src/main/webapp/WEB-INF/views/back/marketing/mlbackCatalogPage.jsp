@@ -358,6 +358,12 @@
 				});
 			});
 		});
+		$(window).on('beforeunload', function() {
+			var catalogId = $('#catalogId').val();
+			catalogId && deleteMarketingData({
+				catalogId: catalogId,
+			});
+		});
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
 			saveMarketingData(getFormData(), function() {
@@ -372,6 +378,7 @@
 
 				getTabSearchData($('.c-table-tab-item.active'));
 				showInitBlock();
+				$('#catalogId').val('');
 			});
 		});
 		// cancel collection save

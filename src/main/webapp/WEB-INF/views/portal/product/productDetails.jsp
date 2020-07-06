@@ -121,7 +121,7 @@
 								<button class="btn btn-black" id="write-review">Write A Review</button>
 							</div>
 						</div>
-						<div class="product-reivew-body">
+						<div class="product-review-body">
 							<div class="product-review-list"></div>
 							<div id="table-pagination"></div>
 						</div>
@@ -484,7 +484,7 @@
 					if (data.code == 100) {
 						var pageInfo = data.extend.pageInfo;
 						if (!pageInfo.list.length) {
-							$('.product-review-body').html('<p class="text-error">here are no comments yet, you can just click the <i>Write a Reveiw</i> button to write a comment</p>');
+							$('.product-review-body').html('<p class="text-error">here are no comments yet, you can just click the <i>Write a Reveiw</i> button to write a comment !</p>');
 						} else {
 							renderProductReviewList(pageInfo.list, data.extend.imgUrlStrListst);
 							renderTablePagination(pageInfo);				
@@ -862,7 +862,10 @@
 			});
 		});
 		// delte unused reiview
-		$(window).on('beforeunload', deleteReviewId);
+		$(window).on('beforeunload', function() {
+			deleteReviewId();
+			setPageNum(1);
+		});
 	</script>
 </body>
 </html>

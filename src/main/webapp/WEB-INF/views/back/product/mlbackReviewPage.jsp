@@ -323,6 +323,12 @@
 				});
 			});
 		});
+		$(window).on('beforeunload', function() {
+			var reviewId = $('#reviewId').val();
+			reviewId && deleteProductData({
+				reviewId: reviewId,
+			});
+		});
 		// save review
 		$('.c-create .btn-save').on('click', function () {
 			var reqData = getFormData();
@@ -330,6 +336,7 @@
 				if (isCreate) isCreate = false;
 				getSelectReviewsData();
 				showInitBlock();
+				$('#reviewId').val('');
 			});
 		});
 		// cancel review save
