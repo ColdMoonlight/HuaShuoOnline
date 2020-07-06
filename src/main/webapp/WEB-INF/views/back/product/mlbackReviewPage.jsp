@@ -27,13 +27,13 @@
 								<div class="form-group col-md-5">
 									<label class="col-form-label" for="search-supercate">Supercate</label>
 									<div class="controls">
-										<select class="form-control" id="search-supercate"></select>
+										<select class="form-control supercate-list" id="search-supercate"></select>
 									</div>
 								</div>
 								<div class="form-group col-md-5">
 									<label class="col-form-label" for="search-product">Product</label>
 									<div class="controls">
-										<select class="form-control review-product" id="search-product"></select>
+										<select class="form-control product-list" id="search-product"></select>
 									</div>
 								</div>
 								<div class="form-group col-md-5">
@@ -204,7 +204,7 @@
 									<div class="form-group">
 										<label class="col-form-label" for="reviewProduct">Product</label>
 										<div class="controls">
-											<select class="form-control review-product" id="reviewProduct" /></select>
+											<select class="form-control product-list" id="reviewProduct" /></select>
 										</div>
 									</div>
 								</div>
@@ -274,10 +274,13 @@
 			}
 		}
 
+		var hasSuperCateList = false;
+		var hasProductList = false;
 		var isCreate = false;
 
-		getAllProductData(renderAllProduct);
-		getSuperCategoryData(renderSuperCategory);
+		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
+		if (!hasProductList) getAllProductData(renderAllProduct);
+
 		bindDateTimepicker();
 		bindDateRangeEvent(function(startTime, endTime) {
 			$('#search-review-create-time').val(startTime);
@@ -323,12 +326,6 @@
 		// save review
 		$('.c-create .btn-save').on('click', function () {
 			var reqData = getFormData();
-			if (reqData.reviewCreatetime > reqData.reviewConfirmtime) {
-				toastr.error('The start time must be less than the end time !');
-				$('#reviewConfirmtime').focus();
-				$('html').animate({scrollTop: 0}, 500);
-				return false;
-			}
 			saveReviewData(reqData, function() {
 				if (isCreate) isCreate = false;
 				getSelectReviewsData();
@@ -506,38 +503,6 @@
 			}, renderReviewAllImgData);
 
 			$('#reviewProduct').val(data.reviewPid || -1);
-		}
-		// callback superCategory
-		function getSuperCategoryData(callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackSuperCate/getSuperCateDownList",
-				type: "post",
-				contentType: 'application/json',
-				async: false,
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackSuperCateResList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
-		// render superCategoryData
-		function renderSuperCategory(data) {
-			var htmlStr = '<option value="-1">Please Select Super-category</option>';
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].supercateId + '">' + data[i].supercateName + '</option>';
-			}
-			$('#search-supercate').html(htmlStr);
 		}
 		// callback get id
 		function getReviewId() {
@@ -744,38 +709,6 @@
 				}
 			});
 		}
-		// callback get all product
-		function getAllProductData(callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackProduct/lownLoadProduct",
-				type: "post",
-				contentType: 'application/json',
-				async: false,
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackProductResList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
-		// render all product data
-		function renderAllProduct(data) {
-			var htmlStr = '<option value="-1">Please Select product</option>';
-			for (var i = 0; i < data.length; i += 1) {
-					htmlStr += '<option value="' + data[i].productId + '" data-seo="'+ data[i].productSeo +'" data-name="'+ data[i].productName + '" data-supercate="' + data[i].productSupercateid + '">' + data[i].productId + ' * '+ data[i].productName + '</option>';
-				}
-			$('.review-product').html(htmlStr);
-		}
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
@@ -791,7 +724,7 @@
 					'<td>' + data[i].reviewCreatetime + '</td>' +
 					'<td><a class="badge '+ (data[i].reviewStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].reviewStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].reviewProstarnum + '</td>' +
-					'<td>' + (data[i].from ? 'customer' : 'self') + '</td>' +
+					'<td>' + (data[i].reviewFrom  ? 'customer' : 'self') + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="'+ data[i].reviewId +'">' +
 							'<svg class="c-icon">' +

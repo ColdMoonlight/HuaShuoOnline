@@ -504,7 +504,7 @@
 							'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ calOrder.shipping +'</span></div>' +
 							'<div class="order-cal-item"><span class="name">coupon</span><span class="value order-cal-coupon">-$'+ calOrder.coupon +'</span></div>' +
 							'<div class="order-cal-item"><span class="name">subtotal</span><span class="value order-cal-subtotal">$'+ (calOrder.subtotal).toFixed(2) +'</span></div>' +
-							'<div class="order-cal-btn"><a href="javascript:;" id="pay-now" class="btn btn-no">Pay Securely Now</a></div>' +
+							'<div class="order-cal-btn"><a href="javascript:;" id="pay-now" class="btn btn-pink">Pay Securely Now</a></div>' +
 						'</div>'+
 					'</div>'+
 				'</div>');

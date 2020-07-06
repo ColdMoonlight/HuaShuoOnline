@@ -26,15 +26,6 @@
 							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
-							<div class="input-group c-search">
-								<svg class="c-icon">
-									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
-								</svg>
-								<div  class="form-control">
-									<input name="searchCollection" id="searchCollection" type="text"  placeholder="Search Collections" />
-								</div>
-								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
-							</div>
 							<table class="c-table-table table table-responsive-sm">
 								<thead>
 									<tr>
@@ -199,7 +190,7 @@
 									<div class="form-group open_product" style="display:none">
 										<label class="col-form-label" for="couponProductonlyPidstr">Product list </label>
 										<div class="controls">
-											<select class="form-control" id="couponProductonlyPidstr" />
+											<select class="form-control product-list" id="couponProductonlyPidstr" />
 											</select>
 										</div>
 									</div>
@@ -231,77 +222,13 @@
 	
 	<!-- custom script -->
 	<script>
-		var hasParentCategory = false;
+		var hasProductList = false;
 		var isCreate = false;
 		// init
 		getCollectionsData();
-		renderTabItems();
 		bindDateRangeEvent(function(startTime, endTime) {
 			$('#couponStarttime').val(startTime);
 			$('#couponEndtime').val(endTime);
-		});
-		$('.btn-save-search').on('click', function () {
-			var searchCollectionVal = {
-				collection: $('#searchCollection').val()
-			};
-			// cancel repeat add save-search
-			if (checkNewItem(searchCollectionVal)) return;
-			if (searchCollectionVal.collection) {
-				addCollectionItem(searchCollectionVal);
-				createCollectionItem(searchCollectionVal).addClass('active')
-				addTableTabItem(searchCollectionVal);
-				$('.c-table-tab-tempory').html('');
-			}
-		});
-		// search it
-		var oldTime = (new Date()).getTime(),
-			timer = null;
-		$('#searchCollection').on('keyup', function() {
-			var distanceTime = 1000,
-				newTime =  (new Date()).getTime();
-			if (newTime - oldTime < 1000) clearTimeout(timer);
-			oldTime = newTime;
-			timer = setTimeout(function() {
-				updateSearchData();
-			}, distanceTime);
-		});
-		// search status change
-		function updateSearchData() {
-			var searchCollectionVal = {
-				collection: $('#searchCollection').val()
-			};
-			// inital pagination num
-			setPageNum(1);
-			// check searchCollection
-			$('.c-table-tab-item.active').removeClass('active');
-			$('.c-table-tab-tempory').html(createCollectionItem(searchCollectionVal).addClass('active'));
-			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
-		}
-		// tab-item click
-		$(document.body).on('click', '.c-table-tab-item', function (e) {
-			$('.c-table-tab-item').removeClass('active');
-			$(this).addClass('active');
-			// inital pagination num
-			setPageNum(1);
-			setActiveItemNum($(this).data('idx'));
-			getTabSearchData($(this));
-		});
-		// get Data for table
-		function getTabSearchData($this) {
-			var dataVal = $this.data('val');
-			if (dataVal) {
-				$('#searchCollection').val(dataVal.collection || '');
-				getSearchCollectionsData();
-			} else {
-				$('#searchCollection').val('');
-				getCollectionsData();
-			}
-		}
-		// tab delete
-		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
-		// pagination a-click
-		$(document.body).on('click', '#table-pagination li', function (e) {
-			getTabSearchData($('.c-table-tab-item.active'));
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
@@ -335,7 +262,6 @@
 					couponId: couponId,
 				}, function() {
 					getCollectionsData();
-					getProductList(renderProductList);
 				});
 			});
 		});
@@ -350,7 +276,6 @@
 			saveCollectionData(reqData, function() {
 				showInitBlock();
 				getCollectionsData();
-				getProductList(renderProductList);
 				isCreate = false;
 			});
 		});
@@ -370,7 +295,7 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
-			if (!hasParentCategory) getProductList(renderProductList);
+			if (!hasProductList) getAllProductData(renderAllProduct);
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
@@ -622,136 +547,7 @@
 			}
 			$('.c-table-table tbody').html(htmlStr);
 		}
-		/************/
-		function renderTabItems() {
-			var collections = getCollectionList(),
-				len = collections.length,
-				htmlStr = '',
-				activeNum = parseInt(getActiveItemNum());
-		
-			if (len > 0) {
-				for (var i = 0; i < len; i += 1) {
-					var $item = createCollectionItem(collections[i]);
-					$item.attr('data-idx', i+1);
-		
-					if (activeNum == i + 1) {
-						$item.addClass('active')
-					}
-					htmlStr += $item[0].outerHTML;
-				}
-				$('.c-table-tab-list').append(htmlStr);
-			}
-			// check activeItem exsits or not.
-			if ($('.c-table-tab-item.active').length < 1) {
-				$('.c-table-tab-item').eq(0).addClass('active');
-			}
-			getTabSearchData($('.c-table-tab-item.active'));
-		}
-		function checkNewItem(val) {
-			var collecitonList = getCollectionList();
-			if (collecitonList.length >= 6) {
-				// save-search-item num <= 6
-				toastr.info('You can add up to six search records！');
-				return true;
-			}
-			var filterArr = collecitonList.filter(function(item) {
-				if (JSON.stringify(val) === JSON.stringify(item)) {
-					return item;
-				}
-			});
-		
-			if (filterArr.length > 0) {
-				toastr.info('You can not add it repeatedly！');
-				return true;
-			}
-			return false;
-		}
-		function addTableTabItem(val) {
-			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab-list').append(createCollectionItem(val).addClass('active'));
-			setActiveItemNum($('.c-table-tab-item').length - 1);
-		}
-		function createCollectionItem(val) {
-			var textArr = [];
-			if (val.collection) {
-				textArr.push(val.collection)
-			}
-			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
-		}
-		function deleteTableTabItem(e) {
-			e.stopPropagation();
-			var targetEl = $(e.target),
-				parentEl = targetEl.parent('.c-table-tab-item'),
-				itemVal = $(parentEl).data('val');
-			deleteCollectionItem(itemVal);
-			$(parentEl).remove();
-			$('.c-table-tab-item').eq(0).addClass('active');
-			getTabSearchData($('.c-table-tab-item').eq(0));
-		}
-		function getCollectionList() {
-			return JSON.parse(storage.getItem('collections')) || [];
-		}
-		function deleteCollectionItem(name) {
-			var oldCollections = getCollectionList();
-			var newCollections = oldCollections.filter(function (item) {
-				if (JSON.stringify(item) != JSON.stringify(name)) return item;
-			});
-			storage.setItem('collections', JSON.stringify(newCollections));
-		}
-		function addCollectionItem(name) {
-			var collections = getCollectionList();
-			collections.push(name);
-			storage.setItem('collections', JSON.stringify(collections));
-		}
-		// tab active-item cache (get & set)
-		function getActiveItemNum() {
-			return storage.getItem('itemNum') || 0;
-		}
-		function setActiveItemNum(num) {
-			storage.setItem('itemNum', num);
-		}
-		// initial activeItem
-		function initActiveItemNum() {
-			$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-			setActiveItemNum(0);
-			setPageNum(1);
-		}
 		/************************************************************************************/
-		function getProductList(callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackProduct/lownLoadProduct",
-				type: "post",
-				contentType: 'application/json',
-				async: false,
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackProductResList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
-		function renderProductList(data) {
-			var htmlStr = '<option value="-1">Please Select parent-category</option>';
-			for (var i = 0; i < data.length; i += 1) {
-					htmlStr += '<option value="' + data[i].productId + '" data-name="'+ data[i].productName + '" data-seo="' + data[i].productSeo + '">' + data[i].productId + ' * '+ data[i].productName + '</option>';
-				}
-			$('#couponProductonlyPidstr').html(htmlStr);
-			hasParentCategory = true;
-			initFormFiled();
-		}
-		function initFormFiled() {
-			$('#couponProductonlyPidstr').val($('#couponProductonlyPidstr').data('val') || '-1');
-		}
 		$(".choose_coup select").change(function () {
 			if ($(this).val() == 0) {
 				$(".open_1").hide();
