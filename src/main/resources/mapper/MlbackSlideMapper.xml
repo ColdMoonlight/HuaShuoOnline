@@ -280,7 +280,7 @@
     where slide_id = #{slideId,jdbcType=INTEGER}
   </select>
   <!-- selectMlbackSlideGetAll -->
-  <select id="selectMlbackSlideGetAll" parameterType="com.atguigu.bean.MlbackActShowPro" resultMap="BaseResultMap">
+  <select id="selectMlbackSlideGetAll" parameterType="com.atguigu.bean.MlbackSlide" resultMap="BaseResultMap">
     select *
     from tb_mlback_slide order by slide_area desc, slide_firth_num desc, slide_id desc
   </select>
