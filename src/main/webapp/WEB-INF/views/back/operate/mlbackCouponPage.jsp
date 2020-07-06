@@ -228,6 +228,7 @@
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
+	
 	<!-- custom script -->
 	<script>
 		var hasParentCategory = false;
