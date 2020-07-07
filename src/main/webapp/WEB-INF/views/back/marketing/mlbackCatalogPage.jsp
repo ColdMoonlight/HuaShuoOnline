@@ -495,6 +495,11 @@
 		}
 		// initFormData
 		function initFormData(data) {
+			// initial
+			$('#catalogProid').val('-1');
+			$('#catalogCateid').val('-1');
+			$('#catalogPageseoname').val('-1');
+			// init
 			$('#catalogId').val(data.catalogId);
 			$('#catalogName').val(data.catalogName);
 			$('#catalogFirthNum').val(data.catalogFirthNum ? data.catalogFirthNum : '0');
@@ -508,8 +513,10 @@
 				$('#catalogProid').val(data.catalogProid || '-1');
 			} else if (catalogIfproorcateorpage == 1) {
 				$('#catalogCateid').val(data.catalogCateid || '-1');
+				$('.ml-category').removeClass('hide').siblings().addClass('hide');
 			} else if (catalogIfproorcateorpage == 2) {
 				$('#catalogPageseoname').val(data.catalogPageseoname || '-1');
+				$('.ml-subject').removeClass('hide').siblings().addClass('hide');
 			}
 			
 			$('#catalogIfinto').val(data.catalogIfinto || '0');
@@ -801,7 +808,7 @@
 				toastr.info('You can add up to six search records！');
 				return true;
 			}
-				
+
 			var filterArr = collecitonList.filter(function(item) {
 				if (JSON.stringify(val) === JSON.stringify(item)) {
 					return item;
