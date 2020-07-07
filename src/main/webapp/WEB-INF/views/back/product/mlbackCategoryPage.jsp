@@ -358,7 +358,7 @@
 		});
 		$(window).on('beforeunload', function() {
 			var categoryId = $('#categoryId').val();
-			categoryId && deleteCollectionData({
+			isCreate && categoryId && deleteCollectionData({
 				categoryId: categoryId,
 			});
 		});

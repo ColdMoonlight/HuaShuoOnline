@@ -447,7 +447,7 @@
 		// render order couopons
 		function renderOrderCoupons() {
 			var $cartCouponBox = $('<div class="cart-box">'+
-					'<div class="cart-box-title"><span class="order-sort">5</span>DISCOUNT CODES</div>'+
+					'<div class="cart-box-title"><span class="order-sort">3</span>DISCOUNT CODES</div>'+
 					'<div class="cart-box-body">'+
 						'<div class="order-coupons">'+
 							'<div class="order-coupon-list"></div>'+

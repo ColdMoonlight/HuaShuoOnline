@@ -363,7 +363,7 @@
 		});
 		$(window).on('beforeunload', function() {
 			var catalogId = $('#catalogId').val();
-			catalogId && deleteMarketingData({
+			isCreate && catalogId && deleteMarketingData({
 				catalogId: catalogId,
 			});
 		});
@@ -729,6 +729,7 @@
 					logSeo = data[i].catalogCateseoname;
 				} else if (data[i].catalogIfproorcateorpage == 2) {
 					logName = '<b>subject</b> ' + data[i].catalogPageseoname;
+					logSeo = data[i].catalogPageseoname;
 				}
 				htmlStr += '<tr><td>' + data[i].catalogId + '</td>' +
 					'<td>' + data[i].catalogName + '</td>' +

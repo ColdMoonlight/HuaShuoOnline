@@ -328,7 +328,7 @@
 		});
 		$(window).on('beforeunload', function() {
 			var footnavId = $('#footnavId').val();
-			footnavId && deleteFootnavData({
+			isCreate && footnavId && deleteFootnavData({
 				footnavId: footnavId,
 			});
 		});
