@@ -103,8 +103,7 @@ public class ImageUploadController {
 		MlbackCategory mlbackCategory = new MlbackCategory();
 		mlbackCategory.setCategoryId(categoryId);
 		mlbackCategory.setCategoryImgpcurl(sqlimageUrl);
-		mlbackCategory.setCategoryImgurl(sqlthumImageUrl);
-		
+		mlbackCategory.setCategoryImgurl(sqlthumImageUrl);	
 		mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategory);
 		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
