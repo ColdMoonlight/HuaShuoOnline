@@ -5,7 +5,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Marketing</title>
+	<title>Carousel</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
@@ -19,8 +19,8 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Marketing</span>
-						<button class="btn btn-primary btn-create">Create CateLog</button>
+						<span class="c-option-title">Carousel</span>
+						<button class="btn btn-primary btn-create">Create Carousel</button>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -29,30 +29,30 @@
 							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
-							<div class="input-group c-search">
+							<%-- <div class="input-group c-search">
 								<svg class="c-icon">
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="searchCatalog" type="text" placeholder="Search CateLog">						
+									<input id="searchCarousel" type="text" placeholder="Search Carousel">						
 									<select class="supercate-list" id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
-							</div>
+							</div> --%>
 							<table class="c-table-table table table-responsive-sm">
 								<thead>
 									<tr>
 										<th>id</th>
 										<th>name</th>
-										<th>parent-id</th>
-										<th>parent-name</th>
-										<th>tag</th>
+										<th>area</th>
 										<th>order</th>
 										<th>product/subject/colleciton</th>
 										<th>seo</th>
 										<th>ifInto</th>
-										<th>status</th>
-										<th>path-desc</th>
+										<th>wap-image</th>
+										<th>wap-status</th>
+										<th>pc-image</th>
+										<th>pc-status</th>
 										<th>operate</th>
 									</tr>
 								</thead>
@@ -65,14 +65,14 @@
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">Edit CateLog</span>
+						<span class="c-option-title">Edit Carousel</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save CateLog</button>
+							<button class="btn btn-primary btn-save">Save Carousel</button>
 						</div>
 					</div>
 					<div class="c-form row">
-						<input id="catalogId" hidden>
+						<input id="slideId" hidden>
 						<!-- left panel  -->
 						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
@@ -81,42 +81,15 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="catalogName">CateLog Name</label>
+										<label class="col-form-label" for="slideName">Carousel Name</label>
 										<div class="controls">
-											<input class="form-control" id="catalogName" type="text" />
+											<input class="form-control" id="slideName" type="text" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="catalogFirthNum">Sort</label>
+										<label class="col-form-label" for="slideArea">Area</label>
 										<div class="controls">
-											<select class="form-control" id="catalogFirthNum" />
-												<option value="0">Please select CateLog sort-order</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-												<option value="9">9</option>
-												<option value="10">10</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="catalogStatus">Status</label>
-										<div class="controls col-md-3">
-											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="catalogStatus" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="catalogLable">Label</label>
-										<div class="controls">
-											<select class="form-control" id="catalogLable" />
+											<select class="form-control" id="slideArea" />
 												<option value="0" selected="selected">0-无图</option>
 												<option value="1">1-hot</option>
 												<option value="2">2-new</option>
@@ -131,9 +104,39 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="catalogDesc">Description</label>
+										<label class="col-form-label" for="slideFirthNum">Sort</label>
 										<div class="controls">
-											<input class="form-control" id="catalogDesc" type="text" disabled />
+											<select class="form-control" id="slideFirthNum" />
+												<option value="0">Please select Carousel sort-order</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-3 col-form-label" for="slideWapstatus">Wap Status</label>
+										<div class="controls col-md-3">
+											<label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="slideWapstatus" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-3 col-form-label" for="slidePcstatus">Pc Status</label>
+										<div class="controls col-md-3">
+											<label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="slidePcstatus" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
 										</div>
 									</div>
 								</div>
@@ -145,9 +148,9 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="catalogIfproorcateorpage">Product Or Subject Or Collection</label>
+										<label class="col-form-label" for="slideIfproorcateorpage">Product Or Subject Or Collection</label>
 										<div class="controls">
-											<select class="form-control" id="catalogIfproorcateorpage" />
+											<select class="form-control" id="slideIfproorcateorpage" />
 												<option value="0" data-class="ml-product">product</option>
 												<option value="1" data-class="ml-category">collection</option>
 												<option value="2" data-class="ml-subject">subject</option>
@@ -156,21 +159,21 @@
 									</div>
 									<div>
 										<div class="form-group ml-product">
-											<label class="col-form-label" for="catalogProid">Product</label>
+											<label class="col-form-label" for="slideProid">Product</label>
 											<div class="controls">
-												<select class="form-control product-list" id="catalogProid" /></select>
+												<select class="form-control product-list" id="slideProid" /></select>
 											</div>
 										</div>
 										<div class="form-group ml-category hide">
-											<label class="col-form-label" for="catalogCateid">Category</label>
+											<label class="col-form-label" for="slideCateid">Category</label>
 											<div class="controls">
-												<select class="form-control collection-list" id="catalogCateid" /></select>
+												<select class="form-control collection-list" id="slideCateid" /></select>
 											</div>
 										</div>	
 										<div class="form-group ml-subject hide">
-											<label class="col-form-label" for="catalogPageseoname">Subject</label>
+											<label class="col-form-label" for="slidePageseoname">Subject</label>
 											<div class="controls">
-												<select class="form-control" id="catalogPageseoname" />
+												<select class="form-control" id="slidePageseoname" />
 													<option value="Friday">Friday</option>
 													<option value="Activty">Activty</option>
 													<option value="MlfrontReview/toReviewCustomer">Shop by look</option>
@@ -181,15 +184,14 @@
 										</div>								
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="scatalogParentId">click entry or not</label>
+										<label class="col-form-label" for="slideIfinto">click entry or not</label>
 										<div class="controls">
-											<select class="form-control" id="catalogPageseoname" />
+											<select class="form-control" id="slideIfinto" />
 												<option value="0" selected="selected">disable</option>
 					  							<option value="1">enalbe</option>
 											</select>
 										</div>
-									</div>	
-									
+									</div>
 								</div>
 							</div>
 						</div>
@@ -197,19 +199,13 @@
 						<div class="right-panel col-lg-5 col-md-12">
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Super Category & Parent Category</div>
+									<div class="card-title-name">Super Category</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="catalogSupercateId">Super Category</label>
+										<label class="col-form-label" for="slideCateid">Super Category</label>
 										<div class="controls">
-											<select class="form-control supercate-list" id="catalogSupercateId" /></select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="catalogParentId">Parent Category</label>
-										<div class="controls">
-											<select class="form-control" id="catalogParentId" /></select>
+											<select class="form-control supercate-list" id="slideCateid" /></select>
 										</div>
 									</div>
 								</div>
@@ -236,10 +232,9 @@
 		var hasSuperCateList = false;
 		var hasCollectionList = false;
 		var hasProductList = false;
-		var hasParentCategory = false;
 		var isCreate = false;
 
-		$('#catalogIfproorcateorpage').on('change', function() {
+		$('#slideIfproorcateorpage').on('change', function() {
 			$('.' + $(this).find('option:checked').data('class')).removeClass('hide').siblings().addClass('hide').find('select').val('-1');
 		});
 
@@ -247,141 +242,62 @@
 	 	$('#searchSupercate').val($('#searchSupercate').data('val') || -1);
 
 		// init
-		renderTabItems();
-		// save search
-		$('.btn-save-search').on('click', function () {
-			var searchCollectionVal = {
-				supercate: $('#searchSupercate').find('option:selected').text(),
-				supercateId: $('#searchSupercate').val(),
-				collection: $('#searchCatalog').val()
-			};
-			// cancel repeat add save-search
-			if (checkNewItem(searchCollectionVal)) return;
-			if (parseInt(searchCollectionVal.supercateId) < 0) searchCollectionVal.supercate = "";
-			if (searchCollectionVal.supercate || searchCollectionVal.collection) {
-				addCollectionItem(searchCollectionVal);
-				createCollectionItem(searchCollectionVal).addClass('active')
-				addTableTabItem(searchCollectionVal);
-				$('.c-table-tab-tempory').html('');
-			}
-		});
-		// search it
-		$('#searchSupercate').on('change', function() {
-			$(this).attr('data-val', $(this).val());
-			updateSearchData();
-		});
-		var oldTime = (new Date()).getTime(),
-			timer = null;
-		$('#searchCatalog').on('keyup', function() {
-			var distanceTime = 1000,
-				newTime =  (new Date()).getTime();
-			if (newTime - oldTime < 1000) clearTimeout(timer);
-			oldTime = newTime;
-			timer = setTimeout(function() {
-				updateSearchData();
-			}, distanceTime);
-		});
-		// search status change
-		function updateSearchData() {
-			var searchCollectionVal = {
-				supercate: $('#searchSupercate').find('option:selected').text(),
-				supercateId: $('#searchSupercate').val(),
-				collection: $('#searchCatalog').val()
-			};
-			// inital pagination num
-			setPageNum(1);
-			// check searchCollection
-			if (parseInt(searchCollectionVal.supercateId) < 0) searchCollectionVal.supercate = "";
-
-			$('.c-table-tab-item.active').removeClass('active');
-			$('.c-table-tab-tempory').html(createCollectionItem(searchCollectionVal).addClass('active'));
-			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
-		}
-		// tab-item click
-		$(document.body).on('click', '.c-table-tab-item', function (e) {
-			$('.c-table-tab-item').removeClass('active');
-			$(this).addClass('active');
-			// inital pagination num
-			setPageNum(1);
-			setActiveItemNum($(this).data('idx'));
-			getTabSearchData($(this));
-		});
-		// get Data for table
-		function getTabSearchData($this) {
-			var dataVal = $this.data('val');
-			if (dataVal) {
-				$('#searchCatalog').val(dataVal.collection || '');
-				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
-				$('#searchSupercate').val(dataVal.supercateId || '-1');
-				getSearchMarkegingsData();
-			} else {
-				$('#searchSupercate').val('-1');
-				$('#searchCatalog').val('');
-				getMarketingsData();
-			}
-		}
-		// tab delete
-		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
-		// pagination a-click
-		$(document.body).on('click', '#table-pagination li', function (e) {
-			getTabSearchData($('.c-table-tab-item.active'));
-		});
+		getCarouselsData()
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create .c-option-title').text('Create CateLog');
-			showCreateBlock();
-			// init formData
-			resetFormData();
-			getMarketingId();
-			isCreate = true;
+			$('.c-create .c-option-title').text('Create Carousel');
+
+			getCarouselId(function(data) {
+				$('#slideId').val(data.slideId);
+				showCreateBlock();
+				// init formData
+				resetFormData();
+				isCreate = true;
+			});
 		});
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
-			var catalogId = $(this).data('id');
-			getOneMarketingData({
-			 catalogId: catalogId
+			var slideId = $(this).data('id');
+			getOneCarouselData({
+				slideId: slideId
 			}, function(resData) {
-			 	$('.c-create .c-option-title').text('Edit CateLog');
+			 	$('.c-create .c-option-title').text('Edit Carousel');
 				showCreateBlock();
 				initFormData(resData);
 			});			
 		});
 		// delete collection
 		$(document.body).on('click', '.btn-delete', function (e) {
-			var catalogId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete CateLog!');
+			var slideId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('Delete Carousel!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteMarketingData({
-					catalogId: catalogId,
+				deleteCarouselData({
+					slideId: slideId,
 				}, function() {
-					getMarketingsData();
-					// update parentCategory data
-					getParentMarketingData(renderParentMarketing);
+					getCarouselsData();
 				});
 			});
 		});
 		$(window).on('beforeunload', function() {
-			var catalogId = $('#catalogId').val();
-			isCreate && catalogId && deleteMarketingData({
-				catalogId: catalogId,
+			var slideId = $('#slideId').val();
+			isCreate && slideId && deleteCarouselData({
+				slideId: slideId,
 			});
 		});
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
-			saveMarketingData(getFormData(), function() {
+			saveCarouselData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) {
 					isCreate = false;
 					initActiveItemNum();
 					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-					// update parentCategory data
-					getParentMarketingData(renderParentMarketing);
+					getCarouselsData();
 				}
 
-				getTabSearchData($('.c-table-tab-item.active'));
 				showInitBlock();
-				$('#catalogId').val('');
+				$('#slideId').val('');
 			});
 		});
 		// cancel collection save
@@ -389,35 +305,34 @@
 			if (isCreate) {
 				isCreate = false;
 				/* initActiveItemNum(); */
-				// delete null collection
-				deleteMarketingData({
-					catalogId: $('#catalogId').val(),
+				// delete null carousel
+				deleteCarouselData({
+					slideId: $('#slideId').val(),
 				}, function() {
-					console.log("cancel create CateLog");
+					console.log("cancel create Carousel");
 				});
 			}
 
 			showInitBlock();
 		});
 		// status combinewith supercate
-		$('#catalogStatus').on('click', function(e) {
-			if (parseInt($('#catalogSupercateId').val()) < 0) {
+		$('#slideWapstatus, #slidePcstatus').on('click', function(e) {
+			if (parseInt($('#slideCateid').val()) < 0) {
 				toastr.info('Please Select super-category!');
-				$('#catalogSupercateId').focus();
-				$('#catalogStatus').prop('checked', false);
+				$('#slideCateid').focus();
+				$('#slideWapstatus').prop('checked', false);
 			}
 		});
-		// supercate & catalogStatus combinewith
-		$('#catalogSupercateId').on('change', function(e) {
+		// supercate & slideWapstatus combinewith
+		$('#slideCateid').on('change', function(e) {
 			if (parseInt($(this).val()) < 0) {
-				$('#catalogStatus').prop('checked', false);
+				$('#slideWapstatus, #slidePcstatus').prop('checked', false);
 			}
 		});
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
 
-			if (!hasParentCategory) getParentMarketingData(renderParentMarketing);
 			if (!hasCollectionList) getAllCollectionData(renderAllCollection);
 			if (!hasProductList) getAllProductData(renderAllProduct);
 			
@@ -429,113 +344,103 @@
 		// handle formData
 		// reset data
 		function resetFormData() {
-			$('#catalogId').val('');
-			$('#catalogName').val('');
-			$('#catalogFirthNum').val('0');
-			$('#catalogStatus').prop('checked', false);
-			$('#catalogLable').val('0');
-			$('#catalogDesc').val('');
+			$('#slideId').val('');
+			$('#slideName').val('');
+			$('#slideFirthNum').val('0');
+			$('#slideWapstatus').prop('checked', false);
+			$('#slidePcstatus').prop('checked', false);
+			$('#slideArea').val('0');
 
-			$('#catalogIfproorcateorpage').val('0');
-			$('#catalogProid').val('-1');
-			$('#catalogCateid').val('-1');
-			$('#catalogPageseoname').val('-1');
-			$('#catalogIfinto').val('0')
+			$('#slideIfproorcateorpage').val('0');
+			$('#slideProid').val('-1');
+			$('#slideCateid').val('-1');
+			$('#slidePageseoname').val('-1');
+			$('#slideIfinto').val('0')
 
-			$('#catalogSupercateId').val('-1');
-			$('#catalogParentId').val('-1');
+			$('#slideCateid').val('-1');
 
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
-			data.catalogId = parseInt($('#catalogId').val());
-			data.catalogName = $('#catalogName').val();
-			data.catalogStatus = $('#catalogStatus').prop('checked') ? 1 : 0;
-			data.catalogFirthNum = $('#catalogFirthNum').val();
-			data.catalogLable = parseInt($('#catalogLable').val());
-			data.catalogDesc = $('#catalogDesc').val();
+			data.slideId = parseInt($('#slideId').val());
+			data.slideName = $('#slideName').val();
+			data.slideWapstatus = $('#slideWapstatus').prop('checked') ? 1 : 0;
+			data.slidePcstatus = $('#slidePcstatus').prop('checked') ? 1 : 0;
+			data.slideFirthNum = $('#slideFirthNum').val();
+			data.slideArea = parseInt($('#slideArea').val());
 			
-			var catalogIfproorcateorpage = $('#catalogIfproorcateorpage').val();
-			data.catalogIfproorcateorpage = catalogIfproorcateorpage;
-			if (catalogIfproorcateorpage == 0) {
-				data.catalogProid = $('#catalogProid').val();
-				data.catalogProname = $('#catalogProid').find('option:checked').data('name');
-				data.catalogSeoname = $('#catalogProid').find('option:checked').data('seo');
-				data.catalogCateid = '';
-				data.catalogCatename = '';
-				data.catalogCateseoname = '';
-				data.catalogPageseoname = '';
-			} else if (catalogIfproorcateorpage == 1) {
-				data.catalogProid = '';
-				data.catalogProname = '';
-				data.catalogSeoname = '';
-				data.catalogCateid = $('#catalogCateid').val();
-				data.catalogCatename = $('#catalogCateid').find('option:checked').data('name');
-				data.catalogCateseoname = $('#catalogCateid').find('option:checked').data('seo');
-				data.catalogPageseoname = '';
-			} else if (catalogIfproorcateorpage == 2) {
-				data.catalogProid = '';
-				data.catalogProname = '';
-				data.catalogSeoname = '';
-				data.catalogCateid ='';
-				data.catalogCatename = '';
-				data.catalogCateseoname = '';
-				data.catalogPageseoname = $('#catalogPageseoname').val();
+			var slideIfproorcateorpage = $('#slideIfproorcateorpage').val();
+			data.slideIfproorcateorpage = slideIfproorcateorpage;
+			if (slideIfproorcateorpage == 0) {
+				data.slideProid = $('#slideProid').val();
+				data.slideProname = $('#slideProid').find('option:checked').data('name');
+				data.slideSeoname = $('#slideProid').find('option:checked').data('seo');
+				data.slideCateid = '';
+				data.slideCatename = '';
+				data.slideCateseoname = '';
+				data.slidePageseoname = '';
+			} else if (slideIfproorcateorpage == 1) {
+				data.slideProid = '';
+				data.slideProname = '';
+				data.slideSeoname = '';
+				data.slideCateid = $('#slideCateid').val();
+				data.slideCatename = $('#slideCateid').find('option:checked').data('name');
+				data.slideCateseoname = $('#slideCateid').find('option:checked').data('seo');
+				data.slidePageseoname = '';
+			} else if (slideIfproorcateorpage == 2) {
+				data.slideProid = '';
+				data.slideProname = '';
+				data.slideSeoname = '';
+				data.slideCateid ='';
+				data.slideCatename = '';
+				data.slideCateseoname = '';
+				data.slidePageseoname = $('#slidePageseoname').val();
 			}
-			data.catalogIfinto = $('#catalogIfinto').val();
+			data.slideIfinto = $('#slideIfinto').val();
 
-			data.catalogSupercateId = $('#catalogSupercateId').val();
-			data.catalogSupercateName = $('#catalogSupercateId').find('option:selected').text();
-
-			data.catalogParentId = $('#catalogParentId').val();
-			data.catalogParentName = $('#catalogParentId').find('option:selected').data('name');
+			data.slideCateid = $('#slideCateid').val();
+			data.catalogSupercateName = $('#slideCateid').find('option:selected').text();
 
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
-			$('#catalogId').val(data.catalogId);
-			$('#catalogName').val(data.catalogName);
-			$('#catalogFirthNum').val(data.catalogFirthNum ? data.catalogFirthNum : '0');
-			$('#catalogStatus').prop('checked', (data.catalogSupercateId > 0 ? data.catalogStatus : 0));
-			$('#catalogLable').val(data.catalogLable);
-			$('#catalogDesc').val(data.catalogDesc);
+			$('#slideId').val(data.slideId);
+			$('#slideName').val(data.slideName);
+			$('#slideFirthNum').val(data.slideFirthNum ? data.slideFirthNum : '0');
+			$('#slideWapstatus').prop('checked', (data.slideCateid > 0 ? data.slideWapstatus : 0));
+			$('#slidePcstatus').prop('checked', (data.slideCateid > 0 ? data.slidePcstatus : 0));
+			$('#slideArea').val(data.slideArea);
 
-			var catalogIfproorcateorpage = data.catalogIfproorcateorpage;
-			$('#catalogIfproorcateorpage').val(catalogIfproorcateorpage || 0);
-			if (catalogIfproorcateorpage == 0) {
-				$('#catalogProid').val(data.catalogProid || '-1');
-			} else if (catalogIfproorcateorpage == 1) {
-				$('#catalogCateid').val(data.catalogCateid || '-1');
-			} else if (catalogIfproorcateorpage == 2) {
-				$('#catalogPageseoname').val(data.catalogPageseoname || -'-1');
+			var slideIfproorcateorpage = data.slideIfproorcateorpage;
+			$('#slideIfproorcateorpage').val(slideIfproorcateorpage || 0);
+			if (slideIfproorcateorpage == 0) {
+				$('#slideProid').val(data.slideProid || '-1');
+			} else if (slideIfproorcateorpage == 1) {
+				$('#slideCateid').val(data.slideCateid || '-1');
+			} else if (slideIfproorcateorpage == 2) {
+				$('#slidePageseoname').val(data.slidePageseoname || '-1');
 			}
 			
-			$('#catalogIfinto').val(data.catalogIfinto);
+			$('#slideIfinto').val(data.slideIfinto);
 			
-			$('#catalogSupercateId').val(data.catalogSupercateId || '-1');
-			$('#catalogParentId').val(data.catalogParentId || '-1');
+			$('#slideCateid').val(data.slideCateid || '-1');
 
 		}
 		// callback get id
-		function getMarketingId() {
+		function getCarouselId(callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackCatalog/initializaCatalog",
+				url: "${APP_PATH }/MlbackSlides/initializaSlide",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						var catalogId = data.extend&& data.extend.mlbackCatalog && data.extend.mlbackCatalog.catalogId;
-						if (catalogId) {
-							$('#catalogId').val(catalogId);
-							toastr.success(data.extend.resMsg);
-						} else {
-							toastr.error('create collecion fail! Please try again.');
-						}
+						callback && callback(data.extend.mlbackSlide)
+						toastr.success(data.extend.resMsg);
 					} else {
 						showInitBlock();
 						toastr.error(data.extend.resMsg);
@@ -550,14 +455,14 @@
 			});
 		}
 		// callback get all data
-		function getMarketingsData() {
+		function getCarouselsData() {
 			$('.c-mask').show();
 
 			var formData = new FormData();
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH}/MlbackCatalog/getMlbackCatalogByPage",
+				url: "${APP_PATH}/MlbackSlides/getMlbackSlideByPage",
 				type: "post",
 				processData: false,
 				contentType: false,
@@ -573,7 +478,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get CateLog, please refresh the page to get again！');
+					toastr.error('Failed to get Carousel, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -581,57 +486,24 @@
 			});
 		}
 		// callback get one data
-		function getOneMarketingData(reqData, callback) {
+		function getOneCarouselData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCatalog/getOneMlbackCatalogDetail",
+				url: "${APP_PATH}/MlbackSlides/getOneMlbackSlideDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: 'json',
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.MlbackCatalogOne);
+						callback(data.extend.mlbackSlideOne);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Marketing, please refresh the page to get again！');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
-		// callback get search data
-		function getSearchMarkegingsData(data) {
-			$('.c-mask').show();
-
-			var formData = new FormData();
-			formData.append('catalogName', $('#searchCatalog').val());
-			formData.append('catalogSupercateId', ($('#searchSupercate').attr('data-val') || '-1'));
-			formData.append('pn', getPageNum());
-
-			$.ajax({
-				url: "${APP_PATH}/MlbackCatalog/backSearchByCatalog",
-				type: "post",
-				processData: false,
-				contentType: false,
-				cache: false,
-				data: formData,
-				success: function (data) {
-					if (data.code == 100) {
-						renderTable(data.extend.pageInfo.list);
-						renderTablePagination(data.extend.pageInfo);
-						toastr.success(data.extend.resMsg);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function () {
-					toastr.error('Failed to get Marketing, please refresh the page to get again！');
+					toastr.error('Failed to get Carousel, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -639,10 +511,10 @@
 			});
 		}
 		// callback save
-		function saveMarketingData(reqData, callback) {
+		function saveCarouselData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCatalog/save",
+				url: "${APP_PATH}/MlbackSlides/save",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -665,10 +537,10 @@
 			});
 		}
 		// callback delete
-		function deleteMarketingData(reqData, callback) {
+		function deleteCarouselData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCatalog/delete",
+				url: "${APP_PATH}/MlbackSlides/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -691,64 +563,45 @@
 				}
 			});
 		}
-
-		// callback parentCategory
-		function getParentMarketingData(callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackCatalog/getMlbackCatalogDropdownSelect",
-				type: "post",
-				contentType: 'application/json',
-				async: false,
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackCatalogdownEr);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var logName, logSeo;
-				if (data[i].catalogIfproorcateorpage == 0) {
-					logName = '<b>product</b> ' + data[i].catalogProid;
-					logSeo = data[i].catalogSeoname;
-				} else if (data[i].catalogIfproorcateorpage == 1) {
-					logName = '<b>collection</b> ' + data[i].catalogCateid;
-					logSeo = data[i].catalogCateseoname;
-				} else if (data[i].catalogIfproorcateorpage == 2) {
-					logName = '<b>subject</b> ' + data[i].catalogPageseoname;
-					logSeo = data[i].catalogPageseoname;
+				if (data[i].slideIfproorcateorpage == 0) {
+					logName = '<b>product</b> ' + data[i].slideProid;
+					logSeo = data[i].slideSeoname;
+				} else if (data[i].slideIfproorcateorpage == 1) {
+					logName = '<b>collection</b> ' + data[i].slideCateid;
+					logSeo = data[i].slideCateseoname;
+				} else if (data[i].slideIfproorcateorpage == 2) {
+					logName = '<b>subject</b> ' + data[i].slidePageseoname;
+					logSeo = data[i].slidePageseoname;
 				}
-				htmlStr += '<tr><td>' + data[i].catalogId + '</td>' +
-					'<td>' + data[i].catalogName + '</td>' +
-					'<td>' + data[i].catalogParentId + '</td>' +
-					'<td>' + data[i].catalogParentName + '</td>' +
-					'<td>' + data[i].catalogLable + '</td>' +
-					'<td>' + data[i].catalogFirthNum + '</td>' +
+				htmlStr += '<tr><td>' + data[i].slideId + '</td>' +
+					'<td>' + data[i].slideName + '</td>' +
+					'<td>' + data[i].slideArea + '</td>' +
+					'<td>' + data[i].slideFirthNum + '</td>' +
 					'<td>' + (logName || '') + '</td>' +
 					'<td>' + (logSeo || '') + '</td>' +
-					'<td>' + (data[i].catalogIfinto ? 'YES' : 'NO') + '</td>' +
-					'<td><a class="badge '+ (data[i].catalogStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].catalogStatus ? 'enable' : 'disable') + '</a></td>' +
-					'<td>' + data[i].catalogDesc + '</td>' +
+					'<td>' + (data[i].slideIfinto ? 'YES' : 'NO') + '</td>' +
+					'<td>' + (data[i].slideWapimgurl ?
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slideWapimgurl) +'" /></div>'
+							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+					'</td>' +
+					'<td><a class="badge '+ (data[i].slideWapstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slideWapstatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td>' + (data[i].slidePcimgurl ?
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slidePcimgurl) +'" /></div>'
+							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+					'</td>' +
+					'<td><a class="badge '+ (data[i].slidePcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slidePcstatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' +
-						'<button class="btn btn-primary btn-edit" data-id="' + data[i].catalogId + '">' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].slideId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
 						'</button>' +
-						'<button class="btn btn-danger btn-delete" data-id="' + data[i].catalogId + '">' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].slideId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
 							'</svg>' +
@@ -756,119 +609,6 @@
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
-		}
-		// render parentCategoryData
-		function renderParentMarketing(data) {
-			var htmlStr = '<option value="-1">Please Select parent-category</option>';
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].catalogId + '" data-name="' + data[i].catalogName + '">' + data[i].catalogDesc + '</option>';
-			}
-			$('#catalogParentId').html(htmlStr);
-			hasParentCategory = true;
-		}
-
-		function renderTabItems() {
-			var collections = getCollectionList(),
-				len = collections.length,
-				htmlStr = '',
-				activeNum = parseInt(getActiveItemNum());
-
-			if (len > 0) {
-				for (var i = 0; i < len; i += 1) {
-					var $item = createCollectionItem(collections[i]);
-					$item.attr('data-idx', i+1);
-
-					if (activeNum == i + 1) {
-						$item.addClass('active')
-					}
-
-					htmlStr += $item[0].outerHTML;
-				}
-
-				$('.c-table-tab-list').append(htmlStr);
-			}
-			// check activeItem exsits or not.
-			if ($('.c-table-tab-item.active').length < 1) {
-				$('.c-table-tab-item').eq(0).addClass('active');
-			}
-
-			getTabSearchData($('.c-table-tab-item.active'));
-		}
-		function checkNewItem(val) {
-			var collecitonList = getCollectionList();
-			if (collecitonList.length >= 6) {
-				// save-search-item num <= 6
-				toastr.info('You can add up to six search records！');
-				return true;
-			}
-				
-			var filterArr = collecitonList.filter(function(item) {
-				if (JSON.stringify(val) === JSON.stringify(item)) {
-					return item;
-				}
-			});
-
-			if (filterArr.length > 0) {
-				toastr.info('You can not add it repeatedly！');
-				return true;
-			}
-			return false;
-		}
-		function addTableTabItem(val) {
-			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab-list').append(createCollectionItem(val).addClass('active'));
-			setActiveItemNum($('.c-table-tab-item').length - 1);
-		}
-		function createCollectionItem(val) {
-			var textArr = [];
-			if (val.supercate) {
-				textArr.push(val.supercate)
-			}
-			if (val.collection) {
-				textArr.push(val.collection)
-			}
-
-			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
-		}
-		function deleteTableTabItem(e) {
-			e.stopPropagation();
-			var targetEl = $(e.target),
-				parentEl = targetEl.parent('.c-table-tab-item'),
-				itemVal = $(parentEl).data('val');
-
-			deleteCollectionItem(itemVal);
-			$(parentEl).remove();
-
-			$('.c-table-tab-item').eq(0).addClass('active');
-			getTabSearchData($('.c-table-tab-item').eq(0));
-		}
-		function getCollectionList() {
-			return JSON.parse(storage.getItem('marketing')) || [];
-		}
-		function deleteCollectionItem(name) {
-			var oldCollections = getCollectionList();
-			var newCollections = oldCollections.filter(function (item) {
-				if (JSON.stringify(item) != JSON.stringify(name)) return item;
-			});
-			storage.setItem('marketing', JSON.stringify(newCollections));
-		}
-		function addCollectionItem(name) {
-			var collections = getCollectionList();
-			collections.push(name);
-			storage.setItem('marketing', JSON.stringify(collections));
-		}
-		// tab active-item cache (get & set)
-		function getActiveItemNum() {
-			return storage.getItem('itemNum') || 0;
-		}
-		function setActiveItemNum(num) {
-			storage.setItem('itemNum', num);
-		}
-		// initial activeItem
-		function initActiveItemNum() {
-			$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-			setActiveItemNum(0);
-			setPageNum(1);
 		}
 	</script>
 </body>

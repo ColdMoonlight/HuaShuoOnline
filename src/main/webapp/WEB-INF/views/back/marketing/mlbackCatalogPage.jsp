@@ -181,9 +181,9 @@
 										</div>								
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="scatalogParentId">click entry or not</label>
+										<label class="col-form-label" for=catalogIfinto>click entry or not</label>
 										<div class="controls">
-											<select class="form-control" id="catalogPageseoname" />
+											<select class="form-control" id="catalogIfinto" />
 												<option value="0" selected="selected">disable</option>
 					  							<option value="1">enalbe</option>
 											</select>
@@ -244,7 +244,7 @@
 		});
 
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
-	 	$('#searchSupercate').val($('#searchSupercate').data('val') || -1);
+	 	$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
 
 		// init
 		renderTabItems();
@@ -498,21 +498,21 @@
 			$('#catalogId').val(data.catalogId);
 			$('#catalogName').val(data.catalogName);
 			$('#catalogFirthNum').val(data.catalogFirthNum ? data.catalogFirthNum : '0');
-			$('#catalogStatus').prop('checked', (data.catalogSupercateId > 0 ? data.catalogStatus : 0));
+			$('#catalogStatus').prop('checked', (data.catalogSupercateId > 0 ? data.catalogStatus : '0'));
 			$('#catalogLable').val(data.catalogLable);
 			$('#catalogDesc').val(data.catalogDesc);
 
 			var catalogIfproorcateorpage = data.catalogIfproorcateorpage;
-			$('#catalogIfproorcateorpage').val(catalogIfproorcateorpage || 0);
+			$('#catalogIfproorcateorpage').val(catalogIfproorcateorpage || '0');
 			if (catalogIfproorcateorpage == 0) {
 				$('#catalogProid').val(data.catalogProid || '-1');
 			} else if (catalogIfproorcateorpage == 1) {
 				$('#catalogCateid').val(data.catalogCateid || '-1');
 			} else if (catalogIfproorcateorpage == 2) {
-				$('#catalogPageseoname').val(data.catalogPageseoname || -'-1');
+				$('#catalogPageseoname').val(data.catalogPageseoname || '-1');
 			}
 			
-			$('#catalogIfinto').val(data.catalogIfinto);
+			$('#catalogIfinto').val(data.catalogIfinto || '0');
 			
 			$('#catalogSupercateId').val(data.catalogSupercateId || '-1');
 			$('#catalogParentId').val(data.catalogParentId || '-1');
