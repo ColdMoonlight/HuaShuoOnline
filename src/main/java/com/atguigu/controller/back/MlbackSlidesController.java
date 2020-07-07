@@ -1,9 +1,6 @@
 package com.atguigu.controller.back;
 
-
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -186,7 +183,7 @@ public class MlbackSlidesController {
 	
 	/**
 	 * 6.0	20200707
-	 * 查询pc不同位置的图片
+	 * 查询不同轮播位置的Slide位置的图片
 	 * @param MlbackSlide
 	 * @return 
 	 */

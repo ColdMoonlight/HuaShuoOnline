@@ -77,7 +77,7 @@
   </update>
   
   <!-- insertSelective -->
-  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="slideId" parameterType="com.atguigu.bean.MlbackSlide">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="slideId" parameterType="com.atguigu.bean.MlbackSlide">
     insert into tb_mlback_slide
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="slideId != null">
