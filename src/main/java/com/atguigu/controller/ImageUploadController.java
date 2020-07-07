@@ -15,11 +15,13 @@ import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackProductImg;
 import com.atguigu.bean.MlbackReviewImg;
+import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductImgService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackReviewImgService;
+import com.atguigu.service.MlbackSlideService;
 import com.atguigu.service.ThumbnailService;
 import com.atguigu.service.UploadService;
 import com.atguigu.utils.DateUtil;
@@ -51,6 +53,9 @@ public class ImageUploadController {
 	
 	@Autowired
 	MlbackReviewImgService mlbackReviewImgService;
+	
+	@Autowired
+	MlbackSlideService mlbackSlideService;
 	
 	/**
 	 * 	onuse	20200103	检查
@@ -448,6 +453,89 @@ public class ImageUploadController {
 		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
+	}
+	
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/slideWap",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg slideWap(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("slideId")Integer slideId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
+		
+		String slideIdStr = slideId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,slideIdStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String uploadPath = "static/upload/img/Slide";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MlbackSlide mlbackSlide = new MlbackSlide();
+		mlbackSlide.setSlideId(slideId);
+		mlbackSlide.setSlideWapimgurl(sqlimageUrl);		
+		mlbackSlideService.updateByPrimaryKeySelective(mlbackSlide);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+	}
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/slidePc",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg slidePc(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("slideId")Integer slideId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
+		
+		String slideIdStr = slideId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,slideIdStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String uploadPath = "static/upload/img/Slide";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MlbackSlide mlbackSlide = new MlbackSlide();
+		mlbackSlide.setSlideId(slideId);
+		mlbackSlide.setSlidePcimgurl(sqlimageUrl);		
+		mlbackSlideService.updateByPrimaryKeySelective(mlbackSlide);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
 	}
 	
 }

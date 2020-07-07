@@ -17,6 +17,10 @@ public class ImageNameUtil {
 			typeName="productVideo";
 		}else if("reviewDetail".equals(type)){
 			typeName="reviewDetail";
+		}else if("slideWap".equals(type)){
+			typeName="slideWap";
+		}else if("slidePc".equals(type)){
+			typeName="slidePc";
 		}
 		return typeName;
 	}
