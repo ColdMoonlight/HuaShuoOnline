@@ -139,6 +139,44 @@
 									</div>
 								</div>
 							</div>
+							<!-- product media -->
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Carousel Image</div>
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-6">
+											<h3>Wap Image</h3>
+											<div class="c-upload-img">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+												</svg>
+												<div class="c-backshow"></div>						
+												<input id="slideWap" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<!-- spinner -->
+												<div class="spinner">
+													<div class="spinner-border" role="status" aria-hidden="true"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<h3>Pc Image</h3>
+											<div class="c-upload-img">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+												</svg>
+												<div class="c-backshow"></div>						
+												<input id="slidePc" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<!-- spinner -->
+												<div class="spinner">
+													<div class="spinner-border" role="status" aria-hidden="true"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 							<!-- product or subject -->
 							<div class="card">
 								<div class="card-title">
@@ -283,6 +321,89 @@
 				slideId: slideId,
 			});
 		});
+		// upload picture
+		$('#slidePc').on('change', function(e) {
+			var $this = $(this);
+			$this.parent().find('.spinner').show();
+
+			var formData = new FormData();
+			formData.append('type', 'slidePc');
+			formData.append('image', $this[0].files[0]);
+			formData.append('slideId', parseInt($('#slideId').val()));
+
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/slidePc",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						addPicture($this, {
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlthumImageUrl
+						});
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$this.parent().find('.spinner').hide();
+				}
+			});
+		});
+		$('#slideWap').on('change', function(e) {
+			var $this = $(this);
+			$this.parent().find('.spinner').show();
+
+			var formData = new FormData();
+			formData.append('type', 'slideWap');
+			formData.append('image', $this[0].files[0]);
+			formData.append('slideId', parseInt($('#slideId').val()));
+
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/slideWap",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						addPicture($this, {
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlthumImageUrl
+						});
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					 $this.parent().find('.spinner').hide();
+				}
+			});
+		});
+		function addPicture(el, data) {
+			var parentEl = el.parent();
+			el.attr('data-val', JSON.stringify(data));
+			parentEl.addClass('active');
+			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.imageUrl) + '" />');
+		}
+		function resetPicture(el) {
+			var parentEl = el.parent();
+			el.attr('data-val', '');
+			parentEl.removeClass('active');
+			parentEl.find('.c-backshow').html('');
+		}
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
 			saveCarouselData(getFormData(), function() {
@@ -415,6 +536,22 @@
 			$('#slideWapstatus').prop('checked', (data.slideCateid > 0 ? data.slideWapstatus : 0));
 			$('#slidePcstatus').prop('checked', (data.slideCateid > 0 ? data.slidePcstatus : 0));
 			$('#slideArea').val(data.slideArea);
+			
+			if (data.slideWapimgurl) {
+				addPicture($('#slideWap'), {
+					imageUrl: data.slideWapimgurl
+				});				
+			} else {
+				resetPicture($('#slideWap'));
+			}
+
+			if (data.slidePcimgurl) {
+				addPicture($('#slidePc'), {
+					imageUrl: data.slidePcimgurl
+				});				
+			} else {
+				resetPicture($('#slidePc'));
+			}
 
 			var slideIfproorcateorpage = data.slideIfproorcateorpage;
 			$('#slideIfproorcateorpage').val(slideIfproorcateorpage || 0);
