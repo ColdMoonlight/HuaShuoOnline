@@ -162,6 +162,10 @@
         function updateProductData(selectedKeys) {
         	var productQty = mapSet[selectedKeys.join(',')];
             var productSku = mapItems[selectedKeys.join(',')] || {};
+            if (!Object.keys(mapSet) || !Object.keys(mapItems)) {
+            	mlModalTip("I'm sorry that the product cannot be purchased for the time being. If necessary, please contact customer service !");
+            	return;
+            }
             if (parseInt($('.product-qty .product-num').val()) > productQty.count) {
             	$('.product-qty .product-num').val(productQty.count);
             	mlModalTip('Under the current options can buy at most <i style="font-weight: blold">'+ productQty.count +'</i> product !');
