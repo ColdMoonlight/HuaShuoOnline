@@ -32,9 +32,9 @@ public class MlbackCoupon {
 
     private String couponMotifytime;
 
-    private String couponStarttime;
+    private String couponStarttime;//生效时间
 
-    private String couponEndtime;
+    private String couponEndtime;//失效时间
 
     private Integer couponProductonlyType;//优惠码是否支持单品
 
