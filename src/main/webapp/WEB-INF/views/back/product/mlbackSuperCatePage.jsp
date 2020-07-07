@@ -237,7 +237,7 @@
 		});
 		$(window).on('beforeunload', function() {
 			var supercateId = $('#supercateId').val();
-			supercateId && deleteCollectionData({
+			isCreate && supercateId && deleteCollectionData({
 				supercateId: supercateId,
 			});
 		});
