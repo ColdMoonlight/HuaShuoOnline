@@ -325,7 +325,7 @@
 		});
 		$(window).on('beforeunload', function() {
 			var reviewId = $('#reviewId').val();
-			reviewId && deleteProductData({
+			isCreate && reviewId && deleteProductData({
 				reviewId: reviewId,
 			});
 		});

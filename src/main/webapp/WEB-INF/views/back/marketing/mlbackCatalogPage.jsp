@@ -363,7 +363,7 @@
 		});
 		$(window).on('beforeunload', function() {
 			var catalogId = $('#catalogId').val();
-			catalogId && deleteMarketingData({
+			isCreate && catalogId && deleteMarketingData({
 				catalogId: catalogId,
 			});
 		});

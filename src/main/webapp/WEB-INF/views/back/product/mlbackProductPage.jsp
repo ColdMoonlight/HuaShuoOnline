@@ -510,7 +510,7 @@
 		});
 		$(window).on('beforeunload', function() {
 			var productId = $('#productId').val();
-			productId && deleteProductData({
+			isCreate && productId && deleteProductData({
 				productId: productId,
 			});
 		});

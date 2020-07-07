@@ -266,7 +266,7 @@
 		});
 		$(window).on('beforeunload', function() {
 			var couponId = $('#couponId').val();
-			couponId && deleteCollectionData({
+			isCreate && couponId && deleteCollectionData({
 				couponId: couponId,
 			});
 		});
