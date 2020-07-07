@@ -1,11 +1,13 @@
 package com.atguigu.controller.back;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,22 +15,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackCatalog;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackSlide;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackSlideService;
 import com.atguigu.utils.DateUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Controller
-@RequestMapping("/MlbackSlide")
-public class MlbackSlideController {
+@RequestMapping("/MlbackSlides")
+public class MlbackSlidesController {
 	
 	@Autowired
 	MlbackSlideService mlbackSlideService;
@@ -51,8 +56,9 @@ public class MlbackSlideController {
 	@RequestMapping("/toMlbackSlidePage")
 	public String tologin() throws Exception{
 	
-		return "back/mlbackSlidePage";
+		return "back/marketing/mlbackSlidePage";
 	}
+	
 	
 	/**2.0	onuse	200104
 	 * 分类MlbackActShowPro列表分页list数据
@@ -67,7 +73,7 @@ public class MlbackSlideController {
 //			//SysUsers对象为空
 //			return Msg.fail().add("resMsg", "session中adminuser对象为空");
 //		}else{
-			int PagNum = 20;
+			int PagNum = Const.PAGE_NUM_CATEGORY;
 			PageHelper.startPage(pn, PagNum);
 			List<MlbackSlide> mlbackSlideList = mlbackSlideService.selectMlbackSlideGetAll();
 			System.out.println("mlbackSlideList.size:"+mlbackSlideList.size());
@@ -76,6 +82,35 @@ public class MlbackSlideController {
 //		}
 	}
 	
+	/**3.0	20200703
+	 * MlbackSlide	initializaSlide
+	 * @param MlbackSlide
+	 * @return
+	 */
+//	@RequestMapping(value="/initializaSlide",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Msg initializaSlide(HttpServletResponse rep,HttpServletRequest res){
+//		
+//		MlbackSlide mlbackSlide = new MlbackSlide();
+//		//接受参数信息
+//		String CatalogParentName="---none---";
+//		String CatalogDesc="";
+//		CatalogParentName ="---none---";
+//		//判断归属是否为none
+//		Integer	CatalogParentId = -1;
+//		mlbackSlide.setCatalogParentId(CatalogParentId);
+//		mlbackSlide.setCatalogDesc(CatalogDesc);
+//		mlbackSlide.setCatalogParentName(CatalogParentName);
+//		//取出id
+//		String nowTime = DateUtil.strTime14s();
+//		mlbackSlide.setCatalogCreatetime(nowTime);
+//		mlbackSlide.setCatalogStatus(0);//0未上架1上架中
+//		//无id，insert
+//		System.out.println("插入前"+mlbackCatalog.toString());
+//		mlbackCatalogService.insertSelective(mlbackCatalog);
+//		System.out.println("插入后"+mlbackCatalog.toString());
+//		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackCatalog", mlbackCatalog);
+//	}
 	
 	/**3.0	onuse	200104
 	 * MlbackActShowPro	save
@@ -248,5 +283,7 @@ public class MlbackSlideController {
 		return Msg.success().add("resMsg", "查看该位置的轮播完毕")
 					.add("mlbackSlideList", mlbackSlideList).add("mlbackProductResList", mlbackProductResList);
 	}
+	
+	
 
 }
