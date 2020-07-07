@@ -90,21 +90,19 @@
 										<label class="col-form-label" for="slideArea">Area</label>
 										<div class="controls">
 											<select class="form-control" id="slideArea" />
-												<option value="0" selected="selected">0-无图</option>
-												<option value="1">1-hot</option>
-												<option value="2">2-new</option>
-												<option value="3">3-62% off</option>
-												<option value="4">4-65% off</option>
-												<option value="5">5-ins</option>
-												<option value="6">6-review</option>
-												<option value="7">7-video</option>
-												<option value="8">8-Best Quality</option>
-												<option value="9">8-15A</option>
+												<option value="-1">Please select the location of the Carousel</option>
+												<option value="1">首页轮播</option>
+												<option value="2">2优惠券位置</option>
+												<option value="3">3关联产品</option>
+												<option value="4">4首页广告</option>
+												<option value="5">5HeaderTopImg</option>
+												<option value="6">6ProDetailCouponDesc</option>
+												<option value="7">7cheakoutCouponDesc</option>
 											</select>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="slideFirthNum">Sort</label>
+										<label class="col-form-label" for="slideFirthNum">Carousel Sort</label>
 										<div class="controls">
 											<select class="form-control" id="slideFirthNum" />
 												<option value="0">Please select Carousel sort-order</option>
