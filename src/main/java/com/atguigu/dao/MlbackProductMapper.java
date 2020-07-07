@@ -41,5 +41,7 @@ public interface MlbackProductMapper {
 //	List<MlbackProduct> selectProductlistByParam(MlbackProduct MlbackProduct);
 //	//selectMlbackProductBackSearch	服务端需要用查询
 //	List<MlbackProduct> selectMlbackProductBackSearch(MlbackProduct MlbackProductReq);
+    //查询单个产品信息(无富文本描述)
+  	List<MlbackProduct> selectMlbackProductSimple(MlbackProduct mlbackProductReq);
 
 }

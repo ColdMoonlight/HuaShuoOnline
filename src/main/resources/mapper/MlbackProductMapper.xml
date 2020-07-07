@@ -534,4 +534,16 @@
         and product_desc = #{productDesc,jdbcType=LONGVARCHAR}
       </if>
   </select>
+  
+    <!-- select	selectMlbackProductSimple使用中 -->
+  <select id="selectMlbackProductSimple" parameterType="com.atguigu.bean.MlbackProduct" resultMap="BaseResultMap">
+    select
+    product_id, product_name, product_seo, product_superCateId, product_superCateName, product_videourl, product_videoimgurl,
+    product_mainimgurl, product_mainfuimgurl, product_mainsmallimgurl, product_mainfumallimgurl, product_discoutimgurl, product_discoutimgshow,
+    product_originalPrice, product_haveSaleNum, product_status, 
+    product_lable, product_firsth, product_actoffOff, product_reviewNum, product_category_idsStr, 
+    product_category_namesStr, product_meta_desc, product_meta_title, product_meta_keyWords
+	from tb_mlback_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
 </mapper>
