@@ -86,7 +86,11 @@
 			
 			$('.product-list').html(htmlStr);
 			// lazyload
-			$('.lazyload').lazyload();
+			new LazyLoad($('.product-list').find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			});
 		}
 		function renderCategorySelect(data) {
 			var htmlStr = '';
