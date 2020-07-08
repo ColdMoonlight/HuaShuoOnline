@@ -399,7 +399,6 @@ textarea:focus {
 	color: #fe186e;
 	vertical-align: middle;
 }
-
 .input-group>input,
 .input-group>textarea,
 .input-group>select {
@@ -2976,4 +2975,16 @@ footer li {
 		padding-left: 2.5rem;
 		padding-right: 2.5rem;
 	}
+}
+
+/* lazyload */
+.lazyload {
+	background-image: url('../img/loading.gif');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #f7f7f7;
+}
+.product-img .lazyload {
+	padding-top: 100%;
 }

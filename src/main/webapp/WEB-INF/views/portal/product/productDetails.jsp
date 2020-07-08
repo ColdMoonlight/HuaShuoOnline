@@ -137,7 +137,7 @@
 	<script src="${APP_PATH}/static/pc/js/jqzoom/jquery.jqzoom.js"></script>
 	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
-	<script src="${APP_PATH}/static/pc/js/relativeTime.min.js"></script>
+	<script src="${APP_PATH}/static/pc/js/relativetime.min.js"></script>
 	<script>
 		// fly bubble
 		function generateFlyBubble(event, callback) {
@@ -162,6 +162,10 @@
         function updateProductData(selectedKeys) {
         	var productQty = mapSet[selectedKeys.join(',')];
             var productSku = mapItems[selectedKeys.join(',')] || {};
+            if (!Object.keys(mapSet).length || !Object.keys(mapItems).length) {
+            	mlModalTip("I'm sorry that the product cannot be purchased for the time being. If necessary, please contact customer service !");
+            	return;
+            }
             if (parseInt($('.product-qty .product-num').val()) > productQty.count) {
             	$('.product-qty .product-num').val(productQty.count);
             	mlModalTip('Under the current options can buy at most <i style="font-weight: blold">'+ productQty.count +'</i> product !');
@@ -251,14 +255,10 @@
 			var htmlVideoThumb = '';
 			var htmlVideo = '';
 			data.imgs && data.imgs.forEach(function(item, idx) {
-				htmlStr += '<div class="swiper-slide">' +
-					'<img class="img" src="' + item.productimgUrl + '" rel="' + item.productimgUrl + '">' +
-				'</div>';
+				htmlStr += '<div class="swiper-slide"><img class="img" src="' + item.productimgUrl + '" rel="' + item.productimgUrl + '" /></div>';
 			});
 			if (data.video) {
-				htmlVideoThumb = '<div class="swiper-slide">' +
-					'<img class="img" src="' + data.video.posterUrl + '">' +
-				'</div>';
+				htmlVideoThumb = '<div class="swiper-slide"><img src="' + data.video.posterUrl + '" /></div>';
 				
 				htmlVideo = '<div class="swiper-slide">' +
 					'<video id="ml-video" class="video-js" controls preload="auto" width="500" height="500" poster="' + data.video.posterUrl + '">' +
@@ -268,6 +268,8 @@
 			}
 			$('.product-thumb-slide .swiper-wrapper').html(htmlVideoThumb + htmlStr);
 			$('.product-slide .swiper-wrapper').html(htmlVideo + htmlStr);
+			// lazyload
+			$('.lazyload').lazyload();
 			// media video
 			var player = null;
 			if ($('#ml-video').length) {
@@ -361,7 +363,7 @@
 		}
 		/* create review swiper */
 		function createReviewSwiper(imgs, activeNum) {
-			var slideImgs = imgs.reduce(function(acc, img) {acc += '<div class="swiper-slide"><img src="'+ img +'" /></div>'; return acc;}, '');
+			var slideImgs = imgs.reduce(function(acc, img) {acc += '<div class="swiper-slide"><img class="lazyload" src="'+ img +'" /></div>'; return acc;}, '');
 			if (!reviewSwiper) {
 				var $reviewSwiper = $('<div class="review-swiper-box">' +
 						'<div id="review-swiper" class="swiper-container">' +

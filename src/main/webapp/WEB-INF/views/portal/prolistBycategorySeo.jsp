@@ -65,9 +65,7 @@
 					htmlStr += '<div class="product-item-box"><div class="product-item" data-productid="'+ item.productId +'">' +
 					    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
 						'<div class="product-img">' +
-							'<a href="'+ productLink +'">' +
-								'<img src="'+ item.productMainimgurl +'" alt="">' +
-							'</a>' +
+							'<a href="'+ productLink +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
 						'</div>' +
 						'<div class="product-desc">' +
 							'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
@@ -87,6 +85,12 @@
 			}
 			
 			$('.product-list').html(htmlStr);
+			// lazyload
+			new LazyLoad($('.product-list').find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			});
 		}
 		function renderCategorySelect(data) {
 			var htmlStr = '';
