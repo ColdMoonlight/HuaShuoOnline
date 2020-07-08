@@ -470,6 +470,9 @@
 			$('#slidePcstatus').prop('checked', false);
 			$('#slideArea').val('0');
 
+			resetPicture($('#slideWap'));
+			resetPicture($('#slidePc'));
+			
 			$('#slideIfproorcateorpage').val('0');
 			$('#slideProid').val('-1');
 			$('#slideCateid').val('-1');
@@ -488,7 +491,10 @@
 			data.slidePcstatus = $('#slidePcstatus').prop('checked') ? 1 : 0;
 			data.slideFirthNum = $('#slideFirthNum').val();
 			data.slideArea = parseInt($('#slideArea').val());
-			
+
+			data.slideWapimgurl = $('#slideWap').attr('data-val') && JSON.parse($('#slideWap').attr('data-val')).imageUrl;
+			data.slidePcimgurl = $('#slidePc').attr('data-val') && JSON.parse($('#slidePc').attr('data-val')).imageUrl;
+
 			var slideIfproorcateorpage = $('#slideIfproorcateorpage').val();
 			data.slideIfproorcateorpage = slideIfproorcateorpage;
 			if (slideIfproorcateorpage == 0) {
