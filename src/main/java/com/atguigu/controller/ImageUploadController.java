@@ -625,4 +625,6 @@ public class ImageUploadController {
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
 	}
 	
+	
+	//static/upload/img/actShowPro
 }
