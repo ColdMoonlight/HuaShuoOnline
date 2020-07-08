@@ -15,12 +15,14 @@ import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackProductImg;
 import com.atguigu.bean.MlbackReviewImg;
+import com.atguigu.bean.MlbackShowArea;
 import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductImgService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackReviewImgService;
+import com.atguigu.service.MlbackShowAreaService;
 import com.atguigu.service.MlbackSlideService;
 import com.atguigu.service.ThumbnailService;
 import com.atguigu.service.UploadService;
@@ -56,6 +58,9 @@ public class ImageUploadController {
 	
 	@Autowired
 	MlbackSlideService mlbackSlideService;
+	
+	@Autowired
+	MlbackShowAreaService mlbackShowAreaService;
 	
 	/**
 	 * 	onuse	20200103	检查
@@ -538,4 +543,88 @@ public class ImageUploadController {
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
 	}
 	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/showAreaWap",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg showArea(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("showareaId")Integer showareaId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
+		
+		String showareaIdStr = showareaId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,showareaIdStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String uploadPath = "static/upload/img/showArea";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MlbackShowArea mlbackShowArea = new MlbackShowArea();
+		mlbackShowArea.setShowareaId(showareaId);
+		mlbackShowArea.setShowareaImgurl(sqlimageUrl);
+		mlbackShowAreaService.updateByPrimaryKeySelective(mlbackShowArea);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+	}
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/showAreaPc",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg showAreaPc(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("showareaId")Integer showareaId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
+		
+		String showareaIdStr = showareaId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,showareaIdStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String uploadPath = "static/upload/img/showArea";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MlbackShowArea mlbackShowArea = new MlbackShowArea();
+		mlbackShowArea.setShowareaId(showareaId);
+		mlbackShowArea.setShowareaImgpcurl(sqlimageUrl);
+		mlbackShowAreaService.updateByPrimaryKeySelective(mlbackShowArea);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+	}
+	
+	
+	//static/upload/img/actShowPro
 }

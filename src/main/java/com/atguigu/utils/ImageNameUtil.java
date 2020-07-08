@@ -21,6 +21,10 @@ public class ImageNameUtil {
 			typeName="slideWap";
 		}else if("slidePc".equals(type)){
 			typeName="slidePc";
+		}else if("showareaWap".equals(type)){
+			typeName="showareaWap";
+		}else if("showareaPc".equals(type)){
+			typeName="showareaPc";
 		}
 		return typeName;
 	}
