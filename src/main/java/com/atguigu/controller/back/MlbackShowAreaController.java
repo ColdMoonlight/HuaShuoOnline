@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackShowArea;
-import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackShowAreaService;
 import com.atguigu.utils.DateUtil;
-
 
 @Controller
 @RequestMapping("/MlbackShowArea")
@@ -41,7 +39,7 @@ public class MlbackShowAreaController {
 	@RequestMapping("/toMlbackShowAreaPage")
 	public String toMlbackShowAreaPage() throws Exception{
 	
-		return "back/mlbackShowAreaPage";
+		return "back/marketing/mlbackShowAreaPage";
 	}
 	
 	/**2.0	onuse	200104
@@ -70,9 +68,9 @@ public class MlbackShowAreaController {
 	 * @param MlbackSlide
 	 * @return
 	 */
-	@RequestMapping(value="/initializaSlide",method=RequestMethod.POST)
+	@RequestMapping(value="/initializaShowArea",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg initializaSlide(HttpServletResponse rep,HttpServletRequest res){
+	public Msg initializaShowArea(HttpServletResponse rep,HttpServletRequest res){
 		
 		MlbackShowArea mlbackShowArea = new MlbackShowArea();
 		//取出id
@@ -86,7 +84,7 @@ public class MlbackShowAreaController {
 		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackShowArea", mlbackShowArea);
 	}
 	
-	/**3.0	onuse	200104
+	/**3.1	20200708
 	 * MlbackShowArea	insert/update
 	 * @param MlbackShowArea
 	 */
@@ -111,7 +109,7 @@ public class MlbackShowAreaController {
 		}		
 	}
 	
-	/**4.0	onuse	200104
+	/**4.0	20200708
 	 * MlbackShowArea	delete
 	 * @param id
 	 */
@@ -125,15 +123,16 @@ public class MlbackShowAreaController {
 	}
 	
 	/**
-	 * 5.0	onuse	200104
+	 * 5.0	20200708
 	 * 查看单条详情
 	 * @param getOneMlbackShowAreaDetail
 	 * @return 
 	 */
 	@RequestMapping(value="/getOneMlbackShowAreaDetail",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneMlbackShowAreaDetail(@RequestParam(value = "showareaId") Integer showareaId){
+	public Msg getOneMlbackShowAreaDetail(@RequestBody MlbackShowArea mlbackShowArea){
 		
+		Integer showareaId = mlbackShowArea.getShowareaId();
 		//接受showareaId
 		MlbackShowArea mlbackShowAreaReq = new MlbackShowArea();
 		mlbackShowAreaReq.setShowareaId(showareaId);
@@ -150,15 +149,16 @@ public class MlbackShowAreaController {
 	}
 	
 	/**
-	 * 6.0	onuse	200104
+	 * 6.0	20200708
 	 * 查看单条详情
 	 * @param getOneMlbackShowAreaDetail
 	 * @return 
 	 */
 	@RequestMapping(value="/getMlbackShowAreaOne",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getMlbackShowAreaOne(@RequestParam(value = "showareaNumth") Integer showareaNumth){
+	public Msg getMlbackShowAreaOne(@RequestBody MlbackShowArea mlbackShowArea){
 		
+		Integer showareaNumth = mlbackShowArea.getShowareaNumth();
 		//接受showareaId
 		MlbackShowArea mlbackShowAreaReq = new MlbackShowArea();
 		mlbackShowAreaReq.setShowareaNumth(showareaNumth);
