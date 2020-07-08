@@ -284,10 +284,10 @@
 			$('.c-create .c-option-title').text('Create Carousel');
 
 			getCarouselId(function(data) {
-				$('#slideId').val(data.slideId);
-				showCreateBlock();
 				// init formData
 				resetFormData();
+				$('#slideId').val(data.slideId);
+				showCreateBlock();
 				isCreate = true;
 			});
 		});
@@ -408,11 +408,7 @@
 		$('.c-create .btn-save').on('click', function () {
 			saveCarouselData(getFormData(), function() {
 				// redirect tab-active & then search-data
-				if (isCreate) {
-					isCreate = false;
-					initActiveItemNum();
-					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-				}
+				if (isCreate) isCreate = false;
 
 				getCarouselsData();
 				showInitBlock();
@@ -423,7 +419,6 @@
 		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
-				/* initActiveItemNum(); */
 				// delete null carousel
 				deleteCarouselData({
 					slideId: $('#slideId').val(),
@@ -499,8 +494,8 @@
 			data.slideIfproorcateorpage = slideIfproorcateorpage;
 			if (slideIfproorcateorpage == 0) {
 				data.slideProid = $('#slideProid').val();
-				data.slideProname = $('#slideProid').find('option:checked').data('name');
-				data.slideSeoname = $('#slideProid').find('option:checked').data('seo');
+				data.slideProname = $('#slideProid').find('option:checked').data('name') || '';
+				data.slideSeoname = $('#slideProid').find('option:checked').data('seo') || '';
 				data.slideCateid = '';
 				data.slideCatename = '';
 				data.slideCateseoname = '';
@@ -510,8 +505,8 @@
 				data.slideProname = '';
 				data.slideSeoname = '';
 				data.slideCateid = $('#slideCateid').val();
-				data.slideCatename = $('#slideCateid').find('option:checked').data('name');
-				data.slideCateseoname = $('#slideCateid').find('option:checked').data('seo');
+				data.slideCatename = $('#slideCateid').find('option:checked').data('name') || '';
+				data.slideCateseoname = $('#slideCateid').find('option:checked').data('seo') || '';
 				data.slidePageseoname = '';
 			} else if (slideIfproorcateorpage == 2) {
 				data.slideProid = '';
