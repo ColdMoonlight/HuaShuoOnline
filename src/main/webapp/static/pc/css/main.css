@@ -1184,13 +1184,6 @@ main {
 	opacity: 0;
 	visibility: hidden;
 }
-.ml-ad img {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
 /* footer nav */
 footer {
 	margin-top: 20px;
@@ -1314,7 +1307,7 @@ footer li {
 		opacity: 1;
 		visibility: visible;
 	}
-	.wap-header .ml-ad {
+	.wap-header .ml-ad a {
 		padding-top: 10%;
 	}
 	.footer-page-header {
@@ -1347,7 +1340,7 @@ footer li {
 		opacity: 1;
 		visibility: visible;
 	}
-	.pc-header .ml-ad {
+	.pc-header .ml-ad a {
 		padding-top: 3.125%;
 	}
 	.footer-page-header .container,
@@ -2995,7 +2988,8 @@ footer li {
 }
 
 /* index carousel */
-.ml-index-carousel .lazyload {
+.ml-index-carousel .lazyload,
+.ml-ad .lazyload {
 	display: block;
 }
 @media only screen and (max-width: 575px) {
