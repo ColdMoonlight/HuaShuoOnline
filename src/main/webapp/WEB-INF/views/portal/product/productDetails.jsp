@@ -681,10 +681,7 @@
 		});
 		// add to cart
 		$('#add-to-cart').on('click', function(evt) {
-			var timeEnd = Date.now();
-			if (timeEnd - timeStart < 300) clearTimeout(timer);
-			timeStart = timeEnd;
-			timer = setTimeout(function() {
+			debounce(function() {
 				if (isCorrectProduct()) {
 					// check product sku is error or not
 					var reqData = getProductData();

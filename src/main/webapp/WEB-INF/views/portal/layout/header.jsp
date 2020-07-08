@@ -496,28 +496,31 @@
 		addFixed();
 		$('.wap-navbar .search-box').show();
 	});
-	var startX,
-		startY = 0,
+	var startY = 0,
 		loginRegisterModal = null;
 	$(window).on('scroll', function () {
-		var currentY = window.pageYOffset;
-		if (currentY >= startY) {
-			if (window.innerWidth > 1024) {
-				$('.ml-search').hide();
-				$('main').css({ 'paddingTop': $('header').height() + 16 });
+		debounce(function() {
+			var currentY = window.pageYOffset;
+			if (currentY >= startY) {
+				if (window.innerWidth > 1024) {
+					$('.ml-search').hide();
+					$('main').css({ 'paddingTop': $('header').height() + 16 });
+				}
 			}
-		}
-
-		if (currentY < startY && currentY < 60) {
-			if (window.innerWidth > 1024) {
-				$('.ml-search').show();
-				$('main').css({ 'paddingTop': $('header').height() + 16 });
+	
+			if (currentY < startY && currentY < 60) {
+				if (window.innerWidth > 1024) {
+					$('.ml-search').show();
+					$('main').css({ 'paddingTop': $('header').height() + 16 });
+				}
 			}
-		}
-		startY = currentY;
+			startY = currentY;			
+		}, 50);
 	});
 	$(window).on('resize', function () {
-		$('main').css({ 'paddingTop': $('header').height() + 16 });
+		debounce(function() {
+			$('main').css({ 'paddingTop': $('header').height() + 16 });
+		}, 100);
 	});
 	// iphone share
 	$('#iphone-share').on('click', function() {

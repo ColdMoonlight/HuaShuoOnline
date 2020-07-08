@@ -1342,10 +1342,13 @@ footer li {
 	}
 	.pc-header .ml-ad a {
 		padding-top: 3.125%;
+		background-size: cover;
 	}
 	.footer-page-header .container,
 	.pc-footer {
 		display: flex;
+		opacity: 1;
+		visibility: visible;
 	}
 	.footer-page-header {
 		padding: 50px 20px;
@@ -1410,8 +1413,6 @@ footer li {
 .product-item {
 	position: relative;
 	padding: .25rem;
-	margin-top: .5rem;
-	margin-left: .5rem;
 	background-color: #fff;
 	border-radius: .25rem;
 	border: 1px solid #eee;
@@ -2978,7 +2979,7 @@ footer li {
 /* lazyload */
 .lazyload {
 	background-image: url('../img/loading.gif');
-	background-size: cover;
+	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: #f7f7f7;
