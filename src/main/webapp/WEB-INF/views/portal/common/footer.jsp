@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-<script src="${APP_PATH}/static/pc/js/lazyload/lazyload.min.js"></script>
 <!-- custom script -->
 <script>
 
@@ -66,7 +65,7 @@ function getProductOption(callback) {
 		async: false,
 		success: function (data) {
 			if (data.code == 100) {
-				callback(data.extend.mbackProductAttributeNameResList);
+				callback && callback(data.extend.mbackProductAttributeNameResList);
 			}
 		}
 	});
@@ -488,8 +487,4 @@ function renderTablePagination(data) {
 		navEle.appendTo('#table-pagination');
 	}
 }
-/* varient */
-var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-var storage = window.localStorage;
-var loadImg = '${APP_PATH}/static/pc/img/loading.gif';
 </script>

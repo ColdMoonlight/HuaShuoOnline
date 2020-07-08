@@ -690,7 +690,6 @@ table tr td:nth-of-type(2) {
 	margin: 0 auto;
 }
 
-.ml-ad,
 header {
 	position: fixed;
 	top: 0;
@@ -699,23 +698,10 @@ header {
 	z-index: 999999;
 	background-color: #fff;
 }
-
-@media only screen and (max-width: 1023px) {
-	main {
-		padding-top: 4rem;
-		-webkit-transition: all .6s ease-in-out;
-		transition: all .6s ease-in-out;
-	}
+main {
+	-webkit-transition: all .6s ease-in-out;
+	transition: all .6s ease-in-out;
 }
-
-@media only screen and (min-width: 1024px) {
-	main {
-		padding-top: 9rem;
-		-webkit-transition: all .6s ease-in-out;
-		transition: all .6s ease-in-out;
-	}
-}
-
 /* header nav */
 .ml-nav,
 .wap-navbar {  
@@ -1195,6 +1181,15 @@ header {
 .wap-footer,
 .pc-footer {
 	display: none;
+	opacity: 0;
+	visibility: hidden;
+}
+.ml-ad img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 /* footer nav */
 footer {
@@ -1316,6 +1311,11 @@ footer li {
 	.wap-follow-us,
 	.wap-footer {
 		display: block;
+		opacity: 1;
+		visibility: visible;
+	}
+	.wap-header .ml-ad {
+		padding-top: 10%;
 	}
 	.footer-page-header {
 		background-color: #666;
@@ -1344,6 +1344,11 @@ footer li {
 	.pc-header,
 	.pc-follow-us {
 		display: block;
+		opacity: 1;
+		visibility: visible;
+	}
+	.pc-header .ml-ad {
+		padding-top: 3.125%;
 	}
 	.footer-page-header .container,
 	.pc-footer {

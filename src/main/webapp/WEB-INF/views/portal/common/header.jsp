@@ -11,6 +11,7 @@
 <!-- common css -->
 <link href="${APP_PATH}/static/pc/css/main.css" rel="stylesheet">
 <script src="${APP_PATH}/static/common/jquery.min.js"></script>
+<script src="${APP_PATH}/static/pc/js/lazyload/lazyload.min.js"></script>
 <script>
 	function addMeta(name, content) {
 		var meta = document.createElement('meta');
@@ -18,4 +19,24 @@
 		meta.content = content;
 		document.head.appendChild(meta);
 	}
+	/* get carousel data */
+	function getCarouselData(area, callback) {
+		$.ajax({
+			url: '${APP_PATH}/MlbackSlides/getMlbackSlidListByArea',
+			data: JSON.stringify({ "slideArea": area }),
+			dataType: 'json',
+			contentType: 'application/json',
+			type: "post",
+			async: false,
+			success: function (data) {
+				if (data.code == 100) {
+					callback && callback(data.extend.mlbackSlideList);
+				}
+			}
+		});
+	}
+	/* varient */
+	var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+	var storage = window.localStorage;
+	var loadImg = '${APP_PATH}/static/pc/img/loading.gif';
 </script>

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-<div class="ml-ad"></div>
 <header>
 	<div class="pc-header">
+		<div class="ml-ad lazyload"></div>
 		<div class="ml-search">
 			<div class="container">
 				<a class="logo" href="javascript:goToIndex();">
@@ -37,6 +37,7 @@
 		<a href="${APP_PATH}/MlbackCart/toCartList" class="icon cart"><span class="num">0</span></a>
 	</div>
 	<div class="wap-header">
+		<div class="ml-ad lazyload"></div>
 		<div class="wap-navbar">
 			<span id="menu" class="icon menu"></span>
 			<span class="icon person"></span>
@@ -95,22 +96,22 @@
 	function renderMainCategory(parentEl, data1, data2) {
 		var menuHhtml = "";
 		for (var i = 0; i < data1.length; i++) {
-			var labelClass = getLabelClass(data1[i].categoryLable);
-			var secondNavSeo = data1[i].categorySeo;
-			var secondNavName = data1[i].categoryName;
-			menuHhtml += '<li class="menu-item label ' + labelClass + '">';
-			if (secondNavSeo == "") {
-				menuHhtml += '<a href="${APP_PATH}/search/nowig.html">' + secondNavName + '</a>';
-			} else if (secondNavSeo == "home") {
-				menuHhtml += '<a href="javascript:goToIndex();">' + secondNavName + '</a>';
-			} else if (secondNavSeo == "Activty") {
-				menuHhtml += '<a href="${APP_PATH}/Activty.html">' + secondNavName + '</a>';
-			} else if (secondNavSeo == "CUSTOMER-VOICE") {
-				menuHhtml += '<a href="javascript:void(0)">' + secondNavName + '</a>';
-			} else {
-				menuHhtml += '<a href="${APP_PATH}/search/' + secondNavSeo + '.html">' + secondNavName + '</a>';
+			var labelClass = getLabelClass(data1[i].catalogLable);
+			var secondNavSeo;
+			// product
+			if (data1[i].catalogIfproorcateorpage == 0) {				
+				secondNavSeo = data1[i].catalogSeoname;
 			}
-
+			// collection
+			if (data1[i].catalogIfproorcateorpage == 1) {
+				secondNavSeo = 'search/' + data1[i].catalogCateseoname;
+			}
+			// subject
+			if (data1[i].catalogIfproorcateorpage == 2) {
+				secondNavSeo = data1[i].catalogPageseoname;
+			}
+			menuHhtml += '<li class="menu-item label ' + labelClass + '">';
+			menuHhtml += '<a href="' + (data1[i].catalogIfinto ? '${APP_PATH}/' + secondNavSeo + '.html' : 'javascript:;') + '">' + data1[i].catalogName + '</a>';
 			if (data2 && data2.length > 0 && data2[i] && data2[i].length > 0) {
 				var subMenuHtml = '',
 					isWrap = true,
@@ -122,27 +123,29 @@
 						subMenuHtml += '<dl class="sub-menu-item">';
 						var thirdMenuLen = data2[i][j].length;
 						for (var k = 0; k < thirdMenuLen; k += 1) {
-							var labelClass = getLabelClass(data2[i][j][k].categoryLable);
-							var thirdNavSeo = data2[i][j][k].categorySeo;
-							var thirdNavName = data2[i][j][k].categoryName;
+							var labelClass = getLabelClass(data2[i][j][k].catalogLable);
+							var thirdNavSeo;
 
+							// product
+							if (data1[i].catalogIfproorcateorpage == 0) {			
+								thirdNavSeo = data2[i][j][k].catalogSeoname;
+							}
+							// collection
+							if (data1[i].catalogIfproorcateorpage == 1) {
+								thirdNavSeo = 'search/'+ data2[i][j][k].catalogCateseoname;
+							}
+							// subject
+							if (data1[i].catalogIfproorcateorpage == 2) {
+								thirdNavSeo = data2[i][j][k].catalogPageseoname;
+							}
+							
 							if (k == 0) {
 								subMenuHtml += '<dt class="label ' + labelClass + '">';
-								if (thirdNavSeo == "") {
-									subMenuHtml += '<a href="${APP_PATH}/search/nowig.html">' + thirdNavName + '</a>';
-								} else if (thirdNavSeo == "Customer-Videos") {
-									subMenuHtml += '<a href="${APP_PATH}/MlbackVideoShowArea/toVideoListPage">' + thirdNavName + '</a>';
-								} else if (thirdNavSeo == "Shop-By-Look") {
-									subMenuHtml += '<a href="${APP_PATH}/MlfrontReview/toReviewCustomer">' + thirdNavName + '</a>';
-								} else if (thirdNavSeo == "Photo-Gallery") {
-									subMenuHtml += '<a href="${APP_PATH}/MlfrontReview/toReviewInsPage">' + thirdNavName + '</a>';
-								} else {
-									subMenuHtml += '<a href="${APP_PATH}/search/' + thirdNavSeo + '.html">' + thirdNavName + '</a>';
-								}
+								subMenuHtml += '<a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a>';
 								subMenuHtml += (thirdMenuLen > 1 ? '<i class="operate gw-i2"></i>' : '') + '</dt>';
 							} else {
 								isWrap = false;
-								subMenuHtml += '<dd class="' + labelClass + '"><a href="${APP_PATH}/search/' + thirdNavSeo + '.html">' + thirdNavName + '</a></dd>';
+								subMenuHtml += '<dd class="' + labelClass + '"><a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a></dd>';
 							}
 						}
 						subMenuHtml += '</dl>';
@@ -248,7 +251,8 @@
 	// ajax fetch nav data
 	function getNavMenuData(callback) {
 		$.ajax({
-			url: '${APP_PATH}/MlbackCategory/getCategorySuperMenu',
+			/* url: '${APP_PATH}/MlbackCategory/getCategorySuperMenu', */
+			url: '${APP_PATH}/MlbackCatalog/getCatalogSuperMenu',
 			method: 'post',
 			success: function (data) {
 				if (data.code == 100) {
@@ -288,14 +292,6 @@
 			}
 		});
 	}
-	// initial header nav
-	getNavMenuData(function (data) {
-		renderMainCategory($('.ml-nav'), data.categoryFirstList, data.mlbackCategorySuperList);
-		// pc event
-		addNavEvent();
-		// wap event;
-		addWapNavEvent();
-	});
 	// login register fn
 	function registerFn(reqData, callback) {
 		$.ajax({
@@ -349,7 +345,7 @@
 			success: function (data) {
 				if (data.extend.loginYes) {
 					mlModalTip('Login successfully !');
-					 callback && callback();
+					callback && callback();
 				} else {
 					mlModalTip('Login failed !');
 				}
@@ -432,6 +428,34 @@
 		});
 		loginRegisterModal.addClass('login-register');
 	}
+	/* render header ad */
+	function renderHeaderAd(data) {
+		$('.wap-header .ml-ad').attr('data-src', data.slideWapimgurl);
+		$('.pc-header .ml-ad').attr('data-src', data.slidePcimgurl);
+		// lazyload
+		new LazyLoad($('.ml-ad'), {
+			root: null,
+			rootMargin: "10px",
+			threshold: 0
+		});
+	}
+	// initial ml-ad
+	getCarouselData(5, function(data) {
+		var hData = data[0]
+		hData && renderHeaderAd(hData);
+	});
+	// initial header nav
+	getNavMenuData(function (data) {
+		/* renderMainCategory($('.ml-nav'), data.categoryFirstList, data.mlbackCategorySuperList); */
+		console.log(data)
+		renderMainCategory($('.ml-nav'), data.CatalogFirstList, data.MlbackCatalogSuperList);
+		// pc event
+		addNavEvent();
+		// wap event;
+		addWapNavEvent();
+		// main padding-top
+		$('main').css({ 'paddingTop': $('header').height() + 16 });
+	});
 	// initial cart num
 	updateProructNumberInCart();
 	// initial login status
@@ -461,24 +485,29 @@
 		addFixed();
 		$('.wap-navbar .search-box').show();
 	});
-	var startY = 0,
+	var startX,
+		startY = 0,
 		loginRegisterModal = null;
 	$(window).on('scroll', function () {
 		var currentY = window.pageYOffset;
 		if (currentY >= startY) {
 			if (window.innerWidth > 1024) {
 				$('.ml-search').hide();
-				$('main').css({ 'paddingTop': '4rem' });
+				$('main').css({ 'paddingTop': $('header').height() + 16 });
 			}
 		}
 
 		if (currentY < startY && currentY < 60) {
 			if (window.innerWidth > 1024) {
 				$('.ml-search').show();
-				$('main').css({ 'paddingTop': '9rem' });
+				$('main').css({ 'paddingTop': $('header').height() + 16 });
 			}
 		}
 		startY = currentY;
+	});
+	$(window).on('resize', function () {
+		var currentY = 
+		$('main').css({ 'paddingTop': $('header').height() + 16 });
 	});
 	// iphone share
 	$('#iphone-share').on('click', function() {
