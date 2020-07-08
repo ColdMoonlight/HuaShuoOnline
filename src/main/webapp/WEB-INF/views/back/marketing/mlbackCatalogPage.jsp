@@ -197,7 +197,7 @@
 						<div class="right-panel col-lg-5 col-md-12">
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Super Category & Parent Category</div>
+									<div class="card-title-name">Super Category & Parent CateLog</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
@@ -207,7 +207,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="catalogParentId">Parent Category</label>
+										<label class="col-form-label" for="catalogParentId">Parent CateLog</label>
 										<div class="controls">
 											<select class="form-control" id="catalogParentId" /></select>
 										</div>
@@ -236,7 +236,6 @@
 		var hasSuperCateList = false;
 		var hasCollectionList = false;
 		var hasProductList = false;
-		var hasParentCategory = false;
 		var isCreate = false;
 
 		$('#catalogIfproorcateorpage').on('change', function() {
@@ -417,7 +416,7 @@
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
 
-			if (!hasParentCategory) getParentMarketingData(renderParentMarketing);
+			getParentMarketingData(renderParentMarketing);
 			if (!hasCollectionList) getAllCollectionData(renderAllCollection);
 			if (!hasProductList) getAllProductData(renderAllProduct);
 			
@@ -710,7 +709,7 @@
 				success: function (data) {
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackCatalogdownEr);
+						callback(data.extend.mlbackCatalogdownList);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}

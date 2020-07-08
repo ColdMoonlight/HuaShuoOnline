@@ -67,13 +67,13 @@
 				<svg class="c-sidebar-nav-icon">
 					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cursor"></use>
 				</svg>
-				<span class="c-text">CateLog</span>
+				<span class="c-text">Marketing</span>
 			</a>
 			<ul class="c-child-menu">
 				<li class="c-sidebar-nav-item">
 					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackCatalog/toMlbackCatalogPage">
 						<span class="c-sidebar-nav-icon"></span>
-						<span class="c-text">Marketing</span>
+						<span class="c-text">CateLog</span>
 					</a>
 				</li>
 				<li class="c-sidebar-nav-item">
