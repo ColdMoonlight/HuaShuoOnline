@@ -177,6 +177,9 @@
 									</div>
 								</div>
 							</div>
+						</div>
+						<!-- right panel  -->
+						<div class="right-panel col-lg-5 col-md-12">							
 							<!-- product or subject -->
 							<div class="card">
 								<div class="card-title">
@@ -230,10 +233,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- right panel  -->
-						<div class="right-panel col-lg-5 col-md-12">
-							<div class="card">
+							<!-- <div class="card">
 								<div class="card-title">
 									<div class="card-title-name">Super Category</div>
 								</div>
@@ -245,7 +245,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -265,7 +265,6 @@
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
-		var hasSuperCateList = false;
 		var hasCollectionList = false;
 		var hasProductList = false;
 		var isCreate = false;
@@ -274,9 +273,6 @@
 			$('.' + $(this).find('option:checked').data('class')).removeClass('hide').siblings().addClass('hide').find('select').val('-1');
 		});
 
-		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
-	 	$('#searchSupercate').val($('#searchSupercate').data('val') || -1);
-
 		// init
 		getCarouselsData()
 		// create collection
@@ -284,10 +280,10 @@
 			$('.c-create .c-option-title').text('Create Carousel');
 
 			getCarouselId(function(data) {
-				$('#slideId').val(data.slideId);
-				showCreateBlock();
 				// init formData
 				resetFormData();
+				$('#slideId').val(data.slideId);
+				showCreateBlock();
 				isCreate = true;
 			});
 		});
@@ -408,11 +404,7 @@
 		$('.c-create .btn-save').on('click', function () {
 			saveCarouselData(getFormData(), function() {
 				// redirect tab-active & then search-data
-				if (isCreate) {
-					isCreate = false;
-					initActiveItemNum();
-					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-				}
+				if (isCreate) isCreate = false;
 
 				getCarouselsData();
 				showInitBlock();
@@ -423,7 +415,6 @@
 		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
-				/* initActiveItemNum(); */
 				// delete null carousel
 				deleteCarouselData({
 					slideId: $('#slideId').val(),
@@ -433,20 +424,6 @@
 			}
 
 			showInitBlock();
-		});
-		// status combinewith supercate
-		$('#slideWapstatus, #slidePcstatus').on('click', function(e) {
-			if (parseInt($('#slideCateid').val()) < 0) {
-				toastr.info('Please Select super-category!');
-				$('#slideCateid').focus();
-				$('#slideWapstatus').prop('checked', false);
-			}
-		});
-		// supercate & slideWapstatus combinewith
-		$('#slideCateid').on('change', function(e) {
-			if (parseInt($(this).val()) < 0) {
-				$('#slideWapstatus, #slidePcstatus').prop('checked', false);
-			}
 		});
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
@@ -477,10 +454,7 @@
 			$('#slideProid').val('-1');
 			$('#slideCateid').val('-1');
 			$('#slidePageseoname').val('-1');
-			$('#slideIfinto').val('0')
-
-			$('#slideCateid').val('-1');
-
+			$('#slideIfinto').val('0');
 		}
 		// getFormdData
 		function getFormData() {
@@ -499,8 +473,8 @@
 			data.slideIfproorcateorpage = slideIfproorcateorpage;
 			if (slideIfproorcateorpage == 0) {
 				data.slideProid = $('#slideProid').val();
-				data.slideProname = $('#slideProid').find('option:checked').data('name');
-				data.slideSeoname = $('#slideProid').find('option:checked').data('seo');
+				data.slideProname = $('#slideProid').find('option:checked').data('name') || '';
+				data.slideSeoname = $('#slideProid').find('option:checked').data('seo') || '';
 				data.slideCateid = '';
 				data.slideCatename = '';
 				data.slideCateseoname = '';
@@ -510,8 +484,8 @@
 				data.slideProname = '';
 				data.slideSeoname = '';
 				data.slideCateid = $('#slideCateid').val();
-				data.slideCatename = $('#slideCateid').find('option:checked').data('name');
-				data.slideCateseoname = $('#slideCateid').find('option:checked').data('seo');
+				data.slideCatename = $('#slideCateid').find('option:checked').data('name') || '';
+				data.slideCateseoname = $('#slideCateid').find('option:checked').data('seo') || '';
 				data.slidePageseoname = '';
 			} else if (slideIfproorcateorpage == 2) {
 				data.slideProid = '';
@@ -523,9 +497,6 @@
 				data.slidePageseoname = $('#slidePageseoname').val();
 			}
 			data.slideIfinto = $('#slideIfinto').val();
-
-			data.slideCateid = $('#slideCateid').val();
-			data.catalogSupercateName = $('#slideCateid').find('option:selected').text();
 
 			return data;
 		}
@@ -539,8 +510,8 @@
 			$('#slideId').val(data.slideId);
 			$('#slideName').val(data.slideName);
 			$('#slideFirthNum').val(data.slideFirthNum ? data.slideFirthNum : '0');
-			$('#slideWapstatus').prop('checked', (data.slideCateid > 0 ? data.slideWapstatus : 0));
-			$('#slidePcstatus').prop('checked', (data.slideCateid > 0 ? data.slidePcstatus : 0));
+			$('#slideWapstatus').prop('checked', data.slideWapstatus);
+			$('#slidePcstatus').prop('checked', data.slidePcstatus);
 			$('#slideArea').val(data.slideArea);
 			
 			if (data.slideWapimgurl) {
@@ -572,8 +543,6 @@
 			}
 			
 			$('#slideIfinto').val(data.slideIfinto);
-			
-			$('#slideCateid').val(data.slideCateid || '-1');
 
 		}
 		// callback get id
