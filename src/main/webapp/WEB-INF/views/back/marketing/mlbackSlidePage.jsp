@@ -412,9 +412,9 @@
 					isCreate = false;
 					initActiveItemNum();
 					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-					getCarouselsData();
 				}
 
+				getCarouselsData();
 				showInitBlock();
 				$('#slideId').val('');
 			});
