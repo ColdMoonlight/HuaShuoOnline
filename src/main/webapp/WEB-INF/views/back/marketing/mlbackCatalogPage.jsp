@@ -176,6 +176,8 @@
 													<option value="MlfrontReview/toReviewCustomer">Shop by look</option>
 													<option value="MlfrontReview/toReviewInsPage">Ins Show</option>
 													<option value="MlbackVideoShowArea/toVideoListPage">CUSTOMER VOICE</option>
+													<option value="PortalHome/videoPage">videoPage</option>
+													<option value="PortalHome/InsShowPage">InsShowPage</option>
 												</select>
 											</div>
 										</div>								
