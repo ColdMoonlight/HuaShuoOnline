@@ -447,7 +447,6 @@
 	// initial header nav
 	getNavMenuData(function (data) {
 		/* renderMainCategory($('.ml-nav'), data.categoryFirstList, data.mlbackCategorySuperList); */
-		console.log(data)
 		renderMainCategory($('.ml-nav'), data.CatalogFirstList, data.MlbackCatalogSuperList);
 		// pc event
 		addNavEvent();
@@ -506,7 +505,6 @@
 		startY = currentY;
 	});
 	$(window).on('resize', function () {
-		var currentY = 
 		$('main').css({ 'paddingTop': $('header').height() + 16 });
 	});
 	// iphone share

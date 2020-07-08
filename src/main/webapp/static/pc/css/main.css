@@ -2985,11 +2985,26 @@ footer li {
 /* lazyload */
 .lazyload {
 	background-image: url('../img/loading.gif');
-	background-size: contain;
+	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: #f7f7f7;
 }
 .product-img .lazyload {
 	padding-top: 100%;
+}
+
+/* index carousel */
+.ml-index-carousel .lazyload {
+	display: block;
+}
+@media only screen and (max-width: 575px) {
+	.ml-index-carousel .lazyload {
+		padding-top: 53.33333%;
+	}
+}
+@media only screen and (min-width: 576px) {
+	.ml-index-carousel .lazyload {
+		padding-top: 31.25%;
+	}
 }
