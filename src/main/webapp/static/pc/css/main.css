@@ -2998,7 +2998,8 @@ footer li {
 }
 .hot-five,
 .showarea-banner,
-.hot-two-item {
+.hot-two-item,
+.hot-coupon-item {
 	display: none;
 	visibility: hidden;
 	opacity: 0;
@@ -3042,7 +3043,8 @@ footer li {
 }
 @media only screen and (max-width: 575px) {
 	.hot-two,
-	.hot-five {
+	.hot-five,
+	.hot-coupon {
 		margin-top: .5rem;
 	}
 	.ml-index-carousel .lazyload {
@@ -3050,7 +3052,8 @@ footer li {
 	}
 	.hot-five,
 	.showarea-banner.wap,
-	.hot-two-item.wap {
+	.hot-two-item.wap,
+	.hot-coupon-item.wap {
 		display: block;
 		visibility: visible;
 		opacity: 1;		
@@ -3066,17 +3069,22 @@ footer li {
 		width: 49%;
 		padding-top: 69.125%;
 	}
+	.hot-coupon-item.wap {
+		padding-top: 104.4%;
+	}
 }
 @media only screen and (min-width: 576px) {
 	.hot-two,
-	.hot-five {
+	.hot-five,
+	.hot-coupon {
 		margin-top: 1rem;
 	}
 	.ml-index-carousel .lazyload {
 		padding-top: 31.25%;
 	}
 	.showarea-banner.pc,
-	.hot-two-item.pc {
+	.hot-two-item.pc,
+	.hot-coupon-item.pc {
 		display: block;
 		visibility: visible;
 		opacity: 1;
@@ -3091,5 +3099,9 @@ footer li {
 	.hot-two-item.pc {
 		width: 48%;
 		padding-top: 37.235%;
+	}
+	.hot-coupon-item.pc {
+		max-height: 450px;
+		padding-top: 37.5%;
 	}
 }

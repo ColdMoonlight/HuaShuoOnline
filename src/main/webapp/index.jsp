@@ -23,6 +23,7 @@
 			</div>
 			<div id="hot-five" class="hot-five"></div>
 			<div id="hot-two" class="hot-two"></div>
+			<div id="hot-coupon" class="hot-coupon"></div>
 			<div id="showAreaOne" class="showarea"></div>
 			<div id="showAreaTwo" class="showarea"></div>
 			<div id="showAreaThree" class="showarea"></div>
@@ -32,7 +33,7 @@
 		<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 		<script>
 			function renderIndexCarousel(data) {
-				indexCarousel && indexCarousel.destory();
+				indexCarousel && $('.ml-index-carousel .swiper-wrapper').html('');
 				var htmlStr = '';
 				var isPc = window.innerWidth > 575;
 				data.forEach(function(item, idx) {
@@ -73,6 +74,30 @@
 					threshold: 0
 				});
 			}
+			// render carousel
+			// render hot ad
+			function renderCarouselAd($el, data, tagCls) {
+				var htmlStr = '';
+				data.forEach(function(item, idx) {
+					var itemSeo, itemLink;
+					// product
+					if (item.slideIfproorcateorpage == 0) {				
+						itemSeo = item.slideSeoname;
+					}
+					// collection
+					if (item.catalogIfproorcateorpage == 1) {
+						itemSeo = 'search/' + item.slideCateseoname;
+					}
+					// subject
+					if (item.catalogIfproorcateorpage == 2) {
+						itemSeo = item.slidePageseoname;
+					}
+					itemLink = item.slideIfinto ? '${APP_PATH}/' + itemSeo + '.html' : 'javascript:;';
+					htmlStr += '<a class="'+ tagCls +'-item wap lazyload" href="'+ itemLink +'" data-src="'+ item.slideWapimgurl +'"></a>' +
+						'<a class="'+ tagCls +'-item pc lazyload" href="'+ itemLink +'" data-src="'+ item.slidePcimgurl +'"></a>';
+				});
+				$el.html(htmlStr);
+			}
 			// render showArea
 			function renderShowArea($el, data) {
 				$el.append($('<div class="showarea-banner lazyload wap" data-src="'+ data.showareaImgurl +'"></div>' +
@@ -111,7 +136,7 @@
 				});
 			}
 			// render hot ad
-			function renderHotAd($el, data) {
+			function renderHotAd($el, data, tagCls) {
 				var htmlStr = '';
 				data.forEach(function(item, idx) {
 					var itemSeo, itemLink;
@@ -127,8 +152,8 @@
 						itemSeo = item.actshowproPageseoname;
 					}
 					itemLink = itemSeo ? itemSeo + '.html' : 'javascript:;'
-					htmlStr += '<a class="hot-two-item wap lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgwapurl +'"></a>' +
-						'<a class="hot-two-item pc lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgpcurl +'"></a>';
+					htmlStr += '<a class="'+ tagCls +'-item wap lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgwapurl +'"></a>' +
+						'<a class="'+ tagCls +'-item pc lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgpcurl +'"></a>';
 				});
 				$el.html(htmlStr);
 			}
@@ -167,23 +192,18 @@
 				data.length && renderIndexCarousel(data);
 			});
 			hotFive();
-			$(window).on('resize', function () {
-				window.innerWidth < 575 && debounce(function() {
-					hotFive();
-				});
-			});
 			getActivityProductData(8, function(data) {
 				var $el = $('#hot-two');
-				data.length && renderHotAd($el, data);				
+				data.length && renderHotAd($el, data, 'hot-two');				
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,
 					rootMargin: "10px",
 					threshold: 0
 				});
 			});
-			getActivityProductData(8, function(data) {
-				var $el = $('#hot-two');
-				data.length && renderHotAd($el, data);				
+			getCarouselData(2, function(data) {
+				var $el = $('#hot-coupon');
+				data.length && renderCarouselAd($el, data, 'hot-coupon');				
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,
 					rootMargin: "10px",
@@ -216,6 +236,12 @@
 					rootMargin: "10px",
 					threshold: 0
 				});
+			});
+			$(window).on('resize', function () {
+				window.innerWidth < 575 && debounce(function() {
+					hotFive();
+				});
+				renderIndexCarousel(indexCarouselData);
 			});
 		</script>	
 	</body>
