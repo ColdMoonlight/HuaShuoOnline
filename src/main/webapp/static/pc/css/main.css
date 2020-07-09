@@ -2993,14 +2993,12 @@ footer li {
 .ml-ad .lazyload {
 	display: block;
 }
-.showarea {
-	margin-top: 1rem;
-}
 .hot-five,
 .showarea-banner,
 .hot-two-item,
 .hot-coupon-item,
-.activity-product-item {
+.activity-product-item,
+.hot-collection-item {
 	display: none;
 	visibility: hidden;
 	opacity: 0;
@@ -3051,27 +3049,30 @@ footer li {
 	.hot-two,
 	.hot-five,
 	.hot-coupon,
-	.activity-product-item{
+	.activity-product-item,
+	.showarea {
 		margin-top: .5rem;
 	}
 	.ml-index-carousel .lazyload {
 		padding-top: 53.33333%;
 	}
+	.hot-two,
+	.hot-collection {
+		display: flex;
+		justify-content: space-between;
+	}
 	.hot-five,
 	.showarea-banner.wap,
 	.hot-two-item.wap,
 	.hot-coupon-item.wap,
-	.activity-product-item.wap {
+	.activity-product-item.wap,
+	.hot-collection-item.wap {
 		display: block;
 		visibility: visible;
 		opacity: 1;		
 	}
 	.showarea-banner.wap {
 		padding-top: 200px;
-	}
-	.hot-two {
-		display: flex;
-		justify-content: space-between;
 	}
 	.hot-two-item.wap {
 		width: 49%;
@@ -3084,21 +3085,33 @@ footer li {
 		width: 49%;
 		padding-top: 69.125%;
 	}
+	.hot-collection-item {
+		width: 48%;
+		padding-top: 13.133333%;
+	}
 }
 @media only screen and (min-width: 576px) {
 	.hot-two,
 	.hot-five,
 	.hot-coupon,
-	.activity-product {
+	.activity-product,
+	.hot-collection,
+	.showarea  {
 		margin-top: 1rem;
 	}
 	.ml-index-carousel .lazyload {
 		padding-top: 31.25%;
 	}
+	.hot-two,
+	.hot-collection {
+		display: flex;
+		justify-content: space-around;
+	}
 	.showarea-banner.pc,
 	.hot-two-item.pc,
 	.hot-coupon-item.pc,
-	.activity-product-item.pc  {
+	.activity-product-item.pc,
+	.hot-collection-item.pc  {
 		display: block;
 		visibility: visible;
 		opacity: 1;
@@ -3106,13 +3119,9 @@ footer li {
 	.showarea-banner.pc {
 		padding-top: 100px;
 	}
-	.hot-two {
-		display: flex;
-		justify-content: space-around;
-	}
 	.hot-two-item.pc {
 		width: 48%;
-		padding-top: 37.235%;
+		padding-top: 35.7456%;
 	}
 	.hot-coupon-item.pc {
 		max-height: 450px;
@@ -3121,5 +3130,9 @@ footer li {
 	.activity-product-item {
 		width: 24.5%;
 		padding-top: 33.925%;
+	}
+	.hot-collection-item {
+		width: 48%;
+		padding-top: 11.111111%;
 	}
 }

@@ -25,6 +25,7 @@
 			<div id="hot-two" class="hot-two"></div>
 			<div id="hot-coupon" class="hot-coupon"></div>
 			<div id="activity-product" class="activity-product"></div>
+			<div id="hot-collection" class="hot-collection"></div>
 			<div id="showAreaOne" class="showarea"></div>
 			<div id="showAreaTwo" class="showarea"></div>
 			<div id="showAreaThree" class="showarea"></div>
@@ -220,7 +221,15 @@
 					threshold: 0
 				});
 			});
-			
+			getActivityProductData(6, function(data) {
+				var $el = $('#hot-collection');
+				data.length && renderActivityProduct($el, data, 'hot-collection');				
+				new LazyLoad($el.find('.lazyload'), {
+					root: null,
+					rootMargin: "10px",
+					threshold: 0
+				});
+			});
 			getDisplayAreaData(1, function(data) {
 				var $el = $('#showAreaOne');
 				data && renderShowArea($el, data);
