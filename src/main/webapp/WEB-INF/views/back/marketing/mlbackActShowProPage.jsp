@@ -292,12 +292,12 @@
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'showareaPc');
+			formData.append('type', 'actShowProPc');
 			formData.append('image', $this[0].files[0]);
 			formData.append('actshowproId', parseInt($('#actshowproId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/showareaPc",
+				url: "${APP_PATH}/ImageUpload/actShowProPc",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -327,12 +327,12 @@
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'showareaWap');
+			formData.append('type', 'actShowProWap');
 			formData.append('image', $this[0].files[0]);
 			formData.append('actshowproId', parseInt($('#actshowproId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/showareaWap",
+				url: "${APP_PATH}/ImageUpload/actShowProWap",
 				type: "post",
 				data: formData,
 				processData: false,
