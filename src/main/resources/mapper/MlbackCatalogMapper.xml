@@ -418,6 +418,6 @@
     <if test="catalogLable != null">
       and catalog_lable = #{catalogLable,jdbcType=INTEGER}
     </if>
-    order by catalog_parent_id
+    order by catalog_parent_id,catalog_firth_num
   </select>
 </mapper>
