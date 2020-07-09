@@ -499,23 +499,16 @@
 	var startY = 0,
 		loginRegisterModal = null;
 	$(window).on('scroll', function () {
-		debounce(function() {
-			var currentY = window.pageYOffset;
-			if (currentY >= startY) {
-				if (window.innerWidth > 1024) {
-					$('.ml-search').hide();
-					$('main').css({ 'paddingTop': $('header').height() + 16 });
-				}
-			}
-	
-			if (currentY < startY && currentY < 60) {
-				if (window.innerWidth > 1024) {
-					$('.ml-search').show();
-					$('main').css({ 'paddingTop': $('header').height() + 16 });
-				}
-			}
-			startY = currentY;			
-		}, 50);
+		var currentY = window.pageYOffset;
+		var isPc = window.innerWidth > 1024;
+		if (currentY >= startY && currentY > 60 && isPc) {
+			!$('.ml-search').hasClass('down') && ($('.ml-search').addClass('hide down').removeClass('up'), $('main').css({ 'paddingTop': $('header').height() + 16 }));
+		}
+
+		if (currentY < startY && currentY < 60 && isPc) {
+			!$('.ml-search').hasClass('up') && ($('.ml-search').removeClass('down').removeClass('hide').addClass('up'), $('main').css({ 'paddingTop': $('header').height() + 16 }));
+		}
+		startY = currentY;
 	});
 	$(window).on('resize', function () {
 		debounce(function() {
