@@ -80,13 +80,15 @@
 										<div class="controls">
 											<select class="form-control" id="actshowproActnum" />
 												<option value="-1">Please select the location of the Activity-Product</option>
-												<option value="1">首页轮播</option>
-												<option value="2">2优惠券位置</option>
-												<option value="3">3关联产品</option>
-												<option value="4">4首页广告</option>
-												<option value="5">5HeaderTopImg</option>
-												<option value="6">6ProDetailCouponDesc</option>
-												<option value="7">7cheakoutCouponDesc</option>
+												<option value="1">首页主推</option>
+												<option value="2">第2活动</option>
+												<option value="3">第3活动</option>
+												<option value="4">第4活动</option>
+												<option value="5">第5活动</option>
+												<option value="6">第6-首页中间adv_two</option>
+												<option value="7">第7-首adv_four</option>
+												<option value="8">第8-首页分类导航下边2个图</option>
+												<option value="9">第9-首页banner下边分类导航5个图</option>
 											</select>
 										</div>
 									</div>
@@ -94,7 +96,7 @@
 										<label class="col-form-label" for="actshowproOrderth">Activity-Product Sort</label>
 										<div class="controls">
 											<select class="form-control" id="actshowproOrderth" />
-												<option value="0">Please select Activity-Product sort-order</option>
+												<option value="-1">Please select Activity-Product sort-order</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -409,8 +411,8 @@
 		function resetFormData() {
 			$('#actshowproId').val('');
 			$('#actshowproName').val('');
-			$('#actshowproActnum').val('0');
-			$('#actshowproOrderth').val('0');
+			$('#actshowproActnum').val('-1');
+			$('#actshowproOrderth').val('-1');
 			$('#actshowproStatus').prop('checked', false);
 
 			resetPicture($('#actWap'));
@@ -474,8 +476,8 @@
 			// init
 			$('#actshowproId').val(data.actshowproId);
 			$('#actshowproName').val(data.actshowproName);
-			$('#actshowproActnum').val(data.actshowproActnum);
-			$('#actshowproOrderth').val(data.actshowproOrderth ? data.actshowproOrderth : '0');
+			$('#actshowproActnum').val(data.actshowproActnum || '-1');
+			$('#actshowproOrderth').val(data.actshowproOrderth ? data.actshowproOrderth : '-1');
 			$('#actshowproStatus').prop('checked', data.actshowproStatus);
 			
 			if (data.actshowproImgwapurl) {

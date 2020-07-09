@@ -338,7 +338,7 @@
 		function resetFormData() {
 			$('#showareaId').val('');
 			$('#showareaName').val('');
-			$('#showareaNumth').val('0');
+			$('#showareaNumth').val('-1');
 			$('#showareaStatus').prop('checked', false);
 
 			resetPicture($('#showareaImgurl'));
