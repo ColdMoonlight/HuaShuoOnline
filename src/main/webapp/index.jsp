@@ -10,7 +10,7 @@
 		
 		<jsp:include page="WEB-INF/views/portal/common/header.jsp" flush="true"></jsp:include>
 		<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
-		<style> main { margin-left: 0; margin-right: 0; margin-top: -16px; }</style>
+		<style> main { margin-left: 0; margin-right: 0; margin-top: -16px; background-color: #f5f5f5;}</style>
 	</head>
 	<body>
 		<jsp:include page="WEB-INF/views/portal/layout/header.jsp" flush="true"></jsp:include>
@@ -26,9 +26,9 @@
 			<div id="hot-coupon" class="hot-coupon"></div>
 			<div id="activity-product" class="activity-product"></div>
 			<div id="hot-collection" class="hot-collection"></div>
-			<div id="showAreaOne" class="showarea"></div>
-			<div id="showAreaTwo" class="showarea"></div>
-			<div id="showAreaThree" class="showarea"></div>
+			<div id="showAreaOne" class="showarea showAreaOne"></div>
+			<div id="showAreaTwo" class="showarea showAreaTwo"></div>
+			<div id="showAreaThree" class="showarea showAreaThree"></div>
 		</main>
 		<jsp:include page="WEB-INF/views/portal/layout/footer.jsp" flush="true"></jsp:include>
 		<jsp:include page="WEB-INF/views/portal/common/footer.jsp" flush="true"></jsp:include>
@@ -137,6 +137,22 @@
 					}
 				});
 			}
+			// get introduce Product data
+			function getIntroduceProductData(seo, callback) {
+				$.ajax({
+					url: '${APP_PATH}/MlbackCategory/searchBycategorySeo',
+					data: JSON.stringify({ "categorySeo": seo }),
+					type: 'post',
+					dataType: 'json',
+					contentType: 'application/json',
+					async: false,
+					success: function (data) {
+						if (data.code == 100) {
+							callback && callback(data.extend.mlbackProductResList);
+						}
+					}
+				});
+			}
 			// render hot ad
 			function renderActivityProduct($el, data, tagCls) {
 				var htmlStr = '';
@@ -188,6 +204,42 @@
 					});
 				});
 			}
+			// render product slide
+			function renderProductSlide($el, typeCls, data) {
+				var htmlStr = '';
+				var productSlide = $('<div class="showaera-slide swiper-container"><div class="swiper-wrapper"></div><div class="swiper-btn swiper-button-next"></div><div class="swiper-btn swiper-button-prev"></div></div>');
+				data.forEach(function(item, idx) {
+					var productLink = item.productSeo ? '${APP_PATH}/' + item.productSeo + '.html' : 'javascript:;';
+					htmlStr += '<div class="swiper-slide product-item" data-productid="'+ item.productId +'">' +
+					    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
+						'<div class="product-img">' +
+							'<a href="'+ productLink +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
+						'</div>' +
+						'<div class="product-desc">' +
+							'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
+							'<div class="product-data">' +
+								'<span class="product-pay-num">'+ (item.productHavesalenum || 0) +' Order(s)</span>' +
+								'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
+							'</div>' +
+							'<div class="product-price">' +
+								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
+								'<span class="product-define-price">$'+ (item.productOriginalprice || 0) +'</span>' +
+							'</div>' +
+						'</div>' +
+					'</div>';
+				});
+				productSlide.find('.swiper-wrapper').html(htmlStr);
+				$el.append(productSlide)
+				new Swiper(('.' + typeCls + ' .swiper-container'), {
+					slidesPerView: (window.innerWidth > 575 ? 4 : 2),
+					spaceBetween: 5,
+					freeMode: true,
+					navigation: {
+						nextEl: '.' + typeCls + ' .swiper-button-next',
+						prevEl: '.' + typeCls + ' .swiper-button-prev',
+					}
+				});
+			}
 			var indexCarousel, indexCarouselData, hasHotFive = false;
 			getCarouselData(1, function(data) {
 				indexCarouselData = data;
@@ -233,6 +285,9 @@
 			getDisplayAreaData(1, function(data) {
 				var $el = $('#showAreaOne');
 				data && renderShowArea($el, data);
+				getIntroduceProductData('top-selling', function(data) {
+					renderProductSlide($el, 'showAreaOne', data.slice(0, 8));
+				});
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,
 					rootMargin: "10px",

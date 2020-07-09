@@ -3006,6 +3006,10 @@ footer li {
 .showarea-banner.loaded {	
 	background-color: #fff;
 }
+.showarea .swiper-slide .lazyload {
+	display: block;
+	padding-top: 100%;
+}
 .hot-five {
 	position: relative;
 	overflow: hidden;
@@ -3050,11 +3054,17 @@ footer li {
 	.hot-five,
 	.hot-coupon,
 	.activity-product-item,
-	.showarea {
+	.showarea,
+	.showaera-slide.swiper-container {
 		margin-top: .5rem;
 	}
 	.ml-index-carousel .lazyload {
 		padding-top: 53.33333%;
+	}
+	.ml-index-carousel .swiper-btn {
+		display: none;
+		opacity: 0;
+		visibility: hidden;
 	}
 	.hot-two,
 	.hot-collection {
@@ -3072,7 +3082,7 @@ footer li {
 		opacity: 1;		
 	}
 	.showarea-banner.wap {
-		padding-top: 200px;
+		padding-top: 19.97%;
 	}
 	.hot-two-item.wap {
 		width: 49%;
@@ -3086,7 +3096,7 @@ footer li {
 		padding-top: 69.125%;
 	}
 	.hot-collection-item {
-		width: 48%;
+		width: 49%;
 		padding-top: 13.133333%;
 	}
 }
@@ -3096,7 +3106,8 @@ footer li {
 	.hot-coupon,
 	.activity-product,
 	.hot-collection,
-	.showarea  {
+	.showarea,
+	.showaera-slide.swiper-container {
 		margin-top: 1rem;
 	}
 	.ml-index-carousel .lazyload {
