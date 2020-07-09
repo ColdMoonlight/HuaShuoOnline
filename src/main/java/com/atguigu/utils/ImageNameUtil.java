@@ -25,6 +25,10 @@ public class ImageNameUtil {
 			typeName="showareaWap";
 		}else if("showareaPc".equals(type)){
 			typeName="showareaPc";
+		}else if("actShowProWap".equals(type)){
+			typeName="actShowProWap";
+		}else if("actShowProPc".equals(type)){
+			typeName="actShowProPc";
 		}
 		return typeName;
 	}

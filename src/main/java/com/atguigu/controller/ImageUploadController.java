@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackProductImg;
@@ -18,6 +20,7 @@ import com.atguigu.bean.MlbackReviewImg;
 import com.atguigu.bean.MlbackShowArea;
 import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
+import com.atguigu.service.MlbackActShowProService;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductImgService;
 import com.atguigu.service.MlbackProductService;
@@ -61,6 +64,9 @@ public class ImageUploadController {
 	
 	@Autowired
 	MlbackShowAreaService mlbackShowAreaService;
+	
+	@Autowired
+	MlbackActShowProService mlbackActShowProService;
 	
 	/**
 	 * 	onuse	20200103	检查
@@ -548,7 +554,7 @@ public class ImageUploadController {
 	 * */
 	@RequestMapping(value="/showAreaWap",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg showArea(@RequestParam("image")CommonsMultipartFile file,
+	public Msg showAreaWap(@RequestParam("image")CommonsMultipartFile file,
 			@RequestParam("showareaId")Integer showareaId,@RequestParam("type")String type,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
@@ -627,4 +633,86 @@ public class ImageUploadController {
 	
 	
 	//static/upload/img/actShowPro
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/actShowProWap",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg actShowProWap(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("actshowproId")Integer actshowproId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
+		
+		String actshowproIdStr = actshowproId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,actshowproIdStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String uploadPath = "static/upload/img/actShowPro";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MlbackActShowPro mlbackActShowPro = new MlbackActShowPro();
+		mlbackActShowPro.setActshowproId(actshowproId);
+		mlbackActShowPro.setActshowproImgwapurl(sqlimageUrl);
+		mlbackActShowProService.updateByPrimaryKeySelective(mlbackActShowPro);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+	}
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/actShowProPc",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg actShowProPc(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("actshowproId")Integer actshowproId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
+		
+		String actshowproIdStr = actshowproId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,actshowproIdStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String uploadPath = "static/upload/img/actShowPro";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MlbackActShowPro mlbackActShowPro = new MlbackActShowPro();
+		mlbackActShowPro.setActshowproId(actshowproId);
+		mlbackActShowPro.setActshowproImgpcurl(sqlimageUrl);
+		mlbackActShowProService.updateByPrimaryKeySelective(mlbackActShowPro);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+	}
 }
