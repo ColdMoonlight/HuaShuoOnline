@@ -21,6 +21,8 @@
 			    <div class="swiper-btn swiper-button-next"></div>
 	            <div class="swiper-btn swiper-button-prev"></div>
 			</div>
+			<div id="hot-five" class="hot-five"></div>
+			<div id="hot-two" class="hot-two"></div>
 			<div id="showAreaOne" class="showarea"></div>
 			<div id="showAreaTwo" class="showarea"></div>
 			<div id="showAreaThree" class="showarea"></div>
@@ -92,10 +94,101 @@
 					}
 				});
 			}
-			var indexCarousel, indexCarouselData;
+			// get activity product data
+			function getActivityProductData(num, callback) {
+				$.ajax({
+					url: '${APP_PATH}/MlbackActShowPro/getMlbackActShowProListByActnum',
+					data: JSON.stringify({"actshowproActnum": num}),
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					async: false,
+					success: function (data) {
+						if (data.code == 100) {
+							callback && callback(data.extend.mlbackActShowProList);
+						}
+					}
+				});
+			}
+			// render hot ad
+			function renderHotAd($el, data) {
+				var htmlStr = '';
+				data.forEach(function(item, idx) {
+					var itemSeo, itemLink;
+					if (item.actshowproIfproorcate == 0) {				
+						itemSeo = item.actshowproSeoname;
+					}
+					// collection
+					if (item.actshowproIfproorcate == 1) {
+						itemSeo = 'search/' + item.actshowproCateseoname;
+					}
+					// subject
+					if (item.actshowproIfproorcate == 2) {
+						itemSeo = item.actshowproPageseoname;
+					}
+					itemLink = itemSeo ? itemSeo + '.html' : 'javascript:;'
+					htmlStr += '<a class="hot-two-item wap lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgwapurl +'"></a>' +
+						'<a class="hot-two-item pc lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgpcurl +'"></a>';
+				});
+				$el.html(htmlStr);
+			}
+			function hotFive() {
+				!hasHotFive && getActivityProductData(9, function(data) {
+					var htmlStr = '';
+					var $el = $('#hot-five');
+					data.length && data.forEach(function(item, idx) {
+						var itemSeo, itemLink;
+						if (item.actshowproIfproorcate == 0) {				
+							itemSeo = item.actshowproSeoname;
+						}
+						// collection
+						if (item.actshowproIfproorcate == 1) {
+							itemSeo = 'search/' + item.actshowproCateseoname;
+						}
+						// subject
+						if (item.actshowproIfproorcate == 2) {
+							itemSeo = item.actshowproPageseoname;
+						}
+						itemLink = itemSeo ? itemSeo + '.html' : 'javascript:;'
+						htmlStr += '<a class="hot-five-item wap lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgwapurl +'"></a>'
+					});
+					$el.html(htmlStr);
+					hasHotFive = true;
+					new LazyLoad($el.find('.lazyload'), {
+						root: null,
+						rootMargin: "10px",
+						threshold: 0
+					});
+				});
+			}
+			var indexCarousel, indexCarouselData, hasHotFive = false;
 			getCarouselData(1, function(data) {
 				indexCarouselData = data;
 				data.length && renderIndexCarousel(data);
+			});
+			hotFive();
+			$(window).on('resize', function () {
+				window.innerWidth < 575 && debounce(function() {
+					hotFive();
+				});
+			});
+			getActivityProductData(8, function(data) {
+				var $el = $('#hot-two');
+				data.length && renderHotAd($el, data);				
+				new LazyLoad($el.find('.lazyload'), {
+					root: null,
+					rootMargin: "10px",
+					threshold: 0
+				});
+			});
+			getActivityProductData(8, function(data) {
+				var $el = $('#hot-two');
+				data.length && renderHotAd($el, data);				
+				new LazyLoad($el.find('.lazyload'), {
+					root: null,
+					rootMargin: "10px",
+					threshold: 0
+				});
 			});
 			getDisplayAreaData(1, function(data) {
 				var $el = $('#showAreaOne');
