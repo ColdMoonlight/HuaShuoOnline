@@ -24,6 +24,7 @@
 			<div id="hot-five" class="hot-five"></div>
 			<div id="hot-two" class="hot-two"></div>
 			<div id="hot-coupon" class="hot-coupon"></div>
+			<div id="activity-product" class="activity-product"></div>
 			<div id="showAreaOne" class="showarea"></div>
 			<div id="showAreaTwo" class="showarea"></div>
 			<div id="showAreaThree" class="showarea"></div>
@@ -136,7 +137,7 @@
 				});
 			}
 			// render hot ad
-			function renderHotAd($el, data, tagCls) {
+			function renderActivityProduct($el, data, tagCls) {
 				var htmlStr = '';
 				data.forEach(function(item, idx) {
 					var itemSeo, itemLink;
@@ -194,7 +195,7 @@
 			hotFive();
 			getActivityProductData(8, function(data) {
 				var $el = $('#hot-two');
-				data.length && renderHotAd($el, data, 'hot-two');				
+				data.length && renderActivityProduct($el, data, 'hot-two');				
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,
 					rootMargin: "10px",
@@ -210,6 +211,16 @@
 					threshold: 0
 				});
 			});
+			getActivityProductData(7, function(data) {
+				var $el = $('#activity-product');
+				data.length && renderActivityProduct($el, data, 'activity-product');				
+				new LazyLoad($el.find('.lazyload'), {
+					root: null,
+					rootMargin: "10px",
+					threshold: 0
+				});
+			});
+			
 			getDisplayAreaData(1, function(data) {
 				var $el = $('#showAreaOne');
 				data && renderShowArea($el, data);
