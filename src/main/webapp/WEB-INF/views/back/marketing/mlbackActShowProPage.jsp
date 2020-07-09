@@ -5,7 +5,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Carousel</title>
+	<title>Activity Product</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
@@ -19,8 +19,8 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Carousel</span>
-						<button class="btn btn-primary btn-create">Create Carousel</button>
+						<span class="c-option-title">Activity Product</span>
+						<button class="btn btn-primary btn-create">Create Activity Product</button>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -29,16 +29,6 @@
 							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
-							<%-- <div class="input-group c-search">
-								<svg class="c-icon">
-									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
-								</svg>
-								<div class="form-control">
-									<input id="searchCarousel" type="text" placeholder="Search Carousel">						
-									<select class="supercate-list" id="searchSupercate"></select>
-								</div>
-								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
-							</div> --%>
 							<table class="c-table-table table table-responsive-sm">
 								<thead>
 									<tr>
@@ -65,10 +55,10 @@
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">Edit Carousel</span>
+						<span class="c-option-title">Edit Activity Product</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save Carousel</button>
+							<button class="btn btn-primary btn-save">Save Activity-Product</button>
 						</div>
 					</div>
 					<div class="c-form row">
@@ -81,7 +71,7 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="slideName">Carousel Name</label>
+										<label class="col-form-label" for="slideName">Activity-Product Name</label>
 										<div class="controls">
 											<input class="form-control" id="slideName" type="text" />
 										</div>
@@ -90,7 +80,7 @@
 										<label class="col-form-label" for="slideArea">Area</label>
 										<div class="controls">
 											<select class="form-control" id="slideArea" />
-												<option value="-1">Please select the location of the Carousel</option>
+												<option value="-1">Please select the location of the Activity-Product</option>
 												<option value="1">首页轮播</option>
 												<option value="2">2优惠券位置</option>
 												<option value="3">3关联产品</option>
@@ -102,10 +92,10 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="slideFirthNum">Carousel Sort</label>
+										<label class="col-form-label" for="slideFirthNum">Activity-Product Sort</label>
 										<div class="controls">
 											<select class="form-control" id="slideFirthNum" />
-												<option value="0">Please select Carousel sort-order</option>
+												<option value="0">Please select Activity-Product sort-order</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -142,7 +132,7 @@
 							<!-- product media -->
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Carousel Image</div>
+									<div class="card-title-name">Activity-Product Image</div>
 								</div>
 								<div class="card-body">
 									<div class="row">
@@ -274,12 +264,12 @@
 		});
 
 		// init
-		getCarouselsData()
+		getActivityProductsData()
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create .c-option-title').text('Create Carousel');
+			$('.c-create .c-option-title').text('Create Activity-Product');
 
-			getCarouselId(function(data) {
+			getActivityProductId(function(data) {
 				// init formData
 				resetFormData();
 				$('#slideId').val(data.slideId);
@@ -290,10 +280,10 @@
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var slideId = $(this).data('id');
-			getOneCarouselData({
+			getOneActivityProductData({
 				slideId: slideId
 			}, function(resData) {
-			 	$('.c-create .c-option-title').text('Edit Carousel');
+			 	$('.c-create .c-option-title').text('Edit Activity-Product');
 				showCreateBlock();
 				initFormData(resData);
 			});			
@@ -301,19 +291,19 @@
 		// delete collection
 		$(document.body).on('click', '.btn-delete', function (e) {
 			var slideId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete Carousel!');
+			$('#deleteModal').find('.modal-title').html('Delete Activity-Product!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteCarouselData({
+				deleteActivityProductData({
 					slideId: slideId,
 				}, function() {
-					getCarouselsData();
+					getActivityProductsData();
 				});
 			});
 		});
 		$(window).on('beforeunload', function() {
 			var slideId = $('#slideId').val();
-			isCreate && slideId && deleteCarouselData({
+			isCreate && slideId && deleteActivityProductData({
 				slideId: slideId,
 			});
 		});
@@ -402,11 +392,11 @@
 		}
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
-			saveCarouselData(getFormData(), function() {
+			saveActivityProductData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) isCreate = false;
 
-				getCarouselsData();
+				getActivityProductsData();
 				showInitBlock();
 				$('#slideId').val('');
 			});
@@ -415,11 +405,11 @@
 		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
-				// delete null carousel
-				deleteCarouselData({
+				// delete null Activity-Product
+				deleteActivityProductData({
 					slideId: $('#slideId').val(),
 				}, function() {
-					console.log("cancel create Carousel");
+					console.log("cancel create Activity-Product");
 				});
 			}
 
@@ -546,7 +536,7 @@
 
 		}
 		// callback get id
-		function getCarouselId(callback) {
+		function getActivityProductId(callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH }/MlbackSlides/initializaSlide",
@@ -572,7 +562,7 @@
 			});
 		}
 		// callback get all data
-		function getCarouselsData() {
+		function getActivityProductsData() {
 			$('.c-mask').show();
 
 			var formData = new FormData();
@@ -595,7 +585,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Carousel, please refresh the page to get again！');
+					toastr.error('Failed to get ActivityProduct, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -603,7 +593,7 @@
 			});
 		}
 		// callback get one data
-		function getOneCarouselData(reqData, callback) {
+		function getOneActivityProductData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackSlides/getOneMlbackSlideDetail",
@@ -620,7 +610,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Carousel, please refresh the page to get again！');
+					toastr.error('Failed to get ActivityProduct, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -628,7 +618,7 @@
 			});
 		}
 		// callback save
-		function saveCarouselData(reqData, callback) {
+		function saveActivityProductData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackSlides/save",
@@ -654,7 +644,7 @@
 			});
 		}
 		// callback delete
-		function deleteCarouselData(reqData, callback) {
+		function deleteActivityProductData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackSlides/delete",

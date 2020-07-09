@@ -2993,13 +2993,36 @@ footer li {
 .ml-ad .lazyload {
 	display: block;
 }
+.showarea {
+	margin-top: 1rem;
+}
+.showarea-banner {
+	display: none;
+	visibility: hidden;
+	opacity: 0;
+}
+.showarea-banner.loaded {	
+	background-color: #fff;
+}
 @media only screen and (max-width: 575px) {
 	.ml-index-carousel .lazyload {
 		padding-top: 53.33333%;
+	}
+	.showarea-banner.wap {
+		display: block;
+		visibility: visible;
+		opacity: 1;
+		padding-top: 200px;
 	}
 }
 @media only screen and (min-width: 576px) {
 	.ml-index-carousel .lazyload {
 		padding-top: 31.25%;
+	}
+	.showarea-banner.pc {
+		display: block;
+		visibility: visible;
+		opacity: 1;
+		padding-top: 100px;
 	}
 }

@@ -21,6 +21,9 @@
 			    <div class="swiper-btn swiper-button-next"></div>
 	            <div class="swiper-btn swiper-button-prev"></div>
 			</div>
+			<div id="showAreaOne" class="showarea"></div>
+			<div id="showAreaTwo" class="showarea"></div>
+			<div id="showAreaThree" class="showarea"></div>
 		</main>
 		<jsp:include page="WEB-INF/views/portal/layout/footer.jsp" flush="true"></jsp:include>
 		<jsp:include page="WEB-INF/views/portal/common/footer.jsp" flush="true"></jsp:include>
@@ -68,10 +71,58 @@
 					threshold: 0
 				});
 			}
+			// render showArea
+			function renderShowArea($el, data) {
+				$el.append($('<div class="showarea-banner lazyload wap" data-src="'+ data.showareaImgurl +'"></div>' +
+						'<div class="showarea-banner lazyload pc" data-src="'+ data.showareaImgpcurl +'">'));
+			}
+			// get display area data
+			function getDisplayAreaData(num, callback) {
+				$.ajax({
+					url: '${APP_PATH}/MlbackShowArea/getMlbackShowAreaOne',
+					data: JSON.stringify({"showareaNumth": num}),
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					async: false,
+					success: function (data) {
+						if (data.code == 100) {
+							callback && callback(data.extend.mlbackShowAreaOne);
+						}
+					}
+				});
+			}
 			var indexCarousel, indexCarouselData;
 			getCarouselData(1, function(data) {
 				indexCarouselData = data;
 				data.length && renderIndexCarousel(data);
+			});
+			getDisplayAreaData(1, function(data) {
+				var $el = $('#showAreaOne');
+				data && renderShowArea($el, data);
+				new LazyLoad($el.find('.lazyload'), {
+					root: null,
+					rootMargin: "10px",
+					threshold: 0
+				});
+			});
+			getDisplayAreaData(2, function(data) {
+				var $el = $('#showAreaTwo');
+				data && renderShowArea($el, data);
+				new LazyLoad($el.find('.lazyload'), {
+					root: null,
+					rootMargin: "10px",
+					threshold: 0
+				});
+			});
+			getDisplayAreaData(3, function(data) {
+				var $el = $('#showAreaThree');
+				data && renderShowArea($el, data);
+				new LazyLoad($el.find('.lazyload'), {
+					root: null,
+					rootMargin: "10px",
+					threshold: 0
+				});
 			});
 		</script>	
 	</body>
