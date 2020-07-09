@@ -512,6 +512,7 @@
 			$('#catalogIfproorcateorpage').val(catalogIfproorcateorpage || '0');
 			if (catalogIfproorcateorpage == 0) {
 				$('#catalogProid').val(data.catalogProid || '-1');
+				$('.ml-product').removeClass('hide').siblings().addClass('hide');
 			} else if (catalogIfproorcateorpage == 1) {
 				$('#catalogCateid').val(data.catalogCateid || '-1');
 				$('.ml-category').removeClass('hide').siblings().addClass('hide');

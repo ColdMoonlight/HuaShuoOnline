@@ -38,11 +38,10 @@
 										<th>order</th>
 										<th>product/subject/colleciton</th>
 										<th>seo</th>
-										<th>ifInto</th>
+										<!-- <th>ifInto</th> -->
 										<th>wap-image</th>
-										<th>wap-status</th>
 										<th>pc-image</th>
-										<th>pc-status</th>
+										<th>status</th>
 										<th>operate</th>
 									</tr>
 								</thead>
@@ -62,7 +61,7 @@
 						</div>
 					</div>
 					<div class="c-form row">
-						<input id="slideId" hidden>
+						<input id="actshowproId" hidden>
 						<!-- left panel  -->
 						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
@@ -71,15 +70,15 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="slideName">Activity-Product Name</label>
+										<label class="col-form-label" for="actshowproName">Activity-Product Name</label>
 										<div class="controls">
-											<input class="form-control" id="slideName" type="text" />
+											<input class="form-control" id="actshowproName" type="text" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="slideArea">Area</label>
+										<label class="col-form-label" for="actshowproActnum">Area</label>
 										<div class="controls">
-											<select class="form-control" id="slideArea" />
+											<select class="form-control" id="actshowproActnum" />
 												<option value="-1">Please select the location of the Activity-Product</option>
 												<option value="1">首页轮播</option>
 												<option value="2">2优惠券位置</option>
@@ -92,9 +91,9 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="slideFirthNum">Activity-Product Sort</label>
+										<label class="col-form-label" for="actshowproOrderth">Activity-Product Sort</label>
 										<div class="controls">
-											<select class="form-control" id="slideFirthNum" />
+											<select class="form-control" id="actshowproOrderth" />
 												<option value="0">Please select Activity-Product sort-order</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -110,19 +109,10 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="slideWapstatus">Wap Status</label>
+										<label class="col-md-3 col-form-label" for="actshowproStatus">Status</label>
 										<div class="controls col-md-3">
 											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="slideWapstatus" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="slidePcstatus">Pc Status</label>
-										<div class="controls col-md-3">
-											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="slidePcstatus" type="checkbox">
+												<input class="c-switch-input" id="actshowproStatus" type="checkbox">
 												<span class="c-switch-slider"></span>
 											</label>
 										</div>
@@ -143,7 +133,7 @@
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 												</svg>
 												<div class="c-backshow"></div>						
-												<input id="slideWap" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<input id="actWap" type="file" accept="image/png, image/jpeg, image/gif" />										
 												<!-- spinner -->
 												<div class="spinner">
 													<div class="spinner-border" role="status" aria-hidden="true"></div>
@@ -157,7 +147,7 @@
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 												</svg>
 												<div class="c-backshow"></div>						
-												<input id="slidePc" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<input id="actPc" type="file" accept="image/png, image/jpeg, image/gif" />										
 												<!-- spinner -->
 												<div class="spinner">
 													<div class="spinner-border" role="status" aria-hidden="true"></div>
@@ -177,9 +167,9 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="slideIfproorcateorpage">Product Or Subject Or Collection</label>
+										<label class="col-form-label" for="actshowproIfproorcate">Product Or Subject Or Collection</label>
 										<div class="controls">
-											<select class="form-control" id="slideIfproorcateorpage" />
+											<select class="form-control" id="actshowproIfproorcate" />
 												<option value="0" data-class="ml-product">product</option>
 												<option value="1" data-class="ml-category">collection</option>
 												<option value="2" data-class="ml-subject">subject</option>
@@ -188,21 +178,21 @@
 									</div>
 									<div>
 										<div class="form-group ml-product">
-											<label class="col-form-label" for="slideProid">Product</label>
+											<label class="col-form-label" for="actshowproProid">Product</label>
 											<div class="controls">
-												<select class="form-control product-list" id="slideProid" /></select>
+												<select class="form-control product-list" id="actshowproProid" /></select>
 											</div>
 										</div>
 										<div class="form-group ml-category hide">
-											<label class="col-form-label" for="slideCateid">Category</label>
+											<label class="col-form-label" for="actshowproCateid">Category</label>
 											<div class="controls">
-												<select class="form-control collection-list" id="slideCateid" /></select>
+												<select class="form-control collection-list" id="actshowproCateid" /></select>
 											</div>
 										</div>	
 										<div class="form-group ml-subject hide">
-											<label class="col-form-label" for="slidePageseoname">Subject</label>
+											<label class="col-form-label" for="actshowproPageseoname">Subject</label>
 											<div class="controls">
-												<select class="form-control" id="slidePageseoname" />
+												<select class="form-control" id="actshowproPageseoname" />
 													<option value="Friday">Friday</option>
 													<option value="Activty">Activty</option>
 													<option value="MlfrontReview/toReviewCustomer">Shop by look</option>
@@ -212,7 +202,7 @@
 											</div>
 										</div>								
 									</div>
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label class="col-form-label" for="slideIfinto">click entry or not</label>
 										<div class="controls">
 											<select class="form-control" id="slideIfinto" />
@@ -220,22 +210,9 @@
 					  							<option value="1">enalbe</option>
 											</select>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
-							<!-- <div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Super Category</div>
-								</div>
-								<div class="card-body">
-									<div class="form-group">
-										<label class="col-form-label" for="slideCateid">Super Category</label>
-										<div class="controls">
-											<select class="form-control supercate-list" id="slideCateid" /></select>
-										</div>
-									</div>
-								</div>
-							</div> -->
 						</div>
 					</div>
 				</div>
@@ -259,7 +236,7 @@
 		var hasProductList = false;
 		var isCreate = false;
 
-		$('#slideIfproorcateorpage').on('change', function() {
+		$('#actshowproIfproorcate').on('change', function() {
 			$('.' + $(this).find('option:checked').data('class')).removeClass('hide').siblings().addClass('hide').find('select').val('-1');
 		});
 
@@ -272,16 +249,16 @@
 			getActivityProductId(function(data) {
 				// init formData
 				resetFormData();
-				$('#slideId').val(data.slideId);
+				$('#actshowproId').val(data.actshowproId);
 				showCreateBlock();
 				isCreate = true;
 			});
 		});
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
-			var slideId = $(this).data('id');
+			var actshowproId = $(this).data('id');
 			getOneActivityProductData({
-				slideId: slideId
+				actshowproId: actshowproId
 			}, function(resData) {
 			 	$('.c-create .c-option-title').text('Edit Activity-Product');
 				showCreateBlock();
@@ -290,35 +267,35 @@
 		});
 		// delete collection
 		$(document.body).on('click', '.btn-delete', function (e) {
-			var slideId = parseInt($(this).data('id'));
+			var actshowproId = parseInt($(this).data('id'));
 			$('#deleteModal').find('.modal-title').html('Delete Activity-Product!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
 				deleteActivityProductData({
-					slideId: slideId,
+					actshowproId: actshowproId,
 				}, function() {
 					getActivityProductsData();
 				});
 			});
 		});
 		$(window).on('beforeunload', function() {
-			var slideId = $('#slideId').val();
-			isCreate && slideId && deleteActivityProductData({
-				slideId: slideId,
+			var actshowproId = $('#actshowproId').val();
+			isCreate && actshowproId && deleteActivityProductData({
+				actshowproId: actshowproId,
 			});
 		});
 		// upload picture
-		$('#slidePc').on('change', function(e) {
+		$('#actPc').on('change', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'slidePc');
+			formData.append('type', 'showareaPc');
 			formData.append('image', $this[0].files[0]);
-			formData.append('slideId', parseInt($('#slideId').val()));
+			formData.append('actshowproId', parseInt($('#actshowproId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/slidePc",
+				url: "${APP_PATH}/ImageUpload/showareaPc",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -343,17 +320,17 @@
 				}
 			});
 		});
-		$('#slideWap').on('change', function(e) {
+		$('#actWap').on('change', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'slideWap');
+			formData.append('type', 'showareaWap');
 			formData.append('image', $this[0].files[0]);
-			formData.append('slideId', parseInt($('#slideId').val()));
+			formData.append('actshowproId', parseInt($('#actshowproId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/slideWap",
+				url: "${APP_PATH}/ImageUpload/showareaWap",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -398,7 +375,7 @@
 
 				getActivityProductsData();
 				showInitBlock();
-				$('#slideId').val('');
+				$('#actshowproId').val('');
 			});
 		});
 		// cancel collection save
@@ -407,7 +384,7 @@
 				isCreate = false;
 				// delete null Activity-Product
 				deleteActivityProductData({
-					slideId: $('#slideId').val(),
+					actshowproId: $('#actshowproId').val(),
 				}, function() {
 					console.log("cancel create Activity-Product");
 				});
@@ -430,123 +407,121 @@
 		// handle formData
 		// reset data
 		function resetFormData() {
-			$('#slideId').val('');
-			$('#slideName').val('');
-			$('#slideFirthNum').val('0');
-			$('#slideWapstatus').prop('checked', false);
-			$('#slidePcstatus').prop('checked', false);
-			$('#slideArea').val('0');
+			$('#actshowproId').val('');
+			$('#actshowproName').val('');
+			$('#actshowproActnum').val('0');
+			$('#actshowproOrderth').val('0');
+			$('#actshowproStatus').prop('checked', false);
 
-			resetPicture($('#slideWap'));
-			resetPicture($('#slidePc'));
+			resetPicture($('#actWap'));
+			resetPicture($('#actPc'));
 			
-			$('#slideIfproorcateorpage').val('0');
-			$('#slideProid').val('-1');
-			$('#slideCateid').val('-1');
-			$('#slidePageseoname').val('-1');
-			$('#slideIfinto').val('0');
+			$('#actshowproIfproorcate').val('0');
+			$('#actshowproProid').val('-1');
+			$('#actshowproCateid').val('-1');
+			$('#actshowproPageseoname').val('-1');
+			/* $('#slideIfinto').val('0'); */
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
-			data.slideId = parseInt($('#slideId').val());
-			data.slideName = $('#slideName').val();
-			data.slideWapstatus = $('#slideWapstatus').prop('checked') ? 1 : 0;
-			data.slidePcstatus = $('#slidePcstatus').prop('checked') ? 1 : 0;
-			data.slideFirthNum = $('#slideFirthNum').val();
-			data.slideArea = parseInt($('#slideArea').val());
+			data.actshowproId = parseInt($('#actshowproId').val());
+			data.actshowproName = $('#actshowproName').val();
+			data.actshowproActnum = parseInt($('#actshowproActnum').val());
+			data.actshowproOrderth = $('#actshowproOrderth').val();
+			data.actshowproStatus = $('#actshowproStatus').prop('checked') ? 1 : 0;
 
-			data.slideWapimgurl = $('#slideWap').attr('data-val') && JSON.parse($('#slideWap').attr('data-val')).imageUrl;
-			data.slidePcimgurl = $('#slidePc').attr('data-val') && JSON.parse($('#slidePc').attr('data-val')).imageUrl;
+			data.actshowproImgwapurl = $('#actWap').attr('data-val') && JSON.parse($('#actWap').attr('data-val')).imageUrl;
+			data.actshowproImgpcurl = $('#actPc').attr('data-val') && JSON.parse($('#actPc').attr('data-val')).imageUrl;
 
-			var slideIfproorcateorpage = $('#slideIfproorcateorpage').val();
-			data.slideIfproorcateorpage = slideIfproorcateorpage;
-			if (slideIfproorcateorpage == 0) {
-				data.slideProid = $('#slideProid').val();
-				data.slideProname = $('#slideProid').find('option:checked').data('name') || '';
-				data.slideSeoname = $('#slideProid').find('option:checked').data('seo') || '';
-				data.slideCateid = '';
-				data.slideCatename = '';
-				data.slideCateseoname = '';
-				data.slidePageseoname = '';
-			} else if (slideIfproorcateorpage == 1) {
-				data.slideProid = '';
-				data.slideProname = '';
-				data.slideSeoname = '';
-				data.slideCateid = $('#slideCateid').val();
-				data.slideCatename = $('#slideCateid').find('option:checked').data('name') || '';
-				data.slideCateseoname = $('#slideCateid').find('option:checked').data('seo') || '';
-				data.slidePageseoname = '';
-			} else if (slideIfproorcateorpage == 2) {
-				data.slideProid = '';
-				data.slideProname = '';
-				data.slideSeoname = '';
-				data.slideCateid ='';
-				data.slideCatename = '';
-				data.slideCateseoname = '';
-				data.slidePageseoname = $('#slidePageseoname').val();
+			var actshowproIfproorcate = $('#actshowproIfproorcate').val();
+			data.actshowproIfproorcate = actshowproIfproorcate;
+			if (actshowproIfproorcate == 0) {
+				data.actshowproProid = $('#actshowproProid').val();
+				data.actshowproProname = $('#actshowproProid').find('option:checked').data('name') || '';
+				data.actshowproSeoname = $('#actshowproProid').find('option:checked').data('seo') || '';
+				data.actshowproCateid = '';
+				data.actshowproCatename = '';
+				data.actshowproCateseoname = '';
+				data.actshowproPageseoname = '';
+			} else if (actshowproIfproorcate == 1) {
+				data.actshowproProid = '';
+				data.actshowproProname = '';
+				data.actshowproSeoname = '';
+				data.actshowproCateid = $('#actshowproCateid').val();
+				data.actshowproCatename = $('#actshowproCateid').find('option:checked').data('name') || '';
+				data.actshowproCateseoname = $('#actshowproCateid').find('option:checked').data('seo') || '';
+				data.actshowproPageseoname = '';
+			} else if (actshowproIfproorcate == 2) {
+				data.actshowproProid = '';
+				data.actshowproProname = '';
+				data.actshowproSeoname = '';
+				data.actshowproCateid ='';
+				data.actshowproCatename = '';
+				data.actshowproCateseoname = '';
+				data.actshowproPageseoname = $('#actshowproPageseoname').val();
 			}
-			data.slideIfinto = $('#slideIfinto').val();
+			/* data.slideIfinto = $('#slideIfinto').val(); */
 
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
 			// initial
-			$('#slideProid').val('-1');
-			$('#slideCateid').val('-1');
-			$('#slidePageseoname').val('-1');
+			$('#actshowproProid').val('-1');
+			$('#actshowproCateid').val('-1');
+			$('#actshowproPageseoname').val('-1');
 			// init
-			$('#slideId').val(data.slideId);
-			$('#slideName').val(data.slideName);
-			$('#slideFirthNum').val(data.slideFirthNum ? data.slideFirthNum : '0');
-			$('#slideWapstatus').prop('checked', data.slideWapstatus);
-			$('#slidePcstatus').prop('checked', data.slidePcstatus);
-			$('#slideArea').val(data.slideArea);
+			$('#actshowproId').val(data.actshowproId);
+			$('#actshowproName').val(data.actshowproName);
+			$('#actshowproActnum').val(data.actshowproActnum);
+			$('#actshowproOrderth').val(data.actshowproOrderth ? data.actshowproOrderth : '0');
+			$('#actshowproStatus').prop('checked', data.actshowproStatus);
 			
-			if (data.slideWapimgurl) {
-				addPicture($('#slideWap'), {
-					imageUrl: data.slideWapimgurl
+			if (data.actshowproImgwapurl) {
+				addPicture($('#actWap'), {
+					imageUrl: data.actshowproImgwapurl
 				});				
 			} else {
-				resetPicture($('#slideWap'));
+				resetPicture($('#actWap'));
 			}
 
-			if (data.slidePcimgurl) {
-				addPicture($('#slidePc'), {
-					imageUrl: data.slidePcimgurl
+			if (data.actshowproImgpcurl) {
+				addPicture($('#actPc'), {
+					imageUrl: data.actshowproImgpcurl
 				});				
 			} else {
-				resetPicture($('#slidePc'));
+				resetPicture($('#actPc'));
 			}
 
-			var slideIfproorcateorpage = data.slideIfproorcateorpage;
-			$('#slideIfproorcateorpage').val(slideIfproorcateorpage || 0);
-			if (slideIfproorcateorpage == 0) {
-				$('#slideProid').val(data.slideProid || '-1');
-			} else if (slideIfproorcateorpage == 1) {
-				$('#slideCateid').val(data.slideCateid || '-1');
+			var actshowproIfproorcate = data.actshowproIfproorcate;
+			$('#actshowproIfproorcate').val(actshowproIfproorcate || 0);
+			if (actshowproIfproorcate == 0) {
+				$('#actshowproProid').val(data.actshowproProid || '-1');
+				$('.ml-product').removeClass('hide').siblings().addClass('hide');
+			} else if (actshowproIfproorcate == 1) {
+				$('#actshowproCateid').val(data.actshowproCateid || '-1');
 				$('.ml-category').removeClass('hide').siblings().addClass('hide');
-			} else if (slideIfproorcateorpage == 2) {
-				$('#slidePageseoname').val(data.slidePageseoname || '-1');
+			} else if (actshowproIfproorcate == 2) {
+				$('#actshowproPageseoname').val(data.actshowproPageseoname || '-1');
 				$('.ml-subject').removeClass('hide').siblings().addClass('hide');
 			}
 			
-			$('#slideIfinto').val(data.slideIfinto);
+			/* $('#slideIfinto').val(data.slideIfinto); */
 
 		}
 		// callback get id
 		function getActivityProductId(callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackSlides/initializaSlide",
+				url: "${APP_PATH }/MlbackActShowPro/initializaActShowPro",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.mlbackSlide)
+						callback && callback(data.extend.mlbackActShowPro)
 						toastr.success(data.extend.resMsg);
 					} else {
 						showInitBlock();
@@ -569,7 +544,7 @@
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH}/MlbackSlides/getMlbackSlideByPage",
+				url: "${APP_PATH}/MlbackActShowPro/getMlbackActShowProByPage",
 				type: "post",
 				processData: false,
 				contentType: false,
@@ -596,14 +571,14 @@
 		function getOneActivityProductData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackSlides/getOneMlbackSlideDetail",
+				url: "${APP_PATH}/MlbackActShowPro/getOneMlbackActShowProDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: 'json',
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.mlbackSlideOne);
+						callback(data.extend.mlbackActShowProOne);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -621,7 +596,7 @@
 		function saveActivityProductData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackSlides/save",
+				url: "${APP_PATH}/MlbackActShowPro/save",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -647,7 +622,7 @@
 		function deleteActivityProductData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackSlides/delete",
+				url: "${APP_PATH}/MlbackActShowPro/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -675,40 +650,39 @@
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var logName, logSeo;
-				if (data[i].slideIfproorcateorpage == 0) {
-					logName = '<b>product</b> ' + data[i].slideProid;
-					logSeo = data[i].slideSeoname;
-				} else if (data[i].slideIfproorcateorpage == 1) {
-					logName = '<b>collection</b> ' + data[i].slideCateid;
-					logSeo = data[i].slideCateseoname;
-				} else if (data[i].slideIfproorcateorpage == 2) {
-					logName = '<b>subject</b> ' + data[i].slidePageseoname;
-					logSeo = data[i].slidePageseoname;
+				if (data[i].actshowproIfproorcate == 0) {
+					logName = '<b>product</b> ' + data[i].actshowproProid;
+					logSeo = data[i].actshowproSeoname;
+				} else if (data[i].actshowproIfproorcate == 1) {
+					logName = '<b>collection</b> ' + data[i].actshowproCateid;
+					logSeo = data[i].actshowproCateseoname;
+				} else if (data[i].actshowproIfproorcate == 2) {
+					logName = '<b>subject</b> ' + data[i].actshowproPageseoname;
+					logSeo = data[i].actshowproPageseoname;
 				}
-				htmlStr += '<tr><td>' + data[i].slideId + '</td>' +
-					'<td>' + data[i].slideName + '</td>' +
-					'<td>' + data[i].slideArea + '</td>' +
-					'<td>' + data[i].slideFirthNum + '</td>' +
+				htmlStr += '<tr><td>' + data[i].actshowproId + '</td>' +
+					'<td>' + data[i].actshowproName + '</td>' +
+					'<td>' + data[i].actshowproActnum + '</td>' +
+					'<td>' + data[i].actshowproOrderth + '</td>' +
 					'<td>' + (logName || '') + '</td>' +
 					'<td>' + (logSeo || '') + '</td>' +
-					'<td>' + (data[i].slideIfinto ? 'YES' : 'NO') + '</td>' +
-					'<td>' + (data[i].slideWapimgurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slideWapimgurl) +'" /></div>'
+					/* '<td>' + (data[i].slideIfinto ? 'YES' : 'NO') + '</td>' + */
+					'<td>' + (data[i].actshowproImgwapurl ?
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].actshowproImgwapurl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
-					'<td><a class="badge '+ (data[i].slideWapstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slideWapstatus ? 'enable' : 'disable') + '</a></td>' +
-					'<td>' + (data[i].slidePcimgurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slidePcimgurl) +'" /></div>'
+					'<td>' + (data[i].actshowproImgpcurl ?
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].actshowproImgpcurl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
-					'<td><a class="badge '+ (data[i].slidePcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slidePcstatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td><a class="badge '+ (data[i].actshowproStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].actshowproStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' +
-						'<button class="btn btn-primary btn-edit" data-id="' + data[i].slideId + '">' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].actshowproId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
 						'</button>' +
-						'<button class="btn btn-danger btn-delete" data-id="' + data[i].slideId + '">' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].actshowproId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
 							'</svg>' +

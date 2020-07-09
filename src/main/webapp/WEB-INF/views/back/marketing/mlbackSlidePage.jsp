@@ -534,6 +534,7 @@
 			$('#slideIfproorcateorpage').val(slideIfproorcateorpage || 0);
 			if (slideIfproorcateorpage == 0) {
 				$('#slideProid').val(data.slideProid || '-1');
+				$('.ml-product').removeClass('hide').siblings().addClass('hide');
 			} else if (slideIfproorcateorpage == 1) {
 				$('#slideCateid').val(data.slideCateid || '-1');
 				$('.ml-category').removeClass('hide').siblings().addClass('hide');
