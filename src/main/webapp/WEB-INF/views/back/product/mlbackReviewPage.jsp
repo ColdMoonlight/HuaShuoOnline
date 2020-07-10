@@ -74,6 +74,8 @@
 											<option value="-1">All</option>
 											<option value="0">self</option>
 											<option value="1">customer</option>
+											<option value="2">ins瀑布流</option>
+											<option value="3">ins首页</option>
 										</select>
 									</div>
 								</div>
