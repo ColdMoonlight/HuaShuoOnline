@@ -862,7 +862,8 @@
 		});
 		// get introduct product
 		getProductSlideArea(function(data) {
-			data.length && (renderIntroduceProductSlide($('.product-footer'), data),
+			var $el = $('.product-footer');
+			data.length && (renderIntroduceProductSlide($el, data),
 			new LazyLoad($el.find('.lazyload'), {
 				root: null,
 				rootMargin: "10px",

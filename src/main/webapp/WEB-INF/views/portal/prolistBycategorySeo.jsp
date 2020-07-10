@@ -6,6 +6,7 @@
 <head>
     <title>Insert title here</title>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
+	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<script>
 		var categorySeo = '${sessionScope.categorySeo}';
 		var seoDescription = '${sessionScope.categoryMetaDesc}';
@@ -29,11 +30,8 @@
 	</main>
 	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="common/footer.jsp" flush="true"></jsp:include>
+	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script>
-		getProductListByCategorySeo(categorySeo, false);
-		$(document.body).on('change', '.category-select', function() {
-			getProductListByCategorySeo($(this).val(), true);
-		});
 		function getProductListByCategorySeo(categorySeo, hasCategory) {
 			$.ajax({
 				url: "${APP_PATH}/MlbackCategory/searchBycategorySeo",
@@ -99,6 +97,22 @@
 			});
 			$('.category-select').html(htmlStr);
 		}
+		getProductListByCategorySeo(categorySeo, false);
+		$(document.body).on('change', '.category-select', function() {
+			getProductListByCategorySeo($(this).val(), true);
+		});
+
+		// get introduct product
+		getProductSlideArea(function(data) {
+			var $el = $('<div id="introduce-product" />');
+			$('main .container').append($el);
+			data.length && (renderIntroduceProductSlide($el, data),
+			new LazyLoad($el.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			}));
+		});
 	</script>
 </body>
 
