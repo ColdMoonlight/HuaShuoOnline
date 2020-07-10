@@ -3055,7 +3055,7 @@ footer li {
 	.hot-coupon,
 	.activity-product-item,
 	.showarea,
-	.showaera-slide.swiper-container {
+	.showaera-container.swiper-container {
 		margin-top: .5rem;
 	}
 	.ml-index-carousel .lazyload {
@@ -3107,7 +3107,7 @@ footer li {
 	.activity-product,
 	.hot-collection,
 	.showarea,
-	.showaera-slide.swiper-container {
+	.showaera-container.swiper-container {
 		margin-top: 1rem;
 	}
 	.ml-index-carousel .lazyload {

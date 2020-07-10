@@ -222,7 +222,7 @@
 			}
 			// render product slide
 			function renderProductSlide($el, typeCls, data) {
-				var productSlide = generateSwiperSlideProduct(data).addClass('showarea');
+				var productSlide = generateSwiperSlideProduct(data).addClass('showaera-container');
 				$el.append(productSlide)
 				new Swiper(('.' + typeCls + ' .swiper-container'), {
 					slidesPerView: (window.innerWidth > 575 ? 4 : 2),
