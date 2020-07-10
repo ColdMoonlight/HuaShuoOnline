@@ -403,4 +403,32 @@ public class MlbackProductController {
 		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductSimpleByParam(mlbackProductReq);
 		return Msg.success().add("mlbackProductResList", mlbackProductResList);
 	}
+	
+	
+	/**
+	 * 9.	UseNow	0505
+	 * 查询单个产品信息(无富文本描述)
+	 * @param productId
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneProductSimple",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneProductSimple(@RequestBody MlbackProduct mlbackProduct){
+		
+		Integer productId = mlbackProduct.getProductId();
+		//接受信息
+		MlbackProduct mlbackProductReq = new MlbackProduct();
+		mlbackProductReq.setProductId(productId);
+		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductSimple(mlbackProductReq);
+		MlbackProduct mlbackProductOne = new MlbackProduct();
+		if(mlbackProductResList.size()>0){
+			//如果用这个id查到,就拿出来.
+			mlbackProductOne = mlbackProductResList.get(0);
+		}else{
+			//如果用这个id没查到,就取出当前所有产品最新上的那款.
+			mlbackProductResList = mlbackProductService.selectMlbackProductGetAll();
+			mlbackProductOne = mlbackProductResList.get(0);
+		}
+		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("mlbackProductOne", mlbackProductOne);
+	}
 }
