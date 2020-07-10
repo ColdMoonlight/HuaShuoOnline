@@ -10,7 +10,7 @@
 		
 		<jsp:include page="WEB-INF/views/portal/common/header.jsp" flush="true"></jsp:include>
 		<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
-		<style> main { margin: -16px 0 0 0; padding-bottom: 1rem; background-color: #f5f5f5;}</style>
+		<style> main { margin: -16px 0 0 0; background-color: #f5f5f5;}</style>
 	</head>
 	<body>
 		<jsp:include page="WEB-INF/views/portal/layout/header.jsp" flush="true"></jsp:include>

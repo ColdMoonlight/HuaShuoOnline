@@ -533,6 +533,7 @@ function generateSwiperSlideProduct(data) {
 }
 function renderIntroduceProductSlide($el, data) {
 	var productSlide = generateSwiperSlideProduct(data).addClass('introduce-product');
+	$el.append('<div class="introduce-product-title">YOU MIGHT ALSO LIKE<div>');
 	$el.append(productSlide)
 	new Swiper('.introduce-product.swiper-container', {
 		slidesPerView: (window.innerWidth > 575 ? 4 : 2),
