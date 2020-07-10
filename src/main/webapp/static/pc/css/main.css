@@ -292,6 +292,11 @@ textarea:focus {
   -webkit-animation: spinner-border 0.75s linear infinite;
   animation: spinner-border 0.75s linear infinite;
 }
+/* shadow radius */
+.shadow-radius:hover {
+	box-shadow: 1px 1px 2px #ff1671;
+	border-radius: .25rem;
+}
 /* upload picture */
 .ml-upload {
 	position: relative;
@@ -3049,13 +3054,51 @@ footer li {
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
+.showaera-review-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+/* customer voice */
+.showarea-review-item {
+	cursor: pointer;
+}
+.customer-voice-img {
+	padding-top: 100%;
+}
+.customer-voice-name {
+	font-size: 1rem;
+	font-weight: 500;
+	margin-top: 1rem;
+}
+.customer-voice-dprice .name,
+.customer-voice-nprice .name {
+	font-size: .875rem;
+	font-weight: 500;
+}
+.customer-voice-dprice .value {
+	margin-left: .5rem;
+	font-size: .875rem;
+	text-decoration: line-through;
+}
+.customer-voice-nprice .value {
+	margin-left: .5rem;
+	font-size: 1rem;
+	font-weight: 500;
+	color: #ff1671;
+}
+.customer-voice .btn {
+	display: block;
+	margin-top: 1rem;
+}
 @media only screen and (max-width: 575px) {
 	.hot-two,
 	.hot-five,
 	.hot-coupon,
 	.activity-product-item,
 	.showarea,
-	.showaera-container.swiper-container {
+	.showaera-container.swiper-container,
+	.showaera-review-container {
 		margin-top: .5rem;
 	}
 	.ml-index-carousel .lazyload {
@@ -3099,6 +3142,31 @@ footer li {
 		width: 49%;
 		padding-top: 13.133333%;
 	}
+	.showaera-review-container {
+		margin-left: -.5rem;
+	}
+	.showarea-review-item {
+		width: 49%;
+		padding-top: 49%;
+		margin-bottom: .5rem;
+	}
+	.customer-voice {
+		padding: 0 2rem;
+	}
+}
+@media only screen and (min-width: 576px) and (max-width: 1023px) {
+	.showarea-review-item {
+		width: 24%;
+		padding-top: 24%;
+		margin-bottom: .75rem;
+	}
+}
+@media only screen and (min-width: 1024px) {	
+	.showarea-review-item {
+		width: 19%;
+		padding-top: 19%;
+		margin-bottom: 1rem;
+	}
 }
 @media only screen and (min-width: 576px) {
 	.hot-two,
@@ -3107,7 +3175,8 @@ footer li {
 	.activity-product,
 	.hot-collection,
 	.showarea,
-	.showaera-container.swiper-container {
+	.showaera-container.swiper-container,
+	.showaera-review-container {
 		margin-top: 1rem;
 	}
 	.ml-index-carousel .lazyload {
@@ -3145,6 +3214,14 @@ footer li {
 	.hot-collection-item {
 		width: 48%;
 		padding-top: 11.111111%;
+	}
+	.showaera-review-container {
+		margin-left: -1rem;
+	}
+	.customer-voice {
+		width: 70%;
+		padding: 1rem 3rem;
+		margin: 0 auto;
 	}
 }
 .introduce-product-title {
