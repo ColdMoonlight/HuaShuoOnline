@@ -860,6 +860,15 @@
 				reviewFrom: 1,
 			});
 		});
+		// get introduct product
+		getProductSlideArea(function(data) {
+			data.length && (renderIntroduceProductSlide($('.product-footer'), data),
+			new LazyLoad($el.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			}));
+		});
 		// delte unused reiview
 		$(window).on('beforeunload', function() {
 			deleteReviewId();

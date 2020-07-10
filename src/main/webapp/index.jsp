@@ -10,7 +10,7 @@
 		
 		<jsp:include page="WEB-INF/views/portal/common/header.jsp" flush="true"></jsp:include>
 		<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
-		<style> main { margin-left: 0; margin-right: 0; margin-top: -16px; background-color: #f5f5f5;}</style>
+		<style> main { margin: -16px 0 0 0; padding-bottom: 1rem; background-color: #f5f5f5;}</style>
 	</head>
 	<body>
 		<jsp:include page="WEB-INF/views/portal/layout/header.jsp" flush="true"></jsp:include>
@@ -222,29 +222,7 @@
 			}
 			// render product slide
 			function renderProductSlide($el, typeCls, data) {
-				var htmlStr = '';
-				var productSlide = $('<div class="showaera-slide swiper-container"><div class="swiper-wrapper"></div><div class="swiper-btn swiper-button-next"></div><div class="swiper-btn swiper-button-prev"></div></div>');
-				data.forEach(function(item, idx) {
-					var productLink = item.productSeo ? '${APP_PATH}/' + item.productSeo + '.html' : 'javascript:;';
-					htmlStr += '<div class="swiper-slide product-item" data-productid="'+ item.productId +'">' +
-					    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || 'javascript:;') +');"></span>' +
-						'<div class="product-img">' +
-							'<a href="'+ productLink +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
-						'</div>' +
-						'<div class="product-desc">' +
-							'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
-							'<div class="product-data">' +
-								'<span class="product-pay-num">'+ (item.productHavesalenum || 0) +' Order(s)</span>' +
-								'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
-							'</div>' +
-							'<div class="product-price">' +
-								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
-								'<span class="product-define-price">$'+ (item.productOriginalprice || 0) +'</span>' +
-							'</div>' +
-						'</div>' +
-					'</div>';
-				});
-				productSlide.find('.swiper-wrapper').html(htmlStr);
+				var productSlide = generateSwiperSlideProduct(data).addClass('showarea');
 				$el.append(productSlide)
 				new Swiper(('.' + typeCls + ' .swiper-container'), {
 					slidesPerView: (window.innerWidth > 575 ? 4 : 2),
@@ -306,7 +284,7 @@
 				var $el = $('#showAreaOne');
 				data && renderShowArea($el, data);
 				getIntroduceProductData('top-selling', function(data) {
-					renderProductSlide($el, 'showAreaOne', data.slice(0, 8));
+					data.length && renderProductSlide($el, 'showAreaOne', data.slice(0, 8));
 				});
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,
@@ -330,7 +308,7 @@
 				var $el = $('#showAreaThree');
 				data && renderShowArea($el, data);
 				getReviewData(function(data) {
-					renderIntroduceReview($el, data);
+					data.length && renderIntroduceReview($el, data);
 				});
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,

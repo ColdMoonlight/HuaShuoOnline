@@ -487,4 +487,70 @@ function renderTablePagination(data) {
 		navEle.appendTo('#table-pagination');
 	}
 }
+// get slide-area product
+function getProductSlideArea(callback) {
+	$.ajax({
+		url: '${APP_PATH}/MlbackSlide/getMlbackSlidewapListByArea',
+		data: JSON.stringify({ "slideArea": 3 }),
+		type: 'post',
+		dataType: 'json',
+		contentType: 'application/json',
+		success: function (data) {
+			if (data.code == 100) {
+				callback && callback(data.extend.mlbackProductResList);
+			}
+		}
+	});
+}
+function generateSwiperSlideProduct(data) {
+	var htmlStr = '';
+	var $productSwiper = $('<div class="swiper-container"><div class="swiper-wrapper"></div><div class="swiper-btn swiper-button-next"></div><div class="swiper-btn swiper-button-prev"></div></div>');
+
+	data.forEach(function(item, idx) {
+		var productLink = item.productSeo ? '${APP_PATH}/' + item.productSeo + '.html' : 'javascript:;';
+		htmlStr += '<div class="swiper-slide product-item" data-productid="'+ item.productId +'">' +
+		    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || 'javascript:;') +');"></span>' +
+			'<div class="product-img">' +
+				'<a href="'+ productLink +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
+			'</div>' +
+			'<div class="product-desc">' +
+				'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
+				'<div class="product-data">' +
+					'<span class="product-pay-num">'+ (item.productHavesalenum || 0) +' Order(s)</span>' +
+					'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
+				'</div>' +
+				'<div class="product-price">' +
+					'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
+					'<span class="product-define-price">$'+ (item.productOriginalprice || 0) +'</span>' +
+				'</div>' +
+			'</div>' +
+		'</div>';
+	});
+
+	$productSwiper.find('.swiper-wrapper').html(htmlStr);
+
+	return $productSwiper;
+}
+function renderIntroduceProductSlide($el, data) {
+	var productSlide = generateSwiperSlideProduct(data).addClass('introduce-product');
+	$el.append(productSlide)
+	new Swiper('.introduce-product.swiper-container', {
+		slidesPerView: (window.innerWidth > 575 ? 4 : 2),
+		spaceBetween: 5,
+		freeMode: true,
+		autoplay: {
+			delay: 5000,
+			stopOnLastSlide: false,
+			disableOnInteraction: false,
+		},
+		navigation: {
+			nextEl: '.introduce-product .swiper-button-next',
+			prevEl: '.introduce-product .swiper-button-prev',
+		},
+		pagination: {
+			el: '.introduce-product .swiper-pagination',
+			clickable: true
+		}
+	});
+}
 </script>
