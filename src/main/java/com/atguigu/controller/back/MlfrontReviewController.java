@@ -517,7 +517,6 @@ public class MlfrontReviewController {
 			mlfrontReviewImgList.add(mlfrontReviewImgFirstList);
 		}
 		return Msg.success().add("mlfrontReviewList", mlfrontReviewList).add("mlfrontReviewImgList", mlfrontReviewImgList);
-		
 	}
 	
 //	/**
