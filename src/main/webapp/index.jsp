@@ -153,6 +153,22 @@
 					}
 				});
 			}
+			// get review data
+			function getReviewData(callback) {
+				$.ajax({
+					url: "${APP_PATH}/MlfrontReview/selectReviewListFrom",
+					data: JSON.stringify({ "reviewFrom": 3 }),
+					type: "post",
+					dataType: 'json',
+					contentType: 'application/json',
+					async: false,
+					success: function (data) {
+						if (data.code == 100) {
+							callback && callback();
+						}
+					}
+				});
+			}
 			// render hot ad
 			function renderActivityProduct($el, data, tagCls) {
 				var htmlStr = '';
@@ -211,7 +227,7 @@
 				data.forEach(function(item, idx) {
 					var productLink = item.productSeo ? '${APP_PATH}/' + item.productSeo + '.html' : 'javascript:;';
 					htmlStr += '<div class="swiper-slide product-item" data-productid="'+ item.productId +'">' +
-					    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
+					    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || 'javascript:;') +');"></span>' +
 						'<div class="product-img">' +
 							'<a href="'+ productLink +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
 						'</div>' +
@@ -239,6 +255,10 @@
 						prevEl: '.' + typeCls + ' .swiper-button-prev',
 					}
 				});
+			}
+			// introduce reivews
+			function renderIntroduceReview($el, data) {
+				
 			}
 			var indexCarousel, indexCarouselData, hasHotFive = false;
 			getCarouselData(1, function(data) {
@@ -297,6 +317,9 @@
 			getDisplayAreaData(2, function(data) {
 				var $el = $('#showAreaTwo');
 				data && renderShowArea($el, data);
+				getIntroduceProductData('New-Arrival', function(data) {
+					renderProductSlide($el, 'showAreaTwo', data.slice(0, 8));
+				});
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,
 					rootMargin: "10px",
@@ -306,6 +329,9 @@
 			getDisplayAreaData(3, function(data) {
 				var $el = $('#showAreaThree');
 				data && renderShowArea($el, data);
+				getReviewData(function(data) {
+					renderIntroduceReview($el, data);
+				});
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,
 					rootMargin: "10px",
