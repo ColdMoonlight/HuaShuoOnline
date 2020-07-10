@@ -9,7 +9,7 @@ public class MlfrontReview {
 
     private String reviewUimgurl;
 
-    private Integer reviewPid;
+    private Integer reviewPid;//1
 
     private String reviewPname;
 
@@ -19,7 +19,7 @@ public class MlfrontReview {
 
     private String reviewConfirmtime;
 
-    private String reviewPseoname;
+    private String reviewPseoname;//2
 
     private String reviewSupercateidstr;
 
@@ -29,7 +29,7 @@ public class MlfrontReview {
 
     private String reviewImgidstr;
 
-    private Integer reviewProstarnum;
+    private Integer reviewProstarnum;//3
 
     private Integer reviewFrom;
 
