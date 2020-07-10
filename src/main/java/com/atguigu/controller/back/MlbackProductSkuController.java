@@ -122,7 +122,7 @@ public class MlbackProductSkuController {
 	 * */
 	@RequestMapping(value="/productSkuListInsert",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg productSkuListIntoA(HttpSession session,HttpServletResponse rep,HttpServletRequest res,
+	public Msg productSkuListInsert(HttpSession session,HttpServletResponse rep,HttpServletRequest res,
 			@RequestParam("teams") String teams,@RequestParam("productskuPid") Integer productskuPid){
 		
 		//1.收到productskuPid，查询该id下，所有的产品sku
@@ -200,5 +200,77 @@ public class MlbackProductSkuController {
 	
 		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
 				.add("mlbackProductSkuListFinallRes", mlbackProductSkuListFinallRes);
+	}
+	
+	/**4.1	20200710
+	 * 批量更新sku的价格
+	 * @param productskuidList,productskuPrice
+	 * @return 
+	 * */
+	@RequestMapping(value="/productSkuPriceListInsert",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg productSkuPriceListInsert(HttpSession session,HttpServletResponse rep,HttpServletRequest res,
+			@RequestParam("productskuidList") String productskuidList,@RequestParam("productskuPrice") String productskuPrice){
+		
+		JSONArray jsonArray= JSON.parseArray(productskuidList);
+	    List<Integer> mlbackProductSkuidList = jsonArray.toJavaList(Integer.class);
+		//通过pid+skuid查询本条，并且更新
+	    MlbackProductSku mlbackProductSkureq = new MlbackProductSku();
+	    
+		for(Integer skuid:mlbackProductSkuidList){
+			mlbackProductSkureq.setProductskuId(skuid);
+			mlbackProductSkureq.setProductskuMoney(productskuPrice);
+			mlbackProductSkuService.updateByPrimaryKeySelective(mlbackProductSkureq);
+		}
+		
+		return Msg.success().add("resMsg", "产品id批量添加价格完毕");
+	}
+	
+	/**4.2	20200710
+	 * 批量更新sku的库存
+	 * @param productskuidList,productskuStock
+	 * @return 
+	 * */
+	@RequestMapping(value="/productSkuStockListInsert",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg productSkuStockListInsert(HttpSession session,HttpServletResponse rep,HttpServletRequest res,
+			@RequestParam("productskuidList") String productskuidList,@RequestParam("productskuStock") Integer productskuStock){
+		
+		JSONArray jsonArray= JSON.parseArray(productskuidList);
+	    List<Integer> mlbackProductSkuidList = jsonArray.toJavaList(Integer.class);
+		//通过pid+skuid查询本条，并且更新
+	    MlbackProductSku mlbackProductSkureq = new MlbackProductSku();
+	    
+		for(Integer skuid:mlbackProductSkuidList){
+			mlbackProductSkureq.setProductskuId(skuid);
+			mlbackProductSkureq.setProductskuStock(productskuStock);
+			mlbackProductSkuService.updateByPrimaryKeySelective(mlbackProductSkureq);
+		}
+		
+		return Msg.success().add("resMsg", "产品id批量添加价格完毕");
+	}
+	
+	/**4.3	20200710
+	 * 批量更新sku的库存
+	 * @param productskuidList,productskuCode
+	 * @return 
+	 * */
+	@RequestMapping(value="/productSkuCodeListInsert",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg productSkuCodeListInsert(HttpSession session,HttpServletResponse rep,HttpServletRequest res,
+			@RequestParam("productskuidList") String productskuidList,@RequestParam("productskuCode") String productskuCode){
+		
+		JSONArray jsonArray= JSON.parseArray(productskuidList);
+	    List<Integer> mlbackProductSkuidList = jsonArray.toJavaList(Integer.class);
+		//通过pid+skuid查询本条，并且更新
+	    MlbackProductSku mlbackProductSkureq = new MlbackProductSku();
+	    
+		for(Integer skuid:mlbackProductSkuidList){
+			mlbackProductSkureq.setProductskuId(skuid);
+			mlbackProductSkureq.setProductskuCode(productskuCode);
+			mlbackProductSkuService.updateByPrimaryKeySelective(mlbackProductSkureq);
+		}
+		
+		return Msg.success().add("resMsg", "产品id批量添加价格完毕");
 	}
 }
