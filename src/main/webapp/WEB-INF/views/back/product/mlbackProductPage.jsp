@@ -198,6 +198,24 @@
 											<p class="text-center"> no skus ... </p>
 										</div>
 									</div>
+									
+									<div class="initial-product-sku hide">										
+										<div class="input-group">
+											<label class="btn btn-primary input-group-addon" for="initialPrice">price</label>
+											<input class="form-control" data-cls="product-sku-price" id="initialPrice" type="text">
+											<a class="btn btn-primary input-group-addon">UPDATE</a>
+										</div>
+										<div class="input-group">
+											<label class="btn btn-primary input-group-addon" for="initialCount">stock</label>
+											<input class="form-control" data-cls="product-sku-stock" id="initialCount" type="text">
+											<a class="btn btn-primary input-group-addon">UPDATE</a>
+										</div>
+										<div class="input-group">
+											<label class="btn btn-primary input-group-addon" for="initialCode">price</label>
+											<input class="form-control" data-cls="product-sku-sku" id="initialCode" type="text">
+											<a class="btn btn-primary input-group-addon">UPDATE</a>
+										</div>
+									</div>
 
 									<div class="text-right" style="margin-top: 1rem;">
 										<button class="btn btn-primary product-sku-add">Add One Product-sku</button>
@@ -494,6 +512,12 @@
 					"productskuPid": reqData.productId
 				}, renderProductSkus)
 			});
+			$('.initial-product-sku input').tagsinput({
+				allowDuplicates: true,
+				onTagExists: function(item, $tag) {
+					toastr.error('Youve already used the value "'+ item + '"');
+				}
+			});
 		});
 		// delete product
 		$(document.body).on('click', '.btn-delete', function (e) {
@@ -694,6 +718,7 @@
 		// render product skus in sav
 		function renderProductSkus(data, flag) {
             var htmlStr = '';
+            data.length && $('.initial-product-sku').removeClass('hide');
             (flag ? generateSkus(data) : data).forEach(function(item) {
             	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
             	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
@@ -833,6 +858,34 @@
 				'name':  parentEl.find('.product-sku-name').text().split('/'),
 			});
 		});
+		// initial product skus
+		$('.initial-product-sku .btn').on('click', function() {
+			var $allVal = $(this).siblings('input');
+			var skuItemCls = $allVal.data('cls');
+			var skuValArr = $allVal.val().split(',');
+			var $productSkuItems = $('.' + skuItemCls);
+
+			if (!skuValArr.length) {
+				toastr.warnig('Please input data before batch operation !');
+				return;
+			}
+			
+			if (skuValArr.length == 1) {
+				if (confirm('Are you sure you want to fill all SKUs with the same data?')) {
+					$productSkuItems.val(skuValArr[0]);
+				}
+				return false;
+			}
+			
+			if ($productSkuItems.length > skuValArr.length && skuValArr.length > 1) {
+				toastr.error('The batch filled data is less than the number of existing SKUs !');
+				return;
+			}
+
+			$productSkuItems.each(function(idx, item) {
+				$(item).val(skuValArr[idx]);
+			});
+		});
 		// add one product sku
 		$('.product-sku-add').on('click', function() {
 			if (isCreate) {
@@ -962,6 +1015,7 @@
 			function deleteSkuItem(el) {
 				el.remove();
 			}
+			!$('.product-sku-item').length && $('.initial-product-sku').addClass('hide');
 			if (skuId) {
 				deleteProductSkuData({ "productskuId": skuId }, parentEl, deleteSkuItem);
 			} else {
