@@ -87,7 +87,7 @@
 			return "label-sale";
 		} else if (id == 4) {
 			return "label-doubledrawn";
-		} else if (id == 5) {
+		} else if (id == 9) {
 			return "label-15a";
 		}
 		return "";
@@ -140,12 +140,12 @@
 							}
 							
 							if (k == 0) {
-								subMenuHtml += '<dt class="label ' + labelClass + '">';
-								subMenuHtml += '<a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a>';
-								subMenuHtml += (thirdMenuLen > 1 ? '<i class="operate gw-i2"></i>' : '') + '</dt>';
+								subMenuHtml += '<dt>' +
+									'<a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a>' +
+									(thirdMenuLen > 1 ? '<i class="operate gw-i2"></i>' : '') + '</dt>';
 							} else {
 								isWrap = false;
-								subMenuHtml += '<dd class="' + labelClass + '"><a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a></dd>';
+								subMenuHtml += '<dd><a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a></dd>';
 							}
 						}
 						subMenuHtml += '</dl>';

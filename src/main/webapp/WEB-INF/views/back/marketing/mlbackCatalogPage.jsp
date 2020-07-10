@@ -118,17 +118,18 @@
 										<div class="controls">
 											<select class="form-control" id="catalogLable" />
 												<option value="0" selected="selected">0-无图</option>
-												<option value="1">1-hot</option>
-												<option value="2">2-new</option>
-												<option value="3">3-62% off</option>
-												<option value="4">4-65% off</option>
-												<option value="5">5-ins</option>
-												<option value="6">6-review</option>
-												<option value="7">7-video</option>
-												<option value="8">8-Best Quality</option>
-												<option value="9">8-15A</option>
+												<option value="1">1 - hot</option>
+												<option value="2">2 - new</option>
+												<option value="3">3 - 62% off</option>
+												<option value="4">4 - 65% off</option>
+												<option value="5">5 - ins</option>
+												<option value="6">6 - review</option>
+												<option value="7">7 - video</option>
+												<option value="8">8 - Best Quality</option>
+												<option value="9">9 - 15A</option>
 											</select>
 										</div>
+										<i>useless: 5-ins, 6-reivew, 7-video, 8-beset quality</i>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="catalogDesc">Description</label>
