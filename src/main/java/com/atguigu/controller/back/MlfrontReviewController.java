@@ -363,7 +363,7 @@ public class MlfrontReviewController {
 		return startNumList;
 	}
 	
-	/**9.0	useOn	0505
+	/**8.0	useOn	0505
 	 * MlfrontReview	insert
 	 * @param MlfrontReview
 	 */
@@ -393,7 +393,7 @@ public class MlfrontReviewController {
 	}
 	
 	
-	/**10.0	useOn	0505
+	/**9.0	useOn	0505
 	 * MlfrontReview	delete
 	 * @param id
 	 */
@@ -403,14 +403,13 @@ public class MlfrontReviewController {
 		//接收id信息,删除本条主评论
 		Integer reviewId = mlfrontReview.getReviewId();
 		mlfrontReviewService.deleteByPrimaryKey(reviewId);
-		
-//		mlbackReviewImgService.deleteByreviewId(reviewId);
+		mlbackReviewImgService.deleteByreviewId(reviewId);
 		
 		return Msg.success().add("resMsg", "delete success");
 	}
 	
 	
-	/**11.0	useOn	0505
+	/**10.0	useOn	0505
 	 * 分类MlfrontReview列表分页list数据
 	 * @param pn,
 	 * Integer reviewPid;
@@ -492,51 +491,55 @@ public class MlfrontReviewController {
 		return Msg.success().add("pageInfo", page);
 	}
 	
-	/**
-	 * 12.0	onuse	200104
-	 * Ins Review page
-	 * @param jsp
-	 * @return
-	 * */
-	@RequestMapping("/toReviewInsPage")
-	public String toReviewInsPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
-	
-		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
-		  
-		if(ifMobile.equals("1")){
-			return "mfront/navActive/mreviewInsListPage";
-		}else{
-			return "front/navActive/pcreviewInsList";
-		}
-	}
-	
-	
-	/**13.0	onuse	200104
+	/**11.0	onuse	200104
 	 * search review From Ins
 	 */
-//	@RequestMapping(value="/selectReviewListFrom",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg selectReviewListFrom(HttpSession session,@RequestParam(value = "reviewFrom") Integer reviewFrom) {
-//		
-//		MlfrontReview mlfrontReviewReq = new MlfrontReview();
-//		mlfrontReviewReq.setReviewStatus(1);
-//		mlfrontReviewReq.setReviewFrom(reviewFrom);
-//		List<MlfrontReview> mlfrontReviewList = mlfrontReviewService.selectReviewListFrom(mlfrontReviewReq);
-//		
-//		MlbackReviewImg mlbackReviewImgOneReq = new MlbackReviewImg();
-//		List<List<MlbackReviewImg>> mlfrontReviewImgList = new ArrayList<List<MlbackReviewImg>>();
-//		
-//		List<MlbackReviewImg> mlfrontReviewImgFirstList = new ArrayList<MlbackReviewImg>();
-//		for(int i=0;i<mlfrontReviewList.size();i++){
-//			Integer reviewId = mlfrontReviewList.get(i).getReviewId();
-//			mlbackReviewImgOneReq.setReviewId(reviewId);
-//			mlbackReviewImgOneReq.setReviewimgSortOrder(1);
-//			mlfrontReviewImgFirstList = mlbackReviewImgService.selectMlbackReviewImgByRIdAndImgSort(mlbackReviewImgOneReq);
-//			mlfrontReviewImgList.add(mlfrontReviewImgFirstList);
+	@RequestMapping(value="/selectReviewListFrom",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg selectReviewListFrom(HttpSession session,@RequestBody MlfrontReview mlfrontReview) {
+		
+		Integer reviewFrom = mlfrontReview.getReviewFrom();
+		
+		MlfrontReview mlfrontReviewReq = new MlfrontReview();
+		mlfrontReviewReq.setReviewStatus(1);
+		mlfrontReviewReq.setReviewFrom(reviewFrom);
+		List<MlfrontReview> mlfrontReviewList = mlfrontReviewService.selectReviewListFrom(mlfrontReviewReq);
+		
+		MlbackReviewImg mlbackReviewImgOneReq = new MlbackReviewImg();
+		List<List<MlbackReviewImg>> mlfrontReviewImgList = new ArrayList<List<MlbackReviewImg>>();
+		
+		List<MlbackReviewImg> mlfrontReviewImgFirstList = new ArrayList<MlbackReviewImg>();
+		for(int i=0;i<mlfrontReviewList.size();i++){
+			Integer reviewId = mlfrontReviewList.get(i).getReviewId();
+			mlbackReviewImgOneReq.setReviewId(reviewId);
+			mlbackReviewImgOneReq.setReviewimgSortOrder(1);
+			mlfrontReviewImgFirstList = mlbackReviewImgService.selectMlbackReviewImgByRIdAndImgSort(mlbackReviewImgOneReq);
+			mlfrontReviewImgList.add(mlfrontReviewImgFirstList);
+		}
+		return Msg.success().add("mlfrontReviewList", mlfrontReviewList).add("mlfrontReviewImgList", mlfrontReviewImgList);
+		
+	}
+	
+//	/**
+//	 * 12.0	onuse	200104
+//	 * Ins Review page
+//	 * @param jsp
+//	 * @return
+//	 * */
+//	@RequestMapping("/toReviewInsPage")
+//	public String toReviewInsPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
+//	
+//		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+//		  
+//		if(ifMobile.equals("1")){
+//			return "mfront/navActive/mreviewInsListPage";
+//		}else{
+//			return "front/navActive/pcreviewInsList";
 //		}
-//		return Msg.success().add("mlfrontReviewList", mlfrontReviewList).add("mlfrontReviewImgList", mlfrontReviewImgList);
-//		
 //	}
+	
+	
+	
 	
 	/**
 	 * 14.0	onuse	200108
