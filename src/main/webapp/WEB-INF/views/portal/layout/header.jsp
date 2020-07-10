@@ -2,7 +2,7 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <header>
 	<div class="pc-header">
-		<div class="ml-ad lazyload"></div>
+		<div class="ml-ad"></div>
 		<div class="ml-search">
 			<div class="container">
 				<a class="logo" href="javascript:goToIndex();">
@@ -37,7 +37,7 @@
 		<a href="${APP_PATH}/MlbackCart/toCartList" class="icon cart"><span class="num">0</span></a>
 	</div>
 	<div class="wap-header">
-		<div class="ml-ad lazyload"></div>
+		<div class="ml-ad"></div>
 		<div class="wap-navbar">
 			<span id="menu" class="icon menu"></span>
 			<span class="icon person"></span>
@@ -430,10 +430,23 @@
 	}
 	/* render header ad */
 	function renderHeaderAd(data) {
-		$('.wap-header .ml-ad').attr('data-src', data.slideWapimgurl);
-		$('.pc-header .ml-ad').attr('data-src', data.slidePcimgurl);
+		var adSeo, adLink;
+		if (data.slideIfproorcateorpage == 0) {				
+			adSeo = data.slideSeoname;
+		}
+		// collection
+		if (data.catalogIfproorcateorpage == 1) {
+			adSeo = 'search/' + data.slideCateseoname;
+		}
+		// subject
+		if (data.catalogIfproorcateorpage == 2) {
+			adSeo = data.slidePageseoname;
+		}
+		adLink = data.slideIfinto ? '${APP_PATH}/' + adSeo + '.html' : 'javascript:;';
+		$('.wap-header .ml-ad').html('<a class="lazyload" href="'+ adLink +'" data-src="'+ data.slideWapimgurl +'"></a>');
+		$('.pc-header .ml-ad').html('<a class="lazyload" href="'+ adLink +'" data-src="'+ data.slidePcimgurl +'"></a>');
 		// lazyload
-		new LazyLoad($('.ml-ad'), {
+		new LazyLoad($('.ml-ad .lazyload'), {
 			root: null,
 			rootMargin: "10px",
 			threshold: 0
@@ -446,8 +459,6 @@
 	});
 	// initial header nav
 	getNavMenuData(function (data) {
-		/* renderMainCategory($('.ml-nav'), data.categoryFirstList, data.mlbackCategorySuperList); */
-		console.log(data)
 		renderMainCategory($('.ml-nav'), data.CatalogFirstList, data.MlbackCatalogSuperList);
 		// pc event
 		addNavEvent();
@@ -485,29 +496,24 @@
 		addFixed();
 		$('.wap-navbar .search-box').show();
 	});
-	var startX,
-		startY = 0,
+	var startY = 0,
 		loginRegisterModal = null;
 	$(window).on('scroll', function () {
 		var currentY = window.pageYOffset;
-		if (currentY >= startY) {
-			if (window.innerWidth > 1024) {
-				$('.ml-search').hide();
-				$('main').css({ 'paddingTop': $('header').height() + 16 });
-			}
+		var isPc = window.innerWidth > 1024;
+		if (currentY >= startY && currentY > 60 && isPc) {
+			!$('.ml-search').hasClass('down') && ($('.ml-search').addClass('hide down').removeClass('up'), $('main').css({ 'paddingTop': $('header').height() + 16 }));
 		}
 
-		if (currentY < startY && currentY < 60) {
-			if (window.innerWidth > 1024) {
-				$('.ml-search').show();
-				$('main').css({ 'paddingTop': $('header').height() + 16 });
-			}
+		if (currentY < startY && currentY < 60 && isPc) {
+			!$('.ml-search').hasClass('up') && ($('.ml-search').removeClass('down').removeClass('hide').addClass('up'), $('main').css({ 'paddingTop': $('header').height() + 16 }));
 		}
 		startY = currentY;
 	});
 	$(window).on('resize', function () {
-		var currentY = 
-		$('main').css({ 'paddingTop': $('header').height() + 16 });
+		debounce(function() {
+			$('main').css({ 'paddingTop': $('header').height() + 16 });
+		}, 100);
 	});
 	// iphone share
 	$('#iphone-share').on('click', function() {

@@ -90,7 +90,7 @@
 										<label class="col-form-label" for="catalogFirthNum">Sort</label>
 										<div class="controls">
 											<select class="form-control" id="catalogFirthNum" />
-												<option value="0">Please select CateLog sort-order</option>
+												<option value="-1">Please select CateLog sort-order</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -432,7 +432,7 @@
 		function resetFormData() {
 			$('#catalogId').val('');
 			$('#catalogName').val('');
-			$('#catalogFirthNum').val('0');
+			$('#catalogFirthNum').val('-1');
 			$('#catalogStatus').prop('checked', false);
 			$('#catalogLable').val('0');
 			$('#catalogDesc').val('');
@@ -503,15 +503,16 @@
 			// init
 			$('#catalogId').val(data.catalogId);
 			$('#catalogName').val(data.catalogName);
-			$('#catalogFirthNum').val(data.catalogFirthNum ? data.catalogFirthNum : '0');
+			$('#catalogFirthNum').val(data.catalogFirthNum ? data.catalogFirthNum : '-1');
 			$('#catalogStatus').prop('checked', (data.catalogSupercateId > 0 ? data.catalogStatus : '0'));
-			$('#catalogLable').val(data.catalogLable);
+			$('#catalogLable').val(data.catalogLable || '0');
 			$('#catalogDesc').val(data.catalogDesc);
 
 			var catalogIfproorcateorpage = data.catalogIfproorcateorpage;
 			$('#catalogIfproorcateorpage').val(catalogIfproorcateorpage || '0');
 			if (catalogIfproorcateorpage == 0) {
 				$('#catalogProid').val(data.catalogProid || '-1');
+				$('.ml-product').removeClass('hide').siblings().addClass('hide');
 			} else if (catalogIfproorcateorpage == 1) {
 				$('#catalogCateid').val(data.catalogCateid || '-1');
 				$('.ml-category').removeClass('hide').siblings().addClass('hide');

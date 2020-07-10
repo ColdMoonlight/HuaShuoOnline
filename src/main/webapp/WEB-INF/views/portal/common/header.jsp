@@ -35,6 +35,15 @@
 			}
 		});
 	}
+	// debounce
+	function debounce(callback, delay) {
+		var timeEnd = Date.now();
+		delay = delay || 100;
+		if (timeEnd - timeStart > delay) clearTimeout(timer);
+		timer = setTimeout(function() {
+			callback && callback();			
+		}, delay);
+	}
 	/* varient */
 	var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	var storage = window.localStorage;

@@ -82,6 +82,18 @@
 						<span class="c-text">Carousel</span>
 					</a>
 				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackActShowPro/toMlbackActShowProPage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">Activity Product</span>
+					</a>
+				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackShowArea/toMlbackShowAreaPage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">Display Area</span>
+					</a>
+				</li>
 			</ul>
 		</li>
 		<li class="c-sidebar-nav-item">

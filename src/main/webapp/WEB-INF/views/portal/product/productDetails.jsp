@@ -681,10 +681,7 @@
 		});
 		// add to cart
 		$('#add-to-cart').on('click', function(evt) {
-			var timeEnd = Date.now();
-			if (timeEnd - timeStart < 300) clearTimeout(timer);
-			timeStart = timeEnd;
-			timer = setTimeout(function() {
+			debounce(function() {
 				if (isCorrectProduct()) {
 					// check product sku is error or not
 					var reqData = getProductData();
@@ -862,6 +859,16 @@
 				reviewProstarnum: starNum,
 				reviewFrom: 1,
 			});
+		});
+		// get introduct product
+		getProductSlideArea(function(data) {
+			var $el = $('.product-footer');
+			data.length && (renderIntroduceProductSlide($el, data),
+			new LazyLoad($el.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			}));
 		});
 		// delte unused reiview
 		$(window).on('beforeunload', function() {

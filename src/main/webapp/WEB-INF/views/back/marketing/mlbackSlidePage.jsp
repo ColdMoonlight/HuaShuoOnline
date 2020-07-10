@@ -105,7 +105,7 @@
 										<label class="col-form-label" for="slideFirthNum">Carousel Sort</label>
 										<div class="controls">
 											<select class="form-control" id="slideFirthNum" />
-												<option value="0">Please select Carousel sort-order</option>
+												<option value="-1">Please select Carousel sort-order</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -442,10 +442,10 @@
 		function resetFormData() {
 			$('#slideId').val('');
 			$('#slideName').val('');
-			$('#slideFirthNum').val('0');
+			$('#slideArea').val('-1');
+			$('#slideFirthNum').val('-1');
 			$('#slideWapstatus').prop('checked', false);
 			$('#slidePcstatus').prop('checked', false);
-			$('#slideArea').val('0');
 
 			resetPicture($('#slideWap'));
 			resetPicture($('#slidePc'));
@@ -509,10 +509,10 @@
 			// init
 			$('#slideId').val(data.slideId);
 			$('#slideName').val(data.slideName);
-			$('#slideFirthNum').val(data.slideFirthNum ? data.slideFirthNum : '0');
+			$('#slideArea').val(data.slideArea || '-1');
+			$('#slideFirthNum').val(data.slideFirthNum ? data.slideFirthNum : '-1');
 			$('#slideWapstatus').prop('checked', data.slideWapstatus);
 			$('#slidePcstatus').prop('checked', data.slidePcstatus);
-			$('#slideArea').val(data.slideArea);
 			
 			if (data.slideWapimgurl) {
 				addPicture($('#slideWap'), {
@@ -534,6 +534,7 @@
 			$('#slideIfproorcateorpage').val(slideIfproorcateorpage || 0);
 			if (slideIfproorcateorpage == 0) {
 				$('#slideProid').val(data.slideProid || '-1');
+				$('.ml-product').removeClass('hide').siblings().addClass('hide');
 			} else if (slideIfproorcateorpage == 1) {
 				$('#slideCateid').val(data.slideCateid || '-1');
 				$('.ml-category').removeClass('hide').siblings().addClass('hide');
