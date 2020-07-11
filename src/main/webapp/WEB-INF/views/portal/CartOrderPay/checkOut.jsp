@@ -291,7 +291,7 @@
 			$('.order-item').each(function(idx, item) {
 				var $data = $(item).data('orderitem');
 
-				var orderitemPrice = parseFloat((parseFloat((($data.orderitemProductOriginalprice + parseInt($data.orderitemPskuMoneystr || 0)) * ($data.orderitemProductAccoff) / 100).toFixed(2)) * $data.orderitemPskuNumber).toFixed(2));
+				var orderitemPrice = parseFloat((parseFloat(((($data.orderitemProductOriginalprice || 0) + parseFloat($data.orderitemPskuMoneystr || 0)) * ($data.orderitemProductAccoff || 100) / 100).toFixed(2)) * $data.orderitemPskuNumber).toFixed(2));
 				// bind single-product discount
 				if (couponData && couponData.couponProductOnlyTypeifHave && couponData.mlbackCouponOne && (couponData.mlbackCouponOne.couponProductonlyPidstr == $data.orderitemPid)) {
 					if (couponData.mlbackCouponOne.couponType == '0') {

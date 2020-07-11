@@ -437,6 +437,29 @@ textarea:focus {
 	color: #333333;
 }
 
+.icon.logout:before {
+  content: "\e822";
+}
+
+.icon.coupon:before {
+  content: "\e66a";
+}
+
+.icon.card:before {
+  content: "\e6c5";
+}
+
+.icon.order:before {
+  content: "\e615";
+}
+
+.icon.more:before {
+  content: "\e616";
+}
+
+.icon.data:before {
+  content: "\e791";
+}
 
 .icon.star:before {
   content: "\e623";
@@ -715,8 +738,8 @@ main {
 }
 .wap-navbar,
 .pc-nav {
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #f5f5f5;
+	border-bottom: 1px solid #f5f5f5;
 }
 /* header search pc */
 .pc-header .ml-search .container {
@@ -3229,4 +3252,65 @@ footer li {
 	font-size: 1rem;
 	font-weight: 500;
 	text-align: center;
+}
+
+/* user center */
+.usercenter-title {
+	padding: .25rem 0;
+	font-size: 1rem;
+	font-weight: 600;
+	text-align: center;
+	margin-bottom: 1rem;
+}
+.usercenter-profile {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 50vw;
+	color: #fff;
+	background-color: #ccc;
+	background-image: url('../img/bg-usercenter.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+.usercenter-name {
+	font-size: 1.2rem;
+}
+.usercenter-tip {
+	margin-top: .75rem;
+	font-size: .875rem;
+}
+.usercenter-list {
+	display: flex;
+    flex-direction: column;
+	background-color: #f5f5f5;
+}
+.usercenter-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: .75rem 1rem;
+	border-bottom: 1px solid #f5f5f5;
+	background-color: #fff;
+	text-decoration: none;
+}
+.usercenter-item:nth-last-of-type(1) {
+	margin: .5rem 0;
+	border-top: 1px solid #f5f5f5;
+}
+.usercenter-item .text {
+	display: block;
+	width: 100%;
+	padding-left: 1rem;
+	font-size: 1rem;
+	color: #333333;
+}
+
+.usercenter-item .icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	font-size: 1.5rem;
+	color: #f375a3;
 }
