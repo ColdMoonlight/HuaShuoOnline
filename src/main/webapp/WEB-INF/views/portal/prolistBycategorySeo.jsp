@@ -52,7 +52,7 @@
 			});
 		}
 		function renderCategorySeo(data, hasCategory) {
-			if (!hasCategory) renderCategorySelect(data.mlbackCategorydownEr);
+			if (!hasCategory) renderCategorySelect(data.mlbackCategorydownList);
 			renderProductList(data.mlbackProductResList);
 		}
 		function renderProductList(data) {
