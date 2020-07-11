@@ -21,7 +21,7 @@
 			<div class="usercenter-title">Personal Center</div>
 			<div class="usercenter-body">
 				<div class="usercenter-profile">
-					<div class="usercenter-name">lzb@qq.com</div>
+					<div class="usercenter-name"></div>
 					<div class="usercenter-tip">Welcome</div>
 				</div>
 				<div class="usercenter-list">
@@ -68,6 +68,19 @@
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script>
+	function addUserInfo() {
+		var firstname = '${sessionScope.loginUser.userFirstname}',
+			lastname = '${sessionScope.loginUser.userLastname}',
+			userEmail = '${sessionScope.loginUser.userEmail}';
+		if (firstname && lastname) {
+			$(".usercenter-name").html(firstname + ' ' + lastname);
+		} else if (userEmail) {
+			$(".usercenter-name").html(userEmail);
+		} else {
+			$(".usercenter-name").html('Customer');
+		}
+	}
+	addUserInfo();
 	$('#logout').on('click', function () {
 		$.ajax({
 			url: "${APP_PATH }/MlfrontUser/exit",
