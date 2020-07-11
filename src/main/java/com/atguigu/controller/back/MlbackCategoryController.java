@@ -329,14 +329,14 @@ public class MlbackCategoryController {
 			 }
 		 }
 		 return Msg.success().add("resMsg", "searchBycategorySeo完毕")
-				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownEr", mlbackCategorydownEr);
+				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownEr", mlbackCategorydownEr).add("mlbackCategorydownList", mlbackCategorydownList);
 	 }
 	 
 	/**
 	 * 11.0	onuse	20191225	检查
 	 * 获取getCategorySuperMenu
 	 * @param rep res
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping(value="/getCategorySuperMenu",method=RequestMethod.POST)
 	@ResponseBody
