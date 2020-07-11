@@ -9,7 +9,7 @@
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<style>
 		@media only screen and (max-width: 575px) {
-			main { margin: 0; }
+			main { margin: -1rem 0 0 0; }
 		}
 	</style>
 </head>
@@ -27,12 +27,12 @@
 				<div class="usercenter-list">
 					<a class="usercenter-item" href="javascript:goToUserCenerOrder();">
 						<span class="icon order"></span>
-						<span class="text">My Order</span>
+						<div class="text">My Order</div>
 						<span class="icon right"></span>
 					</a>
 					<a class="usercenter-item" href="javascript:goToCartList();">
 						<span class="icon cart"></span>
-						<span class="text">Shopping Cart</span>
+						<div class="text">Shopping Cart</div>
 						<span class="icon right"></span>
 					</a>
 					<a class="usercenter-item" href="javascript:goToUserCenerCoupon();">
@@ -42,22 +42,22 @@
 					</a>
 					<a class="usercenter-item" href="javascript:goToUserCenerPersonal();">
 						<span class="icon card"></span>
-						<span class="text">Personal Info</span>
+						<div class="text">Personal Info</div>
 						<span class="icon right"></span>
 					</a>
 					<a class="usercenter-item">
 						<span class="icon data"></span>
-						<span class="text">Integral Details</span>
+						<div class="text">Integral Details</div>
 						<span class="icon right"></span>
 					</a>
 					<a class="usercenter-item">
 						<span class="icon more"></span>
-						<span class="text">More</span>
+						<div class="text">More</div>
 						<span class="icon right"></span>
 					</a>
 					<a id="logout" class="usercenter-item">
 						<span class="icon logout"></span>
-						<span class="text">Drop Out</span>
+						<div class="text">Drop Out</div>
 						<span class="icon right"></span>
 					</a>
 				</div>
