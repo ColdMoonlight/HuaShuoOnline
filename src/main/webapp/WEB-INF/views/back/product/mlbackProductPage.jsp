@@ -199,25 +199,26 @@
 										</div>
 									</div>
 									
-									<div class="initial-product-sku hide">										
-										<div class="input-group">
-											<label class="btn btn-primary input-group-addon" for="initialPrice">price</label>
-											<input class="form-control" data-cls="product-sku-price" id="initialPrice" type="text">
-											<a class="btn btn-primary input-group-addon">UPDATE</a>
-										</div>
+									<div class="initial-product-sku hide">
+										<h3>Batch Processing</h3>
 										<div class="input-group">
 											<label class="btn btn-primary input-group-addon" for="initialCount">stock</label>
 											<input class="form-control" data-cls="product-sku-stock" id="initialCount" type="text">
 											<a class="btn btn-primary input-group-addon">UPDATE</a>
 										</div>
 										<div class="input-group">
-											<label class="btn btn-primary input-group-addon" for="initialCode">price</label>
+											<label class="btn btn-primary input-group-addon" for="initialPrice">price</label>
+											<input class="form-control" data-cls="product-sku-price" id="initialPrice" type="text">
+											<a class="btn btn-primary input-group-addon">UPDATE</a>
+										</div>
+										<div class="input-group">
+											<label class="btn btn-primary input-group-addon" for="initialCode">code</label>
 											<input class="form-control" data-cls="product-sku-sku" id="initialCode" type="text">
 											<a class="btn btn-primary input-group-addon">UPDATE</a>
 										</div>
 									</div>
 
-									<div class="text-right" style="margin-top: 1rem;">
+									<div class="product-sku-data-operate">
 										<button class="btn btn-primary product-sku-add">Add One Product-sku</button>
 										<button class="btn btn-primary product-sku-reset">Reset Product Skus</button>
 										<button class="btn btn-primary all-product-sku-save">Save All Product Skus</button>
@@ -512,12 +513,13 @@
 					"productskuPid": reqData.productId
 				}, renderProductSkus)
 			});
-			$('.initial-product-sku input').tagsinput({
-				allowDuplicates: true,
-				onTagExists: function(item, $tag) {
-					toastr.error('Youve already used the value "'+ item + '"');
-				}
-			});
+		});
+		// enable batch product-sku
+		$('.initial-product-sku input').tagsinput({
+			allowDuplicates: true,
+			onTagExists: function(item, $tag) {
+				toastr.error('Youve already used the value "'+ item + '"');
+			}
 		});
 		// delete product
 		$(document.body).on('click', '.btn-delete', function (e) {
@@ -537,6 +539,8 @@
 			isCreate && productId && deleteProductData({
 				productId: productId,
 			});
+			// hide batch product-sku
+			$('.initial-product-sku').addClass('hide');
 		});
 		// save product
 		$('.c-create .btn-save').on('click', function () {
@@ -561,6 +565,8 @@
 				getTabSearchData($('.c-table-tab-item.active'));
 				showInitBlock();
 				$('#productId').val('');
+				// hide batch product-sku
+				$('.initial-product-sku').addClass('hide');
 			});
 		});
 		// cancel product save
@@ -584,6 +590,8 @@
 				}
 			}
 			showInitBlock();
+			// hide batch product-sku
+			$('.initial-product-sku').addClass('hide');
 		});
 		$(window).on('beforeunload', function() {
 			if (isCreate) {
@@ -718,7 +726,6 @@
 		// render product skus in sav
 		function renderProductSkus(data, flag) {
             var htmlStr = '';
-            data.length && $('.initial-product-sku').removeClass('hide');
             (flag ? generateSkus(data) : data).forEach(function(item) {
             	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
             	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
@@ -741,6 +748,8 @@
             	+'</div>';
             });
             $('.product-sku-body').html(htmlStr || '<p class="text-center"> no skus ... </p>');
+
+            $('.product-sku-item').length && $('.initial-product-sku').removeClass('hide');
 		}
 		// generate skus
 		function generateSkus(data) {
@@ -881,10 +890,16 @@
 				toastr.error('The batch filled data is less than the number of existing SKUs !');
 				return;
 			}
+			
+			if ($productSkuItems.length < skuValArr.length && skuValArr.length > 1) {
+				toastr.error('The batch filled data is greater than the number of existing SKUs !');
+				return;
+			}
 
 			$productSkuItems.each(function(idx, item) {
 				$(item).val(skuValArr[idx]);
 			});
+			toastr.error('The batch filled data successful, please save the data later !');
 		});
 		// add one product sku
 		$('.product-sku-add').on('click', function() {

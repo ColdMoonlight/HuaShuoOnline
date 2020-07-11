@@ -579,6 +579,14 @@
 	fill: #fff;
 	margin: .25rem;
 }
+.product-sku-data-operate {
+	margin-top: 1rem;
+	text-align: right;
+}
+.product-sku-data-operate .btn {	
+	margin-top: .5rem;
+	margin-left: .5rem;
+}
 .initial-product-sku {
 	padding: 1rem 0;
 	margin-top: 1rem;
