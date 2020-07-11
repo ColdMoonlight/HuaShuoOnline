@@ -336,7 +336,7 @@ public class MlbackCategoryController {
 	 * 11.0	onuse	20191225	检查
 	 * 获取getCategorySuperMenu
 	 * @param rep res
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping(value="/getCategorySuperMenu",method=RequestMethod.POST)
 	@ResponseBody
