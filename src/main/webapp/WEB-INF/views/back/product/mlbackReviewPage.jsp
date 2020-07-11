@@ -327,12 +327,6 @@
 				});
 			});
 		});
-		$(window).on('beforeunload', function() {
-			var reviewId = $('#reviewId').val();
-			isCreate && reviewId && deleteProductData({
-				reviewId: reviewId,
-			});
-		});
 		// save review
 		$('.c-create .btn-save').on('click', function () {
 			var reqData = getFormData();
@@ -357,11 +351,10 @@
 		});
 		$(window).on('beforeunload', function() {
 			if (isCreate) {
-				// delete null product
-				deleteReviewData({
-					reviewId: $('#reviewId').val(),
-				}, function() {
-					console.log("cancel create-review !");
+				// delete null review
+				var reviewId = $('#reviewId').val();
+				reviewId && deleteReviewData({
+					reviewId: reviewId,
 				});
 			}
 		});
