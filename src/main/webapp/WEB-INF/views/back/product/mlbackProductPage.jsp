@@ -382,7 +382,7 @@
 		var hasSuperCateList = false;
 		var isCreate = false;
 		var isSaveSku = false;
-		var skuListStatus = false;
+		var hasSkuListStatus = false;
 		// init summernote editor for description
 		$('#productDesc').summernote({
 			height: 300,
@@ -589,7 +589,7 @@
 			$('.initial-product-sku').addClass('hide');
 		});
 		$(window).on('beforeunload', function() {
-			if (!skuListStatus && !checkSkuChangeStatus()) return false;
+			if (!hasSkuListStatus && !checkSkuChangeStatus()) return false;
 			if (isCreate) {
 				// delete null product
 				var productId = $('#productId').val();
@@ -770,7 +770,7 @@
 			
 			if (flag) {
 				var st = confirm("Are you sure you don't want to save updated SKU list data !");
-				skuListStatus = true;
+				hasSkuListStatus = true;
 				if (!st) {
 					$('.product-sku-data-operate')[0].scrollIntoView();
 					$('.all-product-sku-save').focus();
