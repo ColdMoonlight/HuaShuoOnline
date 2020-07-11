@@ -45,26 +45,6 @@ public class MlfrontUserController {
 		}
 		return Msg.success().add("resMsg", "初始化验证是否登录").add("ifLogin", ifLogin);
 	}
-//	
-//	/**2.0	zsh 200619
-//	 * ifSession	去登录/注册页面
-//	 * @param ifSession
-//	 */
-//	@RequestMapping(value="/toLoginRegisterPage")
-//	public String toLoginRegisterPage() throws Exception{
-//		
-//		return "portal/user/loginRegister";
-//	}
-//	
-//	/**2.1	zsh 200619
-//	 * ifSession	重置密码
-//	 * @param ifSession
-//	 */
-//	@RequestMapping(value="/toForgetPassWord")
-//	public String tomForgetPassWord() throws Exception{
-//		
-//		return "portal/user/resetpassword";
-//	}
 	
 	/**2	zsh 200619
 	 * MlfrontUser	update

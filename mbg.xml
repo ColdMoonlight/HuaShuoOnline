@@ -58,6 +58,8 @@
 		<table tableName="tb_mlback_slide" domainObjectName="MlbackSlide" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_showarea" domainObjectName="MlbackShowArea" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_actshowpro" domainObjectName="MlbackActShowPro" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_mlback_videoshowarea" domainObjectName="MlbackVideoShowArea" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_mlback_video" domainObjectName="MlbackVideo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 		
 		<!--	tb_mlfront
