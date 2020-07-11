@@ -2167,13 +2167,15 @@ footer li {
 		width: 2.6rem;
 	}
 	.cartlist-modal .modal-container,
-	.review-modal .modal-container {
+	.review-modal .modal-container,
+	.userinfo-modal .modal-container {
 		position: absolute;
 	    left: 0;
 	    bottom: 0;
 	}
 	.cartlist-modal .modal-body,
-	.review-modal .modal-body {
+	.review-modal .modal-body,
+	.userinfo-modal .modal-body {
 		min-height: 50vh;
 	}
 	.cartlist-modal .modal-footer {
@@ -3256,11 +3258,10 @@ footer li {
 
 /* user center */
 .usercenter-title {
-	padding: .25rem 0;
+	padding: 1rem 0;
 	font-size: 1rem;
 	font-weight: 600;
 	text-align: center;
-	margin-bottom: 1rem;
 }
 .usercenter-profile {
 	display: flex;
@@ -3301,16 +3302,52 @@ footer li {
 	border-top: 1px solid #f5f5f5;
 }
 .usercenter-item .text {
-	display: block;
-	width: 100%;
+	flex-grow: 1;
 	padding-left: 1rem;
 	font-size: 1rem;
 	color: #333333;
 }
-
 .usercenter-item .icon {
 	width: 1.5rem;
 	height: 1.5rem;
 	font-size: 1.5rem;
 	color: #f375a3;
+}
+.usercenter-back {
+	padding: .75rem 0;
+	border: 1px solid #f5f5f5;
+}
+.usercenter-back a {
+	display: flex;
+	align-items: center;
+	font-size: 1.25rem;
+	color: #333;
+	text-decoration: none;
+}
+.usercenter-back .icon {
+	width: 3rem;
+	height: 1.5rem;
+	font-size: 1.5rem;
+}
+.user-personinfo {
+	min-height: 60vh;
+}
+.user-personinfo .usercenter-item {
+	margin-top: .5rem;
+}
+.user-personinfo .usercenter-item .text {
+	font-weight: 600;
+}
+.user-personinfo .usercenter-item .right-data {
+	display: flex;
+	color: #999;
+}
+.user-personinfo .usercenter-item .input-data {
+	margin-right: .5rem;
+}
+.userinfo-modal .btn-group {
+	margin-top: 1rem;
+}
+.userinfo-modal .btn {
+	width: 100%;
 }
