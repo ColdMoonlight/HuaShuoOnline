@@ -395,6 +395,16 @@ function goTopayInstance() {
 function goToUserCenter() {
 	 window.location.href = "${APP_PATH }/MlfrontUser/toUserCenter";
 }
+function goToUserCenerOrder() {
+	window.location.href = "${APP_PATH }/MlfrontUser/tommyOrderPage";
+}
+function goToUserCenerCoupon() {
+	window.location.href = "${APP_PATH }/MlfrontUser/toCouponPage";
+}
+function goToUserCenerPersonal() {
+	window.location.href = "${APP_PATH }/MlfrontUser/toPersonInfoPage";
+}
+
 
 /* pagination */
 /* pageNum */

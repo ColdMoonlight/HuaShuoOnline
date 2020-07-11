@@ -102,6 +102,11 @@
 					'</div>';
 				});
 				var productLink = item.cartitemProductSeoName ? ('${APP_PATH}/'+ item.cartitemProductSeoName +'.html') : 'javascript:;';
+				var definePrice = 0, nowPrice = 0;
+				if (item.cartitemProductOriginalprice && item.cartitemProductActoff) {
+					definePrice = (item.cartitemProductOriginalprice || 0)  + (parseFloat(item.cartitemProductskuMoneystr) || 0);
+					nowPrice = definePrice * item.cartitemProductActoff / 100;
+				}
 				$cartList.append($('<div class="cart-item">' +
 					'<a href="'+ productLink +'"><img class="cart-img" src="'+ item.cartitemProductMainimgurl +'"></a>' +
 					'<div class="cart-product">' +
@@ -109,8 +114,8 @@
 						'<div class="cart-sku-list">'+ cartSkuList +'</div>' +
 						'<div class="cart-product-num">' +
 							'<div class="cart-product-price">' +
-								'<span class="product-now-price">$'+ (item.cartitemProductOriginalprice && item.cartitemProductActoff ? ((item.cartitemProductOriginalprice  + parseFloat(item.cartitemProductskuMoneystr)) * item.cartitemProductActoff / 100) : 0).toFixed(2) +'</span>' +
-								'<span class="product-define-price">$'+ (item.cartitemProductOriginalprice || 0).toFixed(2) +'</span>' +
+								'<span class="product-now-price">$'+ nowPrice.toFixed(2) +'</span>' +
+								'<span class="product-define-price">$'+ definePrice.toFixed(2) +'</span>' +
 							'</div>' +
 							'<span class="icon delete product-delete">' + '</span>' +
 							'<div class="product-qty">' +
@@ -144,7 +149,7 @@
 			els.each(function(idx, item) {
 				var data = $(item).data('cartitem');
 				resData.count += data.cartitemProductNumber;
-				resData.price += parseFloat((parseFloat(((data.cartitemProductOriginalprice + parseInt(data.cartitemProductskuMoneystr)) * data.cartitemProductActoff / 100).toFixed(2)) * data.cartitemProductNumber).toFixed(2));
+				resData.price += parseFloat((parseFloat((((data.cartitemProductOriginalprice || 0) + (parseFloat(data.cartitemProductskuMoneystr) || 0)) * (data.cartitemProductActoff || 100) / 100).toFixed(2)) * (data.cartitemProductNumber || 1)).toFixed(2));
 			});
 			return resData;
 		}
