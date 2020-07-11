@@ -534,16 +534,9 @@
 				});
 			});
 		});
-		$(window).on('beforeunload', function() {
-			var productId = $('#productId').val();
-			isCreate && productId && deleteProductData({
-				productId: productId,
-			});
-			// hide batch product-sku
-			$('.initial-product-sku').addClass('hide');
-		});
 		// save product
 		$('.c-create .btn-save').on('click', function () {
+			if (!checkSkuChangeStatus()) return;
 			if (isSaveSku) {
 				toastr.info('Need to save all product Skus!');
 				return;
@@ -571,6 +564,7 @@
 		});
 		// cancel product save
 		$('.c-create .btn-cancel').on('click', function () {
+			if (!checkSkuChangeStatus()) return;
 			if (isCreate) {
 				isCreate = false;
 				/* initActiveItemNum(); */
@@ -594,12 +588,12 @@
 			$('.initial-product-sku').addClass('hide');
 		});
 		$(window).on('beforeunload', function() {
+			if (!checkSkuChangeStatus()) return false;
 			if (isCreate) {
 				// delete null product
-				deleteProductData({
-					productId: $('#productId').val(),
-				}, function() {
-					console.log("cancel create-product");
+				var productId = $('#productId').val();
+				productId && deleteProductData({
+					productId: productId,
 				});
 			} else {
 				if (isSaveSku && $('.product-sku-item').length) {
@@ -608,6 +602,8 @@
 					return false;
 				}
 			}
+			// hide batch product-sku
+			$('.initial-product-sku').addClass('hide');
 		});
 		// supercate & productStatus combinewith
 		$('#productSupercateid').on('change', function(e) {
@@ -730,10 +726,10 @@
             	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
             	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
             		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
-            		'<input type="number" class="product-sku-td product-sku-stock" min="0" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
-            		'<input type="number" class="product-sku-td product-sku-price" min="0" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
-            		'<input type="text" class="product-sku-td product-sku-sku" value="'+ (item.productskuCode ? item.productskuCode : '') +'"/>' +
-            		'<div class="product-sku-td product-sku-operate">'+
+            		'<input type="number" class="product-sku-td product-sku-stock" min="0" data-stock="'+ item.productskuStock +'" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
+            		'<input type="number" class="product-sku-td product-sku-price" min="0" data-price="'+ item.productskuMoney +'" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
+            		'<input type="text" class="product-sku-td product-sku-sku" data-sku="'+ item.productskuCode +'" value="'+ (item.productskuCode ? item.productskuCode : '') +'"/>' +
+            		'<div class="product-sku-td product-sku-operate">'+ 
 	            		'<button class="btn btn-primary product-sku-edit" style="display: '+ (isCreate ? 'none' : 'inherit') +';">' +
 		        			'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
@@ -750,6 +746,33 @@
             $('.product-sku-body').html(htmlStr || '<p class="text-center"> no skus ... </p>');
 
             $('.product-sku-item').length && $('.initial-product-sku').removeClass('hide');
+		}
+		// check sku change or not
+		function checkSkuChangeStatus() {
+			var flag = false;
+			var $productskuitem = $('.product-sku-item');
+			for (var i = 0, len = $productskuitem.length; i < len; i += 1) {
+				var $item = $($productskuitem[i]);
+				if ($item.find('.product-sku-stock').data('stock') != $item.find('.product-sku-stock').val()) {
+					flag = true;
+					break;
+				}
+				if ($item.find('.product-sku-price').data('price') != $item.find('.product-sku-price').val()) {
+					flag = true;
+					break;
+				}
+				if ($item.find('.product-sku-sku').data('sku') != $item.find('.product-sku-sku').val()) {
+					flag = true;
+					break;
+				}
+			}
+			
+			if (flag && !confirm("Are you sure you don't want to save updated SKU list data !")) {
+				$('.product-sku-data-operate')[0].scrollIntoView();
+				$('.all-product-sku-save').focus();
+				return false;
+			}
+			return true;
 		}
 		// generate skus
 		function generateSkus(data) {
@@ -1780,7 +1803,7 @@
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
 						$('#deleteModal').modal('hide');
-						callback();
+						callback && callback();
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
