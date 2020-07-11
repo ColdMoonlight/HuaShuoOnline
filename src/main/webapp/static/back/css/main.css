@@ -579,3 +579,12 @@
 	fill: #fff;
 	margin: .25rem;
 }
+.initial-product-sku {
+	padding: 1rem 0;
+	margin-top: 1rem;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+.initial-product-sku .input-group+.input-group {
+	margin-top: .5rem;
+}

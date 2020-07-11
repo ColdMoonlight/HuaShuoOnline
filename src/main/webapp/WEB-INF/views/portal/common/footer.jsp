@@ -342,7 +342,7 @@ function mlModalTip(text) {
 }
 
 function sysModalTip() {
-	mlModalTip('Settlement system error, temporarily unable to, please try again later !');
+	mlModalTip('Settlement system error, temporarily unable to get data, please try again later !');
 }
 
 function sysModalErrorTip (err) {
@@ -509,7 +509,7 @@ function generateSwiperSlideProduct(data) {
 	data.forEach(function(item, idx) {
 		var productLink = item.productSeo ? '${APP_PATH}/' + item.productSeo + '.html' : 'javascript:;';
 		htmlStr += '<div class="swiper-slide product-item" data-productid="'+ item.productId +'">' +
-		    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || 'javascript:;') +');"></span>' +
+		    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
 			'<div class="product-img">' +
 				'<a href="'+ productLink +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
 			'</div>' +

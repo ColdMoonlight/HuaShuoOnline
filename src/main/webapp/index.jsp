@@ -95,8 +95,8 @@
 						itemSeo = item.slidePageseoname;
 					}
 					itemLink = item.slideIfinto ? '${APP_PATH}/' + itemSeo + '.html' : 'javascript:;';
-					htmlStr += '<a class="'+ tagCls +'-item wap lazyload" href="'+ itemLink +'" data-src="'+ item.slideWapimgurl +'"></a>' +
-						'<a class="'+ tagCls +'-item pc lazyload" href="'+ itemLink +'" data-src="'+ item.slidePcimgurl +'"></a>';
+					htmlStr += '<a class="'+ tagCls +'-item shadow-radius wap lazyload" href="'+ itemLink +'" data-src="'+ item.slideWapimgurl +'"></a>' +
+						'<a class="'+ tagCls +'-item pc shadow-radius lazyload" href="'+ itemLink +'" data-src="'+ item.slidePcimgurl +'"></a>';
 				});
 				$el.html(htmlStr);
 			}
@@ -154,7 +154,7 @@
 				});
 			}
 			// get review data
-			function getReviewData(callback) {
+			function getIntroduceReviewData(callback) {
 				$.ajax({
 					url: "${APP_PATH}/MlfrontReview/selectReviewListFrom",
 					data: JSON.stringify({ "reviewFrom": 3 }),
@@ -164,8 +164,28 @@
 					async: false,
 					success: function (data) {
 						if (data.code == 100) {
-							callback && callback();
+							callback && callback(data.extend);
 						}
+					}
+				});
+			}
+			// get one product data
+			function getOneProductData(reqData, callback) {
+				$.ajax({
+					url: '${APP_PATH}/MlbackProduct/getOneProductSimple',
+					data: JSON.stringify(reqData),
+					type: "post",
+					dataType: 'json',
+					contentType: 'application/json',
+					success: function(data) {
+						if (data.code == 100) {
+							callback && callback(data.extend.mlbackProductOne)
+						} else {
+							sysModalTip();
+						}
+					},
+					error: function() {
+						sysModalTip();
 					}
 				});
 			}
@@ -186,8 +206,8 @@
 						itemSeo = item.actshowproPageseoname;
 					}
 					itemLink = itemSeo ? itemSeo + '.html' : 'javascript:;'
-					htmlStr += '<a class="'+ tagCls +'-item wap lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgwapurl +'"></a>' +
-						'<a class="'+ tagCls +'-item pc lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgpcurl +'"></a>';
+					htmlStr += '<a class="'+ tagCls +'-item wap shadow-radius lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgwapurl +'"></a>' +
+						'<a class="'+ tagCls +'-item pc shadow-radius lazyload" href="'+ itemLink +'" data-src="'+ item.actshowproImgpcurl +'"></a>';
 				});
 				$el.html(htmlStr);
 			}
@@ -236,7 +256,13 @@
 			}
 			// introduce reivews
 			function renderIntroduceReview($el, data) {
-				
+				var htmlStr = '';
+				var $reviewList = $('<div class="showaera-review-container" />')
+				data.mlfrontReviewList.forEach(function(item, idx) {
+					htmlStr += '<div class="showarea-review-item shadow-radius lazyload" data-src="'+ data.mlfrontReviewImgList[idx][0].reviewimgUrl +'" data-id="'+ item.reviewPid +'"></div>'
+				});
+				$reviewList.html(htmlStr);
+				$el.append($reviewList);
 			}
 			var indexCarousel, indexCarouselData, hasHotFive = false;
 			getCarouselData(1, function(data) {
@@ -307,13 +333,38 @@
 			getDisplayAreaData(3, function(data) {
 				var $el = $('#showAreaThree');
 				data && renderShowArea($el, data);
-				getReviewData(function(data) {
-					data.length && renderIntroduceReview($el, data);
+				getIntroduceReviewData(function(data) {
+					data.mlfrontReviewList.length && renderIntroduceReview($el, data);
 				});
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,
 					rootMargin: "10px",
 					threshold: 0
+				});
+			});
+			$(document.body).on('click', '.showarea-review-item', function(e) {
+				var productId = $(this).data('id');
+				productId && getOneProductData({ "productId": productId }, function(data) {
+					var customerVoiceHtml = '<div class="customer-voice">'+
+							'<div class="customer-voice-img lazyload" data-src="'+ data.productMainimgurl +'"></div>'+
+							'<div class="customer-voice-name">'+ data.productName +'</div>'+
+							'<div class="customer-voice-dprice"><span class="">Regular Price :</span><span class="value">$'+ data.productOriginalprice +'</span></div>'+
+							'<div class="customer-voice-nprice"><span class="name">Sale Price :</span><span class="value">$'+ (data.productOriginalprice && data.productActoffoff ? (data.productOriginalprice * data.productActoffoff / 100).toFixed(2) : 0) +'</span></div>'+
+							'<a class="btn btn-pink" href="'+ (data.productSeo ? ('${APP_PATH}/' + data.productSeo +'.html') : 'jvascrtip:;') +'">Buy Now</a>'+
+						'</div>';
+					var customerVoiceModal = createModal({
+						header: {
+							html: '<p>Customer Voice</p>'
+						},
+						body: {
+							html: customerVoiceHtml
+						}
+					});
+					new LazyLoad(customerVoiceModal.find('.lazyload'), {
+						root: null,
+						rootMargin: "10px",
+						threshold: 0
+					});
 				});
 			});
 			$(window).on('resize', function () {
