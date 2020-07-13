@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackVideo;
 import com.atguigu.bean.MlbackVideoShowArea;
@@ -27,7 +25,6 @@ import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackVideoService;
 import com.atguigu.service.MlbackVideoShowAreaService;
 import com.atguigu.utils.DateUtil;
-
 
 @Controller
 @RequestMapping("/MlbackVideoShowArea")
@@ -57,7 +54,7 @@ public class MlbackVideoShowAreaController {
 	@RequestMapping("/toMlbackVideoShowAreaPage")
 	public String tologin() throws Exception{
 	
-		return "back/mlbackVideoShowAreaPage";
+		return "back/marketing/mlbackVideoShowAreaPage";
 	}
 	
 	/**2.0	onuse	200104
@@ -93,7 +90,6 @@ public class MlbackVideoShowAreaController {
 		//接受参数信息
 		//获取类名
 		Integer videoshowareaId = mlbackVideoShowArea.getVideoshowareaId();
-
 		
 		//mlbackProductService;
 		String nowtime = DateUtil.strTime14s();
@@ -198,7 +194,6 @@ public class MlbackVideoShowAreaController {
 		return Msg.success().add("resMsg", "查看该位置的轮播完毕").add("mlbackVideoShowAreaList", mlbackVideoShowAreaList).add("videoNumByAreaListList", videoNumByAreaListList);
 	}
 	
-	
 	/**
 	 * 8.0	onuse	200103
 	 * 前台详情页面wap/pc的toVideoListPage
@@ -208,7 +203,7 @@ public class MlbackVideoShowAreaController {
 	@RequestMapping(value="/toVideoListPage",method=RequestMethod.GET)
 	 public String toVideoListPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
 	  
-		return "portal/subject/videoList.jsp";
+		return "portal/subject/videoList";
 	}
 	
 	/**

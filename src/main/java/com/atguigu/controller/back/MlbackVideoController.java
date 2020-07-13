@@ -25,13 +25,10 @@ import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackVideoService;
 import com.atguigu.utils.DateUtil;
-import com.atguigu.utils.IfMobileUtils;
-
 
 @Controller
 @RequestMapping("/MlbackVideo")
 public class MlbackVideoController {
-	
 	
 	@Autowired
 	MlbackActShowProService mlbackActShowProService;
@@ -62,7 +59,7 @@ public class MlbackVideoController {
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";
 		}else{
-			return "back/mlbackVideoPage";
+			return "back/marketing/mlbackVideoPage";
 		}
 	}
 	
@@ -80,7 +77,6 @@ public class MlbackVideoController {
 		PageInfo page = new PageInfo(mlbackVideoList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
-	
 	
 	/**3.0	onuse	20200103	检查
 	 * MlbackVideo	insert
@@ -127,7 +123,6 @@ public class MlbackVideoController {
 			mlbackVideo.setVideoPageseoname(pageSeoname);//pageSeoname
 		}
 		Integer videoId = mlbackVideo.getVideoId();
-		
 		
 		String nowtime = DateUtil.strTime14s();
 		mlbackVideo.setVideoMotifytime(nowtime);
@@ -190,15 +185,9 @@ public class MlbackVideoController {
 		res.setAttribute("videoArea", videoAreaReq);
 		//放回session域中
 		session.setAttribute("videoArea", videoArea);
-		
-		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
 	  
 		//返回视图
-		if(ifMobile.equals("1")){
-			return "mfront/video/videoArea";
-		}else{
-			return "front/video/pcvideoArea";
-		}
+		return "back/marketing/videoArea";
 	}
 	
 	/**
