@@ -589,6 +589,7 @@
 			$('.initial-product-sku').addClass('hide');
 		});
 		$(window).on('beforeunload', function() {
+			if (!hasSkuListStatus && checkSkuChangeStatus()) return false;
 			if (isCreate) {
 				// delete null product
 				var productId = $('#productId').val();
@@ -774,8 +775,8 @@
 					$('.all-product-sku-save').focus();
 					return true;					
 				} else {
-					return false;
 					hasSkuListStatus = true;
+					return false;
 				}
 			}
 		}
