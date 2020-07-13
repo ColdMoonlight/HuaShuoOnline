@@ -44,6 +44,20 @@
 				<div class="video-recommend-item shadow-radius lazyload" data-id="251" data-video="https://www.youtube.com/embed/zoZm8cPDLKM" data-src="${APP_PATH }/static/pc/img/video/pro/vd8.jpg"></div>
 			</div>
 		</div>
+		<!-- video collection -->
+		<div class="video-collection">
+			<div class="video-collection-title">
+				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-collection.jpg"></div>
+				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-collection.jpg"></div>
+			</div>
+		</div>
+		<!-- video top sale -->
+		<div class="video-topsale">
+			<div class="video-topsale-title">
+				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-top-sale.jpg"></div>
+				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-top-sale.jpg"></div>
+			</div>
+		</div>
 	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>

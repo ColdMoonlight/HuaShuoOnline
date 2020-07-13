@@ -3390,9 +3390,14 @@ footer li {
 	.video-banner .wap {
 		padding-top: 53.3%;
 	}
-	.video-discount-title {
+	.video-discount-title,
+	.video-collection-title,
+	.vdieo-topsale-title,
+	.video-recommend-title {
 		margin: .5rem 0;
 	}
+	.video-collection-title .wap,
+	.vdieo-topsale-title .wap,
 	.video-recommend-title .wap,
 	.video-discount-title.wap {
 		padding-top: 13.3333%;
@@ -3415,9 +3420,14 @@ footer li {
 	.video-banner .pc {
 		padding-top: 26%;
 	}
+	.video-collection-title,
+	.vdieo-topsale-title,
+	.video-recommend-title,
 	.video-discount-title {
 		margin: 1rem 0;
 	}
+	.video-collection-title .pc,
+	.video-topsale-title .pc,
 	.video-recommend-title .pc,
 	.video-discount-title.pc {
 		padding-top: 8%;
