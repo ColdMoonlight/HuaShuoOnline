@@ -154,7 +154,7 @@ public class MlbackVideoShowAreaController {
 	}
 	
 	/**
-	 * 6.0	onuse	20200713
+	 * 6.0	20200713
 	 * 查询wap不同位置的图片
 	 * @param mlbackVideoShowArea
 	 * @return 
