@@ -222,7 +222,7 @@ public class MlbackVideoShowAreaController {
 	}
 	
 	/**
-	 * 12.0	UseNow	0527
+	 * 10.0	UseNow	0527
 	 * 通过，类id,productColor,查询满足条件的全部产品
 	 * @param productCategoryid,productColor
 	 * @return MlbackVideoShowArea

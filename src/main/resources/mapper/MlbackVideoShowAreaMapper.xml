@@ -44,7 +44,6 @@
       )
   </insert>
   
-  
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackVideoShowArea">
     update tb_mlback_videoshowarea
     set videoShowArea_name = #{videoshowareaName,jdbcType=VARCHAR},
@@ -60,8 +59,6 @@
       videoShowArea_endTime = #{videoshowareaEndtime,jdbcType=VARCHAR}
     where videoShowArea_id = #{videoshowareaId,jdbcType=INTEGER}
   </update>
-  
-  
   
   <!-- insertSelective -->
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="videoshowareaId" parameterType="com.atguigu.bean.MlbackVideoShowArea">
