@@ -439,6 +439,7 @@
 			$('#catalogDesc').val('');
 
 			$('#catalogIfproorcateorpage').val('0');
+			$('.ml-product').removeClass('hide').siblings().addClass('hide');
 			$('#catalogProid').val('-1');
 			$('#catalogCateid').val('-1');
 			$('#catalogPageseoname').val('-1');
