@@ -419,6 +419,7 @@
 			resetPicture($('#actPc'));
 			
 			$('#actshowproIfproorcate').val('0');
+			$('.ml-product').removeClass('hide').siblings().addClass('hide');
 			$('#actshowproProid').val('-1');
 			$('#actshowproCateid').val('-1');
 			$('#actshowproPageseoname').val('-1');
