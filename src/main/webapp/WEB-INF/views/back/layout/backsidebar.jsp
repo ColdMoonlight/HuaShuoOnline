@@ -93,11 +93,17 @@
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">Display Area</span>
 					</a>
-				</li>				
+				</li>
 				<li class="c-sidebar-nav-item">
 					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackVideoShowArea/toMlbackVideoShowAreaPage">
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">Video Area</span>
+					</a>
+				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackVideo/toMlbackVideoPage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">Video List</span>
 					</a>
 				</li>
 			</ul>

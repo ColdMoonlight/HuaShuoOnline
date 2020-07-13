@@ -5,7 +5,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Display Area</title>
+	<title>Video List</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 </head>
 
@@ -17,8 +17,8 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Display Area</span>
-						<button class="btn btn-primary btn-create">Create Display Area</button>
+						<span class="c-option-title">Video</span>
+						<button class="btn btn-primary btn-create">Create Video</button>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -31,13 +31,15 @@
 								<thead>
 									<tr>
 										<th>id</th>
-										<th>title</th>
-										<th>wap-image</th>
-										<th>pc-image</th>
+										<th>name</th>
+										<th>image</th>
 										<th>area</th>
+										<th>order</th>
+										<th>video-url</th>
+										<th>product/subject/colleciton</th>
+										<th>seo</th>
+										<!-- <th>ifInto</th> -->
 										<th>status</th>
-										<th>create-time</th>
-										<th>update-time</th>
 										<th>operate</th>
 									</tr>
 								</thead>
@@ -50,45 +52,70 @@
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">Edit Display Area</span>
+						<span class="c-option-title">Edit Video</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save Display Area</button>
+							<button class="btn btn-primary btn-save">Save Video</button>
 						</div>
 					</div>
 					<div class="c-form row">
-						<input id="showareaId" hidden>
+						<input id="videoId" hidden>
 						<!-- left panel  -->
-						<div class="left-panel col-lg-12 col-md-12">
+						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">General</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="showareaName">Display Area Name</label>
+										<label class="col-form-label" for="videoName">Video Name</label>
 										<div class="controls">
-											<input class="form-control" id="showareaName" type="text" />
+											<input class="form-control" id="videoName" type="text" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="showareaNumth">Display Area</label>
+										<label class="col-form-label" for="videoArea">Area</label>
 										<div class="controls">
-											<select class="form-control" id="showareaNumth" />
-												<option value="-1">Please select the location of the Display Area</option>
-												<option value="1">first display-area</option>
-												<option value="2">second display-area</option>
-												<option value="3">three display-area</option>
-												<option value="4">four display-area</option>
-												<option value="5">five display-area</option>
+											<select class="form-control" id="videoArea" />
+												<option value="-1">Please select the location of the Video</option>
+												<option value="2">2 Bob Wig</option>
+												<option value="4">4 Straight Hair</option>
+												<option value="5">5 613 Blonde Hair</option>
+												<option value="6">6 Kinky Curly Hair</option>
+												<option value="7">7 Body Wave Hair</option>
+												<option value="8">8 Deep Weave Hair</option>
 											</select>
 										</div>
 									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="videoOrderthNum">Video Sort</label>
+										<div class="controls">
+											<select class="form-control" id="videoOrderthNum" />
+												<option value="-1">Please select Video sort-order</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="videoUrl">Video URL</label>
+										<div class="controls">
+											<input class="form-control" id="videoUrl" type="text" />
+										</div>
+									</div>
 									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="showareaStatus">Status</label>
+										<label class="col-md-3 col-form-label" for="videoStatus">Status</label>
 										<div class="controls col-md-3">
 											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="showareaStatus" type="checkbox">
+												<input class="c-switch-input" id="videoStatus" type="checkbox">
 												<span class="c-switch-slider"></span>
 											</label>
 										</div>
@@ -98,32 +125,18 @@
 							<!-- product media -->
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Display Area Image</div>
+									<div class="card-title-name">Video Image</div>
 								</div>
 								<div class="card-body">
 									<div class="row">
-										<div class="col-lg-6 col-md-6">
-											<h3>Wap Image</h3>
+										<div class="col-md-6">
+											<h3>Image</h3>
 											<div class="c-upload-img">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 												</svg>
 												<div class="c-backshow"></div>						
-												<input id="showareaImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
-												<!-- spinner -->
-												<div class="spinner">
-													<div class="spinner-border" role="status" aria-hidden="true"></div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6">
-											<h3>Pc Image</h3>
-											<div class="c-upload-img">
-												<svg class="c-icon">
-													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-												</svg>
-												<div class="c-backshow"></div>						
-												<input id="showareaImgpcurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<input id="videoImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 												<!-- spinner -->
 												<div class="spinner">
 													<div class="spinner-border" role="status" aria-hidden="true"></div>
@@ -135,21 +148,61 @@
 							</div>
 						</div>
 						<!-- right panel  -->
-						<!-- <div class="right-panel col-lg-5 col-md-12">
+						<div class="right-panel col-lg-5 col-md-12">							
+							<!-- product or subject -->
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Super Category</div>
+									<div class="card-title-name">Product & Subject & Collection</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="slideCateid">Super Category</label>
+										<label class="col-form-label" for="videoIfproorcateorpage">Product Or Subject Or Collection</label>
 										<div class="controls">
-											<select class="form-control supercate-list" id="slideCateid" /></select>
+											<select class="form-control" id="videoIfproorcateorpage" />
+												<option value="0" data-class="ml-product">product</option>
+												<option value="1" data-class="ml-category">collection</option>
+												<option value="2" data-class="ml-subject">subject</option>
+											</select>
 										</div>
 									</div>
+									<div>
+										<div class="form-group ml-product">
+											<label class="col-form-label" for="videoProid">Product</label>
+											<div class="controls">
+												<select class="form-control product-list" id="videoProid" /></select>
+											</div>
+										</div>
+										<div class="form-group ml-category hide">
+											<label class="col-form-label" for="videoCateid">Category</label>
+											<div class="controls">
+												<select class="form-control collection-list" id="videoCateid" /></select>
+											</div>
+										</div>	
+										<div class="form-group ml-subject hide">
+											<label class="col-form-label" for="videoPageseoname">Subject</label>
+											<div class="controls">
+												<select class="form-control" id="videoPageseoname" />
+													<option value="Friday">Friday</option>
+													<option value="Activty">Activty</option>
+													<option value="MlfrontReview/toReviewCustomer">Shop by look</option>
+													<option value="MlfrontReview/toReviewInsPage">Ins Show</option>
+													<option value="MlbackVideoShowArea/toVideoListPage">CUSTOMER VOICE</option>
+												</select>
+											</div>
+										</div>								
+									</div>
+									<!-- <div class="form-group">
+										<label class="col-form-label" for="slideIfinto">click entry or not</label>
+										<div class="controls">
+											<select class="form-control" id="slideIfinto" />
+												<option value="0" selected="selected">disable</option>
+					  							<option value="1">enalbe</option>
+											</select>
+										</div>
+									</div> -->
 								</div>
 							</div>
-						</div> -->
+						</div>
 					</div>
 				</div>
 				<!-- mask -->
@@ -163,67 +216,72 @@
 
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
-
 	<!-- custom script -->
 	<script>
+		var hasCollectionList = false;
+		var hasProductList = false;
 		var isCreate = false;
 
+		$('#videoIfproorcateorpage').on('change', function() {
+			$('.' + $(this).find('option:checked').data('class')).removeClass('hide').siblings().addClass('hide').find('select').val('-1');
+		});
+
 		// init
-		getDisplayAreasData()
+		getVideosData()
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create .c-option-title').text('Create Display Area');
+			$('.c-create .c-option-title').text('Create Video');
 
-			getDisplayAreaId(function(data) {
+			getVideoId(function(data) {
 				// init formData
 				resetFormData();
-				$('#showareaId').val(data.showareaId);
+				$('#videoId').val(data.videoId);
 				showCreateBlock();
 				isCreate = true;
 			});
 		});
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
-			var showareaId = $(this).data('id');
-			getOneDisplayAreaData({
-				showareaId: showareaId
+			var videoId = $(this).data('id');
+			getOneVideoData({
+				videoId: videoId
 			}, function(resData) {
-			 	$('.c-create .c-option-title').text('Edit DisplayArea');
+			 	$('.c-create .c-option-title').text('Edit Video');
 				showCreateBlock();
 				initFormData(resData);
 			});			
 		});
 		// delete collection
 		$(document.body).on('click', '.btn-delete', function (e) {
-			var showareaId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete Display Area!');
+			var videoId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('Delete Video!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteDisplayAreaData({
-					showareaId: showareaId,
+				deleteVideoData({
+					videoId: videoId,
 				}, function() {
-					getDisplayAreasData();
+					getVideosData();
 				});
 			});
 		});
 		$(window).on('beforeunload', function() {
-			var showareaId = $('#showareaId').val();
-			isCreate && showareaId && deleteDisplayAreaData({
-				showareaId: showareaId,
+			var videoId = $('#videoId').val();
+			isCreate && videoId && deleteVideoData({
+				videoId: videoId,
 			});
 		});
 		// upload picture
-		$('#showareaImgpcurl').on('change', function(e) {
+		$('#actPc').on('change', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'showareaPc');
+			formData.append('type', 'actShowProPc');
 			formData.append('image', $this[0].files[0]);
-			formData.append('showareaId', parseInt($('#showareaId').val()));
+			formData.append('videoId', parseInt($('#videoId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/showAreaPc",
+				url: "${APP_PATH}/ImageUpload/actShowProPc",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -248,17 +306,17 @@
 				}
 			});
 		});
-		$('#showareaImgurl').on('change', function(e) {
+		$('#videoImgurl').on('change', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'showareaWap');
+			formData.append('type', 'actShowProWap');
 			formData.append('image', $this[0].files[0]);
-			formData.append('showareaId', parseInt($('#showareaId').val()));
+			formData.append('videoId', parseInt($('#videoId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/showAreaWap",
+				url: "${APP_PATH}/ImageUpload/actShowProWap",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -297,24 +355,24 @@
 		}
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
-			saveDisplayAreaData(getFormData(), function() {
+			saveVideoData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) isCreate = false;
 
-				getDisplayAreasData();
+				getVideosData();
 				showInitBlock();
-				$('#showareaId').val('');
+				$('#videoId').val('');
 			});
 		});
 		// cancel collection save
 		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
-				// delete null DisplayArea
-				deleteDisplayAreaData({
-					showareaId: $('#showareaId').val(),
+				// delete null Video
+				deleteVideoData({
+					videoId: $('#videoId').val(),
 				}, function() {
-					console.log("cancel create DisplayArea");
+					console.log("cancel create Video");
 				});
 			}
 
@@ -323,6 +381,9 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
+
+			if (!hasCollectionList) getAllCollectionData(renderAllCollection);
+			if (!hasProductList) getAllProductData(renderAllProduct);
 			
 		}
 		function showInitBlock() {
@@ -332,65 +393,115 @@
 		// handle formData
 		// reset data
 		function resetFormData() {
-			$('#showareaId').val('');
-			$('#showareaName').val('');
-			$('#showareaNumth').val('-1');
-			$('#showareaStatus').prop('checked', false);
+			$('#videoId').val('');
+			$('#videoName').val('');
+			$('#videoArea').val('-1');
+			$('#videoOrderthNum').val('-1');
+			$('#videoUrl').val('');
+			$('#videoStatus').prop('checked', false);
 
-			resetPicture($('#showareaImgurl'));
-			resetPicture($('#showareaImgpcurl'));
+			resetPicture($('#videoImgurl'));
+			
+			$('#videoIfproorcateorpage').val('0');
+			$('.ml-product').removeClass('hide').siblings().addClass('hide');
+			$('#videoProid').val('-1');
+			$('#videoCateid').val('-1');
+			$('#videoPageseoname').val('-1');
+			/* $('#slideIfinto').val('0'); */
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
-			data.showareaId = parseInt($('#showareaId').val());
-			data.showareaName = $('#showareaName').val();
-			data.showareaStatus = $('#showareaStatus').prop('checked') ? 1 : 0;
-			data.slideFirthNum = $('#showareaNumth').val();
+			data.videoId = parseInt($('#videoId').val());
+			data.videoName = $('#videoName').val();
+			data.videoArea = parseInt($('#videoArea').val());
+			data.videoOrderthNum = $('#videoOrderthNum').val();
+			data.videoUrl = $('#videoUrl').val();
+			data.videoStatus = $('#videoStatus').prop('checked') ? 1 : 0;
 
-			data.showareaImgurl = $('#showareaImgurl').attr('data-val') && JSON.parse($('#showareaImgurl').attr('data-val')).imageUrl;
-			data.showareaImgpcurl = $('#showareaImgpcurl').attr('data-val') && JSON.parse($('#showareaImgpcurl').attr('data-val')).imageUrl;
+			data.videoImgurl = $('#videoImgurl').attr('data-val') && JSON.parse($('#videoImgurl').attr('data-val')).imageUrl;
+
+			var videoIfproorcateorpage = $('#videoIfproorcateorpage').val();
+			data.videoIfproorcateorpage = videoIfproorcateorpage;
+			if (videoIfproorcateorpage == 0) {
+				data.videoProid = $('#videoProid').val();
+				data.videoProname = $('#videoProid').find('option:checked').data('name') || '';
+				data.videoSeoname = $('#videoProid').find('option:checked').data('seo') || '';
+				data.videoCateid = '';
+				data.videoCatename = '';
+				data.videoCateseoname = '';
+				data.videoPageseoname = '';
+			} else if (videoIfproorcateorpage == 1) {
+				data.videoProid = '';
+				data.videoProname = '';
+				data.videoSeoname = '';
+				data.videoCateid = $('#videoCateid').val();
+				data.videoCatename = $('#videoCateid').find('option:checked').data('name') || '';
+				data.videoCateseoname = $('#videoCateid').find('option:checked').data('seo') || '';
+				data.videoPageseoname = '';
+			} else if (videoIfproorcateorpage == 2) {
+				data.videoProid = '';
+				data.videoProname = '';
+				data.videoSeoname = '';
+				data.videoCateid ='';
+				data.videoCatename = '';
+				data.videoCateseoname = '';
+				data.videoPageseoname = $('#videoPageseoname').val();
+			}
+			/* data.slideIfinto = $('#slideIfinto').val(); */
 
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
+			// initial
+			$('#videoProid').val('-1');
+			$('#videoCateid').val('-1');
+			$('#videoPageseoname').val('-1');
 			// init
-			$('#showareaId').val(data.showareaId);
-			$('#showareaName').val(data.showareaName);
-			$('#showareaNumth').val(data.showareaNumth ? data.showareaNumth : '-1');
-			$('#showareaStatus').prop('checked', data.showareaStatus);
-			$('#slideArea').val(data.slideArea);
-
-			if (data.showareaImgurl) {
-				addPicture($('#showareaImgurl'), {
-					imageUrl: data.showareaImgurl
-				});	
-			} else {
-				resetPicture($('#showareaImgurl'));
-			}
-
-			if (data.showareaImgpcurl) {
-				addPicture($('#showareaImgpcurl'), {
-					imageUrl: data.showareaImgpcurl
+			$('#videoId').val(data.videoId);
+			$('#videoName').val(data.videoName);
+			$('#videoArea').val(data.videoArea || '-1');
+			$('#videoOrderthNum').val(data.videoOrderthNum ? data.videoOrderthNum : '-1');
+			$('#videoUrl').val(data.videoUrl);
+			$('#videoStatus').prop('checked', data.videoStatus);
+			
+			if (data.videoImgurl) {
+				addPicture($('#videoImgurl'), {
+					imageUrl: data.videoImgurl
 				});				
 			} else {
-				resetPicture($('#showareaImgpcurl'));
+				resetPicture($('#videoImgurl'));
 			}
+
+			var videoIfproorcateorpage = data.videoIfproorcateorpage;
+			$('#videoIfproorcateorpage').val(videoIfproorcateorpage || 0);
+			if (videoIfproorcateorpage == 0) {
+				$('#videoProid').val(data.videoProid || '-1');
+				$('.ml-product').removeClass('hide').siblings().addClass('hide');
+			} else if (videoIfproorcateorpage == 1) {
+				$('#videoCateid').val(data.videoCateid || '-1');
+				$('.ml-category').removeClass('hide').siblings().addClass('hide');
+			} else if (videoIfproorcateorpage == 2) {
+				$('#videoPageseoname').val(data.videoPageseoname || '-1');
+				$('.ml-subject').removeClass('hide').siblings().addClass('hide');
+			}
+			
+			/* $('#slideIfinto').val(data.slideIfinto); */
 
 		}
 		// callback get id
-		function getDisplayAreaId(callback) {
+		function getVideoId(callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackShowArea/initializaShowArea",
+				url: "${APP_PATH }/MlbackVideo/initializaVideo",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.mlbackShowArea)
+						callback && callback(data.extend.mlbackVideo);
 						toastr.success(data.extend.resMsg);
 					} else {
 						showInitBlock();
@@ -406,14 +517,14 @@
 			});
 		}
 		// callback get all data
-		function getDisplayAreasData() {
+		function getVideosData() {
 			$('.c-mask').show();
 
 			var formData = new FormData();
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH}/MlbackShowArea/getMlbackShowAreaListByPage",
+				url: "${APP_PATH}/MlbackVideo/getMlbackVideoByPage",
 				type: "post",
 				processData: false,
 				contentType: false,
@@ -429,7 +540,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get DisplayArea, please refresh the page to get again！');
+					toastr.error('Failed to get Video, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -437,24 +548,24 @@
 			});
 		}
 		// callback get one data
-		function getOneDisplayAreaData(reqData, callback) {
+		function getOneVideoData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackShowArea/getOneMlbackShowAreaDetail",
+				url: "${APP_PATH}/MlbackVideo/getOneMlbackVideoDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: 'json',
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.mlbackShowAreaOne);
+						callback(data.extend.mlbackVideoOne);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get DisplayArea, please refresh the page to get again！');
+					toastr.error('Failed to get Video, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -462,10 +573,10 @@
 			});
 		}
 		// callback save
-		function saveDisplayAreaData(reqData, callback) {
+		function saveVideoData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackShowArea/save",
+				url: "${APP_PATH}/MlbackVideo/save",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -488,10 +599,10 @@
 			});
 		}
 		// callback delete
-		function deleteDisplayAreaData(reqData, callback) {
+		function deleteVideoData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackShowArea/delete",
+				url: "${APP_PATH}/MlbackVideo/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -518,27 +629,37 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<tr><td>' + data[i].showareaId + '</td>' +
-					'<td>' + data[i].showareaName + '</td>' +
-					'<td>' + data[i].showareaNumth + '</td>' +
-					'<td>' + (data[i].showareaImgurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].showareaImgurl) +'" /></div>'
+				var logName, logSeo;
+				if (data[i].videoIfproorcateorpage == 0) {
+					logName = '<b>product</b> ' + data[i].videoProid;
+					logSeo = data[i].videoSeoname;
+				} else if (data[i].videoIfproorcateorpage == 1) {
+					logName = '<b>collection</b> ' + data[i].videoCateid;
+					logSeo = data[i].videoCateseoname;
+				} else if (data[i].videoIfproorcateorpage == 2) {
+					logName = '<b>subject</b> ' + data[i].videoPageseoname;
+					logSeo = data[i].videoPageseoname;
+				}
+				htmlStr += '<tr><td>' + data[i].videoId + '</td>' +
+					'<td>' + data[i].videoName + '</td>' +
+					'<td>' + (data[i].videoImgurl ?
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].videoImgurl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
-					'<td>' + (data[i].showareaImgpcurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].showareaImgpcurl) +'" /></div>'
-							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
-					'</td>' +
-					'<td><a class="badge '+ (data[i].showareaStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].showareaStatus ? 'enable' : 'disable') + '</a></td>' +
-					'<td>' + data[i].showareaCreatetime + '</td>' +
-					'<td>' + data[i].showareaMotifytime + '</td>' +
+					'<td>' + data[i].videoArea + '</td>' +
+					'<td>' + data[i].videoOrderthNum + '</td>' +
+					'<td>' + data[i].videoUrl + '</td>' +
+					'<td>' + (logName || '') + '</td>' +
+					'<td>' + (logSeo || '') + '</td>' +
+					/* '<td>' + (data[i].slideIfinto ? 'YES' : 'NO') + '</td>' + */
+					'<td><a class="badge '+ (data[i].videoStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].videoStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' +
-						'<button class="btn btn-primary btn-edit" data-id="' + data[i].showareaId + '">' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].videoId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
 						'</button>' +
-						'<button class="btn btn-danger btn-delete" data-id="' + data[i].showareaId + '">' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].videoId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
 							'</svg>' +
