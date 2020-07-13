@@ -197,7 +197,7 @@ public class MlbackVideoController {
 		session.setAttribute("videoArea", videoArea);
 	  
 		//返回视图
-		return "back/marketing/videoArea";
+		return "portal/subject/videoArea";
 	}
 	
 	/**
