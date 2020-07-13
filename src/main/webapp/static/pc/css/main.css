@@ -3088,30 +3088,36 @@ footer li {
 .showarea-review-item {
 	cursor: pointer;
 }
-.customer-voice-img {
+.customer-voice-img{
 	padding-top: 100%;
 }
+.video-recommend-name,
 .customer-voice-name {
 	font-size: 1rem;
 	font-weight: 500;
 	margin-top: 1rem;
 }
+.video-recommend-dprice .name,
+.video-recommend-nprice .name
 .customer-voice-dprice .name,
 .customer-voice-nprice .name {
 	font-size: .875rem;
 	font-weight: 500;
 }
+.video-recommend-dprice .value,
 .customer-voice-dprice .value {
 	margin-left: .5rem;
 	font-size: .875rem;
 	text-decoration: line-through;
 }
+.video-recommend-nprice .value,
 .customer-voice-nprice .value {
 	margin-left: .5rem;
 	font-size: 1rem;
 	font-weight: 500;
 	color: #ff1671;
 }
+.video-recommend .btn,
 .customer-voice .btn {
 	display: block;
 	margin-top: 1rem;
@@ -3175,6 +3181,7 @@ footer li {
 		padding-top: 49%;
 		margin-bottom: .5rem;
 	}
+	.video-recommend,
 	.customer-voice {
 		padding: 0 2rem;
 	}
@@ -3243,6 +3250,7 @@ footer li {
 	.showaera-review-container {
 		margin-left: -1rem;
 	}
+	.video-recommend,
 	.customer-voice {
 		width: 70%;
 		padding: 1rem 3rem;
@@ -3360,6 +3368,19 @@ footer li {
 	opacity: 0;
 	visibility: hidden;
 }
+.video-recommend-body {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.video-recommend-item {
+	cursor: pointer;
+	background-size: cover;
+}
+.video-recommend-img {
+	width: 100%;
+	height: 100%;
+}
 @media only screen and (max-width: 575px) {
 	.video-banner .wap {
 		display: block;
@@ -3369,11 +3390,20 @@ footer li {
 	.video-banner .wap {
 		padding-top: 53.3%;
 	}
+	.video-discount-title {
+		margin: .5rem 0;
+	}
+	.video-recommend-title .wap,
 	.video-discount-title.wap {
 		padding-top: 13.3333%;
 	}
 	.video-discount-body.wap {
 		padding-top: 42.666667%;
+	}
+	.video-recommend-item {
+		width: 49.5%;
+		padding-top: 49.5%;
+		margin-top: 1%;
 	}
 }
 @media only screen and (min-width: 576px) {
@@ -3385,6 +3415,10 @@ footer li {
 	.video-banner .pc {
 		padding-top: 26%;
 	}
+	.video-discount-title {
+		margin: 1rem 0;
+	}
+	.video-recommend-title .pc,
 	.video-discount-title.pc {
 		padding-top: 8%;
 		max-height: 80px;
@@ -3392,5 +3426,19 @@ footer li {
 	.video-discount-body.pc  {
 		padding-top: 26.6667%;
 		max-height: 264px;
+	}
+}
+@media only screen and (min-width: 576px) and (max-width: 1023px) {
+	.video-recommend-item {
+		width: 32.8%;
+		padding-top: 33%;
+		margin-top: .8%;
+	}
+}
+@media only screen and (min-width: 1024px) {	
+	.video-recommend-item {
+		width: 24.4%;
+		padding-top: 24.8%;
+		margin-top: .6%;
 	}
 }

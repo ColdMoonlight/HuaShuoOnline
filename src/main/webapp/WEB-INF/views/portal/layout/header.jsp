@@ -77,6 +77,26 @@
 	</div>
 </header>
 <script>
+	// get one product data
+	function getOneProductData(reqData, callback) {
+		$.ajax({
+			url: '${APP_PATH}/MlbackProduct/getOneProductSimple',
+			data: JSON.stringify(reqData),
+			type: "post",
+			dataType: 'json',
+			contentType: 'application/json',
+			success: function(data) {
+				if (data.code == 100) {
+					callback && callback(data.extend.mlbackProductOne)
+				} else {
+					sysModalTip();
+				}
+			},
+			error: function() {
+				sysModalTip();
+			}
+		});
+	}
 	// get Label Class
 	function getLabelClass(id) {
 		if (id == 1) {
