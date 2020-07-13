@@ -16,7 +16,6 @@ import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackVideo;
-import com.atguigu.bean.MlbackVideoShowArea;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -79,10 +78,9 @@ public class MlbackVideoController {
 		return Msg.success().add("pageInfo", page);
 	}
 	
-	
 	/**3.0	20200703
-	 * MlbackSlide	initializaVideo
-	 * @param MlbackSlide
+	 * MlbackVideo	initializaVideo
+	 * @param MlbackVideo
 	 * @return
 	 */
 	@RequestMapping(value="/initializaVideo",method=RequestMethod.POST)
@@ -197,7 +195,7 @@ public class MlbackVideoController {
 		session.setAttribute("videoArea", videoArea);
 	  
 		//返回视图
-		return "back/marketing/videoArea";
+		return "portal/subject/videoArea";
 	}
 	
 	/**
