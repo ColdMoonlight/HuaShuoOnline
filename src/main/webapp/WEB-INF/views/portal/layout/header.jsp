@@ -137,7 +137,6 @@
 							// subject
 							if (data2[i][j][k].catalogIfproorcateorpage == 2) {
 								thirdNavSeo = data2[i][j][k].catalogPageseoname;
-								console.log('xxx')
 							}
 						
 							if (k == 0) {
