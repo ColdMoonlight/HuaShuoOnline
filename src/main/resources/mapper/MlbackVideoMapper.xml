@@ -57,7 +57,6 @@
       #{videoStarttime,jdbcType=VARCHAR}, #{videoEndtime,jdbcType=VARCHAR})
   </insert>
   
-  
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackVideo">
     update tb_mlback_video
     set video_name = #{videoName,jdbcType=VARCHAR},
@@ -85,7 +84,7 @@
   </update>
   
   <!-- insertSelective -->
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackVideo">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="videoId" parameterType="com.atguigu.bean.MlbackVideo">
     insert into tb_mlback_video
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="videoId != null">
