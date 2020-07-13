@@ -16,6 +16,7 @@ import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackVideo;
+import com.atguigu.bean.MlbackVideoShowArea;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -54,13 +55,13 @@ public class MlbackVideoController {
 	@RequestMapping("/toMlbackVideoPage")
 	public String tologin(HttpSession session) throws Exception{
 	
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return "back/mlbackAdminLogin";
-		}else{
+//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+//		if(mlbackAdmin==null){
+//			//SysUsers对象为空
+//			return "back/mlbackAdminLogin";
+//		}else{
 			return "back/marketing/mlbackVideoPage";
-		}
+//		}
 	}
 	
 	/**2.0	onuse	20200110
@@ -78,7 +79,29 @@ public class MlbackVideoController {
 		return Msg.success().add("pageInfo", page);
 	}
 	
-	/**3.0	onuse	20200103	检查
+	
+	/**3.0	20200703
+	 * MlbackSlide	initializaVideo
+	 * @param MlbackSlide
+	 * @return
+	 */
+	@RequestMapping(value="/initializaVideo",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg initializaVideo(HttpServletResponse rep,HttpServletRequest res){
+		
+		MlbackVideo mlbackVideo = new MlbackVideo();
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		mlbackVideo.setVideoCreatetime(nowTime);
+		mlbackVideo.setVideoStatus(0);//0未上架1上架中
+		//无id，insert
+		System.out.println("插入前"+mlbackVideo.toString());
+		mlbackVideoService.insertSelective(mlbackVideo);
+		System.out.println("插入后"+mlbackVideo.toString());
+		return Msg.success().add("resMsg", "Video初始化成功").add("mlbackVideo", mlbackVideo);
+	}
+	
+	/**3.1	onuse	20200103	检查
 	 * MlbackVideo	insert
 	 * @param MlbackVideo
 	 */
@@ -86,13 +109,10 @@ public class MlbackVideoController {
 	@ResponseBody
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackVideo mlbackVideo){
 		//接受参数信息
-		//获取类名
-		
 		Integer videoIfproorcateorpage = mlbackVideo.getVideoIfproorcateorpage();
 		if(videoIfproorcateorpage==0){
 			//产品
 			Integer proId = mlbackVideo.getVideoProid();
-			
 			MlbackProduct mlbackProductReq = new MlbackProduct();
 			MlbackProduct mlbackProductRes = new MlbackProduct();
 			mlbackProductReq.setProductId(proId);
@@ -107,14 +127,10 @@ public class MlbackVideoController {
 			Integer cId = mlbackVideo.getVideoCateid();
 			MlbackCategory mlbackCategoryReq = new MlbackCategory();
 			MlbackCategory mlbackCategoryRes = new MlbackCategory();
-			
 			mlbackCategoryReq.setCategoryId(cId);
-			
 			List<MlbackCategory> mlbackCategoryResList = mlbackCategoryService.selectMlbackCategory(mlbackCategoryReq);
 			mlbackCategoryRes = mlbackCategoryResList.get(0);
-			
 			String Cname = mlbackCategoryRes.getCategoryName();
-//			String CategoryDesc = mlbackCategoryRes.getCategoryDesc();
 			String CategorySeo = mlbackCategoryRes.getCategorySeo();
 			mlbackVideo.setVideoCatename(Cname);//Cname
 			mlbackVideo.setVideoCateseoname(CategorySeo);
@@ -122,21 +138,13 @@ public class MlbackVideoController {
 			String pageSeoname = mlbackVideo.getVideoPageseoname();
 			mlbackVideo.setVideoPageseoname(pageSeoname);//pageSeoname
 		}
-		Integer videoId = mlbackVideo.getVideoId();
 		
 		String nowtime = DateUtil.strTime14s();
 		mlbackVideo.setVideoMotifytime(nowtime);
 		
-		if(videoId==null){
-			mlbackVideo.setVideoCreatetime(nowtime);
-			//无id，insert
-			mlbackVideoService.insertSelective(mlbackVideo);
-			return Msg.success().add("resMsg", "插入成功");
-		}else{
-			//有id，update
-			mlbackVideoService.updateByPrimaryKeySelective(mlbackVideo);
-			return Msg.success().add("resMsg", "更新成功");
-		}		
+		//有id,update
+		mlbackVideoService.updateByPrimaryKeySelective(mlbackVideo);
+		return Msg.success().add("resMsg", "更新成功");
 	}
 	
 	/**4.0	onuse	20200103
@@ -160,8 +168,10 @@ public class MlbackVideoController {
 	 */
 	@RequestMapping(value="/getOneMlbackVideoDetail",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneMlbackVideoDetail(@RequestParam(value = "videoId") Integer videoId){
-		//接受actshowproId
+	public Msg getOneMlbackVideoDetail(@RequestBody MlbackVideo mlbackVideo){
+		
+		Integer videoId = mlbackVideo.getVideoId();
+		//接受videoId
 		MlbackVideo mlbackVideoReq = new MlbackVideo();
 		mlbackVideoReq.setVideoId(videoId);
 		//查询本条
@@ -198,7 +208,9 @@ public class MlbackVideoController {
 	 */
 	@RequestMapping(value="/getMlbackVideoListByVideoArea",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getMlbackVideoListByActnum(@RequestParam(value = "videoArea") Integer videoArea){
+	public Msg getMlbackVideoListByActnum(@RequestBody MlbackVideo mlbackVideo){
+		
+		Integer videoArea = mlbackVideo.getVideoArea();
 		//接受videoArea
 		MlbackVideo mlbackVideoReq = new MlbackVideo();
 		mlbackVideoReq.setVideoArea(videoArea);
