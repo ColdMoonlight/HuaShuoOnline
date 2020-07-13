@@ -537,7 +537,7 @@
 		});
 		// save product
 		$('.c-create .btn-save').on('click', function () {
-			if (!checkSkuChangeStatus()) return;
+			if (!hasSkuListStatus && checkSkuChangeStatus()) return;
 			if (isSaveSku) {
 				toastr.info('Need to save all product Skus!');
 				return;
@@ -565,7 +565,7 @@
 		});
 		// cancel product save
 		$('.c-create .btn-cancel').on('click', function () {
-			if (!checkSkuChangeStatus()) return;
+			if (!hasSkuListStatus && checkSkuChangeStatus()) return false;
 			if (isCreate) {
 				isCreate = false;
 				/* initActiveItemNum(); */
@@ -589,7 +589,6 @@
 			$('.initial-product-sku').addClass('hide');
 		});
 		$(window).on('beforeunload', function() {
-			if (!hasSkuListStatus && !checkSkuChangeStatus()) return false;
 			if (isCreate) {
 				// delete null product
 				var productId = $('#productId').val();
@@ -770,13 +769,13 @@
 			
 			if (flag) {
 				var st = confirm("Are you sure you don't want to save updated SKU list data !");
-				hasSkuListStatus = true;
 				if (!st) {
 					$('.product-sku-data-operate')[0].scrollIntoView();
 					$('.all-product-sku-save').focus();
-					return false;					
-				} else {
 					return true;					
+				} else {
+					return false;
+					hasSkuListStatus = true;
 				}
 			}
 		}
