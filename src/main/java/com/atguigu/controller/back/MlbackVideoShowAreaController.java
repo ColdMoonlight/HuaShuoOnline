@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackSlide;
 import com.atguigu.bean.MlbackVideo;
 import com.atguigu.bean.MlbackVideoShowArea;
 import com.atguigu.common.Msg;
@@ -79,8 +80,30 @@ public class MlbackVideoShowAreaController {
 //		}
 	}
 	
+	/**3.0	20200703
+	 * MlbackSlide	initializaSlide
+	 * @param MlbackSlide
+	 * @return
+	 */
+	@RequestMapping(value="/initializaVideoShowArea",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg initializaVideoShowArea(HttpServletResponse rep,HttpServletRequest res){
+		
+		MlbackVideoShowArea mlbackVideoShowArea = new MlbackVideoShowArea();
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		mlbackVideoShowArea.setVideoshowareaStarttime(nowTime);
+		mlbackVideoShowArea.setVideoshowareaPcstatus(0);//0未上架1上架中
+		mlbackVideoShowArea.setVideoshowareaPcstatus(0);//0未上架1上架中
+		//无id，insert
+		System.out.println("插入前"+mlbackVideoShowArea.toString());
+		mlbackVideoShowAreaService.insertSelective(mlbackVideoShowArea);
+		System.out.println("插入后"+mlbackVideoShowArea.toString());
+		return Msg.success().add("resMsg", "VideoShowArea初始化成功").add("mlbackVideoShowArea", mlbackVideoShowArea);
+	}
 	
-	/**3.0	onuse	200104
+	
+	/**3.1	onuse	200104
 	 * MlbackVideoShowArea	save
 	 * @param MlbackVideoShowArea
 	 */
@@ -88,23 +111,13 @@ public class MlbackVideoShowAreaController {
 	@ResponseBody
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackVideoShowArea mlbackVideoShowArea){
 		//接受参数信息
-		//获取类名
-		Integer videoshowareaId = mlbackVideoShowArea.getVideoshowareaId();
 		
-		//mlbackProductService;
 		String nowtime = DateUtil.strTime14s();
 		mlbackVideoShowArea.setVideoshowareaMotifytime(nowtime);
 		
-		if(videoshowareaId==null){
-			mlbackVideoShowArea.setVideoshowareaCreatetime(nowtime);
-			//无id，insert
-			mlbackVideoShowAreaService.insertSelective(mlbackVideoShowArea);
-			return Msg.success().add("resMsg", "插入成功");
-		}else{
-			//有id，update
-			mlbackVideoShowAreaService.updateByPrimaryKeySelective(mlbackVideoShowArea);
-			return Msg.success().add("resMsg", "更新成功");
-		}		
+		//有id,update
+		mlbackVideoShowAreaService.updateByPrimaryKeySelective(mlbackVideoShowArea);
+		return Msg.success().add("resMsg", "更新成功");
 	}
 	
 	/**4.0	UseNow	190905
@@ -128,7 +141,9 @@ public class MlbackVideoShowAreaController {
 	 */
 	@RequestMapping(value="/getOneMlbackVideoShowAreaDetail",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneMlbackVideoShowAreaDetail(@RequestParam(value = "videoshowareaId") Integer videoshowareaId){
+	public Msg getOneMlbackVideoShowAreaDetail(@RequestBody MlbackVideoShowArea mlbackVideoShowArea){
+		
+		Integer videoshowareaId = mlbackVideoShowArea.getVideoshowareaId();
 		//接受actshowproId
 		MlbackVideoShowArea mlbackVideoShowAreaReq = new MlbackVideoShowArea();
 		mlbackVideoShowAreaReq.setVideoshowareaId(videoshowareaId);

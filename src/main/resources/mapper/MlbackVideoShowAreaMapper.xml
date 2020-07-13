@@ -64,7 +64,7 @@
   
   
   <!-- insertSelective -->
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackVideoShowArea">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="videoshowareaId" parameterType="com.atguigu.bean.MlbackVideoShowArea">
     insert into tb_mlback_videoshowarea
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="videoshowareaId != null">
