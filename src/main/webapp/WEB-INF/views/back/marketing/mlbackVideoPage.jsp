@@ -5,10 +5,8 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Activity Product</title>
+	<title>Display Area</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
-	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 </head>
 
 <body class="c-app">
@@ -19,8 +17,8 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Activity Product</span>
-						<button class="btn btn-primary btn-create">Create Activity Product</button>
+						<span class="c-option-title">Display Area</span>
+						<button class="btn btn-primary btn-create">Create Display Area</button>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -33,15 +31,13 @@
 								<thead>
 									<tr>
 										<th>id</th>
-										<th>name</th>
-										<th>area</th>
-										<th>order</th>
-										<th>product/subject/colleciton</th>
-										<th>seo</th>
-										<!-- <th>ifInto</th> -->
+										<th>title</th>
 										<th>wap-image</th>
 										<th>pc-image</th>
+										<th>area</th>
 										<th>status</th>
+										<th>create-time</th>
+										<th>update-time</th>
 										<th>operate</th>
 									</tr>
 								</thead>
@@ -54,67 +50,45 @@
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">Edit Activity Product</span>
+						<span class="c-option-title">Edit Display Area</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save Activity-Product</button>
+							<button class="btn btn-primary btn-save">Save Display Area</button>
 						</div>
 					</div>
 					<div class="c-form row">
-						<input id="actshowproId" hidden>
+						<input id="showareaId" hidden>
 						<!-- left panel  -->
-						<div class="left-panel col-lg-7 col-md-12">
+						<div class="left-panel col-lg-12 col-md-12">
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">General</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="actshowproName">Activity-Product Name</label>
+										<label class="col-form-label" for="showareaName">Display Area Name</label>
 										<div class="controls">
-											<input class="form-control" id="actshowproName" type="text" />
+											<input class="form-control" id="showareaName" type="text" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="actshowproActnum">Area</label>
+										<label class="col-form-label" for="showareaNumth">Display Area</label>
 										<div class="controls">
-											<select class="form-control" id="actshowproActnum" />
-												<option value="-1">Please select the location of the Activity-Product</option>
-												<option value="1">首页主推</option>
-												<option value="2">第2活动</option>
-												<option value="3">第3活动</option>
-												<option value="4">第4活动</option>
-												<option value="5">第5活动</option>
-												<option value="6">第6-首页中间adv_two</option>
-												<option value="7">第7-首adv_four</option>
-												<option value="8">第8-首页分类导航下边2个图</option>
-												<option value="9">第9-首页banner下边分类导航5个图</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="actshowproOrderth">Activity-Product Sort</label>
-										<div class="controls">
-											<select class="form-control" id="actshowproOrderth" />
-												<option value="-1">Please select Activity-Product sort-order</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-												<option value="9">9</option>
-												<option value="10">10</option>
+											<select class="form-control" id="showareaNumth" />
+												<option value="-1">Please select the location of the Display Area</option>
+												<option value="1">first display-area</option>
+												<option value="2">second display-area</option>
+												<option value="3">three display-area</option>
+												<option value="4">four display-area</option>
+												<option value="5">five display-area</option>
 											</select>
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="actshowproStatus">Status</label>
+										<label class="col-md-3 col-form-label" for="showareaStatus">Status</label>
 										<div class="controls col-md-3">
 											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="actshowproStatus" type="checkbox">
+												<input class="c-switch-input" id="showareaStatus" type="checkbox">
 												<span class="c-switch-slider"></span>
 											</label>
 										</div>
@@ -124,32 +98,32 @@
 							<!-- product media -->
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Activity-Product Image</div>
+									<div class="card-title-name">Display Area Image</div>
 								</div>
 								<div class="card-body">
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-lg-6 col-md-6">
 											<h3>Wap Image</h3>
 											<div class="c-upload-img">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 												</svg>
 												<div class="c-backshow"></div>						
-												<input id="actWap" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<input id="showareaImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 												<!-- spinner -->
 												<div class="spinner">
 													<div class="spinner-border" role="status" aria-hidden="true"></div>
 												</div>
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-lg-6 col-md-6">
 											<h3>Pc Image</h3>
 											<div class="c-upload-img">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 												</svg>
 												<div class="c-backshow"></div>						
-												<input id="actPc" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<input id="showareaImgpcurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 												<!-- spinner -->
 												<div class="spinner">
 													<div class="spinner-border" role="status" aria-hidden="true"></div>
@@ -161,61 +135,21 @@
 							</div>
 						</div>
 						<!-- right panel  -->
-						<div class="right-panel col-lg-5 col-md-12">							
-							<!-- product or subject -->
+						<!-- <div class="right-panel col-lg-5 col-md-12">
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Product & Subject & Collection</div>
+									<div class="card-title-name">Super Category</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="actshowproIfproorcate">Product Or Subject Or Collection</label>
+										<label class="col-form-label" for="slideCateid">Super Category</label>
 										<div class="controls">
-											<select class="form-control" id="actshowproIfproorcate" />
-												<option value="0" data-class="ml-product">product</option>
-												<option value="1" data-class="ml-category">collection</option>
-												<option value="2" data-class="ml-subject">subject</option>
-											</select>
+											<select class="form-control supercate-list" id="slideCateid" /></select>
 										</div>
 									</div>
-									<div>
-										<div class="form-group ml-product">
-											<label class="col-form-label" for="actshowproProid">Product</label>
-											<div class="controls">
-												<select class="form-control product-list" id="actshowproProid" /></select>
-											</div>
-										</div>
-										<div class="form-group ml-category hide">
-											<label class="col-form-label" for="actshowproCateid">Category</label>
-											<div class="controls">
-												<select class="form-control collection-list" id="actshowproCateid" /></select>
-											</div>
-										</div>	
-										<div class="form-group ml-subject hide">
-											<label class="col-form-label" for="actshowproPageseoname">Subject</label>
-											<div class="controls">
-												<select class="form-control" id="actshowproPageseoname" />
-													<option value="Friday">Friday</option>
-													<option value="Activty">Activty</option>
-													<option value="MlfrontReview/toReviewCustomer">Shop by look</option>
-													<option value="MlfrontReview/toReviewInsPage">Ins Show</option>
-													<option value="MlbackVideoShowArea/toVideoListPage">CUSTOMER VOICE</option>
-												</select>
-											</div>
-										</div>								
-									</div>
-									<!-- <div class="form-group">
-										<label class="col-form-label" for="slideIfinto">click entry or not</label>
-										<div class="controls">
-											<select class="form-control" id="slideIfinto" />
-												<option value="0" selected="selected">disable</option>
-					  							<option value="1">enalbe</option>
-											</select>
-										</div>
-									</div> -->
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<!-- mask -->
@@ -230,74 +164,66 @@
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
 
-	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
-	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
-		var hasCollectionList = false;
-		var hasProductList = false;
 		var isCreate = false;
 
-		$('#actshowproIfproorcate').on('change', function() {
-			$('.' + $(this).find('option:checked').data('class')).removeClass('hide').siblings().addClass('hide').find('select').val('-1');
-		});
-
 		// init
-		getActivityProductsData()
+		getDisplayAreasData()
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create .c-option-title').text('Create Activity-Product');
+			$('.c-create .c-option-title').text('Create Display Area');
 
-			getActivityProductId(function(data) {
+			getDisplayAreaId(function(data) {
 				// init formData
 				resetFormData();
-				$('#actshowproId').val(data.actshowproId);
+				$('#showareaId').val(data.showareaId);
 				showCreateBlock();
 				isCreate = true;
 			});
 		});
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
-			var actshowproId = $(this).data('id');
-			getOneActivityProductData({
-				actshowproId: actshowproId
+			var showareaId = $(this).data('id');
+			getOneDisplayAreaData({
+				showareaId: showareaId
 			}, function(resData) {
-			 	$('.c-create .c-option-title').text('Edit Activity-Product');
+			 	$('.c-create .c-option-title').text('Edit DisplayArea');
 				showCreateBlock();
 				initFormData(resData);
 			});			
 		});
 		// delete collection
 		$(document.body).on('click', '.btn-delete', function (e) {
-			var actshowproId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete Activity-Product!');
+			var showareaId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('Delete Display Area!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteActivityProductData({
-					actshowproId: actshowproId,
+				deleteDisplayAreaData({
+					showareaId: showareaId,
 				}, function() {
-					getActivityProductsData();
+					getDisplayAreasData();
 				});
 			});
 		});
 		$(window).on('beforeunload', function() {
-			var actshowproId = $('#actshowproId').val();
-			isCreate && actshowproId && deleteActivityProductData({
-				actshowproId: actshowproId,
+			var showareaId = $('#showareaId').val();
+			isCreate && showareaId && deleteDisplayAreaData({
+				showareaId: showareaId,
 			});
 		});
 		// upload picture
-		$('#actPc').on('change', function(e) {
+		$('#showareaImgpcurl').on('change', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'actShowProPc');
+			formData.append('type', 'showareaPc');
 			formData.append('image', $this[0].files[0]);
-			formData.append('actshowproId', parseInt($('#actshowproId').val()));
+			formData.append('showareaId', parseInt($('#showareaId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/actShowProPc",
+				url: "${APP_PATH}/ImageUpload/showAreaPc",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -322,17 +248,17 @@
 				}
 			});
 		});
-		$('#actWap').on('change', function(e) {
+		$('#showareaImgurl').on('change', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'actShowProWap');
+			formData.append('type', 'showareaWap');
 			formData.append('image', $this[0].files[0]);
-			formData.append('actshowproId', parseInt($('#actshowproId').val()));
+			formData.append('showareaId', parseInt($('#showareaId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/actShowProWap",
+				url: "${APP_PATH}/ImageUpload/showAreaWap",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -371,24 +297,24 @@
 		}
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
-			saveActivityProductData(getFormData(), function() {
+			saveDisplayAreaData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) isCreate = false;
 
-				getActivityProductsData();
+				getDisplayAreasData();
 				showInitBlock();
-				$('#actshowproId').val('');
+				$('#showareaId').val('');
 			});
 		});
 		// cancel collection save
 		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
-				// delete null Activity-Product
-				deleteActivityProductData({
-					actshowproId: $('#actshowproId').val(),
+				// delete null DisplayArea
+				deleteDisplayAreaData({
+					showareaId: $('#showareaId').val(),
 				}, function() {
-					console.log("cancel create Activity-Product");
+					console.log("cancel create DisplayArea");
 				});
 			}
 
@@ -397,9 +323,6 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
-
-			if (!hasCollectionList) getAllCollectionData(renderAllCollection);
-			if (!hasProductList) getAllProductData(renderAllProduct);
 			
 		}
 		function showInitBlock() {
@@ -409,122 +332,65 @@
 		// handle formData
 		// reset data
 		function resetFormData() {
-			$('#actshowproId').val('');
-			$('#actshowproName').val('');
-			$('#actshowproActnum').val('-1');
-			$('#actshowproOrderth').val('-1');
-			$('#actshowproStatus').prop('checked', false);
+			$('#showareaId').val('');
+			$('#showareaName').val('');
+			$('#showareaNumth').val('-1');
+			$('#showareaStatus').prop('checked', false);
 
-			resetPicture($('#actWap'));
-			resetPicture($('#actPc'));
-			
-			$('#actshowproIfproorcate').val('0');
-			$('.ml-product').removeClass('hide').siblings().addClass('hide');
-			$('#actshowproProid').val('-1');
-			$('#actshowproCateid').val('-1');
-			$('#actshowproPageseoname').val('-1');
-			/* $('#slideIfinto').val('0'); */
+			resetPicture($('#showareaImgurl'));
+			resetPicture($('#showareaImgpcurl'));
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
-			data.actshowproId = parseInt($('#actshowproId').val());
-			data.actshowproName = $('#actshowproName').val();
-			data.actshowproActnum = parseInt($('#actshowproActnum').val());
-			data.actshowproOrderth = $('#actshowproOrderth').val();
-			data.actshowproStatus = $('#actshowproStatus').prop('checked') ? 1 : 0;
+			data.showareaId = parseInt($('#showareaId').val());
+			data.showareaName = $('#showareaName').val();
+			data.showareaStatus = $('#showareaStatus').prop('checked') ? 1 : 0;
+			data.slideFirthNum = $('#showareaNumth').val();
 
-			data.actshowproImgwapurl = $('#actWap').attr('data-val') && JSON.parse($('#actWap').attr('data-val')).imageUrl;
-			data.actshowproImgpcurl = $('#actPc').attr('data-val') && JSON.parse($('#actPc').attr('data-val')).imageUrl;
-
-			var actshowproIfproorcate = $('#actshowproIfproorcate').val();
-			data.actshowproIfproorcate = actshowproIfproorcate;
-			if (actshowproIfproorcate == 0) {
-				data.actshowproProid = $('#actshowproProid').val();
-				data.actshowproProname = $('#actshowproProid').find('option:checked').data('name') || '';
-				data.actshowproSeoname = $('#actshowproProid').find('option:checked').data('seo') || '';
-				data.actshowproCateid = '';
-				data.actshowproCatename = '';
-				data.actshowproCateseoname = '';
-				data.actshowproPageseoname = '';
-			} else if (actshowproIfproorcate == 1) {
-				data.actshowproProid = '';
-				data.actshowproProname = '';
-				data.actshowproSeoname = '';
-				data.actshowproCateid = $('#actshowproCateid').val();
-				data.actshowproCatename = $('#actshowproCateid').find('option:checked').data('name') || '';
-				data.actshowproCateseoname = $('#actshowproCateid').find('option:checked').data('seo') || '';
-				data.actshowproPageseoname = '';
-			} else if (actshowproIfproorcate == 2) {
-				data.actshowproProid = '';
-				data.actshowproProname = '';
-				data.actshowproSeoname = '';
-				data.actshowproCateid ='';
-				data.actshowproCatename = '';
-				data.actshowproCateseoname = '';
-				data.actshowproPageseoname = $('#actshowproPageseoname').val();
-			}
-			/* data.slideIfinto = $('#slideIfinto').val(); */
+			data.showareaImgurl = $('#showareaImgurl').attr('data-val') && JSON.parse($('#showareaImgurl').attr('data-val')).imageUrl;
+			data.showareaImgpcurl = $('#showareaImgpcurl').attr('data-val') && JSON.parse($('#showareaImgpcurl').attr('data-val')).imageUrl;
 
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
-			// initial
-			$('#actshowproProid').val('-1');
-			$('#actshowproCateid').val('-1');
-			$('#actshowproPageseoname').val('-1');
 			// init
-			$('#actshowproId').val(data.actshowproId);
-			$('#actshowproName').val(data.actshowproName);
-			$('#actshowproActnum').val(data.actshowproActnum || '-1');
-			$('#actshowproOrderth').val(data.actshowproOrderth ? data.actshowproOrderth : '-1');
-			$('#actshowproStatus').prop('checked', data.actshowproStatus);
-			
-			if (data.actshowproImgwapurl) {
-				addPicture($('#actWap'), {
-					imageUrl: data.actshowproImgwapurl
-				});				
+			$('#showareaId').val(data.showareaId);
+			$('#showareaName').val(data.showareaName);
+			$('#showareaNumth').val(data.showareaNumth ? data.showareaNumth : '-1');
+			$('#showareaStatus').prop('checked', data.showareaStatus);
+			$('#slideArea').val(data.slideArea);
+
+			if (data.showareaImgurl) {
+				addPicture($('#showareaImgurl'), {
+					imageUrl: data.showareaImgurl
+				});	
 			} else {
-				resetPicture($('#actWap'));
+				resetPicture($('#showareaImgurl'));
 			}
 
-			if (data.actshowproImgpcurl) {
-				addPicture($('#actPc'), {
-					imageUrl: data.actshowproImgpcurl
+			if (data.showareaImgpcurl) {
+				addPicture($('#showareaImgpcurl'), {
+					imageUrl: data.showareaImgpcurl
 				});				
 			} else {
-				resetPicture($('#actPc'));
+				resetPicture($('#showareaImgpcurl'));
 			}
-
-			var actshowproIfproorcate = data.actshowproIfproorcate;
-			$('#actshowproIfproorcate').val(actshowproIfproorcate || 0);
-			if (actshowproIfproorcate == 0) {
-				$('#actshowproProid').val(data.actshowproProid || '-1');
-				$('.ml-product').removeClass('hide').siblings().addClass('hide');
-			} else if (actshowproIfproorcate == 1) {
-				$('#actshowproCateid').val(data.actshowproCateid || '-1');
-				$('.ml-category').removeClass('hide').siblings().addClass('hide');
-			} else if (actshowproIfproorcate == 2) {
-				$('#actshowproPageseoname').val(data.actshowproPageseoname || '-1');
-				$('.ml-subject').removeClass('hide').siblings().addClass('hide');
-			}
-			
-			/* $('#slideIfinto').val(data.slideIfinto); */
 
 		}
 		// callback get id
-		function getActivityProductId(callback) {
+		function getDisplayAreaId(callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackActShowPro/initializaActShowPro",
+				url: "${APP_PATH }/MlbackShowArea/initializaShowArea",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.mlbackActShowPro)
+						callback && callback(data.extend.mlbackShowArea)
 						toastr.success(data.extend.resMsg);
 					} else {
 						showInitBlock();
@@ -540,14 +406,14 @@
 			});
 		}
 		// callback get all data
-		function getActivityProductsData() {
+		function getDisplayAreasData() {
 			$('.c-mask').show();
 
 			var formData = new FormData();
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH}/MlbackActShowPro/getMlbackActShowProByPage",
+				url: "${APP_PATH}/MlbackShowArea/getMlbackShowAreaListByPage",
 				type: "post",
 				processData: false,
 				contentType: false,
@@ -563,7 +429,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get ActivityProduct, please refresh the page to get again！');
+					toastr.error('Failed to get DisplayArea, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -571,24 +437,24 @@
 			});
 		}
 		// callback get one data
-		function getOneActivityProductData(reqData, callback) {
+		function getOneDisplayAreaData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackActShowPro/getOneMlbackActShowProDetail",
+				url: "${APP_PATH}/MlbackShowArea/getOneMlbackShowAreaDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: 'json',
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.mlbackActShowProOne);
+						callback(data.extend.mlbackShowAreaOne);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get ActivityProduct, please refresh the page to get again！');
+					toastr.error('Failed to get DisplayArea, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -596,10 +462,10 @@
 			});
 		}
 		// callback save
-		function saveActivityProductData(reqData, callback) {
+		function saveDisplayAreaData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackActShowPro/save",
+				url: "${APP_PATH}/MlbackShowArea/save",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -622,10 +488,10 @@
 			});
 		}
 		// callback delete
-		function deleteActivityProductData(reqData, callback) {
+		function deleteDisplayAreaData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackActShowPro/delete",
+				url: "${APP_PATH}/MlbackShowArea/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -652,40 +518,27 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				var logName, logSeo;
-				if (data[i].actshowproIfproorcate == 0) {
-					logName = '<b>product</b> ' + data[i].actshowproProid;
-					logSeo = data[i].actshowproSeoname;
-				} else if (data[i].actshowproIfproorcate == 1) {
-					logName = '<b>collection</b> ' + data[i].actshowproCateid;
-					logSeo = data[i].actshowproCateseoname;
-				} else if (data[i].actshowproIfproorcate == 2) {
-					logName = '<b>subject</b> ' + data[i].actshowproPageseoname;
-					logSeo = data[i].actshowproPageseoname;
-				}
-				htmlStr += '<tr><td>' + data[i].actshowproId + '</td>' +
-					'<td>' + data[i].actshowproName + '</td>' +
-					'<td>' + data[i].actshowproActnum + '</td>' +
-					'<td>' + data[i].actshowproOrderth + '</td>' +
-					'<td>' + (logName || '') + '</td>' +
-					'<td>' + (logSeo || '') + '</td>' +
-					/* '<td>' + (data[i].slideIfinto ? 'YES' : 'NO') + '</td>' + */
-					'<td>' + (data[i].actshowproImgwapurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].actshowproImgwapurl) +'" /></div>'
+				htmlStr += '<tr><td>' + data[i].showareaId + '</td>' +
+					'<td>' + data[i].showareaName + '</td>' +
+					'<td>' + data[i].showareaNumth + '</td>' +
+					'<td>' + (data[i].showareaImgurl ?
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].showareaImgurl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
-					'<td>' + (data[i].actshowproImgpcurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].actshowproImgpcurl) +'" /></div>'
+					'<td>' + (data[i].showareaImgpcurl ?
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].showareaImgpcurl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
-					'<td><a class="badge '+ (data[i].actshowproStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].actshowproStatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td><a class="badge '+ (data[i].showareaStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].showareaStatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td>' + data[i].showareaCreatetime + '</td>' +
+					'<td>' + data[i].showareaMotifytime + '</td>' +
 					'<td>' +
-						'<button class="btn btn-primary btn-edit" data-id="' + data[i].actshowproId + '">' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].showareaId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
 						'</button>' +
-						'<button class="btn btn-danger btn-delete" data-id="' + data[i].actshowproId + '">' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].showareaId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
 							'</svg>' +
