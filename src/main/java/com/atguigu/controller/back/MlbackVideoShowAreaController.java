@@ -120,7 +120,7 @@ public class MlbackVideoShowAreaController {
 		return Msg.success().add("resMsg", "更新成功");
 	}
 	
-	/**4.0	UseNow	190905
+	/**4.0	20200713
 	 * MlbackVideoShowArea	delete
 	 * @param id
 	 */
