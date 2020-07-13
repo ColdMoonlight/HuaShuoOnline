@@ -1189,7 +1189,7 @@ main {
 .wap-nav .operate {
   cursor: pointer;
   z-index: 2;
-  background: url(../../wap/img/add.png) no-repeat center;
+  background: url(../img/add.png) no-repeat center;
   background-size: 26px;
   width: 40px;
   height: 40px;
@@ -1198,7 +1198,7 @@ main {
   top: 0;
 }
 .wap-nav .operate.active {
-  background: url(../../wap/img/cut.png) no-repeat center;
+  background: url(../img/cut.png) no-repeat center;
   background-size: 26px;
 }
 .wap-nav .operate.gw-i2 {
@@ -3350,4 +3350,47 @@ footer li {
 }
 .userinfo-modal .btn {
 	width: 100%;
+}
+/* video */
+.video-banner .wap,
+.video-banner .pc,
+.video-discount .wap,
+.video-discount .pc {
+	display: none;
+	opacity: 0;
+	visibility: hidden;
+}
+@media only screen and (max-width: 575px) {
+	.video-banner .wap {
+		display: block;
+		opacity: 1;
+		visibility: visible;
+	}
+	.video-banner .wap {
+		padding-top: 53.3%;
+	}
+	.video-discount-title.wap {
+		padding-top: 13.3333%;
+	}
+	.video-discount-body.wap {
+		padding-top: 42.666667%;
+	}
+}
+@media only screen and (min-width: 576px) {
+	.video-banner .pc {
+		display: block;
+		opacity: 1;
+		visibility: visible;
+	}
+	.video-banner .pc {
+		padding-top: 26%;
+	}
+	.video-discount-title.pc {
+		padding-top: 8%;
+		max-height: 80px;
+	}
+	.video-discount-body.pc  {
+		padding-top: 26.6667%;
+		max-height: 264px;
+	}
 }

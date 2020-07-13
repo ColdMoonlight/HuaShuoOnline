@@ -29,6 +29,12 @@ public class ImageNameUtil {
 			typeName="actShowProWap";
 		}else if("actShowProPc".equals(type)){
 			typeName="actShowProPc";
+		}else if("VideoShowAreaWap".equals(type)){
+			typeName="VideoShowAreaWap";
+		}else if("VideoShowAreaPc".equals(type)){
+			typeName="VideoShowAreaPc";
+		}else if("VideoYTB".equals(type)){
+			typeName="VideoYTBid";
 		}
 		return typeName;
 	}
