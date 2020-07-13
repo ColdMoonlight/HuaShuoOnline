@@ -127,18 +127,19 @@
 							var thirdNavSeo;
 
 							// product
-							if (data1[i].catalogIfproorcateorpage == 0) {			
+							if (data2[i][j][k].catalogIfproorcateorpage == 0) {			
 								thirdNavSeo = data2[i][j][k].catalogSeoname;
 							}
 							// collection
-							if (data1[i].catalogIfproorcateorpage == 1) {
+							if (data2[i][j][k].catalogIfproorcateorpage == 1) {
 								thirdNavSeo = 'search/'+ data2[i][j][k].catalogCateseoname;
 							}
 							// subject
-							if (data1[i].catalogIfproorcateorpage == 2) {
+							if (data2[i][j][k].catalogIfproorcateorpage == 2) {
 								thirdNavSeo = data2[i][j][k].catalogPageseoname;
+								console.log('xxx')
 							}
-							
+						
 							if (k == 0) {
 								subMenuHtml += '<dt>' +
 									'<a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a>' +
