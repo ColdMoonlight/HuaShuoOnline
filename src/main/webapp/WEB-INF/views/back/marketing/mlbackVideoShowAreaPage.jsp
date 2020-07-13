@@ -250,12 +250,12 @@
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'showareaPc');
+			formData.append('type', 'VideoShowAreaPc');
 			formData.append('image', $this[0].files[0]);
 			formData.append('videoshowareaId', parseInt($('#videoshowareaId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/showAreaPc",
+				url: "${APP_PATH}/ImageYTBUpload/uploadVideoShowAreaPcImg",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -285,12 +285,12 @@
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'showareaWap');
+			formData.append('type', 'VideoShowAreaWap');
 			formData.append('image', $this[0].files[0]);
 			formData.append('videoshowareaId', parseInt($('#videoshowareaId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/showAreaWap",
+				url: "${APP_PATH}/ImageYTBUpload/uploadVideoShowAreaWapImg",
 				type: "post",
 				data: formData,
 				processData: false,

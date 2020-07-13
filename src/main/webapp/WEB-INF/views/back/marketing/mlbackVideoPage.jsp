@@ -271,17 +271,17 @@
 			});
 		});
 		// upload picture
-		$('#actPc').on('change', function(e) {
+		$('#videoImgurl').on('change', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'actShowProPc');
+			formData.append('type', 'VideoYTB');
 			formData.append('image', $this[0].files[0]);
 			formData.append('videoId', parseInt($('#videoId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/actShowProPc",
+				url: "${APP_PATH}/ImageYTBUpload/uploadVideoImg",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -303,41 +303,6 @@
 				},
 				complete: function () {
 					$this.parent().find('.spinner').hide();
-				}
-			});
-		});
-		$('#videoImgurl').on('change', function(e) {
-			var $this = $(this);
-			$this.parent().find('.spinner').show();
-
-			var formData = new FormData();
-			formData.append('type', 'actShowProWap');
-			formData.append('image', $this[0].files[0]);
-			formData.append('videoId', parseInt($('#videoId').val()));
-
-			$.ajax({
-				url: "${APP_PATH}/ImageUpload/actShowProWap",
-				type: "post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				cache: false,
-				dataType: 'json',
-				success: function (data) {
-					if (data.code == 100) {
-						addPicture($this, {
-							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl
-						});
-					} else {
-						toastr.error('网络错误， 请稍后重试！');	
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					 $this.parent().find('.spinner').hide();
 				}
 			});
 		});
