@@ -134,7 +134,7 @@ public class MlbackVideoShowAreaController {
 	}
 	
 	/**
-	 * 5.0	UseNow	190905
+	 * 5.0	20200713
 	 * 查看单条的详情细节
 	 * @param MlbackVideoShowArea
 	 * @return 
