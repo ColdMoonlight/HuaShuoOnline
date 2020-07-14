@@ -246,6 +246,43 @@ public class MlfrontUserController {
 					.add("mlfrontUserOne", mlfrontUserOne);
 	}	
 	
+	
+	/**
+	 * 10.0	zsh 200619
+	 * to	toPersonInfoPage列表页面
+	 * @return  
+	 * */
+	@RequestMapping("/toPersonInfoPage")
+	public String toPersonInfoPage() throws Exception{
+	
+		return "portal/user/PersonInfo";
+	}
+
+	
+	/**
+	 * 11.0	useOn	0505
+	 * to	toCouponPage列表页面
+	 * @return  
+	 * */
+	@RequestMapping("/toCouponPage")
+	public String toCouponPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
+
+		return "portal/user/myCoupon";
+
+	}
+
+	/**
+	 * 12.0	useOn	0505
+	 * to	tomyOrderPage列表页面
+	 * @param jsp
+	 * @return  
+	 * */
+	@RequestMapping("/tomyOrderPage")
+	public String tommyOrderPage() throws Exception{
+	
+		return "portal/user/myOrderList";
+	}
+	
 //	/**
 //	 * 7.0	UseNow	0505
 //	 * to	MlfrontUser列表页面
@@ -331,56 +368,6 @@ public class MlfrontUserController {
 //		mlfrontUserService.deleteByPrimaryKey(UserIdInt);
 //		return Msg.success().add("resMsg", "delete success");
 //	}
-	
-	/**
-	 * 13.0	zsh 200619
-	 * to	toPersonInfoPage列表页面
-	 * @return  
-	 * */
-	@RequestMapping("/toPersonInfoPage")
-	public String toPersonInfoPage() throws Exception{
-	
-		return "portal/user/PersonInfo";
-	}
 
-	
-	/**
-	 * 15.0	useOn	0505
-	 * to	tomCouponPage列表页面
-	 * @return  
-	 * */
-	@RequestMapping("/toCouponPage")
-	public String toCouponPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
-		
-		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
-		
-		 if(ifMobile.equals("1")){
-			  return "mfront/myCoupon";
-		  }else{
-			  return "front/pcmyCoupon";
-		  }
-	}
 
-	/**
-	 * 16.0	useOn	0505
-	 * to	tommyOrderPage列表页面
-	 * @param jsp
-	 * @return  
-	 * */
-	@RequestMapping("/tommyOrderPage")
-	public String tommyOrderPage() throws Exception{
-	
-		return "mfront/myOrderList";
-	}
-	/**
-	 * 16.1	useOn	0505
-	 * to	tommyOrderPage列表页面
-	 * @param jsp
-	 * @return  
-	 * */
-	@RequestMapping("/topcmyOrderPage")
-	public String topcmyOrderPage() throws Exception{
-	
-		return "front/pcmyOrderList";
-	}
 }

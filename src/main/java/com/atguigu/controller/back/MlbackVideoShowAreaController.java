@@ -171,7 +171,21 @@ public class MlbackVideoShowAreaController {
 		//查询wap本位置下有多少Video展区
 		List<MlbackVideoShowArea> mlbackVideoShowAreaList =mlbackVideoShowAreaService.selectMlbackVideoShowAreawapListByArea(mlbackVideoShowAreaReq);
 		
-		return Msg.success().add("resMsg", "查看该位置的轮播完毕").add("mlbackVideoShowAreaList", mlbackVideoShowAreaList);
+		MlbackVideo mlbackVideoReq = new MlbackVideo();
+		List<MlbackVideo> mlbackVideoList = new ArrayList<MlbackVideo>();
+		List<Integer> videoNumByAreaListList = new ArrayList<Integer>();
+		for(MlbackVideoShowArea mlbackVideoShowAreaOne:mlbackVideoShowAreaList){
+			Integer videoshowareaId = mlbackVideoShowAreaOne.getVideoshowareaId();
+			mlbackVideoReq.setVideoArea(videoshowareaId);
+			mlbackVideoList = mlbackVideoService.selectMlbackvideoByVideoAreaCount(mlbackVideoReq);
+			if(mlbackVideoList.size()>0){
+				videoNumByAreaListList.add(mlbackVideoList.size());
+			}else{
+				videoNumByAreaListList.add(0);
+			}
+		}
+		
+		return Msg.success().add("resMsg", "查看该位置的轮播完毕").add("mlbackVideoShowAreaList", mlbackVideoShowAreaList).add("videoNumByAreaListList", videoNumByAreaListList);
 	}
 	
 	/**
