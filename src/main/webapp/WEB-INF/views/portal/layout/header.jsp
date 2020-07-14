@@ -97,6 +97,37 @@
 			}
 		});
 	}
+	function matchYoutubeUrl(url) {
+	    return url.split("watch?v=")[1];
+   	}
+	// render video data
+	function renderVideoData(data, videoLink) {
+		var videoRecommendHtml = '<div class="video-recommend">'+
+				'<iframe frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media" title="YouTube video player" width="100%" height="300" src="'+ videoLink +'"></iframe>' +
+				'<div class="video-recommend-product">'+
+					'<div class="video-recommend-img lazyload" data-src="'+ data.productImgurl +'"></div>'+
+					'<div class="video-recommend-data">' +
+						'<div class="video-recommend-name">'+ data.productName +'</div>'+
+						'<div class="video-recommend-dprice"><span class="">Regular Price :</span><span class="value">$'+ data.productOriginalprice +'</span></div>'+
+						'<div class="video-recommend-nprice"><span class="name">Sale Price :</span><span class="value">$'+ (data.productOriginalprice && data.productActoffoff ? (data.productOriginalprice * data.productActoffoff / 100).toFixed(2) : 0) +'</span></div>'+
+						'<a class="btn btn-pink" href="'+ (data.productSeo ? ('${APP_PATH}/' + data.productSeo +'.html') : 'jvascrtip:;') +'">Buy Now</a>'+
+					'</div>'+
+				'</div>' +
+			'</div>';
+		var videoRecommendModal = createModal({
+			header: {
+				html: '<p>Hot Video Recommend...</p>'
+			},
+			body: {
+				html: videoRecommendHtml
+			}
+		});
+		new LazyLoad(videoRecommendModal.find('.lazyload'), {
+			root: null,
+			rootMargin: "10px",
+			threshold: 0
+		});
+	}
 	// get Label Class
 	function getLabelClass(id) {
 		if (id == 1) {

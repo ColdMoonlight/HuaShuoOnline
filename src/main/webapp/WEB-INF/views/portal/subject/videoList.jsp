@@ -97,7 +97,7 @@
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
-		function getVideoAreaData(num, callback) {
+		function getVideoCollectionData(num, callback) {
 			$.ajax({
 				url: '${APP_PATH}/MlbackVideoShowArea/getMlbackVideoShowAreawapListByArea',
 				data: JSON.stringify({
@@ -138,7 +138,7 @@
 			rootMargin: "10px",
 			threshold: 0
 		});
-		getVideoAreaData(2, function(videoData, numData) {
+		getVideoCollectionData(2, function(videoData, numData) {
 			var $el = $('.video-collection-body');
 			videoData.length && renderVideoArea($el, videoData, numData);
 			new LazyLoad($el.find('.lazyload'), {
@@ -151,31 +151,7 @@
 			var productId = $(this).data('id');
 			var videoLink = $(this).data('video');
 			productId && getOneProductData({ "productId": productId }, function(data) {
-				var videoRecommendHtml = '<div class="video-recommend">'+
-						'<iframe frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media" title="YouTube video player" src="'+ videoLink +'"></iframe>' +
-						'<div class="video-recommend-product">' +
-							'<div class="video-recommend-img lazyload" data-src="'+ data.productMainimgurl +'"></div>'+
-							'<div class="video-recommend-data">' +
-								'<div class="video-recommend-name">'+ data.productName +'</div>'+
-								'<div class="video-recommend-dprice"><span class="name">Regular Price :</span><span class="value">$'+ data.productOriginalprice +'</span></div>'+
-								'<div class="video-recommend-nprice"><span class="name">Sale Price :</span><span class="value">$'+ (data.productOriginalprice && data.productActoffoff ? (data.productOriginalprice * data.productActoffoff / 100).toFixed(2) : 0) +'</span></div>'+
-								'<a class="btn btn-pink" href="'+ (data.productSeo ? ('${APP_PATH}/' + data.productSeo +'.html') : 'jvascrtip:;') +'">Buy Now</a>'+
-							'</div>' +
-						'</div>' +
-					'</div>';
-				var videoRecommendModal = createModal({
-					header: {
-						html: '<p>Hot Video Recommend...</p>'
-					},
-					body: {
-						html: videoRecommendHtml
-					}
-				});
-				new LazyLoad($('.video-recommend').find('.lazyload'), {
-					root: null,
-					rootMargin: "10px",
-					threshold: 0
-				});
+				renderVideoData(data, videoLink);
 			});
 		});
 	</script>

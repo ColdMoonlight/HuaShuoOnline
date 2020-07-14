@@ -16,66 +16,41 @@
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<main>
-		<div class="video-banner">
-			<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-banner.jpg"></div>
-			<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-banner.jpg"></div>
-		</div>
-		<!-- video discount -->
-		<div class="video-discount">			
-			<div class="video-discount-title wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-dis-title.jpg"></div>
-			<div class="video-discount-title pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-dis-title.jpg"></div>
-			<div class="video-discount-body wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-discount.jpg"></div>
-			<div class="video-discount-body pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-discount.png"></div>				
-		</div>
-		<!-- video recommend -->
-		<div class="video-recommend-box">
-			<div class="video-recommend-title">
-				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-recommend.jpg"></div>
-				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-recommend.jpg"></div>
-			</div>			
-			<div class="video-recommend-body">
-				<div class="video-recommend-item shadow-radius lazyload" data-id="157" data-video="https://www.youtube.com/embed/zD5dgYYDb08" data-src="${APP_PATH }/static/pc/img/video/pro/vd1.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="109" data-video="https://www.youtube.com/embed/qp91g1hg9nM" data-src="${APP_PATH }/static/pc/img/video/pro/vd2.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="193" data-video="https://www.youtube.com/embed/u9M_pFxuLOA" data-src="${APP_PATH }/static/pc/img/video/pro/vd3.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="84" data-video="https://www.youtube.com/embed/2cJvNAYpI6Y" data-src="${APP_PATH }/static/pc/img/video/pro/vd4.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="110" data-video="https://www.youtube.com/embed/BYgVHjc6P3k" data-src="${APP_PATH }/static/pc/img/video/pro/vd5.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="80" data-video="https://www.youtube.com/embed/TD4mGC5xNcU" data-src="${APP_PATH }/static/pc/img/video/pro/vd6.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="140" data-video="https://www.youtube.com/embed/TD4mGC5xNcU" data-src="${APP_PATH }/static/pc/img/video/pro/vd7.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="251" data-video="https://www.youtube.com/embed/zoZm8cPDLKM" data-src="${APP_PATH }/static/pc/img/video/pro/vd8.jpg"></div>
-			</div>
-		</div>
-		<!-- video collection -->
-		<div class="video-collection">
-			<div class="video-collection-title">
-				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-collection.jpg"></div>
-				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-collection.jpg"></div>
-			</div>
-			<div class="video-collection-body"></div>
-		</div>
-		<!-- video top sale -->
-		<div class="video-topsale">
-			<div class="video-topsale-title">
-				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-top-sale.jpg"></div>
-				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-top-sale.jpg"></div>
-			</div>
-			<div class="video-topsale-body"></div>
-		</div>
+		<!-- video list -->
+		<div class="video-list"></div>
 	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
+		function renderTwoVideoData(videoLink, urlName, urlLink) {
+			var videoHtml = '<div class="video-box">'+
+					'<iframe frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media" title="YouTube video player" src="'+ videoLink +'"></iframe>'+
+					'<div class="video-box-data">' +
+						'<div class="video-box-name">'+ urlName +'</div>'+
+						'<a class="btn btn-pink" href="'+ urlLink +'">See It</a>'+
+					'</div>'+
+				'</div>';
+			var videoHotModal = createModal({
+				header: {
+					html: '<p>Hot Video...</p>'
+				},
+				body: {
+					html: videoHtml
+				}
+			});
+		}
 		function getVideoAreaData(num, callback) {
 			$.ajax({
-				url: '${APP_PATH}/MlbackVideoShowArea/getMlbackVideoShowAreawapListByArea',
+				url: '${APP_PATH}/MlbackVideo/getMlbackVideoListByVideoArea',
 				data: JSON.stringify({
-					"videoshowareaAreanum": num
+					"videoArea": num
 				}),
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/json',
 				success: function(data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.mlbackVideoShowAreaList, data.extend.videoNumByAreaListList);
+						callback && callback(data.extend.mlbackVideoList);
 					} else {
 						sysModalTip();
 					}
@@ -85,7 +60,10 @@
 				}
 			});
 		}
-		/* var itemName, itemSeo, itemLink;
+		function renderVideoArea($el, data) {
+			var htmlStr = '';
+			data.forEach(function(item, idx) {
+				var itemName, itemSeo, itemLink;
 				if (item.videoIfproorcateorpage == 0) {				
 					itemSeo = item.videoProname;
 					itemName = item.videoSeoname;
@@ -100,56 +78,37 @@
 					itemSeo = item.videoPageseoname;
 					itemName = item.videoPagename;
 				}
-				itemLink = itemSeo ? itemSeo + '.html' : 'javascript:;'; */
-		function renderVideoArea($el, videoData, numData) {
-			var htmlStr = '';
-			videoData.forEach(function(item, idx) {
-				var itemLink = '${APP_PATH}/MlbackVideo/toVideoAreaPage?videoArea='+ item.videoshowareaId;
-				htmlStr += '<div class="video-area-item">' +
-						'<a class="lazyload wap" href="'+ itemLink +'" data-src="'+ item.videoshowareaWapimgurl +'"></a>' +
-						'<a class="lazyload pc" href="'+ itemLink +'" data-src="'+ item.videoshowareaPcimgurl +'"></a>' +
-						'<div class="video-areaitem-content">' +
-							'<a class="video-areaitem-name" href="'+ itemLink +'">'+ item.videoshowareaName +'</a>' +
-							'<div class="video-areaitem">('+ numData[idx] +')</div>' +
-						'</div>' +
+				itemLink = itemSeo ? itemSeo + '.html' : 'javascript:;';
+				htmlStr += '<div class="video-list-item shadow-radius" data-tag="'+ item.videoIfproorcateorpage +'" data-id="'+ item.videoProid +'" data-name="'+ itemName +'" data-link="'+ itemLink +'" data-video="'+ item.videoUrl +'">' +
+						'<div class="video-list-item-img lazyload" data-src="'+ item.videoImgurl +'"></div>' +
+						'<div class="video-list-item-name">'+ itemName +'</div>' +
 					'</div>';
 			});
 			$el.html(htmlStr);
 		}
-		new LazyLoad($('main').find('.lazyload'), {
-			root: null,
-			rootMargin: "10px",
-			threshold: 0
-		});
-		getVideoAreaData(2, function(videoData, numData) {
-			var $el = $('.video-collection-body');
-			videoData.length && renderVideoArea($el, videoData, numData);
+		getVideoAreaData(2, function(data) {
+			var $el = $('.video-list');
+			data.length && renderVideoArea($el, data);
 			new LazyLoad($el.find('.lazyload'), {
 				root: null,
 				rootMargin: "10px",
 				threshold: 0
 			});
 		});
-		$(document.body).on('click', '.video-recommend-item', function() {
+		$(document.body).on('click', '.video-list-item', function() {
+			var tag = $(this).data('tag');
 			var productId = $(this).data('id');
 			var videoLink = $(this).data('video');
-			productId && getOneProductData({ "productId": productId }, function(data) {
-				var videoRecommendHtml = '<div class="video-recommend">'+
-						'<div class="video-recommend-img"><iframe frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media" title="YouTube video player" width="100%" height="300" src="'+ videoLink +'"></iframe></div>'+
-						'<div class="video-recommend-name">'+ data.productName +'</div>'+
-						'<div class="video-recommend-dprice"><span class="">Regular Price :</span><span class="value">$'+ data.productOriginalprice +'</span></div>'+
-						'<div class="video-recommend-nprice"><span class="name">Sale Price :</span><span class="value">$'+ (data.productOriginalprice && data.productActoffoff ? (data.productOriginalprice * data.productActoffoff / 100).toFixed(2) : 0) +'</span></div>'+
-						'<a class="btn btn-pink" href="'+ (data.productSeo ? ('${APP_PATH}/' + data.productSeo +'.html') : 'jvascrtip:;') +'">Buy Now</a>'+
-					'</div>';
-				var videoRecommendModal = createModal({
-					header: {
-						html: '<p>Hot Video Recommend...</p>'
-					},
-					body: {
-						html: videoRecommendHtml
-					}
+			var urlLink = $(this).data('link');
+			var urlName = $(this).data('name');
+			videoLink = videoLink && ('https://www.youtube.com/embed/' + matchYoutubeUrl(videoLink));
+			if (tag == 0) {
+				productId && getOneProductData({ "productId": productId }, function(data) {
+					renderVideoData(data, videoLink);
 				});
-			});
+			} else {
+				renderTwoVideoData(videoLink, urlName, urlLink);
+			}
 		});
 	</script>
 </body>
