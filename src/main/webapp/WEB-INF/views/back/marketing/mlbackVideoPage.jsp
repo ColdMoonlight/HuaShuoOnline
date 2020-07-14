@@ -76,15 +76,7 @@
 									<div class="form-group">
 										<label class="col-form-label" for="videoArea">Area</label>
 										<div class="controls">
-											<select class="form-control" id="videoArea" />
-												<option value="-1">Please select the location of the Video</option>
-												<option value="2">2 Bob Wig</option>
-												<option value="4">4 Straight Hair</option>
-												<option value="5">5 613 Blonde Hair</option>
-												<option value="6">6 Kinky Curly Hair</option>
-												<option value="7">7 Body Wave Hair</option>
-												<option value="8">8 Deep Weave Hair</option>
-											</select>
+											<select class="form-control ml-videoarea" id="videoArea" /></select>
 										</div>
 									</div>
 									<div class="form-group">
@@ -220,6 +212,7 @@
 	<script>
 		var hasCollectionList = false;
 		var hasProductList = false;
+		var hasVideoAreaList = false;
 		var isCreate = false;
 
 		$('#videoIfproorcateorpage').on('change', function() {
@@ -343,12 +336,45 @@
 
 			showInitBlock();
 		});
+		// render video area-list
+		function renderVideoAreaList(data) {			
+			var htmlStr = '<option value="-1">Please select the location of the Video</option>';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				htmlStr += '<option value="' + data[i].videoshowareaId + '">'+ data[i].videoshowareaId + ' ' + data[i].videoshowareaName +'</option>';
+			}
+			$('.ml-videoarea').html(htmlStr);
+			hasVideoAreaList = true;
+		}
+		function getAllVideoAreaData(callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackVideoShowArea/getMlbackVideoShowAreaAllList",
+				type: "get",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						callback(data.extend.mlbackVideoShowAreaList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
 
 			if (!hasCollectionList) getAllCollectionData(renderAllCollection);
 			if (!hasProductList) getAllProductData(renderAllProduct);
+			if (!hasVideoAreaList) getAllVideoAreaData(renderVideoAreaList);
 			
 		}
 		function showInitBlock() {
