@@ -45,11 +45,11 @@
 						itemSeo = item.slideSeoname;
 					}
 					// collection
-					if (item.catalogIfproorcateorpage == 1) {
+					if (item.slideIfproorcateorpage == 1) {
 						itemSeo = 'search/' + item.slideCateseoname;
 					}
 					// subject
-					if (item.catalogIfproorcateorpage == 2) {
+					if (item.slideIfproorcateorpage == 2) {
 						itemSeo = item.slidePageseoname;
 					}
 					itemLink = item.slideIfinto ? '${APP_PATH}/' + itemSeo + '.html' : 'javascript:;';
@@ -87,11 +87,11 @@
 						itemSeo = item.slideSeoname;
 					}
 					// collection
-					if (item.catalogIfproorcateorpage == 1) {
+					if (item.slideIfproorcateorpage == 1) {
 						itemSeo = 'search/' + item.slideCateseoname;
 					}
 					// subject
-					if (item.catalogIfproorcateorpage == 2) {
+					if (item.slideIfproorcateorpage == 2) {
 						itemSeo = item.slidePageseoname;
 					}
 					itemLink = item.slideIfinto ? '${APP_PATH}/' + itemSeo + '.html' : 'javascript:;';
