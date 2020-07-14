@@ -118,22 +118,6 @@
 				}
 			});
 		}
-		/* var itemName, itemSeo, itemLink;
-				if (item.videoIfproorcateorpage == 0) {				
-					itemSeo = item.videoProname;
-					itemName = item.videoSeoname;
-				}
-				// collection
-				if (item.videoIfproorcateorpage == 1) {
-					itemSeo = 'search/' + item.videoCateseoname;
-					itemName = item.videoCatename;
-				}
-				// subject
-				if (item.videoIfproorcateorpage == 2) {
-					itemSeo = item.videoPageseoname;
-					itemName = item.videoPagename;
-				}
-				itemLink = itemSeo ? itemSeo + '.html' : 'javascript:;'; */
 		function renderVideoArea($el, videoData, numData) {
 			var htmlStr = '';
 			videoData.forEach(function(item, idx) {
@@ -168,11 +152,16 @@
 			var videoLink = $(this).data('video');
 			productId && getOneProductData({ "productId": productId }, function(data) {
 				var videoRecommendHtml = '<div class="video-recommend">'+
-						'<div class="video-recommend-img"><iframe frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media" title="YouTube video player" width="100%" height="300" src="'+ videoLink +'"></iframe></div>'+
-						'<div class="video-recommend-name">'+ data.productName +'</div>'+
-						'<div class="video-recommend-dprice"><span class="">Regular Price :</span><span class="value">$'+ data.productOriginalprice +'</span></div>'+
-						'<div class="video-recommend-nprice"><span class="name">Sale Price :</span><span class="value">$'+ (data.productOriginalprice && data.productActoffoff ? (data.productOriginalprice * data.productActoffoff / 100).toFixed(2) : 0) +'</span></div>'+
-						'<a class="btn btn-pink" href="'+ (data.productSeo ? ('${APP_PATH}/' + data.productSeo +'.html') : 'jvascrtip:;') +'">Buy Now</a>'+
+						'<iframe frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media" title="YouTube video player" src="'+ videoLink +'"></iframe>' +
+						'<div class="video-recommend-product">' +
+							'<div class="video-recommend-img lazyload" data-src="'+ data.productMainimgurl +'"></div>'+
+							'<div class="video-recommend-data">' +
+								'<div class="video-recommend-name">'+ data.productName +'</div>'+
+								'<div class="video-recommend-dprice"><span class="name">Regular Price :</span><span class="value">$'+ data.productOriginalprice +'</span></div>'+
+								'<div class="video-recommend-nprice"><span class="name">Sale Price :</span><span class="value">$'+ (data.productOriginalprice && data.productActoffoff ? (data.productOriginalprice * data.productActoffoff / 100).toFixed(2) : 0) +'</span></div>'+
+								'<a class="btn btn-pink" href="'+ (data.productSeo ? ('${APP_PATH}/' + data.productSeo +'.html') : 'jvascrtip:;') +'">Buy Now</a>'+
+							'</div>' +
+						'</div>' +
 					'</div>';
 				var videoRecommendModal = createModal({
 					header: {
@@ -181,6 +170,11 @@
 					body: {
 						html: videoRecommendHtml
 					}
+				});
+				new LazyLoad($('.video-recommend').find('.lazyload'), {
+					root: null,
+					rootMargin: "10px",
+					threshold: 0
 				});
 			});
 		});
