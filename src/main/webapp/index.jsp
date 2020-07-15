@@ -32,7 +32,6 @@
 		</main>
 		<jsp:include page="WEB-INF/views/portal/layout/footer.jsp" flush="true"></jsp:include>
 		<jsp:include page="WEB-INF/views/portal/common/footer.jsp" flush="true"></jsp:include>
-		<jsp:include page="WEB-INF/views/portal/layout/lottery.jsp" flush="true"></jsp:include>
 		<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 		<script>
 			function renderIndexCarousel(data) {
