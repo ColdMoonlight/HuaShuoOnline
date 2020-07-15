@@ -486,11 +486,11 @@
 			adSeo = data.slideSeoname;
 		}
 		// collection
-		if (data.catalogIfproorcateorpage == 1) {
+		if (data.slideIfproorcateorpage == 1) {
 			adSeo = 'search/' + data.slideCateseoname;
 		}
 		// subject
-		if (data.catalogIfproorcateorpage == 2) {
+		if (data.slideIfproorcateorpage == 2) {
 			adSeo = data.slidePageseoname;
 		}
 		adLink = data.slideIfinto ? '${APP_PATH}/' + adSeo + '.html' : 'javascript:;';
