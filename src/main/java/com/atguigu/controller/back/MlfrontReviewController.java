@@ -24,7 +24,6 @@ import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackReviewImgService;
 import com.atguigu.service.MlfrontReviewService;
 import com.atguigu.utils.DateUtil;
-import com.atguigu.utils.IfMobileUtils;
 
 @Controller
 @RequestMapping("/MlfrontReview")
@@ -519,42 +518,28 @@ public class MlfrontReviewController {
 		return Msg.success().add("mlfrontReviewList", mlfrontReviewList).add("mlfrontReviewImgList", mlfrontReviewImgList);
 	}
 	
-//	/**
-//	 * 12.0	onuse	200104
-//	 * Ins Review page
-//	 * @param jsp
-//	 * @return
-//	 * */
-//	@RequestMapping("/toReviewInsPage")
-//	public String toReviewInsPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
-//	
-//		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
-//		  
-//		if(ifMobile.equals("1")){
-//			return "mfront/navActive/mreviewInsListPage";
-//		}else{
-//			return "front/navActive/pcreviewInsList";
-//		}
-//	}
-	
-	
-	
+	/**
+	 * 12.0	onuse	200108
+	 * Customer Review page
+	 * @param jsp
+	 * @return
+	 * */
+	@RequestMapping("/toReviewCustomer")
+	public String toReviewCustomer(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
+		
+		return "portal/review/reviewCustomerListPage";
+	}
 	
 	/**
-	 * 14.0	onuse	200108
+	 * 13.0	onuse	200104
 	 * Ins Review page
 	 * @param jsp
 	 * @return
 	 * */
-//	@RequestMapping("/toReviewCustomer")
-//	public String toReviewCustomer(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
-//	
-//		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
-//		  
-//		if(ifMobile.equals("1")){
-//			return "mfront/navActive/mreviewCustomerListPage";
-//		}else{
-//			return "front/navActive/pcreviewCustomerList";
-//		}
-//	}
+	@RequestMapping("/toReviewInsPage")
+	public String toReviewInsPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
+		  
+		return "portal/review/reviewInsListPage";
+	}
+	
 }
