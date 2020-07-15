@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackReviewImg;
 import com.atguigu.bean.MlfrontReview;
 import com.atguigu.common.Const;
@@ -25,7 +24,6 @@ import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackReviewImgService;
 import com.atguigu.service.MlfrontReviewService;
 import com.atguigu.utils.DateUtil;
-import com.atguigu.utils.IfMobileUtils;
 
 @Controller
 @RequestMapping("/MlfrontReview")
