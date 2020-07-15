@@ -382,6 +382,7 @@
 		var hasSuperCateList = false;
 		var isCreate = false;
 		var isSaveSku = false;
+		var hasInitSku = false;
 		var hasSkuListStatus = false;
 		// init summernote editor for description
 		$('#productDesc').summernote({
@@ -561,6 +562,7 @@
 				$('#productId').val('');
 				// hide batch product-sku
 				$('.initial-product-sku').addClass('hide');
+				hasInitSku = false;
 			});
 		});
 		// cancel product save
@@ -587,6 +589,7 @@
 			showInitBlock();
 			// hide batch product-sku
 			$('.initial-product-sku').addClass('hide');
+			hasInitSku = false;
 		});
 		$(window).on('beforeunload', function() {
 			if (!hasSkuListStatus && checkSkuChangeStatus()) return false;
@@ -605,6 +608,7 @@
 			}
 			// hide batch product-sku
 			$('.initial-product-sku').addClass('hide');
+			hasInitSku = false;
 		});
 		// supercate & productStatus combinewith
 		$('#productSupercateid').on('change', function(e) {
@@ -669,7 +673,7 @@
 			var sortNum = $('.product-options-item').length ? $('.product-options-item').last().data('sort') + 1 : 1;
 			createOptionItem({
 				"productattrnameSort": sortNum
-			}, isCreate ? 0 : 2);
+			}, true, hasInitSku);
 		});
 		// save product option
 		$(document.body).on('click', '.product-option-save', function() {
@@ -723,30 +727,36 @@
 		// render product skus in sav
 		function renderProductSkus(data, flag) {
             var htmlStr = '';
-            (flag ? generateSkus(data) : data).forEach(function(item) {
-            	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
-            	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
-            		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
-            		'<input type="number" class="product-sku-td product-sku-stock" min="0" data-stock="'+ item.productskuStock +'" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
-            		'<input type="number" class="product-sku-td product-sku-price" min="0" data-price="'+ item.productskuMoney +'" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
-            		'<input type="text" class="product-sku-td product-sku-sku" data-sku="'+ item.productskuCode +'" value="'+ (item.productskuCode ? item.productskuCode : '') +'"/>' +
-            		'<div class="product-sku-td product-sku-operate">'+ 
-	            		'<button class="btn btn-primary product-sku-edit" style="display: '+ (isCreate ? 'none' : 'inherit') +';">' +
-		        			'<svg class="c-icon">' +
-								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
-							'</svg>' +
-						'</button>' +
-            			'<button class="btn btn-primary product-sku-delete">' +
-	            			'<svg class="c-icon">' +
-								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
-							'</svg>' +
-						'</button>' +
-            		'</div>'
-            	+'</div>';
-            });
-            $('.product-sku-body').html(htmlStr || '<p class="text-center"> no skus ... </p>');
-
-            $('.product-sku-item').length && $('.initial-product-sku').removeClass('hide');
+            data = flag ? generateSkus(data) : data;
+            if (data.length) {
+	            data.forEach(function(item) {
+	            	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
+	            	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
+	            		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
+	            		'<input type="number" class="product-sku-td product-sku-stock" min="0" data-stock="'+ item.productskuStock +'" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
+	            		'<input type="number" class="product-sku-td product-sku-price" min="0" data-price="'+ item.productskuMoney +'" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
+	            		'<input type="text" class="product-sku-td product-sku-sku" data-sku="'+ item.productskuCode +'" value="'+ (item.productskuCode ? item.productskuCode : '') +'"/>' +
+	            		'<div class="product-sku-td product-sku-operate">'+ 
+		            		'<button class="btn btn-primary product-sku-edit" style="display: '+ (isCreate ? 'none' : 'inherit') +';">' +
+			        			'<svg class="c-icon">' +
+									'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
+								'</svg>' +
+							'</button>' +
+	            			'<button class="btn btn-primary product-sku-delete">' +
+		            			'<svg class="c-icon">' +
+									'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
+								'</svg>' +
+							'</button>' +
+	            		'</div>'
+	            	+'</div>';
+	            });
+	            !isCreate && (hasInitSku = true);
+	            $('.initial-product-sku').removeClass('hide');
+            } else {
+            	htmlStr = '<p class="text-center"> no skus ... </p>';
+            }
+            
+            $('.product-sku-body').html(htmlStr);
 		}
 		// check sku change or not
 		function checkSkuChangeStatus() {
@@ -1059,12 +1069,15 @@
 			function deleteSkuItem(el) {
 				el.remove();
 			}
-			!$('.product-sku-item').length && $('.initial-product-sku').addClass('hide');
 			if (skuId) {
-				deleteProductSkuData({ "productskuId": skuId }, parentEl, deleteSkuItem);
+				deleteProductSkuData({ "productskuId": skuId }, function() {
+					deleteSkuItem(parentEl);
+					!$('.product-sku-item').length && (addProductSkusTip(), $('.initial-product-sku').addClass('hide'), hasInitSku = false);
+				});
 			} else {
 				deleteSkuItem(parentEl);
 				toastr.success('delete product sku success!');
+				!$('.product-sku-item').length && (addProductSkusTip(), $('.initial-product-sku').addClass('hide'));
 			}
 		});
 		// get product sku-list
@@ -1147,7 +1160,7 @@
 			});
 		}
 		// delete product sku-data
-		function deleteProductSkuData(reqData, el, callback) {
+		function deleteProductSkuData(reqData, callback) {
 			$('.c-mask').show(); 
 			$.ajax({
 				url: "${APP_PATH }/MlbackProductSku/delete",
@@ -1158,7 +1171,7 @@
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
-						callback(el);
+						callback && callback();
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -1177,7 +1190,7 @@
 			if (data.length) {
 				$('.product-options').html('');
 				data.forEach(function(item) {
-					createOptionItem(item, 1);
+					createOptionItem(item);
 				});				
 			} else {
 				addProductOptionsTip();
@@ -1191,13 +1204,14 @@
 			$('.product-sku-body').html('<p class="text-center"> no skus ... </p>');
 		}
 		// create option item
-		function createOptionItem(data, flag) {
+		function createOptionItem(data, flag, flag2) {
+			var productSkuNums = $('.product-sku-item').length;
 			$('.product-options .text-center').remove();
 			// flag, 0/nul/undefined, create Prodcut/inital product create option; 1, edit-product initial option; 2, edit-product create option 
 			var optionItem = $('<div class="product-options-item" data-id="'+ (data.productattrnameId || '') +'" data-sort="'+ (data.productattrnameSort || '') +'">' +
 				'<div class="product-option-head">' +
 					'<div class="product-option-title">Option '+ ($('.product-options-item').length + 1) +'</div>' +
-					'<div style="display: '+ (flag == 1 ? 'none': 'block') + '">' +
+					'<div style="display: '+ (flag ? 'block': 'none') + '">' +
 						'<a href="javascript:;" class="product-option-save" style="margin-right: 1rem;">Save</a>' +
 						'<a href="javascript:;" class="product-option-remove">Remove</a>' +
 					'</div>' +
@@ -1207,35 +1221,28 @@
 					'<input class="product-option-values" type="text" value="'+ (data.productattrnameValues || "") +'" />' +										
 				'</div>' +
 			'</div>');
-			if (!flag) {
+			if (!flag2) {
 				optionItem.find('.product-option-values')
-				.tagsinput({
-					onTagExists: function(item, $tag) {
-						toastr.error('Youve already used the option "'+ item + '"');
-					}
-				});
-			} else if (flag == 1) {
+					.tagsinput({
+						onTagExists: function(item, $tag) {
+							toastr.error('Youve already used the option "'+ item + '"');
+						}
+					});
+			} else {
 				optionItem.find('.product-option-values')
-				.tagsinput({
-					onTagExists: function(item, $tag) {
-						toastr.error('Youve already used the option "'+ item + '"');
-					}
-				});
-			} else if (flag == 2) {
-				optionItem.find('.product-option-values')
-				.tagsinput({
-					onTagExists: function(item, $tag) {
-						toastr.error('Youve already used the option "'+ item + '"');
-					},
-					maxTags: 1
-				})
+					.tagsinput({
+						onTagExists: function(item, $tag) {
+							toastr.error('Youve already used the option "'+ item + '"');
+						},
+						maxTags: 1
+					});
 			}
 			optionItem.find('.product-option-values')
-			.tagsinput({
-				onTagExists: function(item, $tag) {
-					toastr.error('Youve already used the option "'+ item + '"');
-				}
-			})
+				.tagsinput({
+					onTagExists: function(item, $tag) {
+						toastr.error('Youve already used the option "'+ item + '"');
+					}
+				});
 			$('.product-options').append(optionItem);
 		}
 		// upload main img
