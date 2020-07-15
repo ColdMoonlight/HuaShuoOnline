@@ -520,7 +520,7 @@ public class MlfrontReviewController {
 	
 	/**
 	 * 12.0	onuse	200108
-	 * Ins Review page
+	 * Customer Review page
 	 * @param jsp
 	 * @return
 	 * */
@@ -530,26 +530,16 @@ public class MlfrontReviewController {
 		return "portal/review/reviewCustomerListPage";
 	}
 	
-//	/**
-//	 * 12.0	onuse	200104
-//	 * Ins Review page
-//	 * @param jsp
-//	 * @return
-//	 * */
-//	@RequestMapping("/toReviewInsPage")
-//	public String toReviewInsPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
-//	
-//		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
-//		  
-//		if(ifMobile.equals("1")){
-//			return "mfront/navActive/mreviewInsListPage";
-//		}else{
-//			return "front/navActive/pcreviewInsList";
-//		}
-//	}
+	/**
+	 * 13.0	onuse	200104
+	 * Ins Review page
+	 * @param jsp
+	 * @return
+	 * */
+	@RequestMapping("/toReviewInsPage")
+	public String toReviewInsPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
+		  
+		return "portal/review/reviewInsListPage";
+	}
 	
-	
-	
-	
-
 }
