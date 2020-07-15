@@ -65,6 +65,7 @@ public class MlfrontOrderService {
 	 * @exception 查看全部用户信息
 	 * */
 	public List<MlfrontOrder> selectMlfrontOrderById(MlfrontOrder mlfrontOrder) {
+		System.out.println(mlfrontOrder.toString());
 		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectMlfrontOrderById(mlfrontOrder);
 		return mlfrontOrderList;
 	}
