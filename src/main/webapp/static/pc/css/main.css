@@ -3013,7 +3013,7 @@ footer li {
 	background-position: center;
 	background-color: #f7f7f7;
 }
-.lazyload .loaded {
+.lazyload.loaded {
 	background-size: cover;
 }
 .product-img .lazyload {
