@@ -518,6 +518,18 @@ public class MlfrontReviewController {
 		return Msg.success().add("mlfrontReviewList", mlfrontReviewList).add("mlfrontReviewImgList", mlfrontReviewImgList);
 	}
 	
+	/**
+	 * 12.0	onuse	200108
+	 * Ins Review page
+	 * @param jsp
+	 * @return
+	 * */
+	@RequestMapping("/toReviewCustomer")
+	public String toReviewCustomer(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
+		
+		return "portal/review/reviewCustomerListPage";
+	}
+	
 //	/**
 //	 * 12.0	onuse	200104
 //	 * Ins Review page
@@ -539,21 +551,5 @@ public class MlfrontReviewController {
 	
 	
 	
-	/**
-	 * 14.0	onuse	200108
-	 * Ins Review page
-	 * @param jsp
-	 * @return
-	 * */
-//	@RequestMapping("/toReviewCustomer")
-//	public String toReviewCustomer(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
-//	
-//		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
-//		  
-//		if(ifMobile.equals("1")){
-//			return "mfront/navActive/mreviewCustomerListPage";
-//		}else{
-//			return "front/navActive/pcreviewCustomerList";
-//		}
-//	}
+
 }
