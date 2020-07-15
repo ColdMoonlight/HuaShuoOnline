@@ -7,8 +7,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Activity Product</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
-	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 </head>
 
 <body class="c-app">
@@ -229,9 +227,6 @@
 
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
-
-	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
-	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
 		var hasCollectionList = false;

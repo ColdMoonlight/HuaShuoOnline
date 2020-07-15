@@ -7,8 +7,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Display Area</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
-	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 </head>
 
 <body class="c-app">
@@ -34,9 +32,9 @@
 									<tr>
 										<th>id</th>
 										<th>title</th>
+										<th>area</th>
 										<th>wap-image</th>
 										<th>pc-image</th>
-										<th>area</th>
 										<th>status</th>
 										<th>create-time</th>
 										<th>update-time</th>
@@ -165,9 +163,6 @@
 
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
-
-	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
-	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
 		var isCreate = false;
@@ -349,8 +344,8 @@
 			var data = {};
 			data.showareaId = parseInt($('#showareaId').val());
 			data.showareaName = $('#showareaName').val();
+			data.showareaNumth = $('#showareaNumth').val();
 			data.showareaStatus = $('#showareaStatus').prop('checked') ? 1 : 0;
-			data.slideFirthNum = $('#showareaNumth').val();
 
 			data.showareaImgurl = $('#showareaImgurl').attr('data-val') && JSON.parse($('#showareaImgurl').attr('data-val')).imageUrl;
 			data.showareaImgpcurl = $('#showareaImgpcurl').attr('data-val') && JSON.parse($('#showareaImgpcurl').attr('data-val')).imageUrl;
@@ -364,7 +359,6 @@
 			$('#showareaName').val(data.showareaName);
 			$('#showareaNumth').val(data.showareaNumth ? data.showareaNumth : '-1');
 			$('#showareaStatus').prop('checked', data.showareaStatus);
-			$('#slideArea').val(data.slideArea);
 
 			if (data.showareaImgurl) {
 				addPicture($('#showareaImgurl'), {

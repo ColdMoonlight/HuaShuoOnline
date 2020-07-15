@@ -64,22 +64,27 @@
 	<script>
 		function getUserInfo(callback) {
 			$.ajax({
-				url: "${APP_PATH }/MlfrontUser/getLoginUserDetail",
-				type: 'post',
+				url: "${APP_PATH }/MlfrontUser/getOneMlfrontUserDetail",
+				dataType: 'json',
+				contentType: 'application/json',
+				type: "post",
+				async: false,
 				success: function (data) {
 					if(data.code == 100){
 						callback && callback(data.extend.mlfrontUserOne);
 					} else {
 						sysModalTip();
+						//setTimeout(goToIndex, 2000);
 					}
 				},
 				error: function(err) {
 					sysModalTip();
+					// setTimeout(goToIndex, 2000);
 				}
 			})
 		}
 		function renderUserInfo(data) {
-			
+			console.log(data)
 		}
 		var userInfoModal;
 		getUserInfo(function(data) {
