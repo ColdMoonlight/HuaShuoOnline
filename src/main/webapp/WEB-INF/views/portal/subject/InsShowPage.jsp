@@ -57,7 +57,7 @@
 		function renderInsReview($el, reviewData, imgData) {
 			var htmlStr = '';
 			reviewData.forEach(function(item, idx) {
-				var itemLink = '${APP_PATH}/MlbackProduct/tomProductDetailPage?productId='+ item.reviewPid;
+				var itemLink = '${APP_PATH}/' + item.reviewPseoname +'.html';
 				htmlStr += '<div class="ins-item shadow-radius">' +
 						'<div class="lazyload" data-src="'+ (imgData[idx][0] && imgData[idx][0].reviewimgUrl) +'"></div>' +
 						'<div class="ins-details">'+ item.reviewDetailstr +'</div>' +
