@@ -10,6 +10,9 @@
 		@media only screen and (max-width: 1023px) {
 			main { margin: -1rem 0 0 0; }
 		}
+		@media only screen and (max-width: 1078px) and (min-width: 576px) {
+			main { margin: -1rem 0 0 0; }
+		}
 	</style>
 </head>
 
