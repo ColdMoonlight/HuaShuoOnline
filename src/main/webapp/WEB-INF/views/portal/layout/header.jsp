@@ -45,7 +45,7 @@
 			<a class="logo" href="javascript:goToIndex();">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
 			</a>
-			<span class="icon share" id="iphone-share"></span>
+			<span class="icon share hide" id="iphone-share"></span>
 			<a href="${APP_PATH}/MlbackCart/toCartList" class="icon cart"><span class="num">0</span></a>
 			<span class="icon search"></span>
 
@@ -503,6 +503,9 @@
 			threshold: 0
 		});
 	}
+	var isIOS = navigator.userAgent && navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+	if (isIOS) $('#iphone-share').removeClass('hide');
+
 	// initial ml-ad
 	getCarouselData(5, function(data) {
 		var hData = data[0]
