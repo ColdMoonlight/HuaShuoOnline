@@ -1326,7 +1326,9 @@ footer li {
 	padding: .75rem 0;
 	font-size: .875rem;
 }
-
+.ml-ad .lazyload.loaded {
+	background-size: cover;
+}
 @media screen and (max-width: 1023px) {
 	.wap-header,
 	.wap-follow-us,
@@ -2538,6 +2540,56 @@ footer li {
 	    }
 	}
 }
+/* loader */
+.loader {
+	position: relative;
+	width: 2rem;
+	height: 2rem;
+}
+.loader::before,
+.loader::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 2rem;
+	height: 2rem;
+	border-style: solid;
+	border-width: 2px;
+	-webkit-animation: loader .6s linear;
+	animation: loader .6s linear;
+}
+.loader::before {
+	z-index: 1;
+	border-color: #333;
+}
+.loader::after {
+	z-index: 2;
+	border-color: #fff, tranparent, tranparent, tranparent;
+}
+@-webkit-keyframes loader {
+    from {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+@keyframes loader {
+    from {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
 /* back top */
 .back-top {
 	position: fixed;
@@ -3025,9 +3077,6 @@ footer li {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: #f7f7f7;
-}
-.lazyload.loaded {
-	background-size: cover;
 }
 .product-img .lazyload {
 	padding-top: 100%;
