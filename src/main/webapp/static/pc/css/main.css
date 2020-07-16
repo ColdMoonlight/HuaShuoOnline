@@ -2557,8 +2557,9 @@ footer li {
 	height: 2rem;
 	border-style: solid;
 	border-width: 2px;
-	-webkit-animation: loader .6s linear;
-	animation: loader .6s linear;
+	border-radius: 50%;
+	-webkit-animation: loader .6s linear infinite;
+	animation: loader .6s linear infinite;
 }
 .loader::before {
 	z-index: 1;
@@ -2566,7 +2567,7 @@ footer li {
 }
 .loader::after {
 	z-index: 2;
-	border-color: #fff, tranparent, tranparent, tranparent;
+	border-color: #fff transparent transparent;
 }
 @-webkit-keyframes loader {
     from {
