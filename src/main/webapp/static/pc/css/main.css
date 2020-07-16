@@ -3184,10 +3184,12 @@ footer li {
 	.activity-product-item {
 		width: 49%;
 		padding-top: 69.125%;
+		margin-left: 1%;
 	}
 	.hot-collection-item {
 		width: 49%;
 		padding-top: 13.133333%;
+		margin-top: 1%;
 	}
 	.showarea-review-item {
 		width: 49%;
@@ -3255,8 +3257,9 @@ footer li {
 		padding-top: 37.5%;
 	}
 	.activity-product-item {
-		width: 24.5%;
+		width: 24%;
 		padding-top: 33.925%;
+		margin-left: 1%;
 	}
 	.hot-collection-item {
 		width: 48%;
