@@ -68,10 +68,10 @@ public class MlfrontPayInfoService {
 		return mlfrontPayInfoList;
 	}
 //
-//	public List<MlfrontPayInfo> selectMlfrontPayInfoByDate(MlfrontPayInfo mlfrontPayInfo) {
-//		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoByDate(mlfrontPayInfo);
-//		return mlfrontPayInfoList;
-//	}
+	public List<MlfrontPayInfo> selectMlfrontPayInfoByDateAndStatus(MlfrontPayInfo mlfrontPayInfo) {
+		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoByDateAndStatus(mlfrontPayInfo);
+		return mlfrontPayInfoList;
+	}
 //	
 //	public List<MlfrontPayInfo> selectHighPayInfoListBySearch(MlfrontPayInfo mlfrontPayInfoReq) {
 //	    List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectHighPayInfoListBySearch(mlfrontPayInfoReq);
