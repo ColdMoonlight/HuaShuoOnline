@@ -133,10 +133,10 @@
 				'<div class="cart-cal-item"><span class="name">NUMTOTAL</span><span class="value cart-cal-total">'+ calCart.count +'</span></div>' +
 				'<div class="cart-cal-item"><span class="name">SUBTOTAL</span><span class="value cart-cal-subtotal">$'+ (calCart.price).toFixed(2) +'</span></div>' +
 				'<div class="cart-cal-btn"><a href="${APP_PATH}/index.html" class="btn btn-gray">Continue Shopping</a><a href="javascript:;" class="btn btn-black btn-checkout">Checkout</a></div>' +
-				'<div class="paypal-button-container">'+
+				/* '<div class="paypal-button-container">'+
 					'<div title="paypal" class="btn paypal-button paypal-button-paypal"></div>' +
 		        	'<div title="credit" class="btn paypal-button paypal-button-credit"></div>' +
-		        '</div>' +
+		        '</div>' + */
 			'</div>');
 			$('main .container').append($cartHeader).append($('<div class="cart-body" />').append($cartList).append($cartCal));
 		}

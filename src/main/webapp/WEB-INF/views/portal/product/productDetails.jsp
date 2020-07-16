@@ -78,8 +78,8 @@
 					<div class="product-pay paypal-button-container">
 						<div class="btn paypal-button btn-primary" id="add-to-cart">Add To Cart</div>
 		   				<div class="btn paypal-button btn-black" id="buy-now">Buy Now</div>
-						<div title="paypal" class="btn paypal-button paypal-now paypal-button-paypal"></div>
-				        <div title="credit" class="btn paypal-button paypal-now paypal-button-credit"></div>
+						<!-- <div title="paypal" class="btn paypal-button paypal-now paypal-button-paypal"></div>
+				        <div title="credit" class="btn paypal-button paypal-now paypal-button-credit"></div> -->
 					</div>
 				</div>
 			</div>
