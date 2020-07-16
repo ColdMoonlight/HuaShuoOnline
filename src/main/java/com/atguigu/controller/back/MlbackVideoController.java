@@ -167,7 +167,6 @@ public class MlbackVideoController {
 	@RequestMapping(value="/getOneMlbackVideoDetail",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg getOneMlbackVideoDetail(@RequestBody MlbackVideo mlbackVideo){
-		
 		Integer videoId = mlbackVideo.getVideoId();
 		//接受videoId
 		MlbackVideo mlbackVideoReq = new MlbackVideo();
