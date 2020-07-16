@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
