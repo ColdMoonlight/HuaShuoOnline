@@ -3414,10 +3414,17 @@ footer li {
 }
 .user-personinfo .usercenter-item .right-data {
 	display: flex;
+	flex-grow: 1;
 	color: #999;
 }
 .user-personinfo .usercenter-item .input-data {
+	flex-grow: 1;
+	padding: 0;
 	margin-right: .5rem;
+	background-color: #fff;
+	box-shadow: none;
+	text-align: right;
+	color: #333;
 }
 .userinfo-modal .btn-group {
 	margin-top: 1rem;
