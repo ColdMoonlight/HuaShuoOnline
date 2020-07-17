@@ -367,8 +367,8 @@
 		function resetOrderCal() {
 			var calOrder = calOrderList();
 			$('.order-cal-prototal').text('$' + (calOrder.prototal).toFixed(2));
-			$('.order-cal-shipping').text('$'+ calOrder.shipping);
-			$('.order-cal-coupon').text('-$'+ calOrder.coupon);
+			$('.order-cal-shipping').text('$'+ (calOrder.shipping).toFixed(2));
+			$('.order-cal-coupon').text('-$'+ (calOrder.coupon).toFixed(2));
 			$('.order-cal-subtotal').text('$'+ (calOrder.subtotal).toFixed(2));
 		}
 		// render country
@@ -503,9 +503,9 @@
 					// '<div class="cart-box-title"></div>'+
 					'<div class="cart-box-body">'+
 						'<div class="order-cal">' +
-							'<div class="order-cal-item"><span class="name">prototal</span><span class="value order-cal-prototal">'+ (calOrder.prototal).toFixed(2) +'</span></div>' +
-							'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ calOrder.shipping +'</span></div>' +
-							'<div class="order-cal-item"><span class="name">coupon</span><span class="value order-cal-coupon">-$'+ calOrder.coupon +'</span></div>' +
+							'<div class="order-cal-item"><span class="name">prototal</span><span class="value order-cal-prototal">$'+ (calOrder.prototal).toFixed(2) +'</span></div>' +
+							'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ (calOrder.shipping).toFixed(2) +'</span></div>' +
+							'<div class="order-cal-item"><span class="name">coupon</span><span class="value order-cal-coupon">-$'+ (calOrder.coupon).toFixed(2) +'</span></div>' +
 							'<div class="order-cal-item"><span class="name">subtotal</span><span class="value order-cal-subtotal">$'+ (calOrder.subtotal).toFixed(2) +'</span></div>' +
 							'<div class="order-cal-btn"><a href="javascript:;" id="pay-now" class="btn btn-pink">Pay Securely Now</a></div>' +
 						'</div>'+

@@ -46,6 +46,7 @@
 				</li>
 			</ul>
 		</li>
+		<!-- coupon -->
 		<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
 			<a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle">
 				<svg class="c-sidebar-nav-icon">
@@ -62,6 +63,7 @@
 				</li>
 			</ul>
 		</li>
+		<!-- marketing -->
 		<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
 			<a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle">
 				<svg class="c-sidebar-nav-icon">
@@ -108,6 +110,24 @@
 				</li>
 			</ul>
 		</li>
+		<!-- Orders -->
+		<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+			<a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle">
+				<svg class="c-sidebar-nav-icon">
+					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cursor"></use>
+				</svg>
+				<span class="c-text">Orders</span>
+			</a>
+			<ul class="c-child-menu">
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontPayInfo/toMlbackPayInfoList">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">orders</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<!-- foot nav -->
 		<li class="c-sidebar-nav-item">
 			<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackFootNav/toMlbackFootNavPage">
 				<svg class="c-sidebar-nav-icon">
@@ -115,48 +135,6 @@
 				</svg>
 				<span class="c-text">Footer Nav</span>
 			</a>
-		</li>
-		<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-			<a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle">
-				<svg class="c-sidebar-nav-icon">
-					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-star"></use>
-				</svg>
-				<span class="c-text">Pages</span>
-			</a>
-			<ul class="c-child-menu">
-				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="login.html" target="_top">
-						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-account-logout"></use>
-						</svg>
-						<span class="c-text">Login</span>
-					</a>
-				</li>
-				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="register.html" target="_top">
-						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-account-logout"></use>
-						</svg>
-						<span class="c-text">Register</span>
-					</a>
-				</li>
-				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="404.html" target="_top">
-						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-bug"></use>
-						</svg>
-						<span class="c-text">Error 404</span>
-					</a>
-				</li>
-				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="500.html" target="_top">
-						<svg class="c-sidebar-nav-icon">
-							<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-bug"></use>
-						</svg>
-						<span class="c-text">Error 500</span>
-					</a>
-				</li>
-			</ul>
 		</li>
 	</ul>
 </div>
