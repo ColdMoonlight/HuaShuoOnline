@@ -11,7 +11,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 
  * <p>Title: HttpClient.java</p>
  * <p>Description:HttpURLConnection调用方式</p>
  * <p>Company: www.itcast.com</p>
