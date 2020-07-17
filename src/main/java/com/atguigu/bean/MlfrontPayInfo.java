@@ -26,19 +26,19 @@ public class MlfrontPayInfo {
 
     private String payinfoMotifytime;
 
-    private String payinfoPlatenum;
+    private String payinfoPlatenum;//平台交易号
 
-    private String payinfoUname;
+    private String payinfoUname;//客户名
 
-    private String payinfoUemail;
+    private String payinfoUemail;//客户邮箱
 
-    private String payinfoTransidnum;
+    private String payinfoTransidnum;//paypal交易ID
 
-    private String payinfoTransStatus;
+    private String payinfoTransStatus;//paypal交易status
 
-    private String payinfoEcpphsnum;
+    private String payinfoEcpphsnum;//Ecpp单号
 
-    private String payinfoSendnum;
+    private String payinfoSendnum;//物流单号
 
     public Integer getPayinfoId() {
         return payinfoId;
