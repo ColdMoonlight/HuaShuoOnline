@@ -19,6 +19,7 @@ import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.portal.ToPaypalInfo;
+//import com.atguigu.controller.ecpp.EcppUtil;
 import com.atguigu.enumC.PaypalPaymentIntent;
 import com.atguigu.enumC.PaypalPaymentMethod;
 import com.atguigu.service.MlPaypalShipAddressService;
@@ -31,6 +32,9 @@ import com.atguigu.service.PaypalService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.utils.URLUtils;
+import com.atguigu.utils.EcppIntoUtil;
+
+import com.atguigu.vo.order;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
@@ -441,13 +445,17 @@ public class PaypalController {
 		mlfrontPayInfoIOne.setPayinfoUname(paypayFirstName+" "+paypayLastName);
 		
 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoIOne);
+		
+		//准备调用ecpp接口,将客户的付款信息,导入ecpp中
+		payInfoIntoEcpp(mlfrontPayInfoIOne);
 		session.setAttribute("mlfrontPayInfoIOne", mlfrontPayInfoIOne);
 		session.setAttribute("payinfoIdStr", payinfoIdStr);
 		session.setAttribute("orderId", PayOid);
 		
 	}
-    
-    /**
+
+
+	/**
      * 99.1.1wap+pc端
      * insertMlPaypalShipAddressInfo
      * 从返回中插入Paypal地址
@@ -467,11 +475,9 @@ public class PaypalController {
     	mlPaypalShipAddressReq.setShippingaddressPayinfoid(payinfoIdStr);
     	mlPaypalShipAddressReq.setShippingaddressPaymentid(paymentId);
     	mlPaypalShipAddressService.insertSelective(mlPaypalShipAddressReq);
-		
 	}
 
 	/**
-     * 
      * 99.2.1wap/pc端处理toUpdatePayInfoSuccess
      * @param payment 
      * */
@@ -543,4 +549,70 @@ public class PaypalController {
 		}
 	}
     
+    private void payInfoIntoEcpp(MlfrontPayInfo mlfrontPayInfoIn) {
+    	
+    	Integer payinfoId = mlfrontPayInfoIn.getPayinfoId();
+    	
+    	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
+		mlfrontPayInfoNew.setPayinfoId(payinfoId);
+		List<MlfrontPayInfo> MlfrontPayInfoList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoNew);
+		MlfrontPayInfo mlfrontPayInfoIOne = MlfrontPayInfoList.get(0);
+		System.out.println(mlfrontPayInfoIOne.toString());
+		
+		//获取orderId
+		Integer orderId = mlfrontPayInfoIOne.getPayinfoOid();
+		
+		String paypalIdStr = mlfrontPayInfoIOne.getPayinfoTransidnum();
+		
+		//封装MlfrontOrderReq
+		MlfrontOrder mlfrontOrderPayReq = new MlfrontOrder();
+		mlfrontOrderPayReq.setOrderId(orderId);
+		//查回结果
+		List<MlfrontOrder> mlfrontOrderList =  mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPayReq);
+		System.out.println("mlfrontOrderList:"+mlfrontOrderList.toString());
+		MlfrontOrder mlfrontOrderResOne = mlfrontOrderList.get(0);
+		
+		String orderitemidstr = mlfrontOrderResOne.getOrderOrderitemidstr();
+		String orderitemidArr[] = orderitemidstr.split(",");
+		List<MlfrontOrderItem> mlfrontOrderItemEcppNeedList =new ArrayList<MlfrontOrderItem>();
+		for(int x=0;x<orderitemidArr.length;x++){
+			MlfrontOrderItem mlfrontOrderItem = new MlfrontOrderItem();
+			int orderItemId = Integer .parseInt(orderitemidArr[x]);
+			mlfrontOrderItem.setOrderitemId(orderItemId);
+			List<MlfrontOrderItem>  mlfrontOrderItemList= mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItem);
+			MlfrontOrderItem mlfrontOrderItemRes = mlfrontOrderItemList.get(0);
+			mlfrontOrderItemEcppNeedList.add(mlfrontOrderItemRes);
+		}
+		
+		//准备从中获取地址id
+		Integer payAddressinfoId = mlfrontOrderResOne.getOrderAddressinfoId();
+		MlfrontAddress mlfrontAddress =new MlfrontAddress();
+		mlfrontAddress.setAddressId(payAddressinfoId);
+		List<MlfrontAddress> mlfrontAddressToPayList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddress);
+		
+		MlfrontAddress mlfrontAddressToPay = mlfrontAddressToPayList.get(0);
+		
+		order ecppOrderResult = EcppIntoUtil.getEcppNeedOrder(mlfrontPayInfoIOne,mlfrontOrderResOne,mlfrontOrderItemEcppNeedList,mlfrontAddressToPay);
+		
+		String token = (String) PropertiesUtil.getProperty("megalook.properties", "ecppToken");
+//		String token="Lujia2015200708";
+		
+		String soapXML = EcppIntoUtil.getXML(token,ecppOrderResult);
+		
+		String EcppHSNum = "";
+		try {
+			EcppHSNum = EcppIntoUtil.send(token,soapXML,paypalIdStr);
+			
+			//将ecpp返回的EcppHSNum，更新入本条mlfrontPayInfo中
+	    	
+	    	MlfrontPayInfo mlfrontPayInfoEcppreturnReq = new MlfrontPayInfo();
+	    	mlfrontPayInfoEcppreturnReq.setPayinfoId(payinfoId);
+	    	mlfrontPayInfoEcppreturnReq.setPayinfoEcpphsnum(EcppHSNum);
+			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoEcppreturnReq);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
