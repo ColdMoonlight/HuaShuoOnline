@@ -4,9 +4,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>coupon list</title>
+	<title>order list</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 </head>
 <body class="c-app">
 	<jsp:include page="../layout/backheader.jsp" flush="true"></jsp:include>
@@ -16,8 +15,8 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Coupon list</span>
-						<button class="btn btn-primary btn-create">Create Coupon</button>
+						<span class="c-option-title">Order list</span>
+						<!-- <button class="btn btn-primary btn-create">Create Order</button> -->
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -30,17 +29,17 @@
 								<thead>
 									<tr>
 										<th>id</th>
-										<th>Name</th>
-										<th>couponCode</th>
-										<th>scope</th>
-										<th>couponType</th>
-										<th>couponPrice</th>
-										<th>couponPriceoff</th>
-										<th>Draw or no</th>
-										<th>Weight</th>
-										<th>Product or no</th>
-										<th>Productid,SEO</th>
-										<th>state</th>
+										<th>payinfoOid</th>
+										<th>price</th>
+										<th>pay-status</th>
+										<th>date</th>
+										<th>plate-num</th>
+										<th>customer-name</th>
+										<!-- <th>customer-email</th> -->
+										<th>paypal-num</th>
+										<th>paypal-status</th>
+										<th>ecpp-num</th>
+										<th>tracking-num</th>
 										<th>operate</th>
 									</tr>
 								</thead>
@@ -51,156 +50,208 @@
 					</div>
 				</div>
 				<!-- edit or create -->
-				<div class="c-create hide">
+				<div class="c-view hide view-order">
 					<div class="c-option">
-						<span class="c-option-title">Edit Coupon</span>
+						<span class="c-option-title">View Order</span>
 						<div class="group">
-							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save Coupon</button>
+							<button class="btn btn-secondary btn-back">Back</button>
 						</div>
 					</div>
 					<div class="c-form row">
-						<input id="couponId" hidden>
 						<!-- left panel -->
 						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
-								<div class="card-body">
-									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="couponStatus">Status</label>
-										<div class="controls col-md-3">
-											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="couponStatus" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="couponName">Coupon Name</label>
-										<div class="controls">
-											<input class="form-control" id="couponName" type="text" />
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="couponPriceBaseline">Scope of application</label>
-										<div class="controls">
-											<input class="form-control" id="couponPriceBaseline" type="number" min="0" value="0" />
-										</div>
-									</div>
-									<div class="form-group choose_coup">
-										<label class="col-form-label" for="couponType">Coupon type</label>
-										<div class="controls">
-											<select class="form-control" id="couponType" />
-												<option value="0" selected="selected">0-Full decrement</option>
-												<option value="1">1-Discount volume</option>
-											</select>
-										</div>
-									</div>
-									
-									<div class="form-group open_0">
-										<label class="col-form-label" for="couponPrice">Preferential strength</label>
-										<div class="controls">
-											<input class="form-control" id="couponPrice" type="number" min="0" value="0" />
-										</div>
-									</div>
-									<div class="form-group open_1">
-										<label class="col-form-label" for="couponPriceoff">Preferential percentage</label>
-										<div class="controls">
-											<select id="couponPriceoff" name="couponPriceOff" class="form-control">
-											   <option value="5" selected="selected">5%</option>
-											   <option value="6">6%</option>
-											   <option value="7">7%</option>
-											   <option value="8">8%</option>
-											   <option value="9">9%</option>
-											   <option value="10">10%</option>
-											   <option value="11">11%</option>
-											   <option value="12">12%</option>
-											   <option value="13">13%</option>
-											   <option value="14">14%</option>
-											   <option value="15">15%</option>
-											   <option value="16">16%</option>
-											   <option value="17">17%</option>
-											   <option value="18">18%</option>
-											   <option value="19">19%</option>
-											   <option value="20">20%</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="couponCode">Discount code:</label>
-										<div class="controls">
-											<input class="form-control" id="couponCode" type="text" />
-										</div>
-									</div>
-									<div class="form-group choose_draw">
-										<label class="col-form-label" for="couponLuckdrawType">Lottery draw</label>
-										<div class="controls">
-											<select class="form-control" id="couponLuckdrawType" />
-												<option value="0" selected="selected">0-Support lottery</option>
-												<option value="1">1-Lottery not supported</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group open_draw" style="display: none;">
-										<label class="col-form-label" for="couponLuckdrawWeight">Draw weight ratio:</label>
-										<div class="controls">
-											<select name="couponLuckdrawWeight" id="couponLuckdrawWeight" class="form-control">
-											   <option value="0">0%</option>
-											   <option value="5">5%</option>
-											   <option value="10">10%</option>
-											   <option value="15">15%</option>
-											   <option value="20">20%</option>
-											   <option value="25">25%</option>
-											   <option value="30">30%</option>
-											   <option value="35">35%</option>
-											   <option value="40">40%</option>
-											   <option value="45">45%</option>
-											   <option value="50">50%</option>
-											   <option value="55">55%</option>
-											   <option value="60">60%</option>
-											   <option value="65">65%</option>
-											   <option value="70">70%</option>
-											   <option value="75">75%</option>
-											   <option value="80">80%</option>
-											   <option value="85">85%</option>
-											   <option value="90">90%</option>
-											   <option value="95">95%</option>
-											   <option value="100">100%</option>
-											</select>
-										</div>
-									</div>
+								<div class="card-title">
+									<div class="card-title-name">Order Info</div>
 								</div>
+								<div class="card-body">
+									<div class="order-list">
+										<p>no product for order...</p>
+									</div>
+								</div>	
+							</div>
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Pay Info</div>
+								</div>
+								<div class="card-body">
+									<div class="pay-status sum-item">
+										<div class="name">Pay Status</div>
+										<div class="value">Unpaid</div>
+									</div>
+									<div class="pay-number sum-item">
+										<div class="name">Pay Number</div>
+										<div class="value">MLxxxxxxx</div>
+									</div>
+									<div class="pay-method sum-item">
+										<div class="name">Pay Method</div>
+										<div class="value">Other</div>
+									</div>
+									<div class="pay-paypal-id sum-item">
+										<div class="name">Paypal ID</div>
+										<div class="value"></div>
+									</div>
+									<div class="pay-paypal-status sum-item">
+										<div class="name">Paypal Status</div>
+										<div class="value"></div>
+									</div>
+									<div class="pay-paypal-number sum-item">
+										<div class="name">Paypal number</div>
+										<div class="value"></div>
+									</div>
+									<div class="pay-purchase-time sum-item">
+										<div class="name">Purchase Time</div>
+										<div class="value"></div>
+									</div>
+									<div class="pay-pay-time sum-item">
+										<div class="name">Pay Time</div>
+										<div class="value"></div>
+									</div>
+									<div class="pay-list">
+										<div class="pay-item">
+											<div class="pay-item-title">Product Total</div>
+											<div class="pay-prototal">
+												<div class="name"></div>
+												<div class="value">$0.00</div>
+											</div>
+										</div>
+										<div class="pay-item">
+											<div class="pay-item-title">Shipping</div>
+											<div class="pay-shipping">
+												<div class="name"></div>
+												<div class="value">$0.00</div>
+											</div>
+										</div>
+										<div class="pay-item">
+											<div class="pay-item-title">Discount</div>
+											<div class="pay-discount">
+												<div class="name"></div>
+												<div class="value">-$0.00</div>
+											</div>
+										</div>
+										<div class="pay-item">
+											<div class="pay-item-title">Total</div>
+											<div class="pay-total">
+												<div class="name"></div>
+												<div class="value">$0.00</div>
+											</div>
+										</div>									
+									</div>
+									<div class="pay-final sum-item">
+										<div class="name">Paid by customer</div>
+										<div class="value">$0.00</div>
+									</div>
+								</div>	
 							</div>
 						</div>
 						<!-- right panel -->
 						<div class="right-panel col-lg-5 col-md-12">
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Bind product or not</div>
+									<div class="card-title-name">Customer Note</div>
 								</div>
 								<div class="card-body">
-									<div class="form-group choose_product">
-										<label class="col-form-label" for="couponProductonlyType">Bind product or not</label>
-										<div class="controls">
-											<select class="form-control" id="couponProductonlyType" />
-											<option value="0" selected="selected">no</option>
-											<option value="1">yes</option>
-											</select>
-										</div>
+									<div class="customer-note">No notes from customer</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Tracking</div>
+								</div>
+								<div class="card-body">
+									<div class="track-number track-item">
+										<div class="name">Tracking Number</div>
+										<div class="value"></div>
 									</div>
-									<div class="form-group open_product" style="display:none">
-										<label class="col-form-label" for="couponProductonlyPidstr">Product list </label>
-										<div class="controls">
-											<select class="form-control product-list" id="couponProductonlyPidstr" />
-											</select>
-										</div>
+									<div class="ecpp-number track-item">
+										<div class="name">ECPP Number</div>
+										<div class="value"></div>
 									</div>
-									<div class="form-group">
-										<input id="couponStarttime" hidden type="text" />
-										<input id="couponEndtime" hidden type="text" />
-										<label for="couponTime" class="control-label">Range Time:</label>
-										<div class="controls">
-											<input type="text" class="form-control daterangetimepicker" id="couponTime" placeholder="example: 2020-08-01 00:00:00 - 2020-08-01 23:59:59">
-										</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Shipping Address</div>
+								</div>
+								<div class="card-body shipping-list">
+									<div class="shipping-item firstname">
+										<div class="name">First Name</div>
+										<div class="value"></div>
+									</div>
+									<div class="shipping-item lastname">
+										<div class="name">Last Name</div>
+										<div class="value"></div>
+									</div>
+									<div class="shipping-item email">
+										<div class="name">E-mail</div>
+										<div class="value"></div>
+									</div>
+									<div class="shipping-item phone">
+										<div class="name">Phone</div>
+										<div class="value"></div>
+									</div>
+									<div class="shipping-item country">
+										<div class="name">Country</div>
+										<div class="value"></div>
+									</div>
+									<div class="shipping-item province">
+										<div class="name">Province/State</div>
+										<div class="value"></div>
+									</div>
+									<div class="shipping-item city">
+										<div class="name">city</div>
+										<div class="value"></div>
+									</div>
+									<div class="shipping-item postcode">
+										<div class="name">Post Code</div>
+										<div class="value"></div>
+									</div>									
+									<div class="shipping-item address">
+										<div class="name">Address Details</div>
+										<div class="value"></div>
+									</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Billing Address</div>
+								</div>
+								<div class="card-body billing-list">
+									<div class="billing-item paymentid">
+										<div class="name">Payment ID</div>
+										<div class="value"></div>
+									</div>
+									<div class="billing-item username">
+										<div class="name">User Name</div>
+										<div class="value"></div>
+									</div>
+									<div class="billing-item email">
+										<div class="name">E-mail</div>
+										<div class="value"></div>
+									</div>
+									<div class="billing-item country">
+										<div class="name">Country Code</div>
+										<div class="value"></div>
+									</div>
+									<div class="billing-item province">
+										<div class="name">Province/State</div>
+										<div class="value"></div>
+									</div>
+									<div class="billing-item city">
+										<div class="name">city</div>
+										<div class="value"></div>
+									</div>
+									<div class="billing-item postcode">
+										<div class="name">Post Code</div>
+										<div class="value"></div>
+									</div>
+									<div class="billing-item line1">
+										<div class="name">line 1</div>
+										<div class="value"></div>
+									</div>
+									<div class="billing-item line2">
+										<div class="name">line 2</div>
+										<div class="value"></div>
 									</div>
 								</div>
 							</div>
@@ -217,223 +268,134 @@
 	</div>
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
-	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
-	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	
 	<!-- custom script -->
 	<script>
-		var hasProductList = false;
 		var isCreate = false;
 		// init
-		getCollectionsData();
-		bindDateRangeEvent(function(startTime, endTime) {
-			$('#couponStarttime').val(startTime);
-			$('#couponEndtime').val(endTime);
+		getOrdersData();
+		// pagination a-click
+		$(document.body).on('click', '#table-pagination li', function (e) {
+			getOrdersData();
 		});
-		// create collection
+		// create order
 		$('.btn-create').on('click', function () {
-			$('.c-create c-option-title').text('Create Collection');
-			$(".open_product").hide();
-			$(".open_draw").hide();
-			$(".open_1").hide();
-			showCreateBlock();
-			resetFormData();
-			getCollectionId();
+			$('.c-view c-option-title').text('Create Order');
+			showViewBlock();
+			getOrderId();
 			isCreate = true;
 		});
-		// edit collection
-		$(document.body).on('click', '.btn-edit', function (e) {
-			var couponId = parseInt($(this).data('id'));
-			getOneCollectionData({
-				couponId: couponId
-			}, function(resData) {
-				$('.c-create c-option-title').text('Edit Collection');
-				showCreateBlock();
-				initFormData(resData);
-			});
-		});
-		// delete collection
-		$(document.body).on('click', '.btn-delete', function (e) {
-			var couponId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete SuperCategory!');
-			$('#deleteModal').modal('show');
-			$('#deleteModal .btn-ok').one('click', function () {
-				deleteCollectionData({
-					couponId: couponId,
-				}, function() {
-					getCollectionsData();
-				});
-			});
-		});
-		
-		$(window).on('beforeunload', function() {
-			var couponId = $('#couponId').val();
-			isCreate && couponId && deleteCollectionData({
-				couponId: couponId,
-			});
-		});
-		// save collection
-		$('.c-create .btn-save').on('click', function () {
-			var reqData = getFormData();
-			if (reqData.couponStarttime > couponEndtime) {
-				toastr.error('The start time must be less than the end time !');
-				$('#couponTime').focus();
-				return false;
-			}
-			saveCollectionData(reqData, function() {
-				showInitBlock();
-				getCollectionsData();
-				isCreate = false;
-				$('#couponId').val('');
-			});
-		});
-		// cancel collection save
-		$('.c-create .btn-cancel').on('click', function () {
-			if (isCreate) {
-				deleteCollectionData({
-					couponId: $('#couponId').val(),
-				}, function() {
-					showInitBlock();
-					isCreate = false;					
-				});
-			}
+		$('.btn-back').on('click', function () {
+			$('.c-view c-option-title').text('Order List');
 			showInitBlock();
 		});
-		// tab create/init
-		function showCreateBlock() {
+		// View  Order
+		$(document.body).on('click', '.btn-view', function (e) {
+			var payinfoId = parseInt($(this).data('id'));
+			getOneOrderData({
+				payinfoId: payinfoId
+			}, function(resData) {
+				$('.c-view c-option-title').text('View Order');
+				renderOrderDetails(resData);
+				showViewBlock();
+			});
+		});
+		// tab view/init
+		function showViewBlock() {
 			$('.c-init').addClass('hide');
-			$('.c-create').removeClass('hide');
-			if (!hasProductList) getAllProductData(renderAllProduct);
+			$('.c-view').removeClass('hide');
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
-			$('.c-create').addClass('hide');
+			$('.c-view').addClass('hide');
 		}
-		// handle formData
-		// reset data
-		function resetFormData() {
-			$('#couponId').val('');
-			$('#couponName').val('');
-			$('#couponPrice').val('');
-			$('#couponStatus').prop('checked', false);
-			$('#couponPriceBaseline').val('');
-			$('#couponCode').val('');
-			$('#couponPriceoff').val('5');
-			$('#couponType').val('0');
-			$('#couponLuckdrawType').val('0');
-			$('#couponLuckdrawWeight').val('0');
-			$('#couponProductonlyType').val('0');
-			$('#couponProductonlyPidstr').val('-1');
+		// callback init order details
+		function renderOrderDetails(data) {
+			// order list
+			renderOrderList(data.mlfrontOrderItemList);
+			// sum info
+			$('.pay-status .value').html(getPayStatus(data.mlfrontPayInfoOne.payinfoStatus));
+			data.mlfrontPayInfoOne.payinfoPlatenum && $('.pay-number .value').html(data.mlfrontPayInfoOne.payinfoPlatenum);
+			$('.pay-method .value').html(data.mlfrontPayInfoOne.payinfoPlatform);
+			data.mlfrontPayInfoOne.payinfoTransidnum && $('.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum);
+			data.mlfrontPayInfoOne.payinfoTransStatus && $('.pay-paypal-status .value').html(data.mlfrontPayInfoOne.payinfoTransStatus);
+			data.mlfrontPayInfoOne.payinfoPlatformserialcode && $('.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode);
+			data.mlfrontOrderPayOneRes.orderCreatetime && $('.pay-purchase-time .value').html(data.mlfrontOrderPayOneRes.orderCreatetime);
+			data.mlfrontPayInfoOne.payinfoCreatetime && $('.pay-pay-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime);
+			
 
-			var initTime = initDate();
-			$('#couponStarttime').val(initTime);
-			$('#couponEndtime').val(initTime);
-			$('.daterangetimepicker').data('daterangepicker').setStartDate(initTime);
-			$('.daterangetimepicker').data('daterangepicker').setEndDate(initTime);
+			$('.pay-prototal .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney));
+			$('.pay-discount .name').html(data.mlfrontOrderPayOneRes.orderCouponCode);
+			data.mlfrontOrderPayOneRes.orderCouponCode && data.mlfrontOrderPayOneRes.orderCouponPrice && $('.pay-discount .value').html('-$' + data.mlfrontOrderPayOneRes.orderCouponPrice);
+			data.areafreightMoney && $('.pay-shipping .value').html('$' + data.areafreightMoney);
+			data.mlfrontPayInfoOne.payinfoMoney && $('.pay-total .value').html('$' + data.mlfrontPayInfoOne.payinfoMoney);
+			data.mlfrontPayInfoOne.payinfoMoney && $('.pay-final .value').html('$' + data.mlfrontPayInfoOne.payinfoMoney);
+			
+			// customer note
+			data.mlfrontOrderPayOneRes.orderBuyMess && $('.customer-note').html(data.mlfrontOrderPayOneRes.orderBuyMess);
+			// track
+			data.mlfrontPayInfoOne.payinfoSendnum && $('.track-number').html(data.mlfrontPayInfoOne.payinfoSendnum);
+			data.mlfrontPayInfoOne.payinfoEcpphsnum && $('.ecpp-number').html(data.mlfrontPayInfoOne.payinfoEcpphsnum);
+			// shipping
+			data.mlfrontAddressOne.addressUserfirstname && $('.shipping-item.firstname .value').html(data.mlfrontAddressOne.addressUserfirstname);
+			data.mlfrontAddressOne.addressUserlastname && $('.shipping-item.lastname .value').html(data.mlfrontAddressOne.addressUserlastname);
+			data.mlfrontAddressOne.addressEmail && $('.shipping-item.email .value').html(data.mlfrontAddressOne.addressEmail);
+			data.mlfrontAddressOne.addressTelephone && $('.shipping-item.phone .value').html(data.mlfrontAddressOne.addressTelephone);
+			data.mlfrontAddressOne.addressCountry && $('.shipping-item.country .value').html(data.mlfrontAddressOne.addressCountry + ' ('+ data.mlfrontAddressOne.addressCountryCode +')');
+			data.mlfrontAddressOne.addressProvince && $('.shipping-item.province .value').html(data.mlfrontAddressOne.addressProvince + ' ('+ data.mlfrontAddressOne.addressProvincecode +')');
+			data.mlfrontAddressOne.addressCity && $('.shipping-item.city .value').html(data.mlfrontAddressOne.addressCity);
+			data.mlfrontAddressOne.addressPost && $('.shipping-item.postcode .value').html(data.mlfrontAddressOne.addressPost);
+			data.mlfrontAddressOne.addressDetail && $('.shipping-item.address .value').html(data.mlfrontAddressOne.addressDetail);
+			// billing
+			data.mlPaypalShipAddressOne.shippingaddressPaymentid && $('.billing-item.paymentid .value').html(data.mlPaypalShipAddressOne.shippingaddressPaymentid);
+			data.mlPaypalShipAddressOne.shippingaddressRecipientName && $('.billing-item.username .value').html(data.mlPaypalShipAddressOne.shippingaddressRecipientName);
+			data.mlPaypalShipAddressOne.shippingaddressEmail && $('.billing-item.email .value').html(data.mlPaypalShipAddressOne.shippingaddressEmail);
+			data.mlPaypalShipAddressOne.shippingaddressCountryCode && $('.billing-item.country .value').html(data.mlPaypalShipAddressOne.shippingaddressCountryCode);
+			data.mlPaypalShipAddressOne.shippingaddressCity && $('.billing-item.city .value').html(data.mlPaypalShipAddressOne.shippingaddressCity);
+			data.mlPaypalShipAddressOne.shippingaddressState && $('.billing-item.province .value').html(data.mlPaypalShipAddressOne.shippingaddressState);
+			data.mlPaypalShipAddressOne.shippingaddressPostalCode && $('.billing-item.postcode .value').html(data.mlPaypalShipAddressOne.shippingaddressPostalCode);
+			data.mlPaypalShipAddressOne.shippingaddressLine1 && $('.billing-item.line1 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine1);
+			data.mlPaypalShipAddressOne.shippingaddressLine2 && $('.billing-item.line2 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine2);
 		}
-		// getFormdData
-		function getFormData() {
-			var data = {};
-			data.couponId = parseInt($('#couponId').val());
-			data.couponName = $('#couponName').val();
-			data.couponStatus = $('#couponStatus').prop('checked') ? 1 : 0;
-			data.couponPriceBaseline = $('#couponPriceBaseline').val();
-			data.couponCode = $('#couponCode').val();
-			var couponType = $('#couponType').val();
-			data.couponType = couponType;
-			if (couponType) {
-				data.couponPrice = 0;
-				data.couponPriceoff = $('#couponPriceoff').val();
-			} else {
-				data.couponPrice = $('#couponPrice').val();
-				data.couponPriceoff = 0;
+		// callback order list
+		function renderOrderList(data) {
+			var htmlStr = '';
+			function genSkus(item) {
+				var skuHtml = '';
+				var optionNameArr = item.orderitemPskuIdnamestr.split(',');
+				var optionValueArr = item.orderitemPskuName.split(',');
+				optionNameArr.forEach(function(item, idx) {
+					skuHtml = '<div class="order-poption-item">' +
+							'<div class="name">'+ item +': </div>' +
+							'<div class="value">'+ optionValueArr[idx] +'</div>' +
+						'</div>';
+				});
+				return skuHtml;
 			}
-			data.couponPrice = $('#couponPrice').val();
-			data.couponPriceoff = $('#couponPriceoff').val();
-			data.couponLuckdrawType = $('#couponLuckdrawType').val();
-            data.couponLuckdrawWeight = $('#couponLuckdrawWeight').val();
-			data.couponProductonlyType = $('#couponProductonlyType').val();
-			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').val();
-			// data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
-			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
-			data.couponProductseonamesstronlyPid = $('#couponProductonlyPidstr').find('option:selected').data("seo");
-			data.couponProductpronamesstronlyPid = $('#couponProductonlyPidstr').find('option:selected').data("name");
-			data.couponStarttime = $('#couponStarttime').val();
-			data.couponEndtime = $('#couponEndtime').val();
-			return data;
-		}
-		// initFormData
-		function initFormData(data) {
-			$('#couponId').val(data.couponId);
-			$('#couponName').val(data.couponName);
-			$('#couponStatus').prop('checked', data.couponStatus);
-			$('#couponPrice').val(data.couponPrice);
-			$('#couponPriceoff').val(data.couponPriceoff);
-			$('#couponPriceBaseline').val(data.couponPriceBaseline);
-			$('#couponCode').val(data.couponCode);
-			$('#couponType').val(data.couponType);
-			var coupontypezt = data.couponType;
-			if(coupontypezt==0){
-				$(".open_0").show();
-				$(".open_1").hide();
-			}else if(coupontypezt==1){
-				$(".open_1").show();
-				$(".open_0").hide();
-			}
-			$('#couponLuckdrawType').val(data.couponLuckdrawType);
-			var drawtype = data.couponLuckdrawType;
-			if(drawtype==0){
-				$(".open_draw").hide()
-			}else if(drawtype==1){
-				$(".open_draw").show()
-			}
-			$('#couponLuckdrawWeight').val(data.couponLuckdrawWeight);
-			$('#couponProductonlyType').val(data.couponProductonlyType);
-			var showproduct = data.couponProductonlyType;
-			if(showproduct==0){
-				$(".open_product").hide();
-			}else if(showproduct==1){
-				$(".open_product").show();
-			}
-			$('#couponProductonlyPidstr').val(data.couponProductonlyPidstr || '-1');
-			$('#couponProductonlyPidstr').attr('data-val', data.couponProductonlyPidstr || '-1');
-			var startTime = data.couponStarttime || initDate();
-			var endTime = data.couponEndtime || initDate();
-			$("#couponStarttime").val(startTime);
-			$("#couponEndtime").val(endTime);
-			$('.daterangetimepicker').data('daterangepicker').setStartDate(startTime);
-			$('.daterangetimepicker').data('daterangepicker').setEndDate(endTime);
-		}
-		// callback id
-		function getCollectionId() {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH }/MlbackCoupon/initializaCoupon",
-				type: "post",
-				dataType: "json",
-				contentType: 'application/json',
-				async: false,
-				success: function (data) {
-					if (data.code == 100) {
-						$('#couponId').val(data.extend.mlbackCoupon.couponId);
-						toastr.success(data.extend.resMsg);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error('initial superCate fail：' + err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
+			data.forEach(function(item, idx) {
+				var singlePrice = ((parseFloat(item.orderitemProductOriginalprice) + parseFloat(item.orderitemPskuMoneystr)) * (parseFloat(item.orderitemProductAccoff) / 100))
+				htmlStr += '<div class="order-item">' +
+						'<img src="'+ item.orderitemProductMainimgurl +'">' +
+						'<div class="order-product-base">' +
+							'<a class="order-product-link" href="${APP_PATH}/'+ item.orderitemPseo +'.html">'+ item.orderitemPname +'</a>' +
+							'<div class="order-product-option">'+ genSkus(item) +'</div>' +
+							'<div class="order-product-sku">SKU: '+ item.orderitemPskuCode +'</div>' +
+						'</div>' +
+						'<div class="order-product-cal">' +
+							'<div class="order-product-money">$'+ singlePrice.toFixed(2) +'</div>' +
+							'<div class="order-product-divider">x</div>' +
+							'<div class="order-product-num">'+ item.orderitemPskuNumber +'</div>' +
+							'<div class="order-product-total">$'+ (item.orderitemPskuNumber * singlePrice).toFixed(2) +'</div>' +
+						'</div>' +
+					'</div>';
 			});
+			$('.order-list').html(htmlStr);
 		}
 		//  callback get all
-		function getCollectionsData(val) {
+		function getOrdersData(val) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/getMlbackCouponByPage",
+				url: "${APP_PATH}/MlfrontPayInfo/getMlfrontPayInfoByPage",
 				type: "post",
 				data: "pn=" + getPageNum(),
 				success: function (data) {
@@ -454,15 +416,17 @@
 			});
 		}
 		
-		function getOneCollectionData(reqData, callback) {
+		function getOneOrderData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/getOneMlbackCouponDetailById",
+				url: "${APP_PATH}/MlfrontPayInfo/backGetOnePayInfoDetail",
 				type: "post",
-				data: reqData,
+				data: JSON.stringify(reqData),
+				dataType: "json",
+				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.mlbackCouponOne);
+						callback(data.extend);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -476,148 +440,65 @@
 				}
 			});
 		}
-		/**************/
-		// callback save
-		function saveCollectionData(reqData, callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/save",
-				data: JSON.stringify(reqData),
-				dataType: "json",
-				contentType: 'application/json',
-				type: "post",
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback();
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
-		// callback delete
-		function deleteCollectionData(reqData, callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/delete",
-				type: "post",
-				cache: false,
-				dataType: "json",
-				contentType: 'application/json',
-				data: JSON.stringify(reqData),
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						$('#deleteModal').modal('hide');
-						callback();
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
+		function getPayStatus(num) {
+			var statusText;
+			switch(num) {
+				case 0:
+					statusText = '<a class="badge badge-danger">uppaid</a>'; // 未支付 red
+				    break;
+				case 1:
+					statusText = '<a class="badge badge-warning">paid</a>'; // 已支付  yellow
+					break;
+				case 2:
+					statusText = '<a class="badge badge-success">audited</a>'; // 已审核  green
+					break;
+				case 3:
+					statusText = '<a class="badge badge-secondary">delivered</a>'; // 已发货  blue
+				    break;
+				case 4:
+					statusText = '<a class="badge badge-info">refunded</a>'; // 已退款  purple
+					break;
+				case 5:
+					statusText = '<a class="badge badge-light">re-purchase notified</a>'; // 已通知复购  light
+					break;
+				case 6:
+					statusText = '<a class="badge badge-dark">closed</a>'; // 已关闭  dark
+					break;
+				default:
+					statusText = '<a class="badge badge-danger">uppaid</a>'; // 未支付 red
+			}
+			return statusText;
 		}
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				var coupontype =data[i].couponType;
-			    var couponLuckdrawtype = data[i].couponLuckdrawType;
-			   var couponProductonlytype = data[i].couponProductonlyType;
-				htmlStr += '<tr><td>' + data[i].couponId + '</td>' +
-					'<td>' + data[i].couponName + '</td>' +
-					 '<td>' + data[i].couponCode + '</td>' +
-					 '<td>' + data[i].couponPriceBaseline + '</td>' +
-					 '<td>'+(coupontype == 1 ? 'Discount' : 'Full')+'</td>' +
-					 '<td>' +(coupontype == 0 ? parseFloat(data[i].couponPrice) : '')+ '</td>' +
-					 '<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff)+'%' : '')+ '</td>' +
-					 '<td>'+(couponLuckdrawtype == 1 ? 'yes' : 'no')+'</td>' +
-					 '<td>' + data[i].couponLuckdrawWeight + '%</td>' +
-					 '<td>'+(couponProductonlytype == 1 ? 'yes' : 'no')+'</td>' +
-					 '<td>'+(couponProductonlytype == 1 ? (data[i].couponProductonlyPidstr+' * '+data[i].couponProductseonamesstronlyPid) : 'All Product')+'</td>' +
-					 '<td>' + (data[i].couponStatus ? 'enable' : 'disable') + '</td>' +
+				htmlStr += '<tr><td>' + data[i].payinfoId + '</td>' +
+					'<td>' + (data[i].payinfoOid || '') + '</td>' +
+					'<td>' + data[i].payinfoMoney + '</td>' +
+					'<td>' + getPayStatus(data[i].payinfoStatus) + '</td>' +
+					'<td>' + data[i].payinfoCreatetime + '</td>' +
+					'<td>' + (data[i].payinfoPlatenum || '') + '</td>' +
+					'<td>' + (data[i].payinfoUname || '') + '</td>' +
+					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' + */
+					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
+					'<td>' + (data[i].payinfoTransStatus || '') + '</td>' +
+					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
+					'<td>' + (data[i].payinfoSendnum || '') + '</td>' +
 					'<td>' +
-					'<button class="btn btn-primary btn-edit" data-id="' + data[i].couponId + '">' +
-					'<svg class="c-icon">' +
-					'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
-					'</svg>' +
-					'</button>' +
-					'<button class="btn btn-danger btn-delete" data-id="' + data[i].couponId + '">' +
-					'<svg class="c-icon">' +
-					'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
-					'</svg>' +
-					'</button>' +
+						'<button class="btn btn-primary btn-view" data-id="' + data[i].payinfoId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
+							'</svg>' +
+						'</button>' +
+						/* '<button class="btn btn-danger btn-delete" data-id="' + data[i].payinfoId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
+							'</svg>' +
+						'</button>' + */
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
-		}
-		/************************************************************************************/
-		$(".choose_coup select").change(function () {
-			if ($(this).val() == 0) {
-				$(".open_1").hide();
-				$(".open_0").show();
-			} else if ($(this).val() == 1) {
-				$(".open_1").show();
-				$(".open_0").hide();
-			}
-		});
-		$(".choose_draw select").change(function () {
-			if ($(this).val() == 0) {
-				$(".open_draw").hide();
-			} else if ($(this).val() == 1) {
-				$(".open_draw").show();
-			}
-		});
-		$(".choose_product select").change(function () {
-			if ($(this).val() == 0) {
-				$(".open_product").hide();
-			} else if ($(this).val() == 1) {
-				$(".open_product").show();
-			}
-		});
-		/********************************/
-		// callback get search data
-		function getSearchCollectionsData(data) {
-			$('.c-mask').show();
-		
-			var formData = new FormData();
-			formData.append('couponName', $('#searchCollection').val());
-			formData.append('pn', getPageNum());
-			$.ajax({
-				url: "${APP_PATH }/MlbackCoupon/backSearchByCoupon",
-				type: "post",
-				processData: false,
-				contentType: false,
-				cache: false,
-				data: formData,
-				success: function (data) {
-					if (data.code == 100) {
-						renderTable(data.extend.pageInfo.list);
-						renderTablePagination(data.extend.pageInfo);
-						toastr.success(data.extend.resMsg);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function () {
-					toastr.error('Failed to get Categeory, please refresh the page to get again！');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
 		}
 	</script>
 </body>
