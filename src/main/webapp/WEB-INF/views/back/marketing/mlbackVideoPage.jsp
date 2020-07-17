@@ -337,10 +337,10 @@
 			showInitBlock();
 		});
 		// render video area-list
-		function renderVideoAreaList(data) {			
+		function renderVideoAreaList(data) {
 			var htmlStr = '<option value="-1">Please select the location of the Video</option>';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].videoshowareaId + '">'+ data[i].videoshowareaId + ' ' + data[i].videoshowareaName +'</option>';
+				htmlStr += '<option value="' + data[i].videoshowareaAreanum + '">'+ data[i].videoshowareaAreanum + ' ' + data[i].videoshowareaName +'</option>';
 			}
 			$('.ml-videoarea').html(htmlStr);
 			hasVideoAreaList = true;
