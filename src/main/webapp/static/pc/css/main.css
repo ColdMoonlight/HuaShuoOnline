@@ -3117,6 +3117,10 @@ footer li {
 	display: block;
 	padding-top: 100%;
 }
+.video-areaitem-content {
+	justify-content: space-between;
+	align-items: center;
+}
 .hot-five {
 	position: relative;
 	overflow: hidden;
