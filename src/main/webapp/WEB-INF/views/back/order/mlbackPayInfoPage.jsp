@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>order list</title>
+	<title>Order List</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 </head>
 <body class="c-app">
@@ -103,8 +103,12 @@
 										<div class="name">Purchase Time</div>
 										<div class="value"></div>
 									</div>
-									<div class="pay-pay-time sum-item">
-										<div class="name">Pay Time</div>
+									<div class="pay-create-time sum-item">
+										<div class="name">Pay Create Time</div>
+										<div class="value"></div>
+									</div>
+									<div class="pay-end-time sum-item">
+										<div class="name">Pay End Time</div>
 										<div class="value"></div>
 									</div>
 									<div class="pay-list">
@@ -321,13 +325,14 @@
 			data.mlfrontPayInfoOne.payinfoTransStatus && $('.pay-paypal-status .value').html(data.mlfrontPayInfoOne.payinfoTransStatus);
 			data.mlfrontPayInfoOne.payinfoPlatformserialcode && $('.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode);
 			data.mlfrontOrderPayOneRes.orderCreatetime && $('.pay-purchase-time .value').html(data.mlfrontOrderPayOneRes.orderCreatetime);
-			data.mlfrontPayInfoOne.payinfoCreatetime && $('.pay-pay-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime);
+			data.mlfrontPayInfoOne.payinfoCreatetime && $('.pay-create-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime);
+			data.mlfrontPayInfoOne.payinfoMotifytime && $('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoMotifytime);
 			
 
 			$('.pay-prototal .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney));
 			$('.pay-discount .name').html(data.mlfrontOrderPayOneRes.orderCouponCode);
-			data.mlfrontOrderPayOneRes.orderCouponCode && data.mlfrontOrderPayOneRes.orderCouponPrice && $('.pay-discount .value').html('-$' + data.mlfrontOrderPayOneRes.orderCouponPrice);
-			data.areafreightMoney && $('.pay-shipping .value').html('$' + data.areafreightMoney);
+			data.mlfrontOrderPayOneRes.orderCouponCode && data.mlfrontOrderPayOneRes.orderCouponPrice && $('.pay-discount .value').html('-$' + (data.mlfrontOrderPayOneRes.orderCouponPrice).toFixed(2));
+			data.areafreightMoney && $('.pay-shipping .value').html('$' + (data.areafreightMoney).toFixed(2));
 			data.mlfrontPayInfoOne.payinfoMoney && $('.pay-total .value').html('$' + data.mlfrontPayInfoOne.payinfoMoney);
 			data.mlfrontPayInfoOne.payinfoMoney && $('.pay-final .value').html('$' + data.mlfrontPayInfoOne.payinfoMoney);
 			
