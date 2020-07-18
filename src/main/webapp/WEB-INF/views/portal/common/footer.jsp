@@ -530,8 +530,8 @@ function generateSwiperSlideProduct(data) {
 					'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
 				'</div>' +
 				'<div class="product-price">' +
-					'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
 					'<span class="product-define-price">$'+ (item.productOriginalprice || 0) +'</span>' +
+					'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
 				'</div>' +
 			'</div>' +
 		'</div>';
@@ -545,8 +545,8 @@ function renderIntroduceProductSlide($el, data) {
 	var productSlide = generateSwiperSlideProduct(data).addClass('introduce-product');
 	$el.append('<div class="introduce-product-title">YOU MIGHT ALSO LIKE<div>');
 	$el.append(productSlide)
-	new Swiper('.introduce-product.swiper-container', {
-		slidesPerView: (window.innerWidth > 575 ? 4 : 2),
+	var productSwiper = new Swiper('.introduce-product.swiper-container', {
+		slidesPerView: 'auto',
 		spaceBetween: 5,
 		freeMode: true,
 		autoplay: {
@@ -561,6 +561,13 @@ function renderIntroduceProductSlide($el, data) {
 		pagination: {
 			el: '.introduce-product .swiper-pagination',
 			clickable: true
+		},
+		on: {
+		    resize: function(){
+		    	console.log(productSwiper)
+		    	productSwiper.slidesPerView = (window.innerWidth > 799 ? 4 : 2);
+		    	productSwiper.updateSlidesOffset();
+		    }, 
 		}
 	});
 }

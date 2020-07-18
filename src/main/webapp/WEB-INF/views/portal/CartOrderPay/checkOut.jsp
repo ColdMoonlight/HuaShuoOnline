@@ -420,8 +420,8 @@
 						'<div class="order-sku-list">'+ orderSkuList +'</div>' +
 						'<div class="order-product-num">' +
 							'<div class="order-product-price">' +
-								'<span class="product-now-price">$'+ (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? ((item.orderitemProductOriginalprice  + parseFloat(item.orderitemPskuMoneystr)) * item.orderitemProductAccoff / 100) : 0).toFixed(2) +'</span>' +
 								'<span class="product-define-price">$'+ (item.orderitemProductOriginalprice || 0).toFixed(2) +'</span>' +
+								'<span class="product-now-price">$'+ (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? ((item.orderitemProductOriginalprice  + parseFloat(item.orderitemPskuMoneystr)) * item.orderitemProductAccoff / 100) : 0).toFixed(2) +'</span>' +
 							'</div>' +
 							'<span class="icon delete product-delete">' + '</span>' +
 							'<div class="product-qty">' +

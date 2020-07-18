@@ -114,8 +114,8 @@
 						'<div class="cart-sku-list">'+ cartSkuList +'</div>' +
 						'<div class="cart-product-num">' +
 							'<div class="cart-product-price">' +
-								'<span class="product-now-price">$'+ nowPrice.toFixed(2) +'</span>' +
 								'<span class="product-define-price">$'+ definePrice.toFixed(2) +'</span>' +
+								'<span class="product-now-price">$'+ nowPrice.toFixed(2) +'</span>' +
 							'</div>' +
 							'<span class="icon delete product-delete">' + '</span>' +
 							'<div class="product-qty">' +
