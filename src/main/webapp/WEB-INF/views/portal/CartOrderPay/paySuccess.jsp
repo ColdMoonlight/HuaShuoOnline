@@ -92,14 +92,14 @@
 				'</div>' +
 				'<div class="payment-cal-item">' +
 				'<span class="name">shipping: </span>' +
-				'<span class="value">$' + data.shipping + '</span>' +
+				'<span class="value">$' + (data.shipping).toFixed(2) + '</span>' +
 				'</div>' +
 				'<div class="payment-cal-item">' +
 				'<span class="name">coupon: </span>' +
-				'<span class="value">-$' + data.orderCouponPrice + '</span></div>' +
+				'<span class="value">-$' + (data.orderCouponPrice).toFixed(2) + '</span></div>' +
 				'<div class="payment-cal-item">' +
 				'<span class="name">subtotal: </span>' +
-				'<span class="value">$' + data.payinfoMoney + '</span>' +
+				'<span class="value">$' + (data.payinfoMoney).toFixed(2) + '</span>' +
 				'</div>';
 			$('.payment-order .payment-cal').html(paymentCalHtml);
 

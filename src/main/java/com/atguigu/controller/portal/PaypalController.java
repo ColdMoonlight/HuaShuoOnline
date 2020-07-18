@@ -447,7 +447,7 @@ public class PaypalController {
 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoIOne);
 		
 		//准备调用ecpp接口,将客户的付款信息,导入ecpp中
-		payInfoIntoEcpp(mlfrontPayInfoIOne);
+		// payInfoIntoEcpp(mlfrontPayInfoIOne);
 		session.setAttribute("mlfrontPayInfoIOne", mlfrontPayInfoIOne);
 		session.setAttribute("payinfoIdStr", payinfoIdStr);
 		session.setAttribute("orderId", PayOid);

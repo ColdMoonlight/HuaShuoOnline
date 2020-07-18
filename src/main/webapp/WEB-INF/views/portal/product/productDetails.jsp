@@ -77,7 +77,7 @@
 					</div>
 					<div class="product-pay paypal-button-container">
 						<div class="btn paypal-button btn-primary" id="add-to-cart">Add To Cart</div>
-		   				<div class="btn paypal-button btn-black" id="buy-now">Buy Now</div>
+		   				<div class="btn paypal-button btn-black" class="buy-now">Buy Now</div>
 						<!-- <div title="paypal" class="btn paypal-button paypal-now paypal-button-paypal"></div>
 				        <div title="credit" class="btn paypal-button paypal-now paypal-button-credit"></div> -->
 					</div>
@@ -412,7 +412,46 @@
 				}
 			});			
 		}
-
+		// callback to cart or checkout
+		function selectCartOrCheckout(data) {
+			var cartCheckoutHtml = '<div class="cart-checkout-product">' +
+					'<div class="lazyload" data-src="'+ data.cartitemProductMainimgurl +'"></div>' +
+					'<div class="cart-checkout-data">' +
+						'<div class="cart-checkout-productname">'+ data.cartitemProductName +'</div>' +
+						'<div class="cart-checkout-productprice">' +
+							'<div class="name">Price: </div>' +
+							'<div class="value">$'+ ((data.cartitemProductOriginalprice + parseFloat(data.cartitemProductskuMoneystr)) * data.cartitemProductActoff / 100).toFixed(2) +'</div>' +
+						'</div>' +
+						'<div class="btn-group">' +
+							'<a class="btn" href="javascript:goToCartList();">View Cart</a>' +
+							'<a class="btn btn-pink buy-now">Checkout</a>' +
+						'</div>' +
+					'</div>' +
+				'</div>';
+			var cartOrCheckoutModal = createModal({
+				header: {
+					html: '<p>Product successfully added to your cart!</p>'
+				},
+    			body: {
+    				html: cartCheckoutHtml,
+    			},
+    			footer: {
+    				isShow: true,
+    				html: 'Free Gift For Every Order!'
+    			},
+    			autoClose: false
+    		});
+			new LazyLoad(cartOrCheckoutModal.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			});
+			cartOrCheckoutModal.addClass('cart-checkout');
+			
+			setTimeout(function() {
+				removeModal(cartOrCheckoutModal);
+			}, 5000);
+		}
 		// to pay instance
 		function toPayInstance(reqData) {
 			$.ajax({
@@ -696,13 +735,14 @@
 							generateFlyBubble(evt, updateProructNumberInCart);							
 						} else {
 							updateProructNumberInCart();
+							selectCartOrCheckout(reqData);
 						}
 					});
 				}
 			}, 300);
 		});
 		// buy now
-		$('#buy-now').on('click', function() {
+		$(document.body).on('click', '.buy-now', function() {
 			var reqData = getProductData();
 			isCorrectProduct() && reqData && toBuyNow(reqData, goToCheckout);
 		});
