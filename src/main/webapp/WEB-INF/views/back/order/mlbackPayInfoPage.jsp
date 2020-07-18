@@ -370,7 +370,7 @@
 				var optionNameArr = item.orderitemPskuIdnamestr.split(',');
 				var optionValueArr = item.orderitemPskuName.split(',');
 				optionNameArr.forEach(function(item, idx) {
-					skuHtml = '<div class="order-poption-item">' +
+					skuHtml += '<div class="order-poption-item">' +
 							'<div class="name">'+ item +': </div>' +
 							'<div class="value">'+ optionValueArr[idx] +'</div>' +
 						'</div>';
