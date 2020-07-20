@@ -204,12 +204,12 @@
 			$this.parent().find('.spinner').show();
 	
 			var formData = new FormData();
-			formData.append('type', 'VideoShowAreaPc');
+			formData.append('type', 'couponDescTitlePc');
 			formData.append('image', $this[0].files[0]);
 			formData.append('coupondesctieleId', parseInt($('#coupondesctieleId').val()));
 	
 			$.ajax({
-				url: "${APP_PATH}/ImageYTBUpload/uploadVideoShowAreaPcImg",
+				url: "${APP_PATH}/ImageUpload/couponDescTitlePc",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -239,12 +239,12 @@
 			$this.parent().find('.spinner').show();
 	
 			var formData = new FormData();
-			formData.append('type', 'VideoShowAreaWap');
+			formData.append('type', 'couponDescTitleWap');
 			formData.append('image', $this[0].files[0]);
 			formData.append('coupondesctieleId', parseInt($('#coupondesctieleId').val()));
 	
 			$.ajax({
-				url: "${APP_PATH}/ImageYTBUpload/uploadVideoShowAreaWapImg",
+				url: "${APP_PATH}/ImageUpload/couponDescTitleWap",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -344,9 +344,9 @@
 		// initFormData
 		function initFormData(data) {
 			// init
-			$('#coupondesctieleId').val(data.coupondesctieleId);
-			$('#coupondesctieleName').val(data.coupondesctieleName);
-			$('#coupondesctieleTieledetail').val(data.coupondesctieleTieledetail ? data.coupondesctieleTieledetail : '-1');
+			$('#coupondesctieleId').val(data.coupondesctieleId || '');
+			$('#coupondesctieleName').val(data.coupondesctieleName || '');
+			$('#coupondesctieleTieledetail').val(data.coupondesctieleTieledetail || '');
 			$('#coupondesctieleWapstatus').prop('checked', data.coupondesctieleWapstatus);
 			$('#coupondesctielePcstatus').prop('checked', data.coupondesctielePcstatus);
 	

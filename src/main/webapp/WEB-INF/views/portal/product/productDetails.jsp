@@ -46,11 +46,11 @@
 			            <div class="swiper-button-prev"></div>
 					</div>
 					<div class="product-share">
-						<div class="share-item" data-url="https://plus.google.com/share?url=" title="share on google+">google + </div>
-						<div class="share-item" data-url="https://twitter.com/intent/tweet?url=" title="share on twitter">twitter</div>
-						<div class="share-item" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook">facebook</div>
-						<div class="share-item" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest">pinterest</div>
-						<div class="share-item" data-url="https://api.whatsapp.com/send?text=" title="share on whatsapp">whatsapp</div>
+						<div class="share-item" data-url="https://plus.google.com/share?url=" title="share on google+"></div>
+						<div class="share-item" data-url="https://twitter.com/intent/tweet?url=" title="share on twitter"></div>
+						<div class="share-item" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>
+						<div class="share-item" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest"></div>
+						<div class="share-item" data-url="https://api.whatsapp.com/send?text=" title="share on whatsapp"></div>
 					</div>
 				</div>
 				<div class="product-details">
@@ -706,7 +706,7 @@
 		}
 		// product share
 		$('.share-item').on('click', function() {
-			window.open($(this).data('url') + encodeURIComponent('https://megalook.com/B-3-Bundles-with-4x4-Closure-Deep-Wave.html'));
+			window.open($(this).data('url') + encodeURIComponent(window.location.href));
 		});
 		// add product
 		$('#product-num-add').on('click', function() {
