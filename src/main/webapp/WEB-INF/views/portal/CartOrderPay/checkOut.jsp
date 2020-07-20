@@ -414,7 +414,7 @@
 
 				var productLink = item.orderitemPseo ? ('${APP_PATH}/'+ item.orderitemPseo +'.html') : 'javascript:;';
 				$orderList.append($('<div class="order-item">' +
-					'<a href="'+ productLink +'"><img class="order-img" src="'+ item.orderitemProductMainimgurl +'"></a>' +
+					'<a href="'+ productLink +'" class="order-img lazyload" data-src="'+ item.orderitemProductMainimgurl +'"></a>' +
 					'<div class="order-product">' +
 						'<a class="order-product-name" href="'+ productLink +'">'+ item.orderitemPname +'</a>' +
 						'<div class="order-sku-list">'+ orderSkuList +'</div>' +
@@ -443,6 +443,12 @@
 			$cartReviewBox.find('.cart-box-body').append($orderList);
 
 			$('main .order-left').append($cartReviewBox);
+
+			new LazyLoad($orderList.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			})
 		}
 		// render order couopons
 		function renderOrderCoupons() {
