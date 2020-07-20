@@ -316,7 +316,7 @@ public class MlfrontPayInfoController {
 					.add("mlfrontUserOne", mlfrontUserOne).add("mlPaypalShipAddressOne", mlPaypalShipAddressRes).add("areafreightMoney", areafreightMoney);
 	}
 	
-	/**11.0	useOn	0505
+	/**11.0	zsh200720
 	 * MlfrontPayInfo检查已支付的单子,是否在ecpp上已经审核
 	 * 1.收到前台的查询时间范围，后台查询这些时间内的已支付订单，
 	 * 2，便利这些单子,用token+H号,去查询本条的状态，
@@ -414,5 +414,6 @@ public class MlfrontPayInfoController {
 		
 		return Msg.success().add("resMsg", "查询payFailTimes成功").add("payFailTimes", payFailTimes);
 	}
-
+	
+	
 }

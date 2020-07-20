@@ -730,7 +730,7 @@ public class ImageUploadController {
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
 		//判断参数,确定信息
-		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
+		String typeName=ImageNameUtil.gettypeName(type);//couponDescTitle
 		
 		String coupondesctieleIdIdStr = coupondesctieleId+"";
 		String imgName = ImageNameUtil.getfilename(typeName,coupondesctieleIdIdStr);
