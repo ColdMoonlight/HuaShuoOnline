@@ -339,8 +339,8 @@
 			// customer note
 			data.mlfrontOrderPayOneRes.orderBuyMess && $('.customer-note').html(data.mlfrontOrderPayOneRes.orderBuyMess);
 			// track
-			data.mlfrontPayInfoOne.payinfoSendnum && $('.track-number').html(data.mlfrontPayInfoOne.payinfoSendnum);
-			data.mlfrontPayInfoOne.payinfoEcpphsnum && $('.ecpp-number').html(data.mlfrontPayInfoOne.payinfoEcpphsnum);
+			data.mlfrontPayInfoOne.payinfoSendnum && $('.track-number .value').html(data.mlfrontPayInfoOne.payinfoSendnum);
+			data.mlfrontPayInfoOne.payinfoEcpphsnum && $('.ecpp-number .value').html(data.mlfrontPayInfoOne.payinfoEcpphsnum);
 			// shipping
 			data.mlfrontAddressOne.addressUserfirstname && $('.shipping-item.firstname .value').html(data.mlfrontAddressOne.addressUserfirstname);
 			data.mlfrontAddressOne.addressUserlastname && $('.shipping-item.lastname .value').html(data.mlfrontAddressOne.addressUserlastname);
