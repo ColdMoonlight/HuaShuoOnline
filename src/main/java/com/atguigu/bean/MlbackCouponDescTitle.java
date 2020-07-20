@@ -1,6 +1,7 @@
 package com.atguigu.bean;
 
 public class MlbackCouponDescTitle {
+	
     private Integer coupondesctieleId;
 
     private String coupondesctieleName;
