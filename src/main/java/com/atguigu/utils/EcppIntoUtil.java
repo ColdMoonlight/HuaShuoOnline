@@ -55,7 +55,7 @@ public class EcppIntoUtil {
 							+"<CountryCode>"+ecppOrder.getCountryCode()+"</CountryCode>"
 							+"<tel>"+ecppOrder.getTel()+"</tel>"
 							+"<zipcode>"+ecppOrder.getZipcode()+"</zipcode>"
-							+"<items>"+ecppItemListStr+"</items>"
+							+ecppItemListStr
 							+"</order>"
 				    	+"</orders>"
 				    +"</addLineOrder>"
@@ -118,23 +118,31 @@ public class EcppIntoUtil {
 	}
 	
 	public static String getEcppItemListStr(List<ecppItem> ecppItemList) {
-		
-		String getEcppItemListStr = "";
-		String ecppItrmOneStr = "";
-		for(ecppItem ecppItem:ecppItemList){
-			ecppItrmOneStr+="<item>";
-			ecppItrmOneStr=ecppItrmOneStr+"<goods_sn>"+ecppItem.getGoods_sn()+"</goods_sn>"
-					+"<goods_name>"+ecppItem.getGoods_name()+"</goods_name>"
-					+"<goods_qty>"+ecppItem.getGoods_qty()+"</goods_qty>"
-					+"<goods_price>"+ecppItem.getGoods_price()+"</goods_price>";
-			
-			ecppItrmOneStr+="</item>";
-			getEcppItemListStr+=ecppItrmOneStr;
+
+		String ecppItemInfoStr = "";
+		Integer ecppItemListNums = ecppItemList.size();
+		if(ecppItemListNums>1){
+			for(ecppItem ecppItemOne:ecppItemList){
+				ecppItemInfoStr+="<items>"
+				+"<goods_sn>"+ecppItemOne.getGoods_sn()+"</goods_sn>"
+				+"<goods_name>"+ecppItemOne.getGoods_name()+"</goods_name>"
+				+"<goods_qty>"+ecppItemOne.getGoods_qty()+"</goods_qty>"
+				+"<goods_price>"+ecppItemOne.getGoods_price()+"</goods_price>"
+				+"</items>";
+			}
+		}else{
+			ecppItem ecppItemOne = ecppItemList.get(0);
+			ecppItemInfoStr+="<items>"
+								+"<item>"
+								+"<goods_sn>"+ecppItemOne.getGoods_sn()+"</goods_sn>"
+								+"<goods_name>"+ecppItemOne.getGoods_name()+"</goods_name>"
+								+"<goods_qty>"+ecppItemOne.getGoods_qty()+"</goods_qty>"
+								+"<goods_price>"+ecppItemOne.getGoods_price()+"</goods_price>"
+								+"</item>"
+							+"</items>";
 		}
-		System.out.println("------getEcppItemListStr-----");
-		System.out.println(getEcppItemListStr);
-		System.out.println("------getEcppItemListStr-----");
-		return getEcppItemListStr;
+		System.out.println("ecppItemInfoStr:"+ecppItemInfoStr);
+		return ecppItemInfoStr;
 	}
 	
 	public static order getEcppNeedOrder(MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne,
