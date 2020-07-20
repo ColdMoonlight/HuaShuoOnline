@@ -155,7 +155,7 @@
 									<div class="card-title-name">Customer Note</div>
 								</div>
 								<div class="card-body">
-									<div class="customer-note">No notes from customer</div>
+									<div class="customer-note">No notes from customer...</div>
 								</div>
 							</div>
 							<div class="card">
@@ -319,48 +319,48 @@
 			renderOrderList(data.mlfrontOrderItemList);
 			// sum info
 			$('.pay-status .value').html(getPayStatus(data.mlfrontPayInfoOne.payinfoStatus));
-			data.mlfrontPayInfoOne.payinfoPlatenum && $('.pay-number .value').html(data.mlfrontPayInfoOne.payinfoPlatenum);
-			$('.pay-method .value').html(data.mlfrontPayInfoOne.payinfoPlatform);
-			data.mlfrontPayInfoOne.payinfoTransidnum && $('.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum);
-			data.mlfrontPayInfoOne.payinfoTransStatus && $('.pay-paypal-status .value').html(data.mlfrontPayInfoOne.payinfoTransStatus);
-			data.mlfrontPayInfoOne.payinfoPlatformserialcode && $('.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode);
-			data.mlfrontOrderPayOneRes.orderCreatetime && $('.pay-purchase-time .value').html(data.mlfrontOrderPayOneRes.orderCreatetime);
-			data.mlfrontPayInfoOne.payinfoCreatetime && $('.pay-create-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime);
-			data.mlfrontPayInfoOne.payinfoMotifytime && $('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoMotifytime);
+			$('.pay-number .value').html(data.mlfrontPayInfoOne.payinfoPlatenum || '');
+			$('.pay-method .value').html(data.mlfrontPayInfoOne.payinfoPlatform || '');
+			$('.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
+			$('.pay-paypal-status .value').html(data.mlfrontPayInfoOne.payinfoTransStatus || '');
+			$('.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode || '');
+			$('.pay-purchase-time .value').html(data.mlfrontOrderPayOneRes.orderCreatetime || '');
+			$('.pay-create-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime || '');
+			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoMotifytime || '');
 			
 
-			$('.pay-prototal .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney));
-			$('.pay-discount .name').html(data.mlfrontOrderPayOneRes.orderCouponCode);
-			data.mlfrontOrderPayOneRes.orderCouponCode && data.mlfrontOrderPayOneRes.orderCouponPrice && $('.pay-discount .value').html('-$' + (data.mlfrontOrderPayOneRes.orderCouponPrice).toFixed(2));
-			data.areafreightMoney && $('.pay-shipping .value').html('$' + (data.areafreightMoney).toFixed(2));
-			data.mlfrontPayInfoOne.payinfoMoney && $('.pay-total .value').html('$' + data.mlfrontPayInfoOne.payinfoMoney);
-			data.mlfrontPayInfoOne.payinfoMoney && $('.pay-final .value').html('$' + data.mlfrontPayInfoOne.payinfoMoney);
+			$('.pay-prototal .value').html('$' + (((data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney)).toFixed(2) || '0.00'));
+			$('.pay-discount .name').html(data.mlfrontOrderPayOneRes.orderCouponCode || '');
+			$('.pay-discount .value').html('-$' + (data.mlfrontOrderPayOneRes.orderCouponPrice).toFixed(2));
+			$('.pay-shipping .value').html('$' + ((data.areafreightMoney).toFixed(2) || '0.00'));
+			$('.pay-total .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || '0.00'));
+			$('.pay-final .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || '0.00'));
 			
 			// customer note
-			data.mlfrontOrderPayOneRes.orderBuyMess && $('.customer-note').html(data.mlfrontOrderPayOneRes.orderBuyMess);
+			$('.customer-note').html(data.mlfrontOrderPayOneRes.orderBuyMess || 'No notes from customer...');
 			// track
-			data.mlfrontPayInfoOne.payinfoSendnum && $('.track-number .value').html(data.mlfrontPayInfoOne.payinfoSendnum);
-			data.mlfrontPayInfoOne.payinfoEcpphsnum && $('.ecpp-number .value').html(data.mlfrontPayInfoOne.payinfoEcpphsnum);
+			$('.track-number .value').html(data.mlfrontPayInfoOne.payinfoSendnum || '');
+			$('.ecpp-number .value').html(data.mlfrontPayInfoOne.payinfoEcpphsnum || '');
 			// shipping
-			data.mlfrontAddressOne.addressUserfirstname && $('.shipping-item.firstname .value').html(data.mlfrontAddressOne.addressUserfirstname);
-			data.mlfrontAddressOne.addressUserlastname && $('.shipping-item.lastname .value').html(data.mlfrontAddressOne.addressUserlastname);
-			data.mlfrontAddressOne.addressEmail && $('.shipping-item.email .value').html(data.mlfrontAddressOne.addressEmail);
-			data.mlfrontAddressOne.addressTelephone && $('.shipping-item.phone .value').html(data.mlfrontAddressOne.addressTelephone);
-			data.mlfrontAddressOne.addressCountry && $('.shipping-item.country .value').html(data.mlfrontAddressOne.addressCountry + ' ('+ data.mlfrontAddressOne.addressCountryCode +')');
-			data.mlfrontAddressOne.addressProvince && $('.shipping-item.province .value').html(data.mlfrontAddressOne.addressProvince + ' ('+ data.mlfrontAddressOne.addressProvincecode +')');
-			data.mlfrontAddressOne.addressCity && $('.shipping-item.city .value').html(data.mlfrontAddressOne.addressCity);
-			data.mlfrontAddressOne.addressPost && $('.shipping-item.postcode .value').html(data.mlfrontAddressOne.addressPost);
-			data.mlfrontAddressOne.addressDetail && $('.shipping-item.address .value').html(data.mlfrontAddressOne.addressDetail);
+			$('.shipping-item.firstname .value').html(data.mlfrontAddressOne.addressUserfirstname || '');
+			$('.shipping-item.lastname .value').html(data.mlfrontAddressOne.addressUserlastname || '');
+			$('.shipping-item.email .value').html(data.mlfrontAddressOne.addressEmail || '');
+			$('.shipping-item.phone .value').html(data.mlfrontAddressOne.addressTelephone || '');
+			$('.shipping-item.country .value').html(data.mlfrontAddressOne.addressCountry + ' ('+ data.mlfrontAddressOne.addressCountryCode +')');
+			$('.shipping-item.province .value').html(data.mlfrontAddressOne.addressProvince + ' ('+ data.mlfrontAddressOne.addressProvincecode +')');
+			$('.shipping-item.city .value').html(data.mlfrontAddressOne.addressCity || '');
+			$('.shipping-item.postcode .value').html(data.mlfrontAddressOne.addressPost || '');
+			$('.shipping-item.address .value').html(data.mlfrontAddressOne.addressDetail || '');
 			// billing
-			data.mlPaypalShipAddressOne.shippingaddressPaymentid && $('.billing-item.paymentid .value').html(data.mlPaypalShipAddressOne.shippingaddressPaymentid);
-			data.mlPaypalShipAddressOne.shippingaddressRecipientName && $('.billing-item.username .value').html(data.mlPaypalShipAddressOne.shippingaddressRecipientName);
-			data.mlPaypalShipAddressOne.shippingaddressEmail && $('.billing-item.email .value').html(data.mlPaypalShipAddressOne.shippingaddressEmail);
-			data.mlPaypalShipAddressOne.shippingaddressCountryCode && $('.billing-item.country .value').html(data.mlPaypalShipAddressOne.shippingaddressCountryCode);
-			data.mlPaypalShipAddressOne.shippingaddressCity && $('.billing-item.city .value').html(data.mlPaypalShipAddressOne.shippingaddressCity);
-			data.mlPaypalShipAddressOne.shippingaddressState && $('.billing-item.province .value').html(data.mlPaypalShipAddressOne.shippingaddressState);
-			data.mlPaypalShipAddressOne.shippingaddressPostalCode && $('.billing-item.postcode .value').html(data.mlPaypalShipAddressOne.shippingaddressPostalCode);
-			data.mlPaypalShipAddressOne.shippingaddressLine1 && $('.billing-item.line1 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine1);
-			data.mlPaypalShipAddressOne.shippingaddressLine2 && $('.billing-item.line2 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine2);
+			$('.billing-item.paymentid .value').html(data.mlPaypalShipAddressOne.shippingaddressPaymentid || '');
+			$('.billing-item.username .value').html(data.mlPaypalShipAddressOne.shippingaddressRecipientName || '');
+			$('.billing-item.email .value').html(data.mlPaypalShipAddressOne.shippingaddressEmail || '');
+			$('.billing-item.country .value').html(data.mlPaypalShipAddressOne.shippingaddressCountryCode || '');
+			$('.billing-item.city .value').html(data.mlPaypalShipAddressOne.shippingaddressCity || '');
+			$('.billing-item.province .value').html(data.mlPaypalShipAddressOne.shippingaddressState || '');
+			$('.billing-item.postcode .value').html(data.mlPaypalShipAddressOne.shippingaddressPostalCode || '');
+			$('.billing-item.line1 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine1 || '');
+			$('.billing-item.line2 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine2 || '');
 		}
 		// callback order list
 		function renderOrderList(data) {
@@ -394,7 +394,7 @@
 						'</div>' +
 					'</div>';
 			});
-			$('.order-list').html(htmlStr);
+			$('.order-list').html(htmlStr || 'no product for order...');
 		}
 		//  callback get all
 		function getOrdersData(val) {
