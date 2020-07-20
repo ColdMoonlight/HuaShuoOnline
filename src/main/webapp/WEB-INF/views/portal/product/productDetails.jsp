@@ -706,7 +706,7 @@
 		}
 		// product share
 		$('.share-item').on('click', function() {
-			window.open($(this).data('url') + encodeURIComponent('https://megalook.com/B-3-Bundles-with-4x4-Closure-Deep-Wave.html'));
+			window.open($(this).data('url') + encodeURIComponent(window.location.href));
 		});
 		// add product
 		$('#product-num-add').on('click', function() {
