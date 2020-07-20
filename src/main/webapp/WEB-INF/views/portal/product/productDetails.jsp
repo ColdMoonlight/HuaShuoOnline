@@ -55,16 +55,7 @@
 				</div>
 				<div class="product-details">
 					<div class="product-name"></div>
-					<div class="product-coupons">
-						<!-- <img class="left" src="http://megalook.com:80/static/img/CouponDescTitle/couponTitlepcId1time8154942.jpg">
-						<div class="right">
-							<div class="title">Mid-Year Sale  Screaming Price</div>
-							<ul class="body">
-								<li>Extra&nbsp;<span>&nbsp;6% Off&nbsp;</span>&nbsp;With No Limit, Code :&nbsp;<b>&nbsp;MY6</b></li>
-								<li>Over $99&nbsp;<span>&nbsp;Get Extra 12%&nbsp;</span>&nbsp;Off ! Code :&nbsp;<b>&nbsp;MY12</b></li>
-							</ul>
-						</div> -->
-					</div>
+					<div class="product-coupons hide"></div>
 					<div class="product-options"></div>
 					<div class="product-price"></div>
 					<div class="product-operate">
@@ -682,9 +673,7 @@
 			productName = data.proudctName;
 			renderProductDetails(data);
 			// coupon area list			
-			getCouponAreaData(function(data) {
-				renderCouponAreaData($('.product-coupons'), data);
-			});
+			getCouponAreaData(renderCouponAreaData);
 			// option
 			getProductOption(function(data) {
 				renderProductOptions(data);

@@ -96,7 +96,7 @@ function renderProductOptions(data, selectedRadioArr) {
 /* get coupon area data */
 function getCouponAreaData(callback) {
 	$.ajax({
-		url: '${APP_PATH}/MlbackCouponDescTitle/getMlbackCouponDescTitlepcListByStatus',
+		url: '${APP_PATH}/MlbackCouponDescTitle/getMlbackCouponDescTitleListByStatus',
 		contentType: 'application/json',
 		type: "post",
 		async: false,
@@ -109,7 +109,7 @@ function getCouponAreaData(callback) {
 }
 
 /* render coupon area */
-function renderCouponAreaData($el, data) {
+function renderCouponAreaData(data) {
 	function generateCouponAreaDetailsListData(data) {
 		var html = '';
 		data.forEach(function(item, idx) {
@@ -117,14 +117,19 @@ function renderCouponAreaData($el, data) {
 		});
 		return html;
 	}
-	
-	var htmlStr = '<div class="left lazyload wap" data-src="'+  data.mlbackCouponDescTitleList[0].coupondesctieleWapimgurl +'"></div>' +
-				'<div class="left lazyload pc" data-src="'+  data.mlbackCouponDescTitleList[0].coupondesctielePcimgurl +'"></div>' +
+	var $el = $('.product-coupons');
+	var htmlStr = '<div class="left lazyload" data-src="'+  data.mlbackCouponDescTitleList[0].coupondesctieleImgurl +'"></div>' +
 				'<div class="right">' +
 			'<div class="title">'+ data.mlbackCouponDescTitleList[0].coupondesctieleTieledetail +'</div>' +
 			'<ul class="body">' + generateCouponAreaDetailsListData(data.mlbackCouponDescDetailList) + '</ul>' +
 		'</div>';
+	
 	$el.html(htmlStr);
+	
+	if (data.mlbackCouponDescTitleList[0].coupondesctieleStatus) {
+		$el.removeClass('hide');
+	}
+	
 	new LazyLoad($el.find('.lazyload'), {
 		root: null,
 		rootMargin: "10px",
