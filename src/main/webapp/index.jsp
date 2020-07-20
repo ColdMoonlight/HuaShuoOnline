@@ -95,8 +95,8 @@
 						itemSeo = item.slidePageseoname;
 					}
 					itemLink = item.slideIfinto ? '${APP_PATH}/' + itemSeo + '.html' : 'javascript:;';
-					htmlStr += '<a class="'+ tagCls +'-item shadow-radius wap lazyload" href="'+ itemLink +'" data-src="'+ item.slideWapimgurl +'"></a>' +
-						'<a class="'+ tagCls +'-item pc shadow-radius lazyload" href="'+ itemLink +'" data-src="'+ item.slidePcimgurl +'"></a>';
+					htmlStr += (item.slideWapstatus ? '<a class="'+ tagCls +'-item shadow-radius wap lazyload" href="'+ itemLink +'" data-src="'+ item.slideWapimgurl +'"></a>' : '') +
+						(item.slideWapstatus ? '<a class="'+ tagCls +'-item pc shadow-radius lazyload" href="'+ itemLink +'" data-src="'+ item.slidePcimgurl +'"></a>' : '');
 				});
 				$el.html(htmlStr);
 			}
@@ -225,7 +225,7 @@
 				var productSlide = generateSwiperSlideProduct(data).addClass('showaera-container');
 				$el.append(productSlide)
 				new Swiper(('.' + typeCls + ' .swiper-container'), {
-					slidesPerView: (window.innerWidth > 575 ? 4 : 2),
+					slidesPerView: 'auto',
 					spaceBetween: 5,
 					freeMode: true,
 					navigation: {

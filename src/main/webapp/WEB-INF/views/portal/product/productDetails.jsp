@@ -56,14 +56,14 @@
 				<div class="product-details">
 					<div class="product-name"></div>
 					<div class="product-coupons">
-						<img class="left" src="http://megalook.com:80/static/img/CouponDescTitle/couponTitlepcId1time8154942.jpg">
+						<!-- <img class="left" src="http://megalook.com:80/static/img/CouponDescTitle/couponTitlepcId1time8154942.jpg">
 						<div class="right">
 							<div class="title">Mid-Year Sale  Screaming Price</div>
 							<ul class="body">
 								<li>Extra&nbsp;<span>&nbsp;6% Off&nbsp;</span>&nbsp;With No Limit, Code :&nbsp;<b>&nbsp;MY6</b></li>
 								<li>Over $99&nbsp;<span>&nbsp;Get Extra 12%&nbsp;</span>&nbsp;Off ! Code :&nbsp;<b>&nbsp;MY12</b></li>
 							</ul>
-						</div>
+						</div> -->
 					</div>
 					<div class="product-options"></div>
 					<div class="product-price"></div>
@@ -77,7 +77,7 @@
 					</div>
 					<div class="product-pay paypal-button-container">
 						<div class="btn paypal-button btn-primary" id="add-to-cart">Add To Cart</div>
-		   				<div class="btn paypal-button btn-black" id="buy-now">Buy Now</div>
+		   				<div class="btn paypal-button btn-black buy-now">Buy Now</div>
 						<!-- <div title="paypal" class="btn paypal-button paypal-now paypal-button-paypal"></div>
 				        <div title="credit" class="btn paypal-button paypal-now paypal-button-credit"></div> -->
 					</div>
@@ -124,6 +124,9 @@
 						<div class="product-review-body">
 							<div class="product-review-list"></div>
 							<div id="table-pagination"></div>
+						</div>
+						<div class="loader-box" id="loader-box">
+							<div class="loader"></div>
 						</div>
 					</div>
 				</div>
@@ -412,7 +415,46 @@
 				}
 			});			
 		}
-
+		// callback to cart or checkout
+		function selectCartOrCheckout(data) {
+			var cartCheckoutHtml = '<div class="cart-checkout-product">' +
+					'<div class="lazyload" data-src="'+ data.cartitemProductMainimgurl +'"></div>' +
+					'<div class="cart-checkout-data">' +
+						'<div class="cart-checkout-productname">'+ data.cartitemProductName +'</div>' +
+						'<div class="cart-checkout-productprice">' +
+							'<div class="name">Price: </div>' +
+							'<div class="value">$'+ ((data.cartitemProductOriginalprice + parseFloat(data.cartitemProductskuMoneystr)) * data.cartitemProductActoff / 100).toFixed(2) +'</div>' +
+						'</div>' +
+						'<div class="btn-group">' +
+							'<a class="btn" href="javascript:goToCartList();">View Cart</a>' +
+							'<a class="btn btn-pink buy-now">Checkout</a>' +
+						'</div>' +
+					'</div>' +
+				'</div>';
+			var cartOrCheckoutModal = createModal({
+				header: {
+					html: '<p>Product successfully added to your cart!</p>'
+				},
+    			body: {
+    				html: cartCheckoutHtml,
+    			},
+    			footer: {
+    				isShow: true,
+    				html: 'Free Gift For Every Order!'
+    			},
+    			autoClose: false
+    		});
+			new LazyLoad(cartOrCheckoutModal.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			});
+			cartOrCheckoutModal.addClass('cart-checkout');
+			
+			setTimeout(function() {
+				removeModal(cartOrCheckoutModal);
+			}, 5000);
+		}
 		// to pay instance
 		function toPayInstance(reqData) {
 			$.ajax({
@@ -482,6 +524,7 @@
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/json',
+				async: false,
 				success: function (data) {
 					if (data.code == 100) {
 						var pageInfo = data.extend.pageInfo;
@@ -530,7 +573,7 @@
 			for (var i = 0, len = reviewList.length; i < len; i++) {
 				htmlStr += '<div class="product-review-item">' +
 						'<div class="product-review-item-title">' +
-							'<img src="' + reviewList[i].reviewUimgurl + '" alt="'+ reviewList[i].reviewUname +'">' +
+							'<div class="product-reivewer-img lazyload" data-src="' + reviewList[i].reviewUimgurl + '"></div>' +
 							'<div class="product-review-item-data">' +
 								'<div class="product-review-stars">';
 								for (var j = 0; j < 5; j++) {
@@ -549,11 +592,17 @@
 					'<div class="product-review-item-imgs">';
 						var imgLen = imgList[i].length <= 6 ? imgList[i].length : 6;
 						for (var k = 0; k < imgLen; k++) {
-							htmlStr += '<div class="product-review-imgs-item"><img src="' + imgList[i][k] + '"></div>';
+							htmlStr += '<div class="product-review-imgs-item lazyload" data-src="' + imgList[i][k] + '"></div>';
 						}
 						htmlStr += '</div></div>';
 			}
 			$('.product-review-list').html(htmlStr);
+			
+			new LazyLoad($('.product-review-list .lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			})
 		}
 		// callback delete revie id
 		function deleteReviewId() {
@@ -612,7 +661,7 @@
 			});
 		}
 		// varients
-		var mediaData = {}, productData = {}, mainUrl, reviewSwiper, reviewModal, reviewId;
+		var mediaData = {}, productData = {}, mainUrl, reviewSwiper, reviewModal, reviewId, hasReivewData = false;
 		// initial
 		getProductDetails(function(data) {
 			mainUrl = data.productMainimgurl;
@@ -632,6 +681,10 @@
 			productSeo = data.productSeo;
 			productName = data.proudctName;
 			renderProductDetails(data);
+			// coupon area list			
+			getCouponAreaData(function(data) {
+				renderCouponAreaData($('.product-coupons'), data);
+			});
 			// option
 			getProductOption(function(data) {
 				renderProductOptions(data);
@@ -640,17 +693,6 @@
 			getProductSkus(function(data) {
 				data.length && buildResult(data);				
 			});
-		});
-		// review count
-		getReviewCalData(function(data) {
-			$('.product-review-total span').text(data.allReviewNum);
-			renderProudctReviewCal(data);
-		});
-		// review list
-		getReviewListData();
-		// pagination a-click
-		$(document.body).on('click', '#table-pagination li', function (e) {
-			getReviewListData();
 		});
 		// event
 		$(window).on('resize', imageZoomEvent);
@@ -677,7 +719,24 @@
 		// product-body product-tab
 		$('.product-tab-item').on('click', function() {
 			var $this = $(this);
-			if (!$this.hasClass('active')) $('.product-tab-container[data-name="'+ $this.data('name') +'"]').addClass('active').siblings().removeClass('active');
+			var tabName = $this.data('name');
+			if (!$this.hasClass('active')) $('.product-tab-container[data-name="'+ tabName +'"]').addClass('active').siblings().removeClass('active');
+			if (tabName == 'review' && !hasReivewData) {
+				// review count
+				getReviewCalData(function(data) {
+					$('.product-review-total span').text(data.allReviewNum);
+					renderProudctReviewCal(data);
+				});
+				// review list
+				getReviewListData();
+				// change review state
+				hasReivewData = true;
+				$('#loader-box').hide();
+			}
+		});
+		// pagination a-click
+		$(document.body).on('click', '#table-pagination li', function (e) {
+			getReviewListData();
 		});
 		// add to cart
 		$('#add-to-cart').on('click', function(evt) {
@@ -696,13 +755,14 @@
 							generateFlyBubble(evt, updateProructNumberInCart);							
 						} else {
 							updateProructNumberInCart();
+							selectCartOrCheckout(reqData);
 						}
 					});
 				}
 			}, 300);
 		});
 		// buy now
-		$('#buy-now').on('click', function() {
+		$(document.body).on('click', '.buy-now', function() {
 			var reqData = getProductData();
 			isCorrectProduct() && reqData && toBuyNow(reqData, goToCheckout);
 		});
@@ -712,11 +772,11 @@
 		});
 		// open reiview swiper
 		$(document.body).on('click', '.product-review-imgs-item', function() {
-			var activeImg = $(this).find('img')[0].src;
+			var activeImg = $(this).find('.lazyload').data('src');
 			var activeNum = 0;
 			var imgs = [];
-			$(this).parent().find('img').each(function(idx, item) {
-				var img = item.src;
+			$(this).parent().find('.lazyload').each(function(idx, item) {
+				var img = $(item).data('src');
 				if (img == activeImg) activeNum = idx;
 				imgs.push(img);
 			});

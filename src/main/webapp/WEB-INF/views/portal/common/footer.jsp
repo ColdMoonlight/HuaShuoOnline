@@ -93,6 +93,44 @@ function renderProductOptions(data, selectedRadioArr) {
 	});
 }
 
+/* get coupon area data */
+function getCouponAreaData(callback) {
+	$.ajax({
+		url: '${APP_PATH}/MlbackCouponDescTitle/getMlbackCouponDescTitlepcListByStatus',
+		contentType: 'application/json',
+		type: "post",
+		async: false,
+		success: function (data) {
+			if (data.code == 100) {
+				callback && callback(data.extend);
+			}
+		}
+	});
+}
+
+/* render coupon area */
+function renderCouponAreaData($el, data) {
+	function generateCouponAreaDetailsListData(data) {
+		var html = '';
+		data.forEach(function(item, idx) {
+			html += '<li>'+ item.coupondescdetailStrengthpre +'&nbsp;<span>&nbsp;'+ item.coupondescdetailStrength +'&nbsp;</span>&nbsp;'+ item.coupondescdetailCodepre +'&nbsp;<b>&nbsp;'+ item.coupondescdetailCode +'</b></li>';
+		});
+		return html;
+	}
+	
+	var htmlStr = '<div class="left lazyload wap" data-src="'+  data.mlbackCouponDescTitleList[0].coupondesctieleWapimgurl +'"></div>' +
+				'<div class="left lazyload pc" data-src="'+  data.mlbackCouponDescTitleList[0].coupondesctielePcimgurl +'"></div>' +
+				'<div class="right">' +
+			'<div class="title">'+ data.mlbackCouponDescTitleList[0].coupondesctieleTieledetail +'</div>' +
+			'<ul class="body">' + generateCouponAreaDetailsListData(data.mlbackCouponDescDetailList) + '</ul>' +
+		'</div>';
+	$el.html(htmlStr);
+	new LazyLoad($el.find('.lazyload'), {
+		root: null,
+		rootMargin: "10px",
+		threshold: 0
+	});
+}
 /* product sku-list status=1 */
 function getProductSkus(callback) {
 	$.ajax({
@@ -107,7 +145,7 @@ function getProductSkus(callback) {
 		async: false,
 		success: function (data) {
 			if (data.code == 100) {
-				callback(data.extend.mlbackProductSkuResList);
+				callback && callback(data.extend.mlbackProductSkuResList);
 			}
 		}
 	});
@@ -530,8 +568,8 @@ function generateSwiperSlideProduct(data) {
 					'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
 				'</div>' +
 				'<div class="product-price">' +
-					'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
 					'<span class="product-define-price">$'+ (item.productOriginalprice || 0) +'</span>' +
+					'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
 				'</div>' +
 			'</div>' +
 		'</div>';
@@ -545,8 +583,8 @@ function renderIntroduceProductSlide($el, data) {
 	var productSlide = generateSwiperSlideProduct(data).addClass('introduce-product');
 	$el.append('<div class="introduce-product-title">YOU MIGHT ALSO LIKE<div>');
 	$el.append(productSlide)
-	new Swiper('.introduce-product.swiper-container', {
-		slidesPerView: (window.innerWidth > 575 ? 4 : 2),
+	var productSwiper = new Swiper('.introduce-product.swiper-container', {
+		slidesPerView: 'auto',
 		spaceBetween: 5,
 		freeMode: true,
 		autoplay: {
@@ -561,6 +599,13 @@ function renderIntroduceProductSlide($el, data) {
 		pagination: {
 			el: '.introduce-product .swiper-pagination',
 			clickable: true
+		},
+		on: {
+		    resize: function(){
+		    	console.log(productSwiper)
+		    	productSwiper.slidesPerView = (window.innerWidth > 799 ? 4 : 2);
+		    	productSwiper.updateSlidesOffset();
+		    }, 
 		}
 	});
 }

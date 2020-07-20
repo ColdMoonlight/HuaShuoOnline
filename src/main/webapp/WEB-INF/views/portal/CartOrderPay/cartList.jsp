@@ -108,14 +108,14 @@
 					nowPrice = definePrice * item.cartitemProductActoff / 100;
 				}
 				$cartList.append($('<div class="cart-item">' +
-					'<a href="'+ productLink +'"><img class="cart-img" src="'+ item.cartitemProductMainimgurl +'"></a>' +
+					'<a href="'+ productLink +'" class="cart-img lazyload" data-src="'+ item.cartitemProductMainimgurl +'"></a>' +
 					'<div class="cart-product">' +
 						'<a class="cart-product-name" href="'+ productLink +'">'+ item.cartitemProductName +'</a>' +
 						'<div class="cart-sku-list">'+ cartSkuList +'</div>' +
 						'<div class="cart-product-num">' +
 							'<div class="cart-product-price">' +
-								'<span class="product-now-price">$'+ nowPrice.toFixed(2) +'</span>' +
 								'<span class="product-define-price">$'+ definePrice.toFixed(2) +'</span>' +
+								'<span class="product-now-price">$'+ nowPrice.toFixed(2) +'</span>' +
 							'</div>' +
 							'<span class="icon delete product-delete">' + '</span>' +
 							'<div class="product-qty">' +
@@ -139,6 +139,12 @@
 		        '</div>' + */
 			'</div>');
 			$('main .container').append($cartHeader).append($('<div class="cart-body" />').append($cartList).append($cartCal));
+
+			new LazyLoad($cartList.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			})
 		}
 		// cal cartList data
 		function calCartList (els) {

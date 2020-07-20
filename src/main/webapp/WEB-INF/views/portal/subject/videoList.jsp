@@ -4,7 +4,7 @@
 <html>
 
 <head>
-    <title>Customer Voice</title>
+    <title>Customer Video</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>
 		@media only screen and (max-width: 1023px) {
