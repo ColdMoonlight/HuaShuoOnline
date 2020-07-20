@@ -39,6 +39,7 @@ public class ImageNameUtil {
 			typeName="couponDescTitle";
 		}
 		
+		
 		return typeName;
 	}
 	
