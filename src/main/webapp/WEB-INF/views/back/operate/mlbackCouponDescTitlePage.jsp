@@ -31,10 +31,8 @@
 										<th>id</th>
 										<th>Name</th>
 										<th>details</th>
-										<th>wap-image</th>
-										<th>wap-status</th>
-										<th>pc-image</th>
-										<th>pc-status</th>
+										<th>image</th>
+										<th>status</th>
 										<th>create-time</th>
 										<th>update-time</th>
 										<th>operate</th>
@@ -77,19 +75,10 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="coupondesctieleWapstatus">Wap Status</label>
+										<label class="col-md-3 col-form-label" for="coupondesctieleStatus">Status</label>
 										<div class="controls col-md-3">
 											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="coupondesctieleWapstatus" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="coupondesctielePcstatus">Pc Status</label>
-										<div class="controls col-md-3">
-											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="coupondesctielePcstatus" type="checkbox">
+												<input class="c-switch-input" id="coupondesctieleStatus" type="checkbox">
 												<span class="c-switch-slider"></span>
 											</label>
 										</div>
@@ -104,27 +93,12 @@
 								<div class="card-body">
 									<div class="row">
 										<div class="col-lg-6 col-md-6">
-											<h3>Wap Image</h3>
 											<div class="c-upload-img">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 												</svg>
 												<div class="c-backshow"></div>						
-												<input id="coupondesctieleWapimgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
-												<!-- spinner -->
-												<div class="spinner">
-													<div class="spinner-border" role="status" aria-hidden="true"></div>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6">
-											<h3>Pc Image</h3>
-											<div class="c-upload-img">
-												<svg class="c-icon">
-													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-												</svg>
-												<div class="c-backshow"></div>						
-												<input id="coupondesctielePcimgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+												<input id="coupondesctieleImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 												<!-- spinner -->
 												<div class="spinner">
 													<div class="spinner-border" role="status" aria-hidden="true"></div>
@@ -199,52 +173,17 @@
 			});
 		});
 		// upload picture
-		$('#coupondesctielePcimgurl').on('change', function(e) {
+		$('#coupondesctieleImgurl').on('change', function(e) {
 			var $this = $(this);
 			$this.parent().find('.spinner').show();
 	
 			var formData = new FormData();
-			formData.append('type', 'couponDescTitlePc');
+			formData.append('type', 'couponDescTitle');
 			formData.append('image', $this[0].files[0]);
 			formData.append('coupondesctieleId', parseInt($('#coupondesctieleId').val()));
 	
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/couponDescTitlePc",
-				type: "post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				cache: false,
-				dataType: 'json',
-				success: function (data) {
-					if (data.code == 100) {
-						addPicture($this, {
-							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl
-						});
-					} else {
-						toastr.error('网络错误， 请稍后重试！');	
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$this.parent().find('.spinner').hide();
-				}
-			});
-		});
-		$('#coupondesctieleWapimgurl').on('change', function(e) {
-			var $this = $(this);
-			$this.parent().find('.spinner').show();
-	
-			var formData = new FormData();
-			formData.append('type', 'couponDescTitleWap');
-			formData.append('image', $this[0].files[0]);
-			formData.append('coupondesctieleId', parseInt($('#coupondesctieleId').val()));
-	
-			$.ajax({
-				url: "${APP_PATH}/ImageUpload/couponDescTitleWap",
+				url: "${APP_PATH}/ImageUpload/couponDescTitle",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -321,11 +260,9 @@
 			$('#coupondesctieleId').val('');
 			$('#coupondesctieleName').val('');
 			$('#coupondesctieleTieledetail').val('');
-			$('#coupondesctieleWapstatus').prop('checked', false);
-			$('#coupondesctielePcstatus').prop('checked', false);
+			$('#coupondesctieleStatus').prop('checked', false);
 	
-			resetPicture($('#coupondesctieleWapimgurl'));
-			resetPicture($('#coupondesctielePcimgurl'));
+			resetPicture($('#coupondesctieleImgurl'));
 		}
 		// getFormdData
 		function getFormData() {
@@ -333,11 +270,9 @@
 			data.coupondesctieleId = parseInt($('#coupondesctieleId').val());
 			data.coupondesctieleName = $('#coupondesctieleName').val();
 			data.coupondesctieleTieledetail = $('#coupondesctieleTieledetail').val();
-			data.coupondesctieleWapstatus = $('#coupondesctieleWapstatus').prop('checked') ? 1 : 0;
-			data.coupondesctielePcstatus = $('#coupondesctielePcstatus').prop('checked') ? 1 : 0;
+			data.coupondesctieleStatus = $('#coupondesctieleStatus').prop('checked') ? 1 : 0;
 	
-			data.coupondesctieleWapimgurl = $('#coupondesctieleWapimgurl').attr('data-val') && JSON.parse($('#coupondesctieleWapimgurl').attr('data-val')).imageUrl;
-			data.coupondesctielePcimgurl = $('#coupondesctielePcimgurl').attr('data-val') && JSON.parse($('#coupondesctielePcimgurl').attr('data-val')).imageUrl;
+			data.coupondesctieleImgurl = $('#coupondesctieleImgurl').attr('data-val') && JSON.parse($('#coupondesctieleImgurl').attr('data-val')).imageUrl;
 	
 			return data;
 		}
@@ -347,23 +282,14 @@
 			$('#coupondesctieleId').val(data.coupondesctieleId || '');
 			$('#coupondesctieleName').val(data.coupondesctieleName || '');
 			$('#coupondesctieleTieledetail').val(data.coupondesctieleTieledetail || '');
-			$('#coupondesctieleWapstatus').prop('checked', data.coupondesctieleWapstatus);
-			$('#coupondesctielePcstatus').prop('checked', data.coupondesctielePcstatus);
+			$('#coupondesctieleStatus').prop('checked', data.coupondesctieleStatus);
 	
-			if (data.coupondesctieleWapimgurl) {
-				addPicture($('#coupondesctieleWapimgurl'), {
-					imageUrl: data.coupondesctieleWapimgurl
+			if (data.coupondesctieleImgurl) {
+				addPicture($('#coupondesctieleImgurl'), {
+					imageUrl: data.coupondesctieleImgurl
 				});	
 			} else {
-				resetPicture($('#coupondesctieleWapimgurl'));
-			}
-	
-			if (data.coupondesctielePcimgurl) {
-				addPicture($('#coupondesctielePcimgurl'), {
-					imageUrl: data.coupondesctielePcimgurl
-				});				
-			} else {
-				resetPicture($('#coupondesctielePcimgurl'));
+				resetPicture($('#coupondesctieleImgurl'));
 			}
 	
 		}
@@ -378,7 +304,7 @@
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.mlbackCouponDescTitleOne)
+						callback && callback(data.extend.mlbackCouponDescTitle)
 						toastr.success(data.extend.resMsg);
 					} else {
 						showInitBlock();
@@ -509,16 +435,11 @@
 				htmlStr += '<tr><td>' + data[i].coupondesctieleId + '</td>' +
 					'<td>' + data[i].coupondesctieleName + '</td>' +
 					'<td>' + data[i].coupondesctieleTieledetail + '</td>' +
-					'<td>' + (data[i].coupondesctieleWapimgurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].coupondesctieleWapimgurl) +'" /></div>'
+					'<td>' + (data[i].coupondesctieleImgurl ?
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].coupondesctieleImgurl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
-					'<td><a class="badge '+ (data[i].coupondesctieleWapstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].coupondesctieleWapstatus ? 'enable' : 'disable') + '</a></td>' +
-					'<td>' + (data[i].coupondesctielePcimgurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].coupondesctielePcimgurl) +'" /></div>'
-							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
-					'</td>' +
-					'<td><a class="badge '+ (data[i].coupondesctielePcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].coupondesctielePcstatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td><a class="badge '+ (data[i].coupondesctieleStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].coupondesctieleStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].coupondesctieleCreatetime + '</td>' +
 					'<td>' + data[i].coupondesctieleMotifytime + '</td>' +
 					'<td>' +
