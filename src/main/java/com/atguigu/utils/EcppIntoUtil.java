@@ -193,7 +193,7 @@ public class EcppIntoUtil {
 		ecppOrder.setCountryCode(mlfrontAddressToPay.getAddressCountryCode());
 		ecppOrder.setZipcode(mlfrontAddressToPay.getAddressPost());
 		ecppOrder.setTel(mlfrontAddressToPay.getAddressTelephone());
-		
+		//封装pro产品字段
 		List<ecppItem> ecppItemList = new ArrayList<ecppItem>();
 		for(MlfrontOrderItem mlfrontOrderItem:mlfrontOrderItemEcppNeedList){
 			ecppItem ecppItemOne = new ecppItem();
