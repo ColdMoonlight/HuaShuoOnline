@@ -723,9 +723,9 @@ public class ImageUploadController {
 	/**
 	 * 	onuse	20200103	检查
 	 * */
-	@RequestMapping(value="/couponDescTitleWap",method=RequestMethod.POST)
+	@RequestMapping(value="/couponDescTitle",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg couponDescTitleWap(@RequestParam("image")CommonsMultipartFile file,
+	public Msg couponDescTitle(@RequestParam("image")CommonsMultipartFile file,
 			@RequestParam("coupondesctieleId")Integer coupondesctieleId,@RequestParam("type")String type,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
@@ -755,49 +755,10 @@ public class ImageUploadController {
 
 		MlbackCouponDescTitle mlbackCouponDescTitle = new MlbackCouponDescTitle();
 		mlbackCouponDescTitle.setCoupondesctieleId(coupondesctieleId);
-		mlbackCouponDescTitle.setCoupondesctieleWapimgurl(sqlimageUrl);
+		mlbackCouponDescTitle.setCoupondesctieleImgurl(sqlimageUrl);
 		mlbackCouponDescTitleService.updateByPrimaryKeySelective(mlbackCouponDescTitle);
 		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
 	}
-	/**
-	 * 	onuse	20200103	检查
-	 * */
-	@RequestMapping(value="/couponDescTitlePc",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg couponDescTitlePc(@RequestParam("image")CommonsMultipartFile file,
-			@RequestParam("coupondesctieleId")Integer coupondesctieleId,@RequestParam("type")String type,
-			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
-		
-		//判断参数,确定信息
-		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
-		
-		String coupondesctieleIdIdStr = coupondesctieleId+"";
-		String imgName = ImageNameUtil.getfilename(typeName,coupondesctieleIdIdStr);
-		
-		//当前服务器路径
-		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
-        System.out.println("basePathStr:"+basePathStr);
-		
-		String uploadPath = "static/upload/img/CouponDescTitle";
-		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
-				
-		String imageUrl ="";
-		String sqlimageUrl="";
-		try {
-			
-			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
-			sqlimageUrl=basePathStr+imageUrl;
-			System.out.println("sqlimageUrl:"+sqlimageUrl);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
-		MlbackCouponDescTitle mlbackCouponDescTitle = new MlbackCouponDescTitle();
-		mlbackCouponDescTitle.setCoupondesctieleId(coupondesctieleId);
-		mlbackCouponDescTitle.setCoupondesctielePcimgurl(sqlimageUrl);
-		mlbackCouponDescTitleService.updateByPrimaryKeySelective(mlbackCouponDescTitle);
-		
-		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
-	}
 }

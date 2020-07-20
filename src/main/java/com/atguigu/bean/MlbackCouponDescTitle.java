@@ -7,13 +7,9 @@ public class MlbackCouponDescTitle {
 
     private String coupondesctieleTieledetail;
 
-    private Integer coupondesctieleWapstatus;
+    private Integer coupondesctieleStatus;
 
-    private String coupondesctieleWapimgurl;
-
-    private Integer coupondesctielePcstatus;
-
-    private String coupondesctielePcimgurl;
+    private String coupondesctieleImgurl;
 
     private String coupondesctieleCreatetime;
 
@@ -43,39 +39,23 @@ public class MlbackCouponDescTitle {
         this.coupondesctieleTieledetail = coupondesctieleTieledetail == null ? null : coupondesctieleTieledetail.trim();
     }
 
-    public Integer getCoupondesctieleWapstatus() {
-        return coupondesctieleWapstatus;
-    }
+    public Integer getCoupondesctieleStatus() {
+		return coupondesctieleStatus;
+	}
 
-    public void setCoupondesctieleWapstatus(Integer coupondesctieleWapstatus) {
-        this.coupondesctieleWapstatus = coupondesctieleWapstatus;
-    }
+	public void setCoupondesctieleStatus(Integer coupondesctieleStatus) {
+		this.coupondesctieleStatus = coupondesctieleStatus;
+	}
 
-    public String getCoupondesctieleWapimgurl() {
-        return coupondesctieleWapimgurl;
-    }
+	public String getCoupondesctieleImgurl() {
+		return coupondesctieleImgurl;
+	}
 
-    public void setCoupondesctieleWapimgurl(String coupondesctieleWapimgurl) {
-        this.coupondesctieleWapimgurl = coupondesctieleWapimgurl == null ? null : coupondesctieleWapimgurl.trim();
-    }
+	public void setCoupondesctieleImgurl(String coupondesctieleImgurl) {
+		this.coupondesctieleImgurl = coupondesctieleImgurl == null ? null : coupondesctieleImgurl.trim();
+	}
 
-    public Integer getCoupondesctielePcstatus() {
-        return coupondesctielePcstatus;
-    }
-
-    public void setCoupondesctielePcstatus(Integer coupondesctielePcstatus) {
-        this.coupondesctielePcstatus = coupondesctielePcstatus;
-    }
-
-    public String getCoupondesctielePcimgurl() {
-        return coupondesctielePcimgurl;
-    }
-
-    public void setCoupondesctielePcimgurl(String coupondesctielePcimgurl) {
-        this.coupondesctielePcimgurl = coupondesctielePcimgurl == null ? null : coupondesctielePcimgurl.trim();
-    }
-
-    public String getCoupondesctieleCreatetime() {
+	public String getCoupondesctieleCreatetime() {
         return coupondesctieleCreatetime;
     }
 
@@ -96,17 +76,14 @@ public class MlbackCouponDescTitle {
 	}
 
 	public MlbackCouponDescTitle(Integer coupondesctieleId, String coupondesctieleName,
-			String coupondesctieleTieledetail, Integer coupondesctieleWapstatus, String coupondesctieleWapimgurl,
-			Integer coupondesctielePcstatus, String coupondesctielePcimgurl, String coupondesctieleCreatetime,
-			String coupondesctieleMotifytime) {
+			String coupondesctieleTieledetail, Integer coupondesctieleStatus, String coupondesctieleImgurl,
+			String coupondesctieleCreatetime, String coupondesctieleMotifytime) {
 		super();
 		this.coupondesctieleId = coupondesctieleId;
 		this.coupondesctieleName = coupondesctieleName;
 		this.coupondesctieleTieledetail = coupondesctieleTieledetail;
-		this.coupondesctieleWapstatus = coupondesctieleWapstatus;
-		this.coupondesctieleWapimgurl = coupondesctieleWapimgurl;
-		this.coupondesctielePcstatus = coupondesctielePcstatus;
-		this.coupondesctielePcimgurl = coupondesctielePcimgurl;
+		this.coupondesctieleStatus = coupondesctieleStatus;
+		this.coupondesctieleImgurl = coupondesctieleImgurl;
 		this.coupondesctieleCreatetime = coupondesctieleCreatetime;
 		this.coupondesctieleMotifytime = coupondesctieleMotifytime;
 	}
@@ -115,10 +92,9 @@ public class MlbackCouponDescTitle {
 	public String toString() {
 		return "MlbackCouponDescTitle [coupondesctieleId=" + coupondesctieleId + ", coupondesctieleName="
 				+ coupondesctieleName + ", coupondesctieleTieledetail=" + coupondesctieleTieledetail
-				+ ", coupondesctieleWapstatus=" + coupondesctieleWapstatus + ", coupondesctieleWapimgurl="
-				+ coupondesctieleWapimgurl + ", coupondesctielePcstatus=" + coupondesctielePcstatus
-				+ ", coupondesctielePcimgurl=" + coupondesctielePcimgurl + ", coupondesctieleCreatetime="
-				+ coupondesctieleCreatetime + ", coupondesctieleMotifytime=" + coupondesctieleMotifytime + "]";
+				+ ", coupondesctieleStatus=" + coupondesctieleStatus + ", coupondesctieleImgurl="
+				+ coupondesctieleImgurl + ", coupondesctieleCreatetime=" + coupondesctieleCreatetime
+				+ ", coupondesctieleMotifytime=" + coupondesctieleMotifytime + "]";
 	}
     
 }

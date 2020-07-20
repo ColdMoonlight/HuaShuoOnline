@@ -72,13 +72,8 @@ public class MlbackCouponDescTitleService {
 		return mlbackCouponDescTitleList;
 	}
 
-	public List<MlbackCouponDescTitle> selectMlbackCouponDescTitlewapListByArea(MlbackCouponDescTitle MlbackCouponDescTitle) {
-		List<MlbackCouponDescTitle>  mlbackCouponDescTitleList = mlbackCouponDescTitleMapper.selectMlbackCouponDescTitlewapListByArea(MlbackCouponDescTitle);
-		return mlbackCouponDescTitleList;
-	}
-	
-	public List<MlbackCouponDescTitle> selectMlbackCouponDescTitlepcListByArea(MlbackCouponDescTitle MlbackCouponDescTitle) {
-		List<MlbackCouponDescTitle>  mlbackCouponDescTitleList = mlbackCouponDescTitleMapper.selectMlbackCouponDescTitlepcListByArea(MlbackCouponDescTitle);
+	public List<MlbackCouponDescTitle> selectMlbackCouponDescTitleListByStatus(MlbackCouponDescTitle MlbackCouponDescTitle) {
+		List<MlbackCouponDescTitle>  mlbackCouponDescTitleList = mlbackCouponDescTitleMapper.selectMlbackCouponDescTitleListByStatus(MlbackCouponDescTitle);
 		return mlbackCouponDescTitleList;
 	}
 
