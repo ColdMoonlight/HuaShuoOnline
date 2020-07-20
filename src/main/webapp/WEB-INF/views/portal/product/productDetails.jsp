@@ -569,7 +569,7 @@
 			for (var i = 0, len = reviewList.length; i < len; i++) {
 				htmlStr += '<div class="product-review-item">' +
 						'<div class="product-review-item-title">' +
-							'<img src="' + reviewList[i].reviewUimgurl + '" alt="'+ reviewList[i].reviewUname +'">' +
+							'<div class="product-reivewer-img lazyload" data-src="' + reviewList[i].reviewUimgurl + '"></div>' +
 							'<div class="product-review-item-data">' +
 								'<div class="product-review-stars">';
 								for (var j = 0; j < 5; j++) {
@@ -588,11 +588,17 @@
 					'<div class="product-review-item-imgs">';
 						var imgLen = imgList[i].length <= 6 ? imgList[i].length : 6;
 						for (var k = 0; k < imgLen; k++) {
-							htmlStr += '<div class="product-review-imgs-item"><img src="' + imgList[i][k] + '"></div>';
+							htmlStr += '<div class="product-review-imgs-item lazyload" data-src="' + imgList[i][k] + '"></div>';
 						}
 						htmlStr += '</div></div>';
 			}
 			$('.product-review-list').html(htmlStr);
+			
+			new LazyLoad($('.product-review-list .lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			})
 		}
 		// callback delete revie id
 		function deleteReviewId() {
@@ -756,11 +762,11 @@
 		});
 		// open reiview swiper
 		$(document.body).on('click', '.product-review-imgs-item', function() {
-			var activeImg = $(this).find('img')[0].src;
+			var activeImg = $(this).find('.lazyload').data('src');
 			var activeNum = 0;
 			var imgs = [];
-			$(this).parent().find('img').each(function(idx, item) {
-				var img = item.src;
+			$(this).parent().find('.lazyload').each(function(idx, item) {
+				var img = $(item).data('src');
 				if (img == activeImg) activeNum = idx;
 				imgs.push(img);
 			});
