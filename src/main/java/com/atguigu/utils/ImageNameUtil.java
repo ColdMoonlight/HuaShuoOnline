@@ -35,10 +35,8 @@ public class ImageNameUtil {
 			typeName="VideoShowAreaPc";
 		}else if("VideoYTB".equals(type)){
 			typeName="VideoYTBid";
-		}else if("couponDescTitleWap".equals(type)){
-			typeName="couponDescTitleWap";
-		}else if("couponDescTitlePc".equals(type)){
-			typeName="couponDescTitlePc";
+		}else if("couponDescTitle".equals(type)){
+			typeName="couponDescTitle";
 		}
 		
 		return typeName;

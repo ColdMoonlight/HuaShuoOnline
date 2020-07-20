@@ -23,7 +23,5 @@ public interface MlbackCouponDescTitleMapper {
     //查询全部
 	List<MlbackCouponDescTitle> selectMlbackCouponDescTitleGetAll();
 
-	List<MlbackCouponDescTitle> selectMlbackCouponDescTitlewapListByArea(MlbackCouponDescTitle mlbackCouponDescTitle);
-	
-	List<MlbackCouponDescTitle> selectMlbackCouponDescTitlepcListByArea(MlbackCouponDescTitle mlbackCouponDescTitle);
+	List<MlbackCouponDescTitle> selectMlbackCouponDescTitleListByStatus(MlbackCouponDescTitle mlbackCouponDescTitle);
 }

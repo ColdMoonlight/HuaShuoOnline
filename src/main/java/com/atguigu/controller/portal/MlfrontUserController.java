@@ -16,6 +16,8 @@ import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.EmailUtilshtml;
+import com.atguigu.utils.EmailUtilshtmlCustomer;
 import com.atguigu.utils.IfMobileUtils;
 
 @Controller
@@ -150,8 +152,8 @@ public class MlfrontUserController {
 				//测试方法
 				String getToEmail = userEmail;
 				String Message = "Welcome to Register In Megalook.";
-//				EmailUtilshtml.readyEmailRegister(getToEmail, Message,mlfrontUserafterIn);
-//				EmailUtilshtmlCustomer.readyEmailRegisterCustomer(getToEmail, Message,mlfrontUserafterIn);
+				EmailUtilshtml.readyEmailRegister(getToEmail, Message,mlfrontUserafterIn);
+				EmailUtilshtmlCustomer.readyEmailRegisterCustomer(getToEmail, Message,mlfrontUserafterIn);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

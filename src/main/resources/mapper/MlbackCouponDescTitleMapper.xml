@@ -5,17 +5,14 @@
     <id column="coupondesctiele_id" jdbcType="INTEGER" property="coupondesctieleId" />
     <result column="coupondesctiele_name" jdbcType="VARCHAR" property="coupondesctieleName" />
     <result column="coupondesctiele_tieleDetail" jdbcType="VARCHAR" property="coupondesctieleTieledetail" />
-    <result column="coupondesctiele_wapstatus" jdbcType="INTEGER" property="coupondesctieleWapstatus" />
-    <result column="coupondesctiele_wapimgurl" jdbcType="VARCHAR" property="coupondesctieleWapimgurl" />
-    <result column="coupondesctiele_pcstatus" jdbcType="INTEGER" property="coupondesctielePcstatus" />
-    <result column="coupondesctiele_pcimgurl" jdbcType="VARCHAR" property="coupondesctielePcimgurl" />
+    <result column="coupondesctiele_status" jdbcType="INTEGER" property="coupondesctieleStatus" />
+    <result column="coupondesctiele_imgurl" jdbcType="VARCHAR" property="coupondesctieleImgurl" />
     <result column="coupondesctiele_createTime" jdbcType="VARCHAR" property="coupondesctieleCreatetime" />
     <result column="coupondesctiele_motifyTime" jdbcType="VARCHAR" property="coupondesctieleMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    coupondesctiele_id, coupondesctiele_name, coupondesctiele_tieleDetail, coupondesctiele_wapstatus, 
-    coupondesctiele_wapimgurl, coupondesctiele_pcstatus, coupondesctiele_pcimgurl, coupondesctiele_createTime, 
-    coupondesctiele_motifyTime
+    coupondesctiele_id, coupondesctiele_name, coupondesctiele_tieleDetail, coupondesctiele_status, 
+    coupondesctiele_imgurl, coupondesctiele_createTime, coupondesctiele_motifyTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -26,14 +23,11 @@
 
   <insert id="insert" parameterType="com.atguigu.bean.MlbackCouponDescTitle">
     insert into tb_mlback_coupondesctitle (coupondesctiele_id, coupondesctiele_name, 
-      coupondesctiele_tieleDetail, coupondesctiele_wapstatus, 
-      coupondesctiele_wapimgurl, coupondesctiele_pcstatus, 
-      coupondesctiele_pcimgurl, coupondesctiele_createTime, 
+      coupondesctiele_tieleDetail, coupondesctiele_status, coupondesctiele_imgurl, coupondesctiele_createTime, 
       coupondesctiele_motifyTime)
     values (#{coupondesctieleId,jdbcType=INTEGER}, #{coupondesctieleName,jdbcType=VARCHAR}, 
-      #{coupondesctieleTieledetail,jdbcType=VARCHAR}, #{coupondesctieleWapstatus,jdbcType=INTEGER}, 
-      #{coupondesctieleWapimgurl,jdbcType=VARCHAR}, #{coupondesctielePcstatus,jdbcType=INTEGER}, 
-      #{coupondesctielePcimgurl,jdbcType=VARCHAR}, #{coupondesctieleCreatetime,jdbcType=VARCHAR}, 
+      #{coupondesctieleTieledetail,jdbcType=VARCHAR}, #{coupondesctieleStatus,jdbcType=INTEGER}, 
+      #{coupondesctieleImgurl,jdbcType=VARCHAR}, #{coupondesctieleCreatetime,jdbcType=VARCHAR}, 
       #{coupondesctieleMotifytime,jdbcType=VARCHAR})
   </insert>
   
@@ -42,10 +36,8 @@
     update tb_mlback_coupondesctitle
     set coupondesctiele_name = #{coupondesctieleName,jdbcType=VARCHAR},
       coupondesctiele_tieleDetail = #{coupondesctieleTieledetail,jdbcType=VARCHAR},
-      coupondesctiele_wapstatus = #{coupondesctieleWapstatus,jdbcType=INTEGER},
-      coupondesctiele_wapimgurl = #{coupondesctieleWapimgurl,jdbcType=VARCHAR},
-      coupondesctiele_pcstatus = #{coupondesctielePcstatus,jdbcType=INTEGER},
-      coupondesctiele_pcimgurl = #{coupondesctielePcimgurl,jdbcType=VARCHAR},
+      coupondesctiele_status = #{coupondesctieleStatus,jdbcType=INTEGER},
+      coupondesctiele_imgurl = #{coupondesctieleImgurl,jdbcType=VARCHAR},
       coupondesctiele_createTime = #{coupondesctieleCreatetime,jdbcType=VARCHAR},
       coupondesctiele_motifyTime = #{coupondesctieleMotifytime,jdbcType=VARCHAR}
     where coupondesctiele_id = #{coupondesctieleId,jdbcType=INTEGER}
@@ -63,17 +55,11 @@
       <if test="coupondesctieleTieledetail != null">
         coupondesctiele_tieleDetail,
       </if>
-      <if test="coupondesctieleWapstatus != null">
-        coupondesctiele_wapstatus,
+      <if test="coupondesctieleStatus != null">
+        coupondesctiele_status,
       </if>
-      <if test="coupondesctieleWapimgurl != null">
-        coupondesctiele_wapimgurl,
-      </if>
-      <if test="coupondesctielePcstatus != null">
-        coupondesctiele_pcstatus,
-      </if>
-      <if test="coupondesctielePcimgurl != null">
-        coupondesctiele_pcimgurl,
+      <if test="coupondesctieleImgurl != null">
+        coupondesctiele_imgurl,
       </if>
       <if test="coupondesctieleCreatetime != null">
         coupondesctiele_createTime,
@@ -92,17 +78,11 @@
       <if test="coupondesctieleTieledetail != null">
         #{coupondesctieleTieledetail,jdbcType=VARCHAR},
       </if>
-      <if test="coupondesctieleWapstatus != null">
-        #{coupondesctieleWapstatus,jdbcType=INTEGER},
+      <if test="coupondesctieleStatus != null">
+        #{coupondesctieleStatus,jdbcType=INTEGER},
       </if>
-      <if test="coupondesctieleWapimgurl != null">
-        #{coupondesctieleWapimgurl,jdbcType=VARCHAR},
-      </if>
-      <if test="coupondesctielePcstatus != null">
-        #{coupondesctielePcstatus,jdbcType=INTEGER},
-      </if>
-      <if test="coupondesctielePcimgurl != null">
-        #{coupondesctielePcimgurl,jdbcType=VARCHAR},
+      <if test="coupondesctieleImgurl != null">
+        #{coupondesctieleImgurl,jdbcType=VARCHAR},
       </if>
       <if test="coupondesctieleCreatetime != null">
         #{coupondesctieleCreatetime,jdbcType=VARCHAR},
@@ -127,17 +107,11 @@
       <if test="coupondesctieleTieledetail != null">
         coupondesctiele_tieleDetail = #{coupondesctieleTieledetail,jdbcType=VARCHAR},
       </if>
-      <if test="coupondesctieleWapstatus != null">
-        coupondesctiele_wapstatus = #{coupondesctieleWapstatus,jdbcType=INTEGER},
+      <if test="coupondesctieleStatus != null">
+        coupondesctiele_status = #{coupondesctieleStatus,jdbcType=INTEGER},
       </if>
-      <if test="coupondesctieleWapimgurl != null">
-        coupondesctiele_wapimgurl = #{coupondesctieleWapimgurl,jdbcType=VARCHAR},
-      </if>
-      <if test="coupondesctielePcstatus != null">
-        coupondesctiele_pcstatus = #{coupondesctielePcstatus,jdbcType=INTEGER},
-      </if>
-      <if test="coupondesctielePcimgurl != null">
-        coupondesctiele_pcimgurl = #{coupondesctielePcimgurl,jdbcType=VARCHAR},
+      <if test="coupondesctieleImgurl != null">
+        coupondesctiele_imgurl = #{coupondesctieleImgurl,jdbcType=VARCHAR},
       </if>
       <if test="coupondesctieleCreatetime != null">
         coupondesctiele_createTime = #{coupondesctieleCreatetime,jdbcType=VARCHAR},
@@ -162,15 +136,10 @@
     from tb_mlback_coupondesctitle order by coupondesctiele_id desc
   </select>
   
-  <!-- selectMlbackSlidewapListByArea -->
-  <select id="selectMlbackCouponDescTitlewapListByArea" parameterType="com.atguigu.bean.MlbackCouponDescTitle" resultMap="BaseResultMap">
+  <!-- selectMlbackCouponDescTitleListByStatus -->
+  <select id="selectMlbackCouponDescTitleListByStatus" parameterType="com.atguigu.bean.MlbackCouponDescTitle" resultMap="BaseResultMap">
     select *
-    from tb_mlback_coupondesctitle where coupondesctiele_wapstatus = #{coupondesctieleWapstatus,jdbcType=INTEGER}
-  </select>
-  
-  <select id="selectMlbackCouponDescTitlepcListByArea" parameterType="com.atguigu.bean.MlbackCouponDescTitle" resultMap="BaseResultMap">
-    select *
-    from tb_mlback_coupondesctitle where coupondesctiele_pcstatus = #{coupondesctielePcstatus,jdbcType=INTEGER}
+    from tb_mlback_coupondesctitle where coupondesctiele_status = #{coupondesctieleStatus,jdbcType=INTEGER}
   </select>
   
 </mapper>

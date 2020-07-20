@@ -81,8 +81,7 @@ public class MlbackCouponDescTitleController {
 		MlbackCouponDescTitle mlbackCouponDescTitle = new MlbackCouponDescTitle();
 		String nowtime = DateUtil.strTime14s();
 		mlbackCouponDescTitle.setCoupondesctieleCreatetime(nowtime);
-		mlbackCouponDescTitle.setCoupondesctielePcstatus(0);
-		mlbackCouponDescTitle.setCoupondesctieleWapstatus(0);
+		mlbackCouponDescTitle.setCoupondesctieleStatus(0);
 		//无id,insert
 		System.out.println("插入前"+mlbackCouponDescTitle.toString());
 		mlbackCouponDescTitleService.insertSelective(mlbackCouponDescTitle);
@@ -148,41 +147,17 @@ public class MlbackCouponDescTitleController {
 	 * @param MlbackSlide
 	 * @return 
 	 */
-	@RequestMapping(value="/getMlbackCouponDescTitlewapListByStatus",method=RequestMethod.POST)
+	@RequestMapping(value="/getMlbackCouponDescTitleListByStatus",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getMlbackCouponDescTitlewapListByStatus(HttpServletResponse rep,HttpServletRequest res){
+	public Msg getMlbackCouponDescTitleListByStatus(HttpServletResponse rep,HttpServletRequest res){
 		//接受slideArea
 		MlbackCouponDescTitle mlbackCouponDescTitleReq = new MlbackCouponDescTitle();
-		mlbackCouponDescTitleReq.setCoupondesctieleWapstatus(1);
+		mlbackCouponDescTitleReq.setCoupondesctieleStatus(1);
 		//查询本条
-		List<MlbackCouponDescTitle> mlbackCouponDescTitleList =mlbackCouponDescTitleService.selectMlbackCouponDescTitlewapListByArea(mlbackCouponDescTitleReq);
+		List<MlbackCouponDescTitle> mlbackCouponDescTitleList =mlbackCouponDescTitleService.selectMlbackCouponDescTitleListByStatus(mlbackCouponDescTitleReq);
 		
 		MlbackCouponDescDetail mlbackCouponDescDetailReq = new MlbackCouponDescDetail();
 		
-		mlbackCouponDescDetailReq.setCoupondescdetailStatus(1);
-		List<MlbackCouponDescDetail> mlbackCouponDescDetailList = mlbackCouponDescDetailService.selectMlbackCouponDescDetailByStatus(mlbackCouponDescDetailReq);
-		
-		return Msg.success().add("resMsg", "查看该位置的轮播完毕")
-				.add("mlbackCouponDescTitleList", mlbackCouponDescTitleList)
-				.add("mlbackCouponDescDetailList", mlbackCouponDescDetailList);
-	}
-	
-	/**
-	 * 7.0	UseNow	190905
-	 * 查询pc不同位置的图片
-	 * @param MlbackSlide
-	 * @return 
-	 */
-	@RequestMapping(value="/getMlbackCouponDescTitlepcListByStatus",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg getMlbackCouponDescTitlepcListByStatus(HttpServletResponse rep,HttpServletRequest res){
-		//接受slideArea
-		MlbackCouponDescTitle mlbackCouponDescTitleReq = new MlbackCouponDescTitle();
-		mlbackCouponDescTitleReq.setCoupondesctielePcstatus(1);
-		//查询本条
-		List<MlbackCouponDescTitle> mlbackCouponDescTitleList =mlbackCouponDescTitleService.selectMlbackCouponDescTitlepcListByArea(mlbackCouponDescTitleReq);
-		
-		MlbackCouponDescDetail mlbackCouponDescDetailReq = new MlbackCouponDescDetail();
 		mlbackCouponDescDetailReq.setCoupondescdetailStatus(1);
 		List<MlbackCouponDescDetail> mlbackCouponDescDetailList = mlbackCouponDescDetailService.selectMlbackCouponDescDetailByStatus(mlbackCouponDescDetailReq);
 		
