@@ -93,6 +93,44 @@ function renderProductOptions(data, selectedRadioArr) {
 	});
 }
 
+/* get coupon area data */
+function getCouponAreaData(callback) {
+	$.ajax({
+		url: '${APP_PATH}/MlbackCouponDescTitle/getMlbackCouponDescTitlepcListByStatus',
+		contentType: 'application/json',
+		type: "post",
+		async: false,
+		success: function (data) {
+			if (data.code == 100) {
+				callback && callback(data.extend);
+			}
+		}
+	});
+}
+
+/* render coupon area */
+function renderCouponAreaData($el, data) {
+	function generateCouponAreaDetailsListData(data) {
+		var html = '';
+		data.forEach(function(item, idx) {
+			html += '<li>'+ item.coupondescdetailStrengthpre +'&nbsp;<span>&nbsp;'+ item.coupondescdetailStrength +'&nbsp;</span>&nbsp;'+ item.coupondescdetailCodepre +'&nbsp;<b>&nbsp;'+ item.coupondescdetailCode +'</b></li>';
+		});
+		return html;
+	}
+	
+	var htmlStr = '<div class="left lazyload wap" data-src="'+  data.mlbackCouponDescTitleList[0].coupondesctieleWapimgurl +'"></div>' +
+				'<div class="left lazyload pc" data-src="'+  data.mlbackCouponDescTitleList[0].coupondesctielePcimgurl +'"></div>' +
+				'<div class="right">' +
+			'<div class="title">'+ data.mlbackCouponDescTitleList[0].coupondesctieleTieledetail +'</div>' +
+			'<ul class="body">' + generateCouponAreaDetailsListData(data.mlbackCouponDescDetailList) + '</ul>' +
+		'</div>';
+	$el.html(htmlStr);
+	new LazyLoad($el.find('.lazyload'), {
+		root: null,
+		rootMargin: "10px",
+		threshold: 0
+	});
+}
 /* product sku-list status=1 */
 function getProductSkus(callback) {
 	$.ajax({
@@ -107,7 +145,7 @@ function getProductSkus(callback) {
 		async: false,
 		success: function (data) {
 			if (data.code == 100) {
-				callback(data.extend.mlbackProductSkuResList);
+				callback && callback(data.extend.mlbackProductSkuResList);
 			}
 		}
 	});

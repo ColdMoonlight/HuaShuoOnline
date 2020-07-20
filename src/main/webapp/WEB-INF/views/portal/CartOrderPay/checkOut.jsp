@@ -449,6 +449,7 @@
 			var $cartCouponBox = $('<div class="cart-box">'+
 					'<div class="cart-box-title"><span class="order-sort">3</span>DISCOUNT CODES</div>'+
 					'<div class="cart-box-body">'+
+						'<div class="product-coupons"></div>'+
 						'<div class="order-coupons">'+
 							'<div class="order-coupon-list"></div>'+
 							'<div class="order-coupon-group">'+
@@ -460,6 +461,11 @@
 					'</div>'+
 				'</div>');
 			$('main .order-right').append($cartCouponBox);
+
+			// coupon area list			
+			getCouponAreaData(function(data) {
+				renderCouponAreaData($('.product-coupons'), data);
+			});
 		}
 		// render order payment method
 		function renderOrderPaymentMethod() {

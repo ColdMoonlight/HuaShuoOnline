@@ -1843,15 +1843,16 @@ footer li {
 .product-coupons {
 	display: flex;
 	align-items: center;
-	padding: .5rem;
 	border: 1px dashed #eb8378;
 }
 .product-coupons .left {
-	width: 60px;
-	height: 60px;
+	display: none;
+	visibility: hidden;
+	opacity: 0;
 }
-.product-coupons .right {
-	margin-left: .5rem;
+.product-coupons .title {
+	color: #333333;
+	font-weight: 500;
 }
 .product-coupons ul {
 	padding-left: 0;
@@ -1859,14 +1860,56 @@ footer li {
 }
 .product-coupons li {
 	list-style: none;
-	font-size: .75rem;
-}
-.product-coupons .title {
-	font-size: 1rem;
-	color: #333333;
-	font-weight: bold;
 }
 
+@media only screen and (max-width: 575px) {
+	.product-coupons {	
+		padding: .5rem;
+	}
+	.product-coupons .left.wap {
+		width: 4.5rem;
+		height: 4.5rem;
+		display: block;
+		visibility: visible;
+		opacity: 1;
+	}
+	.product-coupons .right {
+		margin-left: .5rem;
+	}
+	.product-coupons .title {
+		font-size: 1rem;
+	}
+	.product-coupons .body {
+		margin-top: .25rem;
+	}
+	.product-coupons li {
+		font-size: .75rem;
+	}
+}
+@media only screen and (min-width: 576px) {
+	.product-coupons {	
+		padding: .75rem;
+	}
+	.product-coupons .left.pc {
+		width: 6rem;
+		height: 6rem;
+		display: block;
+		visibility: visible;
+		opacity: 1;
+	}
+	.product-coupons .right {
+		margin-left: 1rem;
+	}
+	.product-coupons .title {
+		font-size: 1.1rem;
+	}
+	.product-coupons .body {
+		margin-top: .5rem;
+	}
+	.product-coupons li {
+		font-size: .875rem;
+	}
+}
 /* paypal button */
 .paypal-button-container {
     display: flex;
@@ -2476,6 +2519,9 @@ footer li {
 .order-address-shipping>.value {
 	color: #ff6f5e;
 	margin-left: .5rem;
+}
+.cart-box .product-coupons {
+	margin: 1rem 1rem 0 1rem;
 }
 .order-coupon-group {
 	display: flex;
