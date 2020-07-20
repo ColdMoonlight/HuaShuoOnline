@@ -602,7 +602,6 @@ function renderIntroduceProductSlide($el, data) {
 		},
 		on: {
 		    resize: function(){
-		    	console.log(productSwiper)
 		    	productSwiper.slidesPerView = (window.innerWidth > 799 ? 4 : 2);
 		    	productSwiper.updateSlidesOffset();
 		    }, 
