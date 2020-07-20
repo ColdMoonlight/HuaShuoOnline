@@ -414,14 +414,14 @@
 
 				var productLink = item.orderitemPseo ? ('${APP_PATH}/'+ item.orderitemPseo +'.html') : 'javascript:;';
 				$orderList.append($('<div class="order-item">' +
-					'<a href="'+ productLink +'"><img class="order-img" src="'+ item.orderitemProductMainimgurl +'"></a>' +
+					'<a href="'+ productLink +'" class="order-img lazyload" data-src="'+ item.orderitemProductMainimgurl +'"></a>' +
 					'<div class="order-product">' +
 						'<a class="order-product-name" href="'+ productLink +'">'+ item.orderitemPname +'</a>' +
 						'<div class="order-sku-list">'+ orderSkuList +'</div>' +
 						'<div class="order-product-num">' +
 							'<div class="order-product-price">' +
-								'<span class="product-now-price">$'+ (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? ((item.orderitemProductOriginalprice  + parseFloat(item.orderitemPskuMoneystr)) * item.orderitemProductAccoff / 100) : 0).toFixed(2) +'</span>' +
 								'<span class="product-define-price">$'+ (item.orderitemProductOriginalprice || 0).toFixed(2) +'</span>' +
+								'<span class="product-now-price">$'+ (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? ((item.orderitemProductOriginalprice  + parseFloat(item.orderitemPskuMoneystr)) * item.orderitemProductAccoff / 100) : 0).toFixed(2) +'</span>' +
 							'</div>' +
 							'<span class="icon delete product-delete">' + '</span>' +
 							'<div class="product-qty">' +
@@ -443,12 +443,19 @@
 			$cartReviewBox.find('.cart-box-body').append($orderList);
 
 			$('main .order-left').append($cartReviewBox);
+
+			new LazyLoad($orderList.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			})
 		}
 		// render order couopons
 		function renderOrderCoupons() {
 			var $cartCouponBox = $('<div class="cart-box">'+
 					'<div class="cart-box-title"><span class="order-sort">3</span>DISCOUNT CODES</div>'+
 					'<div class="cart-box-body">'+
+						'<div class="product-coupons"></div>'+
 						'<div class="order-coupons">'+
 							'<div class="order-coupon-list"></div>'+
 							'<div class="order-coupon-group">'+
@@ -460,6 +467,11 @@
 					'</div>'+
 				'</div>');
 			$('main .order-right').append($cartCouponBox);
+
+			// coupon area list			
+			getCouponAreaData(function(data) {
+				renderCouponAreaData($('.product-coupons'), data);
+			});
 		}
 		// render order payment method
 		function renderOrderPaymentMethod() {
