@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.bean.MlbackCategory;
+import com.atguigu.bean.MlbackCouponDescTitle;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackProductImg;
 import com.atguigu.bean.MlbackReviewImg;
@@ -21,6 +22,7 @@ import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackActShowProService;
 import com.atguigu.service.MlbackCategoryService;
+import com.atguigu.service.MlbackCouponDescTitleService;
 import com.atguigu.service.MlbackProductImgService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackReviewImgService;
@@ -66,6 +68,9 @@ public class ImageUploadController {
 	
 	@Autowired
 	MlbackActShowProService mlbackActShowProService;
+	
+	@Autowired
+	MlbackCouponDescTitleService mlbackCouponDescTitleService;
 	
 	/**
 	 * 	onuse	20200103	检查
@@ -711,6 +716,87 @@ public class ImageUploadController {
 		mlbackActShowPro.setActshowproId(actshowproId);
 		mlbackActShowPro.setActshowproImgpcurl(sqlimageUrl);
 		mlbackActShowProService.updateByPrimaryKeySelective(mlbackActShowPro);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+	}
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/couponDescTitleWap",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg couponDescTitleWap(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("coupondesctieleId")Integer coupondesctieleId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
+		
+		String coupondesctieleIdIdStr = coupondesctieleId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,coupondesctieleIdIdStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String uploadPath = "static/upload/img/CouponDescTitle";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MlbackCouponDescTitle mlbackCouponDescTitle = new MlbackCouponDescTitle();
+		mlbackCouponDescTitle.setCoupondesctieleId(coupondesctieleId);
+		mlbackCouponDescTitle.setCoupondesctieleWapimgurl(sqlimageUrl);
+		mlbackCouponDescTitleService.updateByPrimaryKeySelective(mlbackCouponDescTitle);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+	}
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping(value="/couponDescTitlePc",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg couponDescTitlePc(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("coupondesctieleId")Integer coupondesctieleId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//proidDiscout
+		
+		String coupondesctieleIdIdStr = coupondesctieleId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,coupondesctieleIdIdStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String uploadPath = "static/upload/img/CouponDescTitle";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MlbackCouponDescTitle mlbackCouponDescTitle = new MlbackCouponDescTitle();
+		mlbackCouponDescTitle.setCoupondesctieleId(coupondesctieleId);
+		mlbackCouponDescTitle.setCoupondesctielePcimgurl(sqlimageUrl);
+		mlbackCouponDescTitleService.updateByPrimaryKeySelective(mlbackCouponDescTitle);
 		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
 	}
