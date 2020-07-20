@@ -2027,7 +2027,20 @@ footer li {
 	line-height: 1.5;
 	color: #333;
 }
-
+.product-tab-container[data-name="review"] {
+	position: relative;
+}
+.product-tab-container .loader-box {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 /* product service */
 .product-service {
 	display: flex;

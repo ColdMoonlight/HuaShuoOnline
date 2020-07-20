@@ -125,6 +125,9 @@
 							<div class="product-review-list"></div>
 							<div id="table-pagination"></div>
 						</div>
+						<div class="loader-box" id="loader-box">
+							<div class="loader"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -521,6 +524,7 @@
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/json',
+				async: false,
 				success: function (data) {
 					if (data.code == 100) {
 						var pageInfo = data.extend.pageInfo;
@@ -657,7 +661,7 @@
 			});
 		}
 		// varients
-		var mediaData = {}, productData = {}, mainUrl, reviewSwiper, reviewModal, reviewId;
+		var mediaData = {}, productData = {}, mainUrl, reviewSwiper, reviewModal, reviewId, hasReivewData = false;
 		// initial
 		getProductDetails(function(data) {
 			mainUrl = data.productMainimgurl;
@@ -690,17 +694,6 @@
 				data.length && buildResult(data);				
 			});
 		});
-		// review count
-		getReviewCalData(function(data) {
-			$('.product-review-total span').text(data.allReviewNum);
-			renderProudctReviewCal(data);
-		});
-		// review list
-		getReviewListData();
-		// pagination a-click
-		$(document.body).on('click', '#table-pagination li', function (e) {
-			getReviewListData();
-		});
 		// event
 		$(window).on('resize', imageZoomEvent);
 		// image zoom resize
@@ -726,7 +719,24 @@
 		// product-body product-tab
 		$('.product-tab-item').on('click', function() {
 			var $this = $(this);
-			if (!$this.hasClass('active')) $('.product-tab-container[data-name="'+ $this.data('name') +'"]').addClass('active').siblings().removeClass('active');
+			var tabName = $this.data('name');
+			if (!$this.hasClass('active')) $('.product-tab-container[data-name="'+ tabName +'"]').addClass('active').siblings().removeClass('active');
+			if (tabName == 'review' && !hasReivewData) {
+				// review count
+				getReviewCalData(function(data) {
+					$('.product-review-total span').text(data.allReviewNum);
+					renderProudctReviewCal(data);
+				});
+				// review list
+				getReviewListData();
+				// change review state
+				hasReivewData = true;
+				$('#loader-box').hide();
+			}
+		});
+		// pagination a-click
+		$(document.body).on('click', '#table-pagination li', function (e) {
+			getReviewListData();
 		});
 		// add to cart
 		$('#add-to-cart').on('click', function(evt) {
