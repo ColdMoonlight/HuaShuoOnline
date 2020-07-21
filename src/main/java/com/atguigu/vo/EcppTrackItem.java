@@ -2,11 +2,11 @@ package com.atguigu.vo;
 
 public class EcppTrackItem {
 	
-	private String ecppOrderStatusCode;
+	private String ecppOrderStatusCode;//ecpp单子状态码
 
-    private String ecppOrderTrackNo;
+    private String ecppOrderTrackNo;//ecpp物流number
     
-    private String shippingName;
+    private String shippingName;//ecpp物流name
 
 	public String getEcppOrderStatusCode() {
 		return ecppOrderStatusCode;
