@@ -28,14 +28,14 @@
 							<table class="c-table-table table table-responsive-sm">
 								<thead>
 									<tr>
-										<th>id</th>
-										<th>payinfoOid</th>
-										<th>price</th>
-										<th>pay-status</th>
-										<th>date</th>
+										<th>payId</th>
+										<th>orderid</th>
 										<th>plate-num</th>
+										<th>date</th>
+										<th>pay-status</th>
+										<th>price</th>
 										<th>customer-name</th>
-										<!-- <th>customer-email</th> -->
+										<th>customer-email</th>
 										<th>paypal-num</th>
 										<th>paypal-status</th>
 										<th>ecpp-num</th>
@@ -480,12 +480,12 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].payinfoId + '</td>' +
 					'<td>' + (data[i].payinfoOid || '') + '</td>' +
-					'<td>' + data[i].payinfoMoney + '</td>' +
-					'<td>' + getPayStatus(data[i].payinfoStatus) + '</td>' +
-					'<td>' + data[i].payinfoCreatetime + '</td>' +
 					'<td>' + (data[i].payinfoPlatenum || '') + '</td>' +
+					'<td>' + data[i].payinfoCreatetime + '</td>' +
+					'<td>' + getPayStatus(data[i].payinfoStatus) + '</td>' +
+					'<td>' + data[i].payinfoMoney + '</td>' +
 					'<td>' + (data[i].payinfoUname || '') + '</td>' +
-					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' + */
+					'<td>' + (data[i].payinfoUemail || '') + '</td>' + 
 					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
 					'<td>' + (data[i].payinfoTransStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
