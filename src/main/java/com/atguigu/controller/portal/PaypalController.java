@@ -19,7 +19,6 @@ import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.portal.ToPaypalInfo;
-//import com.atguigu.controller.ecpp.EcppUtil;
 import com.atguigu.enumC.PaypalPaymentIntent;
 import com.atguigu.enumC.PaypalPaymentMethod;
 import com.atguigu.service.MlPaypalShipAddressService;
@@ -33,7 +32,8 @@ import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.utils.URLUtils;
 import com.atguigu.utils.EcppIntoUtil;
-
+import com.atguigu.utils.EmailUtilshtml;
+import com.atguigu.utils.EmailUtilshtmlCustomer;
 import com.atguigu.vo.order;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.PayerInfo;
@@ -542,8 +542,8 @@ public class PaypalController {
 			//测试方法
 			String getToEmail = userEmail;
 			String Message = "pay Success</br>,已收到您的付款,会尽快给您安排发货,注意留意发货通知.祝您购物愉快";
-//			EmailUtilshtml.readyEmailPaySuccess(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney);
-//			EmailUtilshtmlCustomer.readyEmailPaySuccessCustomer(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney);
+			EmailUtilshtml.readyEmailPaySuccess(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney);
+			EmailUtilshtmlCustomer.readyEmailPaySuccessCustomer(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
