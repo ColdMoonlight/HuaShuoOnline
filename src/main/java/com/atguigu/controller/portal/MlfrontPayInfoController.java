@@ -34,6 +34,7 @@ import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.EcppUpdateWebStatusUtil;
 import com.atguigu.utils.PropertiesUtil;
+import com.atguigu.vo.EcppTrackItem;
 
 @Controller
 @RequestMapping("/MlfrontPayInfo")
@@ -318,8 +319,8 @@ public class MlfrontPayInfoController {
 	
 	/**11.0	zsh200720
 	 * MlfrontPayInfo检查已支付的单子,是否在ecpp上已经审核
-	 * 1.收到前台的查询时间范围，后台查询这些时间内的已支付订单，
-	 * 2，便利这些单子,用token+H号,去查询本条的状态，
+	 * 1,收到前台的查询时间范围，后台查询这些时间内的已支付订单,
+	 * 2,便利这些单子,用token+H号,去查询本条的状态,
 	 * 3.1如果是审核完毕,就在我方系统中,将本条改成已经审核的状态
 	 * 3.2如果是已发货,就在我方系统中,将本单改成已经已发货的状态;并且把哪家物流的名字+track_no,同步回我方后台
 	 * 前台传进时间参数,
@@ -341,10 +342,12 @@ public class MlfrontPayInfoController {
 		List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoByDateAndStatus(mlfrontPayInfoReq);
 		
 		if(mlfrontPayInfoList.size()>0){
-			
+			//如果有已支付状态的文件
 			for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
 				Integer payInfoId = mlfrontPayInfoOne.getPayinfoId();
 				Integer orderId = mlfrontPayInfoOne.getPayinfoOid();
+				
+				//取出mlfrontPayInfoOne中的Ecpphsnum中的信息
 				String ecppHSnum = mlfrontPayInfoOne.getPayinfoEcpphsnum();
 				String order_sn = ecppHSnum;
 				String token = (String) PropertiesUtil.getProperty("megalook.properties", "ecppToken");
@@ -354,65 +357,50 @@ public class MlfrontPayInfoController {
 				MlfrontPayInfo mlfrontPayInfoUpdate = new MlfrontPayInfo();
 				
 				try {
-					String queryOrderResponseStr = EcppUpdateWebStatusUtil.send(token,soapXML);
+					EcppTrackItem ecppTrackItem = EcppUpdateWebStatusUtil.send(token,soapXML);
+					String ecppOrderStatusCode = ecppTrackItem.getEcppOrderStatusCode();
+					MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+            		mlfrontOrderReq.setOrderId(orderId);
+					if("OOO".equals(ecppOrderStatusCode)){
+						//131-OOO-订单核对完成(已发货)
+						//更新成-发货-状态
+						mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+                		mlfrontPayInfoUpdate.setPayinfoStatus(3);//payinfo状态为3,已发货
+                		mlfrontPayInfoUpdate.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo());
+                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+                		
+                		//查询本条的order信息，更新物流单号+物流名称
+                		mlfrontOrderReq.setOrderLogisticsname(ecppTrackItem.getShippingName());
+                		mlfrontOrderReq.setOrderLogisticsnumber(ecppTrackItem.getEcppOrderTrackNo());
+                		mlfrontOrderReq.setOrderStatus(4);//orderStatus == 4已发货,待接收
+                		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+                		
+					}else if("UOO".equals(ecppOrderStatusCode)){
+							//113-UOO-客服审核完成的状态，就更新成审核完毕的状态
+							mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+	                		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,已审单//orderStatus == 3已审单，待发货
+	                		mlfrontPayInfoUpdate.setPayinfoSendnum(ecppOrderStatusCode);
+	                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+	                		
+	                		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
+	                		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+					}else{
+						mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+						mlfrontPayInfoUpdate.setPayinfoSendnum(ecppOrderStatusCode);//不改状态,只赋值
+						mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+					}
 					
-					JSONObject queryOrderResponseJSONObject= JSON.parseObject(queryOrderResponseStr);
-                	
-                	System.out.println("------------queryOrderResponseJSONObject------------");
-                	System.out.println(queryOrderResponseJSONObject.get("data"));
-                	System.out.println("------------queryOrderResponseJSONObject------------");
-                	
-                	JSONObject orderDataJSONObject = (JSONObject) queryOrderResponseJSONObject.get("data");
-                	
-                	//先判断订单状态，如果是审核中，就更新成审核中；如果是已发货，就更新成已发货
-                	String order_status = (String) orderDataJSONObject.get("order_status");
-                	//113-UOO-客服审核完成
-                	//131-OOO-订单核对完成(已发货)
-                	if("113".equals(order_status)){
-                		//
-                		mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
-                		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,是已经审核
-                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
-                		
-                		//并且更新orderService状态为审核完毕
-                		MlfrontOrder mlfrontOrderReeq = new MlfrontOrder();
-                		//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款
-                		
-                		
-                	}else if("131".equals(order_status)){
-                		mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
-                		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,是已经审核
-                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
-                	}else{
-                		mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
-                		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,是已经审核
-                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
-                	}
-                	
-                	System.out.println("------------orderDataJSONObject------------");
-                	System.out.println(orderDataJSONObject.get("track_no"));
-                	System.out.println("------------orderDataJSONObject------------");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
-				//报文串返回
-				
-				
-				//HttpClient_ConnectEcpp.jDom4EcppHSNum(returnStr, paypalIdStr)
-
-				
 			}
-			
+			return Msg.success().add("resMsg", "本次刷新有修改，请注意观察payInfo列表变化");
 		}else{
 			//查询结果为空
+			//当前没有状态为已支付的数据
+			return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子，无改变");
 		}
-		
-		Integer payFailTimes = (Integer) session.getAttribute("payFailTimes");
-		//接受参数信息
-		System.out.println("session.getId():"+session.getId()+"payFailTimes:"+payFailTimes);
-		
-		return Msg.success().add("resMsg", "查询payFailTimes成功").add("payFailTimes", payFailTimes);
 	}
 	
 	
