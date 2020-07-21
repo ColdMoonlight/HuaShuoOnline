@@ -431,4 +431,44 @@ public class MlbackProductController {
 		}
 		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("mlbackProductOne", mlbackProductOne);
 	}
+	
+	
+	/**
+	 * 13	UseNow	0505
+	 * 前台移动端获取详情页面mfront/productDetails
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping(value="/toSearchPage",method=RequestMethod.GET)
+	public String toSearchPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "seaProductName") String seaProductName) throws Exception{
+		//接收传递进来的参数
+		String seaProductNameReq = seaProductName;
+		//放回响应域中
+		res.setAttribute("productName", seaProductNameReq);
+		//放回session域中
+		session.setAttribute("productName", seaProductNameReq);
+		
+		return "portal/product/searchproductlist";
+	}
+	
+	/**
+	  * 14.0 UseNow 0505
+	  * 通过产品名模糊搜索
+	  * @param productId
+	  * @return 
+	  */
+//	 @RequestMapping(value="/searchProductLike",method=RequestMethod.POST)
+//	 @ResponseBody
+//	 public Msg searchProductLike(@RequestParam(value = "productName") String productName){
+//	  //接受信息
+//	  MlbackProduct mlbackProductReq = new MlbackProduct();
+//	  mlbackProductReq.setProductName(productName);
+//	  //System.out.println("操作说明:客户搜索的产品名字productName:"+productName);
+//	  List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductLike(mlbackProductReq);
+//	  List<MlbackProduct> mlbackProductResListnum =mlbackProductService.selectMlbackProductLikeNum(mlbackProductReq);
+//	  Integer num = mlbackProductResListnum.size();
+//	  //System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
+//	  return Msg.success().add("resMsg", "产品名模糊搜索完毕")
+//	     .add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName);
+//	 }
 }
