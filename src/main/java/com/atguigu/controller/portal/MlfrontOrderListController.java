@@ -59,7 +59,7 @@ public class MlfrontOrderListController {
 		for(MlfrontOrder mlfrontOrderResOne:mlfrontOrderList){
 			Integer resOrderStatus = mlfrontOrderResOne.getOrderStatus();
 			if(resOrderStatus==0){
-				//0未支付
+				//0未支付,跳过
 				continue;
 			}else if(resOrderStatus==2){
 				///2支付失败
