@@ -4,7 +4,7 @@
 <html>
 
 <head>
-    <title>Insert title here</title>
+    <title>Product List</title>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<script>
