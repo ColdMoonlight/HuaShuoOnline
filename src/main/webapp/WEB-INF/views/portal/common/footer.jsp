@@ -439,7 +439,7 @@ function goToUserCenter() {
 	 window.location.href = "${APP_PATH }/MlfrontUser/toUserCenter";
 }
 function goToUserCenerOrder() {
-	window.location.href = "${APP_PATH }/MlfrontUser/tommyOrderPage";
+	window.location.href = "${APP_PATH }/MlfrontUser/tomyOrderPage";
 }
 function goToUserCenerCoupon() {
 	window.location.href = "${APP_PATH }/MlfrontUser/toCouponPage";

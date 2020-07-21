@@ -6,7 +6,6 @@
 <head>
     <title>Personal Info</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<style>
 		@media only screen and (max-width: 575px) {
 			main { margin: -1rem 0 0 0; }
@@ -60,7 +59,6 @@
 	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
-	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script>
 		function getUserInfo(callback) {
 			$.ajax({

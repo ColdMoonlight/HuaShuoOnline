@@ -4,16 +4,11 @@
 <html>
 
 <head>
-    <title>Insert title here</title>
+    <title>Search Product List</title>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<script>
-		var categorySeo = '${sessionScope.categorySeo}';
-		var seoDescription = '${sessionScope.categoryMetaDesc}';
-		var seoKeywords = '${sessionScope.categoryMetaKeyWords}';
-		document.title = categorySeo;
-		addMeta('keyword', seoKeywords);
-		addMeta('description', seoDescription);
+		var productName = '${sessionScope.productName}';
+		console.log('${sessionScope}')
 	</script>
 </head>
 
@@ -21,27 +16,20 @@
     <jsp:include page="layout/header.jsp" flush="true"></jsp:include>
 	<main>
 		<div class="container">
-			<div class="category-condition">
-				<span class="category-condition-name">style</span>
-				<select class="category-select"></select>
-			</div>
 			<div class="product-list"></div>		
 		</div>
 	</main>
 	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="common/footer.jsp" flush="true"></jsp:include>
-	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script>
-		function getProductListByCategorySeo(categorySeo, hasCategory) {
+		function getProductListBySearch(productName, callback) {
 			$.ajax({
-				url: "${APP_PATH}/MlbackCategory/searchBycategorySeo",
+				url: "${APP_PATH}/MlbackProduct/searchProductLike",
 				type: "post",
-				data: JSON.stringify({"categorySeo": categorySeo}),
-				dataType: 'json',
-				contentType: 'application/json',
+				data: {"productName": productName},
 				success: function (data) {
 					if (data.code == 100) {
-						renderCategorySeo(data.extend, hasCategory);
+						callback && callback(data.extend.mlbackProductResList);
 					} else {
 						refreshPageModal();
 					}
@@ -50,10 +38,6 @@
 					refreshPageModal();
 				}
 			});
-		}
-		function renderCategorySeo(data, hasCategory) {
-			if (!hasCategory) renderCategorySelect(data.mlbackCategorydownList);
-			renderProductList(data.mlbackProductResList);
 		}
 		function renderProductList(data) {
 			var htmlStr = '';
@@ -90,29 +74,7 @@
 				threshold: 0
 			});
 		}
-		function renderCategorySelect(data) {
-			var htmlStr = '';
-			data.forEach(function(item) {
-				htmlStr += '<option value="'+ item.categorySeo +'" '+ (categorySeo == item.categorySeo ? 'selected' : '') +'>'+ item.categoryName +'</option>';
-			});
-			$('.category-select').html(htmlStr);
-		}
-		getProductListByCategorySeo(categorySeo, false);
-		$(document.body).on('change', '.category-select', function() {
-			getProductListByCategorySeo($(this).val(), true);
-		});
-
-		// get introduct product
-		getProductSlideArea(function(data) {
-			var $el = $('<div id="introduce-product" />');
-			$('main .container').append($el);
-			data.length && (renderIntroduceProductSlide($el, data),
-			new LazyLoad($el.find('.lazyload'), {
-				root: null,
-				rootMargin: "10px",
-				threshold: 0
-			}));
-		});
+		getProductListBySearch(productName, renderProductList);
 	</script>
 </body>
 
