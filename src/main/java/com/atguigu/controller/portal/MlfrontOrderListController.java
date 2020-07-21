@@ -40,9 +40,9 @@ public class MlfrontOrderListController {
 
 		MlfrontUser loginUser = (MlfrontUser) session.getAttribute("loginUser");
 		
-		System.out.println("---------------loginUser---------------");
+		System.out.println("------------loginUser---------------");
 		System.out.println(loginUser);
-		System.out.println("---------------loginUser---------------");
+		System.out.println("------------loginUser---------------");
 		Integer Uid = loginUser.getUserId();
 		MlfrontOrder mlfrontOrder = new MlfrontOrder();
 		mlfrontOrder.setOrderUid(Uid);
@@ -59,7 +59,7 @@ public class MlfrontOrderListController {
 		for(MlfrontOrder mlfrontOrderResOne:mlfrontOrderList){
 			Integer resOrderStatus = mlfrontOrderResOne.getOrderStatus();
 			if(resOrderStatus==0){
-				//0未支付
+				//0未支付,跳过
 				continue;
 			}else if(resOrderStatus==2){
 				///2支付失败
@@ -70,8 +70,6 @@ public class MlfrontOrderListController {
 		}
 		PageInfo page = new PageInfo(mlfrontOrderResList, PagNum);
 		mlfrontOrderList = page.getList();
-		//PageInfo page = new PageInfo(mlfrontOrderList, PagNum);
-		//mlfrontOrderList = page.getList();
 		//2遍历mlfrontOrderList，3读取每个的orderItemIdStr,4切割，5再遍历产寻单条的获取orderItemId对象
 		String orderitemidstr="";
 		MlfrontOrderItem mlfrontOrderItemReq = new MlfrontOrderItem();
