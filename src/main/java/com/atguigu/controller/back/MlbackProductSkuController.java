@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackProductSku;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
+import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackProductSkuService;
 import com.atguigu.utils.DateUtil;
 
@@ -31,6 +33,9 @@ public class MlbackProductSkuController {
 	
 	@Autowired
 	MlbackAdminService mlbackAdminService;
+	
+	@Autowired
+	MlbackProductService mlbackProductService;
 	
 
 	/**1.0	20200611
@@ -132,6 +137,14 @@ public class MlbackProductSkuController {
 		
 		JSONArray jsonArray= JSON.parseArray(teams);
 	    List<MlbackProductSku> mlbackProductSkuList = jsonArray.toJavaList(MlbackProductSku.class);
+	    
+	    MlbackProduct mlbackProductReq = new MlbackProduct();
+	    mlbackProductReq.setProductId(productskuPid);
+	    
+	    List<MlbackProduct> mlbackProductResList =  mlbackProductService.selectMlbackProductSimple(mlbackProductReq);
+	    MlbackProduct mlbackProductRes = mlbackProductResList.get(0);
+	    
+	    String pSeoName =  mlbackProductRes.getProductSeo();
 		
 	    
 	    //1.收到productskuPid，查询该id下，所有的产品sku
@@ -176,6 +189,7 @@ public class MlbackProductSkuController {
   				//付给新数据对象
   				mlbackProductSkuOne.setProductskuId(productskuId);
   				mlbackProductSkuOne.setProductskuStatus(1);
+  				mlbackProductSkuOne.setProductskuPSeoname(pSeoName);
   				mlbackProductSkuOne.setProductskuMotifytime(nowtime);
   				//新数据对象有了id，走更新
   				mlbackProductSkuService.updateByPrimaryKeySelective(mlbackProductSkuOne);
@@ -183,6 +197,7 @@ public class MlbackProductSkuController {
   				//没有这一条,新增本条即可
   				mlbackProductSkuOne.setProductskuCreatetime(nowtime);
   				mlbackProductSkuOne.setProductskuStatus(1);
+  				mlbackProductSkuOne.setProductskuPSeoname(pSeoName);
   				mlbackProductSkuOne.setProductskuPid(productskuPid);
   				
   				Integer StockNum = mlbackProductSkuOne.getProductskuStock();

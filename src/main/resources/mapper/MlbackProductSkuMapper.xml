@@ -5,6 +5,7 @@
     <id column="productSku_id" jdbcType="INTEGER" property="productskuId" />
     <result column="productSku_name" jdbcType="VARCHAR" property="productskuName" />
     <result column="productSku_Code" jdbcType="VARCHAR" property="productskuCode" />
+    <result column="productSku_PSeoname" jdbcType="VARCHAR" property="productskuPSeoname" />
     <result column="productSku_money" jdbcType="VARCHAR" property="productskuMoney" />
     <result column="productSku_stock" jdbcType="INTEGER" property="productskuStock" />
     <result column="productSku_pid" jdbcType="INTEGER" property="productskuPid" />
@@ -13,7 +14,7 @@
     <result column="productSku_motifyTime" jdbcType="VARCHAR" property="productskuMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    productSku_id, productSku_name, productSku_Code, 
+    productSku_id, productSku_name, productSku_Code, productSku_PSeoname,
     productSku_money, productSku_stock, productSku_pid, productSku_status, 
     productSku_createTime, productSku_motifyTime
   </sql>
@@ -25,12 +26,12 @@
   </select>
 
   <insert id="insert" parameterType="com.atguigu.bean.MlbackProductSku">
-    insert into tb_mlback_product_sku (productSku_id, productSku_name, productSku_Code, 
+    insert into tb_mlback_product_sku (productSku_id, productSku_name, productSku_Code, productSku_PSeoname,
       productSku_money, 
       productSku_stock, productSku_pid, 
       productSku_status, productSku_createTime, 
       productSku_motifyTime)
-    values (#{productskuId,jdbcType=INTEGER}, #{productskuName,jdbcType=VARCHAR}, #{productskuCode,jdbcType=VARCHAR}, 
+    values (#{productskuId,jdbcType=INTEGER}, #{productskuName,jdbcType=VARCHAR}, #{productskuCode,jdbcType=VARCHAR}, #{productskuPSeoname,jdbcType=VARCHAR},
       #{productskuMoney,jdbcType=VARCHAR}, 
       #{productskuStock,jdbcType=INTEGER}, #{productskuPid,jdbcType=INTEGER}, 
       #{productskuStatus,jdbcType=INTEGER}, #{productskuCreatetime,jdbcType=VARCHAR}, 
@@ -42,6 +43,7 @@
     update tb_mlback_product_sku
     set productSku_name = #{productskuName,jdbcType=VARCHAR},
       productSku_Code = #{productskuCode,jdbcType=VARCHAR},
+      productSku_PSeoname = #{productskuPSeoname,jdbcType=VARCHAR},
       productSku_money = #{productskuMoney,jdbcType=VARCHAR},
       productSku_stock = #{productskuStock,jdbcType=INTEGER},
       productSku_pid = #{productskuPid,jdbcType=INTEGER},
@@ -62,6 +64,9 @@
       </if>
       <if test="productskuCode != null">
         productSku_Code,
+      </if>
+      <if test="productskuPSeoname != null">
+        productSku_PSeoname,
       </if>
       <if test="productskuMoney != null">
         productSku_money,
@@ -91,6 +96,9 @@
       </if>
       <if test="productskuCode != null">
         #{productskuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productskuPSeoname != null">
+        #{productskuPSeoname,jdbcType=VARCHAR},
       </if>
       <if test="productskuMoney != null">
         #{productskuMoney,jdbcType=VARCHAR},
@@ -126,6 +134,9 @@
       </if>
       <if test="productskuCode != null">
         productSku_Code = #{productskuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productskuPSeoname != null">
+        productSku_PSeoname = #{productskuPSeoname,jdbcType=VARCHAR},
       </if>
       <if test="productskuMoney != null">
         productSku_money = #{productskuMoney,jdbcType=VARCHAR},

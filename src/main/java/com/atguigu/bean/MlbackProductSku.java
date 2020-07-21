@@ -7,6 +7,8 @@ public class MlbackProductSku {
     private String productskuName;	//skuName
 
     private String productskuCode;	//skuCode
+    
+    private String productskuPSeoname;	//PSeoname
 
     private String productskuMoney;	//价格
 
@@ -42,6 +44,14 @@ public class MlbackProductSku {
 
 	public void setProductskuCode(String productskuCode) {
 		this.productskuCode = productskuCode == null ? null : productskuCode.trim();
+	}
+	
+	public String getProductskuPSeoname() {
+		return productskuPSeoname;
+	}
+
+	public void setProductskuPSeoname(String productskuPSeoname) {
+		this.productskuPSeoname = productskuPSeoname == null ? null : productskuPSeoname.trim();
 	}
 
 	public String getProductskuMoney() {
@@ -96,12 +106,14 @@ public class MlbackProductSku {
 		super();
 	}
 
-	public MlbackProductSku(Integer productskuId, String productskuName, String productskuCode,String productskuMoney, Integer productskuStock, Integer productskuSort,
-			Integer productskuPid, Integer productskuStatus, String productskuCreatetime, String productskuMotifytime) {
+	public MlbackProductSku(Integer productskuId, String productskuName, String productskuCode,
+			String productskuPSeoname, String productskuMoney, Integer productskuStock, Integer productskuPid,
+			Integer productskuStatus, String productskuCreatetime, String productskuMotifytime) {
 		super();
 		this.productskuId = productskuId;
 		this.productskuName = productskuName;
 		this.productskuCode = productskuCode;
+		this.productskuPSeoname = productskuPSeoname;
 		this.productskuMoney = productskuMoney;
 		this.productskuStock = productskuStock;
 		this.productskuPid = productskuPid;
@@ -110,13 +122,12 @@ public class MlbackProductSku {
 		this.productskuMotifytime = productskuMotifytime;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "MlbackProductSku [productskuId=" + productskuId + ", productskuName=" + productskuName
-				+ ", productskuCode=" + productskuCode + ", productskuMoney=" + productskuMoney + ", productskuStock="
-				+ productskuStock + ", productskuPid=" + productskuPid + ", productskuStatus=" + productskuStatus
-				+ ", productskuCreatetime=" + productskuCreatetime + ", productskuMotifytime=" + productskuMotifytime
-				+ "]";
+				+ ", productskuCode=" + productskuCode + ", productskuPSeoname=" + productskuPSeoname
+				+ ", productskuMoney=" + productskuMoney + ", productskuStock=" + productskuStock + ", productskuPid="
+				+ productskuPid + ", productskuStatus=" + productskuStatus + ", productskuCreatetime="
+				+ productskuCreatetime + ", productskuMotifytime=" + productskuMotifytime + "]";
 	}
 }
