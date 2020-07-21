@@ -25,7 +25,6 @@ import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackSuperCateService;
 import com.atguigu.utils.DateUtil;
-import com.atguigu.utils.IfMobileUtils;
 
 @Controller
 @RequestMapping("/MlbackProduct")
