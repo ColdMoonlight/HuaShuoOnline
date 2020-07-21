@@ -440,15 +440,15 @@ public class MlbackProductController {
 	 * @return 
 	 * */
 	@RequestMapping(value="/toSearchPage",method=RequestMethod.GET)
-	public String toSearchPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "seaProductName") String seaProductName) throws Exception{
+	public String toSearchPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "searchProductName") String searchProductName) throws Exception{
 		//接收传递进来的参数
-		String seaProductNameReq = seaProductName;
+		String seaProductNameReq = searchProductName;
 		//放回响应域中
 		res.setAttribute("productName", seaProductNameReq);
 		//放回session域中
 		session.setAttribute("productName", seaProductNameReq);
 		
-		return "portal/product/searchproductlist";
+		return "portal/searchproductlist";
 	}
 	
 	/**
