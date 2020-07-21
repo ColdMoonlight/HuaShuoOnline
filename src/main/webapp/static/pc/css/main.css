@@ -4073,9 +4073,6 @@ footer li {
 	border: 1px solid #ccc;
 	border-radius: .5rem;
 }
-.user-order-item+.user-order-item {
-	margin-top: .5rem;
-}
 .user-orderitem-title,
 .user-orderitem-footer,
 .user-orderitem-item,
@@ -4085,15 +4082,12 @@ footer li {
 .user-orderitem-title,
 .user-orderitem-item {
 	justify-content: space-between;
-	padding: 1rem;
 }
 .user-orderitem-title,
 .user-orderitem-item {
 	align-items: center;
 }
 .user-orderitem-title {
-	padding: 1rem;
-	font-size: .9rem;
 	border-bottom: 1px solid #ccc;
 }
 .user-order-status {
@@ -4101,16 +4095,10 @@ footer li {
 }
 .user-orderitem-footer {
 	justify-content: flex-end;
-	padding: 1rem;
 	border-top: 1px solid #ccc;
 }
 .user-orderitem-item .lazyload {
-	width: 5rem;
-	height: 5rem;
 	flex-shrink: 0;
-}
-.user-orderitem-item {
-	padding: .75rem;
 }
 .user-orderitem-item+.user-orderitem-item{
 	border-top: 1px solid #ccc;
@@ -4120,21 +4108,93 @@ footer li {
 }
 .user-orderitem-text {
 	flex-grow: 1;
-	padding: 0 1rem;
 }
-.user-orderitem-name {
-	font-size: 1rem;
-	color: #333;
-}
-.user-orderitem-sku {
-	margin-top: .25rem;
-}
+.user-orderitem-name,
 .user-orderitem-skuitem {
-	font-size: .875rem;
 	color: #333;
 }
 .user-order-empty {
 	margin-top: 3rem;
 	color: #ff1671;
 	text-align: center;
+}
+@media only screen and (max-width: 575px) {
+	.user-order-list {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+
+	.user-orderitem-title,
+	.user-orderitem-footer,
+	.user-orderitem-item {
+		padding: .5rem 1rem;
+	}
+
+	.user-orderitem-title {
+		font-size: .875rem;
+	}
+	.user-orderitem-item {
+		padding: .5rem 1rem;
+	}
+	.user-order-item+.user-order-item {
+		margin-top: .75rem;
+	}
+	.user-orderitem-text {
+		padding: 0 .75rem;
+	}
+	.user-orderitem-name {
+		font-size: .875rem;
+	}
+	.user-orderitem-sku {
+		margin-top: .2rem;
+	}
+	.user-orderitem-skuitem {
+		font-size: .75rem;
+	}
+	.user-orderitem-item .lazyload {
+		width: 4rem;
+		height: 4rem;
+	}
+	.user-orderitem-data,
+	.user-orderitem-footer {
+		font-size: .875rem;
+	}
+}
+
+@media only screen and (min-width: 576px) {	
+	.user-orderitem-title,
+	.user-orderitem-footer,
+	.user-orderitem-item {
+		padding: 1rem;
+	}
+
+	.user-orderitem-title {
+		font-size: .9rem;
+	}
+	.user-orderitem-item {
+		padding: .75rem;
+	}
+	.user-order-item+.user-order-item {
+		margin-top: .75rem;
+	}
+	.user-orderitem-text {
+		padding: 0 1rem;
+	}
+	.user-orderitem-name {
+		font-size: 1rem;
+	}
+	.user-orderitem-sku {
+		margin-top: .25rem;
+	}
+	.user-orderitem-skuitem {
+		font-size: .875rem;
+	}
+	.user-orderitem-item .lazyload {
+		width: 5rem;
+		height: 5rem;
+	}
+	.user-orderitem-data,
+	.user-orderitem-footer {
+		font-size: 1rem;
+	}
 }
