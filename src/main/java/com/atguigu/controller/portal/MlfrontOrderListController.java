@@ -49,7 +49,7 @@ public class MlfrontOrderListController {
 		if(orderStatus==999){
 			System.out.println("orderStatus==999,不筛选状态");
 		}else{
-			mlfrontOrder.setOrderStatus(orderStatus);//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款
+			mlfrontOrder.setOrderStatus(orderStatus);//全部//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款
 			//全部//1支付成功//3审单完毕(待发货) //4发货完毕(运输中)//5已退款
 		}
 		int PagNum = 5;
