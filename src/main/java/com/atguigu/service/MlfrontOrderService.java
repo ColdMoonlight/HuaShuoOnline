@@ -84,11 +84,11 @@ public class MlfrontOrderService {
 //		return mlfrontOrderList;
 //	}
 //
-//	public List<MlfrontOrder> selectOrderListByUidAndStatus(MlfrontOrder mlfrontOrder) {
-//		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectOrderListByUidAndStatus(mlfrontOrder);
-//		return mlfrontOrderList;
-//	}
-//
+	public List<MlfrontOrder> selectOrderListByUidAndStatus(MlfrontOrder mlfrontOrder) {
+		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectOrderListByUidAndStatus(mlfrontOrder);
+		return mlfrontOrderList;
+	}
+
 	public List<MlfrontOrder> selectMlfrontOrderAllHundred() {
 		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectMlfrontOrderAllHundred();
 		return mlfrontOrderList;

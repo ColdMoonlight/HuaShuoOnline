@@ -300,4 +300,14 @@
     from tb_mlfront_order 
     where order_id = #{orderId,jdbcType=INTEGER}
   </select>
+  
+  
+  <!-- selectOrderListByUidAndStatus使用中 -->
+  <select id="selectOrderListByUidAndStatus" parameterType="com.atguigu.bean.MlfrontOrder" resultMap="BaseResultMap">
+  	select * from tb_mlfront_order where order_uid = #{orderUid,jdbcType=INTEGER} and addressinfo_id>0 
+   	<if test="orderStatus != null">
+   	and order_status = #{orderStatus,jdbcType=INTEGER}
+    </if>
+    order by order_id desc
+  </select>
 </mapper>
