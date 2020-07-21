@@ -98,71 +98,14 @@ public class MlbackProductService {
 		return mlbackProductList;
 	}
 	
-//	/**
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 更新本条信息
-//	 * 
-//	 * */
-//	public int updateMainFuImgById(MlbackProduct mlbackProduct) {
-//		int  intReslut = mlbackProductMapper.updateMainFuImgById(mlbackProduct);
-//		return intReslut;
-//	}
-//	
-//	
-//	/**
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 更新本条信息
-//	 * 
-//	 * */
-//	public List<MlbackProduct> selectMlbackProductByLable(MlbackProduct mlbackProduct) {
-//		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductByLable(mlbackProduct);
-//		return mlbackProductList;
-//	}
-//	
-//	public List<MlbackProduct> selectMlbackProductByProductCategoryid(MlbackProduct mlbackProduct) {
-//		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductByProductCategoryid(mlbackProduct);
-//		return mlbackProductList;
-//	}
-//	
-//	public List<MlbackProduct> selectMlbackProductByStatus(MlbackProduct mlbackProduct) {
-//		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductByStatus(mlbackProduct);
-//		return mlbackProductList;
-//	}
-//	public MlbackProduct selectMlbackProductBySeo(MlbackProduct mlbackProductrepBySeo) {
-//		MlbackProduct  mlbackProduct = mlbackProductMapper.selectMlbackProductBySeo(mlbackProductrepBySeo);
-//		return mlbackProduct;
-//	}
-//	public List<MlbackProduct> selectMlbackProductLike(MlbackProduct mlbackProduct) {
-//		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductLike(mlbackProduct);
-//		return mlbackProductList;
-//	}
-//	public List<MlbackProduct> selectMlbackProductLikeNum(MlbackProduct mlbackProduct) {
-//		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductLikeNum(mlbackProduct);
-//		return mlbackProductList;
-//	}
-//	
-//	/**
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 查看全部用户信息
-//	 * 
-//	 * */
-//	public List<MlbackProduct> selectMlbackProductlast() {
-//		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductlast();
-//		return mlbackProductList;
-//	}
-//	
+	public List<MlbackProduct> selectMlbackProductLike(MlbackProduct mlbackProduct) {
+		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductLike(mlbackProduct);
+		return mlbackProductList;
+	}
 
-
-//	
-//	/**
-//	 * 查询单个产品信息(无富文本描述)
-//	 * */
-//	public List<MlbackProduct> selectHighMlbackProduct(MlbackProduct mlbackProductReq) {
-//		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectHighMlbackProduct(mlbackProductReq);
-//		return mlbackProductList;
-//	}	
+	public List<MlbackProduct> selectMlbackProductLikeNum(MlbackProduct mlbackProduct) {
+		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductLikeNum(mlbackProduct);
+		return mlbackProductList;
+	}
 
 }
