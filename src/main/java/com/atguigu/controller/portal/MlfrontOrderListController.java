@@ -40,9 +40,9 @@ public class MlfrontOrderListController {
 
 		MlfrontUser loginUser = (MlfrontUser) session.getAttribute("loginUser");
 		
-		System.out.println("---------------loginUser---------------");
+		System.out.println("------------loginUser---------------");
 		System.out.println(loginUser);
-		System.out.println("---------------loginUser---------------");
+		System.out.println("------------loginUser---------------");
 		Integer Uid = loginUser.getUserId();
 		MlfrontOrder mlfrontOrder = new MlfrontOrder();
 		mlfrontOrder.setOrderUid(Uid);
