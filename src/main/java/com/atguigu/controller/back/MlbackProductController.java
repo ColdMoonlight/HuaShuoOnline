@@ -406,7 +406,7 @@ public class MlbackProductController {
 	
 	
 	/**
-	 * 9.	UseNow	0505
+	 * 9.	zsh200716
 	 * 查询单个产品信息(无富文本描述)
 	 * @param productId
 	 * @return 
@@ -434,7 +434,7 @@ public class MlbackProductController {
 	
 	
 	/**
-	 * 13	UseNow	0505
+	 * 10	zsh200721
 	 * 前台移动端获取详情页面mfront/productDetails
 	 * @param jsp
 	 * @return 
@@ -452,23 +452,23 @@ public class MlbackProductController {
 	}
 	
 	/**
-	  * 14.0 UseNow 0505
+	  * 11.0	zsh200721
 	  * 通过产品名模糊搜索
 	  * @param productId
 	  * @return 
 	  */
-//	 @RequestMapping(value="/searchProductLike",method=RequestMethod.POST)
-//	 @ResponseBody
-//	 public Msg searchProductLike(@RequestParam(value = "productName") String productName){
-//	  //接受信息
-//	  MlbackProduct mlbackProductReq = new MlbackProduct();
-//	  mlbackProductReq.setProductName(productName);
-//	  //System.out.println("操作说明:客户搜索的产品名字productName:"+productName);
-//	  List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductLike(mlbackProductReq);
-//	  List<MlbackProduct> mlbackProductResListnum =mlbackProductService.selectMlbackProductLikeNum(mlbackProductReq);
-//	  Integer num = mlbackProductResListnum.size();
-//	  //System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
-//	  return Msg.success().add("resMsg", "产品名模糊搜索完毕")
-//	     .add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName);
-//	 }
+	 @RequestMapping(value="/searchProductLike",method=RequestMethod.POST)
+	 @ResponseBody
+	 public Msg searchProductLike(@RequestParam(value = "productName") String productName){
+	  //接受信息
+	  MlbackProduct mlbackProductReq = new MlbackProduct();
+	  mlbackProductReq.setProductName(productName);
+	  //System.out.println("操作说明:客户搜索的产品名字productName:"+productName);
+	  List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductLike(mlbackProductReq);
+	  List<MlbackProduct> mlbackProductResListnum =mlbackProductService.selectMlbackProductLikeNum(mlbackProductReq);
+	  Integer num = mlbackProductResListnum.size();
+	  //System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
+	  return Msg.success().add("resMsg", "产品名模糊搜索完毕")
+	     .add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName);
+	 }
 }

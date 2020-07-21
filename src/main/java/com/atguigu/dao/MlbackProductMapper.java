@@ -44,4 +44,9 @@ public interface MlbackProductMapper {
     //查询单个产品信息(无富文本描述)
   	List<MlbackProduct> selectMlbackProductSimple(MlbackProduct mlbackProductReq);
 
+  	//模糊查询
+	List<MlbackProduct> selectMlbackProductLike(MlbackProduct mlbackProduct);
+	//模糊查询数量
+	List<MlbackProduct> selectMlbackProductLikeNum(MlbackProduct mlbackProduct);
+
 }
