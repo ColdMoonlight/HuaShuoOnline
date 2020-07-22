@@ -114,7 +114,6 @@ public class MlfrontOrderController {
 		return Msg.success().add("resMsg", "更新成功"); 
 	}
 	
-	
 	/**
 	 * 4.0	zsh 0615
 	 * 删除购物车中的项delCartItem
@@ -555,6 +554,74 @@ public class MlfrontOrderController {
 		Double oneM = moneyAll/skuNum;
 		String Onemoney = String.format("%.2f", oneM);
 		return Onemoney;
+	}
+	
+	/**
+	 * 7.0	useOn	0505
+	 * 查看单条类目的详情细节
+	 * @param mlfrontOrderOne
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlfrontOrderDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlfrontOrderDetail(@RequestBody MlfrontOrder mlfrontOrder){
+		
+		Integer orderId = mlfrontOrder.getOrderId();
+		MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+		mlfrontOrderReq.setOrderId(orderId);
+		//查询本条
+		List<MlfrontOrder> mlfrontOrderResList =mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
+		MlfrontOrder mlfrontOrderOne = new MlfrontOrder();
+		List<MlfrontOrderItem>  mlfrontOrderItemList = new ArrayList<MlfrontOrderItem>();
+		Integer addressinfoId =0;
+		MlfrontAddress mlfrontAddressReq = new MlfrontAddress();
+		MlfrontAddress mlfrontAddressRes = new MlfrontAddress();
+		List<MlfrontAddress> mlfrontAddressList = new ArrayList<MlfrontAddress>();
+		Integer areafreightMoney = 0;
+		if(mlfrontOrderResList.size()>0){
+			mlfrontOrderOne =mlfrontOrderResList.get(0);
+
+			addressinfoId = mlfrontOrderOne.getOrderAddressinfoId();
+			mlfrontAddressReq.setAddressId(addressinfoId);
+//			mlfrontAddressList =mlfrontAddressService.selectMlfrontAddressById(mlfrontAddressReq);
+			mlfrontAddressList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddressReq);
+			if(mlfrontAddressList.size()>0){
+				mlfrontAddressRes = mlfrontAddressList.get(0);
+				//从中取出国家字段
+				String areafreightCountryEnglish = mlfrontAddressRes.getAddressCountry();
+				MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
+//				mlbackAreafreightReq.setAreafreightCountryEnglish(areafreightCountryEnglish);
+				mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryEnglish);
+				//查询本条
+//				List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByEng(mlbackAreafreightReq);
+				List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
+				if(mlbackAreafreightResList.size()>0){
+					areafreightMoney =mlbackAreafreightResList.get(0).getAreafreightPrice();
+				}
+			}
+			//2.3从详情中拿到orderItemIDStr;
+			String orderItemIdsStr = mlfrontOrderOne.getOrderOrderitemidstr();
+			//取出mlfrontOrderOne的数量对象
+			//如果对象那个中的详情为空
+			MlfrontOrderItem mlfrontOrderItemOne = new MlfrontOrderItem();
+			MlfrontOrderItem mlfrontOrderItemOneReq = new MlfrontOrderItem();
+			String orderItemIdStrArr [] = orderItemIdsStr.split(",");
+			String orderItemIdStr = "";
+			Integer orderItemIdInt = 0;
+			for(int i =0;i<orderItemIdStrArr.length;i++){
+				orderItemIdStr = orderItemIdStrArr[i];
+				orderItemIdInt = Integer.parseInt(orderItemIdStr);
+				mlfrontOrderItemOneReq.setOrderitemId(orderItemIdInt);
+				List<MlfrontOrderItem> mlfrontOrderItemResList = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemOneReq);
+				mlfrontOrderItemOne = mlfrontOrderItemResList.get(0);
+				mlfrontOrderItemList.add(mlfrontOrderItemOne);
+			}
+		}else{
+			mlfrontOrderOne = null;
+		}
+		return Msg.success().add("resMsg", "查看单条mlfrontOrderOne的详情细节完毕")
+					.add("mlfrontOrderOne", mlfrontOrderOne).add("mlfrontOrderItemList", mlfrontOrderItemList)
+					.add("addressInfo", mlfrontAddressRes).add("areafreightMoney", areafreightMoney);
 	}
 
 }
