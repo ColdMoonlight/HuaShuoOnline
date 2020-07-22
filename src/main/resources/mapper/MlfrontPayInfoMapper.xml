@@ -19,13 +19,14 @@
     <result column="payInfo_TransIdnum" jdbcType="VARCHAR" property="payinfoTransidnum" />
     <result column="payInfo_trans_status" jdbcType="VARCHAR" property="payinfoTransStatus" />
     <result column="payInfo_EcppHSNum" jdbcType="VARCHAR" property="payinfoEcpphsnum" />
+    <result column="payInfo_EcppHSNumStatus" jdbcType="VARCHAR" property="payinfoEcpphsnumStatus" />
     <result column="payInfo_SendNum" jdbcType="VARCHAR" property="payinfoSendnum" />
   </resultMap>
   <sql id="Base_Column_List">
     payInfo_id, payInfo_uid, payInfo_ip, payInfo_oid, payInfo_platform, payInfo_platformSerialCode, 
     payInfo_money, payInfo_status, payInfo_reason, payInfo_createTime, payInfo_motifyTime, 
     payInfo_plateNum, payInfo_uname, payInfo_uemail, payInfo_TransIdnum, payInfo_trans_status, 
-    payInfo_EcppHSNum, payInfo_SendNum
+    payInfo_EcppHSNum, payInfo_EcppHSNumStatus, payInfo_SendNum
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -40,14 +41,14 @@
       payInfo_money, payInfo_status, payInfo_reason, 
       payInfo_createTime, payInfo_motifyTime, payInfo_plateNum, 
       payInfo_uname, payInfo_uemail, payInfo_TransIdnum, 
-      payInfo_trans_status, payInfo_EcppHSNum, payInfo_SendNum
+      payInfo_trans_status, payInfo_EcppHSNum,  payInfo_EcppHSNumStatus, payInfo_SendNum
       )
     values (#{payinfoId,jdbcType=INTEGER}, #{payinfoUid,jdbcType=INTEGER}, #{payinfoIp,jdbcType=VARCHAR}, 
       #{payinfoOid,jdbcType=INTEGER}, #{payinfoPlatform,jdbcType=VARCHAR}, #{payinfoPlatformserialcode,jdbcType=VARCHAR}, 
       #{payinfoMoney,jdbcType=DECIMAL}, #{payinfoStatus,jdbcType=INTEGER}, #{payinfoReason,jdbcType=VARCHAR}, 
       #{payinfoCreatetime,jdbcType=VARCHAR}, #{payinfoMotifytime,jdbcType=VARCHAR}, #{payinfoPlatenum,jdbcType=VARCHAR}, 
       #{payinfoUname,jdbcType=VARCHAR}, #{payinfoUemail,jdbcType=VARCHAR}, #{payinfoTransidnum,jdbcType=VARCHAR}, 
-      #{payinfoTransStatus,jdbcType=VARCHAR}, #{payinfoEcpphsnum,jdbcType=VARCHAR}, #{payinfoSendnum,jdbcType=VARCHAR}
+      #{payinfoTransStatus,jdbcType=VARCHAR}, #{payinfoEcpphsnum,jdbcType=VARCHAR}, #{payinfoEcpphsnumStatus,jdbcType=VARCHAR}, #{payinfoSendnum,jdbcType=VARCHAR}
       )
   </insert>
 
@@ -69,6 +70,7 @@
       payInfo_TransIdnum = #{payinfoTransidnum,jdbcType=VARCHAR},
       payInfo_trans_status = #{payinfoTransStatus,jdbcType=VARCHAR},
       payInfo_EcppHSNum = #{payinfoEcpphsnum,jdbcType=VARCHAR},
+      payInfo_EcppHSNumStatus = #{payinfoEcpphsnumStatus,jdbcType=VARCHAR}, 
       payInfo_SendNum = #{payinfoSendnum,jdbcType=VARCHAR}
     where payInfo_id = #{payinfoId,jdbcType=INTEGER}
   </update>
@@ -128,6 +130,9 @@
       <if test="payinfoEcpphsnum != null">
         payInfo_EcppHSNum,
       </if>
+      <if test="payinfoEcpphsnumStatus != null">
+        payInfo_EcppHSNumStatus,
+      </if>
       <if test="payinfoSendnum != null">
         payInfo_SendNum,
       </if>
@@ -183,6 +188,9 @@
       </if>
       <if test="payinfoEcpphsnum != null">
         #{payinfoEcpphsnum,jdbcType=VARCHAR},
+      </if>
+      <if test="payinfoEcpphsnumStatus != null">
+        #{payinfoEcpphsnumStatus,jdbcType=VARCHAR},
       </if>
       <if test="payinfoSendnum != null">
         #{payinfoSendnum,jdbcType=VARCHAR},
@@ -245,6 +253,9 @@
       </if>
       <if test="payinfoEcpphsnum != null">
         payInfo_EcppHSNum = #{payinfoEcpphsnum,jdbcType=VARCHAR},
+      </if>
+      <if test="payinfoEcpphsnumStatus != null">
+        payInfo_EcppHSNumStatus = #{payinfoEcpphsnumStatus,jdbcType=VARCHAR}, 
       </if>
       <if test="payinfoSendnum != null">
         payInfo_SendNum = #{payinfoSendnum,jdbcType=VARCHAR},
