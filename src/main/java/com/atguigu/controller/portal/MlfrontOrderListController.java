@@ -2,6 +2,8 @@ package com.atguigu.controller.portal;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
+import com.atguigu.ship.Classes.Tracking;
+import com.atguigu.utils.app.shipInformation;
 
 @Controller
 @RequestMapping("/MlfrontOrderList")
@@ -92,5 +96,20 @@ public class MlfrontOrderListController {
 			}
 		}
 		return Msg.success().add("pageInfo", page).add("sizeList", sizeList).add("mlfrontOrderItemReturnList", mlfrontOrderItemReturnList);
+	}
+	
+	/**
+	 * 2.0	zsh200722
+	 * 登录客户在myOrderListPage中查询某一单的物流跟踪明细
+	 * @param String trackingNumber,String Slug
+	 * @return 
+	 * */
+	@RequestMapping(value="/getCheckpointByTrackingNumber",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getCheckpointByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "trackingNumber") String trackingNumber,@RequestParam(value = "Slug") String Slug) {
+		
+		Tracking TrackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
+		return Msg.success().add("TrackingRes", TrackingRes);
 	}
 }

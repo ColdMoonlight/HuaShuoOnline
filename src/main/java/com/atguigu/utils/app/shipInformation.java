@@ -68,7 +68,7 @@ public class shipInformation {
 	 * @Description: 查询物流信息通过,运单号+物流单位
      * @param String trackingNumber, String Slug
      * @Anthor:zsh
-     * @return
+     * @return	Tracking
      */ 
 	public static Tracking getTrackingByTrackingNumberAndSlug(String trackingNumber, String Slug) {
 		
