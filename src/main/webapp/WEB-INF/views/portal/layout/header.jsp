@@ -329,19 +329,28 @@
 			}
 		});
 	}
-	// update user login status fn
-	function updateUserLoginStatus() {
+	// check user login or not
+	function checkUserLoginOrNot() {
+		var flag = false;
 		$.ajax({
 			url: "${APP_PATH}/MlfrontUser/ifLogin",
 			type: 'post',
+			async: false,
 			success: function (data) {
-			 	var resData = data.extend,
-			 		$pserson = $('.icon.person');
-			 	if (resData.ifLogin && !$pserson.hasClass('active')) $pserson.addClass('active');
-			
-			 	if (!resData.ifLogin && $pserson.hasClass('active')) $person.removeClass('active');
+				if (data.code == 100) {
+			 		flag = data.extend.ifLogin ? true : false;					
+				}
 			}
 		});
+		return flag;
+	}
+	// update user login status fn
+	function updateUserLoginStatus() {
+		var loginStatus = checkUserLoginOrNot();
+	 	var $pserson = $('.icon.person');
+		if (loginStatus && !$pserson.hasClass('active')) $pserson.addClass('active');
+		
+	 	if (!loginStatus && $pserson.hasClass('active')) $person.removeClass('active');
 	}
 	// login register fn
 	function registerFn(reqData, callback) {

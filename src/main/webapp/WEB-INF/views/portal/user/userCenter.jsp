@@ -80,10 +80,13 @@
 			$(".usercenter-name").html('Customer');
 		}
 	}
-	addUserInfo();
+	var loginStatus = checkUserLoginOrNot();
+	
+	!loginStatus && loginNotTip();
+	loginStatus && addUserInfo();
 	$('#logout').on('click', function () {
 		$.ajax({
-			url: "${APP_PATH }/MlfrontUser/exit",
+			url: "${APP_PATH}/MlfrontUser/exit",
 			type: 'POST',
 			success: function (data) {
 				if (data.code == 100 && data.extend.exitInt == 0) {

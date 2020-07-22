@@ -158,8 +158,11 @@
 			$('.user-order-time').html(html);
 		}
 		var  orderId= window.location.href.split('?')[1].split('=')[1],
-			shippingMoney = 0;
-		getOrderList(orderId);
+			shippingMoney = 0,
+			loginStatus = checkUserLoginOrNot();
+		
+		!loginStatus && loginNotTip();
+		loginStatus && getOrderList(orderId);
 	</script>
 </body>
 </html>

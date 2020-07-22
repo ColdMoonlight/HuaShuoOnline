@@ -141,8 +141,11 @@
 				3: 'Processing',
 				4: 'Delviered',
 				5:'refund'
-			};
-		getOrderList();
+			},
+			loginStatus = checkUserLoginOrNot();
+		
+		!loginStatus && loginNotTip();
+		loginStatus && getOrderList();
 		// tab-order-item tab
 		$('.order-tab-item').on('click', function() {
 			if (!$(this).hasClass('active')) {
