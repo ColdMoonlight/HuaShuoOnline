@@ -383,12 +383,6 @@ a.btn-gray,
 	border: 1px solid #ccc;
 	background-color: #ccc;
 }
-a.btn-yes,
-.btn-yes {
-	color: #fff;
-    border: 1px solid #2eb85c;
-	background-color: #2eb85c;
-}
 a.btn-pink,
 .btn-pink {	
 	color: #fff;
@@ -615,13 +609,10 @@ table tr td:nth-of-type(2) {
 
     width: 2rem;
     height: 2rem;
-    line-height: 2rem;
-    text-align: center;
 
-    font-size: .875rem;
-    text-align: center;
+    font-size: 1.2rem;
     color: #fff;
-    background-color: #000;
+    background-color: #555555;
     cursor: pointer;
 }
 .modal::before {

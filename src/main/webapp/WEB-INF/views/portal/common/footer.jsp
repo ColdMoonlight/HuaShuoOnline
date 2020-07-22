@@ -338,7 +338,7 @@ function createModal(option) {
 	    	('<div class="modal-body">' + opt.body.html + '</div>') +
 	    	(opt.footer.isShow
 	    			? ('<div class="modal-footer">' + 
-	    					(opt.footer.html ? opt.footer.html : '<button class="btn btn-pink modal-no"> No </button><button class="btn btn-yes modal-ok"> Yes </button>') +
+	    					(opt.footer.html ? opt.footer.html : '<button class="btn btn-gray modal-no"> No </button><button class="btn btn-pink modal-ok"> Yes </button>') +
 	    				'</div>')
 	    			: '') +
 	    '</div>' +
@@ -371,7 +371,7 @@ function createModal(option) {
     // modal close event
     if (!opt.blockEvent) {    	
 	    modal.on('click', closeModalEvent);
-	    modal.find('.modal-close, .btn-no').on('click', closeModalEvent);
+	    modal.find('.modal-close, .modal-no').on('click', closeModalEvent);
     }
     
 	return modal;
