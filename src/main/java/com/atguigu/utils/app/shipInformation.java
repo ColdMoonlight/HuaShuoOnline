@@ -14,13 +14,7 @@ public class shipInformation {
 	public static void main(String[] args) {
 		getTrackingByTrackingNumberAndSlug("392338333836", "");
 	}
-	
-	/**
-	 * 01绑定物流单号进入app
-	 * 
-	 * 02查询物流信息
-	 * */
-	
+
 	/**
      * @param String orderLogisticsname, String trackingNumber, String payinfoPlateNum
      * @Description: 01绑定物流单号进入app
@@ -73,15 +67,12 @@ public class shipInformation {
 	
 	/**
      * @param String trackingNumber, String Slug
-     * @Description: 查询物流信息
+     * @Description: 查询物流信息通过,运单号+物流单位
      * @Anthor:zsh
      * @return
      * @throws Exception
      */ 
 	public static Tracking getTrackingByTrackingNumberAndSlug(String trackingNumber, String Slug) {
-		
-//		ConnectionAPI connection = new ConnectionAPI("7b04f01f-4f04-4b37-bbb9-5b159af73ee1");
-//		Tracking tracking = new Tracking("778708372986");
 		
 		String connectionAPIStr = ConnectionAPIid;
 		ConnectionAPI connection = new ConnectionAPI(connectionAPIStr);
