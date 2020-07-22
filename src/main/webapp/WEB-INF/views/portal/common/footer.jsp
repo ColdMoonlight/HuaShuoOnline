@@ -386,7 +386,8 @@ function mlModalTip(text) {
 	var modal = createModal({
 		body: {
 			html: '<p>'+ text +'</p>'
-		}
+		},
+		autoClose: true,
 	});
 }
 
@@ -426,7 +427,6 @@ function loginNotTip() {
 		body: {
 			html: '<p>Not logged in, 3s later, it will jump to the homepage !</p>'
 		},
-		atuoClose: false,
 		blockEvent: true,
 	});
 	loginModal.find('.modal-close').hide();
@@ -468,7 +468,6 @@ function goToUserCenerCoupon() {
 function goToUserCenerPersonal() {
 	window.location.href = "${APP_PATH }/MlfrontUser/toPersonInfoPage";
 }
-
 
 /* pagination */
 /* pageNum */
