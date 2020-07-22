@@ -27,6 +27,14 @@ public class EcppIntoUtil {
 		
 		String ecppItemListStr = getEcppItemListStr(ecppItemList);
 		
+		String ecppItemState = ecppOrder.getState();
+		if(ecppItemState.length()>0){
+			System.out.println("ecppItemState:"+ecppItemState+"");
+		}else{
+			ecppItemState=" ";
+			System.out.println("ecppItemState:"+ecppItemState+"");
+		}
+		
 		String soapXML = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
 				+"<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
 					+"<soap:Body>"
@@ -50,7 +58,7 @@ public class EcppIntoUtil {
 							+"<street1>"+ecppOrder.getStreet1()+"</street1>"
 							+"<street2 >"+ecppOrder.getStreet2()+"</street2>"
 							+"<city>"+ecppOrder.getCity()+"</city>"
-							+"<state>"+ecppOrder.getState()+"</state>"
+							+"<state>"+ecppItemState+"</state>"
 							+"<country>"+ecppOrder.getCountry()+"</country>"
 							+"<CountryCode>"+ecppOrder.getCountryCode()+"</CountryCode>"
 							+"<tel>"+ecppOrder.getTel()+"</tel>"
