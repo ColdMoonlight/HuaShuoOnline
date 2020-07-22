@@ -34,6 +34,7 @@ import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.EcppUpdateWebStatusUtil;
 import com.atguigu.utils.PropertiesUtil;
+import com.atguigu.utils.app.shipInformation;
 import com.atguigu.vo.EcppTrackItem;
 
 @Controller
@@ -376,6 +377,24 @@ public class MlfrontPayInfoController {
                 		mlfrontOrderReq.setOrderLogisticsnumber(ecppTrackItem.getEcppOrderTrackNo());
                 		mlfrontOrderReq.setOrderStatus(4);//orderStatus == 4已发货,待接收
                 		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+                		
+                		String orderLogisticsname = ecppTrackItem.getShippingName();
+                		
+                		String orderLogisticsnumber = ecppTrackItem.getEcppOrderTrackNo();
+                		
+                		String payinfoPlateNum = mlfrontPayInfoOne.getPayinfoPlatenum();
+                		
+                		//10.1向afterShip官方发送物流添加按钮
+                		try {
+                			//向物流中插入物流单号,订单号,Item,价格,
+                			String resultStr =  shipInformation.addTrackingNumberIntoAfterShip(orderLogisticsname,orderLogisticsnumber,payinfoPlateNum);
+                			System.out.println(resultStr);
+                		} catch (Exception e) {
+                			e.printStackTrace();
+                			System.out.println("物流中插入物流单号--有异常");
+                			System.out.println(e.getMessage());
+                		}
+                		
                 		
 					}else if("UOO".equals(ecppOrderStatusCode)){
 							//113-UOO-客服审核完成的状态，就更新成审核完毕的状态
