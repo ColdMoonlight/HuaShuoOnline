@@ -34,11 +34,12 @@
 										<th>date</th>
 										<th>pay-status</th>
 										<th>price</th>
-										<th>customer-name</th>
-										<th>customer-email</th>
+										<th>customer</th>
+										<!-- <th>customer-email</th> -->
 										<th>paypal-num</th>
 										<th>paypal-status</th>
 										<th>ecpp-num</th>
+										<th>ecpp-status</th>
 										<th>tracking-num</th>
 										<th>operate</th>
 									</tr>
@@ -485,10 +486,11 @@
 					'<td>' + getPayStatus(data[i].payinfoStatus) + '</td>' +
 					'<td>' + data[i].payinfoMoney + '</td>' +
 					'<td>' + (data[i].payinfoUname || '') + '</td>' +
-					'<td>' + (data[i].payinfoUemail || '') + '</td>' + 
+					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
 					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
 					'<td>' + (data[i].payinfoTransStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
+					'<td>' + (data[i].payinfoEcpphsnumStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoSendnum || '') + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-view" data-id="' + data[i].payinfoId + '">' +

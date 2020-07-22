@@ -37,6 +37,8 @@ public class MlfrontPayInfo {
     private String payinfoTransStatus;//paypal交易status
 
     private String payinfoEcpphsnum;//Ecpp单号
+    
+    private String payinfoEcpphsnumStatus;//EcppStatus
 
     private String payinfoSendnum;//物流单号
 
@@ -176,7 +178,15 @@ public class MlfrontPayInfo {
         this.payinfoEcpphsnum = payinfoEcpphsnum == null ? null : payinfoEcpphsnum.trim();
     }
 
-    public String getPayinfoSendnum() {
+    public String getPayinfoEcpphsnumStatus() {
+		return payinfoEcpphsnumStatus;
+	}
+
+	public void setPayinfoEcpphsnumStatus(String payinfoEcpphsnumStatus) {
+		this.payinfoEcpphsnumStatus = payinfoEcpphsnumStatus == null ? null : payinfoEcpphsnumStatus.trim();
+	}
+
+	public String getPayinfoSendnum() {
         return payinfoSendnum;
     }
 
@@ -192,7 +202,7 @@ public class MlfrontPayInfo {
 			String payinfoPlatform, String payinfoPlatformserialcode, BigDecimal payinfoMoney, Integer payinfoStatus,
 			String payinfoReason, String payinfoCreatetime, String payinfoMotifytime, String payinfoPlatenum,
 			String payinfoUname, String payinfoUemail, String payinfoTransidnum, String payinfoTransStatus,
-			String payinfoEcpphsnum, String payinfoSendnum) {
+			String payinfoEcpphsnum, String payinfoEcpphsnumStatus, String payinfoSendnum) {
 		super();
 		this.payinfoId = payinfoId;
 		this.payinfoUid = payinfoUid;
@@ -211,6 +221,7 @@ public class MlfrontPayInfo {
 		this.payinfoTransidnum = payinfoTransidnum;
 		this.payinfoTransStatus = payinfoTransStatus;
 		this.payinfoEcpphsnum = payinfoEcpphsnum;
+		this.payinfoEcpphsnumStatus = payinfoEcpphsnumStatus;
 		this.payinfoSendnum = payinfoSendnum;
 	}
 
@@ -223,7 +234,8 @@ public class MlfrontPayInfo {
 				+ ", payinfoMotifytime=" + payinfoMotifytime + ", payinfoPlatenum=" + payinfoPlatenum
 				+ ", payinfoUname=" + payinfoUname + ", payinfoUemail=" + payinfoUemail + ", payinfoTransidnum="
 				+ payinfoTransidnum + ", payinfoTransStatus=" + payinfoTransStatus + ", payinfoEcpphsnum="
-				+ payinfoEcpphsnum + ", payinfoSendnum=" + payinfoSendnum + "]";
+				+ payinfoEcpphsnum + ", payinfoEcpphsnumStatus=" + payinfoEcpphsnumStatus + ", payinfoSendnum="
+				+ payinfoSendnum + "]";
 	}
-    
+
 }
