@@ -92,10 +92,6 @@ public class EcppIntoUtil {
 		//第五步：接收服务端响应，打印
 		int responseCode = connection.getResponseCode();
 		System.out.println(responseCode);
-		Object connectText = connection.getContent();
-		System.out.println("connectText.toString()");
-		System.out.println(connectText.toString());
-		System.out.println("connectText.toString()");
 		
 		String EcppHSNum ="000000";
 		if(200 == responseCode){//表示服务端响应成功
