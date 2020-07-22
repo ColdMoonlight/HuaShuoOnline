@@ -8,7 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
@@ -18,8 +17,6 @@ import com.atguigu.vo.ecppItem;
 import com.atguigu.vo.order;
 
 public class EcppIntoUtil {
-	
-	/*------begin------以下方法是-----------支付成功之后，向ecpp中插入数据-------begin---------*/
 	
 	public static String getXML(String token, order ecppOrder) {
 		
@@ -92,10 +89,6 @@ public class EcppIntoUtil {
 		//第五步：接收服务端响应，打印
 		int responseCode = connection.getResponseCode();
 		System.out.println(responseCode);
-		Object connectText = connection.getContent();
-		System.out.println("connectText.toString()");
-		System.out.println(connectText.toString());
-		System.out.println("connectText.toString()");
 		
 		String EcppHSNum ="000000";
 		if(200 == responseCode){//表示服务端响应成功
@@ -214,7 +207,5 @@ public class EcppIntoUtil {
 		ecppOrder.setItem(ecppItemList);
 		return ecppOrder;
 	}
-	
-	/*------end------以下方法是-----------支付成功之后，向ecpp中插入数据-------end---------*/
 
 }

@@ -285,6 +285,17 @@ public class MlfrontUserController {
 		return "portal/user/myOrderList";
 	}
 	
+	/**
+	 * 13.0	zsh200722
+	 * to	tomyOrderDetailPage
+	 * @return  jsp
+	 * */
+	@RequestMapping("/tomyOrderDetailPage")
+	public String tomyOrderDetailPage() throws Exception{
+	
+		return "portal/user/myOrderDetail";
+	}
+	
 //	/**
 //	 * 7.0	UseNow	0505
 //	 * to	MlfrontUser列表页面
