@@ -53,12 +53,12 @@
 						$('.loader-box').hide();
 					} else {
 						sysModalTip();
-						setTimeout(goToIndex, 2000);
+						setTimeout(goToUserCenter, 2000);
 					}
 				},
 				error: function(err) {
 					sysModalTip();
-					setTimeout(goToIndex, 2000);
+					setTimeout(goToUserCenter, 2000);
 				}
 			})
 		}
@@ -95,13 +95,13 @@
 			var htmlStr = '';
 			if (orderList.length) {
 				for (var key in orderList) {
-					htmlStr += '<div class="user-order-item" data-id="' + orderList[key].orderId + '" onclick="toDetailPage(event)">' +
+					htmlStr += '<div class="user-order-item" data-id="' + orderList[key].orderId + '">' +
 						'<div class="user-orderitem-title">' +
 							'<div class="user-order-id">order Id: ' + orderList[key].orderId + '</div>' +
 							'<div class="user-order-status">' + (statusMap[orderList[key].orderStatus]) + '</div>' +
 						'</div>' +
 						'<div class="user-orderitem-body">';
-					for (var i = 0; i < orderItemSize[key]; i++) {
+					for (var i = 0; i < orderItemSize[key]; i+=1) {
 						var item = map.orderItemMap[map.orderMap[orderList[key].orderId][i]];
 						var itemLink = item.orderitemPseo ? ('${APP_PATH}/'+ item.orderitemPseo + '.html') : 'javascript:;';
 						htmlStr += '<div class="user-orderitem-item">' +
@@ -111,7 +111,7 @@
 									'<div class="user-orderitem-sku">' + generateSkus(item) + '</div>' +
 								'</div>' +
 								'<div class="user-orderitem-data">' +
-									'<div class="user-orderitem-price">$' + (item.orderitemPskuReamoney / item.orderitemPskuNumber) + '</div>' +
+									'<div class="user-orderitem-price">$' + (item.orderitemPskuReamoney / item.orderitemPskuNumber).toFixed(2) + '</div>' +
 									'<div class="user-orderitem-num">X' + item.orderitemPskuNumber + '</div>' +
 								'</div>' +
 							'</div>';
@@ -154,6 +154,10 @@
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getOrderList();
+		});
+		$(document.body).on('click', '.user-order-item', function() {
+			var orderId = $(this).data('id');
+			orderId && (window.location.href = '${APP_PATH}/MlfrontUser/tomyOrderDetailPage?orderId=' + orderId);
 		});
 	</script>
 </body>
