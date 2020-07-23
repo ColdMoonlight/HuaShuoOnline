@@ -1,14 +1,10 @@
 package com.atguigu.controller.portal;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +19,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
-import com.atguigu.ship.Classes.AftershipAPIException;
 import com.atguigu.ship.Classes.Checkpoint;
-import com.atguigu.ship.Classes.ConnectionAPI;
 import com.atguigu.ship.Classes.Tracking;
 import com.atguigu.utils.app.shipInformation;
 
@@ -117,6 +111,5 @@ public class MlfrontOrderListController {
 			i++;
 		}
 		return Msg.success().add("CheckpointList", CheckpointList);
-		
 	}
 }
