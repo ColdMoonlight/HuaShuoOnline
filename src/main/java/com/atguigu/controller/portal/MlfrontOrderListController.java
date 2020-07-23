@@ -44,44 +44,33 @@ public class MlfrontOrderListController {
 
 		MlfrontUser loginUser = (MlfrontUser) session.getAttribute("loginUser");
 		
-		System.out.println("------------loginUser---------------");
-		System.out.println(loginUser);
-		System.out.println("------------loginUser---------------");
 		Integer Uid = loginUser.getUserId();
 		MlfrontOrder mlfrontOrder = new MlfrontOrder();
+		List<MlfrontOrder> mlfrontOrderList = new ArrayList<MlfrontOrder>();
 		mlfrontOrder.setOrderUid(Uid);
-		if(orderStatus==999){
-			System.out.println("orderStatus==999,不筛选状态");
-		}else{
-			mlfrontOrder.setOrderStatus(orderStatus);//全部//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款
-			//全部//1支付成功//3审单完毕(待发货) //4发货完毕(运输中)//5已退款
-		}
 		int PagNum = 5;
 		PageHelper.startPage(pn, PagNum);
-		List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectOrderListByUidAndStatus(mlfrontOrder);
-		List<MlfrontOrder> mlfrontOrderResList = new ArrayList<MlfrontOrder>();
-		for(MlfrontOrder mlfrontOrderResOne:mlfrontOrderList){
-			Integer resOrderStatus = mlfrontOrderResOne.getOrderStatus();
-			if(resOrderStatus==0){
-				//0未支付,跳过
-				continue;
-			}else if(resOrderStatus==2){
-				///2支付失败
-				continue;
-			}else{
-				mlfrontOrderResList.add(mlfrontOrderResOne);
-			}
+		PageInfo page = new PageInfo();
+		System.out.println("orderStatus状态"+orderStatus);
+		if(orderStatus==999){
+			mlfrontOrderList = mlfrontOrderService.selectOrderListByUidAndSuccessStatus(mlfrontOrder);
+			page = new PageInfo(mlfrontOrderList, PagNum);
+			mlfrontOrderList = page.getList();
+		}else{
+			mlfrontOrder.setOrderStatus(orderStatus);//全部//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款
+			//只保留//999全部//1支付成功//3审单完毕(待发货) //4发货完毕(运输中)//5已退款
+			mlfrontOrderList = mlfrontOrderService.selectOrderListByUidAndStatus(mlfrontOrder);
+			page = new PageInfo(mlfrontOrderList, PagNum);
+			mlfrontOrderList = page.getList();
 		}
-		PageInfo page = new PageInfo(mlfrontOrderResList, PagNum);
-		mlfrontOrderList = page.getList();
-		//2遍历mlfrontOrderList，3读取每个的orderItemIdStr,4切割，5再遍历产寻单条的获取orderItemId对象
+		//1查询2遍历mlfrontOrderList,3读取每个的orderItemIdStr,4切割,5再遍历产寻单条的获取orderItemId对象
 		String orderitemidstr="";
 		MlfrontOrderItem mlfrontOrderItemReq = new MlfrontOrderItem();
 		MlfrontOrderItem mlfrontOrderItemRes = new MlfrontOrderItem();
 		List<MlfrontOrderItem> mlfrontOrderItemList = new ArrayList<MlfrontOrderItem>();
 		List<MlfrontOrderItem> mlfrontOrderItemReturnList = new ArrayList<MlfrontOrderItem>();
 		List<Integer> sizeList = new ArrayList<Integer>();
-		for(MlfrontOrder mlfrontOrderOne:mlfrontOrderResList){
+		for(MlfrontOrder mlfrontOrderOne:mlfrontOrderList){
 			orderitemidstr = mlfrontOrderOne.getOrderOrderitemidstr();
 			String orderitemidArr[] = orderitemidstr.split(",");
 			Integer size = orderitemidArr.length;

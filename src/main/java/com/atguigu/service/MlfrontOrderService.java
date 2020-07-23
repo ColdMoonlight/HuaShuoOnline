@@ -44,10 +44,17 @@ public class MlfrontOrderService {
 		return mlfrontOrderList;
 	}
 	/**5
-	 * 查登录用户筛选不同状态的order信息List
+	 * 查登录用户筛选单个不同状态的order信息List
 	 * */
 	public List<MlfrontOrder> selectOrderListByUidAndStatus(MlfrontOrder mlfrontOrder) {
 		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectOrderListByUidAndStatus(mlfrontOrder);
+		return mlfrontOrderList;
+	}
+	/**6
+	 * 查登录用户筛选全部成功后状态的order信息List
+	 * */
+	public List<MlfrontOrder> selectOrderListByUidAndSuccessStatus(MlfrontOrder mlfrontOrder) {
+		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectOrderListByUidAndSuccessStatus(mlfrontOrder);
 		return mlfrontOrderList;
 	}
 	/**4
