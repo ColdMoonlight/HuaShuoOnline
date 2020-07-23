@@ -47,5 +47,4 @@
 	/* varient */
 	var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	var storage = window.localStorage;
-	var loadImg = '${APP_PATH}/static/pc/img/loading.gif';
 </script>

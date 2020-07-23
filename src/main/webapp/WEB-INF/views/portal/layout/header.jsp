@@ -524,6 +524,11 @@
 		}
 		return true;
 	}
+	// refresh page or not
+	function refreshPage() {
+		var currentUrl = window.location.href;
+		(currentUrl == 'http://localhost:8080/HuaShuoOnline/MlbackCart/toCheakOut') && (window.location.href = currentUrl);
+	}
 	var isIOS = navigator.userAgent && navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 	if (isIOS) $('#iphone-share').removeClass('hide');
 
@@ -645,6 +650,7 @@
 			removeModal(loginRegisterModal);
 			updateProructNumberInCart();
 			$('.icon.person').addClass('active');
+			refreshPage();
 		});
 	});
 	// register event
@@ -686,6 +692,7 @@
 			removeModal(loginRegisterModal);
 			updateProructNumberInCart();
 			$('.icon.person').addClass('active');
+			refreshPage();
 			setTimeout(function() {
 				mlModalTip('The new account has been automatically logged in !');
 			}, 2000);
