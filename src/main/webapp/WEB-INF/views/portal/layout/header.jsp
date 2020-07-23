@@ -10,17 +10,17 @@
 				</a>
 				<div class="search-box">
 					<div class="search-inputgroup">
-						<input type="text" placeholder="Search Products..." />
-						<button class="btn" type="submit"><i class="icon search"></i></button>
+						<input type="text" class="search-input" placeholder="Search Products..." />
+						<button class="btn btn-search" type="submit"><i class="icon search"></i></button>
 					</div>
 					<div class="search-result-box">
 						<span class="icon close"></span>
 						<ul class="search-result">
-							<li class="search-result-item">bob</li>
-							<li class="search-result-item">wigs</li>
-							<li class="search-result-item">bundle</li>
-							<li class="search-result-item">613</li>
-							<li class="search-result-item">Water</li>
+							<li class="search-result-item" data-name="bob">bob</li>
+							<li class="search-result-item" data-name="wigs">wigs</li>
+							<li class="search-result-item" data-name="bundle">bundle</li>
+							<li class="search-result-item" data-name="613">613</li>
+							<li class="search-result-item" data-name="Water">Water</li>
 						</ul>
 					</div>
 				</div>
@@ -55,16 +55,16 @@
 					<p>What are you Looking for?</p>
 				</div>
 				<div class="search-inputgroup">
-					<input type="text" placeholder="Search Products..." />
-					<button class="btn" type="submit">Search</button>
+					<input type="text" class="search-input" placeholder="Search Products..." />
+					<button class="btn btn-search" type="submit">Search</button>
 				</div>
 				<div class="search-result-box">
 					<ul class="search-result">
-						<li class="search-result-item">bob</li>
-						<li class="search-result-item">wigs</li>
-						<li class="search-result-item">bundle</li>
-						<li class="search-result-item">613</li>
-						<li class="search-result-item">Water</li>
+						<li class="search-result-item" data-name="bob">bob</li>
+						<li class="search-result-item" data-name="wigs">wigs</li>
+						<li class="search-result-item" data-name="bundle">bundle</li>
+						<li class="search-result-item" data-name="613">613</li>
+						<li class="search-result-item" data-name="Water">Water</li>
 					</ul>
 				</div>
 			</div>
@@ -329,19 +329,28 @@
 			}
 		});
 	}
-	// update user login status fn
-	function updateUserLoginStatus() {
+	// check user login or not
+	function checkUserLoginOrNot() {
+		var flag = false;
 		$.ajax({
 			url: "${APP_PATH}/MlfrontUser/ifLogin",
 			type: 'post',
+			async: false,
 			success: function (data) {
-			 	var resData = data.extend,
-			 		$pserson = $('.icon.person');
-			 	if (resData.ifLogin && !$pserson.hasClass('active')) $pserson.addClass('active');
-			
-			 	if (!resData.ifLogin && $pserson.hasClass('active')) $person.removeClass('active');
+				if (data.code == 100) {
+			 		flag = data.extend.ifLogin ? true : false;					
+				}
 			}
 		});
+		return flag;
+	}
+	// update user login status fn
+	function updateUserLoginStatus() {
+		var loginStatus = checkUserLoginOrNot();
+	 	var $pserson = $('.icon.person');
+		if (loginStatus && !$pserson.hasClass('active')) $pserson.addClass('active');
+		
+	 	if (!loginStatus && $pserson.hasClass('active')) $person.removeClass('active');
 	}
 	// login register fn
 	function registerFn(reqData, callback) {
@@ -503,6 +512,23 @@
 			threshold: 0
 		});
 	}
+	// go to search product
+	function goToSearchProduct(searchName) {
+		window.location.href = '${APP_PATH}/MlbackProduct/toSearchPage?searchProductName=' + searchName;
+	}
+	// check input search value
+	function checkSearchInput(value) {
+		if (!value.trim()) {
+			mlModalTip('The search content cannot be empty !');
+			return false;
+		}
+		return true;
+	}
+	// refresh page or not
+	function refreshPage() {
+		var currentUrl = window.location.href;
+		(currentUrl == 'http://localhost:8080/HuaShuoOnline/MlbackCart/toCheakOut') && (window.location.href = currentUrl);
+	}
 	var isIOS = navigator.userAgent && navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 	if (isIOS) $('#iphone-share').removeClass('hide');
 
@@ -624,6 +650,7 @@
 			removeModal(loginRegisterModal);
 			updateProructNumberInCart();
 			$('.icon.person').addClass('active');
+			refreshPage();
 		});
 	});
 	// register event
@@ -665,6 +692,7 @@
 			removeModal(loginRegisterModal);
 			updateProructNumberInCart();
 			$('.icon.person').addClass('active');
+			refreshPage();
 			setTimeout(function() {
 				mlModalTip('The new account has been automatically logged in !');
 			}, 2000);
@@ -709,5 +737,20 @@
 			$('.left-box').show();
 			$('.right-box').hide();
 		});
+	});
+	// search product
+	$('.btn-search').on('click', function() {
+		var searchName = $(this).parent().find('.search-input').val();
+		checkSearchInput(searchName) && goToSearchProduct(searchName);
+	});
+	$('.search-input').on('keyup', function(e) {
+		if (e.keyCode == 13) {
+			var searchName = $('.search-input').val();
+			checkSearchInput(searchName) && goToSearchProduct(searchName);
+		}
+	});
+	$('.search-result-item').on('click', function() {
+		var searchName = $(this).data('name');
+		checkSearchInput(searchName) && goToSearchProduct(searchName);
 	});
 </script>

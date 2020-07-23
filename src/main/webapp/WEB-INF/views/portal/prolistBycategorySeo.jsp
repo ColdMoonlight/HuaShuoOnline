@@ -4,7 +4,7 @@
 <html>
 
 <head>
-    <title>Insert title here</title>
+    <title>Product List</title>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<script>
@@ -72,8 +72,8 @@
 								'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
 							'</div>' +
 							'<div class="product-price">' +
-								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
 								'<span class="product-define-price">$'+ (item.productOriginalprice || 0) +'</span>' +
+								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
 							'</div>' +
 						'</div>' +
 					'</div></div>';					

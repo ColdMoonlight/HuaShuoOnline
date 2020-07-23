@@ -735,7 +735,7 @@
 					var reqData = getProductData();
 					if (!reqData) {
 						removeModal(reviewModal);
-						mlModalTip("I'm sorry, the goods temporarily can't buy !");
+						cannotBuyProductModal();
 						return false;
 					}
 

@@ -258,18 +258,18 @@ function showResult() {
 
 // check add/sub product; add-to-cart/buynow product;
 function isCorrectProduct() {
-	var optionItems = $('.product-option-item');
-	var flag = true;
+	var optionItems = $('.product-option-item'),
+		len = optionItems.length,
+		flag = true;
+	if (!len) {
+		cannotBuyProductModal();
+		return false;
+	}
 	// option check
-	for (var i = 0, len = optionItems.length; i < len; i += 1) {
+	for (var i = 0; i < len; i += 1) {
 		var $optionItem = $(optionItems[i]);
 		if (!$optionItem.find('.radio.active').length) {
-    		var modal = createModal({
-    			body: {
-    				html: '<p>Please select a product specifications and options: '+ $optionItem.data('type') + '</p>'
-    			},
-    			autoClose: true
-    		});
+			mlModalTip('Please select a product specifications and options: '+ $optionItem.data('type'));
     		flag = false;
     		break;
 		}
@@ -293,12 +293,12 @@ $(document.body).on('click', '.radio', function(e) {
     });
 });
 /* modal */
-$(document.body).on('click', '.modal, .modal-close, .modal-no', function(e) {
+function closeModalEvent(e) {
     if (e.target == this) {
     	removeFixed();
         $('.modal').remove();
     }
-});
+}
 
 function mergeOpts (opts1, opts2) {
     var res = $.extend(true, {}, opts1, opts2);
@@ -326,35 +326,37 @@ function createModal(option) {
 			html: '',
 			isShow: false,
 		},
-		autoClose: false
+		autoClose: false,
+		blockEvent: false,
 	}, option);
 	var htmlStr = '';
 	var timer = null
 	var modal = $('<div class="modal">' +
-	    '<div class="modal-close">x</div>' +
+	    '<div class="modal-close icon close"></div>' +
 	    '<div class="modal-container">' +
 	    	(opt.header.isShow ? ('<div class="modal-header">' + (opt.header.html ? opt.header.html : '<p>Megalook Tip !</p>') + '</div>') : '') +
 	    	('<div class="modal-body">' + opt.body.html + '</div>') +
 	    	(opt.footer.isShow
 	    			? ('<div class="modal-footer">' + 
-	    					(opt.footer.html ? opt.footer.html : '<button class="btn btn-pink modal-no"> No </button><button class="btn btn-yes modal-ok"> Yes </button>') +
+	    					(opt.footer.html ? opt.footer.html : '<button class="btn btn-gray modal-no"> No </button><button class="btn btn-pink modal-ok"> Yes </button>') +
 	    				'</div>')
 	    			: '') +
 	    '</div>' +
 	'</div>');
-	var modalLen = $('.modal').length;
-	if (modalLen) modal.css('z-index', getComputedStyle($('.modal')[0]).zIndex + modalLen + 1);
 	function openTimer() {
 		timer = setTimeout(function() {
     		removeModal(modal);
-    	}, 1000);
+    	}, 1500);
 	}
+	var modalLen = $('.modal').length;
 	$(document.body).append(modal);
 	setTimeout(function() {
 		modal.addClass('active');
 	});
     addFixed();
-    
+	// modal z-index
+	if (modalLen) modal.css('z-index', getComputedStyle($('.modal')[0]).zIndex + modalLen + 1);
+    // auto close
     if (opt.autoClose) {
     	openTimer();
 	    var modalContainer = modal.find('.modal-container');
@@ -365,6 +367,11 @@ function createModal(option) {
 	    modalContainer.on('mouseleave', function() {
 	    	openTimer();
 	    });
+    }
+    // modal close event
+    if (!opt.blockEvent) {    	
+	    modal.on('click', closeModalEvent);
+	    modal.find('.modal-close, .modal-no').on('click', closeModalEvent);
     }
     
 	return modal;
@@ -380,7 +387,7 @@ function mlModalTip(text) {
 		body: {
 			html: '<p>'+ text +'</p>'
 		},
-		autoClose: true
+		autoClose: true,
 	});
 }
 
@@ -412,6 +419,24 @@ function updateProductNumFailModal() {
 	mlModalTip('Failed to update the product !');
 }
 
+function cannotBuyProductModal() {
+	mlModalTip("I'm sorry, the goods temporarily can't buy !");
+}
+
+function loginNotTip() {
+	var loginModal = createModal({
+		header: {
+			isShow: false,
+		},
+		body: {
+			html: '<p>Not logged in, 3s later, it will jump to the homepage !</p>'
+		},
+		blockEvent: true,
+	});
+	loginModal.find('.modal-close').hide();
+	setTimeout(goToIndex, 3000);
+}
+
 // pay loading
 function payLoading() {
 	var $payLoading = $('<div class="pay-loading"><div class="load-list"><div class="loader-item"></div><div class="loader-item"></div><div class="loader-item"></div></div>');
@@ -439,7 +464,7 @@ function goToUserCenter() {
 	 window.location.href = "${APP_PATH }/MlfrontUser/toUserCenter";
 }
 function goToUserCenerOrder() {
-	window.location.href = "${APP_PATH }/MlfrontUser/tommyOrderPage";
+	window.location.href = "${APP_PATH }/MlfrontUser/tomyOrderPage";
 }
 function goToUserCenerCoupon() {
 	window.location.href = "${APP_PATH }/MlfrontUser/toCouponPage";
@@ -447,7 +472,6 @@ function goToUserCenerCoupon() {
 function goToUserCenerPersonal() {
 	window.location.href = "${APP_PATH }/MlfrontUser/toPersonInfoPage";
 }
-
 
 /* pagination */
 /* pageNum */
