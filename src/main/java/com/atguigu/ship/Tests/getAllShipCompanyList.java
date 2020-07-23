@@ -93,7 +93,7 @@ public class getAllShipCompanyList {
 	private static void testTracking() {
 		
 		ConnectionAPI connection = new ConnectionAPI("7b04f01f-4f04-4b37-bbb9-5b159af73ee1");
-		Tracking tracking = new Tracking("778611218843");
+		Tracking tracking = new Tracking("394943150257");
 		tracking.setSlug("fedex");
 		try {
 			Tracking tracking2 = connection.getTrackingByNumber(tracking);

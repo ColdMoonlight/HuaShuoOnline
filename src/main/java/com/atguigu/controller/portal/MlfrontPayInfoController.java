@@ -32,15 +32,18 @@ import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
+import com.atguigu.ship.Classes.ConnectionAPI;
+import com.atguigu.ship.Classes.Tracking;
 import com.atguigu.utils.EcppUpdateWebStatusUtil;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.utils.app.shipInformation;
+import com.atguigu.vo.AfterShipReturn;
 import com.atguigu.vo.EcppTrackItem;
 
 @Controller
 @RequestMapping("/MlfrontPayInfo")
 public class MlfrontPayInfoController {
-		
+	
 	@Autowired
 	MlfrontPayInfoService mlfrontPayInfoService;
 	
@@ -64,6 +67,9 @@ public class MlfrontPayInfoController {
 	
 	@Autowired
 	MlPaypalShipAddressService mlPaypalShipAddressService;
+	
+//	afterShip的真实物流url环境
+	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
 	
 	/**
 	 * 1.0	UseNow	0505
@@ -379,22 +385,34 @@ public class MlfrontPayInfoController {
                 		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
                 		
                 		String orderLogisticsname = ecppTrackItem.getShippingName();
-                		
                 		String orderLogisticsnumber = ecppTrackItem.getEcppOrderTrackNo();
-                		
                 		String payinfoPlateNum = mlfrontPayInfoOne.getPayinfoPlatenum();
                 		
                 		//10.1向afterShip官方发送物流添加按钮
                 		try {
-                			//向物流中插入物流单号,订单号,Item,价格,
-                			String resultStr =  shipInformation.addTrackingNumberIntoAfterShip(orderLogisticsname,orderLogisticsnumber,payinfoPlateNum);
-                			System.out.println(resultStr);
+                			//向物流中插入物流单号,订单号(Item,价格),传递orderId,即可全部走查询
+                			AfterShipReturn afterShipReturn = new AfterShipReturn();
+                			afterShipReturn = addTrackingNumberIntoAfterShip(orderId,payinfoPlateNum,orderLogisticsnumber);
+                			String afterOperateStatus = afterShipReturn.getAfterOperateStatus();
+                			
+                			if("1".equals(afterOperateStatus)){
+                				//插入成功
+                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip成功,返回的物流名为:"+afterShipReturn.getAfterShipSlugName());
+                				orderLogisticsname  = afterShipReturn.getAfterShipSlugName();
+                				//更新order表中本条成最终的物流信息的物流名称
+                				MlfrontOrder mlfrontOrderAfterReq = new MlfrontOrder();
+                				mlfrontOrderAfterReq.setOrderId(orderId);
+                				mlfrontOrderAfterReq.setOrderLogisticsname(orderLogisticsname);
+                				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterReq);
+                			}else{
+                				//没有插入成功
+                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败");
+                			}
                 		} catch (Exception e) {
                 			e.printStackTrace();
                 			System.out.println("物流中插入物流单号--有异常");
                 			System.out.println(e.getMessage());
                 		}
-                		
                 		
 					}else if("UOO".equals(ecppOrderStatusCode)){
 							//113-UOO-客服审核完成的状态，就更新成审核完毕的状态
@@ -423,7 +441,8 @@ public class MlfrontPayInfoController {
 			return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子，无改变");
 		}
 	}
-	
+
+
 	/**12.0	zsh200722
 	 * 检查已审核的单子,是否在ecpp上已经发货
 	 * 1,收到前台的查询时间范围，后台查询这些时间内的已审核订单,
@@ -482,22 +501,103 @@ public class MlfrontPayInfoController {
                 		mlfrontOrderReq.setOrderStatus(4);//orderStatus == 4已发货,待接收
                 		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
                 		
+                		String orderLogisticsname = ecppTrackItem.getShippingName();
+                		String orderLogisticsnumber = ecppTrackItem.getEcppOrderTrackNo();
+                		String payinfoPlateNum = mlfrontPayInfoOne.getPayinfoPlatenum();
+                		
+                		//10.1向afterShip官方发送物流添加按钮
+                		try {
+                			//向物流中插入物流单号,订单号,orderId,即可全部走查询(Item,价格)
+                			AfterShipReturn afterShipReturn = new AfterShipReturn();
+                			afterShipReturn = addTrackingNumberIntoAfterShip(orderId,payinfoPlateNum,orderLogisticsnumber);
+                			String afterOperateStatus = afterShipReturn.getAfterOperateStatus();
+                			
+                			if("1".equals(afterOperateStatus)){
+                				//插入成功
+                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip成功,返回的物流名为:"+afterShipReturn.getAfterShipSlugName());
+                				orderLogisticsname  = afterShipReturn.getAfterShipSlugName();
+                				//更新order表中本条成最终的物流信息的物流名称
+                				MlfrontOrder mlfrontOrderAfterReq = new MlfrontOrder();
+                				mlfrontOrderAfterReq.setOrderId(orderId);
+                				mlfrontOrderAfterReq.setOrderLogisticsname(orderLogisticsname);
+                				//
+                				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterReq);
+                			}else{
+                				//没有插入成功
+                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败");
+                			}
+                		} catch (Exception e) {
+                			e.printStackTrace();
+                			System.out.println("物流中插入物流单号--有异常");
+                			System.out.println(e.getMessage());
+                		}
 					}else{
 						mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
 						mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);//不改状态,只赋值
 						mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
 					}
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
 			}
 			return Msg.success().add("resMsg", "本次刷新有修改，请注意观察payInfo列表变化");
 		}else{
 			//查询结果为空
 			//当前没有状态为已支付的数据
 			return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子，无改变");
+		}
+	}
+	
+	/**
+	 * 向afterShip官方发送物流单号
+	 * */
+	private AfterShipReturn addTrackingNumberIntoAfterShip(Integer orderId,String payinfoPlateNum,String trackingNumber) {
+		
+		AfterShipReturn afterShipReturn = new AfterShipReturn();
+		afterShipReturn.setAfterOperateStatus("0");
+		
+		String connectionAPIStr = ConnectionAPIid;
+		ConnectionAPI connection = new ConnectionAPI(connectionAPIStr);
+		
+		//First we have to create a Tracking
+		Tracking tracking = new Tracking(trackingNumber);
+		//Then we can add information;
+//		tracking.setSlug(orderLogisticsname);//
+		tracking.setTitle(payinfoPlateNum);//订单号
+		tracking.setOrderID(payinfoPlateNum);//Ecpp的订单号
+		
+		tracking.setCustomerName("shaohua");
+		tracking.addEmails("mingyueqingl@163.com");
+		tracking.addSmses("+8617600209637");
+
+		//Even add customer fields
+		tracking.addCustomFields("product_name","iPhone Case");
+		tracking.addCustomFields("product_price","USD999.60");
+
+		//Finally we add the tracking to our account
+		Tracking trackingPosted;
+		String afterShipNameSlug = "0";//初始化填入afterShip后运单号,返回的物流名称,异常话是1,无异常的话,是真实的ShipName
+		try {
+			trackingPosted = connection.postTracking(tracking);
+
+			System.out.println("trackingPosted.getTrackingNumber()------------------------");
+			System.out.println(trackingPosted.getTrackingNumber());
+			
+			trackingPosted.getExpectedDelivery();
+			trackingPosted.generateJSON();
+			afterShipNameSlug = trackingPosted.getSlug();
+			
+			afterShipReturn.setAfterOperateStatus("1");
+			afterShipReturn.setAfterShipSlugName(afterShipNameSlug);
+			
+			System.out.println("trackingPosted.getSlug()------------------------");
+			System.out.println(trackingPosted.getSlug());
+			return afterShipReturn;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			return afterShipReturn;
 		}
 	}
 	

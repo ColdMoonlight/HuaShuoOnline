@@ -1,10 +1,14 @@
 package com.atguigu.controller.portal;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +23,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
+import com.atguigu.ship.Classes.AftershipAPIException;
+import com.atguigu.ship.Classes.Checkpoint;
+import com.atguigu.ship.Classes.ConnectionAPI;
 import com.atguigu.ship.Classes.Tracking;
 import com.atguigu.utils.app.shipInformation;
 
@@ -31,6 +38,9 @@ public class MlfrontOrderListController {
 
 	@Autowired
 	MlfrontOrderItemService mlfrontOrderItemService;
+	
+//	afterShip的真实物流url环境
+	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
 	
 	/**
 	 * 1.0	zsh	200720
@@ -98,7 +108,15 @@ public class MlfrontOrderListController {
 	public Msg getCheckpointByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
 			@RequestParam(value = "trackingNumber") String trackingNumber,@RequestParam(value = "Slug") String Slug) {
 		
-		Tracking TrackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
-		return Msg.success().add("TrackingRes", TrackingRes);
+		Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
+		List<Checkpoint> CheckpointList =  trackingRes.getCheckpoints();
+		
+		int i=0;
+		for(Checkpoint Checkpoint:CheckpointList){
+			System.out.println(i+":"+Checkpoint);
+			i++;
+		}
+		return Msg.success().add("CheckpointList", CheckpointList);
+		
 	}
 }
