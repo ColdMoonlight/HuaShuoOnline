@@ -239,7 +239,7 @@
 				var htmlStr = '';
 				var $reviewList = $('<div class="showaera-review-container" />')
 				data.mlfrontReviewList.forEach(function(item, idx) {
-					htmlStr += '<div class="showarea-review-item shadow-radius lazyload" data-src="'+ data.mlfrontReviewImgList[idx][0].reviewimgUrl +'" data-id="'+ item.reviewPid +'"></div>'
+					htmlStr += '<div class="showarea-review-item shadow-radius lazyload" data-src="'+ (data.mlfrontReviewImgList[idx][0] && data.mlfrontReviewImgList[idx][0].reviewimgUrl) +'" data-id="'+ item.reviewPid +'"></div>'
 				});
 				$reviewList.html(htmlStr);
 				$el.append($reviewList);
@@ -302,7 +302,7 @@
 				var $el = $('#showAreaTwo');
 				data && renderShowArea($el, data);
 				getIntroduceProductData('New-Arrival', function(data) {
-					renderProductSlide($el, 'showAreaTwo', data.slice(0, 8));
+					data.length && renderProductSlide($el, 'showAreaTwo', data.slice(0, 8));
 				});
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,

@@ -495,7 +495,7 @@
 					'<td>' +
 						'<button class="btn btn-primary btn-view" data-id="' + data[i].payinfoId + '">' +
 							'<svg class="c-icon">' +
-								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-eye"></use>' +
 							'</svg>' +
 						'</button>' +
 						/* '<button class="btn btn-danger btn-delete" data-id="' + data[i].payinfoId + '">' +
