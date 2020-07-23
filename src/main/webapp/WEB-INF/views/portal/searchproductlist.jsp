@@ -8,7 +8,6 @@
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<script>
 		var productName = '${sessionScope.productName}';
-		console.log('${sessionScope}')
 	</script>
 </head>
 
@@ -56,8 +55,8 @@
 								'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
 							'</div>' +
 							'<div class="product-price">' +
-								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
 								'<span class="product-define-price">$'+ (item.productOriginalprice || 0) +'</span>' +
+								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
 							'</div>' +
 						'</div>' +
 					'</div></div>';					
