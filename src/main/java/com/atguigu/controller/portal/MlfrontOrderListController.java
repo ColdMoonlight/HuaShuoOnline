@@ -63,7 +63,7 @@ public class MlfrontOrderListController {
 			page = new PageInfo(mlfrontOrderList, PagNum);
 			mlfrontOrderList = page.getList();
 		}
-		//2遍历mlfrontOrderList，3读取每个的orderItemIdStr,4切割，5再遍历产寻单条的获取orderItemId对象
+		//1查询2遍历mlfrontOrderList,3读取每个的orderItemIdStr,4切割,5再遍历产寻单条的获取orderItemId对象
 		String orderitemidstr="";
 		MlfrontOrderItem mlfrontOrderItemReq = new MlfrontOrderItem();
 		MlfrontOrderItem mlfrontOrderItemRes = new MlfrontOrderItem();
