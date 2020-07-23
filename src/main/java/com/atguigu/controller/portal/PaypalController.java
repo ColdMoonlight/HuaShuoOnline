@@ -437,7 +437,7 @@ public class PaypalController {
 		try {
 			EcppHSNum = EcppIntoUtil.send(token,soapXML,paypalIdStr);
 			
-			//将ecpp返回的EcppHSNum，更新入本条mlfrontPayInfo中
+			//将ecpp返回的EcppHSNum,更新入本条mlfrontPayInfo中
 	    	
 	    	MlfrontPayInfo mlfrontPayInfoEcppreturnReq = new MlfrontPayInfo();
 	    	mlfrontPayInfoEcppreturnReq.setPayinfoId(payinfoId);
@@ -532,11 +532,9 @@ public class PaypalController {
     		MlfrontAddress mlfrontAddressRes = new MlfrontAddress();
     		mlfrontAddressReq.setAddressId(addressId);
     		
-//    		List<MlfrontAddress> mlfrontAddressResList = mlfrontAddressService.selectMlfrontAddressById(mlfrontAddressReq);
     		List<MlfrontAddress> mlfrontAddressResList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddressReq);
     		
     		mlfrontAddressRes = mlfrontAddressResList.get(0);
-    		//System.out.println(mlfrontAddressRes.toString());
     		String userEmail = mlfrontAddressRes.getAddressEmail();
     		
 			//测试方法
@@ -550,15 +548,13 @@ public class PaypalController {
 	}
 
 	/**3.0
-     * 返回wap+pc失败页面
+     * 返回失败page
      * mfront/payFail
      * */
 	@RequestMapping(method = RequestMethod.GET, value = PAYPAL_CANCEL_M_URLIn)
     public String cancelPay(HttpSession session){
 		
-		//4.0.1更新失败所需修改的表
-		//toUpdatePayInfoFail(session);
-		
+		//返回结算页面,重来即可
         return "redirect:/MlbackCart/toCheakOut";
     }
 

@@ -3,16 +3,12 @@ package com.atguigu.ship.Tests;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-
 import org.json.JSONException;
-
 import com.atguigu.ship.Classes.AftershipAPIException;
 import com.atguigu.ship.Classes.Checkpoint;
 import com.atguigu.ship.Classes.ConnectionAPI;
 import com.atguigu.ship.Classes.Courier;
-import com.atguigu.ship.Classes.ParametersTracking;
 import com.atguigu.ship.Classes.Tracking;
-import com.atguigu.ship.Enums.FieldTracking;
 
 public class getAllShipCompanyList {
 	
@@ -24,7 +20,6 @@ public class getAllShipCompanyList {
 		//addShopInforToAfterShip();
 		testTracking();
 	}
-	
 	
 	/**
 	 * 获取全部的物流公司
@@ -111,7 +106,6 @@ public class getAllShipCompanyList {
 				i++;
 			}
 //			System.out.println(tracking2.toString());
-			
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		} catch (AftershipAPIException e1) {
@@ -121,12 +115,7 @@ public class getAllShipCompanyList {
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-
 		
 	}
-	
-
-	
-
 
 }

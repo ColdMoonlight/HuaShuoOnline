@@ -3,8 +3,6 @@ import com.atguigu.ship.Classes.ConnectionAPI;
 import com.atguigu.ship.Classes.Tracking;
 import com.atguigu.ship.Enums.ISO3Country;
 import org.json.JSONException;
-import org.junit.Test;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,10 +17,6 @@ public class LoadFiles {
 
       LoadFiles loadFiles = new LoadFiles();
     //    loadFiles.loadFile();
-
-
-
-
 
     }
 
