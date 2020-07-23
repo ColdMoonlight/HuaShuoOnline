@@ -258,18 +258,18 @@ function showResult() {
 
 // check add/sub product; add-to-cart/buynow product;
 function isCorrectProduct() {
-	var optionItems = $('.product-option-item');
-	var flag = true;
+	var optionItems = $('.product-option-item'),
+		len = optionItems.length,
+		flag = true;
+	if (!len) {
+		cannotBuyProductModal();
+		return false;
+	}
 	// option check
-	for (var i = 0, len = optionItems.length; i < len; i += 1) {
+	for (var i = 0; i < len; i += 1) {
 		var $optionItem = $(optionItems[i]);
 		if (!$optionItem.find('.radio.active').length) {
-    		var modal = createModal({
-    			body: {
-    				html: '<p>Please select a product specifications and options: '+ $optionItem.data('type') + '</p>'
-    			},
-    			autoClose: true
-    		});
+			mlModalTip('Please select a product specifications and options: '+ $optionItem.data('type'));
     		flag = false;
     		break;
 		}
@@ -417,6 +417,10 @@ function updateProductNumSuccessModal() {
 
 function updateProductNumFailModal() {
 	mlModalTip('Failed to update the product !');
+}
+
+function cannotBuyProductModal() {
+	mlModalTip("I'm sorry, the goods temporarily can't buy !");
 }
 
 function loginNotTip() {
