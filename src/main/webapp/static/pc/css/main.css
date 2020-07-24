@@ -4315,6 +4315,7 @@ footer li {
 	border-radius: 50%;
 	border: .2rem solid #fff;
 	background-color: #ccc;
+	box-shadow: 0 0 2px #ccc;
 }
 .time-line-item.active::after {
 	background-color: #006fbb;
@@ -4334,12 +4335,19 @@ footer li {
 	font-weight: normal;
 }
 
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: 768px) {
 	.track-modal .modal-header {
 		text-align: left;
 	}
 	.track-modal .time-line {
-		width: 60%;
-		margin: 0 auto;
+		display: flex;
+		align-items: flex-end;
+		flex-direction: column;
+	}
+	.track-modal .time-line-item {
+		width: 50%;
+	}
+	.track-modal .time-line-date {	
+		left: -11rem;
 	}
 }
