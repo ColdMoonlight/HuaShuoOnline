@@ -98,7 +98,6 @@ public class getAllShipCompanyList {
 			Tracking tracking2 = connection.getTrackingByNumber(tracking);
 			
 			List<Checkpoint> CheckpointList =  tracking2.getCheckpoints();
-			
 			int i=0;
 			for(Checkpoint Checkpoint:CheckpointList){
 				System.out.println(i+":"+Checkpoint);
