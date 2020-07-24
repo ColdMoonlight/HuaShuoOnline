@@ -87,7 +87,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="paypal-error-tip">
+							<div class="paypal-error-tip hide">
 								<span class="icon tip"></span>
 								<div class="text">A match of the shipping Address E-mail, Country, State and Postal Code failed.</div>
 							</div>
@@ -597,13 +597,14 @@
 			// 1
 			renderCountry();
 			// paypal address check
+			var $paypalTip = $('.paypal-error-tip');
 			if ('${sessionScope.PaypalErrorName}' == "VALIDATION_ERROR") {
-				$('.paypal-error-tip').show();
+				$paypalTip.hasClass('hide') && $paypalTip.removeClass('hide');
 			} else {
-				$('.paypal-error-tip').hide();
+				!$paypalTip.hasClass('hide') && $paypalTip.addClass('hide');
 			}
 			$('#addressEmail, #addressCountry, #addressProvince, #addressCity, #addressPost').on('foucs', function() {
-				$('.paypal-error-tip').hide();
+				!$paypalTip.hasClass('hide') && $paypalTip.addClass('hide');
 			});
 			// userinfo initial
 			getUserInfo(function(data) {
