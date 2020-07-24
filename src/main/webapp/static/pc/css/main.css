@@ -2375,14 +2375,16 @@ footer li {
 	}
 	.cartlist-modal .modal-container,
 	.review-modal .modal-container,
-	.userinfo-modal .modal-container {
+	.userinfo-modal .modal-container,
+	.track-modal .modal-container {
 		position: absolute;
 	    left: 0;
 	    bottom: 0;
 	}
 	.cartlist-modal .modal-body,
 	.review-modal .modal-body,
-	.userinfo-modal .modal-body {
+	.userinfo-modal .modal-body,
+	.track-modal .modal-body {
 		min-height: 50vh;
 	}
 	.cartlist-modal .modal-footer {
@@ -4069,7 +4071,8 @@ footer li {
 .user-orderitem-title,
 .user-orderitem-footer,
 .user-orderitem-item,
-.user-orderitem-skuitem {
+.user-orderitem-skuitem,
+.user-orderitem-title .right-box {
 	display: flex;
 }
 .user-orderitem-title,
@@ -4082,6 +4085,12 @@ footer li {
 }
 .user-orderitem-title {
 	border-bottom: 1px solid #ccc;
+}
+.user-order-track {
+	margin-right: 1rem;
+	color: #0082c6;
+	text-decoration: underline;
+	cursor: pointer;
 }
 .user-order-status {
 	color: #ff1671;
@@ -4275,5 +4284,62 @@ footer li {
 		margin-left: .5rem;
 		font-size: .875rem;
 		color: #333;
+	}
+}
+/* timeline */
+.time-line-item {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 1.5rem 1rem 1rem 1.5rem;
+	font-size: .875rem;
+}
+.time-line-item::before,
+.time-line-item::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	display: block;
+}
+.time-line-item::before {
+    bottom: 0;
+    left: .7rem;
+	width: 1px;
+	background-color: #ccc;
+}
+.time-line-item::after {
+	left: 0;
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50%;
+	border: .2rem solid #fff;
+	background-color: #ccc;
+}
+.time-line-item.active::after {
+	background-color: #006fbb;
+}
+.time-line-date {
+	position: absolute;
+	top: 0;
+	line-height: 1.4rem;
+}
+.time-line-item .name {
+	font-weight: 500;
+}
+.time-line-item .value {	
+	color: #333;
+}
+.track-modal .modal-header .value {
+	font-weight: normal;
+}
+
+@media only screen and (min-width: 576px) {
+	.track-modal .modal-header {
+		text-align: left;
+	}
+	.track-modal .time-line {
+		width: 60%;
+		margin: 0 auto;
 	}
 }

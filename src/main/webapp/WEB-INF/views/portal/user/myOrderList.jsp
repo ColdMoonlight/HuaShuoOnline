@@ -39,7 +39,7 @@
 	<script>
 		function getOrderList() {
 			$.ajax({
-				url: "${APP_PATH }/MlfrontOrderList/selectOrderlistBySearch",
+				url: "${APP_PATH}/MlfrontOrderList/selectOrderlistBySearch",
 				data: {
 					orderStatus: orderStatus,
 					pn: getPageNum()
@@ -98,7 +98,10 @@
 					htmlStr += '<div class="user-order-item" data-id="' + orderList[key].orderId + '">' +
 						'<div class="user-orderitem-title">' +
 							'<div class="user-order-id">order Id: ' + orderList[key].orderId + '</div>' +
-							'<div class="user-order-status">' + (statusMap[orderList[key].orderStatus]) + '</div>' +
+							'<div class="right-box">' +
+								(orderStatus == 4 ? '<div class="user-order-track" data-slug="'+ orderList[key].orderLogisticsname +'" data-tracknumber="'+ orderList[key].orderLogisticsnumber +'">Tracking Details</div>' : '' ) +
+								'<div class="user-order-status">' + (statusMap[orderList[key].orderStatus]) + '</div>' +
+							'</div>' +
 						'</div>' +
 						'<div class="user-orderitem-body">';
 					for (var i = 0; i < orderItemSize[key]; i+=1) {
@@ -133,6 +136,58 @@
 				!$tablePagination.hasClass('hide') && $tablePagination.addClass('hide');
 			}
 		}
+		// get track details
+		function getTrackDetails(reqData, callback) {
+			payLoading();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontOrderList/getCheckpointByTrackingNumber",
+				data: reqData,
+				type: "post",
+				success: function (data) {
+					if(data.code == 100) {
+						callback && callback(data.extend.TrackingRes);
+					} else {
+						mlModalTip('Failed to obtain logistics information. Please try again later !');
+					}
+				},
+				error: function(err) {
+					mlModalTip('Failed to obtain logistics information. Please try again later !');
+				},
+				complete: function() {
+					hidePayLoading();
+				}
+			});
+		}
+		// render tracking details
+		function renderTrackDetails(data) {
+			function generateTimelineHtml(data) {
+				var html = '';
+				var len = data.length - 1;
+				for(var i = len; i >= 0; i -= 1) {
+					var item = data[i];
+					html += '<div class="time-line-item'+ (i == len ? ' active' : '') +'">' +
+							'<div class="time-line-date">'+ item.checkpointTime +'</div>' +
+							'<div class="time-line-tag"><span class="name">tag: </span><span class="value">'+ (item.tag || '') +'</span></div>' +
+							'<div class="time-line-location"><span class="name">location: </span><span class="value">'+ (item.location || '') +'</span></div>' +
+							'<div class="time-line-msg"><span class="name">msg: </span><span class="value">'+ (item.message || '') +'</span></div>' +
+						'</div>';
+				}
+				return html;
+			}
+			var trackingTitleHtml = '<div clsass="tracking-name"><span class="name">Tracking Name: </span><span class="value">'+ data.slug +'</span></div>' +
+				'<div clsass="tracking-number"><span class="name">Tracking Number: </span><span class="value">'+ data.trackingNumber +'</span></div>' +
+				'<div clsass="tracking-adress"><span class="name">Tracking Adress: </span><span class="value">'+ data.originCountryISO3 + ' → ' + data.destinationCountryISO3 +'</span></div>';
+			var trackingBodyHtml = '<div class="time-line">' + generateTimelineHtml(data.checkpoints) + '</div>';
+			var trackModal = createModal({
+				header: {
+					html: trackingTitleHtml
+				},
+    			body: {
+    				html: trackingBodyHtml
+    			}
+    		});
+			trackModal.addClass('track-modal');
+		}
 		var $userOrderList = $('.user-order-list'),
 			$tablePagination = $('#table-pagination'),
 			orderStatus = 999,
@@ -151,6 +206,7 @@
 			if (!$(this).hasClass('active')) {
 				$(this).addClass('active').siblings().removeClass('active');
 				orderStatus = $(this).data('id');
+				setPageNum(1);
 				getOrderList();
 			}
 		});
@@ -161,6 +217,15 @@
 		$(document.body).on('click', '.user-order-item', function() {
 			var orderId = $(this).data('id');
 			orderId && (window.location.href = '${APP_PATH}/MlfrontUser/tomyOrderDetailPage?orderId=' + orderId);
+		});
+		$(document.body).on('click', '.user-order-track', function(e) {
+			e.stopPropagation();
+			var slug = $(this).data('slug'),
+				trackNumber = $(this).data('tracknumber');
+			getTrackDetails({
+				Slug: slug,
+				trackingNumber: trackNumber
+			}, renderTrackDetails);
 		});
 	</script>
 </body>
