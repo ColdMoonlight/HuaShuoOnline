@@ -444,6 +444,10 @@ function payLoading() {
 	addFixed();
 }
 
+function hidePayLoading() {
+	$('.pay-loading').remove();
+	removeFixed();
+}
 /* jump link function */
 function goToIndex() {
 	window.location.href = '${APP_PATH}';
