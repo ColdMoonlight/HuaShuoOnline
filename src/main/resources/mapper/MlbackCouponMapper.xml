@@ -18,6 +18,7 @@
     <result column="coupon_motifyTime" jdbcType="VARCHAR" property="couponMotifytime" />
     <result column="coupon_startTime" jdbcType="VARCHAR" property="couponStarttime" />
     <result column="coupon_endtime" jdbcType="VARCHAR" property="couponEndtime" />
+    <result column="coupon_imgUrl" jdbcType="VARCHAR" property="couponImgUrl" />
     <result column="coupon_productonly_type" jdbcType="INTEGER" property="couponProductonlyType" />
     <result column="coupon_productonly_pidStr" jdbcType="VARCHAR" property="couponProductonlyPidstr" />
     <result column="coupon_productseonamesStronly_pid" jdbcType="VARCHAR" property="couponProductseonamesstronlyPid" />
@@ -26,7 +27,7 @@
   <sql id="Base_Column_List">
     coupon_id, coupon_name, coupon_price, coupon_priceoff, coupon_price_baseline, coupon_status, 
     coupon_code, coupon_type, coupon_luckdraw_type, coupon_luckdraw_weight, coupon_times, 
-    coupon_alltimes, coupon_createTime, coupon_motifyTime, coupon_startTime, coupon_endtime, 
+    coupon_alltimes, coupon_createTime, coupon_motifyTime, coupon_startTime, coupon_endtime, coupon_imgUrl,
     coupon_productonly_type, coupon_productonly_pidStr, coupon_productseonamesStronly_pid, 
     coupon_productpronamesStronly_pid
   </sql>
@@ -43,7 +44,7 @@
       coupon_code, coupon_type, coupon_luckdraw_type, 
       coupon_luckdraw_weight, coupon_times, coupon_alltimes, 
       coupon_createTime, coupon_motifyTime, coupon_startTime, 
-      coupon_endtime, coupon_productonly_type, coupon_productonly_pidStr, 
+      coupon_endtime, coupon_imgUrl, coupon_productonly_type, coupon_productonly_pidStr, 
       coupon_productseonamesStronly_pid, coupon_productpronamesStronly_pid
       )
     values (#{couponId,jdbcType=INTEGER}, #{couponName,jdbcType=VARCHAR}, #{couponPrice,jdbcType=DECIMAL}, 
@@ -51,7 +52,7 @@
       #{couponCode,jdbcType=VARCHAR}, #{couponType,jdbcType=VARCHAR}, #{couponLuckdrawType,jdbcType=INTEGER}, 
       #{couponLuckdrawWeight,jdbcType=INTEGER}, #{couponTimes,jdbcType=INTEGER}, #{couponAlltimes,jdbcType=INTEGER}, 
       #{couponCreatetime,jdbcType=VARCHAR}, #{couponMotifytime,jdbcType=VARCHAR}, #{couponStarttime,jdbcType=VARCHAR}, 
-      #{couponEndtime,jdbcType=VARCHAR}, #{couponProductonlyType,jdbcType=INTEGER}, #{couponProductonlyPidstr,jdbcType=VARCHAR}, 
+      #{couponEndtime,jdbcType=VARCHAR}, #{couponImgUrl,jdbcType=VARCHAR}, #{couponProductonlyType,jdbcType=INTEGER}, #{couponProductonlyPidstr,jdbcType=VARCHAR}, 
       #{couponProductseonamesstronlyPid,jdbcType=VARCHAR}, #{couponProductpronamesstronlyPid,jdbcType=VARCHAR}
       )
   </insert>
@@ -74,6 +75,7 @@
       coupon_motifyTime = #{couponMotifytime,jdbcType=VARCHAR},
       coupon_startTime = #{couponStarttime,jdbcType=VARCHAR},
       coupon_endtime = #{couponEndtime,jdbcType=VARCHAR},
+      coupon_imgUrl = #{couponImgUrl,jdbcType=VARCHAR},
       coupon_productonly_type = #{couponProductonlyType,jdbcType=INTEGER},
       coupon_productonly_pidStr = #{couponProductonlyPidstr,jdbcType=VARCHAR},
       coupon_productseonamesStronly_pid = #{couponProductseonamesstronlyPid,jdbcType=VARCHAR},
@@ -131,6 +133,9 @@
       </if>
       <if test="couponEndtime != null">
         coupon_endtime,
+      </if>
+      <if test="couponImgUrl != null">
+        coupon_imgUrl,
       </if>
       <if test="couponProductonlyType != null">
         coupon_productonly_type,
@@ -193,6 +198,9 @@
       </if>
       <if test="couponEndtime != null">
         #{couponEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="couponImgUrl != null">
+        #{couponImgUrl,jdbcType=VARCHAR},
       </if>
       <if test="couponProductonlyType != null">
         #{couponProductonlyType,jdbcType=INTEGER},
@@ -262,6 +270,9 @@
       <if test="couponEndtime != null">
         coupon_endtime = #{couponEndtime,jdbcType=VARCHAR},
       </if>
+      <if test="couponImgUrl != null">
+        coupon_imgUrl = #{couponImgUrl,jdbcType=VARCHAR},
+      </if>
       <if test="couponProductonlyType != null">
         coupon_productonly_type = #{couponProductonlyType,jdbcType=INTEGER},
       </if>
@@ -324,7 +335,7 @@
   	select 
     coupon_id, coupon_name, coupon_price, coupon_priceoff, coupon_price_baseline, coupon_status, 
     coupon_code, coupon_type, coupon_luckdraw_type, coupon_luckdraw_weight, coupon_times, 
-    coupon_alltimes,coupon_startTime, coupon_endtime, 
+    coupon_alltimes,coupon_startTime, coupon_endtime, coupon_imgUrl,
     coupon_productonly_type, coupon_productonly_pidStr, coupon_productseonamesStronly_pid, 
     coupon_productpronamesStronly_pid
   	from tb_mlback_coupon 
