@@ -40,7 +40,6 @@ public class getAllShipCompanyList {
 				System.out.println(couriers.get(i).getName());
 				System.out.println("couriers.get(i).getWeb_url()"+i+"------------------------");
 				System.out.println(couriers.get(i).getWeb_url());
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,7 +104,6 @@ public class getAllShipCompanyList {
 				System.out.println(i+":"+Checkpoint);
 				i++;
 			}
-//			System.out.println(tracking2.toString());
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		} catch (AftershipAPIException e1) {
