@@ -22,6 +22,7 @@ import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
+
 public class EmailUtilshtml {
 	
 	/**
@@ -113,7 +114,7 @@ public class EmailUtilshtml {
     }
 	
 	/*
-	 * Pay通知官方
+	 * Pay通知网站官方
 	 * megalookweb@outlook.com
 	 * mingyueqingl@163.com
 	 * */
@@ -270,10 +271,9 @@ public class EmailUtilshtml {
             BodyPart bodyPart = new MimeBodyPart(); 
             bodyPart.setDataHandler(new DataHandler(content,"text/html;charset=UTF-8"));
             mp.addBodyPart(bodyPart); 
-            msg.setContent(mp);// 设置邮件内容对象 
+            // 设置邮件内容对象 
+            msg.setContent(mp);
             
-            //设置邮件消息
-//            msg.setText(message);
             //设置发送的日期
             msg.setSentDate(new Date());
             //调用Transport的send方法去发送邮件
