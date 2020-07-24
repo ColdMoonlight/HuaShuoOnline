@@ -69,7 +69,6 @@ public class EcppUpdateWebStatusUtil {
 			while(null != (temp = br.readLine())){
 				sb.append(temp);
 			}
-			
 			String returnStr = sb.toString();
 			System.out.println("------查询单条EcppNum状态的返回报文---soapXML------");
 			System.out.println(returnStr);
@@ -77,7 +76,7 @@ public class EcppUpdateWebStatusUtil {
 			
 			ecppTrackItem = jDom4(returnStr);
 			
-			//解析数据,那会
+			//关流
 			is.close();
 			isr.close();
 			br.close();
@@ -90,9 +89,9 @@ public class EcppUpdateWebStatusUtil {
 	private static EcppTrackItem jDom4(String returnStr) {
 		
 		EcppTrackItem ecppTrackItem = new EcppTrackItem();
-        //2.加载xml
         Document document;
 		try {
+			//2.加载string
 			document = DocumentHelper.parseText(returnStr);
 			
 			//3.获取根节点
@@ -112,14 +111,11 @@ public class EcppUpdateWebStatusUtil {
 	                System.out.println("节点名："+stuChild.getName()+"---节点值："+stuChild.getStringValue());
 	                if("queryOrderResponse".equals(stuChild.getName())){
 	                	System.out.println("------queryOrderResponse------");
-	                	
 	                	System.out.println(stuChild.getStringValue());
 	                	String queryOrderResponseStr = stuChild.getStringValue();
-	                	
 	                	System.out.println("------queryOrderResponse------");
 	                	
 	                	JSONObject queryOrderResponseJSONObject= JSON.parseObject(queryOrderResponseStr);
-	                	
 	                	System.out.println("------------queryOrderResponseJSONObject------------");
 	                	System.out.println(queryOrderResponseJSONObject.get("data"));
 	                	System.out.println("------------queryOrderResponseJSONObject------------");
@@ -136,13 +132,11 @@ public class EcppUpdateWebStatusUtil {
 	                		String shipping_name = (String) orderDataJSONObject.get("shipping_name");
 	                		ecppTrackItem.setShippingName(shipping_name);
 	                	}else{
-	                		
 	                		ecppTrackItem.setEcppOrderStatusCode(orderStatusCode);
 	                	}
 	                	System.out.println("------------ecppTrackItem.toString()------------");
 	                	System.out.println(ecppTrackItem.toString());
 	                	System.out.println("------------ecppTrackItem.toString()------------");
-	                	
 	                	return ecppTrackItem;
 	                }
 	            }

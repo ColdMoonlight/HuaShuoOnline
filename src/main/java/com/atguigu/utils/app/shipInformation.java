@@ -10,10 +10,6 @@ public class shipInformation {
 //	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
 	
-	public static void main(String[] args) {
-		getTrackingByTrackingNumberAndSlug("392338333836", "");
-	}
-
 	/**
 	 * @Description: 01绑定物流单号进入app
      * @param String orderLogisticsname, String trackingNumber, String payinfoPlateNum
@@ -77,9 +73,9 @@ public class shipInformation {
 		
 		//First we have to create a Tracking
 		Tracking tracking = new Tracking(trackingNumber);
+		tracking.setSlug(Slug);
 		
 		Tracking trackingRes = new Tracking("");
-		tracking.setSlug(Slug);
 		try {
 			trackingRes = connection.getTrackingByNumber(tracking);
 			System.out.println(trackingRes);

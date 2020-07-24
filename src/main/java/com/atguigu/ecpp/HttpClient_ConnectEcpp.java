@@ -14,8 +14,6 @@ import com.alibaba.fastjson.JSONObject;
  * <p>Title: HttpClient.java</p>
  * <p>Description:HttpURLConnection调用方式</p>
  * <p>Company: www.itcast.com</p>
- * @author  
- * @date    
  * @version 1.0
  */
 public class HttpClient_ConnectEcpp {
@@ -48,13 +46,10 @@ public class HttpClient_ConnectEcpp {
 	                	String addLineOrderStr = stuChild.getStringValue();
 	                	System.out.println("------addLineOrderResponse------");
 	                	
-	                	
 	                	JSONObject addLineOrderStrObject= JSON.parseObject(addLineOrderStr);
 	                	System.out.println("------------addLineOrderStrObject------------");
 	                	System.out.println(addLineOrderStrObject.get("data"));
 	                	System.out.println("------------addLineOrderStrObject------------");
-	                	
-	                	
 	                	
 	                	JSONObject dataObject = (JSONObject) addLineOrderStrObject.get("data");
 	                	System.out.println("------------dataObject------------");
@@ -75,12 +70,10 @@ public class HttpClient_ConnectEcpp {
 		return returnOrder_sn;
 	}
 	
-	
 	public static String jDom4(String returnStr) {
         //2.加载xml
         Document document;
 		try {
-			//document = reader.read(returnStr);
 			document = DocumentHelper.parseText(returnStr);
 			
 			//3.获取根节点
@@ -100,21 +93,16 @@ public class HttpClient_ConnectEcpp {
 	                System.out.println("节点名："+stuChild.getName()+"---节点值："+stuChild.getStringValue());
 	                if("queryOrderResponse".equals(stuChild.getName())){
 	                	System.out.println("------queryOrderResponse------");
-	                	
 	                	System.out.println(stuChild.getStringValue());
 	                	String queryOrderResponseStr = stuChild.getStringValue();
-	                	
 	                	System.out.println("------queryOrderResponse------");
 	                	
 	                	JSONObject queryOrderResponseJSONObject= JSON.parseObject(queryOrderResponseStr);
-	                	
 	                	System.out.println("------------queryOrderResponseJSONObject------------");
 	                	System.out.println(queryOrderResponseJSONObject.get("data"));
 	                	System.out.println("------------queryOrderResponseJSONObject------------");
 	                	
 	                	JSONObject orderDataJSONObject = (JSONObject) queryOrderResponseJSONObject.get("data");
-	                	
-	                	
 	                	System.out.println("------------orderDataJSONObject------------");
 	                	System.out.println(orderDataJSONObject.get("track_no"));
 	                	System.out.println("------------orderDataJSONObject------------");
