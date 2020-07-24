@@ -35,6 +35,8 @@ public class MlbackCoupon {
     private String couponStarttime;//生效时间
 
     private String couponEndtime;//失效时间
+    
+    private String couponImgUrl;//优惠券Img
 
     private Integer couponProductonlyType;//优惠码是否支持单品
 
@@ -171,8 +173,16 @@ public class MlbackCoupon {
     public void setCouponEndtime(String couponEndtime) {
         this.couponEndtime = couponEndtime == null ? null : couponEndtime.trim();
     }
+    
+    public String getCouponImgUrl() {
+		return couponImgUrl;
+	}
 
-    public Integer getCouponProductonlyType() {
+	public void setCouponImgUrl(String couponImgUrl) {
+		this.couponImgUrl = couponImgUrl == null ? null : couponImgUrl.trim();
+	}
+
+	public Integer getCouponProductonlyType() {
         return couponProductonlyType;
     }
 
@@ -212,8 +222,8 @@ public class MlbackCoupon {
 			BigDecimal couponPriceBaseline, Integer couponStatus, String couponCode, String couponType,
 			Integer couponLuckdrawType, Integer couponLuckdrawWeight, Integer couponTimes, Integer couponAlltimes,
 			String couponCreatetime, String couponMotifytime, String couponStarttime, String couponEndtime,
-			Integer couponProductonlyType, String couponProductonlyPidstr, String couponProductseonamesstronlyPid,
-			String couponProductpronamesstronlyPid) {
+			String couponImgUrl, Integer couponProductonlyType, String couponProductonlyPidstr,
+			String couponProductseonamesstronlyPid, String couponProductpronamesstronlyPid) {
 		super();
 		this.couponId = couponId;
 		this.couponName = couponName;
@@ -231,6 +241,7 @@ public class MlbackCoupon {
 		this.couponMotifytime = couponMotifytime;
 		this.couponStarttime = couponStarttime;
 		this.couponEndtime = couponEndtime;
+		this.couponImgUrl = couponImgUrl;
 		this.couponProductonlyType = couponProductonlyType;
 		this.couponProductonlyPidstr = couponProductonlyPidstr;
 		this.couponProductseonamesstronlyPid = couponProductseonamesstronlyPid;
@@ -245,10 +256,10 @@ public class MlbackCoupon {
 				+ ", couponLuckdrawType=" + couponLuckdrawType + ", couponLuckdrawWeight=" + couponLuckdrawWeight
 				+ ", couponTimes=" + couponTimes + ", couponAlltimes=" + couponAlltimes + ", couponCreatetime="
 				+ couponCreatetime + ", couponMotifytime=" + couponMotifytime + ", couponStarttime=" + couponStarttime
-				+ ", couponEndtime=" + couponEndtime + ", couponProductonlyType=" + couponProductonlyType
-				+ ", couponProductonlyPidstr=" + couponProductonlyPidstr + ", couponProductseonamesstronlyPid="
-				+ couponProductseonamesstronlyPid + ", couponProductpronamesstronlyPid="
-				+ couponProductpronamesstronlyPid + "]";
+				+ ", couponEndtime=" + couponEndtime + ", couponImgUrl=" + couponImgUrl + ", couponProductonlyType="
+				+ couponProductonlyType + ", couponProductonlyPidstr=" + couponProductonlyPidstr
+				+ ", couponProductseonamesstronlyPid=" + couponProductseonamesstronlyPid
+				+ ", couponProductpronamesstronlyPid=" + couponProductpronamesstronlyPid + "]";
 	}
-    
+	
 }

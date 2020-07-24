@@ -12,7 +12,6 @@ public interface MlfrontOrderMapper {
 
     int updateByPrimaryKey(MlfrontOrder record);
     
-    
     //插入新地区价格模板
     int insertSelective(MlfrontOrder record);
     //删除本条地区价格模板

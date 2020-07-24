@@ -112,11 +112,8 @@ public class EmailUtilshtmlCustomer {
             mp.addBodyPart(bodyPart); 
             msg.setContent(mp);// 设置邮件内容对象 
             
-            //设置邮件消息
-            //msg.setText(message);
             //设置发送的日期
             msg.setSentDate(new Date());
-            
             //调用Transport的send方法去发送邮件
             Transport.send(msg);
             //System.out.println("给"+to+"客户,发送邮件完毕,"+"邮件内容为"+message);
@@ -163,7 +160,6 @@ public class EmailUtilshtmlCustomer {
             for(MlfrontOrderItem mlfrontOrderItem :mlfrontOrderItemList){
             	String Pname = mlfrontOrderItem.getOrderitemPname();
             	Integer Pnumber = mlfrontOrderItem.getOrderitemPskuNumber();
-//            	String Psku = mlfrontOrderItem.getOrderitemPskuNamestr();
             	String Psku = mlfrontOrderItem.getOrderitemPskuName();
             	String pAllmoney = mlfrontOrderItem.getOrderitemPskuReamoney();
             	
@@ -221,10 +217,8 @@ public class EmailUtilshtmlCustomer {
             BodyPart bodyPart = new MimeBodyPart();
             bodyPart.setDataHandler(new DataHandler(content,"text/html;charset=UTF-8"));
             mp.addBodyPart(bodyPart);
-            msg.setContent(mp);// 设置邮件内容对象 
-            
-            //设置邮件消息
-//            msg.setText(message);
+         // 设置邮件内容对象 
+            msg.setContent(mp);
             //设置发送的日期
             msg.setSentDate(new Date());
             //调用Transport的send方法去发送邮件
@@ -245,7 +239,6 @@ public class EmailUtilshtmlCustomer {
 		String SubTotalStr = df1.format(SubTotal);
 		return SubTotalStr;
 	}
-	
 
 	private static void sendEmilAbandoningPurchaseCustomer(String to, String toCustomerAbandoningPurchaseStr) {
 		try {
@@ -292,11 +285,10 @@ public class EmailUtilshtmlCustomer {
             Multipart mp = new MimeMultipart("related"); 
             BodyPart bodyPart = new MimeBodyPart(); 
             bodyPart.setDataHandler(new DataHandler(content,"text/html;charset=UTF-8"));
-            mp.addBodyPart(bodyPart); 
-            msg.setContent(mp);// 设置邮件内容对象 
+            mp.addBodyPart(bodyPart);
+            // 设置邮件内容对象 
+            msg.setContent(mp);
             
-            //设置邮件消息
-            //msg.setText(message);
             //设置发送的日期
             msg.setSentDate(new Date());
             //调用Transport的send方法去发送邮件

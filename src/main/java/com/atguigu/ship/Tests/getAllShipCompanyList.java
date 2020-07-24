@@ -40,7 +40,6 @@ public class getAllShipCompanyList {
 				System.out.println(couriers.get(i).getName());
 				System.out.println("couriers.get(i).getWeb_url()"+i+"------------------------");
 				System.out.println(couriers.get(i).getWeb_url());
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,19 +92,17 @@ public class getAllShipCompanyList {
 	private static void testTracking() {
 		
 		ConnectionAPI connection = new ConnectionAPI("7b04f01f-4f04-4b37-bbb9-5b159af73ee1");
-		Tracking tracking = new Tracking("778611218843");
+		Tracking tracking = new Tracking("394943150257");
 		tracking.setSlug("fedex");
 		try {
 			Tracking tracking2 = connection.getTrackingByNumber(tracking);
 			
 			List<Checkpoint> CheckpointList =  tracking2.getCheckpoints();
-			
 			int i=0;
 			for(Checkpoint Checkpoint:CheckpointList){
 				System.out.println(i+":"+Checkpoint);
 				i++;
 			}
-//			System.out.println(tracking2.toString());
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		} catch (AftershipAPIException e1) {

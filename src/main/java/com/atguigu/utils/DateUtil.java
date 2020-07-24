@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-
 /* ******************DateUtil*********************
  * class       :  DateUtil
  * @author     :  zhoushaohua
@@ -59,10 +58,10 @@ public class DateUtil {
 	/*
 	 * ********************************************
 	 * method name   : str2Date 
-	 * description   : ����ģʽ���ַ����ΪDate��������
+	 * description   : 
 	 * @return       : Date
-	 * @param        : @param str	�����ַ�
-	 * @param		 : @patternStr	�������ڵ�ģʽ
+	 * @param        : @param str
+	 * @param		 : @patternStr
 	 * @param        : @return
 	 * @param        : @throws Exception
 	 * modified      : lizhibin ,  2013-12-3
@@ -94,8 +93,6 @@ public class DateUtil {
         return sdf.format(d);
     } 
     
-    
-    
     public static String addMonth (String source ,String formats,String formatd,int addMonth)  throws Exception{
             SimpleDateFormat sdfs = new SimpleDateFormat (formats);
             SimpleDateFormat sdfd = new SimpleDateFormat (formatd);
@@ -105,7 +102,6 @@ public class DateUtil {
             calendar.add (Calendar.MONTH, addMonth);
             return sdfd.format (calendar.getTime ());
     }
-
  
 	/**
 	 * �ж������Ƿ���key�������Ƿ����������������ڷ�Χ��
@@ -114,8 +110,6 @@ public class DateUtil {
 	 * @throws ParseException 
 	 */
 	public static boolean isBetweenDate(String nowDate,String startDate,String endDate) throws ParseException{
-		
-		
 		
 		SimpleDateFormat fm_reqDate = new SimpleDateFormat("yyyyMMdd");
 		Date fromat_reqDate = fm_reqDate.parse(nowDate);
@@ -223,7 +217,6 @@ public class DateUtil {
 		return new SimpleDateFormat("yyyyMMdd").format(new Date());
 	}
 	
-	
 	/**
 	 * 获取倒计时计时数ֵ
 	 * @return
@@ -244,8 +237,4 @@ public class DateUtil {
 		}
 		return XtimeRes;
 	}
-	
 }
-
-
-
