@@ -87,6 +87,10 @@
 									</div>
 								</div>
 							</div>
+							<div class="paypal-error-tip">
+								<span class="icon tip"></span>
+								<div class="text">A match of the shipping Address E-mail, Country, State and Postal Code failed.</div>
+							</div>
 							<div class="order-address-shipping">
 								<div class="name">SHIPPING COST:</div>
 								<div class="value">$0</div>
@@ -592,6 +596,15 @@
 		function initialOrder() {
 			// 1
 			renderCountry();
+			// paypal address check
+			if ('${sessionScope.PaypalErrorName}' == "VALIDATION_ERROR") {
+				$('.paypal-error-tip').show();
+			} else {
+				$('.paypal-error-tip').hide();
+			}
+			$('#addressEmail, #addressCountry, #addressProvince, #addressCity, #addressPost').on('foucs', function() {
+				$('.paypal-error-tip').hide();
+			});
 			// userinfo initial
 			getUserInfo(function(data) {
 				var addressData = data.mlfrontAddressOne;
