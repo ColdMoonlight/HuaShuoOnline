@@ -36,6 +36,7 @@
 										<th>couponType</th>
 										<th>couponPrice</th>
 										<th>couponPriceoff</th>
+										<th>Image</th>
 										<th>Draw or no</th>
 										<th>Weight</th>
 										<th>Product or no</th>
@@ -131,6 +132,14 @@
 											<input class="form-control" id="couponCode" type="text" />
 										</div>
 									</div>
+								</div>
+							</div>
+							<!-- lottery -->
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Lottery</div>
+								</div>
+								<div class="card-body">
 									<div class="form-group choose_draw">
 										<label class="col-form-label" for="couponLuckdrawType">Lottery draw</label>
 										<div class="controls">
@@ -140,7 +149,7 @@
 											</select>
 										</div>
 									</div>
-									<div class="form-group open_draw" style="display: none;">
+									<div class="form-group open_draw">
 										<label class="col-form-label" for="couponLuckdrawWeight">Draw weight ratio:</label>
 										<div class="controls">
 											<select name="couponLuckdrawWeight" id="couponLuckdrawWeight" class="form-control">
@@ -166,6 +175,21 @@
 											   <option value="95">95%</option>
 											   <option value="100">100%</option>
 											</select>
+										</div>
+									</div>
+									<!-- image -->
+									<div>
+										<h4>Image</h4>
+										<div class="c-upload-img">
+											<svg class="c-icon">
+												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+											</svg>
+											<div class="c-backshow"></div>						
+											<input id="couponImgUrl" type="file" accept="image/png, image/jpeg, image/gif" />										
+											<!-- spinner -->
+											<div class="spinner">
+												<div class="spinner-border" role="status" aria-hidden="true"></div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -229,6 +253,10 @@
 		bindDateRangeEvent(function(startTime, endTime) {
 			$('#couponStarttime').val(startTime);
 			$('#couponEndtime').val(endTime);
+		});
+		// pagination a-click
+		$(document.body).on('click', '#table-pagination li', function (e) {
+			getCollectionsData();
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
@@ -298,7 +326,55 @@
 				});
 			}
 			showInitBlock();
+		});// upload img
+		$('#couponImgUrl').on('change', function(e) {
+			var $this = $(this);
+			$('.c-upload-img .spinner').show();
+
+			var formData = new FormData();
+			formData.append('type', 'category');
+			formData.append('image', $this[0].files[0]);
+			formData.append('categoryId', parseInt($('#categoryId').val()));
+			formData.append('categorySeo', $('#categorySeo').val());
+
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/thumImageCategory",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						addPicture($this, {
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlthumImageUrl
+						});
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-upload-img .spinner').hide();
+				}
+			});
 		});
+		function addPicture(el, data) {
+			var parentEl = el.parent();
+			el.attr('data-val', JSON.stringify(data));
+			parentEl.addClass('active');
+			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.thumImageUrl) + '" />');
+		}
+		function resetPicture(el) {
+			var parentEl = el.parent();
+			el.attr('data-val', '');
+			parentEl.removeClass('active');
+			parentEl.find('.c-backshow').html('');
+		}
 		// tab create/init
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
@@ -322,6 +398,9 @@
 			$('#couponType').val('0');
 			$('#couponLuckdrawType').val('0');
 			$('#couponLuckdrawWeight').val('0');
+
+			resetPicture($('#couponImgUrl'));
+
 			$('#couponProductonlyType').val('0');
 			$('#couponProductonlyPidstr').val('-1');
 
@@ -352,6 +431,10 @@
 			data.couponPriceoff = $('#couponPriceoff').val();
 			data.couponLuckdrawType = $('#couponLuckdrawType').val();
             data.couponLuckdrawWeight = $('#couponLuckdrawWeight').val();
+			
+            var imageData = $('#couponImgUrl').attr('data-val') && JSON.parse($('#couponImgUrl').attr('data-val'));
+			data.couponImgUrl = imageData.imageUrl;
+
 			data.couponProductonlyType = $('#couponProductonlyType').val();
 			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').val();
 			// data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
@@ -381,13 +464,17 @@
 				$(".open_0").hide();
 			}
 			$('#couponLuckdrawType').val(data.couponLuckdrawType);
-			var drawtype = data.couponLuckdrawType;
-			if(drawtype==0){
-				$(".open_draw").hide()
-			}else if(drawtype==1){
-				$(".open_draw").show()
-			}
 			$('#couponLuckdrawWeight').val(data.couponLuckdrawWeight);
+
+			if (data.couponImgUrl) {
+				addPicture($('#couponImgUrl'), {
+					imageUrl: data.couponImgUrl,
+					thumImageUrl: data.couponImgUrl
+				});
+			} else {
+				resetPicture($('#couponImgUrl'));
+			}
+
 			$('#couponProductonlyType').val(data.couponProductonlyType);
 			var showproduct = data.couponProductonlyType;
 			if(showproduct==0){
@@ -538,27 +625,32 @@
 			   var couponProductonlytype = data[i].couponProductonlyType;
 				htmlStr += '<tr><td>' + data[i].couponId + '</td>' +
 					'<td>' + data[i].couponName + '</td>' +
-					 '<td>' + data[i].couponCode + '</td>' +
-					 '<td>' + data[i].couponPriceBaseline + '</td>' +
-					 '<td>'+(coupontype == 1 ? 'Discount' : 'Full')+'</td>' +
-					 '<td>' +(coupontype == 0 ? parseFloat(data[i].couponPrice) : '')+ '</td>' +
-					 '<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff)+'%' : '')+ '</td>' +
-					 '<td>'+(couponLuckdrawtype == 1 ? 'yes' : 'no')+'</td>' +
-					 '<td>' + data[i].couponLuckdrawWeight + '%</td>' +
-					 '<td>'+(couponProductonlytype == 1 ? 'yes' : 'no')+'</td>' +
-					 '<td>'+(couponProductonlytype == 1 ? (data[i].couponProductonlyPidstr+' * '+data[i].couponProductseonamesstronlyPid) : 'All Product')+'</td>' +
-					 '<td>' + (data[i].couponStatus ? 'enable' : 'disable') + '</td>' +
+					'<td>' + data[i].couponCode + '</td>' +
+					'<td>' + data[i].couponPriceBaseline + '</td>' +
+					'<td>'+(coupontype == 1 ? 'Discount' : 'Full')+'</td>' +
+					'<td>' +(coupontype == 0 ? parseFloat(data[i].couponPrice) : '')+ '</td>' +
+					'<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff)+'%' : '')+ '</td>' +
 					'<td>' +
-					'<button class="btn btn-primary btn-edit" data-id="' + data[i].couponId + '">' +
-					'<svg class="c-icon">' +
-					'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
-					'</svg>' +
-					'</button>' +
-					'<button class="btn btn-danger btn-delete" data-id="' + data[i].couponId + '">' +
-					'<svg class="c-icon">' +
-					'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
-					'</svg>' +
-					'</button>' +
+						(data[i].couponImgUrl ?
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].couponImgUrl) +'" /></div>'
+							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+					'</td>' +
+					'<td>'+(couponLuckdrawtype == 1 ? 'yes' : 'no')+'</td>' +
+					'<td>' + data[i].couponLuckdrawWeight + '%</td>' +
+					'<td>'+(couponProductonlytype == 1 ? 'yes' : 'no')+'</td>' +
+					'<td>'+(couponProductonlytype == 1 ? (data[i].couponProductonlyPidstr+' * '+data[i].couponProductseonamesstronlyPid) : 'All Product')+'</td>' +
+					'<td>' + (data[i].couponStatus ? 'enable' : 'disable') + '</td>' +
+					'<td>' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].couponId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
+							'</svg>' +
+						'</button>' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].couponId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
+							'</svg>' +
+						'</button>' +
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
@@ -571,13 +663,6 @@
 			} else if ($(this).val() == 1) {
 				$(".open_1").show();
 				$(".open_0").hide();
-			}
-		});
-		$(".choose_draw select").change(function () {
-			if ($(this).val() == 0) {
-				$(".open_draw").hide();
-			} else if ($(this).val() == 1) {
-				$(".open_draw").show();
 			}
 		});
 		$(".choose_product select").change(function () {
