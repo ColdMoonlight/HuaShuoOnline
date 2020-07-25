@@ -13,16 +13,6 @@
 						<input type="text" class="search-input" placeholder="Search Products..." />
 						<button class="btn btn-search" type="submit"><i class="icon search"></i></button>
 					</div>
-					<div class="search-result-box">
-						<span class="icon close"></span>
-						<ul class="search-result">
-							<li class="search-result-item" data-name="bob">bob</li>
-							<li class="search-result-item" data-name="wigs">wigs</li>
-							<li class="search-result-item" data-name="bundle">bundle</li>
-							<li class="search-result-item" data-name="613">613</li>
-							<li class="search-result-item" data-name="Water">Water</li>
-						</ul>
-					</div>
 				</div>
 				<div class="login">
 					<i class="icon person"></i>
@@ -50,22 +40,10 @@
 			<span class="icon search"></span>
 
 			<div class="search-box">
-				<div class="title">
-					<span class="icon close"></span>
-					<p>What are you Looking for?</p>
-				</div>
+				<div class="title">What are you Looking for?</div>
 				<div class="search-inputgroup">
 					<input type="text" class="search-input" placeholder="Search Products..." />
 					<button class="btn btn-search" type="submit">Search</button>
-				</div>
-				<div class="search-result-box">
-					<ul class="search-result">
-						<li class="search-result-item" data-name="bob">bob</li>
-						<li class="search-result-item" data-name="wigs">wigs</li>
-						<li class="search-result-item" data-name="bundle">bundle</li>
-						<li class="search-result-item" data-name="613">613</li>
-						<li class="search-result-item" data-name="Water">Water</li>
-					</ul>
 				</div>
 			</div>
 		</div>
@@ -74,6 +52,18 @@
 			<i class="icon close"></i>
 			<ul class="wap-nav ml-nav"></ul>
 		</div>
+		
+	</div>
+	<!-- search result -->
+	<div class="search-result-box">
+		<span class="icon close"></span>
+		<ul class="search-result">
+			<li class="search-result-item" data-name="bob">bob</li>
+			<li class="search-result-item" data-name="wigs">wigs</li>
+			<li class="search-result-item" data-name="bundle">bundle</li>
+			<li class="search-result-item" data-name="613">613</li>
+			<li class="search-result-item" data-name="Water">Water</li>
+		</ul>
 	</div>
 </header>
 <script>
@@ -552,33 +542,33 @@
 	// initial login status
 	updateUserLoginStatus();
 	// listener search event
-	$('.pc-header .search-inputgroup input').on('click', function () {
+	function showSearchBox() {
 		addFixed();
-		$(this).parents('.search-box').find('.search-result-box').slideDown(300);
-	});
-
-	$('.wap-navbar .search').on('click', function () {
-		addFixed();
-		$('.wap-navbar .search-box').show().find('.search-result-box').slideDown(300);
-	});
+		$('.search-result-box').addClass('active').slideDown(300);
+		if (window.innerWidth < 1023) {
+			$('.wap-navbar .search-box').show();
+			$('.search-result-box').css('top', $('.wap-navbar .search-box').outerHeight());
+		} else {
+			$('.search-result-box').css('top', $('.pc-header').outerHeight() - $('.pc-nav').height());
+		}
+	}
+	$('.pc-header .search-input, .wap-navbar .search').on('click', showSearchBox);
 	// close search-result box
 	$('.search-result-box').on('click', function (e) {
 		if (e.target == this) {
 			removeFixed();
 			if (window.innerWidth < 1023) {
-				$(this).parent().slideUp(300);
-			} else {
-				$(this).slideUp(300);				
+				$('.wap-navbar .search-box').slideUp(300);
 			}
+			$(this).removeClass('active').slideUp(300);				
 		}
 	});
-	$('.search-box .close, .search-result-item').on('click', function () {
+	$('.search-result-box .close, .search-result-item').on('click', function () {
 		removeFixed();
 		if (window.innerWidth < 1023) {
 			$('.wap-navbar .search-box').slideUp();
-		} else {
-			$('.pc-header .search-result-box').slideUp();
 		}
+		$('.search-result-box').removeClass('active').slideUp();
 	});
 	// search product
 	$('.btn-search').on('click', function() {
@@ -612,6 +602,9 @@
 	$(window).on('resize', function () {
 		debounce(function() {
 			$('main').css({ 'paddingTop': $('header').height() + 16 });
+			if ($('.search-result-box').hasClass('active')) {
+				showSearchBox();
+			}
 		}, 100);
 	});
 	// iphone share
