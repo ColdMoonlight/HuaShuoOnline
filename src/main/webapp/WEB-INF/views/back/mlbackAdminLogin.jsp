@@ -12,6 +12,7 @@
 			.container { display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh; }
 			.container::before, .container::after { display: none; }
 			.header { display: flex; align-items: center; height: 10vh; }
+			.header img { width: 16rem; }
 			.login-box { display: flex; align-items: center; justify-content: center; }
 			.login-bg>img { width: 100%; }
 			#reset-password-form, .spinner>.spinner-border { display: none; }
@@ -27,7 +28,7 @@
 	<body class="c-app">
 		<div class="container">
 			<div class="header">
-				<img src="${APP_PATH }/static/back/img/logo.png" />
+				<img src="${APP_PATH }/static/common/dblogo.png" />
 			</div>
 			<div class="row login-box">
 				<div class="col-md-8 col-lg-8 login-bg md-down-none">
@@ -109,7 +110,7 @@
 				</div>
 			</div>
 			<div class="footer">
-				<p class="text-center">© 2020-202x MegaLook.com. All rights reserved.</p>
+				<p class="text-center">© 2020-~ MegaLook.com. All rights reserved.</p>
 			</div>
 		</div>
 
