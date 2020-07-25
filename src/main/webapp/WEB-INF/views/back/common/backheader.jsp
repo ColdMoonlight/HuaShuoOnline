@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <!-- common css -->
 <link href="${APP_PATH}/static/back/css/style.css" rel="stylesheet">
 <!-- toastr css -->
