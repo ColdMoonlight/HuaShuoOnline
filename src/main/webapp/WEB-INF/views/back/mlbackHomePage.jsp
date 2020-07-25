@@ -794,20 +794,6 @@
 								</div>
 							</div>
 						</div>
-						<div class="c-form">
-							<div class="form-group">
-		                        <label class="col-form-label" for="tagsinput">Tagsinput</label>
-		                        <div class="controls">
-			                         <input class="form-control" id="tagsinput" type="text" />
-		                        </div>
-	                      	</div>
-							<div class="form-group">
-		                        <label class="col-form-label" for="summernote">Summernote</label>
-		                        <div class="controls">
-			                        <textarea class="form-control" id="summernote" size="16" type="text"></textarea>
-		                        </div>
-	                      	</div>
-						</div>
 						<!-- /.col-->
 					</div>
 				</div>
@@ -816,33 +802,6 @@
 		</div>
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
-		<script>
-			// tagsinput
-			$('#tagsinput').tagsinput({
-				onTagExists: function(item, $tag) {
-					toastr.error('Youve already used the option "'+ item + '"');
-				}
-			});
-			$('.bootstrap-tagsinput input').on('focus', function(e) {
-				$(this).parent().addClass('active')
-			});
-			$('.bootstrap-tagsinput input').on('blur', function(e) {
-				$(this).parent().removeClass('active')
-			});
-			// rich text
-			$('#summernote').summernote({
-				height: 300,
-		        toolbar: [
-					['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-					['fontsize', ['fontsize']],
-					['height', ['height']],
-					['color', ['color']],
-					['para', ['ul', 'ol', 'paragraph']],
-					['table', ['table']],
-					['insert', ['link', 'picture', 'video']],
-					['view', ['codeview']]
-		        ]
-		   	});
-		</script>
+		<script></script>
 	</body>
 </html>
