@@ -552,29 +552,48 @@
 	// initial login status
 	updateUserLoginStatus();
 	// listener search event
-	$('.search-inputgroup input').on('click', function () {
+	$('.pc-header .search-inputgroup input').on('click', function () {
 		addFixed();
-		$(this).parents('.search-box').addClass('active').find('.search-result-box').slideDown(300);
+		$(this).parents('.search-box').find('.search-result-box').slideDown(300);
+	});
+
+	$('.wap-navbar .search').on('click', function () {
+		addFixed();
+		$('.wap-navbar .search-box').show().find('.search-result-box').slideDown(300);
 	});
 	// close search-result box
 	$('.search-result-box').on('click', function (e) {
 		if (e.target == this) {
 			removeFixed();
-			$(this).slideUp(300);
+			if (window.innerWidth < 1023) {
+				$(this).parent().slideUp(300);
+			} else {
+				$(this).slideUp(300);				
+			}
 		}
 	});
-	$('.wap-navbar .search-box .close, .search-result-item').on('click', function () {
-		$('.wap-navbar .search-box').hide();
+	$('.search-box .close, .search-result-item').on('click', function () {
 		removeFixed();
+		if (window.innerWidth < 1023) {
+			$('.wap-navbar .search-box').slideUp();
+		} else {
+			$('.pc-header .search-result-box').slideUp();
+		}
 	});
-	$('.pc-header .search-result-box .close').on('click', function () {
-		$('.pc-header .search-result-box').slideUp();
-		removeFixed();
+	// search product
+	$('.btn-search').on('click', function() {
+		var searchName = $(this).parent().find('.search-input').val();
+		checkSearchInput(searchName) && goToSearchProduct(searchName);
 	});
-	// wap-navbar
-	$('.wap-navbar .search').on('click', function () {
-		addFixed();
-		$('.wap-navbar .search-box').show();
+	$('.search-input').on('keyup', function(e) {
+		if (e.keyCode == 13) {
+			var searchName = $('.search-input').val();
+			checkSearchInput(searchName) && goToSearchProduct(searchName);
+		}
+	});
+	$('.search-result-item').on('click', function() {
+		var searchName = $(this).data('name');
+		checkSearchInput(searchName) && goToSearchProduct(searchName);
 	});
 	var startY = 0,
 		loginRegisterModal = null;
@@ -737,20 +756,5 @@
 			$('.left-box').show();
 			$('.right-box').hide();
 		});
-	});
-	// search product
-	$('.btn-search').on('click', function() {
-		var searchName = $(this).parent().find('.search-input').val();
-		checkSearchInput(searchName) && goToSearchProduct(searchName);
-	});
-	$('.search-input').on('keyup', function(e) {
-		if (e.keyCode == 13) {
-			var searchName = $('.search-input').val();
-			checkSearchInput(searchName) && goToSearchProduct(searchName);
-		}
-	});
-	$('.search-result-item').on('click', function() {
-		var searchName = $(this).data('name');
-		checkSearchInput(searchName) && goToSearchProduct(searchName);
 	});
 </script>

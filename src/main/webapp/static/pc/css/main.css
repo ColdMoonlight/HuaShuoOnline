@@ -796,6 +796,8 @@ main {
 }
 .search-result {
 	min-height: 5rem;
+	max-height: 50vh;
+	overflow: auto;
 	padding: 1rem;
 	margin: 0;
 	background-color: #fff;
@@ -827,6 +829,9 @@ main {
 .pc-header .ml-search .logo>img {
 	display: block;
 	width: 100%;
+}
+.pc-header .search-result-box {
+	margin-top: -4rem;
 }
 .pc-header .search-result {
 	padding: 1.5rem 10%;
@@ -2351,7 +2356,7 @@ footer li {
 		background-image: url('../img/step/wap-step-3.jpg');
 	}
 	.cart-item {
-		padding: .3rem .5rem;
+		padding: .5rem;
 	}
 	.cart-item>.cart-product,
 	.order-item>.order-product {
