@@ -271,7 +271,6 @@ public class MlfrontOrderController {
 		//2.3更新order表(地区字段,优惠券字段,总价的价格，结算方式,留言,总价的价格)
 		MlfrontOrder mlfrontOrderEnd = new  MlfrontOrder();
 		mlfrontOrderEnd.setOrderId(originalOrderId);
-//		mlfrontOrderEnd.setAddressinfoId(AddressId);//地区字段
 		mlfrontOrderEnd.setOrderAddressinfoId(AddressId);//地区字段
 		mlfrontOrderEnd.setOrderCouponId(CouponId);
 		mlfrontOrderEnd.setOrderCouponCode(CouponCode);//优惠券字段
@@ -285,7 +284,7 @@ public class MlfrontOrderController {
 		mlfrontOrderEnd.setOrderMotifytime(nowTime);
 		//执行更新order表
 		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderEnd);
-		//3.0将order信息写入payInfo信息中心//uid oid 支付方式，交易订单号，支付信息
+		//3.0将order信息写入payInfo信息中心//uid oid 支付方式,交易订单号,支付信息
 		//从orderId中查询uid,地址id,buyMess字段;
 		Integer payAddressinfoId = mlfrontOrderEnd.getOrderAddressinfoId();
 		MlfrontAddress mlfrontAddress =new MlfrontAddress();
