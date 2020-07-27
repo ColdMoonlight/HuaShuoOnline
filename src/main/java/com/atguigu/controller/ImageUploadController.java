@@ -453,6 +453,7 @@ public class ImageUploadController {
 		
 		MlbackReviewImg mlbackReviewImg = new MlbackReviewImg();
 		mlbackReviewImg.setReviewId(reviewId);
+		mlbackReviewImg.setReviewimgName(imgName);
 		mlbackReviewImg.setReviewimgSortOrder(reviewimgSortOrder);
 		mlbackReviewImg.setReviewimgUrl(sqlimageUrl);
 		mlbackReviewImg.setReviewsmallimgUrl(sqlimageUrl);
@@ -640,11 +641,8 @@ public class ImageUploadController {
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
 	}
 	
-	
-	//static/upload/img/actShowPro
-	
 	/**
-	 * 	onuse	20200103	检查
+	 * 	zsh 200727
 	 * */
 	@RequestMapping(value="/actShowProWap",method=RequestMethod.POST)
 	@ResponseBody
@@ -685,7 +683,7 @@ public class ImageUploadController {
 	}
 	
 	/**
-	 * 	onuse	20200103	检查
+	 * 	zsh 200727
 	 * */
 	@RequestMapping(value="/actShowProPc",method=RequestMethod.POST)
 	@ResponseBody
@@ -726,7 +724,7 @@ public class ImageUploadController {
 	}
 	
 	/**
-	 * 	onuse	20200103	检查
+	 * 	zsh 200727
 	 * */
 	@RequestMapping(value="/couponDescTitle",method=RequestMethod.POST)
 	@ResponseBody
@@ -767,7 +765,7 @@ public class ImageUploadController {
 	}
 	
 	/**
-	 * 	onuse	20200103	检查
+	 * 	zsh 200727
 	 * */
 	@RequestMapping(value="/uploadCouponImg",method=RequestMethod.POST)
 	@ResponseBody
@@ -791,7 +789,6 @@ public class ImageUploadController {
 		String imageUrl ="";
 		String sqlimageUrl="";
 		try {
-			
 			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
 			sqlimageUrl=basePathStr+imageUrl;
 			System.out.println("sqlimageUrl:"+sqlimageUrl);
@@ -800,7 +797,6 @@ public class ImageUploadController {
 		}
 
 		MlbackCoupon mlbackCoupon = new MlbackCoupon();
-		
 		mlbackCoupon.setCouponId(couponId);
 		mlbackCoupon.setCouponImgUrl(sqlimageUrl);
 		mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);
