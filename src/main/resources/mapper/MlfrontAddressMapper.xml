@@ -284,12 +284,6 @@
       <if test="addressPost != null">
         and address_post = #{addressPost,jdbcType=VARCHAR}
       </if>
-      <if test="addressCreatetime != null">
-        and address_createTime = #{addressCreatetime,jdbcType=VARCHAR}
-      </if>
-      <if test="addressMotifytime != null">
-        and address_motifyTime = #{addressMotifytime,jdbcType=VARCHAR}
-      </if>
   </select>
   <!-- updateByPrimaryKeySelective -->
   <!-- updateByPrimaryKeySelective -->

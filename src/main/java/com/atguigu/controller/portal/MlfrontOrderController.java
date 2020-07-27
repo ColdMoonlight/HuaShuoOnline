@@ -345,10 +345,9 @@ public class MlfrontOrderController {
 		MlfrontAddressReq.setAddressId(addressId);
 //		List<MlfrontAddress> mlfrontAddressList = mlfrontAddressService.selectMlfrontAddressById(MlfrontAddressReq);
 		List<MlfrontAddress> mlfrontAddressList = mlfrontAddressService.selectMlfrontAddressByParam(MlfrontAddressReq);
-		String addressCountry = mlfrontAddressList.get(0).getAddressCountry();
+		String addressCountryCode = mlfrontAddressList.get(0).getAddressCountryCode();
 		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
-//		mlbackAreafreightReq.setAreafreightCountryEnglish(addressCountry);
-		mlbackAreafreightReq.setAreafreightCountryCode(addressCountry);
+		mlbackAreafreightReq.setAreafreightCountryCode(addressCountryCode);
 //		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByEng(mlbackAreafreightReq);
 		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
 		MlbackAreafreight mlbackAreafreightOne = new MlbackAreafreight();
