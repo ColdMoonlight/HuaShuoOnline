@@ -447,7 +447,7 @@ public class MlfrontReviewController {
 			mlfrontReviewReq.setReviewMotifytime(nowTime);
 		}
 		//如果没传,默认0
-		if(("".equals(reviewSupercateidstr))||reviewSupercateidstr==null){
+		if(("".equals(reviewSupercateidstr))||("0".equals(reviewSupercateidstr))||reviewSupercateidstr==null){
 			mlfrontReviewReq.setReviewSupercateidstr("1");
 		}else{
 			mlfrontReviewReq.setReviewSupercateidstr(reviewSupercateidstr);
