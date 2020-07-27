@@ -325,7 +325,7 @@ public class MlfrontOrderController {
 		
 		session.setAttribute("sendAddressinfoId", payAddressinfoId);
 		
-		//取出sessionid，再次放入
+		//取出sessionid,再次放入
 		Integer orderIdFinally = (Integer) session.getAttribute("orderId");
 		session.setAttribute("orderId", orderIdFinally);
 		//4.0传入orderid,查询其中的orderItemID,找到cartID 找到cartid,移除购物车中的
