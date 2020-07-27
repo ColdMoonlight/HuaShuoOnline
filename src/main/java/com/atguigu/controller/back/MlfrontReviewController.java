@@ -84,9 +84,7 @@ public class MlfrontReviewController {
 		String nowTime = DateUtil.strTime14s();
 		mlfrontReview.setReviewCreatetime(nowTime);
 		mlfrontReview.setReviewSupercateidstr("1");
-		//System.out.println("插入前"+mlfrontReview.toString());
 		mlfrontReviewService.insertSelective(mlfrontReview);
-		//System.out.println("插入后"+mlfrontReview.toString());
 		return Msg.success().add("resMsg", "Review初始化成功").add("mlfrontReview", mlfrontReview);
 	}
 
@@ -130,8 +128,7 @@ public class MlfrontReviewController {
 	 */
 	private String GetUImgUrlByUname(HttpServletRequest res,String reviewUname) {
 		
-		String contextPathStr = res.getContextPath();    
-        //System.out.println("contextPathStr:"+contextPathStr);
+		String contextPathStr = res.getContextPath();
         
         String realPathStr = res.getSession().getServletContext().getRealPath("/");    
         System.out.println("realPathStr:"+realPathStr);
@@ -298,7 +295,6 @@ public class MlfrontReviewController {
 			imgUrlStrListst.add(imgUrlOneList);
 		}
 		//return 分页信息pageInfo,5条评论内容，5条评论中的图片
-		//return Msg.success().add("pageInfo", page).add("mlfrontReviewResreturn", mlfrontReviewResreturn).add("imgUrlStrListst", imgUrlStrListst);
 		return Msg.success().add("pageInfo", page).add("imgUrlStrListst", imgUrlStrListst);
 	}
 	
@@ -390,7 +386,6 @@ public class MlfrontReviewController {
 		
 	}
 	
-	
 	/**9.0	useOn	0505
 	 * MlfrontReview	delete
 	 * @param id
@@ -402,7 +397,6 @@ public class MlfrontReviewController {
 		Integer reviewId = mlfrontReview.getReviewId();
 		mlfrontReviewService.deleteByPrimaryKey(reviewId);
 		mlbackReviewImgService.deleteByreviewId(reviewId);
-		
 		return Msg.success().add("resMsg", "delete success");
 	}
 	
