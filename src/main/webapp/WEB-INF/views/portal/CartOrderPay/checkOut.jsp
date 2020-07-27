@@ -6,6 +6,7 @@
 <head>
 	<title>Checkout</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/ad.jsp" flush="true"></jsp:include>
 	<style>main { margin: 0; }</style>
 </head>
 
