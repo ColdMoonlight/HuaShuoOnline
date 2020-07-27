@@ -4363,3 +4363,44 @@ footer li {
 		left: -11rem;
 	}
 }
+/* my coupon */
+.usercoupon-list {
+	padding: 1rem;
+	background-color: #f5f5f5;
+}
+.usercoupon-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: .5rem;
+	background-color: #fff;
+	box-shadow: 0 0 0 2px #fdfdfd;
+	border-radius: .25rem;
+}
+.usercoupon-item+.usercoupon-item {
+	margin-top: .75rem;
+}
+.usercoupon-item .coupon-price {
+	font-size: 1.25rem;
+	color: #f23030;
+}
+.usercoupon-item .coupon-name {
+	font-size: .875rem;
+	color: #333;
+}
+.usercoupon-item .coupon-status {
+	font-style: italic;
+	font-size: .75rem;
+}
+.usercoupon-item .coupon-code {
+	font-size: 1.25rem;
+}
+.usercoupon-tip {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 30vh;
+	font-style: italic;
+	font-size: .875rem;
+	color: #ff0000;
+}
