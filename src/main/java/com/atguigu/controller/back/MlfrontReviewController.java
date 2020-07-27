@@ -83,6 +83,7 @@ public class MlfrontReviewController {
 		MlfrontReview mlfrontReview = new MlfrontReview();
 		String nowTime = DateUtil.strTime14s();
 		mlfrontReview.setReviewCreatetime(nowTime);
+		mlfrontReview.setReviewSupercateidstr("1");
 		//System.out.println("插入前"+mlfrontReview.toString());
 		mlfrontReviewService.insertSelective(mlfrontReview);
 		//System.out.println("插入后"+mlfrontReview.toString());
