@@ -112,7 +112,7 @@
       <if test="areafreightPrice != null">
         and areafreight_price = #{areafreightPrice,jdbcType=INTEGER}
       </if>
-      <if test="areafreightStatus != null">
+      <if test="areafreightId != null">
         and areafreight_id = #{areafreightId,jdbcType=INTEGER}
       </if>
   </select>
