@@ -332,13 +332,12 @@
 			$('.c-upload-img .spinner').show();
 
 			var formData = new FormData();
-			formData.append('type', 'category');
+			formData.append('type', 'coupon');
 			formData.append('image', $this[0].files[0]);
-			formData.append('categoryId', parseInt($('#categoryId').val()));
-			formData.append('categorySeo', $('#categorySeo').val());
+			formData.append('couponId', parseInt($('#couponId').val()));
 
 			$.ajax({
-				url: "${APP_PATH}/ImageUpload/thumImageCategory",
+				url: "${APP_PATH}/ImageUpload/uploadCouponImg",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -349,7 +348,7 @@
 					if (data.code == 100) {
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl
+							thumImageUrl: data.extend.sqlimageUrl
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	

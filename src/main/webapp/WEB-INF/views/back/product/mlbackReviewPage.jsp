@@ -716,6 +716,26 @@
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
+			function getReviewFrom(flag) {
+				var text = ''
+				switch(flag) {
+					case 0 :
+						text = flag + '-self';
+						break;
+					case 1 :
+						text = flag + '-customer';
+						break;
+					case 2 :
+						text = flag + '-ins瀑布流';
+						break;
+					case 3 :
+						text = flag + '-ins首页';
+						break;
+					defult:
+						text = flag + '-self';
+				}
+				return text;
+			}
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].reviewId + '</td>' +
 					'<td>' +
@@ -728,7 +748,7 @@
 					'<td>' + data[i].reviewCreatetime + '</td>' +
 					'<td><a class="badge '+ (data[i].reviewStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].reviewStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].reviewProstarnum + '</td>' +
-					'<td>' + (data[i].reviewFrom  ? 'customer' : 'self') + '</td>' +
+					'<td>' + getReviewFrom(data[i].reviewFrom) + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="'+ data[i].reviewId +'">' +
 							'<svg class="c-icon">' +
