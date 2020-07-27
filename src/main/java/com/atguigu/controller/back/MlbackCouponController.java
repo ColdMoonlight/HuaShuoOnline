@@ -1,5 +1,6 @@
 package com.atguigu.controller.back;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCoupon;
+import com.atguigu.bean.MlfrontUser;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCouponService;
@@ -226,57 +228,57 @@ public class MlbackCouponController {
 	    return Msg.success().add("resMsg", "getOneMCouponDetailByCode完毕")
 	          .add("mlbackCouponOne", mlbackCouponOne).add("couponProductOnlyTypeifHave", couponProductOnlyTypeifHave);
 	  }
-//	
-//	/**
-//	 * 7.0	useOn	0505
-//	 * 查询该用户名下所有优惠券
-//	 * @param MlbackCoupon
-//	 * @return 
-//	 */
-//	@RequestMapping(value="/getOneMlbackCouponDetailByUId",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getOneMlbackCouponDetailByUId(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
-//		Integer userType= 0;
-//		MlfrontUser mlfrontUserLogin  = (MlfrontUser) session.getAttribute("loginUser");
-//		List<MlbackCoupon> mlbackCouponReturnList = new ArrayList<MlbackCoupon>();
-//		if(mlfrontUserLogin==null){
-//			//非登录状态
-//			userType =0;
-//			return Msg.success().add("resMsg", "查询该用户名下所有优惠券完毕").add("userType", userType);
-//		}else{
-//			//登录状态
-//			userType =1;
-//			MlfrontUser mlfrontUserreq =new MlfrontUser();
-//			String userEmail = mlfrontUserLogin.getUserEmail();
-//			mlfrontUserreq.setUserEmail(userEmail);
-//			List<MlfrontUser> mlfrontUserList= mlfrontUserService.selectMlfrontUserWhenFirst(mlfrontUserreq);
-//			if(mlfrontUserList.size()>0){
-//				//此账号邮箱已经注册，返回即可
-//				//0的话取出resMsg
-//				MlfrontUser mlfrontUserres =mlfrontUserList.get(0);
-//				String couponidstr = mlfrontUserres.getUserCouponidstr();
-//				
-//				String couponidstrArr[] = couponidstr.split(",");
-//				String couponIdStr =""; 
-//				Integer couponIdInt =0;
-//				
-//				for(int i=0;i<couponidstrArr.length;i++){
-//					couponIdStr = couponidstrArr[i];
-//					couponIdInt = Integer.parseInt(couponIdStr);
-//					//拿到couponId，封装参数，查回本条优惠券的详情
-//					MlbackCoupon mlbackCouponReq = new MlbackCoupon();
-//					mlbackCouponReq.setCouponId(couponIdInt);
-//					List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCoupon(mlbackCouponReq);
-//					MlbackCoupon mlbackCouponOne =mlbackCouponResList.get(0);
-//					mlbackCouponReturnList.add(mlbackCouponOne);
-//				}
-//				return Msg.success().add("resMsg", "查询该用户名下所有优惠券完毕").add("mlbackCouponReturnList", mlbackCouponReturnList).add("userType", userType);
-//			}else{
-//				userType =0;
-//				return Msg.success().add("resMsg", "查询该用户名下所有优惠券完毕").add("userType", userType);
-//			}
-//		}
-//	}
+	
+	/**
+	 * 7.0	useOn	0505
+	 * 查询该用户名下所有优惠券
+	 * @param MlbackCoupon
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlbackCouponDetailByUId",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlbackCouponDetailByUId(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
+		Integer userType= 0;
+		MlfrontUser mlfrontUserLogin  = (MlfrontUser) session.getAttribute("loginUser");
+		List<MlbackCoupon> mlbackCouponReturnList = new ArrayList<MlbackCoupon>();
+		if(mlfrontUserLogin==null){
+			//非登录状态
+			userType =0;
+			return Msg.success().add("resMsg", "查询该用户名下所有优惠券完毕").add("userType", userType);
+		}else{
+			//登录状态
+			userType =1;
+			MlfrontUser mlfrontUserreq =new MlfrontUser();
+			String userEmail = mlfrontUserLogin.getUserEmail();
+			mlfrontUserreq.setUserEmail(userEmail);
+			List<MlfrontUser> mlfrontUserList= mlfrontUserService.selectMlfrontUserWhenFirst(mlfrontUserreq);
+			if(mlfrontUserList.size()>0){
+				//此账号邮箱已经注册，返回即可
+				//0的话取出resMsg
+				MlfrontUser mlfrontUserres =mlfrontUserList.get(0);
+				String couponidstr = mlfrontUserres.getUserCouponidstr();
+				
+				String couponidstrArr[] = couponidstr.split(",");
+				String couponIdStr =""; 
+				Integer couponIdInt =0;
+				
+				for(int i=0;i<couponidstrArr.length;i++){
+					couponIdStr = couponidstrArr[i];
+					couponIdInt = Integer.parseInt(couponIdStr);
+					//拿到couponId，封装参数，查回本条优惠券的详情
+					MlbackCoupon mlbackCouponReq = new MlbackCoupon();
+					mlbackCouponReq.setCouponId(couponIdInt);
+					List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCoupon(mlbackCouponReq);
+					MlbackCoupon mlbackCouponOne =mlbackCouponResList.get(0);
+					mlbackCouponReturnList.add(mlbackCouponOne);
+				}
+				return Msg.success().add("resMsg", "查询该用户名下所有优惠券完毕").add("mlbackCouponReturnList", mlbackCouponReturnList).add("userType", userType);
+			}else{
+				userType =0;
+				return Msg.success().add("resMsg", "查询该用户名下所有优惠券完毕").add("userType", userType);
+			}
+		}
+	}
 //	
 //	/**
 //	 * 8.0	useOn	0505
