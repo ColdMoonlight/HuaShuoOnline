@@ -348,7 +348,7 @@
 					if (data.code == 100) {
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl
+							thumImageUrl: data.extend.sqlimageUrl
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
