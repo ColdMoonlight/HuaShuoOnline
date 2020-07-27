@@ -9,23 +9,26 @@
 		<!-- login style  -->
 		<style>
 			.c-app { background-color: #f5feff; }
-			.c-app>.container { min-height: 100vh; }
-			.header { width: 100%; height: 78px; margin: 20px 0; }
-			.header>img, .login-bg>img { display: block; }
-			.login-box { display: flex; align-items: center; justify-content: center;}
+			.container { display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh; }
+			.container::before, .container::after { display: none; }
+			.header { display: flex; align-items: center; height: 10vh; }
+			.header img { width: 16rem; }
+			.login-box { display: flex; align-items: center; justify-content: center; }
 			.login-bg>img { width: 100%; }
 			#reset-password-form, .spinner>.spinner-border { display: none; }
 			.input-group { margin-bottom: 16px; }
-			@media screen and (max-width: 1000px) {
+			.footer { display: flex; align-items: center; justify-content: center; height: 20vh; }
+			@media screen and (max-width: 1024px) {
+				.header { justify-content: center; }
 				.md-down-none { display: none; }
-				.card { width: 60%; margin-bottom: 20px; }
+				.btn-primary.spinner { width: 100%; }
 			}
 		</style>
 	</head>
 	<body class="c-app">
 		<div class="container">
 			<div class="header">
-				<img src="${APP_PATH }/static/back/img/logo.png" />
+				<img src="${APP_PATH }/static/common/dblogo.png" />
 			</div>
 			<div class="row login-box">
 				<div class="col-md-8 col-lg-8 login-bg md-down-none">
@@ -107,7 +110,7 @@
 				</div>
 			</div>
 			<div class="footer">
-				<p class="text-center">© 2020-202x MegaLook.com. All rights reserved.</p>
+				<p class="text-center">© 2020-~ MegaLook.com. All rights reserved.</p>
 			</div>
 		</div>
 

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <div class="c-header">
+    <a class="c-logo" href="${APP_PATH}/BackHome/BackHomePage" title="megalook admin">Megalook Admin</a>
     <div class="c-header-nav">
 		<div class="c-avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-			<img class="c-avatar-img" src="assets/img/avatars/6.jpg" alt="user@email.com">
+			<img class="c-avatar-img" alt="user@email.com">
 		</div>
 		<div class="dropdown-menu">
 			<a class="dropdown-item">
