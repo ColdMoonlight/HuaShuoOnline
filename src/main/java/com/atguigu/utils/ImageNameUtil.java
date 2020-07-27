@@ -37,8 +37,9 @@ public class ImageNameUtil {
 			typeName="VideoYTBid";
 		}else if("couponDescTitle".equals(type)){
 			typeName="couponDescTitle";
+		}else if("coupon".equals(type)){
+			typeName="coupon";
 		}
-		
 		
 		return typeName;
 	}
