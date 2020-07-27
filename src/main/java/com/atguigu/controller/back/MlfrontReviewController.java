@@ -83,6 +83,7 @@ public class MlfrontReviewController {
 		MlfrontReview mlfrontReview = new MlfrontReview();
 		String nowTime = DateUtil.strTime14s();
 		mlfrontReview.setReviewCreatetime(nowTime);
+		mlfrontReview.setReviewSupercateidstr("1");
 		//System.out.println("插入前"+mlfrontReview.toString());
 		mlfrontReviewService.insertSelective(mlfrontReview);
 		//System.out.println("插入后"+mlfrontReview.toString());
@@ -97,12 +98,10 @@ public class MlfrontReviewController {
 	@ResponseBody
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlfrontReview mlfrontReview){
 		//接受参数信息
-		//System.out.println("mlfrontReview Save 前:"+mlfrontReview.toString());
-		
 		String nowTime = DateUtil.strTime14s();
 		mlfrontReview.setReviewMotifytime(nowTime);
 		
-		//获取用户名,判断头像图片()
+		//获取用户名,判断头像图片
 		String reviewUname = mlfrontReview.getReviewUname();
 		if((("").equals(reviewUname))||reviewUname==null){
 			mlfrontReview.setReviewUname("Megelook Customer");
