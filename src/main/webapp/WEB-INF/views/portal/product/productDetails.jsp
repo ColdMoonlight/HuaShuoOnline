@@ -20,6 +20,7 @@
 		addMeta('keyword', seoKeywords);
 		addMeta('description', seoDescription);
 	</script>
+	<jsp:include page="../common/ad.jsp" flush="true"></jsp:include>
 	<style>
 		@media only screen and (max-width: 1023px) {
 			main { margin: 0 }
