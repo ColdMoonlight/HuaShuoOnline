@@ -72,35 +72,41 @@
 			var paymentProductHtml = '';
 			data.list.forEach(function (item, idx) {
 				var productLink = item.orderitemPseo ? ('${APP_PATH}/' + item.orderitemPseo + '.html') : 'javascript:;';
+				payinfoProductArr.push({
+					id: item.orderitemPid,
+					quantity: item.orderitemPskuNumber,
+					'item_price': item.orderitemPskuReamoney
+				}); // for facebook
 				paymentProductHtml += '<div class="payment-product-item">' +
-					'<a href="' + productLink + '"><img class="order-img" src="' + item.orderitemProductMainimgurl + '"></a>' +
-					'<div class="payment-product-details">' +
-					'<a class="payment-product-name" href="' + productLink + '">' + item.orderitemPname + '</a>' +
-					'<div class="payment-sku-list">' + item.orderitemPskuName + '</div>' +
-					'</div>' +
-					'<div class="payment-product-num">' +
-					'<span class="product-num">x' + item.orderitemPskuNumber + '</span>' +
-					'<span class="product-price">$' + (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? ((item.orderitemProductOriginalprice + parseFloat(item.orderitemPskuMoneystr)) * item.orderitemProductAccoff / 100) : 0).toFixed(2) + '</span>' +
-					'</div>' +
-					'</div>'
+						'<a href="' + productLink + '"><img class="order-img" src="' + item.orderitemProductMainimgurl + '"></a>' +
+						'<div class="payment-product-details">' +
+							'<a class="payment-product-name" href="' + productLink + '">' + item.orderitemPname + '</a>' +
+							'<div class="payment-sku-list">' + item.orderitemPskuName + '</div>' +
+						'</div>' +
+						'<div class="payment-product-num">' +
+							'<span class="product-num">x' + item.orderitemPskuNumber + '</span>' +
+							'<span class="product-price">$' + (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? ((item.orderitemProductOriginalprice + parseFloat(item.orderitemPskuMoneystr)) * item.orderitemProductAccoff / 100) : 0).toFixed(2) + '</span>' +
+						'</div>' +
+					'</div>';
 			});
 			$('.payment-order .payment-product').html(paymentProductHtml);
 
 			var paymentCalHtml = '';
 			paymentCalHtml = '<div class="payment-cal-item">' +
-				'<span class="name">prototal: </span>' +
-				'<span class="value">$' + (parseFloat(data.payinfoMoney) + parseFloat(data.orderCouponPrice) - data.shipping).toFixed(2) + '</span>' +
+					'<span class="name">prototal: </span>' +
+					'<span class="value">$' + (parseFloat(data.payinfoMoney) + parseFloat(data.orderCouponPrice) - data.shipping).toFixed(2) + '</span>' +
 				'</div>' +
 				'<div class="payment-cal-item">' +
-				'<span class="name">shipping: </span>' +
-				'<span class="value">$' + (data.shipping).toFixed(2) + '</span>' +
+					'<span class="name">shipping: </span>' +
+					'<span class="value">$' + (data.shipping).toFixed(2) + '</span>' +
 				'</div>' +
 				'<div class="payment-cal-item">' +
-				'<span class="name">coupon: </span>' +
-				'<span class="value">-$' + (data.orderCouponPrice).toFixed(2) + '</span></div>' +
+					'<span class="name">coupon: </span>' +
+					'<span class="value">-$' + (data.orderCouponPrice).toFixed(2) + '</span>' +
+				'</div>' +
 				'<div class="payment-cal-item">' +
-				'<span class="name">subtotal: </span>' +
-				'<span class="value">$' + (data.payinfoMoney).toFixed(2) + '</span>' +
+					'<span class="name">subtotal: </span>' +
+					'<span class="value">$' + (data.payinfoMoney).toFixed(2) + '</span>' +
 				'</div>';
 			$('.payment-order .payment-cal').html(paymentCalHtml);
 
@@ -134,13 +140,14 @@
 		}
 
 		var payinfoId = '${sessionScope.payinfoId}';
+		var payinfoProductArr = [];
 		
 		if (!payinfoId) {
 			mlModalTip('Please contact customer service for abnormal orders !');
 			$('main').html('');
 			setTimeout(goToIndex, 3000);
 		}
-		
+
 		getPayInfo({ "payinfoId":  payinfoId}, function (data) {
 			var resDataPayInfoOne = data.mlfrontPayInfoOne;
 			var resDataOrderItemList = data.mlfrontOrderItemList;
@@ -157,7 +164,14 @@
 	
 				renerPaymentInfo(orderData);
 				renderReceiverinfo(resDataAddressOne);
-				renderPaypaladdress(mlPaypalShipAddressOne);				
+				renderPaypaladdress(mlPaypalShipAddressOne);
+
+				/* fbq('track', 'Purchase', {
+					content_ids: payinfoProductArr,
+					content_type: 'product',
+					value: orderData.payinfoMoney,
+					currency: 'USD'
+				}); */
 			}
 		});
 	</script>
