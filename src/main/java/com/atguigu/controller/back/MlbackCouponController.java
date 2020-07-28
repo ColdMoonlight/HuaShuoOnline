@@ -21,6 +21,8 @@ import com.atguigu.service.MlbackCouponService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.LuckDrawUtils;
+import com.atguigu.vo.LuckDrawDate;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -279,182 +281,162 @@ public class MlbackCouponController {
 			}
 		}
 	}
-//	
-//	/**
-//	 * 8.0	useOn	0505
-//	 * 某页面展示的优惠券列表查询
-//	 * @param MlbackCoupon
-//	 * @return 
-//	 */
-//	@RequestMapping(value="/getMlbackCouponShowByAreaNum",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getMlbackCouponShowByAreaNum(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackCoupon mlbackCoupon){
-//		
-//		Integer couponAreaNum = mlbackCoupon.getCouponAreaNum();
-//		//接受信息
-//		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
-//		mlbackCouponReq.setCouponAreaNum(couponAreaNum);
-//		List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCouponBYAreaNum(mlbackCouponReq);
-//		
-//		return Msg.success().add("resMsg", "某页面展示的优惠券列表查询成功").add("mlbackCouponResList", mlbackCouponResList);
-//	}
-//	
-//	/**
-//	 * 9.0	useOn	0505
-//	 * 查询生效中得抽奖优惠券
-//	 * @param MlbackCoupon
-//	 * @return 
-//	 */
-//	@RequestMapping(value="/getMlbackCouponShowByLuckDrawType",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getMlbackCouponShowByLuckDrawType(HttpServletResponse rep,HttpServletRequest res){
-//		
-//		//接受信息
-//		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
-//		mlbackCouponReq.setCouponLuckDrawType(1);
-//		List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCouponByLuckDrawType(mlbackCouponReq);
-//		
-//		LuckDrawDate luckDrawDate =new LuckDrawDate();
-//		
-//		try {
-//			luckDrawDate = LuckDrawUtils.getLuckDrawDate(mlbackCouponResList);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return Msg.success().add("resMsg", "查询转盘优惠券及结果完毕").add("mlbackCouponResList", mlbackCouponResList).add("luckDrawDate", luckDrawDate);
-//	}
-//	
-//
-//	/**
-//	 * 10.0	useOn	0505
-//	 * 初始化请求,getMlbackCouponShowByLuckDrawType,拿回8个优惠券图片和结果,
-//	 * 点击按钮,弹出输入邮箱的框框.
-//	 * 输入完毕,checkCouponLuckDrawResultAndUserEmail.
-//	 * 点击开始抽奖。getCouponLuckDrawResultAndUserEmail.
-//	 * 该邮件邮箱已经抽到过次类优惠券,请登陆后可在个人中心查看.自动登陆中.
-//	 * 恭喜你获得XXXXX，3s后自动登录。账号密码已发送至您的邮箱。--调接口把email+couponId传递进来。
-//	 * 接口调用成功后，重定向到首页。
-//	 * @param MlbackCoupon
-//	 * @return 
-//	 */
-//	@RequestMapping(value="/checkCouponLuckDrawResultAndUserEmail",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg cheakCouponLuckDrawResultAndUserEmail(@RequestParam(value = "couponId") String couponId,
-//			@RequestParam(value = "userEmail") String userEmail,HttpSession session){
-//		
-//		//接受参数，客户email,抽奖优惠券结果
-//		MlfrontUser mlfrontUserreq = new MlfrontUser();
-//		mlfrontUserreq.setUserEmail(userEmail);
-//		List<MlfrontUser> mlfrontUserList= mlfrontUserService.selectMlfrontUserWhenFirst(mlfrontUserreq);
-//		Integer emailIsCan = 0;//名下没有账户内无券,默认有抽奖资格
-//
-//		if(mlfrontUserList.size()>0){
-//			//此账号邮箱存在，准备查是否已经包含此优惠券
-//			MlfrontUser mlfrontUserres = mlfrontUserList.get(0);
-//			String couponidstr= mlfrontUserres.getUserCouponidstr();
-//			
-//			String[] couponidArr = couponidstr.split(",");
-//			
-//			for(int i=0;i<couponidArr.length;i++){
-//				String couponOne = couponidArr[i];
-//				if(couponOne.equals(couponId)){
-//					emailIsCan = 0;
-//					break;
-//				}
-//			}
-//			if(emailIsCan==1){
-//				//老帐号名下有此券不能再抽了
-//				return Msg.success().add("resMsg", "老帐号名下有此券不能再抽").add("emailIsCan", emailIsCan);
-//			}else{
-//				//老帐号名下无此券，可以抽
-//				return Msg.success().add("resMsg", "老帐号名下无此券，可以抽").add("emailIsCan", emailIsCan);
-//			}
-//		}else{
-//			//此账号新来的，可以抽奖
-//			return Msg.success().add("resMsg", "该账号属于新用户账号").add("emailIsCan", emailIsCan);
-//		}
-//	}
-//	
-//	/**
-//	 * 11.0	useOn	0505
-//	 * 获取抽中优惠券,并注册账号,设置登陆状态
-//	 * @param MlbackCoupon
-//	 * @return 
-//	 */
-//	@RequestMapping(value="/getCouponLuckDrawResultAndUserEmail",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getCouponLuckDrawResultAndUserEmail(@RequestParam(value = "couponId") String couponId,
-//			@RequestParam(value = "userEmail") String userEmail,HttpSession session){
-//		
-//		//接受参数，客户email,抽奖优惠券结果
-//		
-//		//先查这个账号是否存在，
-//		//1,不存在的话，补全默认信息，新增此条账号数据，强制登陆
-//		//2,存在的话，更新里面的接口信息，强制登陆
-//		
-//		MlfrontUser mlfrontUserreq = new MlfrontUser();
-//		mlfrontUserreq.setUserEmail(userEmail);
-//		List<MlfrontUser> mlfrontUserList= mlfrontUserService.selectMlfrontUserWhenFirst(mlfrontUserreq);
-//		
-//		String nowtime = DateUtil.strTime14s();
-//		
-//		//能进来说明是老账户，但是名下没有这个券，
-//		if(mlfrontUserList.size()>0){
-//			//2,存在的话，判断账户中是否有这个优惠券,有的话更新里面的接口信息，强制登陆
-//			
-//			MlfrontUser mlfrontUserres = mlfrontUserList.get(0);
-//			String couponidstr= mlfrontUserres.getUserCouponidstr();
-//			
-//			String[] couponidArr = couponidstr.split(",");
-//			
-//			Integer isHave = 0; 
-//			
-//			for(int i=0;i<couponidArr.length;i++){
-//				String couponOne = couponidArr[i];
-//				if(couponOne.equals(couponId)){
-//					isHave = 1;
-//					break;
-//				}
-//			}
-//			if(isHave==1){
-//				//已经有老此优惠券了
-//				System.out.println("该账户已经有此优惠券,无需要");
-//			}else{
-//				couponidstr = couponidstr+","+couponId;
-//				
-//				//把这个优惠券字段地算补充进去
-//				mlfrontUserres.setUserCouponidstr(couponidstr);
-//				
-//			}
-//			mlfrontUserreq.setUserMotifytime(nowtime);
-//			mlfrontUserreq.setUserLastonlinetime(nowtime);
-//			mlfrontUserService.updateByPrimaryKeySelective(mlfrontUserres);
-//			
-//			session.setAttribute("loginUser", mlfrontUserres);
-//		}else{
-//			//1,不存在的话，补全默认信息，新增此条账号数据，强制登陆
-//			mlfrontUserreq.setUserEmail(userEmail);
-//			mlfrontUserreq.setUserPassword(userEmail);
-//			String couponidstr = "1,2,3,"+couponId+"";
-//			//把优惠券写入账号中
-//			mlfrontUserreq.setUserCouponidstr(couponidstr);
-//			
-//			mlfrontUserreq.setUserCreatetime(nowtime);
-//			mlfrontUserreq.setUserMotifytime(nowtime);
-//			mlfrontUserreq.setUserLastonlinetime(nowtime);
-//			mlfrontUserreq.setUserVipLevel(0);
-//			mlfrontUserreq.setUserTimes(0);
-//			
-//			//新增本条数据
-//			mlfrontUserService.insertSelective(mlfrontUserreq);
-//
-//			session.setAttribute("loginUser", mlfrontUserreq);
-//		}
-//		//session中记录客户登录信息,即把客户信息放置在客户中
-//		return Msg.success().add("resMsg", "获取完毕抽奖客户邮箱完毕，强制注册完成");
-//		
-//	}
-//	
+
+	/**
+	 * 8.0	useOn	0505
+	 * 查询生效中得抽奖优惠券
+	 * @param MlbackCoupon
+	 * @return 
+	 */
+	@RequestMapping(value="/getMlbackCouponShowByLuckDrawType",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getMlbackCouponShowByLuckDrawType(HttpServletResponse rep,HttpServletRequest res){
+		
+		//接受信息
+		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
+		mlbackCouponReq.setCouponLuckdrawType(1);
+		List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCouponByLuckDrawType(mlbackCouponReq);
+		
+		LuckDrawDate luckDrawDate =new LuckDrawDate();
+		try {
+			luckDrawDate = LuckDrawUtils.getLuckDrawDate(mlbackCouponResList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return Msg.success().add("resMsg", "查询转盘优惠券及结果完毕").add("mlbackCouponResList", mlbackCouponResList).add("luckDrawDate", luckDrawDate);
+	}
+	
+
+	/**
+	 * 9.0	useOn	0505
+	 * 初始化请求,getMlbackCouponShowByLuckDrawType,拿回8个优惠券图片和结果,
+	 * 点击按钮,弹出输入邮箱的框框.
+	 * 输入完毕,checkCouponLuckDrawResultAndUserEmail.
+	 * 点击开始抽奖。getCouponLuckDrawResultAndUserEmail.
+	 * 该邮件邮箱已经抽到过次类优惠券,请登陆后可在个人中心查看.自动登陆中.
+	 * 恭喜你获得XXXXX，3s后自动登录。账号密码已发送至您的邮箱。--调接口把email+couponId传递进来。
+	 * 接口调用成功后，重定向到首页。
+	 * @param MlbackCoupon
+	 * @return 
+	 */
+	@RequestMapping(value="/checkCouponLuckDrawResultAndUserEmail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg cheakCouponLuckDrawResultAndUserEmail(@RequestParam(value = "couponId") String couponId,
+			@RequestParam(value = "userEmail") String userEmail,HttpSession session){
+		
+		//接受参数，客户email,抽奖优惠券结果
+		MlfrontUser mlfrontUserreq = new MlfrontUser();
+		mlfrontUserreq.setUserEmail(userEmail);
+		List<MlfrontUser> mlfrontUserList= mlfrontUserService.selectMlfrontUserWhenFirst(mlfrontUserreq);
+		Integer emailIsCan = 0;//名下没有账户内无券,默认有抽奖资格
+
+		if(mlfrontUserList.size()>0){
+			//此账号邮箱存在，准备查是否已经包含此优惠券
+			MlfrontUser mlfrontUserres = mlfrontUserList.get(0);
+			String couponidstr= mlfrontUserres.getUserCouponidstr();
+			
+			String[] couponidArr = couponidstr.split(",");
+			
+			for(int i=0;i<couponidArr.length;i++){
+				String couponOne = couponidArr[i];
+				if(couponOne.equals(couponId)){
+					emailIsCan = 0;
+					break;
+				}
+			}
+			if(emailIsCan==1){
+				//老帐号名下有此券不能再抽了
+				return Msg.success().add("resMsg", "老帐号名下有此券不能再抽").add("emailIsCan", emailIsCan);
+			}else{
+				//老帐号名下无此券，可以抽
+				return Msg.success().add("resMsg", "老帐号名下无此券，可以抽").add("emailIsCan", emailIsCan);
+			}
+		}else{
+			//此账号新来的，可以抽奖
+			return Msg.success().add("resMsg", "该账号属于新用户账号").add("emailIsCan", emailIsCan);
+		}
+	}
+	
+	/**
+	 * 10.0	useOn	0505
+	 * 获取抽中优惠券,并注册账号,设置登陆状态
+	 * @param MlbackCoupon
+	 * @return 
+	 */
+	@RequestMapping(value="/getCouponLuckDrawResultAndUserEmail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getCouponLuckDrawResultAndUserEmail(@RequestParam(value = "couponId") String couponId,
+			@RequestParam(value = "userEmail") String userEmail,HttpSession session){
+		
+		//接受参数，客户email,抽奖优惠券结果
+		
+		//先查这个账号是否存在，
+		//1,不存在的话，补全默认信息，新增此条账号数据，强制登陆
+		//2,存在的话，更新里面的接口信息，强制登陆
+		
+		MlfrontUser mlfrontUserreq = new MlfrontUser();
+		mlfrontUserreq.setUserEmail(userEmail);
+		List<MlfrontUser> mlfrontUserList= mlfrontUserService.selectMlfrontUserWhenFirst(mlfrontUserreq);
+		
+		String nowtime = DateUtil.strTime14s();
+		
+		//能进来说明是老账户，但是名下没有这个券，
+		if(mlfrontUserList.size()>0){
+			//2,存在的话，判断账户中是否有这个优惠券,有的话更新里面的接口信息，强制登陆
+			
+			MlfrontUser mlfrontUserres = mlfrontUserList.get(0);
+			String couponidstr= mlfrontUserres.getUserCouponidstr();
+			
+			String[] couponidArr = couponidstr.split(",");
+			
+			Integer isHave = 0; 
+			
+			for(int i=0;i<couponidArr.length;i++){
+				String couponOne = couponidArr[i];
+				if(couponOne.equals(couponId)){
+					isHave = 1;
+					break;
+				}
+			}
+			if(isHave==1){
+				//已经有老此优惠券了
+				System.out.println("该账户已经有此优惠券,无需要");
+			}else{
+				couponidstr = couponidstr+","+couponId;
+				
+				//把这个优惠券字段地算补充进去
+				mlfrontUserres.setUserCouponidstr(couponidstr);
+				
+			}
+			mlfrontUserreq.setUserMotifytime(nowtime);
+			mlfrontUserreq.setUserLastonlinetime(nowtime);
+			mlfrontUserService.updateByPrimaryKeySelective(mlfrontUserres);
+			
+			session.setAttribute("loginUser", mlfrontUserres);
+		}else{
+			//1,不存在的话，补全默认信息，新增此条账号数据，强制登陆
+			mlfrontUserreq.setUserEmail(userEmail);
+			mlfrontUserreq.setUserPassword(userEmail);
+			String couponidstr = "1,2,3,"+couponId+"";
+			//把优惠券写入账号中
+			mlfrontUserreq.setUserCouponidstr(couponidstr);
+			
+			mlfrontUserreq.setUserCreatetime(nowtime);
+			mlfrontUserreq.setUserMotifytime(nowtime);
+			mlfrontUserreq.setUserLastonlinetime(nowtime);
+			mlfrontUserreq.setUserViplevel(0);
+			mlfrontUserreq.setUserTimes(0);
+			
+			//新增本条数据
+			mlfrontUserService.insertSelective(mlfrontUserreq);
+
+			session.setAttribute("loginUser", mlfrontUserreq);
+		}
+		//session中记录客户登录信息,即把客户信息放置在客户中
+		return Msg.success().add("resMsg", "获取完毕抽奖客户邮箱完毕，强制注册完成");
+		
+	}
+	
 	
 }
