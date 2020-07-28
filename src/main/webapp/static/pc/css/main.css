@@ -1671,13 +1671,15 @@ footer li {
 	-webkit-transform: rotate(90deg) scale(.7);
 	transform: rotate(90deg) scale(.7);
 }
-
 .product-thumb-slide.swiper-container .swiper-button-next {
 	top: auto;
 	bottom: 0;
 	right: 26px;
 	-webkit-transform: rotate(90deg) scale(.7);
 	transform: rotate(90deg) scale(.7);
+}
+.product-media .lazyload {
+	padding-top: 100%;
 }
 .zoomDiv {
 	position: absolute;
