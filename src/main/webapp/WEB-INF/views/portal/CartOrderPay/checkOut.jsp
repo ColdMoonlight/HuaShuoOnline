@@ -519,8 +519,8 @@
 					'<div class="cart-box-body">'+
 						'<div class="order-cal">' +
 							'<div class="order-cal-item"><span class="name">prototal</span><span class="value order-cal-prototal">$'+ (calOrder.prototal).toFixed(2) +'</span></div>' +
-							'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ (calOrder.shipping).toFixed(2) +'</span></div>' +
 							'<div class="order-cal-item"><span class="name">coupon</span><span class="value order-cal-coupon">-$'+ (calOrder.coupon).toFixed(2) +'</span></div>' +
+							'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ (calOrder.shipping).toFixed(2) +'</span></div>' +
 							'<div class="order-cal-item"><span class="name">subtotal</span><span class="value order-cal-subtotal" data-price="'+ (calOrder.subtotal).toFixed(2) +'">$'+ (calOrder.subtotal).toFixed(2) +'</span></div>' +
 							'<div class="order-cal-btn"><a href="javascript:;" id="pay-now" class="btn btn-pink">Pay Securely Now</a></div>' +
 						'</div>'+
@@ -585,8 +585,8 @@
 			return {
 				"orderId": $('.order-list').data('orderid') || null,
 				"orderOrderitemidstr": $('.order-list').data('itemidarr'),
-				"orderCouponId": (couponData && couponData.mlbackCouponOne.couponId) || '',
-				"orderCouponCode": (couponData && couponData.mlbackCouponOne.couponCode) || '',
+				"orderCouponId": (couponData.mlbackCouponOne && couponData.mlbackCouponOne.couponId) || '',
+				"orderCouponCode": (couponData.mlbackCouponOne && couponData.mlbackCouponOne.couponCode) || '',
 				"orderPayPlate": $('input[name="payment"]:checked').val(),
 				"orderProNumStr": $('.order-list').data('itemnumarr'),
 				"orderBuyMess": $('.order-buyer-msg textarea').val(),

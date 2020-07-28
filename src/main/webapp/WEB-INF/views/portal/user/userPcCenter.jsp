@@ -6,12 +6,6 @@
 <head>
     <title>User Center</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
-	<style>
-		@media only screen and (max-width: 575px) {
-			main { margin: -1rem 0 0 0; }
-		}
-	</style>
 </head>
 
 <body>
@@ -20,10 +14,6 @@
 		<div class="container">
 			<div class="usercenter-title">Personal Center</div>
 			<div class="usercenter-body">
-				<div class="usercenter-profile">
-					<div class="usercenter-name"></div>
-					<div class="usercenter-tip">Welcome</div>
-				</div>
 				<div class="usercenter-list">
 					<a class="usercenter-item" href="javascript:goToUserCenerOrder();">
 						<span class="icon order"></span>
@@ -61,12 +51,18 @@
 						<span class="icon right"></span>
 					</a>
 				</div>
+				<div class="usercenter-content">
+					<div class="usercenter-profile"></div>
+					<div class="usercenter-hi">
+						<div class="usercenter-tip">Welcome</div>
+						<div class="usercenter-name"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
-	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script>
 	function addUserInfo() {
 		var firstname = '${sessionScope.loginUser.userFirstname}',
