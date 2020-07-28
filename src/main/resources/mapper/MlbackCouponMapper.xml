@@ -348,4 +348,12 @@
     from tb_mlback_coupon 
     where coupon_code = #{couponCode,jdbcType=VARCHAR}
   </select>
+  
+  <!-- selectMlbackCouponByLuckDrawType使用中 -->
+  <select id="selectMlbackCouponByLuckDrawType" parameterType="com.atguigu.bean.MlbackCoupon" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_coupon
+    where coupon_luckdraw_type = #{couponLuckdrawType,jdbcType=INTEGER}
+    order by coupon_id
+  </select>
 </mapper>
