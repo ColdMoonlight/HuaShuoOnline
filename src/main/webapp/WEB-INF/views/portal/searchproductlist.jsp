@@ -74,6 +74,7 @@
 			});
 		}
 		getProductListBySearch(productName, renderProductList);
+		addTidio();
 	</script>
 </body>
 

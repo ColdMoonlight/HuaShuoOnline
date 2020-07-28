@@ -960,6 +960,7 @@
 			deleteReviewId();
 			setPageNum(1);
 		});
+		addTidio();
 	</script>
 </body>
 </html>

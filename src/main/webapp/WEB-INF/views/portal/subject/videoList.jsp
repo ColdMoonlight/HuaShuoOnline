@@ -154,6 +154,7 @@
 				renderVideoData(data, videoLink);
 			});
 		});
+		addTidio();
 	</script>
 </body>
 </html>

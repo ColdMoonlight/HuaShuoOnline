@@ -113,6 +113,7 @@
 				threshold: 0
 			}));
 		});
+		addTidio();
 	</script>
 </body>
 
