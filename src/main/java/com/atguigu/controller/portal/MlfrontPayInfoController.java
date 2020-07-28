@@ -264,11 +264,11 @@ public class MlfrontPayInfoController {
 		MlfrontAddress mlfrontAddressOne = MlfrontAddressList.get(0);
 		//2.2.1从地址中取出国家字段	addressCountry: "US"	addressCountryAll: "United States"
 		//拿到国家的code
-		String areafreightCountryEnglish = mlfrontAddressOne.getAddressCountry();
+		String areafreightCountryCode = mlfrontAddressOne.getAddressCountryCode();
 		//封装国家code
 		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
 //		mlbackAreafreightReq.setAreafreightCountryEnglish(areafreightCountryEnglish);
-		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryEnglish);
+		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
 		//查询该国家的全称
 //		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByEng(mlbackAreafreightReq);
 		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
