@@ -180,7 +180,7 @@ public class MlfrontUserController {
 		return Msg.success().add("resMsg", "Sign Out").add("exitInt", exitInt);//1的话,成功
 	}
 	
-	/**6.0	zsh 200619
+	/**6.0	zsh 200728
 	 * ifSession	去个人中心
 	 * @param ifSession
 	 */
