@@ -99,7 +99,6 @@
 						'<div class="user-orderitem-title">' +
 							'<div class="user-order-id">order Id: ' + orderList[key].orderId + '</div>' +
 							'<div class="right-box">' +
-								(orderStatus == 4 ? '<div class="user-order-track" data-slug="'+ orderList[key].orderLogisticsname +'" data-tracknumber="'+ orderList[key].orderLogisticsnumber +'">Tracking Details</div>' : '' ) +
 								'<div class="user-order-status">' + (statusMap[orderList[key].orderStatus]) + '</div>' +
 							'</div>' +
 						'</div>' +
@@ -121,6 +120,13 @@
 					}
 					htmlStr += '</div>' +
 						'<div class="user-orderitem-footer">Total ' + orderItemSize[key] + ' goods, money $ ' + orderList[key].orderMoney + '</div>' +
+						(orderStatus == 4 ? '<div class="user-order-track-details">' +
+							'<div class="user-order-track-text">' +
+								'<div class="name">'+ orderList[key].orderLogisticsname +':</div>' +
+								'<div class="value">'+ orderList[key].orderLogisticsnumber +'</div>' +
+							'</div>' +
+							'<button class="btn btn-default user-order-track" data-slug="'+ orderList[key].orderLogisticsname +'" data-tracknumber="'+ orderList[key].orderLogisticsnumber +'">Tracking Details</button>' +
+						'</div>' : '' ) +
 					'</div>';
 				}
 
@@ -145,7 +151,7 @@
 				type: "post",
 				success: function (data) {
 					if(data.code == 100) {
-						callback && callback(data.extend.TrackingRes);
+						callback && callback(data.extend.trackingRes);
 					} else {
 						mlModalTip('Failed to obtain logistics information. Please try again later !');
 					}
