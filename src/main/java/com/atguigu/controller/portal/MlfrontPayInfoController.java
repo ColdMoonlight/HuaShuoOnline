@@ -107,7 +107,8 @@ public class MlfrontPayInfoController {
 //		}else{
 			int PagNum = 50;
 			PageHelper.startPage(pn, PagNum);
-			List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoAll();
+//			List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoAll();
+			List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoSuccessAll();
 			PageInfo page = new PageInfo(mlfrontPayInfoList, PagNum);
 			return Msg.success().add("pageInfo", page);
 //		}
@@ -255,7 +256,6 @@ public class MlfrontPayInfoController {
 		List<MlfrontOrder> mlfrontOrderPayResList= mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPay);
 		MlfrontOrder mlfrontOrderPayOneRes = mlfrontOrderPayResList.get(0);
 		//2.2从详情中拿到addressid;
-//		Integer addressinfoId = mlfrontOrderPayOneRes.getAddressinfoId();
 		Integer addressinfoId = mlfrontOrderPayOneRes.getOrderAddressinfoId();
 		MlfrontAddress MlfrontAddressReq = new MlfrontAddress();
 		MlfrontAddressReq.setAddressId(addressinfoId);
@@ -264,11 +264,10 @@ public class MlfrontPayInfoController {
 		MlfrontAddress mlfrontAddressOne = MlfrontAddressList.get(0);
 		//2.2.1从地址中取出国家字段	addressCountry: "US"	addressCountryAll: "United States"
 		//拿到国家的code
-		String areafreightCountryEnglish = mlfrontAddressOne.getAddressCountry();
+		String areafreightCountryCode = mlfrontAddressOne.getAddressCountryCode();
 		//封装国家code
 		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
-//		mlbackAreafreightReq.setAreafreightCountryEnglish(areafreightCountryEnglish);
-		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryEnglish);
+		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
 		//查询该国家的全称
 //		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByEng(mlbackAreafreightReq);
 		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
@@ -338,7 +337,6 @@ public class MlfrontPayInfoController {
 		String endTime = mlfrontPayInfo.getPayinfoMotifytime();
 		
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
-		
 		mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
 		mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
 		mlfrontPayInfoReq.setPayinfoStatus(1);//只查询已支付的状态
@@ -456,7 +454,6 @@ public class MlfrontPayInfoController {
 		String endTime = mlfrontPayInfo.getPayinfoMotifytime();
 		
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
-		
 		mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
 		mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
 		mlfrontPayInfoReq.setPayinfoStatus(2);//只查询已审单的状态
@@ -595,6 +592,46 @@ public class MlfrontPayInfoController {
 			System.out.println(e.getMessage());
 			return afterShipReturn;
 		}
+	}
+	
+	/**
+	 * 1.0	zsh	200720
+	 * to	全部支付单的状态-分状态查询
+	 * @param pn,
+	 * Integer payinfoStatus;
+	 * String payinfoPlateNum;
+	 * @return
+	 */
+	@RequestMapping(value="/selectHighPayInfoListBySearch",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg selectHighPayInfoListBySearch(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "payinfoStatus") Integer payinfoStatus,
+			@RequestParam(value = "payinfoPlateNum") String payinfoPlateNum,
+			HttpSession session) {
+		
+		//初始化请求参数
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		List<MlfrontPayInfo> mlfrontPayInfoList = new ArrayList<MlfrontPayInfo>();
+		int PagNum = 50;
+		PageHelper.startPage(pn, PagNum);
+		PageInfo page = new PageInfo();
+		
+		if("".equals(payinfoPlateNum)){
+			mlfrontPayInfoReq.setPayinfoPlatenum(null);
+		}else{
+			mlfrontPayInfoReq.setPayinfoPlatenum(payinfoPlateNum);
+		}
+		
+		if(payinfoStatus==999){
+			mlfrontPayInfoReq.setPayinfoStatus(null);
+		}else{
+			mlfrontPayInfoReq.setPayinfoStatus(payinfoStatus);
+		}
+		mlfrontPayInfoList = mlfrontPayInfoService.selectHighPayInfoListBySearch(mlfrontPayInfoReq);
+		page = new PageInfo(mlfrontPayInfoList, PagNum);
+		
+		return Msg.success().add("pageInfo", page).add("mlfrontPayInfoList", mlfrontPayInfoList);
+		
 	}
 	
 }

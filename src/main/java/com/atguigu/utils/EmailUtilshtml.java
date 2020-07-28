@@ -151,7 +151,7 @@ public class EmailUtilshtml {
             for(MlfrontOrderItem mlfrontOrderItem :mlfrontOrderItemList){
             	String Pname = mlfrontOrderItem.getOrderitemPname();
             	Integer Pnumber = mlfrontOrderItem.getOrderitemPskuNumber();
-            	String Psku = mlfrontOrderItem.getOrderitemPskuIdnamestr();
+            	String Psku = mlfrontOrderItem.getOrderitemPskuName();
             	String pAllmoney = mlfrontOrderItem.getOrderitemPskuReamoney();
             	
             	pdetail=pdetail+Pnumber+" x "+Pname+" ( "+Psku+" )   "+pAllmoney+"<br><br>";
