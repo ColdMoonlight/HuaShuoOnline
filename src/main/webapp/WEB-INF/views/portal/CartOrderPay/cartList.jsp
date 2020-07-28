@@ -108,6 +108,7 @@
 					definePrice = (item.cartitemProductOriginalprice || 0)  + (parseFloat(item.cartitemProductskuMoneystr) || 0);
 					nowPrice = definePrice * item.cartitemProductActoff / 100;
 				}
+				cartitemProductIdArr.push(item.cartitemProductId); // for facebook
 				$cartList.append($('<div class="cart-item">' +
 					'<a href="'+ productLink +'" class="cart-img lazyload" data-src="'+ item.cartitemProductMainimgurl +'"></a>' +
 					'<div class="cart-product">' +
@@ -130,9 +131,10 @@
 				'</div>').data('cartitem', item));
 			});
 			var calCart = calCartList($cartList.find('.cart-item'));
+			var subTotal = (calCart.price).toFixed(2);
 			var $cartCal = $('<div class="cart-cal">' +
 				'<div class="cart-cal-item"><span class="name">NUMTOTAL</span><span class="value cart-cal-total">'+ calCart.count +'</span></div>' +
-				'<div class="cart-cal-item"><span class="name">SUBTOTAL</span><span class="value cart-cal-subtotal">$'+ (calCart.price).toFixed(2) +'</span></div>' +
+				'<div class="cart-cal-item"><span class="name">SUBTOTAL</span><span class="value cart-cal-subtotal" data-price="'+subTotal +'">$'+ subTotal +'</span></div>' +
 				'<div class="cart-cal-btn"><a href="${APP_PATH}/index.html" class="btn btn-gray">Continue Shopping</a><a href="javascript:;" class="btn btn-black btn-checkout">Checkout</a></div>' +
 				/* '<div class="paypal-button-container">'+
 					'<div title="paypal" class="btn paypal-button paypal-button-paypal"></div>' +
@@ -286,6 +288,17 @@
 				}
 			});
 		}
+		// facebook
+		function subFacebook(data) {
+			var orderMoney = $('.cart-cal-subtotal').data('price');
+			// console.log(orderMoney, cartitemProductIdArr)
+			/* fbq('track', 'InitiateCheckout', {
+				content_ids: cartitemProductIdArr,
+				content_type: 'product',
+				value: orderMoney,
+				currency: 'USD'
+			}); */
+		}
 		// check reqData
 		function checkReqData(reqData) {
 			if (!reqData.length) {
@@ -294,6 +307,9 @@
 			}
 			return true;
 		}
+		var cartitemProductIdArr = [];
+		var $selectedItem = null;
+		var cartlistModal = null;
 		// product event
 		// add product
 		$(document.body).on('click', '.product-add', function() {
@@ -312,9 +328,6 @@
 			deleteCartProduct($(this).parents('.cart-item'), updateProructNumberInCart, updateCalCart, renderCartEmpty);
 		});
 		// edit sku
-		// var selectedRadioArr = [];
-		var $selectedItem = null;
-		var cartlistModal = null;
 		$(document.body).on('click', '.cart-sku-edit', function() {
 			$selectedItem =  $(this).parents('.cart-item');
 			var targetData = $selectedItem.data('cartitem');
@@ -370,7 +383,7 @@
 		// cartlist checkout
 		$(document.body).on('click', '.btn-checkout', function() {
 			var reqData = getCheckoutData();
-			checkReqData(reqData) && cartListCheckout(reqData, goToCheckout);
+			checkReqData(reqData) && subFacebook(reqData), cartListCheckout(reqData, goToCheckout);
 		});
 		// paypal button
 		// cartlist checkout

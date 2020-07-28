@@ -683,6 +683,24 @@
 			getProductSkus(function(data) {
 				data.length && buildResult(data);				
 			});
+
+			/* var fbpid = data.productId;
+			var fbprice = (data.productOriginalprice * data.productActoffoff / 100).toFixed(2);
+			console.log(fbpid, fbprice)
+			fbq('track', 'PageView', {
+				content_ids: fbpid,
+				contents: [{ "id": fbpid, "quantity": 999, "item_price": fbprice }],
+				content_type: 'product',
+				value: fbprice,
+				currency: 'USD'
+			});
+			fbq('track', 'ViewContent', {
+				content_ids: fbpid,
+				contents: [{ "id": fbpid, "quantity": 999, "item_price": fbprice }],
+				content_type: 'product',
+				value: fbprice,
+				currency: 'USD'
+			}); */
 		});
 		// event
 		$(window).on('resize', imageZoomEvent);
@@ -748,17 +766,34 @@
 							selectCartOrCheckout(reqData);
 						}
 					});
+
+					/* fbq('track', 'AddToCart', {
+						content_ids: reqData.cartitemProductId,
+						content_type: 'product',
+						value: reqData.cartitemProductOriginalprice,
+						currency: 'USD'
+					}); */
 				}
 			}, 300);
 		});
 		// buy now
 		$(document.body).on('click', '.buy-now', function() {
 			var reqData = getProductData();
-			isCorrectProduct() && reqData && toBuyNow(reqData, goToCheckout);
+			isCorrectProduct() && reqData && /* fbq('track', 'InitiateCheckout', {
+				content_ids: reqData.cartitemProductId,
+				content_type: 'product',
+				value: ((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductActoff / 100).toFixed(2),
+				currency: "USD"
+			}), */ toBuyNow(reqData, goToCheckout);
 		});
 		$('.paypal-button.paypal-now').on('click', function() {
 			var reqData = getProductData();
-			isCorrectProduct() && reqData && (payLoading(), toPayInstance(reqData));
+			isCorrectProduct() && reqData && (payLoading(), /* fbq('track', 'AddPaymentInfo', {
+				content_ids: reqData.cartitemProductId,
+				content_type: 'product',
+				value: ((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductNumber * reqData.cartitemProductActoff / 100).toFixed(2),
+				currency: 'USD'
+			}), */ toPayInstance(reqData));
 		});
 		// open reiview swiper
 		$(document.body).on('click', '.product-review-imgs-item', function() {
