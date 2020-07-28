@@ -104,9 +104,9 @@ public class MlfrontCartController {
 		session.setAttribute("Userip", Userip);
 		String nowTime = DateUtil.strTime14s();
 		MlfrontUser loginUser = (MlfrontUser) session.getAttribute("loginUser");
-		//判断session中是否有登录信息 ,if 有，新增进入cart中，没有新增进入
+		//判断session中是否有登录信息 ,if 有,新增进入cart中,没有新增进入
 		if(loginUser==null){
-			//获取ip信息，去cart中用ip查询，是否有该ip的购物车
+			//获取ip信息,去cart中用ip查询,是否有该ip的购物车
 			MlfrontCart MlfrontCartReq = new MlfrontCart();
 			MlfrontCartReq.setCartIp(Userip);
 			MlfrontCartReq.setCartStatus(0);
@@ -130,12 +130,12 @@ public class MlfrontCartController {
 				ifHave = 0;
 			}
 			if(ifHave==1){
-				//如果有，获取该购物车的itemStr,
+				//如果有,获取该购物车的itemStr,
 				MlfrontCart mlfrontCartUser = MlfrontCartResList.get(0);
 				String cartitemIdstrUser = mlfrontCartUser.getCartitemIdstr();
 				Integer cartId = mlfrontCartUser.getCartId();
 				Integer cartUid = mlfrontCartUser.getCartUid();
-				//判断是否有本次添加的产品，如果没有itemStr中加入本次的productId,
+				//判断是否有本次添加的产品,如果没有itemStr中加入本次的productId,
 				Integer pid = mlfrontCartItem.getCartitemProductId();
 				String skuIdstr = mlfrontCartItem.getCartitemProductskuIdstr();
 				String skuIdnamestr = mlfrontCartItem.getCartitemProductskuIdnamestr();
@@ -204,7 +204,7 @@ public class MlfrontCartController {
 					}
 				}
 			}else{
-				//这个ip没来过，直接新增一条即可mlfrontCartItem，将主键放入cart对象中，之后在新增该对象cart
+				//这个ip没来过,直接新增一条即可mlfrontCartItem,将主键放入cart对象中,之后在新增该对象cart
 				mlfrontCartItem.setCartitemCreatetime(nowTime);
 				mlfrontCartItem.setCartitemMotifytime(nowTime);
 				mlfrontCartItem.setCartitemStatus(0);
@@ -226,7 +226,7 @@ public class MlfrontCartController {
 				mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
 			}
 		}else{
-			//获取uid信息，去cart中用uid查询，是否有该uid的购物车
+			//获取uid信息,去cart中用uid查询,是否有该uid的购物车
 			MlfrontCart MlfrontCartReq = new MlfrontCart();
 			Integer uid =loginUser.getUserId();
 			MlfrontCartReq.setCartUid(uid);
@@ -251,12 +251,12 @@ public class MlfrontCartController {
 				ifHave = 0;
 			}
 			if(ifHave==1){
-				//如果有，获取该购物车的itemStr,
+				//如果有,获取该购物车的itemStr,
 				MlfrontCart mlfrontCartUser = MlfrontCartResList.get(0);
 				String cartitemIdstrUser = mlfrontCartUser.getCartitemIdstr();
 				Integer cartId = mlfrontCartUser.getCartId();
 				Integer cartUid = mlfrontCartUser.getCartUid();
-				//判断是否有本次添加的产品，如果没有itemStr中加入本次的productId,
+				//判断是否有本次添加的产品,如果没有itemStr中加入本次的productId,
 				Integer pid = mlfrontCartItem.getCartitemProductId();
 				String skuIdstr = mlfrontCartItem.getCartitemProductskuIdstr();
 				String skuIdnamestr = mlfrontCartItem.getCartitemProductskuIdnamestr();
@@ -329,7 +329,7 @@ public class MlfrontCartController {
 					}
 				}
 			}else{
-				//这个ip没来过，直接新增一条即可mlfrontCartItem，将主键放入cart对象中，之后在新增该对象cart
+				//这个ip没来过,直接新增一条即可mlfrontCartItem,将主键放入cart对象中,之后在新增该对象cart
 				mlfrontCartItem.setCartitemCreatetime(nowTime);
 				mlfrontCartItem.setCartitemMotifytime(nowTime);
 				mlfrontCartItem.setCartitemStatus(0);
@@ -366,7 +366,7 @@ public class MlfrontCartController {
 	public Msg getCartProductNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
 		String sessionId = session.getId();
 		MlfrontUser loginUser = (MlfrontUser) session.getAttribute("loginUser");
-		//判断session中是否有登录信息 ,if 有，新增进入cart中，没有新增进入
+		//判断session中是否有登录信息 ,if 有,新增进入cart中,没有新增进入
 		int number = 0;
 		String Userip =sessionId;
 		MlfrontCart MlfrontCartReq = new MlfrontCart();
@@ -406,10 +406,10 @@ public class MlfrontCartController {
 
 	/**
 	 * 6.0	0530
-	 * 选择购物车中的产品项，提交生成订单cartToOrder
-	 * 1接住传入的List<cartItem>，遍历 insert订单orderItem。插入order表，返回orderId
-	 * 2遍历，更新orderItem中的orderId归属字段；
-	 * 3从cart中，把cartItemIdstr字段，更新。  这一步骤，不该出现在这，要放在生成订单那里。就没事了
+	 * 选择购物车中的产品项,提交生成订单cartToOrder
+	 * 1接住传入的List<cartItem>,遍历 insert订单orderItem。插入order表,返回orderId
+	 * 2遍历,更新orderItem中的orderId归属字段；
+	 * 3从cart中,把cartItemIdstr字段,更新。  这一步骤,不该出现在这,要放在生成订单那里。就没事了
 	 * @param Msg
 	 * @return 
 	 * */
@@ -441,7 +441,7 @@ public class MlfrontCartController {
 				//cartId = mlfrontCartItem.getCartitemCartId();
 				mlfrontCartItemGet.setCartitemId(cartitemIdInt);
 				List<MlfrontCartItem> mlfrontCartItemGetRes =mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemGet);
-				//将该购物项，改成已用
+				//将该购物项,改成已用
 				mlfrontCartItemGet.setCartitemStatus(1);
 				mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemGet);
 				MlfrontCartItem mlfrontCartItemreturn = mlfrontCartItemGetRes.get(0);
@@ -507,14 +507,14 @@ public class MlfrontCartController {
 				//cartId = mlfrontCartItem.getCartitemCartId();
 				mlfrontCartItemGet.setCartitemId(cartitemIdInt);
 				List<MlfrontCartItem> mlfrontCartItemGetRes =mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemGet);
-				//将该购物项，改成已用
+				//将该购物项,改成已用
 				mlfrontCartItemGet.setCartitemStatus(1);
 				mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemGet);
 				MlfrontCartItem mlfrontCartItemreturn = mlfrontCartItemGetRes.get(0);
 				cartId = mlfrontCartItemreturn.getCartitemCartId();
 				String cartitemIdIntStrOne = cartitemIdInt+"";
 				cartItemIdStr.add(cartitemIdIntStrOne);
-				//封装mlfrontOrderItem对象，准备insert进入mlfrontOrderItem表
+				//封装mlfrontOrderItem对象,准备insert进入mlfrontOrderItem表
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());
@@ -546,7 +546,7 @@ public class MlfrontCartController {
 			orderItemIdStr = orderItemIdStr.substring(1);
 			MlfrontOrder mlfrontOrderNew  = new MlfrontOrder();
 			mlfrontOrderNew.setOrderOrderitemidstr(orderItemIdStr);
-			mlfrontOrderNew.setOrderUid(Uid);//这是登录用户，存错登录状态
+			mlfrontOrderNew.setOrderUid(Uid);//这是登录用户,存错登录状态
 			mlfrontOrderNew.setOrderStatus(0);//cart To Order
 			mlfrontOrderNew.setOrderCreatetime(nowTime);
 			mlfrontOrderNew.setOrderMotifytime(nowTime);
@@ -622,9 +622,9 @@ public class MlfrontCartController {
 		Integer cartItemIdOriginal = mlfrontCartItem.getCartitemId();
 		int isDelSuccess = 0;
 		if(cartItemIdOriginal==null){
-			return Msg.success().add("resMsg", "删除失败，主建为null，请联系管理员").add("isDelSuccess", isDelSuccess);//isDelSuccess0删除失败，alert	resMsg/1,删除成功
+			return Msg.success().add("resMsg", "删除失败,主建为null,请联系管理员").add("isDelSuccess", isDelSuccess);//isDelSuccess0删除失败,alert	resMsg/1,删除成功
 		}else{
-			//通过cartitem的之间查回该条信息，从中取出cartId
+			//通过cartitem的之间查回该条信息,从中取出cartId
 			MlfrontCartItem mlfrontCartItemReqq  =new MlfrontCartItem();
 			mlfrontCartItemReqq.setCartitemId(cartItemIdOriginal);
 			List<MlfrontCartItem> mlfrontCartItemRessList = mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemReqq);
@@ -658,15 +658,15 @@ public class MlfrontCartController {
 					mlfrontCartreqE.setCartMotifytime(nowTime);
 					mlfrontCartService.updateByPrimaryKeySelective(mlfrontCartreqE);
 				}else{
-					//1.2如果只有一个，删掉购物车
+					//1.2如果只有一个,删掉购物车
 					mlfrontCartService.deleteByPrimaryKey(cartId);
 				}
 				//2删除该条CartItem信息
 				mlfrontCartItemService.deleteByPrimaryKey(cartItemIdOriginal);
 				isDelSuccess = 1;
-				return Msg.success().add("resMsg", "删除成功").add("isDelSuccess", isDelSuccess);//isDelSuccess0删除失败，alert	resMsg/1,删除成功
+				return Msg.success().add("resMsg", "删除成功").add("isDelSuccess", isDelSuccess);//isDelSuccess0删除失败,alert	resMsg/1,删除成功
 			}else{
-				return Msg.success().add("resMsg", "删除失败，该cartitem项不存在，请联系管理员").add("isDelSuccess", isDelSuccess);//isDelSuccess0删除失败，alert	resMsg/1,删除成功
+				return Msg.success().add("resMsg", "删除失败,该cartitem项不存在,请联系管理员").add("isDelSuccess", isDelSuccess);//isDelSuccess0删除失败,alert	resMsg/1,删除成功
 			}
 		}			
 	}
@@ -719,7 +719,7 @@ public class MlfrontCartController {
 	
 	/**
 	 * 10.0	useOn	0530
-	 * 加购+提交订单，全部一步生成to	BuyNow
+	 * 加购+提交订单,全部一步生成to	BuyNow
 	 * @param Msg
 	 * @return 
 	 * */
@@ -740,9 +740,9 @@ public class MlfrontCartController {
 		String nowTime = DateUtil.strTime14s();
 		List<MlfrontCartItem> mlfrontCartItemListBuyNow = new ArrayList<MlfrontCartItem>();
 		MlfrontUser loginUser = (MlfrontUser) session.getAttribute("loginUser");
-		//判断session中是否有登录信息 ,if 有，新增进入cart中，没有新增进入
+		//判断session中是否有登录信息 ,if 有,新增进入cart中,没有新增进入
 		if(loginUser==null){
-			//获取ip信息，去cart中用ip查询，是否有该ip的购物车
+			//获取ip信息,去cart中用ip查询,是否有该ip的购物车
 			MlfrontCart MlfrontCartReq = new MlfrontCart();
 			MlfrontCartReq.setCartIp(Userip);
 			MlfrontCartReq.setCartStatus(0);
@@ -766,12 +766,12 @@ public class MlfrontCartController {
 				ifHave = 0;
 			}
 			if(ifHave==1){
-				//如果有，获取该购物车的itemStr,
+				//如果有,获取该购物车的itemStr,
 				MlfrontCart mlfrontCartUser = MlfrontCartResList.get(0);
 				String cartitemIdstrUser = mlfrontCartUser.getCartitemIdstr();
 				Integer cartId = mlfrontCartUser.getCartId();
 				Integer cartUid = mlfrontCartUser.getCartUid();
-				//判断是否有本次添加的产品，如果没有itemStr中加入本次的productId,
+				//判断是否有本次添加的产品,如果没有itemStr中加入本次的productId,
 				Integer pid = mlfrontCartItem.getCartitemProductId();
 				String skuIdstr = mlfrontCartItem.getCartitemProductskuIdstr();
 				String skuIdnamestr = mlfrontCartItem.getCartitemProductskuIdnamestr();
@@ -845,7 +845,7 @@ public class MlfrontCartController {
 					}
 				}
 			}else{
-				//这个ip没来过，直接新增一条即可mlfrontCartItem，将主键放入cart对象中，之后在新增该对象cart
+				//这个ip没来过,直接新增一条即可mlfrontCartItem,将主键放入cart对象中,之后在新增该对象cart
 				mlfrontCartItem.setCartitemCreatetime(nowTime);
 				mlfrontCartItem.setCartitemMotifytime(nowTime);
 				mlfrontCartItem.setCartitemStatus(0);
@@ -873,7 +873,7 @@ public class MlfrontCartController {
 			//游客加购已完毕,准备生成订单
 			BuyNowAndcartToOrder(rep,res,session, mlfrontCartItemListBuyNow);
 		}else{
-			//获取uid信息，去cart中用uid查询，是否有该uid的购物车
+			//获取uid信息,去cart中用uid查询,是否有该uid的购物车
 			MlfrontCart MlfrontCartReq = new MlfrontCart();
 			Integer uid =loginUser.getUserId();
 			MlfrontCartReq.setCartUid(uid);
@@ -898,12 +898,12 @@ public class MlfrontCartController {
 				ifHave = 0;
 			}
 			if(ifHave==1){
-				//如果有，获取该购物车的itemStr,
+				//如果有,获取该购物车的itemStr,
 				MlfrontCart mlfrontCartUser = MlfrontCartResList.get(0);
 				String cartitemIdstrUser = mlfrontCartUser.getCartitemIdstr();
 				Integer cartId = mlfrontCartUser.getCartId();
 				Integer cartUid = mlfrontCartUser.getCartUid();
-				//判断是否有本次添加的产品，如果没有itemStr中加入本次的productId,
+				//判断是否有本次添加的产品,如果没有itemStr中加入本次的productId,
 				Integer pid = mlfrontCartItem.getCartitemProductId();
 				String skuIdstr = mlfrontCartItem.getCartitemProductskuIdstr();
 				String skuIdnamestr = mlfrontCartItem.getCartitemProductskuIdnamestr();
@@ -978,7 +978,7 @@ public class MlfrontCartController {
 					}
 				}
 			}else{
-				//这个ip没来过，直接新增一条即可mlfrontCartItem，将主键放入cart对象中，之后在新增该对象cart
+				//这个ip没来过,直接新增一条即可mlfrontCartItem,将主键放入cart对象中,之后在新增该对象cart
 				mlfrontCartItem.setCartitemCreatetime(nowTime);
 				mlfrontCartItem.setCartitemMotifytime(nowTime);
 				mlfrontCartItem.setCartitemStatus(0);
@@ -1037,14 +1037,14 @@ public class MlfrontCartController {
 				Integer cartitemIdInt = mlfrontCartItem.getCartitemId();
 				mlfrontCartItemGet.setCartitemId(cartitemIdInt);
 				List<MlfrontCartItem> mlfrontCartItemGetRes =mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemGet);
-				//将该购物项，改成已用
+				//将该购物项,改成已用
 				mlfrontCartItemGet.setCartitemStatus(1);
 				mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemGet);
 				MlfrontCartItem mlfrontCartItemreturn = mlfrontCartItemGetRes.get(0);
 				cartId = mlfrontCartItemreturn.getCartitemCartId();
 				String cartitemIdIntStrOne = cartitemIdInt+"";
 				cartItemIdStr.add(cartitemIdIntStrOne);
-				//封装mlfrontOrderItem对象，准备insert进入mlfrontOrderItem表
+				//封装mlfrontOrderItem对象,准备insert进入mlfrontOrderItem表
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());
@@ -1081,7 +1081,7 @@ public class MlfrontCartController {
 			mlfrontOrderNew.setOrderCreatetime(nowTime);
 			mlfrontOrderNew.setOrderMotifytime(nowTime);
 			
-			//直接进入的时候，没有order表中没有数量字段
+			//直接进入的时候,没有order表中没有数量字段
 			MlfrontCartItem mlfrontCartItemBuyNow = mlfrontCartItemList.get(0);
 			Integer ProductNumber = mlfrontCartItemBuyNow.getCartitemProductNumber();
 			String ProductNumberStr = ProductNumber+"";
@@ -1110,14 +1110,14 @@ public class MlfrontCartController {
 				Integer cartitemIdInt = mlfrontCartItem.getCartitemId();
 				mlfrontCartItemGet.setCartitemId(cartitemIdInt);
 				List<MlfrontCartItem> mlfrontCartItemGetRes =mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemGet);
-				//将该购物项，改成已用
+				//将该购物项,改成已用
 				mlfrontCartItemGet.setCartitemStatus(1);
 				mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemGet);
 				MlfrontCartItem mlfrontCartItemreturn = mlfrontCartItemGetRes.get(0);
 				cartId = mlfrontCartItemreturn.getCartitemCartId();
 				String cartitemIdIntStrOne = cartitemIdInt+"";
 				cartItemIdStr.add(cartitemIdIntStrOne);
-				//封装mlfrontOrderItem对象，准备insert进入mlfrontOrderItem表
+				//封装mlfrontOrderItem对象,准备insert进入mlfrontOrderItem表
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());
@@ -1149,12 +1149,12 @@ public class MlfrontCartController {
 			MlfrontOrder mlfrontOrderNew  = new MlfrontOrder();
 			mlfrontOrderNew.setOrderOrderitemidstr(orderItemIdStr);
 			//mlfrontOrderNew.setOrderIp(Userip);
-			mlfrontOrderNew.setOrderUid(Uid);//这是登录用户，存错登录状态
+			mlfrontOrderNew.setOrderUid(Uid);//这是登录用户,存错登录状态
 			mlfrontOrderNew.setOrderStatus(0);//cart To Order
 			mlfrontOrderNew.setOrderCreatetime(nowTime);
 			mlfrontOrderNew.setOrderMotifytime(nowTime);
 			
-			//直接进入的时候，没有order表中没有数量字段
+			//直接进入的时候,没有order表中没有数量字段
 			MlfrontCartItem mlfrontCartItemBuyNow = mlfrontCartItemList.get(0);
 			Integer ProductNumber = mlfrontCartItemBuyNow.getCartitemProductNumber();
 			String ProductNumberStr = ProductNumber+"";
@@ -1227,7 +1227,7 @@ public class MlfrontCartController {
 //		String nowTime = DateUtil.strTime14s();
 //		mlbackAddCartViewDetailreq.setAddcartviewdetailCreatetime(nowTime);
 //		mlbackAddCartViewDetailreq.setAddcartviewdetailMotifytime(nowTime);
-//		mlbackAddCartViewDetailreq.setAddcartviewdetailActNum(0); //计数用户行为，0纯加购	，1点buyNow附带的加购
+//		mlbackAddCartViewDetailreq.setAddcartviewdetailActNum(0); //计数用户行为,0纯加购	,1点buyNow附带的加购
 //		mlbackProductViewDetailService.insertSelective(mlbackAddCartViewDetailreq);
 //	}
 	

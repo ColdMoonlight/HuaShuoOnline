@@ -281,6 +281,21 @@
     select *
     from tb_mlfront_payinfo order by payInfo_id desc
   </select>
-  <!-- insertSelective -->
-  <!-- insertSelective -->
+  <!-- selectHighPayInfoListBySearch -->
+  <select id="selectHighPayInfoListBySearch" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
+    select * from tb_mlfront_payinfo where payInfo_id>0
+    <if test="payinfoStatus != null">
+      and payInfo_status = #{payinfoStatus,jdbcType=INTEGER}
+    </if>
+    <if test="payinfoPlatenum != null">
+      and payInfo_plateNum = #{payinfoPlatenum,jdbcType=VARCHAR}
+    </if>
+    order by payInfo_id desc
+  </select>
+  <!-- selectMlfrontPayInfoSuccessAll -->
+  <select id="selectMlfrontPayInfoSuccessAll" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
+    select * from tb_mlfront_payinfo where payInfo_id>0
+    and payInfo_status!=0
+    order by payInfo_id desc
+  </select>
 </mapper>
