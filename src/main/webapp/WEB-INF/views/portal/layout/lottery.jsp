@@ -135,7 +135,7 @@
 	height: auto;
 	margin: 0 auto;
 	text-align: center;
-	background-size: 100% auto;
+	background-size: contain;
 	background-repeat: no-repeat;
 }
 .lottery-result-title>span {
@@ -212,6 +212,7 @@
     line-height: 1.4;
 	color: #fff;
 	border: 1px solid #ccc;
+	border-radius: .2rem;
 	background-color: #f30927;
 }
 
@@ -321,7 +322,8 @@
 		padding: 30px;
     	background-image: url('${APP_PATH}/static/pc/img/lottery/lottery-success-wap.jpg');
 	}
-	.lottery-card {
+	.lottery-card,
+	.card-op>.btn {
 		width: 80%;
 	}
 }
@@ -433,7 +435,8 @@
 		padding: 60px 0;	
     	background-image: url('${APP_PATH}/static/pc/img/lottery/lottery-success-pc.jpg');
 	}	
-	.lottery-card {
+	.lottery-card,
+	.card-op>.btn {
 		width: 350px;
 	}
 }
@@ -486,16 +489,19 @@ function startGame() {
 		$.ajax({
 			url: '${APP_PATH}/MlbackCoupon/getCouponLuckDrawResultAndUserEmail',
 			type: 'post',
-			dataType: 'json',
 			data: {
 				userEmail: emailEl.val(),
 				couponId: String(lotteryData.couponId)
 			},
-			contentType: 'application/json',
 			success: function (data) {
 				if (data.code == 100) {
 					isPushEmail = true;
+				} else {
+					lotteryEmailTipEl.text('Lucky draw failed, please try again!');
 				}
+			},
+			error: function() {
+				lotteryEmailTipEl.text('Lucky draw failed, please try again!');
 			}
 		});
 	}
@@ -580,6 +586,7 @@ function getLotteryIndex() {
 	});
 
 	if (lotteryRequest) {
+		var $lotterGameItems = $('.lottery-game-item');
 		couponList = lotteryRequest.extend.mlbackCouponResList;
 		if (couponList.length != 8) {
 			return 0;
@@ -587,7 +594,7 @@ function getLotteryIndex() {
 		if (lotteryCount < 1) {
 			couponList.forEach(function(item, idx) {
 				couponArr.push(item.couponId);
-				htmlStr += $('.lottery-game-item').eq(idx).css('background-image', item.couponImgwapurl);
+				$lotterGameItems.eq(idx).css('background-image', 'url('+ item.couponImgUrl +')');
 			});
 	
 			setTimeout(function() {
