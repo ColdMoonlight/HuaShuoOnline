@@ -2059,7 +2059,7 @@ footer li {
 	display: none;
 	opacity: 0;
 	visibility: hidden;
-	pading-top: 1rem;
+	padding-top: 1rem;
 }
 .product-tab-container.active {
 	display: block;
@@ -2311,6 +2311,10 @@ footer li {
 	margin-top: .5rem;
 	font-size: .875rem;
 }
+.order-cal-item:nth-of-type(4) {
+	padding-top: .5rem;
+	border-top: 1px solid #f5f5f5;
+}
 .cart-cal-item>.name,
 .order-cal-item>.name {
 	font-weight: 600;
@@ -2331,6 +2335,9 @@ footer li {
 .cart-cal-btn .btn+.btn {
 	flex-grow: 1;
 	margin-left: .5rem;
+}
+.order-cal-btn .btn {
+	width: 100%;
 }
 .cartlist-modal .modal-body {
 	text-align: left;
@@ -2455,9 +2462,6 @@ footer li {
 	}
 	.cart-cal-btn .btn {
 		width: 50%;
-	}	
-	.order-cal-btn .btn {
-		width: 100%;
 	}
 }
 @media only screen and (min-width: 1024px ) {
