@@ -107,7 +107,8 @@ public class MlfrontPayInfoController {
 //		}else{
 			int PagNum = 50;
 			PageHelper.startPage(pn, PagNum);
-			List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoAll();
+//			List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoAll();
+			List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoSuccessAll();
 			PageInfo page = new PageInfo(mlfrontPayInfoList, PagNum);
 			return Msg.success().add("pageInfo", page);
 //		}
@@ -591,6 +592,46 @@ public class MlfrontPayInfoController {
 			System.out.println(e.getMessage());
 			return afterShipReturn;
 		}
+	}
+	
+	/**
+	 * 1.0	zsh	200720
+	 * to	全部支付单的状态-分状态查询
+	 * @param pn,
+	 * Integer payinfoStatus;
+	 * String payinfoPlateNum;
+	 * @return
+	 */
+	@RequestMapping(value="/selectHighPayInfoListBySearch",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg selectHighPayInfoListBySearch(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "payinfoStatus") Integer payinfoStatus,
+			@RequestParam(value = "payinfoPlateNum") String payinfoPlateNum,
+			HttpSession session) {
+		
+		//初始化请求参数
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		List<MlfrontPayInfo> mlfrontPayInfoList = new ArrayList<MlfrontPayInfo>();
+		int PagNum = 50;
+		PageHelper.startPage(pn, PagNum);
+		PageInfo page = new PageInfo();
+		
+		if("".equals(payinfoPlateNum)){
+			mlfrontPayInfoReq.setPayinfoPlatenum(null);
+		}else{
+			mlfrontPayInfoReq.setPayinfoPlatenum(payinfoPlateNum);
+		}
+		
+		if(payinfoStatus==999){
+			mlfrontPayInfoReq.setPayinfoStatus(null);
+		}else{
+			mlfrontPayInfoReq.setPayinfoStatus(payinfoStatus);
+		}
+		mlfrontPayInfoList = mlfrontPayInfoService.selectHighPayInfoListBySearch(mlfrontPayInfoReq);
+		page = new PageInfo(mlfrontPayInfoList, PagNum);
+		
+		return Msg.success().add("pageInfo", page).add("mlfrontPayInfoList", mlfrontPayInfoList);
+		
 	}
 	
 }
