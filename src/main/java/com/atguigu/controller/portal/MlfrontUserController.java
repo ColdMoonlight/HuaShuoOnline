@@ -213,7 +213,6 @@ public class MlfrontUserController {
 		return Msg.success().add("resMsg", "Update Successful").add("mlfrontUser", mlfrontUser);
 	}
 	
-	
 	/**
 	 * 8.0	zsh 200630
 	 * 查看单条MlfrontUser的详情细节
@@ -234,7 +233,7 @@ public class MlfrontUserController {
 	}	
 	
 	/**
-	 * 9.0	useOn	0505
+	 * 9.0	zsh 200630
 	 * 查看单条MlfrontUser的详情细节
 	 * @param MlfrontUser
 	 * @return 
@@ -254,9 +253,8 @@ public class MlfrontUserController {
 					.add("mlfrontUserOne", mlfrontUserOne);
 	}	
 	
-	
 	/**
-	 * 10.0	zsh 200619
+	 * 10.0	zsh 200630
 	 * to	toPersonInfoPage列表页面
 	 * @return  
 	 * */
@@ -275,7 +273,7 @@ public class MlfrontUserController {
 	/**
 	 * 11.0	useOn	0505
 	 * to	toCouponPage列表页面
-	 * @return  
+	 * @return jsp 
 	 * */
 	@RequestMapping("/toCouponPage")
 	public String toCouponPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
@@ -292,8 +290,7 @@ public class MlfrontUserController {
 	/**
 	 * 12.0	useOn	0505
 	 * to	tomyOrderPage列表页面
-	 * @param jsp
-	 * @return  
+	 * @return jsp
 	 * */
 	@RequestMapping("/tomyOrderPage")
 	public String tommyOrderPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
@@ -396,19 +393,5 @@ public class MlfrontUserController {
 //			return Msg.success().add("pageInfo", page);
 ////		}
 //	}
-	
-//	/**10.0	useOn	0505
-//	 * MlfrontUser	delete
-//	 * @param id
-//	 */
-//	@RequestMapping(value="/delete",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg delete(@RequestBody MlfrontUser mlfrontUser){
-//		//接收id信息
-//		Integer UserIdInt = mlfrontUser.getUserId();
-//		mlfrontUserService.deleteByPrimaryKey(UserIdInt);
-//		return Msg.success().add("resMsg", "delete success");
-//	}
-
 
 }
