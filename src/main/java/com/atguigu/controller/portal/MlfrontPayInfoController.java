@@ -255,7 +255,6 @@ public class MlfrontPayInfoController {
 		List<MlfrontOrder> mlfrontOrderPayResList= mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPay);
 		MlfrontOrder mlfrontOrderPayOneRes = mlfrontOrderPayResList.get(0);
 		//2.2从详情中拿到addressid;
-//		Integer addressinfoId = mlfrontOrderPayOneRes.getAddressinfoId();
 		Integer addressinfoId = mlfrontOrderPayOneRes.getOrderAddressinfoId();
 		MlfrontAddress MlfrontAddressReq = new MlfrontAddress();
 		MlfrontAddressReq.setAddressId(addressinfoId);
@@ -267,7 +266,6 @@ public class MlfrontPayInfoController {
 		String areafreightCountryCode = mlfrontAddressOne.getAddressCountryCode();
 		//封装国家code
 		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
-//		mlbackAreafreightReq.setAreafreightCountryEnglish(areafreightCountryEnglish);
 		mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
 		//查询该国家的全称
 //		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByEng(mlbackAreafreightReq);
@@ -338,7 +336,6 @@ public class MlfrontPayInfoController {
 		String endTime = mlfrontPayInfo.getPayinfoMotifytime();
 		
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
-		
 		mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
 		mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
 		mlfrontPayInfoReq.setPayinfoStatus(1);//只查询已支付的状态
@@ -456,7 +453,6 @@ public class MlfrontPayInfoController {
 		String endTime = mlfrontPayInfo.getPayinfoMotifytime();
 		
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
-		
 		mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
 		mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
 		mlfrontPayInfoReq.setPayinfoStatus(2);//只查询已审单的状态
