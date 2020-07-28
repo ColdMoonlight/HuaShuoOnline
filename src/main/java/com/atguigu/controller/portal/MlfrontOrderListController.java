@@ -110,6 +110,6 @@ public class MlfrontOrderListController {
 			System.out.println(i+":"+Checkpoint);
 			i++;
 		}
-		return Msg.success().add("CheckpointList", CheckpointList);
+		return Msg.success().add("trackingRes", trackingRes);
 	}
 }
