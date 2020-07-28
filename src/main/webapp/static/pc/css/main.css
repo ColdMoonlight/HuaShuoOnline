@@ -748,18 +748,21 @@ main {
 @media only screen and (max-width: 575px) {
 	main {
 		margin: 0 1rem;
+		min-height: 50vh;
 	}
 }
 
 @media only screen and (max-width: 1023px) and (min-width: 576px) {
 	main {
 		margin: 0 1.25rem;
+		min-height: 60vh;
 	} 
 }
 
 @media only screen and (min-width: 1024px) {
 	main {
 		margin: 0 10%;
+		min-height: 60vh;
 	} 
 }
 /* header nav */
@@ -3966,7 +3969,6 @@ footer li {
 	justify-content: center;
 	align-items: center;
 	color: #fff;
-	height: 50vw;
 	background-image: url('../img/bg-usercenter.jpg');
 	background-repeat: no-repeat;
 }
@@ -4027,12 +4029,12 @@ footer li {
 .user-personinfo .usercenter-item .text {
 	font-weight: 600;
 }
-.user-personinfo .usercenter-item .right-data {
+.user-personinfo .right-data {
 	display: flex;
 	flex-grow: 1;
 	color: #999;
 }
-.user-personinfo .usercenter-item .input-data {
+.user-personinfo .input-data {
 	flex-grow: 1;
 	padding: 0;
 	margin-right: .5rem;
@@ -4054,6 +4056,7 @@ footer li {
 	}
 	.usercenter-profile {
 		height: 50vw;
+		background-size: contain;
 	}
 	.usercenter-tip {
 		margin-top: .75rem;
@@ -4069,13 +4072,30 @@ footer li {
 		flex-shrink: 0;
 		border: 1px solid #f5f5f5;
 	}
+	.usercenter-item:hover,
+	.usercenter-item.active,
+	.usercenter-item:hover input,
+	.usercenter-item.active input,
+	.usercenter-item:hover .right-data,
+	.usercenter-item.active .right-data {
+		background-color: #f375a3;
+	}
+	.usercenter-item:hover .icon,
+	.usercenter-item:hover .text,
+	.usercenter-item:hover input,
+	.usercenter-item.active .icon,
+	.usercenter-item.active .text,
+	.usercenter-item.active input {
+		color: #fff;		
+	}
 	.usercenter-content {
 		padding-left: 1rem;
 		flex-grow: 1;
 	}
 	.usercenter-profile {
 		height: auto;
-		padding-top: 50%;
+		padding-top: 35%;
+		background-size: cover;
 	}
 	.usercenter-hi {
 		padding: 1rem;
@@ -4150,8 +4170,7 @@ footer li {
 	align-items: center;
 }
 .user-order-track-details {
-	padding: .5rem 1rem;
-	border-top: 1px solid #f5f5f5;
+	border-top: 1px solid #ccc;
 }
 .user-order-track-text .name {
 	font-size: .875rem;
@@ -4163,9 +4182,8 @@ footer li {
 .user-order-track {
 	font-size: .75rem;
 	flex-grow: 0;
-	padding: .25rem .5rem;
-    border-color: #ddd;
     border-radius: .125rem;
+    border-color: #ddd;
     box-shadow: none;
     background-color: #fff;
 }
@@ -4295,6 +4313,12 @@ footer li {
 		font-size: .875rem;
 		color: #333;
 	}
+	.user-order-track-details {
+		padding: .5rem 1rem;
+	}
+	.user-order-track {
+		padding: .25rem .5rem;
+	}
 }
 
 @media only screen and (min-width: 576px) {	
@@ -4361,6 +4385,9 @@ footer li {
 		margin-left: .5rem;
 		font-size: .875rem;
 		color: #333;
+	}
+	.user-order-track-details {
+		padding: 1rem;
 	}
 }
 /* timeline */

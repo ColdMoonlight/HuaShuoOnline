@@ -6,30 +6,29 @@
 <head>
     <title>My Order List</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<style>
-		@media only screen and (max-width: 575px) {
-			main { margin: -1rem 0 0 0; }
-		}
-	</style>
 </head>
 
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<main>
 		<div class="container">
-			<div class="usercenter-back"><a href="javascript:goToUserCenter();"><span class="icon left"></span>Back</a></div>
-			<div class="usercenter-order-box">
-				<div class="order-tab">
-					<div class="order-tab-item active" data-id="999">All orders</div>
-					<div class="order-tab-item" data-id="1">Paid</div>
-					<div class="order-tab-item" data-id="3">Processing</div>
-					<div class="order-tab-item" data-id="4">Delivered</div>
-					<div class="order-tab-item" data-id="5">Refund</div>
-				</div>
-				<div class="user-order-list"></div>
-				<div id="table-pagination" class="hide"></div>
-				<div class="loader-box">
-					<div class="loader"></div>
+			<div class="usercenter-body">
+				<jsp:include page="usercenter-nav.jsp" flush="true"></jsp:include>
+				<div class="usercenter-content">
+					<div class="usercenter-order-box">
+						<div class="order-tab">
+							<div class="order-tab-item active" data-id="999">All orders</div>
+							<div class="order-tab-item" data-id="1">Paid</div>
+							<div class="order-tab-item" data-id="3">Processing</div>
+							<div class="order-tab-item" data-id="4">Delivered</div>
+							<div class="order-tab-item" data-id="5">Refund</div>
+						</div>
+						<div class="user-order-list"></div>
+						<div id="table-pagination" class="hide"></div>
+						<div class="loader-box">
+							<div class="loader"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -99,7 +98,6 @@
 						'<div class="user-orderitem-title">' +
 							'<div class="user-order-id">order Id: ' + orderList[key].orderId + '</div>' +
 							'<div class="right-box">' +
-								(orderStatus == 4 ? '<div class="user-order-track" data-slug="'+ orderList[key].orderLogisticsname +'" data-tracknumber="'+ orderList[key].orderLogisticsnumber +'">Tracking Details</div>' : '' ) +
 								'<div class="user-order-status">' + (statusMap[orderList[key].orderStatus]) + '</div>' +
 							'</div>' +
 						'</div>' +
@@ -121,6 +119,13 @@
 					}
 					htmlStr += '</div>' +
 						'<div class="user-orderitem-footer">Total ' + orderItemSize[key] + ' goods, money $ ' + orderList[key].orderMoney + '</div>' +
+						(orderStatus == 4 ? '<div class="user-order-track-details">' +
+								'<div class="user-order-track-text">' +
+									'<div class="name">'+ orderList[key].orderLogisticsname +':</div>' +
+									'<div class="value">'+ orderList[key].orderLogisticsnumber +'</div>' +
+								'</div>' +
+								'<button class="btn btn-default user-order-track" data-slug="'+ orderList[key].orderLogisticsname +'" data-tracknumber="'+ orderList[key].orderLogisticsnumber +'">Tracking Details</button>' +
+							'</div>' : '' ) +
 					'</div>';
 				}
 
@@ -145,7 +150,7 @@
 				type: "post",
 				success: function (data) {
 					if(data.code == 100) {
-						callback && callback(data.extend.TrackingRes);
+						callback && callback(data.extend.trackingRes);
 					} else {
 						mlModalTip('Failed to obtain logistics information. Please try again later !');
 					}
@@ -201,6 +206,7 @@
 		
 		!loginStatus && loginNotTip();
 		loginStatus && getOrderList();
+		$('.usercenter-list .usercenter-item').eq(0).addClass('active');
 		// tab-order-item tab
 		$('.order-tab-item').on('click', function() {
 			if (!$(this).hasClass('active')) {
