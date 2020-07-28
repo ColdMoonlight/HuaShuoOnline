@@ -187,7 +187,13 @@ public class MlfrontUserController {
 	@RequestMapping(value="/toUserCenter")
 	public String toUserCenter(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
 		
-		return "portal/user/userCenter";
+		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		
+		 if(ifMobile.equals("1")){
+			  return "portal/user/userCenter";//手机端
+		  }else{
+			  return "portal/user/userPcCenter";//Pc端
+		  }
 	}
 	
 	/**7.0	zsh 200630
@@ -255,11 +261,16 @@ public class MlfrontUserController {
 	 * @return  
 	 * */
 	@RequestMapping("/toPersonInfoPage")
-	public String toPersonInfoPage() throws Exception{
+	public String toPersonInfoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
 	
-		return "portal/user/PersonInfo";
+		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		
+		if(ifMobile.equals("1")){
+			  return "portal/user/PersonInfo";//手机端
+		}else{
+			  return "portal/user/PcPersonInfo";//Pc端
+		}
 	}
-
 	
 	/**
 	 * 11.0	useOn	0505
@@ -269,8 +280,13 @@ public class MlfrontUserController {
 	@RequestMapping("/toCouponPage")
 	public String toCouponPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
 
-		return "portal/user/myCoupon";
-
+		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		
+		if(ifMobile.equals("1")){
+			  return "portal/user/myCoupon";//手机端
+		}else{
+			  return "portal/user/myPcCoupon";//Pc端
+		}
 	}
 
 	/**
@@ -280,9 +296,15 @@ public class MlfrontUserController {
 	 * @return  
 	 * */
 	@RequestMapping("/tomyOrderPage")
-	public String tommyOrderPage() throws Exception{
+	public String tommyOrderPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
 	
-		return "portal/user/myOrderList";
+		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		
+		if(ifMobile.equals("1")){
+			  return "portal/user/myOrderList";//手机端
+		}else{
+			  return "portal/user/myPcOrderList";//Pc端
+		}
 	}
 	
 	/**
@@ -291,9 +313,15 @@ public class MlfrontUserController {
 	 * @return  jsp
 	 * */
 	@RequestMapping("/tomyOrderDetailPage")
-	public String tomyOrderDetailPage() throws Exception{
+	public String tomyOrderDetailPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
 	
-		return "portal/user/myOrderDetail";
+		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		
+		if(ifMobile.equals("1")){
+			  return "portal/user/myOrderDetail";//手机端
+		}else{
+			  return "portal/user/myPcOrderDetail";//Pc端
+		}
 	}
 	
 //	/**
