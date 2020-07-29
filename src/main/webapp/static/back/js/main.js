@@ -35,6 +35,7 @@ var CURRENT_URL = window.location.href.split('#')[0],
 window.addEventListener("beforeunload", function(e) {
 	// initial page-num
 	setPageNum(1);
+	setActiveItemNum(0);
 });
 // Sidebar
 function init_sidebar() {
