@@ -262,9 +262,9 @@
 			if (parseInt(searchCollectionVal.supercateId) < 0) searchCollectionVal.supercate = "";
 			if (searchCollectionVal.supercate || searchCollectionVal.collection) {
 				addCollectionItem(searchCollectionVal);
-				createCollectionItem(searchCollectionVal).addClass('active')
-				addTableTabItem(searchCollectionVal);
 				$('.c-table-tab-tempory').html('');
+				createCollectionItem(searchCollectionVal);
+				addTableTabItem(searchCollectionVal, $('.c-table-tab-item').length);
 			}
 		});
 		// search it
@@ -826,10 +826,11 @@
 			}
 			return false;
 		}
-		function addTableTabItem(val) {
+		function addTableTabItem(val, idx) {
+			var $tableTabItem = createCollectionItem(val).addClass('active');
 			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab-list').append(createCollectionItem(val).addClass('active'));
-			setActiveItemNum($('.c-table-tab-item').length - 1);
+			idx && $tableTabItem.attr('data-idx', idx);
+			$('.c-table-tab-list').append($tableTabItem);
 		}
 		function createCollectionItem(val) {
 			var textArr = [];
@@ -863,11 +864,13 @@
 				if (JSON.stringify(item) != JSON.stringify(name)) return item;
 			});
 			storage.setItem('marketing', JSON.stringify(newCollections));
+			setActiveItemNum(0);
 		}
 		function addCollectionItem(name) {
 			var collections = getCollectionList();
 			collections.push(name);
 			storage.setItem('marketing', JSON.stringify(collections));
+			setActiveItemNum(collections.length);
 		}
 		// tab active-item cache (get & set)
 		function getActiveItemNum() {

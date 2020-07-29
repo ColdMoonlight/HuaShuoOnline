@@ -347,9 +347,9 @@
 			if (parseInt(searchOrderVal.payinfostatus) == 999) searchOrderVal.payinfostatusval = "";
 			if (searchOrderVal.payinfostatus || searchOrderVal.payinfonum) {
 				addOrderItem(searchOrderVal);
-				createOrderItem(searchOrderVal).addClass('active')
-				addTableTabItem(searchOrderVal);
 				$('.c-table-tab-tempory').html('');
+				createOrderItem(searchOrderVal);
+				addTableTabItem(searchOrderVal, $('.c-table-tab-item').length);
 			}
 		});
 		// search it
@@ -680,10 +680,11 @@
 			}
 			return false;
 		}
-		function addTableTabItem(val) {
+		function addTableTabItem(val, idx) {
+			var $tableTabItem = createOrderItem(val).addClass('active');
 			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab-list').append(createOrderItem(val).addClass('active'));
-			setActiveItemNum($('.c-table-tab-item').length - 1);
+			idx && $tableTabItem.attr('data-idx', idx);
+			$('.c-table-tab-list').append($tableTabItem);
 		}
 		function createOrderItem(val) {
 			var textArr = [];
@@ -717,11 +718,13 @@
 				if (JSON.stringify(item) != JSON.stringify(name)) return item;
 			});
 			storage.setItem('orders', JSON.stringify(newOrders));
+			setActiveItemNum(0);
 		}
 		function addOrderItem(name) {
 			var orders = getOrderList();
 			orders.push(name);
 			storage.setItem('orders', JSON.stringify(orders));
+			setActiveItemNum(orders.length);
 		}
 		// tab active-item cache (get & set)
 		function getActiveItemNum() {

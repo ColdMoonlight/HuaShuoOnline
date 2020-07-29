@@ -231,9 +231,9 @@
 			if (parseInt(searchFootnavVal.supercateId) < 0) searchFootnavVal.supercate = "";
 			if (searchFootnavVal.supercate || searchFootnavVal.footnav) {
 				addFootnavItem(searchFootnavVal);
-				createFootnavItem(searchFootnavVal).addClass('active')
-				addTableTabItem(searchFootnavVal);
 				$('.c-table-tab-tempory').html('');
+				createFootnavItem(searchFootnavVal);
+				addTableTabItem(searchFootnavVal, $('.c-table-tab-item').length);
 			}
 		});
 		// search it
@@ -672,10 +672,11 @@
 			}
 			return false;
 		}
-		function addTableTabItem(val) {
+		function addTableTabItem(val, idx) {
+			var $tableTabItem = createCollectionItem(val).addClass('active');
 			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab-list').append(createFootnavItem(val).addClass('active'));
-			setActiveItemNum($('.c-table-tab-item').length - 1);
+			idx && $tableTabItem.attr('data-idx', idx);
+			$('.c-table-tab-list').append($tableTabItem);
 		}
 		function createFootnavItem(val) {
 			var textArr = [];
@@ -709,11 +710,13 @@
 				if (JSON.stringify(item) != JSON.stringify(name)) return item;
 			});
 			storage.setItem('footnavs', JSON.stringify(newFootnavs));
+			setActiveItemNum(0);
 		}
 		function addFootnavItem(name) {
 			var footnavs = getFootnavList();
 			footnavs.push(name);
 			storage.setItem('footnavs', JSON.stringify(footnavs));
+			setActiveItemNum(footnavs.length);
 		}
 		// tab active-item cache (get & set)
 		function getActiveItemNum() {

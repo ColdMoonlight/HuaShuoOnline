@@ -419,10 +419,10 @@
 			if (checkNewItem(searchProductVal)) return;
 			if (parseInt(searchProductVal.supercateId) < 0) searchProductVal.supercate = "";
 			if (searchProductVal.supercate || searchProductVal.product) {
-				addProductItem(searchProductVal);
-				createProductItem(searchProductVal).addClass('active')
-				addTableTabItem(searchProductVal);
 				$('.c-table-tab-tempory').html('');
+				addProductItem(searchProductVal);
+				createProductItem(searchProductVal);
+				addTableTabItem(searchProductVal, $('.c-table-tab-item').length);
 			}
 		});
 		// search it
@@ -1970,10 +1970,11 @@
 			}
 			return false;
 		}
-		function addTableTabItem(val) {
+		function addTableTabItem(val, idx) {
+			var $tableTabItem = createProductItem(val).addClass('active');
 			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab-list').append(createProductItem(val).addClass('active'));
-			setActiveItemNum($('.c-table-tab-item').length - 1);
+			idx && $tableTabItem.attr('data-idx', idx);
+			$('.c-table-tab-list').append($tableTabItem);
 		}
 		function createProductItem(val) {
 			var textArr = [];
@@ -2007,11 +2008,13 @@
 				if (JSON.stringify(item) != JSON.stringify(name)) return item;
 			});
 			storage.setItem('products', JSON.stringify(newProducts));
+			setActiveItemNum(0);
 		}
 		function addProductItem(name) {
 			var products = getProductList();
 			products.push(name);
 			storage.setItem('products', JSON.stringify(products));
+			setActiveItemNum(products.length);
 		}
 		// tab active-item cache (get & set)
 		function getActiveItemNum() {
