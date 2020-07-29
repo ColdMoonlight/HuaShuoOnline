@@ -6,6 +6,7 @@
 <head>
     <title>My Coupon</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/ad.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<style>
 		@media only screen and (max-width: 575px) {

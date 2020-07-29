@@ -6,6 +6,7 @@
 <head>
     <title>My Order Details</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/ad.jsp" flush="true"></jsp:include>
 	<style>
 		@media only screen and (max-width: 575px) {
 			main { margin: -1rem 0 0 0; }

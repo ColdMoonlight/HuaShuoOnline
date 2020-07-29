@@ -4,8 +4,9 @@
 <html>
 
 <head>
-	<title>megalook</title>
+	<title>Megalook Tip</title>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
+	<jsp:include page="common/ad.jsp" flush="true"></jsp:include>
 </head>
 
 <body>

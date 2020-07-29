@@ -166,12 +166,12 @@
 				renderReceiverinfo(resDataAddressOne);
 				renderPaypaladdress(mlPaypalShipAddressOne);
 
-				/* fbq('track', 'Purchase', {
+				fbq('track', 'Purchase', {
 					content_ids: payinfoProductArr,
 					content_type: 'product',
 					value: orderData.payinfoMoney,
 					currency: 'USD'
-				}); */
+				});
 			}
 		});
 	</script>

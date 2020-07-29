@@ -2,7 +2,6 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!-- custom script -->
 <script>
-
  // modal mask
 function addFixed() {
 	$(document.body).css({
