@@ -4,11 +4,8 @@
 <html>
 
 <head>
-    <title></title>
+    <title>Product Details</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
-	<link href="${APP_PATH}/static/pc/js/jqzoom/jqzoom.css" rel="stylesheet">
-	<link href="${APP_PATH}/static/pc/js/video/video.min.css" rel="stylesheet">
 	<script>
 		var productId = '${sessionScope.productDetailId}';
 		var productSeo;
@@ -21,6 +18,9 @@
 		addMeta('description', seoDescription);
 	</script>
 	<jsp:include page="../common/ad.jsp" flush="true"></jsp:include>
+	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
+	<link href="${APP_PATH}/static/pc/js/jqzoom/jqzoom.css" rel="stylesheet">
+	<link href="${APP_PATH}/static/pc/js/video/video.min.css" rel="stylesheet">
 	<style>
 		@media only screen and (max-width: 1023px) {
 			main { margin: 0 }
@@ -132,7 +132,6 @@
 	<script src="${APP_PATH}/static/pc/js/jqzoom/jquery.jqzoom.js"></script>
 	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
-	<script src="${APP_PATH}/static/pc/js/relativetime.min.js"></script>
 	<script>
 		// fly bubble
 		function generateFlyBubble(event, callback) {
@@ -688,9 +687,9 @@
 				data.length && buildResult(data);				
 			});
 
-			/* var fbpid = data.productId;
+			var fbpid = data.productId;
 			var fbprice = (data.productOriginalprice * data.productActoffoff / 100).toFixed(2);
-			console.log(fbpid, fbprice)
+			// console.log(fbpid, fbprice)
 			fbq('track', 'PageView', {
 				content_ids: fbpid,
 				contents: [{ "id": fbpid, "quantity": 999, "item_price": fbprice }],
@@ -704,7 +703,7 @@
 				content_type: 'product',
 				value: fbprice,
 				currency: 'USD'
-			}); */
+			});
 		});
 		// event
 		$(window).on('resize', imageZoomEvent);
@@ -770,34 +769,34 @@
 							selectCartOrCheckout(reqData);
 						}
 					});
-
-					/* fbq('track', 'AddToCart', {
+					// console.log(reqData.cartitemProductId)
+					fbq('track', 'AddToCart', {
 						content_ids: reqData.cartitemProductId,
 						content_type: 'product',
 						value: reqData.cartitemProductOriginalprice,
 						currency: 'USD'
-					}); */
+					});
 				}
 			}, 300);
 		});
 		// buy now
 		$(document.body).on('click', '.buy-now', function() {
 			var reqData = getProductData();
-			isCorrectProduct() && reqData && /* fbq('track', 'InitiateCheckout', {
+			isCorrectProduct() && reqData && fbq('track', 'InitiateCheckout', {
 				content_ids: reqData.cartitemProductId,
 				content_type: 'product',
 				value: ((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductActoff / 100).toFixed(2),
 				currency: "USD"
-			}), */ toBuyNow(reqData, goToCheckout);
+			}), toBuyNow(reqData, goToCheckout);
 		});
 		$('.paypal-button.paypal-now').on('click', function() {
 			var reqData = getProductData();
-			isCorrectProduct() && reqData && (payLoading(), /* fbq('track', 'AddPaymentInfo', {
+			isCorrectProduct() && reqData && (payLoading(), fbq('track', 'AddPaymentInfo', {
 				content_ids: reqData.cartitemProductId,
 				content_type: 'product',
 				value: ((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductNumber * reqData.cartitemProductActoff / 100).toFixed(2),
 				currency: 'USD'
-			}), */ toPayInstance(reqData));
+			}), toPayInstance(reqData));
 		});
 		// open reiview swiper
 		$(document.body).on('click', '.product-review-imgs-item', function() {

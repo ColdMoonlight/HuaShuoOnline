@@ -384,6 +384,7 @@
 		var isSaveSku = false;
 		var hasInitSku = false;
 		var hasSkuListStatus = false;
+		var storageName = 'products';
 		// init summernote editor for description
 		$('#productDesc').summernote({
 			height: 300,
@@ -419,10 +420,10 @@
 			if (checkNewItem(searchProductVal)) return;
 			if (parseInt(searchProductVal.supercateId) < 0) searchProductVal.supercate = "";
 			if (searchProductVal.supercate || searchProductVal.product) {
-				addProductItem(searchProductVal);
-				createProductItem(searchProductVal).addClass('active')
-				addTableTabItem(searchProductVal);
 				$('.c-table-tab-tempory').html('');
+				addStorageItem(searchProductVal);
+				createTableTabItem(searchProductVal);
+				addTableTabItem(searchProductVal, $('.c-table-tab-item').length);
 			}
 		});
 		// search it
@@ -454,7 +455,7 @@
 			if (parseInt(searchProductVal.supercateId) < 0) searchProductVal.supercate = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
-			$('.c-table-tab-tempory').html(createProductItem(searchProductVal).addClass('active'));
+			$('.c-table-tab-tempory').html(createTableTabItem(searchProductVal).addClass('active'));
 			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
 		}
 		// tab-item click
@@ -469,7 +470,7 @@
 		// get Data for table
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
-			if (dataVal) {
+			if (dataVal && (dataVal.product || dataVal.supercate)) {
 				$('#searchProduct').val(dataVal.product || '');
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
@@ -477,6 +478,7 @@
 			} else {
 				$('#searchSupercate').val('-1');
 				$('#searchProduct').val('');
+				initActiveItemNum();
 				getProductsData();
 			}
 		}
@@ -1920,110 +1922,6 @@
 					'</div></div>';
 			}
 			$('#editModal .modal-body-body').html(htmlStr);
-		}
-
-		function renderTabItems() {
-			var products = getProductList(),
-				len = products.length,
-				htmlStr = '',
-				activeNum = parseInt(getActiveItemNum());
-
-			if (len > 0) {
-				for (var i = 0; i < len; i += 1) {
-					var $item = createProductItem(products[i]);
-					$item.attr('data-idx', i+1);
-
-					if (activeNum == i + 1) {
-						$item.addClass('active')
-					}
-
-					htmlStr += $item[0].outerHTML;
-				}
-
-				$('.c-table-tab-list').append(htmlStr);
-			}
-			// check activeItem exsits or not.
-			if ($('.c-table-tab-item.active').length < 1) {
-				$('.c-table-tab-item').eq(0).addClass('active');
-			}
-
-			getTabSearchData($('.c-table-tab-item.active'));
-		}
-		function checkNewItem(val) {
-			var productList = getProductList();
-			if (productList.length >= 6) {
-				// save-search-item num <= 6
-				toastr.info('You can add up to six search records！');
-				return true;
-			}
-				
-			var filterArr = productList.filter(function(item) {
-				if (JSON.stringify(val) === JSON.stringify(item)) {
-					return item;
-				}
-			});
-
-			if (filterArr.length > 0) {
-				toastr.info('You can not add it repeatedly！');
-				return true;
-			}
-			return false;
-		}
-		function addTableTabItem(val) {
-			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab-list').append(createProductItem(val).addClass('active'));
-			setActiveItemNum($('.c-table-tab-item').length - 1);
-		}
-		function createProductItem(val) {
-			var textArr = [];
-			if (val.supercate) {
-				textArr.push(val.supercate)
-			}
-			if (val.product) {
-				textArr.push(val.product)
-			}
-
-			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
-		}
-		function deleteTableTabItem(e) {
-			e.stopPropagation();
-			var targetEl = $(e.target),
-				parentEl = targetEl.parent('.c-table-tab-item'),
-				itemVal = $(parentEl).data('val');
-
-			deleteProductItem(itemVal);
-			$(parentEl).remove();
-
-			$('.c-table-tab-item').eq(0).addClass('active');
-			getTabSearchData($('.c-table-tab-item').eq(0));
-		}
-		function getProductList() {
-			return JSON.parse(storage.getItem('products')) || [];
-		}
-		function deleteProductItem(name) {
-			var oldProducts = getProductList();
-			var newProducts = oldProducts.filter(function (item) {
-				if (JSON.stringify(item) != JSON.stringify(name)) return item;
-			});
-			storage.setItem('products', JSON.stringify(newProducts));
-		}
-		function addProductItem(name) {
-			var products = getProductList();
-			products.push(name);
-			storage.setItem('products', JSON.stringify(products));
-		}
-		// tab active-item cache (get & set)
-		function getActiveItemNum() {
-			return storage.getItem('itemNum') || 0;
-		}
-		function setActiveItemNum(num) {
-			storage.setItem('itemNum', num);
-		}
-		// initial activeItem
-		function initActiveItemNum() {
-			$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-			setActiveItemNum(0);
-			setPageNum(1);
 		}
 	</script>
 </body>

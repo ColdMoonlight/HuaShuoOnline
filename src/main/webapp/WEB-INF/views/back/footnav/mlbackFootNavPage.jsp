@@ -199,6 +199,7 @@
 	<script>
 		var hasSuperCateList = false;
 		var isCreate = false;
+		var storageName = 'footnavs';
 
 		// init
 		renderTabItems();
@@ -230,10 +231,10 @@
 			if (checkNewItem(searchFootnavVal)) return;
 			if (parseInt(searchFootnavVal.supercateId) < 0) searchFootnavVal.supercate = "";
 			if (searchFootnavVal.supercate || searchFootnavVal.footnav) {
-				addFootnavItem(searchFootnavVal);
-				createFootnavItem(searchFootnavVal).addClass('active')
-				addTableTabItem(searchFootnavVal);
+				addStorageItem(searchFootnavVal);
 				$('.c-table-tab-tempory').html('');
+				createTableTabItem(searchFootnavVal);
+				addTableTabItem(searchFootnavVal, $('.c-table-tab-item').length);
 			}
 		});
 		// search it
@@ -263,7 +264,7 @@
 			setPageNum(1);
 
 			$('.c-table-tab-item.active').removeClass('active');
-			$('.c-table-tab-tempory').html(createFootnavItem(searchFootnavVal).addClass('active'));
+			$('.c-table-tab-tempory').html(createTableTabItem(searchFootnavVal).addClass('active'));
 			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
 		}
 		// tab-item click
@@ -278,7 +279,7 @@
 		// get Data for table
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
-			if (dataVal) {
+			if (dataVal && (dataVal.supercate || dataVal.foonav)) {
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
 				$('#searchFootnav').val(dataVal.footnav || '');
@@ -286,6 +287,7 @@
 			} else {
 				$('#searchSupercate').val('-1');
 				$('#searchFootnav').val('');
+				initActiveItemNum();
 				getFootnavsData();
 			}
 		}
@@ -623,109 +625,6 @@
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
-		}
-		function renderTabItems() {
-			var footnavs = getFootnavList(),
-				len = footnavs.length,
-				htmlStr = '',
-				activeNum = parseInt(getActiveItemNum());
-
-			if (len > 0) {
-				for (var i = 0; i < len; i += 1) {
-					var $item = createFootnavItem(footnavs[i]);
-					$item.attr('data-idx', i+1);
-
-					if (activeNum == i + 1) {
-						$item.addClass('active')
-					}
-
-					htmlStr += $item[0].outerHTML;
-				}
-
-				$('.c-table-tab-list').append(htmlStr);
-			}
-			// check activeItem exsits or not.
-			if ($('.c-table-tab-item.active').length < 1) {
-				$('.c-table-tab-item').eq(0).addClass('active');
-			}
-
-			getTabSearchData($('.c-table-tab-item.active'));
-		}
-		function checkNewItem(val) {
-			var collecitonList = getFootnavList();
-			if (collecitonList.length >= 6) {
-				// save-search-item num <= 6
-				toastr.info('You can add up to six search records！');
-				return true;
-			}
-				
-			var filterArr = collecitonList.filter(function(item) {
-				if (JSON.stringify(val) === JSON.stringify(item)) {
-					return item;
-				}
-			});
-
-			if (filterArr.length > 0) {
-				toastr.info('You can not add it repeatedly！');
-				return true;
-			}
-			return false;
-		}
-		function addTableTabItem(val) {
-			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab-list').append(createFootnavItem(val).addClass('active'));
-			setActiveItemNum($('.c-table-tab-item').length - 1);
-		}
-		function createFootnavItem(val) {
-			var textArr = [];
-			if (val.supercate) {
-				textArr.push(val.supercate)
-			}
-			if (val.footnav) {
-				textArr.push(val.footnav)
-			}
-
-			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
-		}
-		function deleteTableTabItem(e) {
-			e.stopPropagation();
-			var targetEl = $(e.target),
-				parentEl = targetEl.parent('.c-table-tab-item'),
-				itemVal = $(parentEl).data('val');
-
-			deleteFootnavItem(itemVal);
-			$(parentEl).remove();
-
-			$('.c-table-tab-item').eq(0).addClass('active');
-			getTabSearchData($('.c-table-tab-item').eq(0));
-		}
-		function getFootnavList() {
-			return JSON.parse(storage.getItem('footnavs')) || [];
-		}
-		function deleteFootnavItem(name) {
-			var oldFootnavs = getFootnavList();
-			var newFootnavs = oldFootnavs.filter(function (item) {
-				if (JSON.stringify(item) != JSON.stringify(name)) return item;
-			});
-			storage.setItem('footnavs', JSON.stringify(newFootnavs));
-		}
-		function addFootnavItem(name) {
-			var footnavs = getFootnavList();
-			footnavs.push(name);
-			storage.setItem('footnavs', JSON.stringify(footnavs));
-		}
-		// tab active-item cache (get & set)
-		function getActiveItemNum() {
-			return storage.getItem('itemNum') || 0;
-		}
-		function setActiveItemNum(num) {
-			storage.setItem('itemNum', num);
-		}
-		// initial activeItem
-		function initActiveItemNum() {
-			$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-			setActiveItemNum(0);
-			setPageNum(1);
 		}
 	</script>
 </body>

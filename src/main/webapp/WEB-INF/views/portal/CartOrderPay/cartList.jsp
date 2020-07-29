@@ -292,12 +292,12 @@
 		function subFacebook(data) {
 			var orderMoney = $('.cart-cal-subtotal').data('price');
 			// console.log(orderMoney, cartitemProductIdArr)
-			/* fbq('track', 'InitiateCheckout', {
+			fbq('track', 'InitiateCheckout', {
 				content_ids: cartitemProductIdArr,
 				content_type: 'product',
 				value: orderMoney,
 				currency: 'USD'
-			}); */
+			});
 		}
 		// check reqData
 		function checkReqData(reqData) {

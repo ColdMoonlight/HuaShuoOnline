@@ -677,15 +677,15 @@
 			if (checkInputAdressInfo()) {
 				orderSaveAddress(getOrderAddress(), function(data) {
 					$('#addressId').val(data.addressId);
-					/* var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
+					var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
 					var orderMoney = $('.order-cal-subtotal').data('price');
-					console.log(productIdArr, orderMoney)
+					/* console.log(productIdArr, orderMoney) */
 					fbq('track', 'AddPaymentInfo', {
 						content_ids: productIdArr,
 						content_type: 'product',
 						value: orderMoney,
 						currency: 'USD'
-					}); */
+					});
 					payLoading();
 					orderPay(getOrderPayInfo(), goToPay);
 				});

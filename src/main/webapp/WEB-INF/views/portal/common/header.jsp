@@ -2,12 +2,12 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 <!-- icon -->
 <link rel="icon" sizes="120x120" href="${APP_PATH }/static/apple/micon1.png">
 <link rel="apple-touch-icon" sizes="120x120" href="${APP_PATH }/static/apple/micon1.png">
 <link rel="apple-touch-icon" sizes="180x180" href="${APP_PATH }/static/apple/micon2.png">
+<%-- <jsp:include page="intercept.jsp" flush="true"></jsp:include> --%>
 <!-- common css -->
 <link href="${APP_PATH}/static/pc/css/main.css" rel="stylesheet">
 <script src="${APP_PATH}/static/common/jquery.min.js"></script>
@@ -55,8 +55,12 @@
 	var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	var storage = window.localStorage;
  	var ml = {
- 		facebookAppId: '667403967094866', // megalook
+ 		facebookAppId: '246433859565492', // test
+ 		// facebookAppId: '667403967094866', // megalook
  		// facebookAppId: '246433859565492', // huashuohair
+ 		googleId: 'UA-148326913-1', // test
+ 		// googleId: 'UA-145178467-1', // megalook
+ 		// googleId: 'UA-128377932-1', // huashuohair
 		tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', // megalook
 		// "tidio": '//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js', // megalookhair
 		// "tidio": '//code.tidio.co/folzahtp5vdopiwathysfiyz75dk5vnm.js', // huashuohair

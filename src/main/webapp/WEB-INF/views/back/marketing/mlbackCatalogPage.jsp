@@ -240,6 +240,7 @@
 		var hasCollectionList = false;
 		var hasProductList = false;
 		var isCreate = false;
+		var storageName = 'marketing';
 
 		$('#catalogIfproorcateorpage').on('change', function() {
 			$('.' + $(this).find('option:checked').data('class')).removeClass('hide').siblings().addClass('hide').find('select').val('-1');
@@ -261,10 +262,10 @@
 			if (checkNewItem(searchCollectionVal)) return;
 			if (parseInt(searchCollectionVal.supercateId) < 0) searchCollectionVal.supercate = "";
 			if (searchCollectionVal.supercate || searchCollectionVal.collection) {
-				addCollectionItem(searchCollectionVal);
-				createCollectionItem(searchCollectionVal).addClass('active')
-				addTableTabItem(searchCollectionVal);
+				addStorageItem(searchCollectionVal);
 				$('.c-table-tab-tempory').html('');
+				createTableTabItem(searchCollectionVal);
+				addTableTabItem(searchCollectionVal, $('.c-table-tab-item').length);
 			}
 		});
 		// search it
@@ -296,7 +297,7 @@
 			if (parseInt(searchCollectionVal.supercateId) < 0) searchCollectionVal.supercate = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
-			$('.c-table-tab-tempory').html(createCollectionItem(searchCollectionVal).addClass('active'));
+			$('.c-table-tab-tempory').html(createTableTabItem(searchCollectionVal).addClass('active'));
 			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
 		}
 		// tab-item click
@@ -311,7 +312,7 @@
 		// get Data for table
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
-			if (dataVal) {
+			if (dataVal && (dataVal.collection || dataVal.supercate)) {
 				$('#searchCatalog').val(dataVal.collection || '');
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
@@ -319,6 +320,7 @@
 			} else {
 				$('#searchSupercate').val('-1');
 				$('#searchCatalog').val('');
+				initActiveItemNum();
 				getMarketingsData();
 			}
 		}
@@ -776,110 +778,6 @@
 			}
 			$('#catalogParentId').html(htmlStr);
 			hasParentCategory = true;
-		}
-
-		function renderTabItems() {
-			var collections = getCollectionList(),
-				len = collections.length,
-				htmlStr = '',
-				activeNum = parseInt(getActiveItemNum());
-
-			if (len > 0) {
-				for (var i = 0; i < len; i += 1) {
-					var $item = createCollectionItem(collections[i]);
-					$item.attr('data-idx', i+1);
-
-					if (activeNum == i + 1) {
-						$item.addClass('active')
-					}
-
-					htmlStr += $item[0].outerHTML;
-				}
-
-				$('.c-table-tab-list').append(htmlStr);
-			}
-			// check activeItem exsits or not.
-			if ($('.c-table-tab-item.active').length < 1) {
-				$('.c-table-tab-item').eq(0).addClass('active');
-			}
-
-			getTabSearchData($('.c-table-tab-item.active'));
-		}
-		function checkNewItem(val) {
-			var collecitonList = getCollectionList();
-			if (collecitonList.length >= 6) {
-				// save-search-item num <= 6
-				toastr.info('You can add up to six search records！');
-				return true;
-			}
-
-			var filterArr = collecitonList.filter(function(item) {
-				if (JSON.stringify(val) === JSON.stringify(item)) {
-					return item;
-				}
-			});
-
-			if (filterArr.length > 0) {
-				toastr.info('You can not add it repeatedly！');
-				return true;
-			}
-			return false;
-		}
-		function addTableTabItem(val) {
-			$('.c-table-tab-item').removeClass('active');
-			$('.c-table-tab-list').append(createCollectionItem(val).addClass('active'));
-			setActiveItemNum($('.c-table-tab-item').length - 1);
-		}
-		function createCollectionItem(val) {
-			var textArr = [];
-			if (val.supercate) {
-				textArr.push(val.supercate)
-			}
-			if (val.collection) {
-				textArr.push(val.collection)
-			}
-
-			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
-		}
-		function deleteTableTabItem(e) {
-			e.stopPropagation();
-			var targetEl = $(e.target),
-				parentEl = targetEl.parent('.c-table-tab-item'),
-				itemVal = $(parentEl).data('val');
-
-			deleteCollectionItem(itemVal);
-			$(parentEl).remove();
-
-			$('.c-table-tab-item').eq(0).addClass('active');
-			getTabSearchData($('.c-table-tab-item').eq(0));
-		}
-		function getCollectionList() {
-			return JSON.parse(storage.getItem('marketing')) || [];
-		}
-		function deleteCollectionItem(name) {
-			var oldCollections = getCollectionList();
-			var newCollections = oldCollections.filter(function (item) {
-				if (JSON.stringify(item) != JSON.stringify(name)) return item;
-			});
-			storage.setItem('marketing', JSON.stringify(newCollections));
-		}
-		function addCollectionItem(name) {
-			var collections = getCollectionList();
-			collections.push(name);
-			storage.setItem('marketing', JSON.stringify(collections));
-		}
-		// tab active-item cache (get & set)
-		function getActiveItemNum() {
-			return storage.getItem('itemNum') || 0;
-		}
-		function setActiveItemNum(num) {
-			storage.setItem('itemNum', num);
-		}
-		// initial activeItem
-		function initActiveItemNum() {
-			$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-			setActiveItemNum(0);
-			setPageNum(1);
 		}
 	</script>
 </body>

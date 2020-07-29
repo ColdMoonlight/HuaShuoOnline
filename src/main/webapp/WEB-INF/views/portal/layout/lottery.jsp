@@ -22,11 +22,10 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 2.5rem;
-	height: 2.5rem;
-	background-color: #000;
+	width: 2rem;
+	height: 2rem;
+	background-color: #555555;
 	color: #fff;
-	line-height: 2.5rem;
 	text-align: center;
 	cursor: pointer;
 }
@@ -442,7 +441,7 @@
 }
 </style>
 <div class="lottery-box hide">
-	<div class="lottery-close">x</div>
+	<div class="lottery-close icon close"></div>
 	<div class="lottery">
         <div class="lottery-container">
         	<div class="lottery-email">

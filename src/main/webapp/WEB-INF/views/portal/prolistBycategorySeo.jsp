@@ -6,7 +6,6 @@
 <head>
     <title>Product List</title>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<script>
 		var categorySeo = '${sessionScope.categorySeo}';
 		var seoDescription = '${sessionScope.categoryMetaDesc}';
@@ -15,6 +14,8 @@
 		addMeta('keyword', seoKeywords);
 		addMeta('description', seoDescription);
 	</script>
+	<jsp:include page="common/ad.jsp" flush="true"></jsp:include>
+	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 </head>
 
 <body>
