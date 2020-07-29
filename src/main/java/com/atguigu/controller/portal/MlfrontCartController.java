@@ -45,7 +45,7 @@ public class MlfrontCartController {
 	MlfrontOrderService mlfrontOrderService;
 	
 	/**
-	 * 1.0	useOn	0505
+	 * 1.0	zsh200729
 	 * 前台购物车列表页面CartPage
 	 * @param jsp
 	 * @return 
@@ -57,7 +57,7 @@ public class MlfrontCartController {
 	}
 	
 	/**
-	 * 2.0	useOn	0505
+	 * 2.0	zsh200729
 	 * 前台移动端解算页面mfront/cheakOut
 	 * @param jsp
 	 * @return 
@@ -70,7 +70,7 @@ public class MlfrontCartController {
 	
 	/**
 	 * 3.0	200612
-	 * getMlfrontCartByDate
+	 * getMlfrontCartByDate控制面板根据时间统计数据所需
 	 * @param mlfrontCart
 	 * @return 
 	 * */
@@ -569,9 +569,8 @@ public class MlfrontCartController {
 		return Msg.success().add("resMsg", "cartToOrder订单提交成功").add("orderId", orderIdFinally);
 	}
 	
-	/**6.0	zsh 200617
-	 * getCartitemIdDetails	get
-	 * @param
+	/**7.0	zsh 200617
+	 * getCartitemIdDetails
 	 */
 	@RequestMapping(value="/getCartitemIdDetails",method=RequestMethod.POST)
 	@ResponseBody
@@ -610,7 +609,7 @@ public class MlfrontCartController {
 	}
 	
 	/**
-	 * 7.0	zsh 190615
+	 * 8.0	zsh 190615
 	 * 删除购物车中的项delCartItem
 	 * @param Msg
 	 * @return 
@@ -672,7 +671,7 @@ public class MlfrontCartController {
 	}
 	
 	/**
-	 * 8.0	zsh 190624
+	 * 9.0	zsh 190624
 	 * 添加产品项进购物车updateCartItemSkuNum
 	 * @param
 	 * @return Msg
@@ -689,33 +688,33 @@ public class MlfrontCartController {
 		MlfrontCartItemUpdate.setCartitemProductNumber(number);
 		String nowTime = DateUtil.strTime14s();
 		MlfrontCartItemUpdate.setCartitemMotifytime(nowTime);
-		//2删除该条CartItem信息
+		//更新本CartItem信息
 		mlfrontCartItemService.updateByPrimaryKeySelective(MlfrontCartItemUpdate);
 		
 		return Msg.success().add("resMsg", "mlfrontCartItemUpdate successful");
 	}
 	
 	/**
-	 * 9.0	zsh 190624
+	 * 10.0	zsh 200729发现未使用
 	 * 查看单条类目的详情细节
 	 * @param mlfrontOrderOne
 	 * @return 
 	 */
-	@RequestMapping(value="/getOneMlfrontCartDetail",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg getOneMlfrontCartDetail(@RequestParam(value = "cartId") Integer cartId){
-		
-		//接受categoryId
-		MlfrontCart mlfrontCartReq = new MlfrontCart();
-		mlfrontCartReq.setCartId(cartId);
-		//查询本条
-		MlfrontCart mlfrontOrderResList =mlfrontCartService.selectMlfrontCartByCartId(cartId);
-		MlfrontCart mlfrontCartOne = new MlfrontCart();
-		if(mlfrontOrderResList!=null){
-			mlfrontCartOne =mlfrontOrderResList;
-		}
-		return Msg.success().add("resMsg", "查看单条mlfrontOrderOne的详情细节完毕").add("mlfrontCartOne", mlfrontCartOne);
-	}
+//	@RequestMapping(value="/getOneMlfrontCartDetail",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Msg getOneMlfrontCartDetail(@RequestParam(value = "cartId") Integer cartId){
+//		
+//		//接受categoryId
+//		MlfrontCart mlfrontCartReq = new MlfrontCart();
+//		mlfrontCartReq.setCartId(cartId);
+//		//查询本条
+//		MlfrontCart mlfrontOrderResList =mlfrontCartService.selectMlfrontCartByCartId(cartId);
+//		MlfrontCart mlfrontCartOne = new MlfrontCart();
+//		if(mlfrontOrderResList!=null){
+//			mlfrontCartOne =mlfrontOrderResList;
+//		}
+//		return Msg.success().add("resMsg", "查看单条mlfrontOrderOne的详情细节完毕").add("mlfrontCartOne", mlfrontCartOne);
+//	}
 	
 	/**
 	 * 10.0	useOn	0530
@@ -779,7 +778,6 @@ public class MlfrontCartController {
 				String pskuName =mlfrontCartItem.getCartitemProductskuName();
 				String pskuCode = mlfrontCartItem.getCartitemProductskuCode();
 				int proNumberNew =mlfrontCartItem.getCartitemProductNumber();
-				//String pidStr = pid+"";
 				String[] aa = cartitemIdstrUser.split(",");
 				int number = 0;
 				for(int i=0;i<aa.length;i++){
@@ -809,6 +807,7 @@ public class MlfrontCartController {
 						//更新
 						mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemOne);
 						mlfrontCartItem.setCartitemId(CartItemIdInt);
+						System.out.println(mlfrontCartItem);
 						mlfrontCartItemListBuyNow.add(mlfrontCartItem);
 						break;
 					}else{
@@ -839,6 +838,7 @@ public class MlfrontCartController {
 							mlfrontCartItem.setCartitemId(cartItemId);
 							mlfrontCartItem.setCartitemCartId(cartId);
 							mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
+							System.out.println(mlfrontCartItem);
 							mlfrontCartItemListBuyNow.add(mlfrontCartItem);
 							break;
 						}
@@ -850,7 +850,6 @@ public class MlfrontCartController {
 				mlfrontCartItem.setCartitemMotifytime(nowTime);
 				mlfrontCartItem.setCartitemStatus(0);
 				mlfrontCartItemService.insertSelective(mlfrontCartItem);
-				//List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAll();
 				List<MlfrontCartItem> mlfrontCartItemList = mlfrontCartItemService.selectMlfrontCartItemGetAllHundred();
 				Integer cartItemId = mlfrontCartItemList.get(0).getCartitemId();
 				//拿回来主键ID		mlfrontCartItem
@@ -911,7 +910,6 @@ public class MlfrontCartController {
 				String pskuName =mlfrontCartItem.getCartitemProductskuName();
 				String pskuCode = mlfrontCartItem.getCartitemProductskuCode();
 				int proNumberNew =mlfrontCartItem.getCartitemProductNumber();
-				//String pidStr = pid+"";
 				String[] aa = cartitemIdstrUser.split(",");
 				int number = 0;
 				for(int i=0;i<aa.length;i++){
@@ -999,6 +997,7 @@ public class MlfrontCartController {
 				mlfrontCartItem.setCartitemId(cartItemId);
 				mlfrontCartItem.setCartitemCartId(cartAfterId);
 				mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
+				System.out.println(mlfrontCartItem);
 				mlfrontCartItemListBuyNow.add(mlfrontCartItem);
 			}
 			//loginUser加购已完毕,准备生成订单	

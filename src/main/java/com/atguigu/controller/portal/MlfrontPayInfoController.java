@@ -99,7 +99,7 @@ public class MlfrontPayInfoController {
 	 */
 	@RequestMapping(value="/getMlfrontPayInfoByPage")
 	@ResponseBody
-	public Msg getMlfrontPayInfoWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+	public Msg getMlfrontPayInfoByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
 //		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
 //		if(mlbackAdmin==null){
 //			//SysUsers对象为空
@@ -597,9 +597,7 @@ public class MlfrontPayInfoController {
 	/**
 	 * 1.0	zsh	200720
 	 * to	全部支付单的状态-分状态查询
-	 * @param pn,
-	 * Integer payinfoStatus;
-	 * String payinfoPlateNum;
+	 * @param pn,Integer payinfoStatus,String payinfoPlateNum;
 	 * @return
 	 */
 	@RequestMapping(value="/selectHighPayInfoListBySearch",method=RequestMethod.POST)
