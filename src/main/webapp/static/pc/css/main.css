@@ -786,6 +786,7 @@ main {
 }
  .search-inputgroup .btn {
 	padding: .5rem;
+	border-color: #f5f5f5;
 	background-color: rgb(239, 239, 239);
 }
 .search-inputgroup .icon {
