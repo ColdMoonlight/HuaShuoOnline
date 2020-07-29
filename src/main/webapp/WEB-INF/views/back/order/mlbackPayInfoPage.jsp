@@ -394,7 +394,7 @@
 		// get Data for table
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
-			if (dataVal) {
+			if (dataVal && (dataVal.payinfostatusval || dataVal.payinfonum)) {
 				$('#payinfoPlateNum').val(dataVal.payinfonum || '');
 				$('#payinfoStatus').attr('data-val', dataVal.payinfostatus || '-1');
 				$('#payinfoStatus').val(dataVal.payinfostatus || '-1');
@@ -402,6 +402,7 @@
 			} else {
 				$('#payinfoPlateNum').val('');
 				$('#payinfoStatus').val('999');
+				$('.c-table-tab-tempory').html('');
 				getOrdersData();
 			}
 		}

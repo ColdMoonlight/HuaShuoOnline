@@ -319,6 +319,7 @@
 			} else {
 				$('#searchSupercate').val('-1');
 				$('#searchCatalog').val('');
+				$('.c-table-tab-tempory').html('');
 				getMarketingsData();
 			}
 		}

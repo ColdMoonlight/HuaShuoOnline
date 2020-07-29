@@ -286,6 +286,7 @@
 			} else {
 				$('#searchSupercate').val('-1');
 				$('#searchFootnav').val('');
+				$('.c-table-tab-tempory').html('');
 				getFootnavsData();
 			}
 		}

@@ -477,6 +477,7 @@
 			} else {
 				$('#searchSupercate').val('-1');
 				$('#searchProduct').val('');
+				$('.c-table-tab-tempory').html('');
 				getProductsData();
 			}
 		}

@@ -312,6 +312,7 @@
 			} else {
 				$('#searchSupercate').val('-1');
 				$('#searchCollection').val('');
+				$('.c-table-tab-tempory').html('');
 				getCollectionsData();
 			}
 		}
