@@ -597,9 +597,7 @@ public class MlfrontPayInfoController {
 	/**
 	 * 1.0	zsh	200720
 	 * to	全部支付单的状态-分状态查询
-	 * @param pn,
-	 * Integer payinfoStatus;
-	 * String payinfoPlateNum;
+	 * @param pn,Integer payinfoStatus,String payinfoPlateNum;
 	 * @return
 	 */
 	@RequestMapping(value="/selectHighPayInfoListBySearch",method=RequestMethod.POST)

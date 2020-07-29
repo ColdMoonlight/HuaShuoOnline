@@ -325,7 +325,7 @@
   <!-- selectMlfrontCartItemGetAllHundred -->
   <select id="selectMlfrontCartItemGetAllHundred" parameterType="com.atguigu.bean.MlfrontCartItem" resultMap="BaseResultMap">
     select *
-    from tb_mlfront_cartitem order by cartItem_id desc limit 100
+    from tb_mlfront_cartitem order by cartItem_id desc limit 50
   </select>
   
 </mapper>

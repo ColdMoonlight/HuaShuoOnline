@@ -97,7 +97,6 @@ public class MlfrontCartProDetailPayController {
 				ifHave = 0;
 			}
 			if(ifHave==1){
-//			if(MlfrontCartResList.size()>0){
 				//如果有，获取该购物车的itemStr,
 				MlfrontCart mlfrontCartUser = MlfrontCartResList.get(0);
 				String cartitemIdstrUser = mlfrontCartUser.getCartitemIdstr();
@@ -360,7 +359,6 @@ public class MlfrontCartProDetailPayController {
 				System.out.println(mlfrontCartItem);
 				//取出本条cartItem
 				Integer cartitemIdInt = mlfrontCartItem.getCartitemId();
-				//cartId = mlfrontCartItem.getCartitemCartId();
 				mlfrontCartItemGet.setCartitemId(cartitemIdInt);
 				List<MlfrontCartItem> mlfrontCartItemGetRes =mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemGet);
 				//将该购物项，改成已用
@@ -371,7 +369,6 @@ public class MlfrontCartProDetailPayController {
 				String cartitemIdIntStrOne = cartitemIdInt+"";
 				cartItemIdStr.add(cartitemIdIntStrOne);
 				//封装mlfrontOrderItem对象，准备insert进入mlfrontOrderItem表
-//				mlfrontOrderItemNew.setOrderCartItemId(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());
@@ -433,7 +430,6 @@ public class MlfrontCartProDetailPayController {
 				System.out.println(mlfrontCartItem);
 				//取出本条cartItem
 				Integer cartitemIdInt = mlfrontCartItem.getCartitemId();
-				//cartId = mlfrontCartItem.getCartitemCartId();
 				mlfrontCartItemGet.setCartitemId(cartitemIdInt);
 				List<MlfrontCartItem> mlfrontCartItemGetRes =mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemGet);
 				//将该购物项，改成已用
@@ -473,7 +469,6 @@ public class MlfrontCartProDetailPayController {
 			orderItemIdStr = orderItemIdStr.substring(1);
 			MlfrontOrder mlfrontOrderNew  = new MlfrontOrder();
 			mlfrontOrderNew.setOrderOrderitemidstr(orderItemIdStr);
-			//mlfrontOrderNew.setOrderIp(Userip);
 			mlfrontOrderNew.setOrderUid(Uid);//这是登录用户，存错登录状态
 			mlfrontOrderNew.setOrderStatus(0);//cart To Order
 			mlfrontOrderNew.setOrderCreatetime(nowTime);
@@ -518,7 +513,6 @@ public class MlfrontCartProDetailPayController {
 	@ResponseBody
 	public Msg cartToOrder(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody List<MlfrontCartItem> mlfrontCartItemList) throws Exception{
 		//接收传递进来的参数
-		//System.out.println("mlfrontCartItemList:"+mlfrontCartItemList.size());
 		//从其中一个中获取cartId
 		Integer cartId = 0;
 		String sessionId = session.getId();
@@ -539,7 +533,6 @@ public class MlfrontCartProDetailPayController {
 				System.out.println(mlfrontCartItem);
 				//取出本条cartItem
 				Integer cartitemIdInt = mlfrontCartItem.getCartitemId();
-				//cartId = mlfrontCartItem.getCartitemCartId();
 				mlfrontCartItemGet.setCartitemId(cartitemIdInt);
 				List<MlfrontCartItem> mlfrontCartItemGetRes =mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemGet);
 				//将该购物项，改成已用
@@ -604,7 +597,6 @@ public class MlfrontCartProDetailPayController {
 				System.out.println(mlfrontCartItem);
 				//取出本条cartItem
 				Integer cartitemIdInt = mlfrontCartItem.getCartitemId();
-				//cartId = mlfrontCartItem.getCartitemCartId();
 				mlfrontCartItemGet.setCartitemId(cartitemIdInt);
 				List<MlfrontCartItem> mlfrontCartItemGetRes =mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemGet);
 				//将该购物项，改成已用
@@ -615,7 +607,6 @@ public class MlfrontCartProDetailPayController {
 				String cartitemIdIntStrOne = cartitemIdInt+"";
 				cartItemIdStr.add(cartitemIdIntStrOne);
 				//封装mlfrontOrderItem对象，准备insert进入mlfrontOrderItem表
-//				mlfrontOrderItemNew.setOrderCartItemId(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderCartitemid(cartitemIdInt);
 				mlfrontOrderItemNew.setOrderitemPid(mlfrontCartItem.getCartitemProductId());
 				mlfrontOrderItemNew.setOrderitemPname(mlfrontCartItemreturn.getCartitemProductName());

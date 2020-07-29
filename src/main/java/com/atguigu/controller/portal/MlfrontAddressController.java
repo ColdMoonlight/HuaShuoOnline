@@ -50,7 +50,6 @@ public class MlfrontAddressController {
 		//接受参数信息
 		System.out.println("客户点击结算按钮的时候,接收到的mlfrontAddress:"+mlfrontAddress);
 		//拿到国家的code
-//		String areafreightCountryCode = mlfrontAddress.getAddressCountry();
 		String areafreightCountryCode = mlfrontAddress.getAddressCountryCode();
 		//封装国家code
 		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
@@ -121,9 +120,9 @@ public class MlfrontAddressController {
 				
 				session.setAttribute("realAddressId", realAddressId);
 				System.out.println("游客第一次存的mlfrontAddressService.insertSelective,mlfrontAddress:"+mlfrontAddress.toString());
-				return Msg.success().add("resMsg", "游客地址信息插入成功").add("mlfrontAddress", mlfrontAddress).add("areafreightMoney", areafreightMoney).add("usertype", usertype);//新增以后，返回去的这里，有id，你从这里拿
+				return Msg.success().add("resMsg", "游客地址信息插入成功").add("mlfrontAddress", mlfrontAddress).add("areafreightMoney", areafreightMoney).add("usertype", usertype);//新增以后,返回去的这里,有id,你从这里拿
 			}else{
-				//有id，update
+				//有id,update
 				mlfrontAddress.setAddressMotifytime(nowTime);
 				mlfrontAddressService.updateByPrimaryKeySelective(mlfrontAddress);
 				
@@ -135,7 +134,7 @@ public class MlfrontAddressController {
 			Integer uid = loginUser.getUserId();
 			mlfrontAddress.setAddressUid(uid);
 			if(addressId==null){
-				//无id，insert
+				//无id,insert
 				mlfrontAddress.setAddressCreatetime(nowTime);
 				mlfrontAddressService.insertSelective(mlfrontAddress);
 				
@@ -143,9 +142,9 @@ public class MlfrontAddressController {
 				
 				session.setAttribute("realAddressId", realAddressId);
 				System.out.println("注册用户第一次存的insertSelective,mlfrontAddress:"+mlfrontAddress.toString());
-				return Msg.success().add("resMsg", "登录用户地址信息插入成功").add("mlfrontAddress", mlfrontAddress).add("areafreightMoney", areafreightMoney).add("usertype", usertype);//新增以后，返回去的这里，有id，你从这里拿
+				return Msg.success().add("resMsg", "登录用户地址信息插入成功").add("mlfrontAddress", mlfrontAddress).add("areafreightMoney", areafreightMoney).add("usertype", usertype);//新增以后,返回去的这里,有id,你从这里拿
 			}else{
-				//有id，update
+				//有id,update
 				mlfrontAddress.setAddressMotifytime(nowTime);
 				mlfrontAddressService.updateByPrimaryKeySelective(mlfrontAddress);
 				
@@ -179,8 +178,6 @@ public class MlfrontAddressController {
 			areafreightCountry = mlbackAreafreightResList.get(0).getAreafreightCountry();
 		}
 		//取出id
-//		System.out.println(1);
-//		Integer addressId = mlfrontAddress.getAddressId();
 		String nowTime = DateUtil.strTime14s();
 		mlfrontAddress.setAddressMotifytime(nowTime);
 		MlfrontUser loginUser =  (MlfrontUser) session.getAttribute("loginUser");
@@ -194,7 +191,7 @@ public class MlfrontAddressController {
 		MlPaypalStateprovince mlPaypalStateprovinceReq = new MlPaypalStateprovince();
 		mlPaypalStateprovinceReq.setStateprovinceCountryCode(areafreightCountryCode);
 		List<MlPaypalStateprovince> mlPaypalStateprovinceList =  mlPaypalStateprovinceService.selectMlPaypalStateprovinceByCountryCode(mlPaypalStateprovinceReq);
-		return Msg.success().add("resMsg", "查询运费成功").add("areafreightMoney", areafreightMoney).add("areafreightCountry", areafreightCountry).add("usertype", usertype).add("mlPaypalStateprovinceList", mlPaypalStateprovinceList);//新增以后，返回去的这里，有id，你从这里拿
+		return Msg.success().add("resMsg", "查询运费成功").add("areafreightMoney", areafreightMoney).add("areafreightCountry", areafreightCountry).add("usertype", usertype).add("mlPaypalStateprovinceList", mlPaypalStateprovinceList);//新增以后,返回去的这里,有id,你从这里拿
 	}
 	
 	/**2.0	useOn	0505
@@ -228,7 +225,7 @@ public class MlfrontAddressController {
 	
 	/**
 	 * 4.0	useOn	0505
-	 * 查看单条类目的详情细节
+	 * 查看单条地址信息
 	 * @param MlbackAreafreight
 	 * @return 
 	 */
@@ -248,7 +245,7 @@ public class MlfrontAddressController {
 	
 	/**
 	 * 5.0	useOn	0505
-	 * 初始化调用 此用户是否有曾经留下的地址	无参数，post请求
+	 * 初始化进入checkout,默认调用 查询此用户是否有曾经留下的地址	无参数,post请求
 	 * @param MlfrontAddress
 	 * @return 
 	 */
@@ -265,30 +262,24 @@ public class MlfrontAddressController {
 			usertype = 1;//注册用户
 			uid = loginUser.getUserId();
 		}
-		
-		
 		MlfrontAddress mlfrontAddressReq = new MlfrontAddress();
 		List<MlfrontAddress> mlfrontAddressResList = new ArrayList<MlfrontAddress>();
 		if(usertype==0){
 			String SessionId = session.getId();
-			//接受categoryId
+			//未登陆状态,用SessionId做Ip查询
 			mlfrontAddressReq.setAddressIp(SessionId);
-			
-			//查询本条
 			mlfrontAddressResList =mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddressReq);
 		}else{
+			//登陆状态,用uid做Ip查询
 			mlfrontAddressReq.setAddressUid(uid);
-			
 			mlfrontAddressResList =mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddressReq);
 		}
-		
+		//初始化结果对象,准备接参
 		MlfrontAddress mlfrontAddressOne=null;
 		Integer areafreightMoney = 0;
 		if(mlfrontAddressResList.size()>0){
 			 mlfrontAddressOne =mlfrontAddressResList.get(0);
-			 
 			 String areafreightCountryEnglish = mlfrontAddressOne.getAddressCountry();
-				
 			 //接受areafreightCountryEnglish
 			 MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
 			 mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryEnglish);
