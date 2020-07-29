@@ -275,7 +275,7 @@ public class PaypalController {
 		return mlfrontOrderItemsList;
 	}
     
-    /**
+    /**20200611
      * 2.1wap+pc端
      * 处理toUpdatePayInfoStateSuccess
      * 生成支付号,修改支付成功的payinfo状态
@@ -283,7 +283,6 @@ public class PaypalController {
      * */
     private void toUpdatePayInfoStateSuccess(HttpSession session, String payerId, String paymentId, Payment payment) {
     	
-    	//20200611
     	//从交易信息中获取Transactions,
     	Transaction TransactionReturn = payment.getTransactions().get(0);
     	//包括交易id,交易标记,支付状态,
