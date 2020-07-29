@@ -99,7 +99,7 @@ public class MlfrontPayInfoController {
 	 */
 	@RequestMapping(value="/getMlfrontPayInfoByPage")
 	@ResponseBody
-	public Msg getMlfrontPayInfoWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+	public Msg getMlfrontPayInfoByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
 //		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
 //		if(mlbackAdmin==null){
 //			//SysUsers对象为空
