@@ -292,7 +292,7 @@
   <!-- selectMlfrontOrderAllHundred -->
   <select id="selectMlfrontOrderAllHundred" parameterType="com.atguigu.bean.MlfrontOrder" resultMap="BaseResultMap">
     select *
-    from tb_mlfront_order order by order_id desc limit 100
+    from tb_mlfront_order order by order_id desc limit 50
   </select>
   <!-- selectMlfrontOrderById -->
   <select id="selectMlfrontOrderById" parameterType="com.atguigu.bean.MlfrontOrder" resultMap="BaseResultMap">

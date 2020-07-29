@@ -117,14 +117,14 @@
   
   <!-- selectMlfrontCartByDate使用中 -->
   <select id="selectMlfrontCartByDate" parameterType="com.atguigu.bean.MlfrontCart" resultMap="BaseResultMap">
-    select *
+    select cart_id, cart_createTime, cart_motifyTime
     from tb_mlfront_cart where cart_createTime between #{cartMotifytime,jdbcType=VARCHAR} and #{cartCreatetime,jdbcType=VARCHAR}
   </select>
   
   <!-- selectAll使用中 -->
   <select id="selectMlfrontCartGetAllHundred" parameterType="com.atguigu.bean.MlfrontCart" resultMap="BaseResultMap">
     select *
-    from tb_mlfront_cart order by cart_id desc limit 100
+    from tb_mlfront_cart order by cart_id desc limit 50
   </select>
   
   <!-- selectMlfrontCartByIp使用中 -->
