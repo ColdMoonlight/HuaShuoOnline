@@ -25,6 +25,25 @@
 							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
+							<div class="input-group c-search">
+								<svg class="c-icon">
+									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
+								</svg>
+								<div class="form-control">
+									<input id="payinfoPlateNum" type="text" placeholder="Search Ordders">						
+									<select id="payinfoStatus">
+										<option value="999">Please select order-status</option>
+										<option value="0">unpaid</option>
+										<option value="1">paid</option>
+										<option value="2">audited</option>
+										<option value="3">delivered</option>
+										<option value="4">refunded</option>
+										<option value="5">re-purchase notified</option>
+										<option value="6">closed</option>
+									</select>
+								</div>
+								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
+							</div>
 							<table class="c-table-table table table-responsive-sm">
 								<thead>
 									<tr>
@@ -276,12 +295,12 @@
 	
 	<!-- custom script -->
 	<script>
-		var isCreate = false;
+		var isCreate = false, oldTime = (new Date()).getTime(), timer = null;
 		// init
-		getOrdersData();
+		renderTabItems();
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
-			getOrdersData();
+			getTabSearchData($('.c-table-tab-item.active'));
 		});
 		// create order
 		$('.btn-create').on('click', function () {
@@ -305,6 +324,64 @@
 				showViewBlock();
 			});
 		});
+		// tab-item click
+		$(document.body).on('click', '.c-table-tab-item', function (e) {
+			$('.c-table-tab-item').removeClass('active');
+			$(this).addClass('active');
+			// inital pagination num
+			setPageNum(1);
+			setActiveItemNum($(this).data('idx'));
+			getTabSearchData($(this));
+		});
+		// tab delete
+		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
+		// save search
+		$('.btn-save-search').on('click', function () {
+			var searchOrderVal = {
+				payinfostatusval: $('#payinfoStatus').find('option:selected').text(),
+				payinfostatus: $('#payinfoStatus').val(),
+				payinfonum: $('#payinfoPlateNum').val()
+			};
+			// cancel repeat add save-search
+			if (checkNewItem(searchOrderVal)) return;
+			if (parseInt(searchOrderVal.payinfostatus) == 999) searchOrderVal.payinfostatusval = "";
+			if (searchOrderVal.payinfostatus || searchOrderVal.payinfonum) {
+				addOrderItem(searchOrderVal);
+				createOrderItem(searchOrderVal).addClass('active')
+				addTableTabItem(searchOrderVal);
+				$('.c-table-tab-tempory').html('');
+			}
+		});
+		// search it
+		$('#payinfoStatus').on('change', function() {
+			$(this).attr('data-val', $(this).val());
+			updateSearchData();
+		});
+		$('#payinfoPlateNum').on('keyup', function() {
+			var distanceTime = 1000,
+				newTime =  (new Date()).getTime();
+			if (newTime - oldTime < 1000) clearTimeout(timer);
+			oldTime = newTime;
+			timer = setTimeout(function() {
+				updateSearchData();
+			}, distanceTime);
+		});
+		// search status change
+		function updateSearchData() {
+			var searchOrderVal = {
+				payinfostatusval: $('#payinfoStatus').find('option:selected').text(),
+				payinfostatus: $('#payinfoStatus').val(),
+				payinfonum: $('#payinfoPlateNum').val()
+			};
+			// inital pagination num
+			setPageNum(1);
+			// check searchOrder
+			if (parseInt(searchOrderVal.payinfostatus) == 999) searchOrderVal.payinfostatusval = "";
+
+			$('.c-table-tab-item.active').removeClass('active');
+			$('.c-table-tab-tempory').html(createOrderItem(searchOrderVal).addClass('active'));
+			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
+		}
 		// tab view/init
 		function showViewBlock() {
 			$('.c-init').addClass('hide');
@@ -313,6 +390,20 @@
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
 			$('.c-view').addClass('hide');
+		}
+		// get Data for table
+		function getTabSearchData($this) {
+			var dataVal = $this.data('val');
+			if (dataVal) {
+				$('#payinfoPlateNum').val(dataVal.payinfonum || '');
+				$('#payinfoStatus').attr('data-val', dataVal.payinfostatus || '-1');
+				$('#payinfoStatus').val(dataVal.payinfostatus || '-1');
+				getSearchOrdersData();
+			} else {
+				$('#payinfoPlateNum').val('');
+				$('#payinfoStatus').val('999');
+				getOrdersData();
+			}
 		}
 		// callback init order details
 		function renderOrderDetails(data) {
@@ -421,7 +512,40 @@
 				}
 			});
 		}
-		
+		// callback get search data
+		function getSearchOrdersData(data) {
+			$('.c-mask').show();
+
+			var formData = new FormData();
+			formData.append('payinfoPlateNum', $('#payinfoPlateNum').val());
+			formData.append('payinfoStatus', ($('#payinfoStatus').attr('data-val') || '999'));
+			formData.append('pn', getPageNum());
+
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayInfo/selectHighPayInfoListBySearch",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				success: function (data) {
+					if (data.code == 100) {
+						renderTable(data.extend.pageInfo.list);
+						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get Orders, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback get one order data
 		function getOneOrderData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
@@ -506,6 +630,110 @@
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
+		}
+		/* tab-list */
+		function renderTabItems() {
+			var products = getOrderList(),
+				len = products.length,
+				htmlStr = '',
+				activeNum = parseInt(getActiveItemNum());
+
+			if (len > 0) {
+				for (var i = 0; i < len; i += 1) {
+					var $item = createOrderItem(products[i]);
+					$item.attr('data-idx', i+1);
+
+					if (activeNum == i + 1) {
+						$item.addClass('active')
+					}
+
+					htmlStr += $item[0].outerHTML;
+				}
+
+				$('.c-table-tab-list').append(htmlStr);
+			}
+			// check activeItem exsits or not.
+			if ($('.c-table-tab-item.active').length < 1) {
+				$('.c-table-tab-item').eq(0).addClass('active');
+			}
+
+			getTabSearchData($('.c-table-tab-item.active'));
+		}
+		function checkNewItem(val) {
+			var orderList = getOrderList();
+			if (orderList.length >= 6) {
+				// save-search-item num <= 6
+				toastr.info('You can add up to six search records！');
+				return true;
+			}
+				
+			var filterArr = orderList.filter(function(item) {
+				if (JSON.stringify(val) === JSON.stringify(item)) {
+					return item;
+				}
+			});
+
+			if (filterArr.length > 0) {
+				toastr.info('You can not add it repeatedly！');
+				return true;
+			}
+			return false;
+		}
+		function addTableTabItem(val) {
+			$('.c-table-tab-item').removeClass('active');
+			$('.c-table-tab-list').append(createOrderItem(val).addClass('active'));
+			setActiveItemNum($('.c-table-tab-item').length - 1);
+		}
+		function createOrderItem(val) {
+			var textArr = [];
+			if (val.payinfostatusval) {
+				textArr.push(val.payinfostatusval)
+			}
+			if (val.payinfonum) {
+				textArr.push(val.payinfonum)
+			}
+
+			return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
+		}
+		function deleteTableTabItem(e) {
+			e.stopPropagation();
+			var targetEl = $(e.target),
+				parentEl = targetEl.parent('.c-table-tab-item'),
+				itemVal = $(parentEl).data('val');
+
+			deleteOrderItem(itemVal);
+			$(parentEl).remove();
+
+			$('.c-table-tab-item').eq(0).addClass('active');
+			getTabSearchData($('.c-table-tab-item').eq(0));
+		}
+		function getOrderList() {
+			return JSON.parse(storage.getItem('orders')) || [];
+		}
+		function deleteOrderItem(name) {
+			var oldOrders = getOrderList();
+			var newOrders = oldOrders.filter(function (item) {
+				if (JSON.stringify(item) != JSON.stringify(name)) return item;
+			});
+			storage.setItem('orders', JSON.stringify(newOrders));
+		}
+		function addOrderItem(name) {
+			var orders = getOrderList();
+			orders.push(name);
+			storage.setItem('orders', JSON.stringify(orders));
+		}
+		// tab active-item cache (get & set)
+		function getActiveItemNum() {
+			return storage.getItem('itemNum') || 0;
+		}
+		function setActiveItemNum(num) {
+			storage.setItem('itemNum', num);
+		}
+		// initial activeItem
+		function initActiveItemNum() {
+			$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
+			setActiveItemNum(0);
+			setPageNum(1);
 		}
 	</script>
 </body>
