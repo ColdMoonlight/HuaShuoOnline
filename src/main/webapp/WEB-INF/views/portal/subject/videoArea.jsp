@@ -110,6 +110,7 @@
 				renderTwoVideoData(videoLink, urlName, urlLink);
 			}
 		});
+		addTidio();
 	</script>
 </body>
 </html>

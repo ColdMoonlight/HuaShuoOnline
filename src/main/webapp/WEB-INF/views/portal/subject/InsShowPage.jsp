@@ -103,6 +103,7 @@
 				});
 			}, 100);
 		});
+		addTidio();
 	</script>
 </body>
 </html>

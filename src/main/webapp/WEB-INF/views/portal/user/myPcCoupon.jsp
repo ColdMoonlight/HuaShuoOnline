@@ -6,25 +6,22 @@
 <head>
     <title>My Coupon</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
-	<style>
-		@media only screen and (max-width: 575px) {
-			main { margin: -1rem 0 0 0; }
-		}
-	</style>
 </head>
 
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<main>
 		<div class="container">
-			<div class="usercenter-back"><a href="javascript:goToUserCenter();"><span class="icon left"></span>Back</a></div>
-			<div class="usercoupon-list"></div>
+			<div class="usercenter-body">
+				<jsp:include page="usercenter-nav.jsp" flush="true"></jsp:include>
+				<div class="usercenter-content">
+					<div class="usercoupon-list"></div>
+				</div>
+			</div>
 		</div>
 	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
-	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script>
 		function getMyCouponData(callback) {
 			$.ajax({
@@ -58,6 +55,7 @@
 			}) : html = '<p class="usercoupon-tip">There are no coupons yet...<p>';
 			$('.usercoupon-list').html(html);
 		}
+		$('.usercenter-list .usercenter-item').eq(2).addClass('active');
 		getMyCouponData(renderMyCouponData);
 	</script>
 </body>

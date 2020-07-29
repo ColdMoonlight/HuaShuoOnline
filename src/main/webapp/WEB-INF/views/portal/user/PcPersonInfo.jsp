@@ -6,52 +6,51 @@
 <head>
     <title>Personal Info</title>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<style>
-		@media only screen and (max-width: 575px) {
-			main { margin: -1rem 0 0 0; }
-		}
-	</style>
 </head>
 
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<main>
 		<div class="container">
-			<div class="usercenter-back"><a href="javascript:goToUserCenter();"><span class="icon left"></span>Back</a></div>
-			<div class="usercenter-list user-personinfo">
-				<div class="usercenter-item" data-name="username">
-					<div class="text">User Name</div>
-					<div class="right-data">
-						<input class="username input-data empty" disabled placeholder="please add">
-						<span class="icon right"></span>
-					</div>
-				</div>
-				<div class="usercenter-item" data-name="useremail">
-					<div class="text">E-mail</div>
-					<div class="right-data">
-						<input class="useremail input-data empty" disabled placeholder="please add">
-						<span class="icon right"></span>
-					</div>
-				</div>
-				<div class="usercenter-item" data-name="usertelephone">
-					<div class="text">Telephone</div>
-					<div class="right-data">
-						<input class="usertelephone input-data empty" disabled placeholder="please add">
-						<span class="icon right"></span>
-					</div>
-				</div>
-				<div class="usercenter-item" data-name="userpassword">
-					<div class="text">Password</div>
-					<div class="right-data">
-						<input class="userpassword input-data empty" disabled placeholder="please add">
-						<span class="icon right"></span>
-					</div>
-				</div>
-				<div class="usercenter-item" data-name="useraddress">
-					<div class="text">Address</div>
-					<div class="right-data">
-						<input class="useraddress input-data empty" disabled placeholder="please add">
-						<span class="icon right"></span>
+			<div class="usercenter-body">
+				<jsp:include page="usercenter-nav.jsp" flush="true"></jsp:include>
+				<div class="usercenter-content">
+					<div class="user-personinfo">
+						<div class="usercenter-item" data-name="username">
+							<div class="text">User Name</div>
+							<div class="right-data">
+								<input class="username input-data empty" disabled placeholder="please add">
+								<span class="icon right"></span>
+							</div>
+						</div>
+						<div class="usercenter-item" data-name="useremail">
+							<div class="text">E-mail</div>
+							<div class="right-data">
+								<input class="useremail input-data empty" disabled placeholder="please add">
+								<span class="icon right"></span>
+							</div>
+						</div>
+						<div class="usercenter-item" data-name="usertelephone">
+							<div class="text">Telephone</div>
+							<div class="right-data">
+								<input class="usertelephone input-data empty" disabled placeholder="please add">
+								<span class="icon right"></span>
+							</div>
+						</div>
+						<div class="usercenter-item" data-name="userpassword">
+							<div class="text">Password</div>
+							<div class="right-data">
+								<input class="userpassword input-data empty" disabled placeholder="please add">
+								<span class="icon right"></span>
+							</div>
+						</div>
+						<div class="usercenter-item" data-name="useraddress">
+							<div class="text">Address</div>
+							<div class="right-data">
+								<input class="useraddress input-data empty" disabled placeholder="please add">
+								<span class="icon right"></span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -147,11 +146,12 @@
 			});
 		}
 		var userInfoModal, userData;
+		$('.usercenter-list .usercenter-item').eq(3).addClass('active');
 		getUserInfo(function(data) {
 			userData = data;
 			renderUserInfo(data);
 		});
-		$('.usercenter-item').on('click', function() {
+		$('.user-personinfo .usercenter-item').on('click', function() {
 			var usernameHtml = '<div class="input-group">' +
 					'<label for="userFirstname">First Name</label>' +
 					'<input type="text" id="userFirstname" name="userFirstname" placeholder="please input first name" required>' +

@@ -691,6 +691,7 @@
 				});
 			}
 		});
+		addTidio();
 	</script>
 </body>
 </html>

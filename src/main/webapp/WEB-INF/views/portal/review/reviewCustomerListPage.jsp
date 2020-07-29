@@ -173,6 +173,7 @@
 				});
 			}, 100);
 		});
+		addTidio();
 	</script>
 </body>
 

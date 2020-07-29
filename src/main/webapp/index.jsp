@@ -350,6 +350,7 @@
 				});
 				renderIndexCarousel(indexCarouselData);
 			});
-		</script>	
+			addTidio();
+		</script>
 	</body>
 </html>

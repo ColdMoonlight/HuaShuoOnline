@@ -250,10 +250,10 @@
 			var htmlVideoThumb = '';
 			var htmlVideo = '';
 			data.imgs && data.imgs.forEach(function(item, idx) {
-				htmlStr += '<div class="swiper-slide"><img class="img" src="' + item.productimgUrl + '" rel="' + item.productimgUrl + '" /></div>';
+				htmlStr += '<div class="swiper-slide"><div class="lazyload img" data-src="' + item.productimgUrl + '" rel="' + item.productimgUrl + '"></div></div>';
 			});
 			if (data.video) {
-				htmlVideoThumb = '<div class="swiper-slide"><img src="' + data.video.posterUrl + '" /></div>';
+				htmlVideoThumb = '<div class="swiper-slide"><div class=" lazyload" data-src="' + data.video.posterUrl + '"></div></div>';
 				
 				htmlVideo = '<div class="swiper-slide">' +
 					'<video id="ml-video" class="video-js" controls preload="auto" width="500" height="500" poster="' + data.video.posterUrl + '">' +
@@ -264,7 +264,11 @@
 			$('.product-thumb-slide .swiper-wrapper').html(htmlVideoThumb + htmlStr);
 			$('.product-slide .swiper-wrapper').html(htmlVideo + htmlStr);
 			// lazyload
-			$('.lazyload').lazyload();
+			new LazyLoad($('.product-media .lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			});
 			// media video
 			var player = null;
 			if ($('#ml-video').length) {
@@ -960,6 +964,7 @@
 			deleteReviewId();
 			setPageNum(1);
 		});
+		addTidio();
 	</script>
 </body>
 </html>
