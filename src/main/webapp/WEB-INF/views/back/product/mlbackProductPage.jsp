@@ -469,7 +469,7 @@
 		// get Data for table
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
-			if (dataVal) {
+			if (dataVal && (dataVal.product || dataVal.supercate)) {
 				$('#searchProduct').val(dataVal.product || '');
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
@@ -478,6 +478,7 @@
 				$('#searchSupercate').val('-1');
 				$('#searchProduct').val('');
 				$('.c-table-tab-tempory').html('');
+				$('.c-table-tab-item').eq(0).addClass('active');
 				getProductsData();
 			}
 		}

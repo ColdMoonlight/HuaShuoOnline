@@ -311,7 +311,7 @@
 		// get Data for table
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
-			if (dataVal) {
+			if (dataVal && (dataVal.collection || dataVal.supercate)) {
 				$('#searchCatalog').val(dataVal.collection || '');
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
@@ -320,6 +320,7 @@
 				$('#searchSupercate').val('-1');
 				$('#searchCatalog').val('');
 				$('.c-table-tab-tempory').html('');
+				$('.c-table-tab-item').eq(0).addClass('active');
 				getMarketingsData();
 			}
 		}

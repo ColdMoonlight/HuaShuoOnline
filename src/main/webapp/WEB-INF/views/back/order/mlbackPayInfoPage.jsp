@@ -403,6 +403,7 @@
 				$('#payinfoPlateNum').val('');
 				$('#payinfoStatus').val('999');
 				$('.c-table-tab-tempory').html('');
+				$('.c-table-tab-item').eq(0).addClass('active');
 				getOrdersData();
 			}
 		}
