@@ -171,7 +171,7 @@ public class EmailUtilshtmlCustomer {
             
             String CouponCodeStr ="";
             
-            if(mlfrontOrderResOne.getOrderCouponCode()!=null){
+            if((mlfrontOrderResOne.getOrderCouponCode()!=null)||("".equals(mlfrontOrderResOne.getOrderCouponCode()))){
             	CouponCodeStr = "Coupon"+" ( "+mlfrontOrderResOne.getOrderCouponCode()+" ) : -$"+mlfrontOrderResOne.getOrderCouponPrice()+" <br>";
             }else{
             	CouponCodeStr ="";
@@ -191,8 +191,8 @@ public class EmailUtilshtmlCustomer {
             pdetail+"<br> "+
             "payment details :<br><br> "+
             "products-Total: $"+SubTotal+" <br>"+
-            "Free Shipping: $"+addressMoney+"<br>"+
             CouponCodeStr +
+            "Free Shipping: +$"+addressMoney+"<br>"+
             "Sub-Total: $"+mlfrontPayInfoIOne.getPayinfoMoney()+" <br><br><br>"+
             "Best Regards,<br>"+
             "------------------------------------------<br>"+

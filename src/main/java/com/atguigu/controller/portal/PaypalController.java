@@ -394,7 +394,6 @@ public class PaypalController {
 		
 		//获取orderId
 		Integer orderId = mlfrontPayInfoIOne.getPayinfoOid();
-		
 		String paypalIdStr = mlfrontPayInfoIOne.getPayinfoTransidnum();
 		
 		//封装MlfrontOrderReq
