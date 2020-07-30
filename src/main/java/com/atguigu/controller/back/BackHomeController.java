@@ -31,7 +31,7 @@ public class BackHomeController {
 	MlfrontUserService mlfrontUserService;
 	
 	/**
-	 * 	onuse	20200103	检查
+	 * 	onuse	20200103
 	 * */
 	@RequestMapping("/BackHomePage")
 	public String tologin(HttpSession session) throws Exception{
