@@ -1,10 +1,20 @@
 package com.atguigu.controller.back;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlfrontPayInfo;
+import com.atguigu.bean.MlfrontUser;
+import com.atguigu.common.Msg;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
@@ -31,7 +41,8 @@ public class BackHomeController {
 	MlfrontUserService mlfrontUserService;
 	
 	/**
-	 * 	onuse	20200103
+	 * zsh 200730
+	 * 中控台首页
 	 * */
 	@RequestMapping("/BackHomePage")
 	public String tologin(HttpSession session) throws Exception{
@@ -45,48 +56,48 @@ public class BackHomeController {
 		}
 	}
 	/**
-	 * 	onuse	20200103	检查
+	 * zsh 200730
+	 * 中控台获取付款总金额钱数,总单数
 	 * */
-	@RequestMapping("/getBackHomePayInfo")
-	public String getBackHomePayInfo(HttpSession session) throws Exception{
+	@RequestMapping(value="/getBackHomePayInfo",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getBackHomePayInfo(HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return "back/mlbackAdminLogin";
-		}else{
-			return "back/mlbackHomePage";
+		List<MlfrontPayInfo> mlfrontPayInfoList =  mlfrontPayInfoService.selectMlfrontPayInfoByDate(mlfrontPayInfo);
+		List<MlfrontPayInfo> mlfrontPayInfoSuccessList = new ArrayList<MlfrontPayInfo>();
+		Integer payInfoStatus = 0;
+		if(mlfrontPayInfoList.size()>0){
+			
+			for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
+				payInfoStatus = mlfrontPayInfoOne.getPayinfoStatus();
+				//0未支付//1支付成功//2审单完毕//3发货完毕 //4已退款
+				if(1==payInfoStatus){
+					mlfrontPayInfoSuccessList.add(mlfrontPayInfoOne);
+				}else if(2==payInfoStatus){
+					mlfrontPayInfoSuccessList.add(mlfrontPayInfoOne);
+				}else if(3==payInfoStatus){
+					mlfrontPayInfoSuccessList.add(mlfrontPayInfoOne);
+				}
+				
+			}
 		}
+		return Msg.success().add("resMsg", "后台面板查询某时间内的成交信息").add("mlfrontPayInfoSuccessList", mlfrontPayInfoSuccessList);
 	}
 	
 	/**
-	 * 	onuse	20200103	检查
+	 * zsh 200730
+	 * 中控台获取总用户数
 	 * */
-	@RequestMapping("/getBackHomeOrderInfo")
-	public String getBackHomeOrderInfo(HttpSession session) throws Exception{
+	@RequestMapping(value="/getBackHomeUserListInfo",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getBackHomeUserListInfo(HttpSession session,@RequestBody MlfrontUser mlfrontUser) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return "back/mlbackAdminLogin";
-		}else{
-			return "back/mlbackHomePage";
-		}
+		
+		List<MlfrontUser> mlfrontUserList =  mlfrontUserService.selectMlfrontUserByDate(mlfrontUser);
+		mlfrontUserList.size();
+		return Msg.success().add("resMsg", "查询某时间内的总用户数").add("mlfrontUserList", mlfrontUserList);
 	}
 	
-	/**
-	 * 	onuse	20200103	检查
-	 * */
-	@RequestMapping("/getBackHomeUserListInfo")
-	public String getBackHomeUserListInfo(HttpSession session) throws Exception{
-		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return "back/mlbackAdminLogin";
-		}else{
-			return "back/mlbackHomePage";
-		}
-	}
+
 
 }

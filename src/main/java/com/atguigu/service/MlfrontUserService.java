@@ -1,16 +1,13 @@
 package com.atguigu.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.dao.MlfrontUserMapper;
 
-
 @Service
 public class MlfrontUserService {
-	
 	
 	@Autowired
 	MlfrontUserMapper mlfrontUsertMapper;
@@ -74,23 +71,10 @@ public class MlfrontUserService {
 		List<MlfrontUser>  mlfrontUserList = mlfrontUsertMapper.selectMlfrontUserByConditionS(mlfrontUser);
 		return mlfrontUserList;
 	}
-//	
-//	
-//	/**
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 查看全部用户信息
-//	 * */
-//	public List<MlfrontUser> selectMlfrontUserGetAll() {
-//		List<MlfrontUser>  mlfrontUserList = mlfrontUsertMapper.selectMlfrontUserGetAll();
-//		return mlfrontUserList;
-//	}
-//	
 
-//
-//	public List<MlfrontUser> selectMlfrontUserByDate(MlfrontUser mlfrontUser) {
-//		List<MlfrontUser>  mlfrontUserList = mlfrontUsertMapper.selectMlfrontUserByDate(mlfrontUser);
-//		return mlfrontUserList;
-//	}
+	public List<MlfrontUser> selectMlfrontUserByDate(MlfrontUser mlfrontUser) {
+		List<MlfrontUser>  mlfrontUserList = mlfrontUsertMapper.selectMlfrontUserByDate(mlfrontUser);
+		return mlfrontUserList;
+	}
 
 }
