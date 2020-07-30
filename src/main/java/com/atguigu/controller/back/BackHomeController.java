@@ -81,7 +81,7 @@ public class BackHomeController {
 				
 			}
 		}
-		return Msg.success().add("resMsg", "后台面板查询某时间内的成交信息").add("mlfrontPayInfoSuccessList", mlfrontPayInfoSuccessList);
+		return Msg.success().add("resMsg", "统计面板查询某时间内的成交金额,单数").add("mlfrontPayInfoSuccessList", mlfrontPayInfoSuccessList);
 	}
 	
 	/**
@@ -95,7 +95,7 @@ public class BackHomeController {
 		
 		List<MlfrontUser> mlfrontUserList =  mlfrontUserService.selectMlfrontUserByDate(mlfrontUser);
 		mlfrontUserList.size();
-		return Msg.success().add("resMsg", "查询某时间内的总用户数").add("mlfrontUserList", mlfrontUserList);
+		return Msg.success().add("resMsg", "统计面板某时间内的总用户数").add("mlfrontUserList", mlfrontUserList);
 	}
 	
 
