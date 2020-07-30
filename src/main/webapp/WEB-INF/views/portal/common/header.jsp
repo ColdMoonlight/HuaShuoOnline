@@ -55,7 +55,7 @@
 	var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	var storage = window.localStorage;
  	var ml = {
- 		facebookAppId: '246433859565492', // test
+ 		facebookAppId: '1461404867358052', // test
  		// facebookAppId: '667403967094866', // megalook
  		// facebookAppId: '246433859565492', // huashuohair
  		googleId: 'UA-148326913-1', // test

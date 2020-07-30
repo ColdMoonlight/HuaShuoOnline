@@ -708,6 +708,7 @@
 			setTimeout(function() {
 				mlModalTip('The new account has been automatically logged in !');
 			}, 2000);
+			fbq('track', 'CompleteRegistration');
 		});
 	});
 	// forget password event
