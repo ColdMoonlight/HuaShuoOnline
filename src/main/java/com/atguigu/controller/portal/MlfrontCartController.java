@@ -264,7 +264,6 @@ public class MlfrontCartController {
 				String pskuName =mlfrontCartItem.getCartitemProductskuName();
 				String pskuCode = mlfrontCartItem.getCartitemProductskuCode();
 				int proNumberNew =mlfrontCartItem.getCartitemProductNumber();
-				//String pidStr = pid+"";
 				String[] aa = cartitemIdstrUser.split(",");
 				int number = 0;
 				for(int i=0;i<aa.length;i++){
@@ -438,7 +437,6 @@ public class MlfrontCartController {
 				System.out.println(mlfrontCartItem);
 				//取出本条cartItem
 				Integer cartitemIdInt = mlfrontCartItem.getCartitemId();
-				//cartId = mlfrontCartItem.getCartitemCartId();
 				mlfrontCartItemGet.setCartitemId(cartitemIdInt);
 				List<MlfrontCartItem> mlfrontCartItemGetRes =mlfrontCartItemService.selectMlfrontCartItemById(mlfrontCartItemGet);
 				//将该购物项,改成已用
