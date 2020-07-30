@@ -394,7 +394,6 @@ public class PaypalController {
 		
 		//获取orderId
 		Integer orderId = mlfrontPayInfoIOne.getPayinfoOid();
-		
 		String paypalIdStr = mlfrontPayInfoIOne.getPayinfoTransidnum();
 		
 		//封装MlfrontOrderReq
@@ -535,17 +534,14 @@ public class PaypalController {
     	try {
     		
     		Integer orderId = mlfrontOrderResOne.getOrderId();
-    		
         	List<MlfrontOrderItem> mlfrontOrderItemList = successGetMlfrontOrderItemList(orderId);
         	
         	Integer addressId = mlfrontOrderResOne.getOrderAddressinfoId();
-    				
     		MlfrontAddress mlfrontAddressReq = new MlfrontAddress();
     		MlfrontAddress mlfrontAddressRes = new MlfrontAddress();
     		mlfrontAddressReq.setAddressId(addressId);
     		
     		List<MlfrontAddress> mlfrontAddressResList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddressReq);
-    		
     		mlfrontAddressRes = mlfrontAddressResList.get(0);
     		String userEmail = mlfrontAddressRes.getAddressEmail();
     		
@@ -576,7 +572,6 @@ public class PaypalController {
     	
     	MlfrontOrderItem mlfrontOrderItemReq = new MlfrontOrderItem();
     	MlfrontOrderItem mlfrontOrderItemRes = new MlfrontOrderItem();
-    	
     	List<MlfrontOrderItem> mlfrontOrderItemsList = new ArrayList<MlfrontOrderItem>();
     	for(int i=0;i<orderitemidArr.length;i++){
 			Integer orderItemId = Integer.parseInt(orderitemidArr[i]);

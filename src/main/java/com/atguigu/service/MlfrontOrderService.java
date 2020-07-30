@@ -57,7 +57,7 @@ public class MlfrontOrderService {
 		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectOrderListByUidAndSuccessStatus(mlfrontOrder);
 		return mlfrontOrderList;
 	}
-	/**4
+	/**7
 	 * 查百条以内信息
 	 * */
 	public List<MlfrontOrder> selectMlfrontOrderAllHundred() {
