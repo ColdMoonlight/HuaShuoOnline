@@ -162,10 +162,12 @@ public class EmailUtilshtml {
             
             String CouponCodeStr ="";
             
-            if((mlfrontOrderResOne.getOrderCouponCode()!=null)||("".equals(mlfrontOrderResOne.getOrderCouponCode()))){
-            	CouponCodeStr = "Coupon"+" ( "+mlfrontOrderResOne.getOrderCouponCode()+" ) : -$"+mlfrontOrderResOne.getOrderCouponPrice()+" <br>";
-            }else{
+            if(mlfrontOrderResOne.getOrderCouponCode()==null){
             	CouponCodeStr ="";
+            }else if("".equals(mlfrontOrderResOne.getOrderCouponCode())){
+            	CouponCodeStr ="";
+            }else{
+            	CouponCodeStr = "Coupon"+" ( "+mlfrontOrderResOne.getOrderCouponCode()+" ) : -$"+mlfrontOrderResOne.getOrderCouponPrice()+" <br>";
             }
             
             String content="You received an order.：<br><br><br>  "+

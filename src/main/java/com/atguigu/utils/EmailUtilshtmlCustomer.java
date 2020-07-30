@@ -171,11 +171,14 @@ public class EmailUtilshtmlCustomer {
             
             String CouponCodeStr ="";
             
-            if((mlfrontOrderResOne.getOrderCouponCode()!=null)||("".equals(mlfrontOrderResOne.getOrderCouponCode()))){
-            	CouponCodeStr = "Coupon"+" ( "+mlfrontOrderResOne.getOrderCouponCode()+" ) : -$"+mlfrontOrderResOne.getOrderCouponPrice()+" <br>";
-            }else{
+            if(mlfrontOrderResOne.getOrderCouponCode()==null){
             	CouponCodeStr ="";
+            }else if("".equals(mlfrontOrderResOne.getOrderCouponCode())){
+            	CouponCodeStr ="";
+            }else{
+            	CouponCodeStr = "Coupon"+" ( "+mlfrontOrderResOne.getOrderCouponCode()+" ) : -$"+mlfrontOrderResOne.getOrderCouponPrice()+" <br>";
             }
+            
             //读取配置文件
     		String team = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.team");
     		String email = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.email");
