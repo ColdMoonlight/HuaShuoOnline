@@ -581,7 +581,7 @@
 		}
 		// get order pay info
 		function getOrderPayInfo() {
-			var couponData = $('.order-coupon-group').data('coupon');
+			var couponData = $('.order-coupon-group').data('coupon') || {};
 			return {
 				"orderId": $('.order-list').data('orderid') || null,
 				"orderOrderitemidstr": $('.order-list').data('itemidarr'),
