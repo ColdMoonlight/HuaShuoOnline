@@ -5,8 +5,8 @@
 
 <head>
 	<title>Checkout</title>
+	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<jsp:include page="../common/ad.jsp" flush="true"></jsp:include>
 	<style>main { margin: 0; }</style>
 </head>
 
@@ -679,13 +679,14 @@
 					$('#addressId').val(data.addressId);
 					var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
 					var orderMoney = $('.order-cal-subtotal').data('price');
-					/* console.log(productIdArr, orderMoney) */
+
 					fbq('track', 'AddPaymentInfo', {
 						content_ids: productIdArr,
 						content_type: 'product',
 						value: orderMoney,
 						currency: 'USD'
 					});
+
 					payLoading();
 					orderPay(getOrderPayInfo(), goToPay);
 				});

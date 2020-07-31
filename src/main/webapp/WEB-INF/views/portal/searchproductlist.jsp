@@ -5,8 +5,9 @@
 
 <head>
     <title>Search Product List</title>
+	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
-	<jsp:include page="common/ad.jsp" flush="true"></jsp:include>
+	<script> var productName = '${sessionScope.productName}'; </script>
 </head>
 
 <body>

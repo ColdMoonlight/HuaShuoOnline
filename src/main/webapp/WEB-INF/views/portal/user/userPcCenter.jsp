@@ -5,8 +5,8 @@
 
 <head>
     <title>User Center</title>
+	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<jsp:include page="../common/ad.jsp" flush="true"></jsp:include>
 </head>
 
 <body>

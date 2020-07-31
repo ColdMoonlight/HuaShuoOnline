@@ -52,7 +52,7 @@
 			<i class="icon close"></i>
 			<ul class="wap-nav ml-nav"></ul>
 		</div>
-		
+
 	</div>
 	<!-- search result -->
 	<div class="search-result-box">
@@ -708,6 +708,7 @@
 			setTimeout(function() {
 				mlModalTip('The new account has been automatically logged in !');
 			}, 2000);
+			fbq('track', 'CompleteRegistration');
 		});
 	});
 	// forget password event

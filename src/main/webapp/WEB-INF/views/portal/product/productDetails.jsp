@@ -5,7 +5,7 @@
 
 <head>
     <title>Product Details</title>
-	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<script>
 		var productId = '${sessionScope.productDetailId}';
 		var productSeo;
@@ -17,7 +17,7 @@
 		addMeta('keyword', seoKeywords);
 		addMeta('description', seoDescription);
 	</script>
-	<jsp:include page="../common/ad.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/pc/js/jqzoom/jqzoom.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/pc/js/video/video.min.css" rel="stylesheet">
@@ -689,7 +689,7 @@
 
 			var fbpid = data.productId;
 			var fbprice = (data.productOriginalprice * data.productActoffoff / 100).toFixed(2);
-			// console.log(fbpid, fbprice)
+
 			fbq('track', 'PageView', {
 				content_ids: fbpid,
 				contents: [{ "id": fbpid, "quantity": 999, "item_price": fbprice }],
@@ -769,7 +769,7 @@
 							selectCartOrCheckout(reqData);
 						}
 					});
-					// console.log(reqData.cartitemProductId)
+
 					fbq('track', 'AddToCart', {
 						content_ids: reqData.cartitemProductId,
 						content_type: 'product',
@@ -963,7 +963,7 @@
 			deleteReviewId();
 			setPageNum(1);
 		});
-		addTidio();
+		// addTidio();
 	</script>
 </body>
 </html>

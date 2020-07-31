@@ -12,13 +12,8 @@
 <link href="${APP_PATH}/static/pc/css/main.css" rel="stylesheet">
 <script src="${APP_PATH}/static/common/jquery.min.js"></script>
 <script src="${APP_PATH}/static/pc/js/lazyload/lazyload.min.js"></script>
+<!-- custom scripts -->
 <script>
-	function addMeta(name, content) {
-		var meta = document.createElement('meta');
-		meta.name = name;
-		meta.content = content;
-		document.head.appendChild(meta);
-	}
 	/* get carousel data */
 	function getCarouselData(area, callback) {
 		$.ajax({
@@ -44,25 +39,18 @@
 			callback && callback();			
 		}, delay);
 	}
-
-	function addTidio() {
-		var script = document.createElement('script');
-		script.async = true;
-		script.src = ml.tidio;
-		document.body.appendChild(script);
-	}
-	/* varient */
-	var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-	var storage = window.localStorage;
- 	var ml = {
- 		facebookAppId: '246433859565492', // test
- 		// facebookAppId: '667403967094866', // megalook
- 		// facebookAppId: '246433859565492', // huashuohair
- 		googleId: 'UA-148326913-1', // test
- 		// googleId: 'UA-145178467-1', // megalook
- 		// googleId: 'UA-128377932-1', // huashuohair
-		tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', // megalook
-		// "tidio": '//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js', // megalookhair
-		// "tidio": '//code.tidio.co/folzahtp5vdopiwathysfiyz75dk5vnm.js', // huashuohair
- 	};
+</script>
+<script>
+<!-- Facebook Pixel Code -->
+!function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; n.queue=[];t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s)}(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', ml.facebook_id);
+fbq('track', 'PageView');
+fbq('track', 'ViewContent');
+$(document.head).append('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id='+ ml.facebook_id +'&ev=PageView&noscript=1" /></noscript>');
+/* Global site tag (gtag.js) */
+$(document.head).append($('<script async src="https://www.googletagmanager.com/gtag/js?id='+ ml.google_id +'" />'));
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', ml.google_id);
 </script>
