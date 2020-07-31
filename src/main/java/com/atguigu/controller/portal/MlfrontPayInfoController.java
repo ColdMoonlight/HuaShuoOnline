@@ -19,6 +19,7 @@ import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -105,7 +106,7 @@ public class MlfrontPayInfoController {
 //			//SysUsers对象为空
 //			return Msg.fail().add("resMsg", "session中adminuser对象为空");
 //		}else{
-			int PagNum = 50;
+			int PagNum = Const.PAGE_NUM_PAYINFO;
 			PageHelper.startPage(pn, PagNum);
 //			List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoAll();
 			List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoSuccessAll();
@@ -320,7 +321,7 @@ public class MlfrontPayInfoController {
 					.add("mlfrontUserOne", mlfrontUserOne).add("mlPaypalShipAddressOne", mlPaypalShipAddressRes).add("areafreightMoney", areafreightMoney);
 	}
 	
-	/**11.0	zsh200720
+	/**7.0	zsh200720
 	 * 检查已支付的单子,是否在ecpp上已经审核
 	 * 1,收到前台的查询时间范围，后台查询这些时间内的已支付订单,
 	 * 2,便利这些单子,用token+H号,去查询本条的状态,
