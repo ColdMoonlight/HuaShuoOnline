@@ -5,8 +5,8 @@
 
 <head>
 	<title>Payment Success</title>
+	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<jsp:include page="../common/ad.jsp" flush="true"></jsp:include>
 	<style> main { margin: 0; } </style>
 </head>
 
@@ -73,10 +73,18 @@
 			data.list.forEach(function (item, idx) {
 				var productLink = item.orderitemPseo ? ('${APP_PATH}/' + item.orderitemPseo + '.html') : 'javascript:;';
 				payinfoProductArr.push({
-					id: item.orderitemPid,
-					quantity: item.orderitemPskuNumber,
+					'id': item.orderitemPid,
+					'quantity': item.orderitemPskuNumber,
 					'item_price': item.orderitemPskuReamoney
 				}); // for facebook
+				payinfoOrderArr.push({
+					'id': item.orderitemPid,
+					'name': item.orderitemPname,
+					'quantity': item.orderitemPskuNumber,
+					'price': (item.orderitemPskuReamoney / item.orderitemPskuNumber).toFixed(2),
+					'brand': 'MLH',
+					'list_name': 'Search Results'
+				}); // for google
 				paymentProductHtml += '<div class="payment-product-item">' +
 						'<a href="' + productLink + '"><img class="order-img" src="' + item.orderitemProductMainimgurl + '"></a>' +
 						'<div class="payment-product-details">' +
@@ -140,7 +148,7 @@
 		}
 
 		var payinfoId = '${sessionScope.payinfoId}';
-		var payinfoProductArr = [];
+		var payinfoProductArr = [], payinfoOrderArr = [];
 		
 		if (!payinfoId) {
 			mlModalTip('Please contact customer service for abnormal orders !');
@@ -167,10 +175,20 @@
 				renderPaypaladdress(mlPaypalShipAddressOne);
 
 				fbq('track', 'Purchase', {
-					content_ids: payinfoProductArr,
-					content_type: 'product',
-					value: orderData.payinfoMoney,
-					currency: 'USD'
+					'content_ids': payinfoProductArr,
+					'content_type': 'product',
+					'value': orderData.payinfoMoney,
+					'currency': 'USD'
+				});
+
+				gtag('event', 'purchase', {
+					'transaction_id': resDataPayInfoOne.payinfoPlateNum,
+					'affiliation': 'MegaLookHair',
+					'value': resDataPayInfoOne.payinfoMoney,
+					'currency': 'USD',
+					'tax': 0,
+					'shipping': 0,
+					'items': payinfoOrderArr
 				});
 			}
 		});

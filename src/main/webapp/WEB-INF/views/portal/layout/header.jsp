@@ -52,7 +52,7 @@
 			<i class="icon close"></i>
 			<ul class="wap-nav ml-nav"></ul>
 		</div>
-		
+
 	</div>
 	<!-- search result -->
 	<div class="search-result-box">

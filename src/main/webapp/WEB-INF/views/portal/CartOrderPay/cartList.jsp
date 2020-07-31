@@ -5,8 +5,8 @@
 
 <head>
 	<title>Cart List</title>
+	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<jsp:include page="../common/ad.jsp" flush="true"></jsp:include>
 	<style>main { margin: 0; }</style>
 </head>
 
@@ -291,7 +291,6 @@
 		// facebook
 		function subFacebook(data) {
 			var orderMoney = $('.cart-cal-subtotal').data('price');
-			// console.log(orderMoney, cartitemProductIdArr)
 			fbq('track', 'InitiateCheckout', {
 				content_ids: cartitemProductIdArr,
 				content_type: 'product',
