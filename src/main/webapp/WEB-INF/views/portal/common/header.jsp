@@ -48,7 +48,7 @@ fbq('track', 'PageView');
 fbq('track', 'ViewContent');
 $(document.head).append('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id='+ ml.facebook_id +'&ev=PageView&noscript=1" /></noscript>');
 /* Global site tag (gtag.js) */
-$(document.head).append($('<script async src="https://www.googletagmanager.com/gtag/js?id='+ ml.goole_id +'" />'));
+$(document.head).append($('<script async src="https://www.googletagmanager.com/gtag/js?id='+ ml.google_id +'" />'));
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());

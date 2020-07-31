@@ -156,7 +156,7 @@
 			setTimeout(goToIndex, 3000);
 		}
 
-		getPayInfo({ "payinfoId":  payinfoId}, function (data) {
+		getPayInfo({ "payinfoId": payinfoId}, function (data) {
 			var resDataPayInfoOne = data.mlfrontPayInfoOne;
 			var resDataOrderItemList = data.mlfrontOrderItemList;
 			var resDataOrderPayOne = data.mlfrontOrderPayOneRes;
@@ -181,15 +181,17 @@
 					'currency': 'USD'
 				});
 
-				gtag('event', 'purchase', {
-					'transaction_id': resDataPayInfoOne.payinfoPlateNum,
-					'affiliation': 'MegaLookHair',
-					'value': resDataPayInfoOne.payinfoMoney,
-					'currency': 'USD',
-					'tax': 0,
-					'shipping': 0,
-					'items': payinfoOrderArr
-				});
+				setTimeout(function() {
+					gtag('event', 'purchase', {
+						'transaction_id': resDataPayInfoOne.payinfoPlatenum,
+						'affiliation': 'MegaLookHair',
+						'value': String(orderData.payinfoMoney),
+						'currency': 'USD',
+						'tax': 0,
+						'shipping': 0,
+						'items': payinfoOrderArr
+					});					
+				}, 0);
 			}
 		});
 	</script>
