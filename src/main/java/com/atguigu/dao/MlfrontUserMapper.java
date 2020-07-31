@@ -19,13 +19,9 @@ public interface MlfrontUserMapper {
     int updateByPrimaryKeySelective(MlfrontUser record);
     //更新updatePwdByEmail
     int updatePwdByEmail(MlfrontUser record);
-    
     List<MlfrontUser> selectMlfrontUserWhenFirst(MlfrontUser example);
     //条件查询MlfrontUser00
     List<MlfrontUser> selectMlfrontUserByConditionS(MlfrontUser example);
-//    //全部查询MlfrontUser00
-//  	List<MlfrontUser> selectMlfrontUserGetAll();
-//  	
-//  	//通过时间查询MlfrontUser00
-//  	List<MlfrontUser> selectMlfrontUserByDate(MlfrontUser record);
+  	//通过时间查询MlfrontUser
+  	List<MlfrontUser> selectMlfrontUserByDate(MlfrontUser record);
 }

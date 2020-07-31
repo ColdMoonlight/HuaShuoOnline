@@ -171,11 +171,14 @@ public class EmailUtilshtmlCustomer {
             
             String CouponCodeStr ="";
             
-            if(mlfrontOrderResOne.getOrderCouponCode()!=null){
-            	CouponCodeStr = "Coupon"+" ( "+mlfrontOrderResOne.getOrderCouponCode()+" ) : -$"+mlfrontOrderResOne.getOrderCouponPrice()+" <br>";
-            }else{
+            if(mlfrontOrderResOne.getOrderCouponCode()==null){
             	CouponCodeStr ="";
+            }else if("".equals(mlfrontOrderResOne.getOrderCouponCode())){
+            	CouponCodeStr ="";
+            }else{
+            	CouponCodeStr = "Coupon"+" ( "+mlfrontOrderResOne.getOrderCouponCode()+" ) : -$"+mlfrontOrderResOne.getOrderCouponPrice()+" <br>";
             }
+            
             //读取配置文件
     		String team = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.team");
     		String email = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.email");
@@ -191,8 +194,8 @@ public class EmailUtilshtmlCustomer {
             pdetail+"<br> "+
             "payment details :<br><br> "+
             "products-Total: $"+SubTotal+" <br>"+
-            "Free Shipping: $"+addressMoney+"<br>"+
             CouponCodeStr +
+            "Free Shipping: +$"+addressMoney+"<br>"+
             "Sub-Total: $"+mlfrontPayInfoIOne.getPayinfoMoney()+" <br><br><br>"+
             "Best Regards,<br>"+
             "------------------------------------------<br>"+

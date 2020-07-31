@@ -167,7 +167,7 @@ public class PaypalController {
             //1生成支付号,2更改payinfo的状态,从返回的payment中获取VIPId=payinfoId
         	toUpdatePayInfoStateSuccess(session,payerId,paymentId,payment);
         	//2.2修改order的状态
-        	toUpdateOrderInfoSuccess(session,payerId,paymentId);
+        	toUpdateOrderInfoSuccess(session,payment);
         	//输出返回payment信息
             System.out.println(payment.toJSON());
             
@@ -257,7 +257,9 @@ public class PaypalController {
     	MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
     	mlfrontOrderReq.setOrderId(orderId);
     	List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
+    	//这一行报错了,没查到值
     	MlfrontOrder mlfrontOrderRes = mlfrontOrderList.get(0);
+    	//这一行报错了,没查到值
     	String orderitemidstr = mlfrontOrderRes.getOrderOrderitemidstr();
     	String orderitemidArr[] = orderitemidstr.split(",");
     	
@@ -275,15 +277,13 @@ public class PaypalController {
 		return mlfrontOrderItemsList;
 	}
     
-    /**
+    /**20200611
      * 2.1wap+pc端
      * 处理toUpdatePayInfoStateSuccess
      * 生成支付号,修改支付成功的payinfo状态
      * @param payment 
      * */
     private void toUpdatePayInfoStateSuccess(HttpSession session, String payerId, String paymentId, Payment payment) {
-    	
-    	//20200611
     	//从交易信息中获取Transactions,
     	Transaction TransactionReturn = payment.getTransactions().get(0);
     	//包括交易id,交易标记,支付状态,
@@ -308,7 +308,6 @@ public class PaypalController {
     	DescIdStr = DescVipIdStr.replace("VIP", "");
     	Integer payinfoId =  Integer.parseInt(DescIdStr);
     	session.setAttribute("payinfoId", payinfoId);
-    	
     	//2.1.1paypal返回的付款地址插入数据库中
     	insertMlPaypalShipAddressInfo(paymentId,DescIdStr,payerInfoReturn);
     	//修改支付单状态
@@ -353,7 +352,7 @@ public class PaypalController {
 		//2.1.2准备调用ecpp接口,将客户的付款信息,导入ecpp中
 		payInfoIntoEcpp(mlfrontPayInfoIOne);
 		session.setAttribute("mlfrontPayInfoIOne", mlfrontPayInfoIOne);
-		session.setAttribute("payinfoIdStr", payinfoIdStr);
+		session.setAttribute("payinfoIdStr", payinfoIdStr);//这个是长串MLXXXXXXXXX0001;
 		session.setAttribute("orderId", PayOid);
 		
 	}
@@ -395,7 +394,6 @@ public class PaypalController {
 		
 		//获取orderId
 		Integer orderId = mlfrontPayInfoIOne.getPayinfoOid();
-		
 		String paypalIdStr = mlfrontPayInfoIOne.getPayinfoTransidnum();
 		
 		//封装MlfrontOrderReq
@@ -451,23 +449,32 @@ public class PaypalController {
     
 	/**
      * 2.2wap/pc端处理toUpdateOrderInfoSuccess
-     * @param payment 
+	 * @param payment
      * */
-	private void toUpdateOrderInfoSuccess(HttpSession session, String payerId, String paymentId) {
+	private void toUpdateOrderInfoSuccess(HttpSession session,Payment payment) {
     	
-		//200611
-		//在paypal第一次返回的时候,就已经将Payment信息中的payinfoId取出，并且重新放入
-    	Integer payinfoId = (Integer) session.getAttribute("payinfoId");
+		//从交易信息中获取Transactions,
+    	Transaction TransactionReturn = payment.getTransactions().get(0);
+    	//从交易信息的标记记录中获取payinfoId,
+    	String paypalDescription =  TransactionReturn.getDescription();
+    	String paypalDescriptionArr[] = paypalDescription.split(",");
+    	String DescVipIdStr = "";
+    	String DescIdStr = "";
+    	if(paypalDescriptionArr.length>1){
+			//1.1如果有多个删除字段中的该项
+    		DescVipIdStr = paypalDescriptionArr[0];
+		}
+    	DescIdStr = DescVipIdStr.replace("VIP", "");
+    	Integer payinfoId =  Integer.parseInt(DescIdStr);
     	
-    	MlfrontPayInfo mlfrontPayInfoIOne = (MlfrontPayInfo) session.getAttribute("mlfrontPayInfoIOne");
-    	String nowTime = DateUtil.strTime14s();
-		
+    	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
+		mlfrontPayInfoNew.setPayinfoId(payinfoId);
+		List<MlfrontPayInfo> MlfrontPayInfoList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoNew);
+		MlfrontPayInfo mlfrontPayInfoIOne = MlfrontPayInfoList.get(0);
+		//从中取出payOid
+		Integer orderId = mlfrontPayInfoIOne.getPayinfoOid();
 		//修改order单状态
-    	Integer orderId = (Integer) session.getAttribute("orderId");
-    	System.out.println("orderId:"+orderId);
-    	if(orderId==null||orderId.equals("")){
-    		orderId = mlfrontPayInfoIOne.getPayinfoOid();
-    	}
+    	String nowTime = DateUtil.strTime14s();
     	System.out.println("orderId:"+orderId);
 		//封装req
 		MlfrontOrder mlfrontOrderPayReq = new MlfrontOrder();
@@ -479,14 +486,14 @@ public class PaypalController {
 		//准备更新数据
 		mlfrontOrderResOne.setOrderStatus(1);
 		mlfrontOrderResOne.setOrderMotifytime(nowTime);
-		mlfrontOrderResOne.setOrderMotifytime(nowTime);
 		//执行更新
 		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderResOne);
 		//将付款成功的参数successPayinfoId,successOrderId放入session中
 		session.setAttribute("successPayinfoId", payinfoId);
 		session.setAttribute("successOrderId", orderId);
 		
-		String addressMoney = getAddressMoney(session);
+		String ShippingMoney = TransactionReturn.getRelatedResources().get(0).getSale().getAmount().getDetails().getShipping();;
+		String addressMoney = ShippingMoney;
 		//2.2.1	wap+pc同时处理邮件
 		sendResultEmail(session,mlfrontPayInfoIOne, mlfrontOrderResOne,addressMoney);
 		
@@ -519,21 +526,22 @@ public class PaypalController {
 			mlfrontUserService.updateByPrimaryKeySelective(mlfrontUserByEmailres);
 		}
 	}
-    
-    /**
+
+	/**
      * 2.2.1	wap+pc同时处理邮件
      * */
     private void sendResultEmail(HttpSession session,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney) {
     	try {
-        	List<MlfrontOrderItem> mlfrontOrderItemList = getMlfrontOrderItemList(session);
-    		Integer addressId = (Integer) session.getAttribute("sendAddressinfoId");
-    				
+    		
+    		Integer orderId = mlfrontOrderResOne.getOrderId();
+        	List<MlfrontOrderItem> mlfrontOrderItemList = successGetMlfrontOrderItemList(orderId);
+        	
+        	Integer addressId = mlfrontOrderResOne.getOrderAddressinfoId();
     		MlfrontAddress mlfrontAddressReq = new MlfrontAddress();
     		MlfrontAddress mlfrontAddressRes = new MlfrontAddress();
     		mlfrontAddressReq.setAddressId(addressId);
     		
     		List<MlfrontAddress> mlfrontAddressResList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddressReq);
-    		
     		mlfrontAddressRes = mlfrontAddressResList.get(0);
     		String userEmail = mlfrontAddressRes.getAddressEmail();
     		
@@ -545,6 +553,34 @@ public class PaypalController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+    
+    /**
+     * 1.5.2从session中获取orderList详情
+     * 支付成功后,用orderId查询orderList详情
+     * */
+    private List<MlfrontOrderItem> successGetMlfrontOrderItemList(Integer orderId) {
+    	
+    	MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+    	mlfrontOrderReq.setOrderId(orderId);
+    	List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
+    	//这一行报错了,没查到值
+    	MlfrontOrder mlfrontOrderRes = mlfrontOrderList.get(0);
+    	//这一行报错了,没查到值
+    	String orderitemidstr = mlfrontOrderRes.getOrderOrderitemidstr();
+    	String orderitemidArr[] = orderitemidstr.split(",");
+    	
+    	MlfrontOrderItem mlfrontOrderItemReq = new MlfrontOrderItem();
+    	MlfrontOrderItem mlfrontOrderItemRes = new MlfrontOrderItem();
+    	List<MlfrontOrderItem> mlfrontOrderItemsList = new ArrayList<MlfrontOrderItem>();
+    	for(int i=0;i<orderitemidArr.length;i++){
+			Integer orderItemId = Integer.parseInt(orderitemidArr[i]);
+			mlfrontOrderItemReq.setOrderitemId(orderItemId);
+			List<MlfrontOrderItem> mlfrontOrderItemList = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemReq);
+			mlfrontOrderItemRes = mlfrontOrderItemList.get(0);
+			mlfrontOrderItemsList.add(mlfrontOrderItemRes);
+		}
+		return mlfrontOrderItemsList;
 	}
 
 	/**3.0

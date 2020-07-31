@@ -162,10 +162,12 @@ public class EmailUtilshtml {
             
             String CouponCodeStr ="";
             
-            if(mlfrontOrderResOne.getOrderCouponCode()!=null){
-            	CouponCodeStr = "Coupon"+" ( "+mlfrontOrderResOne.getOrderCouponCode()+" ) : -$"+mlfrontOrderResOne.getOrderCouponPrice()+" <br>";
-            }else{
+            if(mlfrontOrderResOne.getOrderCouponCode()==null){
             	CouponCodeStr ="";
+            }else if("".equals(mlfrontOrderResOne.getOrderCouponCode())){
+            	CouponCodeStr ="";
+            }else{
+            	CouponCodeStr = "Coupon"+" ( "+mlfrontOrderResOne.getOrderCouponCode()+" ) : -$"+mlfrontOrderResOne.getOrderCouponPrice()+" <br>";
             }
             
             String content="You received an order.：<br><br><br>  "+
@@ -176,8 +178,8 @@ public class EmailUtilshtml {
             pdetail+"<br> "+
             "payment details :<br><br> "+
             "products-Total: $"+SubTotal+" <br>"+
-            "Free Shipping: $"+addressMoney+"<br>"+
             CouponCodeStr+
+            "Free Shipping: + $"+addressMoney+"<br>"+
             "Sub-Total: $"+mlfrontPayInfoIOne.getPayinfoMoney()+" <br><br><br>";
             
             //通过会话,得到一个邮件,用于发送

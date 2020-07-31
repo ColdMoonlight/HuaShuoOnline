@@ -26,9 +26,8 @@ public interface MlfrontPayInfoMapper {
 	List<MlfrontPayInfo> selectMlfrontPayInfoByDateAndStatus(MlfrontPayInfo mlfrontPayInfo);
 	//高级查询,多条件筛选
 	List<MlfrontPayInfo> selectHighPayInfoListBySearch(MlfrontPayInfo mlfrontPayInfoReq);
-//	//高级查询,多条件筛选之状态
-//	////0未支付//1支付成功//2审单完毕//3发货完毕 //4已退款//5发送弃购//6重复单关闭
-//	List<MlfrontPayInfo> selectMlfrontPayInfoByMotifyTime(MlfrontPayInfo mlfrontPayInfoReq);
+	//高级按照时间查询
+	List<MlfrontPayInfo> selectMlfrontPayInfoByDate(MlfrontPayInfo mlfrontPayInfoReq);
 
 	List<MlfrontPayInfo> selectMlfrontPayInfoSuccessAll();
     
