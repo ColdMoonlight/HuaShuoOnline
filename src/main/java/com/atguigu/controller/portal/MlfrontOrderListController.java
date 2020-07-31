@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontUser;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -52,7 +53,7 @@ public class MlfrontOrderListController {
 		MlfrontOrder mlfrontOrder = new MlfrontOrder();
 		List<MlfrontOrder> mlfrontOrderList = new ArrayList<MlfrontOrder>();
 		mlfrontOrder.setOrderUid(Uid);
-		int PagNum = 5;
+		int PagNum = Const.PAGE_NUM_FrontOrderNum;
 		PageHelper.startPage(pn, PagNum);
 		PageInfo page = new PageInfo();
 		System.out.println("orderStatus状态"+orderStatus);

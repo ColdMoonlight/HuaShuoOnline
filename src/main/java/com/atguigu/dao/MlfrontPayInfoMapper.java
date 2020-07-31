@@ -20,8 +20,8 @@ public interface MlfrontPayInfoMapper {
     int updateByPrimaryKeySelective(MlfrontPayInfo record);
     //查询后台登陆用户00
     List<MlfrontPayInfo> selectMlfrontPayInfoById(MlfrontPayInfo record);
-    //查询全部登陆用户00
-	List<MlfrontPayInfo> selectMlfrontPayInfoGetAll();
+//    //查询全部登陆用户00
+//	List<MlfrontPayInfo> selectMlfrontPayInfoGetAll();
 	//通过时间查询全部登陆用户00
 	List<MlfrontPayInfo> selectMlfrontPayInfoByDateAndStatus(MlfrontPayInfo mlfrontPayInfo);
 	//高级查询,多条件筛选
