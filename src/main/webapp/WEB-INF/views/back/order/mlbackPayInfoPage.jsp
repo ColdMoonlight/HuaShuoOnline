@@ -6,6 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Order List</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
+	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
 </head>
 <body class="c-app">
 	<jsp:include page="../layout/backheader.jsp" flush="true"></jsp:include>
@@ -17,6 +18,19 @@
 					<div class="c-option">
 						<span class="c-option-title">Order list</span>
 						<!-- <button class="btn btn-primary btn-create">Create Order</button> -->
+					</div>
+					<div class="ecpp-sync row">
+						<div class="form-group col-md-3">
+							<div class="controls">
+								<input hidden id="search-payinfo-create-time" />
+								<input hidden id="search-payinfo-confirm-time" />
+								<input class="form-control daterangetimepicker" id="search-ecpp-time" type="text" />
+							</div>
+						</div>
+						<div class="ecpp-btn-group col-md-9">
+							<button class="btn btn-primary ecpp-data-sync">Ecpp Data Sync</button>
+							<button class="btn btn-secondary ecpp-verify-sync">Ecpp Verify Sync</button>						
+						</div>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -293,10 +307,16 @@
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
 	
+	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
+	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	<!-- custom script -->
 	<script>
 		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "orders";
 		// init
+		bindDateRangeEvent(function(startTime, endTime) {
+			$('#search-payinfo-create-time').val(startTime);
+			$('#search-payinfo-confirm-time').val(endTime);
+		});
 		renderTabItems();
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
@@ -312,6 +332,61 @@
 		$('.btn-back').on('click', function () {
 			$('.c-view c-option-title').text('Order List');
 			showInitBlock();
+		});
+		// ecpp
+		$('.ecpp-data-sync').on('click', function() {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayInfo/checkEcppIfSend",
+				type: "post",
+				data: JSON.stringify({
+					"payinfoCreatetime": $('#search-payinfo-create-time').val(),
+				    "payinfoMotifytime": $('#search-payinfo-confirm-time').val()
+				}),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						updateSearchData();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('Failed to refresh ecpp-sync-data, please refresh the page to get again!');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		});
+		$('.ecpp-verify-sync').on('click', function() {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayInfo/checkEcppIfVerify",
+				type: "post",
+				data: JSON.stringify({
+					"payinfoCreatetime": $('#search-payinfo-create-time').val(),
+				    "payinfoMotifytime": $('#search-payinfo-confirm-time').val()
+				}),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						updateSearchData();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('Failed to refresh ecpp-verify-data, please refresh the page to get again!');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
 		});
 		// View  Order
 		$(document.body).on('click', '.btn-view', function (e) {
