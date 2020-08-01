@@ -457,95 +457,101 @@ public class MlfrontPayInfoController {
 	@ResponseBody
 	public Msg checkEcppIfSend(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo){
 		
-		String startTime = mlfrontPayInfo.getPayinfoCreatetime();
-		String endTime = mlfrontPayInfo.getPayinfoMotifytime();
-		
-		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
-		mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
-		mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
-		mlfrontPayInfoReq.setPayinfoStatus(2);//只查询已审单的状态
-		
-		List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoByDateAndStatus(mlfrontPayInfoReq);
-		
-		if(mlfrontPayInfoList.size()>0){
-			//如果有已支付状态的文件
-			for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
-				Integer payInfoId = mlfrontPayInfoOne.getPayinfoId();
-				Integer orderId = mlfrontPayInfoOne.getPayinfoOid();
-				
-				//取出mlfrontPayInfoOne中的Ecpphsnum中的信息
-				String ecppHSnum = mlfrontPayInfoOne.getPayinfoEcpphsnum();
-				String order_sn = ecppHSnum;
-				String token = (String) PropertiesUtil.getProperty("megalook.properties", "ecppToken");
-				
-				String soapXML = EcppUpdateWebStatusUtil.getXML(token,order_sn);
-				
-				MlfrontPayInfo mlfrontPayInfoUpdate = new MlfrontPayInfo();
-				
-				try {
-					EcppTrackItem ecppTrackItem = EcppUpdateWebStatusUtil.send(token,soapXML);
-					String ecppOrderStatusCode = ecppTrackItem.getEcppOrderStatusCode();
-					MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
-            		mlfrontOrderReq.setOrderId(orderId);
-					if("OOO".equals(ecppOrderStatusCode)){
-						//131-OOO-订单核对完成(已发货)
-						//更新成-发货-状态
-						mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
-                		mlfrontPayInfoUpdate.setPayinfoStatus(3);//payinfo状态为3,已发货
-                		mlfrontPayInfoUpdate.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo());
-                		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
-                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
-                		
-                		//查询本条的order信息，更新物流单号+物流名称
-                		mlfrontOrderReq.setOrderLogisticsname(ecppTrackItem.getShippingName());
-                		mlfrontOrderReq.setOrderLogisticsnumber(ecppTrackItem.getEcppOrderTrackNo());
-                		mlfrontOrderReq.setOrderStatus(4);//orderStatus == 4已发货,待接收
-                		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
-                		
-                		String orderLogisticsname = ecppTrackItem.getShippingName();
-                		String orderLogisticsnumber = ecppTrackItem.getEcppOrderTrackNo();
-                		String payinfoPlateNum = mlfrontPayInfoOne.getPayinfoPlatenum();
-                		
-                		//10.1向afterShip官方发送物流添加按钮
-                		try {
-                			//向物流中插入物流单号,订单号,orderId,即可全部走查询(Item,价格)
-                			AfterShipReturn afterShipReturn = new AfterShipReturn();
-                			afterShipReturn = addTrackingNumberIntoAfterShip(orderId,payinfoPlateNum,orderLogisticsnumber);
-                			String afterOperateStatus = afterShipReturn.getAfterOperateStatus();
-                			
-                			if("1".equals(afterOperateStatus)){
-                				//插入成功
-                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip成功,返回的物流名为:"+afterShipReturn.getAfterShipSlugName());
-                				orderLogisticsname  = afterShipReturn.getAfterShipSlugName();
-                				//更新order表中本条成最终的物流信息的物流名称
-                				MlfrontOrder mlfrontOrderAfterReq = new MlfrontOrder();
-                				mlfrontOrderAfterReq.setOrderId(orderId);
-                				mlfrontOrderAfterReq.setOrderLogisticsname(orderLogisticsname);
-                				//
-                				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterReq);
-                			}else{
-                				//没有插入成功
-                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败");
-                			}
-                		} catch (Exception e) {
-                			e.printStackTrace();
-                			System.out.println("物流中插入物流单号--有异常");
-                			System.out.println(e.getMessage());
-                		}
-					}else{
-						mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
-						mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);//不改状态,只赋值
-						mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			return Msg.success().add("resMsg", "本次刷新有修改，请注意观察payInfo列表变化");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return Msg.fail().add("resMsg", "请重新登陆");
 		}else{
-			//查询结果为空
-			//当前没有状态为已支付的数据
-			return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子，无改变");
+			String startTime = mlfrontPayInfo.getPayinfoCreatetime();
+			String endTime = mlfrontPayInfo.getPayinfoMotifytime();
+			
+			MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+			mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
+			mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
+			mlfrontPayInfoReq.setPayinfoStatus(2);//只查询已审单的状态
+			
+			List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoByDateAndStatus(mlfrontPayInfoReq);
+			
+			if(mlfrontPayInfoList.size()>0){
+				//如果有已支付状态的文件
+				for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
+					Integer payInfoId = mlfrontPayInfoOne.getPayinfoId();
+					Integer orderId = mlfrontPayInfoOne.getPayinfoOid();
+					
+					//取出mlfrontPayInfoOne中的Ecpphsnum中的信息
+					String ecppHSnum = mlfrontPayInfoOne.getPayinfoEcpphsnum();
+					String order_sn = ecppHSnum;
+					String token = (String) PropertiesUtil.getProperty("megalook.properties", "ecppToken");
+					
+					String soapXML = EcppUpdateWebStatusUtil.getXML(token,order_sn);
+					
+					MlfrontPayInfo mlfrontPayInfoUpdate = new MlfrontPayInfo();
+					
+					try {
+						EcppTrackItem ecppTrackItem = EcppUpdateWebStatusUtil.send(token,soapXML);
+						String ecppOrderStatusCode = ecppTrackItem.getEcppOrderStatusCode();
+						MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+	            		mlfrontOrderReq.setOrderId(orderId);
+						if("OOO".equals(ecppOrderStatusCode)){
+							//131-OOO-订单核对完成(已发货)
+							//更新成-发货-状态
+							mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+	                		mlfrontPayInfoUpdate.setPayinfoStatus(3);//payinfo状态为3,已发货
+	                		mlfrontPayInfoUpdate.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo());
+	                		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+	                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+	                		
+	                		//查询本条的order信息，更新物流单号+物流名称
+	                		mlfrontOrderReq.setOrderLogisticsname(ecppTrackItem.getShippingName());
+	                		mlfrontOrderReq.setOrderLogisticsnumber(ecppTrackItem.getEcppOrderTrackNo());
+	                		mlfrontOrderReq.setOrderStatus(4);//orderStatus == 4已发货,待接收
+	                		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+	                		
+	                		String orderLogisticsname = ecppTrackItem.getShippingName();
+	                		String orderLogisticsnumber = ecppTrackItem.getEcppOrderTrackNo();
+	                		String payinfoPlateNum = mlfrontPayInfoOne.getPayinfoPlatenum();
+	                		
+	                		//10.1向afterShip官方发送物流添加按钮
+	                		try {
+	                			//向物流中插入物流单号,订单号,orderId,即可全部走查询(Item,价格)
+	                			AfterShipReturn afterShipReturn = new AfterShipReturn();
+	                			afterShipReturn = addTrackingNumberIntoAfterShip(orderId,payinfoPlateNum,orderLogisticsnumber);
+	                			String afterOperateStatus = afterShipReturn.getAfterOperateStatus();
+	                			
+	                			if("1".equals(afterOperateStatus)){
+	                				//插入成功
+	                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip成功,返回的物流名为:"+afterShipReturn.getAfterShipSlugName());
+	                				orderLogisticsname  = afterShipReturn.getAfterShipSlugName();
+	                				//更新order表中本条成最终的物流信息的物流名称
+	                				MlfrontOrder mlfrontOrderAfterReq = new MlfrontOrder();
+	                				mlfrontOrderAfterReq.setOrderId(orderId);
+	                				mlfrontOrderAfterReq.setOrderLogisticsname(orderLogisticsname);
+	                				//
+	                				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterReq);
+	                			}else{
+	                				//没有插入成功
+	                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败");
+	                			}
+	                		} catch (Exception e) {
+	                			e.printStackTrace();
+	                			System.out.println("物流中插入物流单号--有异常");
+	                			System.out.println(e.getMessage());
+	                		}
+						}else{
+							mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+							mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);//不改状态,只赋值
+							mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				return Msg.success().add("resMsg", "本次刷新有修改，请注意观察payInfo列表变化");
+			}else{
+				//查询结果为空
+				//当前没有状态为已支付的数据
+				return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子，无改变");
+			}
 		}
 	}
 	
