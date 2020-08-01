@@ -214,6 +214,9 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 	function getMilliseconds(value) {
 		return moment(value, format).utc().valueOf();
 	}
+	function getYears(value) {
+		return moment(value).year();
+	}
 	function getMonths(value) {
 		return moment(value).month() + 1;
 	}
