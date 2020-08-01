@@ -81,7 +81,7 @@
 						<!-- /.col-->
 						<div class="col-md-6">
 							<div class="card">
-								<div class="card-header">Online Store Sessions</div>
+								<div class="card-header">Register Users</div>
 								<div class="card-body">
 									<div class="chart-title">
 										<div class="chart-quantity user-quantity"></div>
