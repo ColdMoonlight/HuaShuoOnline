@@ -425,6 +425,9 @@
 						if (type == 'payinfoavg') {
 							yData = data.result[monthMap[i]] ? (data.result[monthMap[i]].money / data.result[monthMap[i]].quantity).toFixed(2) : 0;
 						}
+						if (type == 'payinfoorder') {
+							yData = data.result[monthMap[i]] ? data.result[monthMap[i]].quantity : 0;
+						}
 						coordinates.y.push(yData);
 					}
 				}
