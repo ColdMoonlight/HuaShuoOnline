@@ -94,8 +94,8 @@ public class BackHomeController {
 		
 		
 		List<MlfrontUser> mlfrontUserList =  mlfrontUserService.selectMlfrontUserByDate(mlfrontUser);
-		mlfrontUserList.size();
-		return Msg.success().add("resMsg", "统计面板某时间内的总用户数").add("mlfrontUserList", mlfrontUserList);
+		Integer newIntoNum = mlfrontUserList.size();
+		return Msg.success().add("resMsg", "统计面板某时间内的总用户数").add("newIntoNum", newIntoNum);
 	}
 	
 

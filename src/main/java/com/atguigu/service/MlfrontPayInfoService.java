@@ -44,13 +44,12 @@ public class MlfrontPayInfoService {
 	
 	/**4
 	 * @author Shinelon
-	 * @param MlbackProduct
-	 * @exception 查看全部的地址信息
+	 * @exception selectMlfrontPayInfoAll
 	 * */
-	public List<MlfrontPayInfo> selectMlfrontPayInfoAll() {
-		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoGetAll();
-		return mlfrontPayInfoList;
-	}
+//	public List<MlfrontPayInfo> selectMlfrontPayInfoAll() {
+//		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoGetAll();
+//		return mlfrontPayInfoList;
+//	}
 	
 	/**5
 	 * @author Shinelon

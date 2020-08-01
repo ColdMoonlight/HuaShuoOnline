@@ -160,8 +160,8 @@ public class EmailUtilshtml {
             
             String SubTotal = getSubTotal(mlfrontPayInfoIOne.getPayinfoMoney(),addressMoney,mlfrontOrderResOne.getOrderCouponPrice());
             
+            //初始化优惠券字段
             String CouponCodeStr ="";
-            
             if(mlfrontOrderResOne.getOrderCouponCode()==null){
             	CouponCodeStr ="";
             }else if("".equals(mlfrontOrderResOne.getOrderCouponCode())){
