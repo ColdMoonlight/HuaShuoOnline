@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackVideo;
@@ -213,18 +212,6 @@ public class MlbackVideoController {
 		mlbackVideoReq.setVideoArea(videoArea);
 		//查询本条
 		List<MlbackVideo> mlbackVideoList =mlbackVideoService.selectMlbackvideoByVideoArea(mlbackVideoReq);
-//		Integer proId = 0;
-//		MlbackProduct mlbackProductReq = new MlbackProduct();
-//		List<MlbackProduct> mlbackProductList = new ArrayList<MlbackProduct>();
-//		List<MlbackProduct> mlbackVideoProductList = new ArrayList<MlbackProduct>();
-//		MlbackProduct mlbackProductRes = new MlbackProduct();
-//		for(MlbackVideo mlbackVideo:mlbackVideoList){
-//			proId = mlbackVideo.getVideoProid();
-//			mlbackProductReq.setProductId(proId);
-//			mlbackProductList = mlbackProductService.selectMlbackProduct(mlbackProductReq);
-//			mlbackProductRes = mlbackProductList.get(0);
-//			mlbackVideoProductList.add(mlbackProductRes);
-//		}
 		return Msg.success().add("resMsg", "查看单条类目的详情细节完毕")
 					.add("mlbackVideoList", mlbackVideoList);
 	}
