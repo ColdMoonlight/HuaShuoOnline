@@ -718,3 +718,8 @@
 .pay-final .value {
 	font-size: 1rem;
 }
+/* ecpp sync */
+.ecpp-sync {
+	padding: 1rem;
+	text-align: right;
+}

@@ -80,12 +80,12 @@
 				itemLink = itemSeo ? itemSeo + '.html' : 'javascript:;';
 				htmlStr += '<div class="video-list-item shadow-radius" data-tag="'+ item.videoIfproorcateorpage +'" data-id="'+ item.videoProid +'" data-name="'+ itemName +'" data-link="'+ itemLink +'" data-video="'+ item.videoUrl +'">' +
 						'<div class="video-list-item-img lazyload" data-src="'+ item.videoImgurl +'"></div>' +
-						'<div class="video-list-item-name">'+ itemName +'</div>' +
+						'<div class="video-list-item-name">'+ item.videoName +'</div>' +
 					'</div>';
 			});
 			$el.html(htmlStr);
 		}
-		getVideoAreaData(2, function(data) {
+		getVideoAreaData('${sessionScope.videoArea}', function(data) {
 			var $el = $('.video-list');
 			data.length && renderVideoArea($el, data);
 			new LazyLoad($el.find('.lazyload'), {

@@ -422,7 +422,11 @@
 			function generateChart($el, coordinates) {
 				// console.log(coordinates)
 				$el.css('height', parseInt($el.width() / 16 * 9));
-				echarts.init($el[0]).setOption({
+				var instance = echarts.init($el[0]);
+				instance.setOption({
+					enableBasicAutocompletion: !0,
+			        enableSnippets: !0,
+			        enableLiveAutocompletion: !0,
 					tooltip: {
 						formatter: '{b0} : {c0}'
 					},
@@ -438,6 +442,7 @@
 				        type: 'line'
 				    }]
 				});
+				chartInstance.push(instance);
 				$el.parents('.card').find('.card-mask').hide();
 			}
 			// generate dashboard
@@ -485,10 +490,21 @@
 				});
 			}
 			/* init */
-			bindDateRangeEvent(generateDashBoard);
+			var chartInstance = []
 			var date = new Date();
 			var ymd = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1) + '-' + date.getUTCDate();
+			bindDateRangeEvent(generateDashBoard);
 			generateDashBoard(ymd + ' 00:00:00', ymd + ' 23:59:59');
+			// resize for chart
+			$(window).on('resize', function() {
+				if (chartInstance.length) {
+					chartInstance.forEach(function(item, idx) {
+						item.resize();
+					});
+				} else {
+					generateDashBoard($('#search-create-time').val(), $('#search-confirm-time').val());
+				}
+			});
 		</script>
 	</body>
 </html>
