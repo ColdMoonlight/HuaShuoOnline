@@ -112,14 +112,19 @@
 						<div class="col-md-6">
 							<div class="card">
 								<div class="card-header">Total orders</div>
-								<div class="card-body"></div>
+								<div class="card-body">
+									<div class="chart-title">
+										<div class="chart-quantity payinfo-order"></div>
+									</div>
+									<div class="chart-body" id="payinfo-order-chart"></div>
+								</div>
 								<div class="card-mask">
 									<div class="spinner-border"></div>
 								</div>
 							</div>
 						</div>
 						<!-- /.col-->
-						<div class="col-md-6">
+						<!-- <div class="col-md-6">
 							<div class="card">
 								<div class="card-header">Returning customer rate</div>
 								<div class="card-body">
@@ -129,7 +134,7 @@
 									<div class="spinner-border"></div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<!-- /.col-->
 					</div>
 				</div>
@@ -208,7 +213,7 @@
 						type: 'hour',
 						result: staticsObj
 					};
-				} else if (((endTime - createTime) / 3600000) > 24 && ((endTime - createTime) / 86400000) < 29) {
+				} else if (((endTime - createTime) / 3600000) > 24 && ((endTime - createTime) / 86400000) < 31) {
 					data.forEach(function(item) {
 						var day = getDays(item.userCreatetime);
 						var month = getMonths(item.userCreatetime);
@@ -262,7 +267,7 @@
 						type: 'hour',
 						result: staticsObj
 					};
-				} else if (((endTime - createTime) / 3600000) > 24 && ((endTime - createTime) / 86400000) < 29) {
+				} else if (((endTime - createTime) / 3600000) > 24 && ((endTime - createTime) / 86400000) < 31) {
 					data.forEach(function(item) {
 						var day = getDays(item.payinfoCreatetime);
 						var month = getMonths(item.payinfoCreatetime);
@@ -328,6 +333,9 @@
 						if (type == 'payinfoavg') {
 							yData = data.result[i] ? (data.result[i].money / data.result[i].quantity).toFixed(2) : 0;
 						}
+						if (type == 'payinfoorder') {
+							yData = data.result[i] ? data.result[i].quantity : 0;
+						}
 						coordinates.y.push(yData);
 					}
 				}
@@ -371,6 +379,10 @@
 						if (type == 'payinfoavg') {
 							yData = data.result[dayMap[i]] ? (data.result[dayMap[i]].money / data.result[dayMap[i]].quantity).toFixed(2) : 0;
 						}
+						if (type == 'payinfoorder') {
+							yData = data.result[dayMap[i]] ? data.result[dayMap[i]].quantity : 0;
+						}
+						
 						coordinates.y.push(yData);
 					}
 				}
@@ -471,6 +483,9 @@
 					// total
 					$('.payinfo-total-money').text('$' + allCalPayinfoMoney.toFixed(2) );
 					generateChart($('#payinfo-total-chart'), generateCoordinatesData(calPayinfo, 'payinfo'));
+					// payinfo order
+					$('.payinfo-order').text(allCalPayinfoQuantity);
+					generateChart($('#payinfo-order-chart'), generateCoordinatesData(calPayinfo, 'payinfoorder'));
 					// avg
 					$('.payinfo-avg-money').text('$' + calPayinfoAvgMoney);
 					generateChart($('#payinfo-avg-chart'), generateCoordinatesData(calPayinfo, 'payinfoavg'));
