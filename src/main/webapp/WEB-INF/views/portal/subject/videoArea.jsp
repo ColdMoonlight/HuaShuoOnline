@@ -63,7 +63,7 @@
 			var htmlStr = '';
 			data.forEach(function(item, idx) {
 				var itemName, itemSeo, itemLink;
-				if (item.videoIfproorcateorpage == 0) {				
+				if (item.videoIfproorcateorpage == 0) {
 					itemSeo = item.videoProname;
 					itemName = item.videoSeoname;
 				}
