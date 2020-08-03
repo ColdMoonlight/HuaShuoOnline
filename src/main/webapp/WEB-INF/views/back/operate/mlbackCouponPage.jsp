@@ -36,11 +36,11 @@
 										<th>couponType</th>
 										<th>couponPrice</th>
 										<th>couponPriceoff</th>
-										<th>Image</th>
 										<th>Draw or no</th>
-										<th>Weight</th>
+										<th>Draw Image</th>
+										<th>Draw Weight</th>
 										<th>Product or no</th>
-										<th>Productid,SEO</th>
+										<th>product id/seo</th>
 										<th>state</th>
 										<th>operate</th>
 									</tr>
@@ -144,8 +144,8 @@
 										<label class="col-form-label" for="couponLuckdrawType">Lottery draw</label>
 										<div class="controls">
 											<select class="form-control" id="couponLuckdrawType" />
-												<option value="0" selected="selected">0-Support lottery</option>
-												<option value="1">1-Lottery not supported</option>
+												<option value="0" selected="selected">0-Lottery not supported</option>
+												<option value="1">1-Support lottery</option>
 											</select>
 										</div>
 									</div>
@@ -621,24 +621,25 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var coupontype =data[i].couponType;
 			    var couponLuckdrawtype = data[i].couponLuckdrawType;
-			   var couponProductonlytype = data[i].couponProductonlyType;
+			   	var couponProductonlytype = data[i].couponProductonlyType;
+			   	console.log(data[i])
 				htmlStr += '<tr><td>' + data[i].couponId + '</td>' +
 					'<td>' + data[i].couponName + '</td>' +
 					'<td>' + data[i].couponCode + '</td>' +
 					'<td>' + data[i].couponPriceBaseline + '</td>' +
 					'<td>'+(coupontype == 1 ? 'Discount' : 'Full')+'</td>' +
 					'<td>' +(coupontype == 0 ? parseFloat(data[i].couponPrice) : '')+ '</td>' +
-					'<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff)+'%' : '')+ '</td>' +
+					'<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff) + '%' : '')+ '</td>' +
+					'<td>'+(couponLuckdrawtype == 1 ? 'yes' : 'no')+'</td>' +
 					'<td>' +
 						(data[i].couponImgUrl ?
 							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].couponImgUrl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
-					'<td>'+(couponLuckdrawtype == 1 ? 'yes' : 'no')+'</td>' +
 					'<td>' + data[i].couponLuckdrawWeight + '%</td>' +
 					'<td>'+(couponProductonlytype == 1 ? 'yes' : 'no')+'</td>' +
-					'<td>'+(couponProductonlytype == 1 ? (data[i].couponProductonlyPidstr+' * '+data[i].couponProductseonamesstronlyPid) : 'All Product')+'</td>' +
-					'<td>' + (data[i].couponStatus ? 'enable' : 'disable') + '</td>' +
+					'<td>'+(couponProductonlytype == 1 ? (data[i].couponProductonlyPidstr +' * '+ data[i].couponProductseonamesstronlyPid) : 'All Product')+'</td>' +
+					'<td><a class="badge '+ (data[i].couponStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].couponStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].couponId + '">' +
 							'<svg class="c-icon">' +
