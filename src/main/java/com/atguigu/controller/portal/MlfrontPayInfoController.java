@@ -526,7 +526,6 @@ public class MlfrontPayInfoController {
 	                				MlfrontOrder mlfrontOrderAfterReq = new MlfrontOrder();
 	                				mlfrontOrderAfterReq.setOrderId(orderId);
 	                				mlfrontOrderAfterReq.setOrderLogisticsname(orderLogisticsname);
-	                				//
 	                				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterReq);
 	                			}else{
 	                				//没有插入成功
