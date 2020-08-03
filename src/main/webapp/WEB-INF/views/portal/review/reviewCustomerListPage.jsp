@@ -154,7 +154,7 @@
 			// masonry
 			$el.masonry({
 				itemSelector: '.ins-item',
-				isFitWidth: true,
+				isFitWidth: false,
 				isRTL: false,
 				isResizable: false,
 			});
@@ -164,7 +164,7 @@
 				// masonry
 				$('.ins-body').masonry({
 					itemSelector: '.ins-item',
-					isFitWidth: true,
+					isFitWidth: false,
 					isRTL: false,
 					isResizable: true,
 				});

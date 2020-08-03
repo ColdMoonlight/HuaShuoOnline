@@ -214,11 +214,16 @@
 		// upload picture
 		$('#showareaImgpcurl').on('change', function(e) {
 			var $this = $(this);
-			$this.parent().find('.spinner').show();
-
+			var file = $this[0].files[0];
 			var formData = new FormData();
+
+			if (!file) return false;
+
+			$this.parent().find('.spinner').show();
+			$this.val('');
+
 			formData.append('type', 'showareaPc');
-			formData.append('image', $this[0].files[0]);
+			formData.append('image', file);
 			formData.append('showareaId', parseInt($('#showareaId').val()));
 
 			$.ajax({
@@ -249,11 +254,16 @@
 		});
 		$('#showareaImgurl').on('change', function(e) {
 			var $this = $(this);
-			$this.parent().find('.spinner').show();
-
+			var file = $this[0].files[0];
 			var formData = new FormData();
+
+			if (!file) return false;
+
+			$this.parent().find('.spinner').show();
+			$this.val('');
+
 			formData.append('type', 'showareaWap');
-			formData.append('image', $this[0].files[0]);
+			formData.append('image', file);
 			formData.append('showareaId', parseInt($('#showareaId').val()));
 
 			$.ajax({

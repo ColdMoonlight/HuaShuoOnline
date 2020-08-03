@@ -83,18 +83,18 @@
 			});
 			// masonry
 			$el.masonry({
-				itemSelector : '.ins-item',
-				isFitWidth: true,
-				isRTL:false,
-				isResizable: false,
+				itemSelector: '.ins-item',
+				isFitWidth: false,
+				isRTL: false,
+				isResizable: true
 			});
 		});
 		$(window).on('resize', function() {
 			debounce(function() {
 				// masonry
 				$('.ins-body').masonry({
-					itemSelector : '.ins-item',
-					isFitWidth: true,
+					itemSelector: '.ins-item',
+					isFitWidth: false,
 					isRTL:false,
 					isResizable: true,
 				});

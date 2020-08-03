@@ -247,11 +247,16 @@
 		// upload picture
 		$('#videoshowareaPcimgurl').on('change', function(e) {
 			var $this = $(this);
-			$this.parent().find('.spinner').show();
-
+			var file = $this[0].files[0];
 			var formData = new FormData();
+
+			if (!file) return false;
+
+			$this.parent().find('.spinner').show();
+			$this.val('');
+
 			formData.append('type', 'VideoShowAreaPc');
-			formData.append('image', $this[0].files[0]);
+			formData.append('image', file);
 			formData.append('videoshowareaId', parseInt($('#videoshowareaId').val()));
 
 			$.ajax({
@@ -282,11 +287,16 @@
 		});
 		$('#videoshowareaWapimgurl').on('change', function(e) {
 			var $this = $(this);
-			$this.parent().find('.spinner').show();
-
+			var file = $this[0].files[0];
 			var formData = new FormData();
+
+			if (!file) return false;
+
+			$this.parent().find('.spinner').show();
+			$this.val('');
+
 			formData.append('type', 'VideoShowAreaWap');
-			formData.append('image', $this[0].files[0]);
+			formData.append('image', file);
 			formData.append('videoshowareaId', parseInt($('#videoshowareaId').val()));
 
 			$.ajax({

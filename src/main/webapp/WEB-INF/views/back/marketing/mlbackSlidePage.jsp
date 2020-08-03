@@ -320,11 +320,16 @@
 		// upload picture
 		$('#slidePc').on('change', function(e) {
 			var $this = $(this);
-			$this.parent().find('.spinner').show();
-
+			var file = $this[0].files[0];
 			var formData = new FormData();
+
+			if (!file) return false;
+
+			$this.parent().find('.spinner').show();
+			$this.val('');
+
 			formData.append('type', 'slidePc');
-			formData.append('image', $this[0].files[0]);
+			formData.append('image', file);
 			formData.append('slideId', parseInt($('#slideId').val()));
 
 			$.ajax({
@@ -355,11 +360,16 @@
 		});
 		$('#slideWap').on('change', function(e) {
 			var $this = $(this);
-			$this.parent().find('.spinner').show();
-
+			var file = $this[0].files[0];
 			var formData = new FormData();
+
+			if (!file) return false;
+
+			$this.parent().find('.spinner').show();
+			$this.val('');
+
 			formData.append('type', 'slideWap');
-			formData.append('image', $this[0].files[0]);
+			formData.append('image', file);
 			formData.append('slideId', parseInt($('#slideId').val()));
 
 			$.ajax({

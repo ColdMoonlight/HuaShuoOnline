@@ -15,7 +15,6 @@
 	left: 0;
 	z-index: 9999999999;
 	padding: 3rem 0;
-	overflow: auto;
 	background-color: rgba(0, 0, 0, .3);
 }
 .lottery-close {
@@ -35,7 +34,8 @@
 }
 .lottery {
     width: 100%;
-    height: auto;
+    max-height: 90vh;
+	overflow: auto;
     text-align: center;
 }
 .lottery::after {

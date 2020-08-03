@@ -1256,6 +1256,7 @@
 			if (!file) return false;
 
 			$this.parent().find('.spinner').show();
+			$this.val('');
 
 			formData.append('type', 'product');
 			formData.append('image', file);
@@ -1297,6 +1298,7 @@
 			if (!file) return false;
 
 			$this.parent().find('.spinner').show();
+			$this.val('');
 
 			formData.append('type', 'productDiscout');
 			formData.append('image', file);
@@ -1345,6 +1347,7 @@
 			if (!videoFile) return false;
 
 			$this.parent().find('.spinner').show();
+			$this.val('');
 
 			generateVideoPoster(videoFile, function(data) {
 				// poster
@@ -1454,7 +1457,8 @@
 			if (!file) return false;
 
 			$this.parent().find('.spinner').show();
-			
+			$this.val('');
+
 			formData.append('imageAll', file);
 			formData.append('productId', parseInt($('#productId').val()));
 			formData.append('productimgSortOrder', $this.data('order'));
