@@ -384,8 +384,8 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 	function initActiveItemNum() {
 		$('.c-table-tab-tempory').html('');
 		$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-		setActiveItemNum(0);
-		setPageNum(1);
+		// setActiveItemNum(0);
+		// setPageNum(1);
 	}
 	// add table tab item
 	function addTableTabItem(val, idx) {
@@ -460,6 +460,6 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 	window.addEventListener("beforeunload", function(e) {
 		// initial page-num
 		setPageNum(1);
-		setActiveItemNum(0);
+		// setActiveItemNum(0);
 	});
 </script>
