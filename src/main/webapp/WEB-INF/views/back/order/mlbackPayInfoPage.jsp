@@ -491,7 +491,7 @@
 			$('.pay-number .value').html(data.mlfrontPayInfoOne.payinfoPlatenum || '');
 			$('.pay-method .value').html(data.mlfrontPayInfoOne.payinfoPlatform || '');
 			$('.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
-			$('.pay-paypal-status .value').html(data.mlfrontPayInfoOne.payinfoTransStatus || '');
+			$('.pay-paypal-status .value').html('<a class="badge '+ (data.mlfrontPayInfoOne.payinfoTransStatus == 'completed' ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data.mlfrontPayInfoOne.payinfoTransStatus || '') +'</a>');
 			$('.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode || '');
 			$('.pay-purchase-time .value').html(data.mlfrontOrderPayOneRes.orderCreatetime || '');
 			$('.pay-create-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime || '');
@@ -689,7 +689,7 @@
 					'<td>' + (data[i].payinfoUname || '') + '</td>' +
 					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
 					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
-					'<td>' + (data[i].payinfoTransStatus || '') + '</td>' +
+					'<td><a class="badge '+ (data[i].payinfoTransStatus == 'completed' ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnumStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoSendnum || '') + '</td>' +
