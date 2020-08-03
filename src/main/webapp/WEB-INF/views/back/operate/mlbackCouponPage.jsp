@@ -622,7 +622,6 @@
 				var coupontype =data[i].couponType;
 			    var couponLuckdrawtype = data[i].couponLuckdrawType;
 			   	var couponProductonlytype = data[i].couponProductonlyType;
-			   	console.log(data[i])
 				htmlStr += '<tr><td>' + data[i].couponId + '</td>' +
 					'<td>' + data[i].couponName + '</td>' +
 					'<td>' + data[i].couponCode + '</td>' +
