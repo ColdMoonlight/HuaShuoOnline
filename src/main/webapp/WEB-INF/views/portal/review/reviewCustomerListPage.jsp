@@ -151,24 +151,6 @@
 				rootMargin: "10px",
 				threshold: 0
 			});
-			// masonry
-			$el.masonry({
-				itemSelector: '.ins-item',
-				isFitWidth: false,
-				isRTL: false,
-				isResizable: false,
-			});
-		});
-		$(window).on('resize', function () {
-			debounce(function () {
-				// masonry
-				$('.ins-body').masonry({
-					itemSelector: '.ins-item',
-					isFitWidth: false,
-					isRTL: false,
-					isResizable: true,
-				});
-			}, 100);
 		});
 		addTidio();
 	</script>
