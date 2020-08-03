@@ -153,7 +153,7 @@ public class MlfrontPayInfoController {
 		MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
 		if(mlfrontPayInfoResList.size()>0){
 			mlfrontPayInfoOne =mlfrontPayInfoResList.get(0);
-			//2.获取本条单子的orderId，2.1查询本条的order详情;2.2从详情中拿到addressid;2.3orderItemIDStr;2.4uid信息，历史购买次数;
+			//2.获取本条单子的orderId,2.1查询本条的order详情;2.2从详情中拿到addressid;2.3orderItemIDStr;2.4uid信息,历史购买次数;
 			//2.1查询本条的order详情;
 			Integer payinfoOid = mlfrontPayInfoOne.getPayinfoOid();
 			MlfrontOrder mlfrontOrderPay = new MlfrontOrder();
@@ -250,7 +250,7 @@ public class MlfrontPayInfoController {
 		}else{
 			mlfrontPayInfoOne = null;
 		}
-		//2.获取本条单子的orderId，2.1查询本条的order详情;2.2从详情中拿到addressid;2.3orderItemIDStr;2.4uid信息，历史购买次数;
+		//2.获取本条单子的orderId,2.1查询本条的order详情;2.2从详情中拿到addressid;2.3orderItemIDStr;2.4uid信息,历史购买次数;
 		//2.1查询本条的order详情;
 		Integer payinfoOid = mlfrontPayInfoOne.getPayinfoOid();
 		MlfrontOrder mlfrontOrderPay = new MlfrontOrder();
@@ -324,7 +324,7 @@ public class MlfrontPayInfoController {
 	
 	/**7.0	zsh200720
 	 * 检查已支付的单子,是否在ecpp上已经审核
-	 * 1,收到前台的查询时间范围，后台查询这些时间内的已支付订单,
+	 * 1,收到前台的查询时间范围,后台查询这些时间内的已支付订单,
 	 * 2,便利这些单子,用token+H号,去查询本条的状态,
 	 * 3.1如果是审核完毕,就在我方系统中,将本条改成已经审核的状态
 	 * 3.2如果是已发货,就在我方系统中,将本单改成已经已发货的状态;并且把哪家物流的名字+track_no,同步回我方后台
@@ -380,7 +380,7 @@ public class MlfrontPayInfoController {
 	                		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
 	                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
 	                		
-	                		//查询本条的order信息，更新物流单号+物流名称
+	                		//查询本条的order信息,更新物流单号+物流名称
 	                		mlfrontOrderReq.setOrderLogisticsname(ecppTrackItem.getShippingName());
 	                		mlfrontOrderReq.setOrderLogisticsnumber(ecppTrackItem.getEcppOrderTrackNo());
 	                		mlfrontOrderReq.setOrderStatus(4);//orderStatus == 4已发货,待接收
@@ -417,15 +417,24 @@ public class MlfrontPayInfoController {
 	                		}
 	                		
 						}else if("UOO".equals(ecppOrderStatusCode)){
-								//113-UOO-客服审核完成的状态，就更新成审核完毕的状态
+								//113-UOO-客服审核完成的状态,就更新成审核完毕的状态
 								mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
-		                		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,已审单//orderStatus == 3已审单，待发货
+		                		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,已审单//orderStatus == 3已审单,待发货
 		                		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
 		                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
 		                		
 		                		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
 		                		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
-						}else{
+						}else if("DEL".equals(ecppOrderStatusCode)){
+							//113-DEL-客户退件了,这是ecpp取消发货后的状态,就更新成取消发货的状态
+							mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+	                		mlfrontPayInfoUpdate.setPayinfoStatus(4);//payinfoStatus=2已审单//payinfoStatus=3已发货//4已退款
+	                		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+	                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+	                		
+	                		mlfrontOrderReq.setOrderStatus(5);//orderStatus == 5已退款//
+	                		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+					}else{
 							mlfrontPayInfoUpdate.setPayinfoId(payInfoId);//不改状态,只赋值
 							mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
 							mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
@@ -436,18 +445,18 @@ public class MlfrontPayInfoController {
 					}
 					
 				}
-				return Msg.success().add("resMsg", "本次刷新有修改，请注意观察payInfo列表变化");
+				return Msg.success().add("resMsg", "本次刷新有修改,请注意观察payInfo列表变化");
 			}else{
 				//查询结果为空
 				//当前没有状态为已支付的数据
-				return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子，无改变");
+				return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子,无改变");
 			}
 //		}
 	}
 
 	/**12.0	zsh200722
 	 * 检查已审核的单子,是否在ecpp上已经发货
-	 * 1,收到前台的查询时间范围，后台查询这些时间内的已审核订单,
+	 * 1,收到前台的查询时间范围,后台查询这些时间内的已审核订单,
 	 * 2,便利这些单子,用token+H号,去查询本条的状态,
 	 * 3,如果是已发货,就在我方系统中,将本单改成已经已发货的状态;并且把哪家物流的名字+track_no,同步回我方后台
 	 * @param "payinfoCreatetime": "2020-07-21 08:20:06",
@@ -501,7 +510,7 @@ public class MlfrontPayInfoController {
 	                		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
 	                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
 	                		
-	                		//查询本条的order信息，更新物流单号+物流名称
+	                		//查询本条的order信息,更新物流单号+物流名称
 	                		mlfrontOrderReq.setOrderLogisticsname(ecppTrackItem.getShippingName());
 	                		mlfrontOrderReq.setOrderLogisticsnumber(ecppTrackItem.getEcppOrderTrackNo());
 	                		mlfrontOrderReq.setOrderStatus(4);//orderStatus == 4已发货,待接收
@@ -545,11 +554,11 @@ public class MlfrontPayInfoController {
 						e.printStackTrace();
 					}
 				}
-				return Msg.success().add("resMsg", "本次刷新有修改，请注意观察payInfo列表变化");
+				return Msg.success().add("resMsg", "本次刷新有修改,请注意观察payInfo列表变化");
 			}else{
 				//查询结果为空
 				//当前没有状态为已支付的数据
-				return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子，无改变");
+				return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子,无改变");
 			}
 //		}
 	}
@@ -571,13 +580,52 @@ public class MlfrontPayInfoController {
 		tracking.setTitle(payinfoPlateNum);//订单号
 		tracking.setOrderID(payinfoPlateNum);//Ecpp的订单号
 		
+		//公共方法
+		MlfrontOrder orderOne = getOrderDetailByOrderId(orderId);
+		
+		Integer addressId = orderOne.getOrderAddressinfoId();
+		
+		MlfrontAddress addressOne = getAddressDetailByAddressId(addressId);
+		
+		String userfirstname = addressOne.getAddressUserfirstname();
+		String userlastname = addressOne.getAddressUserlastname();
+		
+		String addressEmail = addressOne.getAddressEmail();
+		
+		String addressTelephone = addressOne.getAddressTelephone();
+		
 		tracking.setCustomerName("shaohua");
 		tracking.addEmails("mingyueqingl@163.com");
 		tracking.addSmses("+8617600209637");
+		
+		String uname = userfirstname+" "+userlastname;
+		System.out.println("uname:"+uname);
+		System.out.println("addressEmail:"+addressEmail);
+		System.out.println("addressTelephone:"+addressTelephone);
+//		tracking.setCustomerName(uname);
+//		tracking.addEmails(addressEmail);
+//		tracking.addSmses(addressTelephone);
 
+		String orderitemidstr = orderOne.getOrderOrderitemidstr();
+		String orderItemArr[] =orderitemidstr.split(",");
+		String proStr = "";
+		String proOneDetailStr = "";
+		//1.1如果有多个删除字段中的该项
+		for(int i =0;i<orderItemArr.length;i++){
+			String orderItemId = orderItemArr[i];
+			
+			MlfrontOrderItem orderItemOne = getOrderItemDetailByOrderItemId(orderItemId);
+			String proName = orderItemOne.getOrderitemPseo();
+			Integer orderItemNum = orderItemOne.getOrderitemPskuNumber();
+			String orderItemNumStr = orderItemNum+"";
+			String proSkuName = orderItemOne.getOrderitemPskuName();
+			
+			proOneDetailStr= ""+orderItemNumStr+" x "+proName+"("+proSkuName+")";
+			proStr+=proOneDetailStr;
+		}
+		
 		//Even add customer fields
-		tracking.addCustomFields("product_name","iPhone Case");
-		tracking.addCustomFields("product_price","USD999.60");
+		tracking.addCustomFields("product_Items",proStr);
 
 		//Finally we add the tracking to our account
 		Tracking trackingPosted;
@@ -606,6 +654,34 @@ public class MlfrontPayInfoController {
 		}
 	}
 	
+	//获取orderItem的明细
+	private MlfrontOrderItem getOrderItemDetailByOrderItemId(String orderItemIdStr) {
+		
+		Integer orderItemId = Integer.parseInt(orderItemIdStr);
+		MlfrontOrderItem mlfrontOrderItemReq = new MlfrontOrderItem();
+		mlfrontOrderItemReq.setOrderitemId(orderItemId);
+		List<MlfrontOrderItem> mlfrontOrderItemList  = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemReq);
+		MlfrontOrderItem mlfrontOrderItemRes = mlfrontOrderItemList.get(0);
+		return mlfrontOrderItemRes;
+	}
+
+	//公共方法,用orderId查询OrderDetail
+	private MlfrontOrder getOrderDetailByOrderId(Integer orderId) {
+		MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+		mlfrontOrderReq.setOrderId(orderId);
+		List<MlfrontOrder> mlfrontOrderListRes  = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
+		MlfrontOrder mlfrontOrderRes = mlfrontOrderListRes.get(0);
+		return mlfrontOrderRes;
+	}
+	//公共方法,用addressId查询AddressDetail
+	private MlfrontAddress getAddressDetailByAddressId(Integer addressId) {
+		MlfrontAddress mlfrontAddressReq = new MlfrontAddress();
+		mlfrontAddressReq.setAddressId(addressId);
+		List<MlfrontAddress> mlfrontAddressListRes  = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddressReq);
+		MlfrontAddress mlfrontAddressRes = mlfrontAddressListRes.get(0);
+		return mlfrontAddressRes;
+	}
+
 	/**
 	 * 1.0	zsh	200720
 	 * to	全部支付单的状态-分状态查询
