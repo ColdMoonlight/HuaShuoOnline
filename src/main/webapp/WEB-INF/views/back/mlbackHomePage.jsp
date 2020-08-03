@@ -460,10 +460,8 @@
 				chartInstance.push(instance);
 				$el.parents('.card').find('.card-mask').hide();
 			}
-			// generate dashboard
-			function generateDashBoard(startTime, endTime) {
-				$('#search-create-time').val(startTime);
-				$('#search-confirm-time').val(endTime);
+			// generate payinfo chart
+			function generatePayinfoChart() {
 				getStaticsPayinfoData(function(data) {
 					function getCalPayinfoMoney(data) {
 						var acc = 0;
@@ -493,6 +491,9 @@
 					$('.payinfo-avg-money').text('$' + calPayinfoAvgMoney);
 					generateChart($('#payinfo-avg-chart'), generateCoordinatesData(calPayinfo, 'payinfoavg'));
 				});
+			}
+			// generate user chart
+			function generateUserChart() {
 				getStaticsUserData(function(data) {
 					function getCalUserQuantity(data) {
 						var acc = 0;
@@ -506,6 +507,13 @@
 					$('.user-quantity').text(allCalUserQuantity);
 					generateChart($('#user-chart'), generateCoordinatesData(calUser, 'user'));
 				});
+			}
+			// generate dashboard
+			function generateDashBoard(startTime, endTime) {
+				$('#search-create-time').val(startTime);
+				$('#search-confirm-time').val(endTime);
+				generatePayinfoChart();
+				generateUserChart();
 			}
 			/* init */
 			var chartInstance = []
