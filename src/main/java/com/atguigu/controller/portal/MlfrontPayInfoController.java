@@ -454,7 +454,7 @@ public class MlfrontPayInfoController {
 //		}
 	}
 
-	/**12.0	zsh200722
+	/**8.0	zsh200722
 	 * 检查已审核的单子,是否在ecpp上已经发货
 	 * 1,收到前台的查询时间范围,后台查询这些时间内的已审核订单,
 	 * 2,便利这些单子,用token+H号,去查询本条的状态,
@@ -683,7 +683,7 @@ public class MlfrontPayInfoController {
 	}
 
 	/**
-	 * 1.0	zsh	200720
+	 * 9.0	zsh	200720
 	 * to	全部支付单的状态-分状态查询
 	 * @param pn,Integer payinfoStatus,String payinfoPlateNum;
 	 * @return
