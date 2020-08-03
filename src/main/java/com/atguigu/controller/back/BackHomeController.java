@@ -92,11 +92,8 @@ public class BackHomeController {
 	@ResponseBody
 	public Msg getBackHomeUserListInfo(HttpSession session,@RequestBody MlfrontUser mlfrontUser) throws Exception{
 		
-		
 		List<MlfrontUser> mlfrontUserList =  mlfrontUserService.selectMlfrontUserByDate(mlfrontUser);
 		return Msg.success().add("resMsg", "统计面板某时间内的总用户数").add("mlfrontUserList", mlfrontUserList);
 	}
-	
-
 
 }

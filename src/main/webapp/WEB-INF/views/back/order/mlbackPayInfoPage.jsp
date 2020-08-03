@@ -28,8 +28,8 @@
 							</div>
 						</div>
 						<div class="ecpp-btn-group col-md-9">
-							<button class="btn btn-primary ecpp-data-sync">Ecpp Data Sync</button>
-							<button class="btn btn-secondary ecpp-verify-sync">Ecpp Verify Sync</button>						
+							<button class="btn btn-secondary ecpp-verify-sync">checkEcppIfVerify</button>						
+							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
 						</div>
 					</div>
 					<div class="c-table">
@@ -333,7 +333,7 @@
 			$('.c-view c-option-title').text('Order List');
 			showInitBlock();
 		});
-		// ecpp
+		// checkEcppIfSend
 		$('.ecpp-data-sync').on('click', function() {
 			$('.c-mask').show();
 			$.ajax({
@@ -361,6 +361,7 @@
 				}
 			});
 		});
+		//checkEcppIfVerify
 		$('.ecpp-verify-sync').on('click', function() {
 			$('.c-mask').show();
 			$.ajax({

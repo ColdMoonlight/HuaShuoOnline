@@ -335,11 +335,11 @@ public class MlfrontPayInfoController {
 	@ResponseBody
 	public Msg checkEcppIfVerify(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return Msg.fail().add("resMsg", "请重新登陆");
-		}else{
+//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
+//		if(mlbackAdmin==null){
+//			//SysUsers对象为空
+//			return Msg.fail().add("resMsg", "请重新登陆");
+//		}else{
 			String startTime = mlfrontPayInfo.getPayinfoCreatetime();
 			String endTime = mlfrontPayInfo.getPayinfoMotifytime();
 			
@@ -442,7 +442,7 @@ public class MlfrontPayInfoController {
 				//当前没有状态为已支付的数据
 				return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子，无改变");
 			}
-		}
+//		}
 	}
 
 	/**12.0	zsh200722
@@ -457,11 +457,11 @@ public class MlfrontPayInfoController {
 	@ResponseBody
 	public Msg checkEcppIfSend(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return Msg.fail().add("resMsg", "请重新登陆");
-		}else{
+//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
+//		if(mlbackAdmin==null){
+//			//SysUsers对象为空
+//			return Msg.fail().add("resMsg", "请重新登陆");
+//		}else{
 			String startTime = mlfrontPayInfo.getPayinfoCreatetime();
 			String endTime = mlfrontPayInfo.getPayinfoMotifytime();
 			
@@ -526,7 +526,6 @@ public class MlfrontPayInfoController {
 	                				MlfrontOrder mlfrontOrderAfterReq = new MlfrontOrder();
 	                				mlfrontOrderAfterReq.setOrderId(orderId);
 	                				mlfrontOrderAfterReq.setOrderLogisticsname(orderLogisticsname);
-	                				//
 	                				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterReq);
 	                			}else{
 	                				//没有插入成功
@@ -552,7 +551,7 @@ public class MlfrontPayInfoController {
 				//当前没有状态为已支付的数据
 				return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子，无改变");
 			}
-		}
+//		}
 	}
 	
 	/**

@@ -1185,7 +1185,7 @@ public class MlfrontCartController {
 	@ResponseBody
 	public Msg updateCartitemPku(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontCartItem mlfrontCartItem){
 		
-		System.out.println("mlfrontCartItem:"+mlfrontCartItem.toString());
+		System.out.println("更新购物车中的mlfrontCartItem:"+mlfrontCartItem.toString());
 		mlfrontCartItem.getCartitemId();
 		mlfrontCartItem.getCartitemProductskuId();
 		mlfrontCartItem.getCartitemProductskuName();
