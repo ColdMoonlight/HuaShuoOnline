@@ -880,6 +880,7 @@
 			if (!file) return false;
 
 			$this.parent().find('.spinner').show();
+			$this.val('');
 
 			formData.append('image', file);
 			formData.append('type', 'reviewDetail');
