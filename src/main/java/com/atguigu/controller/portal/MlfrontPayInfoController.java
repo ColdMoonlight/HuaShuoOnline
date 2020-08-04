@@ -398,7 +398,7 @@ public class MlfrontPayInfoController {
 	                			String afterOperateStatus = afterShipReturn.getAfterOperateStatus();
 	                			
 	                			if("1".equals(afterOperateStatus)){
-	                				//插入成功
+	                				//往aftership中插入成功
 	                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip成功,返回的物流名为:"+afterShipReturn.getAfterShipSlugName());
 	                				orderLogisticsname  = afterShipReturn.getAfterShipSlugName();
 	                				//更新order表中本条成最终的物流信息的物流名称
@@ -407,26 +407,25 @@ public class MlfrontPayInfoController {
 	                				mlfrontOrderAfterReq.setOrderLogisticsname(orderLogisticsname);
 	                				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterReq);
 	                			}else{
-	                				//没有插入成功
+	                				//往aftership没有插入成功
 	                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败");
 	                			}
 	                		} catch (Exception e) {
 	                			e.printStackTrace();
-	                			System.out.println("物流中插入物流单号--有异常");
+	                			System.out.println("aftership中插入物流单号--有异常");
 	                			System.out.println(e.getMessage());
 	                		}
-	                		
 						}else if("UOO".equals(ecppOrderStatusCode)){
-								//113-UOO-客服审核完成的状态,就更新成审核完毕的状态
-								mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
-		                		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,已审单//orderStatus == 3已审单,待发货
-		                		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
-		                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
-		                		
-		                		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
-		                		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+							//113-UOO-客服审核完成的状态,就更新成审核完毕的状态
+							mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+	                		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,已审单//orderStatus == 3已审单,待发货
+	                		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+	                		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+	                		
+	                		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
+	                		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
 						}else if("DEL".equals(ecppOrderStatusCode)){
-							//113-DEL-客户退件了,这是ecpp取消发货后的状态,就更新成取消发货的状态
+							//124-DEL-客户退件了,这是ecpp取消发货后的状态,就更新成取消发货的状态
 							mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
 	                		mlfrontPayInfoUpdate.setPayinfoStatus(4);//payinfoStatus=2已审单//payinfoStatus=3已发货//4已退款
 	                		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
@@ -434,12 +433,11 @@ public class MlfrontPayInfoController {
 	                		
 	                		mlfrontOrderReq.setOrderStatus(5);//orderStatus == 5已退款//
 	                		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
-					}else{
+						}else{
 							mlfrontPayInfoUpdate.setPayinfoId(payInfoId);//不改状态,只赋值
 							mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
 							mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
 						}
-						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
