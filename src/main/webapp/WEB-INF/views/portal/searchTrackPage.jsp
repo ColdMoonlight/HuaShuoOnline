@@ -13,6 +13,7 @@
     <jsp:include page="layout/header.jsp" flush="true"></jsp:include>
 	<main>
 		<div class="container">
+			<div class="search-order-title">Track Order</div>
 			<div class="search-order-condition">
 				<select class="search-order-type">
 					<option value="0">order id</option>
