@@ -31,14 +31,11 @@
 	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
-	<script src="${APP_PATH }/static/pc/js/masonry.min.js"></script>
 	<script>
 		function getReviewData(num, callback) {
 			$.ajax({
 				url: '${APP_PATH}/MlfrontReview/selectReviewListFrom',
-				data: JSON.stringify({
-					"reviewFrom": num
-				}),
+				data: JSON.stringify({ "reviewFrom": num }),
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/json',

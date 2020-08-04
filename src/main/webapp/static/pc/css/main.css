@@ -3643,12 +3643,10 @@ footer li {
 	display: block;
 	margin-top: 1rem;
 }
-.ins-body {
-	column-gap: 1%;
-}
 .ins-item {
+	-webkit-break-inside: avoid;
+	-moz-break-inside: avoid;
 	break-inside: avoid;
-	margin-bottom: 5%;
 	padding-bottom: 1rem;
 	border: 1px solid #f5f5f5;
 }
@@ -3752,7 +3750,15 @@ footer li {
 		font-size: .875rem;
 	}
 	.ins-body {
+		-webkit-column-count: 2;
+		-moz-column-count: 2;
 		column-count: 2;
+		-webkit-column-gap: .5rem;
+		-moz-column-gap: .5rem;
+		column-gap: .5rem;
+	}
+	.ins-item {
+		margin-bottom: .5rem;
 	}
 	.ins-details {
 		padding: .5rem;
@@ -3839,6 +3845,14 @@ footer li {
 		width: 80%;
 		margin: 0 auto;
 	}
+	.ins-body {
+		-webkit-column-gap: 1rem;
+		-moz-column-gap: 1rem;
+		column-gap: 1rem;
+	}
+	.ins-item {
+		margin-bottom: 1rem;
+	}
 	.ins-details {
 		padding: .5rem;
 		font-size: 1rem;
@@ -3866,6 +3880,8 @@ footer li {
 		height: 360px;
 	}
 	.ins-body {
+		-webkit-column-count: 3;
+		-moz-column-count: 3;
 		column-count: 3;
 	}
 }
@@ -3899,6 +3915,8 @@ footer li {
 		height: 500px;
 	}
 	.ins-body {
+		-webkit-column-count: 4;
+		-moz-column-count: 4;
 		column-count: 4;
 	}
 	.ins-item .btn {
