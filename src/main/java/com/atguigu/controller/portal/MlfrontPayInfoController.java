@@ -398,7 +398,7 @@ public class MlfrontPayInfoController {
 	                			String afterOperateStatus = afterShipReturn.getAfterOperateStatus();
 	                			
 	                			if("1".equals(afterOperateStatus)){
-	                				//插入成功
+	                				//往aftership中插入成功
 	                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip成功,返回的物流名为:"+afterShipReturn.getAfterShipSlugName());
 	                				orderLogisticsname  = afterShipReturn.getAfterShipSlugName();
 	                				//更新order表中本条成最终的物流信息的物流名称
@@ -407,7 +407,7 @@ public class MlfrontPayInfoController {
 	                				mlfrontOrderAfterReq.setOrderLogisticsname(orderLogisticsname);
 	                				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterReq);
 	                			}else{
-	                				//没有插入成功
+	                				//往aftership没有插入成功
 	                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败");
 	                			}
 	                		} catch (Exception e) {
