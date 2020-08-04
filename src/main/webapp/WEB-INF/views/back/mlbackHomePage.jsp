@@ -7,40 +7,6 @@
 		<title>MEGALOOK ADMIN</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
-		<style>
-			.c-main .card {
-				position: relative;
-				min-height: 10rem;
-				padding: 1rem;
-				overflow: hidden;
-			}
-			.card-mask {
-				position: absolute;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;
-				background-color: rgba(0, 0, 0, .3);
-				
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-			.dashboard-condition .form-group {
-				display: flex;
-				align-items: center;
-			}
-			.dashboard-condition .form-group .controls {
-				width: 20rem;
-				margin-left: .5rem;
-			}
-			.card-header {
-				font-size: 1.25rem;
-				color: #333;
-			}
-			.chart-quantity { font-size: 1.5rem; }
-			.card-body { padding-left: 0; padding-right: 0; }
-		</style>
 	</head>
 
 	<body class="c-app">
@@ -124,6 +90,21 @@
 							</div>
 						</div>
 						<!-- /.col-->
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-header">Online store conversion rate</div>
+								<div class="card-body">
+									<div class="chart-title">
+										<div class="chart-quantity order-conversion-rate"></div>
+									</div>
+									<div class="chart-body" id="order-conversion"></div>
+								</div>
+								<div class="card-mask">
+									<div class="spinner-border"></div>
+								</div>
+							</div>
+						</div>
+						<!-- /.col-->
 						<!-- <div class="col-md-6">
 							<div class="card">
 								<div class="card-header">Returning customer rate</div>
@@ -194,6 +175,54 @@
 					}
 				});
 			}
+			function getStaticsOrderConversionData(id, callback) {
+				$.ajax({
+					url: "${APP_PATH}/MlbackAddCartViewDetail/getAddCartViewDetailNumByTimeAndActnum",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify({
+						'addcartviewdetailCreatetime': $('#search-create-time').val(),
+						'addcartviewdetailMotifytime': $('#search-confirm-time').val(),
+						'addcartviewdetailActnum': id
+					}),
+					async: false,
+					success: function (data) {
+						if (data.code == 100) {
+							callback && callback(data.extend.toDayNum);
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function () {
+						toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
+					}
+				});
+			}
+			function getStaticsCheckoutConversionData(id, callback) {
+				$.ajax({
+					url: "${APP_PATH}/MlbackAddCheakoutViewDetail/getAddCheakoutViewDetailNum",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify({
+						'addcheakoutviewdetailCreatetime': $('#search-create-time').val(),
+						'addcheakoutviewdetailMotifytime': $('#search-confirm-time').val(),
+						'addcheakoutviewdetailActnum': id
+					}),
+					async: false,
+					success: function (data) {
+						if (data.code == 100) {
+							callback && callback(data.extend.toDayNum);
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function () {
+						toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
+					}
+				});
+			}			
 			/* statics cal */			
 			// cal user data
 			function calStaticsUserData(data) {
@@ -485,6 +514,7 @@
 					$('.payinfo-total-money').text('$' + allCalPayinfoMoney.toFixed(2) );
 					generateChart($('#payinfo-total-chart'), generateCoordinatesData(calPayinfo, 'payinfo'));
 					// payinfo order
+					totalPayinfoNum = allCalPayinfoQuantity;
 					$('.payinfo-order').text(allCalPayinfoQuantity);
 					generateChart($('#payinfo-order-chart'), generateCoordinatesData(calPayinfo, 'payinfoorder'));
 					// avg
@@ -508,17 +538,83 @@
 					generateChart($('#user-chart'), generateCoordinatesData(calUser, 'user'));
 				});
 			}
+			// generate order conversion
+			function generateOrderConversion() {
+				var htmlStr = '';
+				var totalNum = 0;
+				var addToCartNum = 0;
+				var buyNowNum = 0;
+				var checkoutNum = 0;
+				var checkoutNum2 = 0;
+				var coversionRate = 0;
+				var mapRate = {
+						'add-to-cart': 0.00,
+						'buy-now': 0.00,
+						'checkout': 0.00,
+						'checkout2': 0.00
+					};
+				getStaticsOrderConversionData(0, function(data) {
+					addToCartNum = data;
+				});
+				getStaticsOrderConversionData(1, function(data) {
+					buyNowNum = data;
+				});
+				getStaticsCheckoutConversionData(0, function(data) {
+					checkoutNum = data;
+				});
+				getStaticsCheckoutConversionData(1, function(data) {
+					checkoutNum2 = data;
+				});
+				totalNum = addToCartNum + buyNowNum + checkoutNum + checkoutNum2;
+				if (totalNum) {
+					mapRate['add-to-cart'] = (addToCartNum * 100 / totalNum).toFixed(2);
+					mapRate['buy-now'] = (buyNowNum * 100 / totalNum).toFixed(2);
+					mapRate['checkout'] = (checkoutNum * 100 / totalNum).toFixed(2);
+					mapRate['checkout2'] = (checkoutNum2 * 100 / totalNum).toFixed(2);
+
+					coversionRate = (100 * totalPayinfoNum / totalNum).toFixed(2);
+				}
+				htmlStr = '<div class="order-conversion-item">'+
+						'<span class="name">Added to cart (default)</span>' +
+						'<span class="num">'+ addToCartNum +' sessions</span>' +
+						'<span class="rate">'+ mapRate["add-to-cart"] +'%</span>' +
+					'</div>' +
+					'<div class="order-conversion-item">'+
+						'<span class="name">Added to cart (from buynow)</span>' +
+						'<span class="num">'+ buyNowNum +' sessions</span>' +
+						'<span class="rate">'+ mapRate["buy-now"] +'%</span>' +
+					'</div>' +
+					'<div class="order-conversion-item">'+
+						'<span class="name">Checout conversion (default)</span>' +
+						'<span class="num">'+ checkoutNum +' sessions</span>' +
+						'<span class="rate">'+ mapRate["checkout"] +'%</span>' +
+					'</div>' +
+					'<div class="order-conversion-item">'+
+						'<span class="name">Checout conversion (from buynow)</span>' +
+						'<span class="num">'+ checkoutNum2 +' sessions</span>' +
+						'<span class="rate">'+ mapRate["checkout2"] +'%</span>' +
+					'</div>' +
+					'<div class="order-conversion-item">'+
+					'<span class="name">conversion Rate</span>' +
+					'<span class="num">'+ totalPayinfoNum +' sessions</span>' +
+					'<span class="rate">'+ coversionRate +'%</span>' +
+				'</div>';
+				$('#order-conversion').html(htmlStr).parents('.card').find('.card-mask').hide();
+				$('.order-conversion-rate').text(coversionRate + '%');
+			}
 			// generate dashboard
 			function generateDashBoard(startTime, endTime) {
 				$('#search-create-time').val(startTime);
 				$('#search-confirm-time').val(endTime);
 				generatePayinfoChart();
 				generateUserChart();
+				generateOrderConversion();
 			}
 			/* init */
+			var totalPayinfoNum = 0;
 			var chartInstance = []
 			var date = new Date();
-			var ymd = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1) + '-' + date.getUTCDate();
+			var ymd = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1 > 10 ? date.getUTCMonth() + 1 : '0' + (date.getUTCMonth() + 1)) + '-' + (date.getUTCDate() > 10 ? date.getUTCDate() : '0' + date.getUTCDate());
 			bindDateRangeEvent(generateDashBoard);
 			generateDashBoard(ymd + ' 00:00:00', ymd + ' 23:59:59');
 			// resize for chart
