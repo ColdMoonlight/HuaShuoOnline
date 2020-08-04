@@ -8,13 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAddCheakoutViewDetail;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.common.Msg;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAddCheakoutViewDetailService;
 import com.atguigu.vo.SortNumTh;
 
@@ -26,7 +23,7 @@ public class MlbackAddCheakoutViewDetailController {
 	MlbackAddCheakoutViewDetailService mlbackAddCheakoutViewDetailService;
 		
 	/**
-	 * 1.0	UseNow	0505
+	 * 1.0	zsh200804
 	 * toMlbackActShowPro列表页面
 	 * @param jsp
 	 * @return 
@@ -65,7 +62,7 @@ public class MlbackAddCheakoutViewDetailController {
 	}
 	
 	
-	/**4.0	UseNow	0505
+	/**4.0	zsh200804
 	 * 分类MlbackProductViewDetail列表list数据
 	 * @param
 	 * @return

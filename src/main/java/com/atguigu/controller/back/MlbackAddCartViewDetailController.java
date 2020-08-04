@@ -23,7 +23,7 @@ public class MlbackAddCartViewDetailController {
 	MlbackAddCartViewDetailService mlbackAddCartViewDetailService;
 		
 	/**
-	 * 1.0	UseNow	0505
+	 * 1.0	zsh200804
 	 * toMlbackActShowPro列表页面
 	 * @param jsp
 	 * @return 
@@ -40,7 +40,7 @@ public class MlbackAddCartViewDetailController {
 		}
 	}
 	
-	/**3.0	UseNow	0505
+	/**3.0	zsh200804
 	 * 分类MlbackActShowPro列表分页list数据
 	 * @param pn
 	 * @return
@@ -61,9 +61,9 @@ public class MlbackAddCartViewDetailController {
 		return Msg.success().add("toDayNum", toDayNum);
 	}
 	
-	/**4.0	UseNow	0505
-	 * 分类MlbackProductViewDetail列表list数据
-	 * @param
+	/**4.0	zsh200804
+	 * 分类getAddCartViewDetailList列表list数据
+	 * @paramMlbackAddCartViewDetail
 	 * @return
 	 */
 	@RequestMapping(value="/getAddCartViewDetailList",method=RequestMethod.POST)
