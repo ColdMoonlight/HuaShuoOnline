@@ -88,7 +88,7 @@
     <if test="addcartviewdetailActnum != null">
       and addcartViewDetail_actnum = #{addcartviewdetailActnum,jdbcType=INTEGER} 
     </if>
-    order by addcartViewDetail_id desc
+    order by addcartViewDetail_proseo desc
   </select>
   
 </mapper>
