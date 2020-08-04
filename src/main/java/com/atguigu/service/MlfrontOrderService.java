@@ -64,5 +64,10 @@ public class MlfrontOrderService {
 		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectMlfrontOrderAllHundred();
 		return mlfrontOrderList;
 	}
+
+	public List<MlfrontOrder> selectMlfrontOrderByTrackingNumber(MlfrontOrder mlfrontOrderReq) {
+		List<MlfrontOrder>  mlfrontOrderList = mlfrontOrderMapper.selectMlfrontOrderByTrackingNumber(mlfrontOrderReq);
+		return mlfrontOrderList;
+	}
 	
 }
