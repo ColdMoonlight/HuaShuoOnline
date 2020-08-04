@@ -25,7 +25,7 @@ var ml = {
 	//www.megalook.com的fbid googleid tidio
 	// facebook_id: '667403967094866', // megalook
 	// google_id: 'UA-145178467-1', // megalook
-	// "tidio": '//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js', 
+	// "tidio": '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', 
 	//www.huashuohair.com的fbid googleid tidio
 	// facebook_id: '246433859565492', // huashuohair
 	// google_id: 'UA-128377932-1', // huashuohair
