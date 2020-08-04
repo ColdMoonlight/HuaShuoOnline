@@ -16,29 +16,9 @@
     addcartViewDetail_proseo, addcartViewDetail_actnum, addcartViewDetail_createTime, 
     addcartViewDetail_motifyTime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_mlback_addcartviewdetail
-    where addcartViewDetail_id = #{addcartviewdetailId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_mlback_addcartviewdetail
-    where addcartViewDetail_id = #{addcartviewdetailId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.atguigu.bean.MlbackAddCartViewDetail">
-    insert into tb_mlback_addcartviewdetail (addcartViewDetail_id, addcartViewDetail_sessionid, 
-      addcartViewDetail_proid, addcartViewDetail_proname, 
-      addcartViewDetail_proseo, addcartViewDetail_actnum, 
-      addcartViewDetail_createTime, addcartViewDetail_motifyTime
-      )
-    values (#{addcartviewdetailId,jdbcType=INTEGER}, #{addcartviewdetailSessionid,jdbcType=VARCHAR}, 
-      #{addcartviewdetailProid,jdbcType=INTEGER}, #{addcartviewdetailProname,jdbcType=VARCHAR}, 
-      #{addcartviewdetailProseo,jdbcType=VARCHAR}, #{addcartviewdetailActnum,jdbcType=INTEGER}, 
-      #{addcartviewdetailCreatetime,jdbcType=VARCHAR}, #{addcartviewdetailMotifytime,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackAddCartViewDetail">
+
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="addcartviewdetailId" parameterType="com.atguigu.bean.MlbackAddCartViewDetail">
     insert into tb_mlback_addcartviewdetail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="addcartviewdetailId != null">
@@ -93,42 +73,22 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackAddCartViewDetail">
-    update tb_mlback_addcartviewdetail
-    <set>
-      <if test="addcartviewdetailSessionid != null">
-        addcartViewDetail_sessionid = #{addcartviewdetailSessionid,jdbcType=VARCHAR},
-      </if>
-      <if test="addcartviewdetailProid != null">
-        addcartViewDetail_proid = #{addcartviewdetailProid,jdbcType=INTEGER},
-      </if>
-      <if test="addcartviewdetailProname != null">
-        addcartViewDetail_proname = #{addcartviewdetailProname,jdbcType=VARCHAR},
-      </if>
-      <if test="addcartviewdetailProseo != null">
-        addcartViewDetail_proseo = #{addcartviewdetailProseo,jdbcType=VARCHAR},
-      </if>
-      <if test="addcartviewdetailActnum != null">
-        addcartViewDetail_actnum = #{addcartviewdetailActnum,jdbcType=INTEGER},
-      </if>
-      <if test="addcartviewdetailCreatetime != null">
-        addcartViewDetail_createTime = #{addcartviewdetailCreatetime,jdbcType=VARCHAR},
-      </if>
-      <if test="addcartviewdetailMotifytime != null">
-        addcartViewDetail_motifyTime = #{addcartviewdetailMotifytime,jdbcType=VARCHAR},
-      </if>
-    </set>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlback_addcartviewdetail
     where addcartViewDetail_id = #{addcartviewdetailId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackAddCartViewDetail">
-    update tb_mlback_addcartviewdetail
-    set addcartViewDetail_sessionid = #{addcartviewdetailSessionid,jdbcType=VARCHAR},
-      addcartViewDetail_proid = #{addcartviewdetailProid,jdbcType=INTEGER},
-      addcartViewDetail_proname = #{addcartviewdetailProname,jdbcType=VARCHAR},
-      addcartViewDetail_proseo = #{addcartviewdetailProseo,jdbcType=VARCHAR},
-      addcartViewDetail_actnum = #{addcartviewdetailActnum,jdbcType=INTEGER},
-      addcartViewDetail_createTime = #{addcartviewdetailCreatetime,jdbcType=VARCHAR},
-      addcartViewDetail_motifyTime = #{addcartviewdetailMotifytime,jdbcType=VARCHAR}
-    where addcartViewDetail_id = #{addcartviewdetailId,jdbcType=INTEGER}
-  </update>
+  </delete>
+  <!-- selectMlbackAddCartViewDetailByTime -->
+  <select id="selectMlbackAddCartViewDetailByTimeAndActnum" parameterType="com.atguigu.bean.MlbackAddCartViewDetail" resultMap="BaseResultMap">
+    select 
+    addcartViewDetail_id, addcartViewDetail_sessionid, addcartViewDetail_proid, addcartViewDetail_proname, 
+    addcartViewDetail_proseo, addcartViewDetail_actnum, addcartViewDetail_createTime
+    from tb_mlback_addcartviewdetail
+    where addcartViewDetail_createTime between #{addcartviewdetailCreatetime,jdbcType=VARCHAR} and #{addcartviewdetailMotifytime,jdbcType=VARCHAR} 
+    <if test="addcartviewdetailActnum != null">
+      and addcartViewDetail_actnum = #{addcartviewdetailActnum,jdbcType=INTEGER} 
+    </if>
+    order by addcartViewDetail_id desc
+  </select>
+  
 </mapper>
