@@ -458,22 +458,25 @@ function goToCartList() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCartList';
 }
 function goToPay() {
-	window.location.href = '${APP_PATH }/paypal/mpay';
+	window.location.href = '${APP_PATH}/paypal/mpay';
 }
 function goTopayInstance() {
 	window.location.href = '${APP_PATH}/paypalProDetailExpress/mpay';
 }
 function goToUserCenter() {
-	 window.location.href = "${APP_PATH }/MlfrontUser/toUserCenter";
+	 window.location.href = "${APP_PATH}/MlfrontUser/toUserCenter";
 }
 function goToUserCenerOrder() {
-	window.location.href = "${APP_PATH }/MlfrontUser/tomyOrderPage";
+	window.location.href = "${APP_PATH}/MlfrontUser/tomyOrderPage";
 }
 function goToUserCenerCoupon() {
-	window.location.href = "${APP_PATH }/MlfrontUser/toCouponPage";
+	window.location.href = "${APP_PATH}/MlfrontUser/toCouponPage";
 }
 function goToUserCenerPersonal() {
-	window.location.href = "${APP_PATH }/MlfrontUser/toPersonInfoPage";
+	window.location.href = "${APP_PATH}/MlfrontUser/toPersonInfoPage";
+}
+function goToSearchTrack() {
+	window.location.href = "${APP_PATH}/MlfrontOrderList/searchTrackPage";
 }
 
 /* pagination */

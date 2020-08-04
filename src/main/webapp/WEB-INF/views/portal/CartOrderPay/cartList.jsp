@@ -135,7 +135,7 @@
 			var $cartCal = $('<div class="cart-cal">' +
 				'<div class="cart-cal-item"><span class="name">NUMTOTAL</span><span class="value cart-cal-total">'+ calCart.count +'</span></div>' +
 				'<div class="cart-cal-item"><span class="name">SUBTOTAL</span><span class="value cart-cal-subtotal" data-price="'+subTotal +'">$'+ subTotal +'</span></div>' +
-				'<div class="cart-cal-btn"><a href="${APP_PATH}/index.html" class="btn btn-gray">Continue Shopping</a><a href="javascript:;" class="btn btn-black btn-checkout">Checkout</a></div>' +
+				'<div class="cart-cal-btn"><a href="javascript:goToIndex();" class="btn btn-gray">Continue Shopping</a><a href="javascript:;" class="btn btn-black btn-checkout">Checkout</a></div>' +
 				/* '<div class="paypal-button-container">'+
 					'<div title="paypal" class="btn paypal-button paypal-button-paypal"></div>' +
 		        	'<div title="credit" class="btn paypal-button paypal-button-credit"></div>' +
@@ -211,9 +211,14 @@
 			});
 		}
 		function updateCartItemSku(data) {
+			var skuData = data.cartitemProductskuName.split(',');
+			var definePrice = (data.cartitemProductOriginalprice || 0)  + (parseFloat(data.cartitemProductskuMoneystr) || 0);
+			var nowPrice = definePrice * data.cartitemProductActoff / 100;
+			$selectedItem.find('.product-define-price').text('$' + definePrice.toFixed(2));
+			$selectedItem.find('.product-now-price').text('$' + nowPrice.toFixed(2));
 			$selectedItem.find('.cart-sku-list-item').each(function(idx, item) {
-				$(item).find('.value').text(data[idx]);
-			});			
+				$(item).find('.value').text(skuData[idx]);
+			});
 		}
 		// to checkout 
 		function cartListCheckout(reqData, callback) {
@@ -372,7 +377,7 @@
 					targetData.cartitemProductskuMoneystr = data.cartitemProductskuMoneystr;
 					targetData.cartitemProductskuCode = data.cartitemProductskuCode;
 					$selectedItem.data('cartitem', targetData);
-					updateCartItemSku(data.cartitemProductskuName.split(','));
+					updateCartItemSku(targetData);
 					removeModal(cartlistModal);
 				} else {
 					window.location.href = window.location.href;
