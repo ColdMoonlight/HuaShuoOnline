@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
+import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
@@ -20,6 +21,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
+import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.ship.Classes.Checkpoint;
 import com.atguigu.ship.Classes.Tracking;
 import com.atguigu.utils.app.shipInformation;
@@ -33,6 +35,9 @@ public class MlfrontOrderListController {
 
 	@Autowired
 	MlfrontOrderItemService mlfrontOrderItemService;
+	
+	@Autowired
+	MlfrontPayInfoService mlfrontPayInfoService;
 	
 //	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
@@ -123,30 +128,51 @@ public class MlfrontOrderListController {
 		return "portal/searchTrackPage";
 	}
 	
-//	/**
-//	 * 4.0	zsh200804
-//	 * 游客查询物流明细by平台交易号payinfoPlatenum
-//	 * @param String PayInfoNumStr
-//	 * @return 
-//	 * */
-//	@RequestMapping(value="/getTrackDetailByPayinfoPlatenum",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getCheckpointByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
-//			@RequestParam(value = "payinfoPlatenum") String payinfoPlatenum) {
-//		
-//		
-//		//查询payInfo表,找回
-//		
-//		Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
-//		List<Checkpoint> CheckpointList =  trackingRes.getCheckpoints();
-//		
-//		int i=0;
-//		for(Checkpoint Checkpoint:CheckpointList){
-//			System.out.println(i+":"+Checkpoint);
-//			i++;
-//		}
-//		return Msg.success().add("trackingRes", trackingRes);
-//	}
+	/**
+	 * 4.0	zsh200804
+	 * 游客查询物流明细by平台交易号payinfoPlatenum
+	 * @param String PayInfoNumStr
+	 * @return 
+	 * */
+	@RequestMapping(value="/getTrackDetailByPayinfoPlatenum",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getCheckpointByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "payinfoPlatenum") String payinfoPlatenum) {
+		
+		//查询payInfo表,找回本支付单的进程状态,并描述
+		
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		mlfrontPayInfoReq.setPayinfoPlatenum(payinfoPlatenum);
+		mlfrontPayInfoReq.setPayinfoStatus(null);
+		List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectHighPayInfoListBySearch(mlfrontPayInfoReq);
+		MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
+		if(mlfrontPayInfoList.size()>0){
+			mlfrontPayInfoOne = mlfrontPayInfoList.get(0);
+			Integer orderId = mlfrontPayInfoOne.getPayinfoOid();
+			
+			MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+			
+			mlfrontOrderReq.setOrderId(orderId);
+			
+			List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
+			
+			if(mlfrontOrderList.size()>0){
+				
+				MlfrontOrder mlfrontOrderOne = new MlfrontOrder();
+				String Slug = mlfrontOrderOne.getOrderLogisticsname();
+				String trackingNumber = mlfrontOrderOne.getOrderLogisticsnumber();
+				
+				Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
+
+				return Msg.success().add("trackingRes", trackingRes);
+				
+			}else{
+				return Msg.fail().add("resMsg", "请核查您的平台交易号");
+			}
+		}else{
+			return Msg.fail().add("resMsg", "请核查您的平台交易号");
+		}
+	}
 //	
 //	/**
 //	 * 5.0	zsh200804
