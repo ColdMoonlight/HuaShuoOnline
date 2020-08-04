@@ -110,16 +110,5 @@ public class MlbackAddCheakoutViewDetail {
 		this.addcheakoutviewdetailCreatetime = addcheakoutviewdetailCreatetime;
 		this.addcheakoutviewdetailMotifytime = addcheakoutviewdetailMotifytime;
 	}
-
-	@Override
-	public String toString() {
-		return "MlbackAddCheakoutViewDetail [addcheakoutviewdetailId=" + addcheakoutviewdetailId
-				+ ", addcheakoutviewdetailSessionid=" + addcheakoutviewdetailSessionid + ", addcheakoutviewdetailName="
-				+ addcheakoutviewdetailName + ", addcheakoutviewdetailProid=" + addcheakoutviewdetailProid
-				+ ", addcheakoutviewdetailProname=" + addcheakoutviewdetailProname + ", addcheakoutviewdetailProseo="
-				+ addcheakoutviewdetailProseo + ", addcheakoutviewdetailActnum=" + addcheakoutviewdetailActnum
-				+ ", addcheakoutviewdetailCreatetime=" + addcheakoutviewdetailCreatetime
-				+ ", addcheakoutviewdetailMotifytime=" + addcheakoutviewdetailMotifytime + "]";
-	}
     
 }

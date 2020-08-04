@@ -96,7 +96,7 @@
     <if test="addcheakoutviewdetailActnum != null">
       and addcheakoutviewDetail_actnum = #{addcheakoutviewdetailActnum,jdbcType=INTEGER} 
     </if>
-    order by addcheakoutviewDetail_id desc
+    order by addcheakoutviewDetail_proseo desc
   </select>
   
 </mapper>

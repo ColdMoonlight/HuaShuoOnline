@@ -178,26 +178,7 @@ public class MlbackAddCheakoutViewDetailController {
 //		}
 //		return Msg.success().add("SeoStringList", SeoStringList).add("numList", numList).add("arrayA", arrayA);
 //	}
-//	
-//	/**5.0	UseNow	0505
-//	 * 分类MlbackActShowPro列表分页list数据
-//	 * @param pn
-//	 * @return
-//	 */
-//	@RequestMapping(value="/getAddCheakoutViewDetailBuyNowNum",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getAddCheakoutViewDetailBuyNowNum(HttpSession session,@RequestBody MlbackAddCheakoutViewDetail mlbackAddCheakoutViewDetail) {
-//		
-//		String starttime = mlbackAddCheakoutViewDetail.getAddcheakoutviewdetailStarttime();
-//		String endtime = mlbackAddCheakoutViewDetail.getAddcheakoutviewdetailEndtime();
-//		MlbackAddCheakoutViewDetail mlbackAddCheakoutViewDetailreq = new MlbackAddCheakoutViewDetail();
-//		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailStarttime(starttime);
-//		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailEndtime(endtime);
-//		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailActnum(1);
-//		List<MlbackAddCheakoutViewDetail> mlbackAddCheakoutViewDetailList = mlbackAddCheakoutViewDetailService.selectMlbackAddCheakoutViewDetailByTime(mlbackAddCheakoutViewDetailreq);
-//		Integer toDayNum = mlbackAddCheakoutViewDetailList.size();
-//		return Msg.success().add("mlbackAddCheakoutViewDetailList", mlbackAddCheakoutViewDetailList).add("toDayNum", toDayNum);
-//	}
+
 //	
 //	/**6.0	UseNow	0505
 //	 * 分类MlbackProductViewDetail列表list数据

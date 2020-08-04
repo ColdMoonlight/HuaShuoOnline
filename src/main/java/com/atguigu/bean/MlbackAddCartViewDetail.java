@@ -98,15 +98,5 @@ public class MlbackAddCartViewDetail {
 		this.addcartviewdetailCreatetime = addcartviewdetailCreatetime;
 		this.addcartviewdetailMotifytime = addcartviewdetailMotifytime;
 	}
-
-	@Override
-	public String toString() {
-		return "MlbackAddCartViewDetail [addcartviewdetailId=" + addcartviewdetailId + ", addcartviewdetailSessionid="
-				+ addcartviewdetailSessionid + ", addcartviewdetailProid=" + addcartviewdetailProid
-				+ ", addcartviewdetailProname=" + addcartviewdetailProname + ", addcartviewdetailProseo="
-				+ addcartviewdetailProseo + ", addcartviewdetailActnum=" + addcartviewdetailActnum
-				+ ", addcartviewdetailCreatetime=" + addcartviewdetailCreatetime + ", addcartviewdetailMotifytime="
-				+ addcartviewdetailMotifytime + "]";
-	}
     
 }
