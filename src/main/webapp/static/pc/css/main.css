@@ -2423,6 +2423,9 @@ footer li {
 	.cart-sku-edit {
 		width: 2.6rem;
 	}
+	.cart-cal {
+		padding: 1rem;
+	}
 	.cartlist-modal .modal-container,
 	.review-modal .modal-container,
 	.userinfo-modal .modal-container,
@@ -2489,10 +2492,12 @@ footer li {
 		width: 5rem;
 		height: 5rem;
 	}
+	.cart-cal {
+		padding: 1rem 1.5rem;
+	}
 }
 @media only screen and (max-width: 1023px) {	
 	.cart-cal {
-		padding: 1rem 1.5rem;
 		border-top: 1px solid #e5e5e5;
 	}
 	.order-cal {
