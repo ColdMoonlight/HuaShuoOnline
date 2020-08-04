@@ -2022,11 +2022,9 @@ footer li {
 .cart-checkout-product .lazyload {
 	width: 30%;
 	padding-top: 30%;
-	margin-right: 1rem;
 	flex-shrink: 0;
 }
 .cart-checkout-productname {
-	font-size: 1rem;
 	font-weight: 500;
 }
 .cart-checkout-productprice {
@@ -2054,6 +2052,28 @@ footer li {
 }
 .cart-checkout-product .btn+.btn {
 	margin-left: 1rem;
+}
+@media only screen and (max-width: 575px) {
+	.cart-checkout-product .lazyload {
+		margin-right: .5rem;
+	}
+	.cart-checkout-productname {
+		font-size: .875rem;
+	}
+	.cart-checkout-product .btn {
+		padding: .5rem;
+	}
+}
+@media only screen and (min-width: 576px) {
+	.cart-checkout-product .lazyload {
+		margin-right: 1rem;
+	}
+	.cart-checkout-productname {
+		font-size: 1rem;
+	}
+	.cart-checkout-product .btn {
+		padding: .5rem 1rem;
+	}
 }
 /* fly bubble */
 .ml-flyer {
