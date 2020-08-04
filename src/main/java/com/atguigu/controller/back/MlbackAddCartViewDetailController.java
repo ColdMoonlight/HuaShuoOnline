@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //import com.atguigu.Vo.SortNumTh;
 import com.atguigu.bean.MlbackAddCartViewDetail;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -25,87 +26,87 @@ public class MlbackAddCartViewDetailController {
 	@Autowired
 	MlbackAddCartViewDetailService mlbackAddCartViewDetailService;
 		
-	/**
-	 * 1.0	UseNow	0505
-	 * toMlbackActShowPro列表页面
-	 * @param jsp
-	 * @return 
-	 * */
-	@RequestMapping("/toMlbackAddCartViewDetailPage")
-	public String tologin(HttpSession session) throws Exception{
-	
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return "back/mlbackAdminLogin";
-		}else{
-			return "back/mlbackAddCartViewDetailPage";
-		}
-	}
-	
-	/**
-	 * 1.1	UseNow	0505
-	 * MlbackAddCartViewbuynowDetail列表页面
-	 * @param jsp
-	 * @return 
-	 * */
-	@RequestMapping("/toMlbackAddCartViewbuynowDetailPage")
-	public String toMlbackAddCartViewbuynowDetailPage(HttpSession session) throws Exception{
-	
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return "back/mlbackAdminLogin";
-		}else{
-			return "back/mlbackAddCartViewbuynowDetailPage";
-		}
-	}
-	
-	
-	/**2.0	UseNow	0505
-	 * 分类MlbackActShowPro列表分页list数据
-	 * @param pn
-	 * @return
-	 */
-	@RequestMapping(value="/getMlbackAddCartViewDetailPage")
-	@ResponseBody
-	public Msg getMlbackAddCartViewDetailPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session,String starttime,String endtime) {
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
+//	/**
+//	 * 1.0	UseNow	0505
+//	 * toMlbackActShowPro列表页面
+//	 * @param jsp
+//	 * @return 
+//	 * */
+//	@RequestMapping("/toMlbackAddCartViewDetailPage")
+//	public String tologin(HttpSession session) throws Exception{
+//	
+//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 //		if(mlbackAdmin==null){
 //			//SysUsers对象为空
-//			return Msg.fail().add("resMsg", "session中adminuser对象为空");
+//			return "back/mlbackAdminLogin";
 //		}else{
-			MlbackAddCartViewDetail mlbackAddCartViewDetailreq = new MlbackAddCartViewDetail();
-			mlbackAddCartViewDetailreq.setAddcartviewdetailCreatetime(starttime);
-			mlbackAddCartViewDetailreq.setAddcartviewdetailMotifytime(endtime);
-			int PagNum = 20;
-			PageHelper.startPage(pn, PagNum);
-			List<MlbackAddCartViewDetail> mlbackAddCartList = mlbackAddCartViewDetailService.selectMlbackAddCartViewDetailByTimeAndActnum(mlbackAddCartViewDetailreq);
-			PageInfo page = new PageInfo(mlbackAddCartList, PagNum);
-			return Msg.success().add("pageInfo", page);
+//			return "back/mlbackAddCartViewDetailPage";
 //		}
-	}
-	
+//	}
 //	
-//	/**3.0	UseNow	0505
+//	/**
+//	 * 1.1	UseNow	0505
+//	 * MlbackAddCartViewbuynowDetail列表页面
+//	 * @param jsp
+//	 * @return 
+//	 * */
+//	@RequestMapping("/toMlbackAddCartViewbuynowDetailPage")
+//	public String toMlbackAddCartViewbuynowDetailPage(HttpSession session) throws Exception{
+//	
+//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+//		if(mlbackAdmin==null){
+//			//SysUsers对象为空
+//			return "back/mlbackAdminLogin";
+//		}else{
+//			return "back/mlbackAddCartViewbuynowDetailPage";
+//		}
+//	}
+	
+	
+//	/**2.0	UseNow	0505
 //	 * 分类MlbackActShowPro列表分页list数据
 //	 * @param pn
 //	 * @return
 //	 */
-//	@RequestMapping(value="/getAddCartViewDetailNum",method=RequestMethod.POST)
+//	@RequestMapping(value="/getMlbackAddCartViewDetailPage")
 //	@ResponseBody
-//	public Msg getAddCartViewDetailNum(HttpSession session,@RequestBody MlbackAddCartViewDetail mlbackAddCartViewDetail) {
-//		
-//		String starttime = mlbackAddCartViewDetail.getAddcartviewdetailCreatetime();
-//		String endtime = mlbackAddCartViewDetail.getAddcartviewdetailEndtime();
-//		MlbackAddCartViewDetail mlbackAddCartViewDetailreq = new MlbackAddCartViewDetail();
-//		mlbackAddCartViewDetailreq.setAddcartviewdetailCreatetime(starttime);
-//		mlbackAddCartViewDetailreq.setAddcartviewdetailEndtime(endtime);
-//		mlbackAddCartViewDetailreq.setAddcartviewdetailActNum(0);
-//		List<MlbackAddCartViewDetail> mlbackAddCartViewDetailList = mlbackAddCartViewDetailService.selectMlbackAddCartViewDetailByTime(mlbackAddCartViewDetailreq);
-//		Integer toDayNum = mlbackAddCartViewDetailList.size();
-//		return Msg.success().add("mlbackAddCartViewDetailList", mlbackAddCartViewDetailList).add("toDayNum", toDayNum);
+//	public Msg getMlbackAddCartViewDetailPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session,String starttime,String endtime) {
+//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
+////		if(mlbackAdmin==null){
+////			//SysUsers对象为空
+////			return Msg.fail().add("resMsg", "session中adminuser对象为空");
+////		}else{
+//			MlbackAddCartViewDetail mlbackAddCartViewDetailreq = new MlbackAddCartViewDetail();
+//			mlbackAddCartViewDetailreq.setAddcartviewdetailCreatetime(starttime);
+//			mlbackAddCartViewDetailreq.setAddcartviewdetailMotifytime(endtime);
+//			int PagNum = Const.PAGE_NUM_ViewDetailNum;
+//			PageHelper.startPage(pn, PagNum);
+//			List<MlbackAddCartViewDetail> mlbackAddCartList = mlbackAddCartViewDetailService.selectMlbackAddCartViewDetailByTimeAndActnum(mlbackAddCartViewDetailreq);
+//			PageInfo page = new PageInfo(mlbackAddCartList, PagNum);
+//			return Msg.success().add("pageInfo", page);
+////		}
 //	}
+	
+	/**3.0	UseNow	0505
+	 * 分类MlbackActShowPro列表分页list数据
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/getAddCartViewDetailNumByTimeAndActnum",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getAddCartViewDetailNum(HttpSession session,@RequestBody MlbackAddCartViewDetail mlbackAddCartViewDetail) {
+		
+		String starttime = mlbackAddCartViewDetail.getAddcartviewdetailCreatetime();
+		String endtime = mlbackAddCartViewDetail.getAddcartviewdetailMotifytime();
+		Integer cartviewdetailActnum = mlbackAddCartViewDetail.getAddcartviewdetailActnum();
+		MlbackAddCartViewDetail mlbackAddCartViewDetailreq = new MlbackAddCartViewDetail();
+		mlbackAddCartViewDetailreq.setAddcartviewdetailCreatetime(starttime);
+		mlbackAddCartViewDetailreq.setAddcartviewdetailMotifytime(endtime);
+		mlbackAddCartViewDetailreq.setAddcartviewdetailActnum(cartviewdetailActnum);
+		List<MlbackAddCartViewDetail> mlbackAddCartViewDetailList = mlbackAddCartViewDetailService.selectMlbackAddCartViewDetailByTimeAndActnum(mlbackAddCartViewDetailreq);
+		Integer toDayNum = mlbackAddCartViewDetailList.size();
+		return Msg.success().add("toDayNum", toDayNum);
+	}
 //	
 //	
 //	/**4.0	UseNow	0505
