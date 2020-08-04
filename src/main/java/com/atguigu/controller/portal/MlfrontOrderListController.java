@@ -150,22 +150,27 @@ public class MlfrontOrderListController {
 			mlfrontPayInfoOne = mlfrontPayInfoList.get(0);
 			Integer orderId = mlfrontPayInfoOne.getPayinfoOid();
 			
-			MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+			Integer payinfoStatus = mlfrontPayInfoOne.getPayinfoStatus();
 			
-			mlfrontOrderReq.setOrderId(orderId);
-			
-			List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
-			
-			if(mlfrontOrderList.size()>0){
-				
-				MlfrontOrder mlfrontOrderOne = new MlfrontOrder();
-				String Slug = mlfrontOrderOne.getOrderLogisticsname();
-				String trackingNumber = mlfrontOrderOne.getOrderLogisticsnumber();
-				
-				Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
-
-				return Msg.success().add("trackingRes", trackingRes);
-				
+			if(payinfoStatus==1){
+				return Msg.fail().add("resMsg", "订单正在处理中...");
+			}else if(payinfoStatus==2){
+				return Msg.fail().add("resMsg", "订单正在处理中...");
+			}else if(payinfoStatus==3){
+				MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+				mlfrontOrderReq.setOrderId(orderId);
+				List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
+				if(mlfrontOrderList.size()>0){
+					MlfrontOrder mlfrontOrderOne = mlfrontOrderList.get(0);
+					String Slug = mlfrontOrderOne.getOrderLogisticsname();
+					String trackingNumber = mlfrontOrderOne.getOrderLogisticsnumber();
+					Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
+					return Msg.success().add("trackingRes", trackingRes);
+				}else if(payinfoStatus==4){
+					return Msg.fail().add("resMsg", "该订单已退款,请核实...");
+				}else{
+					return Msg.fail().add("resMsg", "请核查您的平台交易号");
+				}
 			}else{
 				return Msg.fail().add("resMsg", "请核查您的平台交易号");
 			}
@@ -173,28 +178,33 @@ public class MlfrontOrderListController {
 			return Msg.fail().add("resMsg", "请核查您的平台交易号");
 		}
 	}
-//	
-//	/**
-//	 * 5.0	zsh200804
-//	 * 游客查询物流明细by物流单号TrackingNumber
-//	 * @param String PayInfoNumStr
-//	 * @return 
-//	 * */
-//	@RequestMapping(value="/getTrackDetailByTrackingNumber",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getTrackDetailByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
-//			@RequestParam(value = "trackingNumber") String trackingNumber) {
-//		
-//		Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
-//		List<Checkpoint> CheckpointList =  trackingRes.getCheckpoints();
-//		
-//		int i=0;
-//		for(Checkpoint Checkpoint:CheckpointList){
-//			System.out.println(i+":"+Checkpoint);
-//			i++;
-//		}
-//		return Msg.success().add("trackingRes", trackingRes);
-//	}
-//	
+	
+	/**
+	 * 5.0	zsh200804
+	 * 游客查询物流明细by物流单号TrackingNumber
+	 * @param String PayInfoNumStr
+	 * @return 
+	 * */
+	@RequestMapping(value="/getTrackDetailByTrackingNumber",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getTrackDetailByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "trackingNumber") String trackingNumber) {
+		
+		MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+		mlfrontOrderReq.setOrderLogisticsnumber(trackingNumber);
+		mlfrontOrderReq.setOrderStatus(4);
+		//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款
+		List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderByTrackingNumber(mlfrontOrderReq);
+		
+		if(mlfrontOrderList.size()>0){
+			MlfrontOrder mlfrontOrderOne = mlfrontOrderList.get(0);
+			String Slug = mlfrontOrderOne.getOrderLogisticsname();
+			String Logisticsnumber = mlfrontOrderOne.getOrderLogisticsnumber();
+			Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(Logisticsnumber,Slug);
+			return Msg.success().add("trackingRes", trackingRes);
+		}else{
+			return Msg.fail().add("resMsg", "请核查您的平台交易号");
+		}
+	}
 	
 }
