@@ -76,7 +76,7 @@
   </update>
   
   <!-- insertSelective -->
-  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="payinfoId" parameterType="com.atguigu.bean.MlfrontPayInfo">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="payinfoId" parameterType="com.atguigu.bean.MlfrontPayInfo">
     insert into tb_mlfront_payinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="payinfoId != null">
@@ -273,8 +273,8 @@
   <select id="selectMlfrontPayInfoByDateAndStatus" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
     select *
     from tb_mlfront_payinfo 
-    where payInfo_status = #{payinfoStatus,jdbcType=INTEGER}
-     and payInfo_createTime between #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR} order by payInfo_id desc
+    where payInfo_status = #{payinfoStatus,jdbcType=INTEGER} 
+    and payInfo_createTime between #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR} order by payInfo_id desc
   </select> 
   <!-- selectAll使用中 -->
 <!--   <select id="selectMlfrontPayInfoGetAll" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
@@ -304,7 +304,7 @@
     payInfo_id,payInfo_oid, 
     payInfo_money, payInfo_status,payInfo_createTime
     from tb_mlfront_payinfo 
-    where payInfo_id>0
+    where payInfo_id>0 
     and payInfo_createTime between #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR} order by payInfo_id desc
   </select> 
 </mapper>
