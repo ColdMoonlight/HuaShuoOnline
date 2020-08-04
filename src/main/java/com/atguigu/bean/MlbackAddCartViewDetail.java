@@ -80,4 +80,33 @@ public class MlbackAddCartViewDetail {
     public void setAddcartviewdetailMotifytime(String addcartviewdetailMotifytime) {
         this.addcartviewdetailMotifytime = addcartviewdetailMotifytime == null ? null : addcartviewdetailMotifytime.trim();
     }
+
+	public MlbackAddCartViewDetail() {
+		super();
+	}
+
+	public MlbackAddCartViewDetail(Integer addcartviewdetailId, String addcartviewdetailSessionid,
+			Integer addcartviewdetailProid, String addcartviewdetailProname, String addcartviewdetailProseo,
+			Integer addcartviewdetailActnum, String addcartviewdetailCreatetime, String addcartviewdetailMotifytime) {
+		super();
+		this.addcartviewdetailId = addcartviewdetailId;
+		this.addcartviewdetailSessionid = addcartviewdetailSessionid;
+		this.addcartviewdetailProid = addcartviewdetailProid;
+		this.addcartviewdetailProname = addcartviewdetailProname;
+		this.addcartviewdetailProseo = addcartviewdetailProseo;
+		this.addcartviewdetailActnum = addcartviewdetailActnum;
+		this.addcartviewdetailCreatetime = addcartviewdetailCreatetime;
+		this.addcartviewdetailMotifytime = addcartviewdetailMotifytime;
+	}
+
+	@Override
+	public String toString() {
+		return "MlbackAddCartViewDetail [addcartviewdetailId=" + addcartviewdetailId + ", addcartviewdetailSessionid="
+				+ addcartviewdetailSessionid + ", addcartviewdetailProid=" + addcartviewdetailProid
+				+ ", addcartviewdetailProname=" + addcartviewdetailProname + ", addcartviewdetailProseo="
+				+ addcartviewdetailProseo + ", addcartviewdetailActnum=" + addcartviewdetailActnum
+				+ ", addcartviewdetailCreatetime=" + addcartviewdetailCreatetime + ", addcartviewdetailMotifytime="
+				+ addcartviewdetailMotifytime + "]";
+	}
+    
 }

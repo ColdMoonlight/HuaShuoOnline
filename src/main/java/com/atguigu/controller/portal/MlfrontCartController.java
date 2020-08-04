@@ -729,7 +729,7 @@ public class MlfrontCartController {
 	@ResponseBody
 	public Msg toBuyNow(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontCartItem mlfrontCartItem) throws Exception{
 		//记录加购数量
-//		insertAddCartViewBuyNow(mlfrontCartItem,session);
+		insertAddCartViewBuyNow(mlfrontCartItem,session);
 		
 //		insertAddCheckOutViewBuyNow(mlfrontCartItem,session);
 		
@@ -1231,6 +1231,38 @@ public class MlfrontCartController {
 		mlbackAddCartViewDetailreq.setAddcartviewdetailMotifytime(nowTime);
 		mlbackAddCartViewDetailreq.setAddcartviewdetailActnum(0); //计数用户行为,0纯加购	,1点buyNow附带的加购
 		mlbackAddCartViewDetailService.insertSelective(mlbackAddCartViewDetailreq);
+	}
+	
+	/**
+	 * 计算从detail--buyNow的加购数
+	 * */
+	private void insertAddCartViewBuyNow(MlfrontCartItem mlfrontCartItem, HttpSession session) {
+		Integer productId = mlfrontCartItem.getCartitemProductId();
+		
+		MlbackProduct mlbackProductrep = new MlbackProduct();
+		mlbackProductrep.setProductId(productId);
+		
+		List<MlbackProduct> mlbackProductresList = mlbackProductService.selectMlbackProductByParam(mlbackProductrep);
+		MlbackProduct mlbackProductres = mlbackProductresList.get(0);
+		
+		String addcartviewdetailSeoname = mlbackProductres.getProductSeo();
+		String addcartviewdetailProname = mlbackProductres.getProductName();
+		
+		//准备参数信息
+		MlbackAddCartViewDetail mlbackAddCartViewDetailreq = new MlbackAddCartViewDetail();
+		//浏览对象
+		mlbackAddCartViewDetailreq.setAddcartviewdetailProseo(addcartviewdetailSeoname);
+		mlbackAddCartViewDetailreq.setAddcartviewdetailProname(addcartviewdetailProname);
+		//sessionID
+		String sessionId =  session.getId();
+		mlbackAddCartViewDetailreq.setAddcartviewdetailSessionid(sessionId);
+		//时间信息
+		String nowTime = DateUtil.strTime14s();
+		mlbackAddCartViewDetailreq.setAddcartviewdetailCreatetime(nowTime);
+		mlbackAddCartViewDetailreq.setAddcartviewdetailMotifytime(nowTime);
+		mlbackAddCartViewDetailreq.setAddcartviewdetailActnum(1); //计数用户行为，0纯加购	，1点buyNow附带的加购
+		mlbackAddCartViewDetailService.insertSelective(mlbackAddCartViewDetailreq);
+		
 	}
 	
 }
