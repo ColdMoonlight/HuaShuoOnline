@@ -1570,7 +1570,7 @@ footer li {
 	}
 	.product-now-price {
 		margin-left: .5em;
-		font-size: 。875rem;
+		font-size: .875rem;
 	}
 }
 @media only screen and (max-width: 1023px) and (min-width: 576px) { 
@@ -2337,6 +2337,7 @@ footer li {
 }
 .cart-product-num input,
 .order-product-num input {
+	box-shadow: unset;
 	padding: .1rem .5rem;
 }
 .cart-cal-item,
@@ -2419,6 +2420,10 @@ footer li {
 	.cart-sku-list-item,
 	.order-sku-list-item {
 		font-size: .75rem;
+	}
+	.cart-product-num input {
+		width: 2rem;
+		padding: .25rem;
 	}
 	.cart-sku-edit {
 		width: 2.6rem;
