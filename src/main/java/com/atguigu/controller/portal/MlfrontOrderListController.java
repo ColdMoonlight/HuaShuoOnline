@@ -140,7 +140,6 @@ public class MlfrontOrderListController {
 			@RequestParam(value = "payinfoPlatenum") String payinfoPlatenum) {
 		
 		//查询payInfo表,找回本支付单的进程状态,并描述
-		
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
 		mlfrontPayInfoReq.setPayinfoPlatenum(payinfoPlatenum);
 		mlfrontPayInfoReq.setPayinfoStatus(null);
