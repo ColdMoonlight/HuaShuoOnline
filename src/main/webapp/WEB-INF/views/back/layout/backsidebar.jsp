@@ -3,6 +3,7 @@
 
 <div class="c-sidebar" id="sidebar-menu">
 	<ul class="c-sidebar-nav">
+		<!-- dashboard -->
 		<li class="c-sidebar-nav-item">
 			<a class="c-sidebar-nav-link" href="${APP_PATH}/BackHome/BackHomePage">
 				<svg class="c-sidebar-nav-icon">
@@ -10,6 +11,23 @@
 				</svg>
 				<span class="c-text">Dashboard</span>
 			</a>
+		</li>
+		<!-- Orders -->
+		<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+			<a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle">
+				<svg class="c-sidebar-nav-icon">
+					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cursor"></use>
+				</svg>
+				<span class="c-text">Orders</span>
+			</a>
+			<ul class="c-child-menu">
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontPayInfo/toMlbackPayInfoList">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">orders</span>
+					</a>
+				</li>
+			</ul>
 		</li>
 		<!-- product -->
 		<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
@@ -118,23 +136,6 @@
 					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackVideo/toMlbackVideoPage">
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">Video List</span>
-					</a>
-				</li>
-			</ul>
-		</li>
-		<!-- Orders -->
-		<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-			<a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle">
-				<svg class="c-sidebar-nav-icon">
-					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cursor"></use>
-				</svg>
-				<span class="c-text">Orders</span>
-			</a>
-			<ul class="c-child-menu">
-				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontPayInfo/toMlbackPayInfoList">
-						<span class="c-sidebar-nav-icon"></span>
-						<span class="c-text">orders</span>
 					</a>
 				</li>
 			</ul>
