@@ -20,14 +20,12 @@ public interface MlfrontOrderMapper {
     int updateByPrimaryKeySelective(MlfrontOrder record);
     //查询后台登陆用户00
     List<MlfrontOrder> selectMlfrontOrderById(MlfrontOrder example);
-//	//通过日期查询全部登陆用户00
-//	List<MlfrontOrder> selectMlfrontOrderByDate(MlfrontOrder mlfrontOrder);
-//	
-//	List<MlfrontOrder> selectMlfrontOrderByUidOnly(MlfrontOrder mlfrontOrder);
-//
+    
 	List<MlfrontOrder> selectOrderListByUidAndStatus(MlfrontOrder mlfrontOrder);
 	
 	List<MlfrontOrder> selectOrderListByUidAndSuccessStatus(MlfrontOrder mlfrontOrder);
 
 	List<MlfrontOrder> selectMlfrontOrderAllHundred();
+
+	List<MlfrontOrder> selectMlfrontOrderByTrackingNumber(MlfrontOrder mlfrontOrderReq);
 }

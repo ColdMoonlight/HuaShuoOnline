@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
+import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
@@ -20,6 +21,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
+import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.ship.Classes.Checkpoint;
 import com.atguigu.ship.Classes.Tracking;
 import com.atguigu.utils.app.shipInformation;
@@ -33,6 +35,9 @@ public class MlfrontOrderListController {
 
 	@Autowired
 	MlfrontOrderItemService mlfrontOrderItemService;
+	
+	@Autowired
+	MlfrontPayInfoService mlfrontPayInfoService;
 	
 //	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
@@ -113,4 +118,92 @@ public class MlfrontOrderListController {
 		}
 		return Msg.success().add("trackingRes", trackingRes);
 	}
+	
+	/**
+	 * 	3.0	zsh20804
+	 * */
+	@RequestMapping("/searchTrackPage")
+	public String searchTrackPage(HttpSession session) throws Exception{
+		
+		return "portal/searchTrackPage";
+	}
+	
+	/**
+	 * 4.0	zsh200804
+	 * 游客查询物流明细by平台交易号payinfoPlatenum
+	 * @param String PayInfoNumStr
+	 * @return 
+	 * */
+	@RequestMapping(value="/getTrackDetailByPayinfoPlatenum",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getCheckpointByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "payinfoPlatenum") String payinfoPlatenum) {
+		
+		//查询payInfo表,找回本支付单的进程状态,并描述
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		mlfrontPayInfoReq.setPayinfoPlatenum(payinfoPlatenum);
+		mlfrontPayInfoReq.setPayinfoStatus(null);
+		List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectHighPayInfoListBySearch(mlfrontPayInfoReq);
+		MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
+		if(mlfrontPayInfoList.size()>0){
+			mlfrontPayInfoOne = mlfrontPayInfoList.get(0);
+			Integer orderId = mlfrontPayInfoOne.getPayinfoOid();
+			
+			Integer payinfoStatus = mlfrontPayInfoOne.getPayinfoStatus();
+			
+			if(payinfoStatus==1){
+				return Msg.fail().add("resMsg", "订单正在处理中...");
+			}else if(payinfoStatus==2){
+				return Msg.fail().add("resMsg", "订单正在处理中...");
+			}else if(payinfoStatus==3){
+				MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+				mlfrontOrderReq.setOrderId(orderId);
+				List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
+				if(mlfrontOrderList.size()>0){
+					MlfrontOrder mlfrontOrderOne = mlfrontOrderList.get(0);
+					String Slug = mlfrontOrderOne.getOrderLogisticsname();
+					String trackingNumber = mlfrontOrderOne.getOrderLogisticsnumber();
+					Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
+					return Msg.success().add("trackingRes", trackingRes);
+				}else if(payinfoStatus==4){
+					return Msg.fail().add("resMsg", "该订单已退款,请核实...");
+				}else{
+					return Msg.fail().add("resMsg", "请核查您的平台交易号");
+				}
+			}else{
+				return Msg.fail().add("resMsg", "请核查您的平台交易号");
+			}
+		}else{
+			return Msg.fail().add("resMsg", "请核查您的平台交易号");
+		}
+	}
+	
+	/**
+	 * 5.0	zsh200804
+	 * 游客查询物流明细by物流单号TrackingNumber
+	 * @param String PayInfoNumStr
+	 * @return 
+	 * */
+	@RequestMapping(value="/getTrackDetailByTrackingNumber",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getTrackDetailByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "trackingNumber") String trackingNumber) {
+		
+		MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+		mlfrontOrderReq.setOrderLogisticsnumber(trackingNumber);
+		mlfrontOrderReq.setOrderStatus(4);
+		//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款
+		List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderByTrackingNumber(mlfrontOrderReq);
+		
+		if(mlfrontOrderList.size()>0){
+			MlfrontOrder mlfrontOrderOne = mlfrontOrderList.get(0);
+			String Slug = mlfrontOrderOne.getOrderLogisticsname();
+			String Logisticsnumber = mlfrontOrderOne.getOrderLogisticsnumber();
+			Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(Logisticsnumber,Slug);
+			return Msg.success().add("trackingRes", trackingRes);
+		}else{
+			return Msg.fail().add("resMsg", "请核查您的平台交易号");
+		}
+	}
+	
 }
