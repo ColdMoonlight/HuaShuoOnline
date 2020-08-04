@@ -421,7 +421,7 @@ public class MlfrontCartController {
 	@ResponseBody
 	public Msg cartToOrder(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody List<MlfrontCartItem> mlfrontCartItemList) throws Exception{
 		//计算cart到boynow的加购次数
-		//calcFormCartListToCheakoutPage(mlfrontCartItemList,session);
+//		calcFormCartListToCheakoutPage(mlfrontCartItemList,session);
 		//从其中一个中获取cartId
 		Integer cartId = 0;
 		String sessionId = session.getId();
