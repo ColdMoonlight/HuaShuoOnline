@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAddCheakoutViewDetail;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAddCheakoutViewDetailService;
@@ -85,25 +86,26 @@ public class MlbackAddCheakoutViewDetailController {
 //	}
 //	
 //	
-//	/**3.0	UseNow	0505
-//	 * 分类MlbackActShowPro列表分页list数据
-//	 * @param pn
-//	 * @return
-//	 */
-//	@RequestMapping(value="/getAddCheakoutViewDetailNum",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getAddCheakoutViewDetailNum(HttpSession session,@RequestBody MlbackAddCheakoutViewDetail mlbackAddCheakoutViewDetail) {
-//		
-//		String starttime = mlbackAddCheakoutViewDetail.getAddcheakoutviewdetailStarttime();
-//		String endtime = mlbackAddCheakoutViewDetail.getAddcheakoutviewdetailEndtime();
-//		MlbackAddCheakoutViewDetail mlbackAddCheakoutViewDetailreq = new MlbackAddCheakoutViewDetail();
-//		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailStarttime(starttime);
-//		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailEndtime(endtime);
-//		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailActnum(0);
-//		List<MlbackAddCheakoutViewDetail> mlbackAddCheakoutViewDetailList = mlbackAddCheakoutViewDetailService.selectMlbackAddCheakoutViewDetailByTime(mlbackAddCheakoutViewDetailreq);
-//		Integer toDayNum = mlbackAddCheakoutViewDetailList.size();
-//		return Msg.success().add("mlbackAddCheakoutViewDetailList", mlbackAddCheakoutViewDetailList).add("toDayNum", toDayNum);
-//	}
+	/**3.0	zsh200804
+	 * 计数MlbackAddCheakoutViewDetailByTime
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/getAddCheakoutViewDetailNum",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getAddCheakoutViewDetailNum(HttpSession session,@RequestBody MlbackAddCheakoutViewDetail mlbackAddCheakoutViewDetail) {
+		
+		String starttime = mlbackAddCheakoutViewDetail.getAddcheakoutviewdetailCreatetime();
+		String endtime = mlbackAddCheakoutViewDetail.getAddcheakoutviewdetailMotifytime();
+		Integer actnum = mlbackAddCheakoutViewDetail.getAddcheakoutviewdetailActnum();
+		MlbackAddCheakoutViewDetail mlbackAddCheakoutViewDetailreq = new MlbackAddCheakoutViewDetail();
+		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailCreatetime(starttime);
+		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailMotifytime(endtime);
+		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailActnum(actnum);
+		List<MlbackAddCheakoutViewDetail> mlbackAddCheakoutViewDetailList = mlbackAddCheakoutViewDetailService.selectMlbackAddCheakoutViewDetailByTimeAndActnum(mlbackAddCheakoutViewDetailreq);
+		Integer toDayNum = mlbackAddCheakoutViewDetailList.size();
+		return Msg.success().add("toDayNum", toDayNum);
+	}
 //	
 //	
 //	/**4.0	UseNow	0505
