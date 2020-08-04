@@ -273,7 +273,7 @@
   <select id="selectMlfrontPayInfoByDateAndStatus" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
     select *
     from tb_mlfront_payinfo 
-    where payInfo_status = #{payinfoStatus,jdbcType=INTEGER}
+    where payInfo_status = #{payinfoStatus,jdbcType=INTEGER} 
     and payInfo_createTime between #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR} order by payInfo_id desc
   </select> 
   <!-- selectAll使用中 -->
