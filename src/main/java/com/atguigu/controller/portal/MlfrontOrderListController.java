@@ -113,4 +113,62 @@ public class MlfrontOrderListController {
 		}
 		return Msg.success().add("trackingRes", trackingRes);
 	}
+	
+	/**
+	 * 	3.0	zsh20804
+	 * */
+	@RequestMapping("/searchTrackPage")
+	public String searchTrackPage(HttpSession session) throws Exception{
+		
+		return "portal/searchTrackPage";
+	}
+	
+//	/**
+//	 * 4.0	zsh200804
+//	 * 游客查询物流明细by平台交易号payinfoPlatenum
+//	 * @param String PayInfoNumStr
+//	 * @return 
+//	 * */
+//	@RequestMapping(value="/getTrackDetailByPayinfoPlatenum",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Msg getCheckpointByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+//			@RequestParam(value = "payinfoPlatenum") String payinfoPlatenum) {
+//		
+//		
+//		//查询payInfo表,找回
+//		
+//		Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
+//		List<Checkpoint> CheckpointList =  trackingRes.getCheckpoints();
+//		
+//		int i=0;
+//		for(Checkpoint Checkpoint:CheckpointList){
+//			System.out.println(i+":"+Checkpoint);
+//			i++;
+//		}
+//		return Msg.success().add("trackingRes", trackingRes);
+//	}
+//	
+//	/**
+//	 * 5.0	zsh200804
+//	 * 游客查询物流明细by物流单号TrackingNumber
+//	 * @param String PayInfoNumStr
+//	 * @return 
+//	 * */
+//	@RequestMapping(value="/getTrackDetailByTrackingNumber",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Msg getTrackDetailByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+//			@RequestParam(value = "trackingNumber") String trackingNumber) {
+//		
+//		Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
+//		List<Checkpoint> CheckpointList =  trackingRes.getCheckpoints();
+//		
+//		int i=0;
+//		for(Checkpoint Checkpoint:CheckpointList){
+//			System.out.println(i+":"+Checkpoint);
+//			i++;
+//		}
+//		return Msg.success().add("trackingRes", trackingRes);
+//	}
+//	
+	
 }
