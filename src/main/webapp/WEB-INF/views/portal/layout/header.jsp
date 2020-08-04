@@ -14,7 +14,7 @@
 						<button class="btn btn-search" type="submit"><i class="icon search"></i></button>
 					</div>
 				</div>
-				<div class="login">
+				<div class="login" title="login/register">
 					<i class="icon person"></i>
 				</div>
 			</div>
@@ -30,7 +30,7 @@
 		<div class="ml-ad"></div>
 		<div class="wap-navbar">
 			<span id="menu" class="icon menu"></span>
-			<span class="icon person"></span>
+			<span class="icon person" title="login/register"></span>
 			<a href="TEL:(501)7226336" class="icon phone"></a>
 			<a class="logo" href="javascript:goToIndex();">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">

@@ -1517,6 +1517,9 @@ footer li {
 	word-wrap:break-word;
 	overflow: visible;
 }
+.product-name>a:hover {
+	color: #000;
+}
 .product-data {
 	display: flex;
 	justify-content: space-between;
@@ -2958,7 +2961,6 @@ footer li {
 	flex-grow: 1;
 }
 .payment-product-num {
-	width: 5rem;
 	flex-shrink: 0;
 }
 .payment-cal {
@@ -3003,6 +3005,19 @@ footer li {
 .payment-btn>.btn {
 	display: block;
 	width: 100%;
+}
+@media only screen and (max-width: 575px) {
+	.payment-product-details,
+	.payment-product-num {
+		width: 3rrem;
+	}
+}
+
+@media only screen and (min-width: 575px) {
+	.payment-product-details,
+	.payment-product-num {
+		width: 5rem;
+	}
 }
 /* login register */
 .login-register .modal-header {
