@@ -90,4 +90,36 @@ public class MlbackAddCheakoutViewDetail {
     public void setAddcheakoutviewdetailMotifytime(String addcheakoutviewdetailMotifytime) {
         this.addcheakoutviewdetailMotifytime = addcheakoutviewdetailMotifytime == null ? null : addcheakoutviewdetailMotifytime.trim();
     }
+
+	public MlbackAddCheakoutViewDetail() {
+		super();
+	}
+
+	public MlbackAddCheakoutViewDetail(Integer addcheakoutviewdetailId, String addcheakoutviewdetailSessionid,
+			String addcheakoutviewdetailName, Integer addcheakoutviewdetailProid, String addcheakoutviewdetailProname,
+			String addcheakoutviewdetailProseo, Integer addcheakoutviewdetailActnum,
+			String addcheakoutviewdetailCreatetime, String addcheakoutviewdetailMotifytime) {
+		super();
+		this.addcheakoutviewdetailId = addcheakoutviewdetailId;
+		this.addcheakoutviewdetailSessionid = addcheakoutviewdetailSessionid;
+		this.addcheakoutviewdetailName = addcheakoutviewdetailName;
+		this.addcheakoutviewdetailProid = addcheakoutviewdetailProid;
+		this.addcheakoutviewdetailProname = addcheakoutviewdetailProname;
+		this.addcheakoutviewdetailProseo = addcheakoutviewdetailProseo;
+		this.addcheakoutviewdetailActnum = addcheakoutviewdetailActnum;
+		this.addcheakoutviewdetailCreatetime = addcheakoutviewdetailCreatetime;
+		this.addcheakoutviewdetailMotifytime = addcheakoutviewdetailMotifytime;
+	}
+
+	@Override
+	public String toString() {
+		return "MlbackAddCheakoutViewDetail [addcheakoutviewdetailId=" + addcheakoutviewdetailId
+				+ ", addcheakoutviewdetailSessionid=" + addcheakoutviewdetailSessionid + ", addcheakoutviewdetailName="
+				+ addcheakoutviewdetailName + ", addcheakoutviewdetailProid=" + addcheakoutviewdetailProid
+				+ ", addcheakoutviewdetailProname=" + addcheakoutviewdetailProname + ", addcheakoutviewdetailProseo="
+				+ addcheakoutviewdetailProseo + ", addcheakoutviewdetailActnum=" + addcheakoutviewdetailActnum
+				+ ", addcheakoutviewdetailCreatetime=" + addcheakoutviewdetailCreatetime
+				+ ", addcheakoutviewdetailMotifytime=" + addcheakoutviewdetailMotifytime + "]";
+	}
+    
 }
