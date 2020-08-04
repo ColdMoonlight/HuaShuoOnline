@@ -412,7 +412,7 @@ public class MlfrontPayInfoController {
 	                			}
 	                		} catch (Exception e) {
 	                			e.printStackTrace();
-	                			System.out.println("物流中插入物流单号--有异常");
+	                			System.out.println("aftership中插入物流单号--有异常");
 	                			System.out.println(e.getMessage());
 	                		}
 						}else if("UOO".equals(ecppOrderStatusCode)){
