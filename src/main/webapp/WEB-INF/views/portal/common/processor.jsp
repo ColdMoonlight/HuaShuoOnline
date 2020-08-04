@@ -21,14 +21,14 @@ var ml = {
 	//test的fbid googleid tidio
 	facebook_id: '611850146411825', // test
 	google_id: 'UA-148324397-1', // test
-	tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', // megalook
+	tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', 
 	//www.megalook.com的fbid googleid tidio
 	// facebook_id: '667403967094866', // megalook
 	// google_id: 'UA-145178467-1', // megalook
-	// "tidio": '//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js', // megalookhair
+	// "tidio": '//code.tidio.co/0rpdotjoqewxstfjahkd1ajtxrcp8phh.js', 
 	//www.huashuohair.com的fbid googleid tidio
 	// facebook_id: '246433859565492', // huashuohair
 	// google_id: 'UA-128377932-1', // huashuohair
-	// "tidio": '//code.tidio.co/folzahtp5vdopiwathysfiyz75dk5vnm.js', // huashuohair
+	// "tidio": '//code.tidio.co/folzahtp5vdopiwathysfiyz75dk5vnm.js', 
 };
 </script>
