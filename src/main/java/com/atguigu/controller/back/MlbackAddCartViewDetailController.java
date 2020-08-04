@@ -181,25 +181,7 @@ public class MlbackAddCartViewDetailController {
 //		return Msg.success().add("SeoStringList", SeoStringList).add("numList", numList).add("arrayA", arrayA);
 //	}
 //	
-//	/**5.0	UseNow	0505
-//	 * 分类MlbackActShowPro列表分页list数据
-//	 * @param pn
-//	 * @return
-//	 */
-//	@RequestMapping(value="/getAddCartViewDetailBuyNowNum",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getAddCartViewDetailBuyNowNum(HttpSession session,@RequestBody MlbackAddCartViewDetail mlbackAddCartViewDetail) {
-//		
-//		String starttime = mlbackAddCartViewDetail.getAddcartviewdetailStarttime();
-//		String endtime = mlbackAddCartViewDetail.getAddcartviewdetailEndtime();
-//		MlbackAddCartViewDetail mlbackAddCartViewDetailreq = new MlbackAddCartViewDetail();
-//		mlbackAddCartViewDetailreq.setAddcartviewdetailStarttime(starttime);
-//		mlbackAddCartViewDetailreq.setAddcartviewdetailEndtime(endtime);
-//		mlbackAddCartViewDetailreq.setAddcartviewdetailActNum(1);
-//		List<MlbackAddCartViewDetail> mlbackAddCartViewDetailList = mlbackAddCartViewDetailService.selectMlbackAddCartViewDetailByTime(mlbackAddCartViewDetailreq);
-//		Integer toDayNum = mlbackAddCartViewDetailList.size();
-//		return Msg.success().add("mlbackAddCartViewDetailList", mlbackAddCartViewDetailList).add("toDayNum", toDayNum);
-//	}
+
 //	
 //	
 //	/**6.0	UseNow	0505
