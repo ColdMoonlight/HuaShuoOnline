@@ -14,8 +14,11 @@
 						<button class="btn btn-search" type="submit"><i class="icon search"></i></button>
 					</div>
 				</div>
-				<div class="login" title="login/register">
-					<i class="icon person"></i>
+				<div class="right-box">
+					<a class="track-order" href="javascript:goToSearchTrack();" title="search your tracking info...">Track Order</a>
+					<div class="login" title="login/register">
+						<i class="icon person"></i>
+					</div>				
 				</div>
 			</div>
 		</div>
@@ -49,8 +52,18 @@
 		</div>
 
 		<div class="wap-nav-box">
-			<i class="icon close"></i>
-			<ul class="wap-nav ml-nav"></ul>
+			<div class="wap-nav-header">
+				<i class="icon close"></i>
+			</div>
+			<div class="wap-nav-body">
+				<ul class="wap-nav ml-nav"></ul>
+			</div>
+			<div class="wap-nav-footer">
+				<a class="wap-track-order" href="javascript:goToSearchTrack();">
+					<span class="icon search"></span>
+					<span class="wap-track-order-text">Search Order Track</span>
+				</a>
+			</div>
 		</div>
 
 	</div>
