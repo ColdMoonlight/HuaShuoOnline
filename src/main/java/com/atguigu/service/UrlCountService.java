@@ -17,8 +17,13 @@ public class UrlCountService {
 	 * @param UrlCount
 	 * @exception selectUrlCountByTime
 	 * */
-	public List<UrlCount> selectUrlCountByTime(UrlCount urlCountReq) {
-		List<UrlCount>  urlCountList = urlCountMapper.selectUrlCountByTime(urlCountReq);
+	public List<UrlCount> selectCartUrlCountByTime(UrlCount urlCountReq) {
+		List<UrlCount>  urlCountList = urlCountMapper.selectCartUrlCountByTime(urlCountReq);
+		return urlCountList;
+	}
+	
+	public List<UrlCount> selectCheckoutUrlCountByTime(UrlCount urlCountReq) {
+		List<UrlCount>  urlCountList = urlCountMapper.selectCheckoutUrlCountByTime(urlCountReq);
 		return urlCountList;
 	}
 
