@@ -20,13 +20,15 @@
 			<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/ins/wap-banner.jpg"></div>
 			<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/ins/pc-banner.jpg"></div>
 		</div>
-		<!-- ins list -->
-		<div class="ins-box">
-			<div class="ins-title">
-				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/ins/wap-title.jpg"></div>
-				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/ins/pc-title.jpg"></div>
-			</div>			
-			<div class="ins-body"></div>
+		<div class="container">
+			<!-- ins list -->
+			<div class="ins-box">
+				<div class="ins-title">
+					<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/ins/wap-title.jpg"></div>
+					<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/ins/pc-title.jpg"></div>
+				</div>			
+				<div class="ins-body"></div>
+			</div>		
 		</div>
 	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>

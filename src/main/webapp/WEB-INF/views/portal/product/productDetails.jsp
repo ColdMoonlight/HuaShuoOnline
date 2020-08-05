@@ -22,7 +22,8 @@
 	<link href="${APP_PATH}/static/pc/js/jqzoom/jqzoom.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/pc/js/video/video.min.css" rel="stylesheet">
 	<style>
-		@media only screen and (max-width: 1023px) {
+		main {margin-top: 1rem;}
+		@media only screen and (max-width: 575px) {
 			main { margin: 0 }
 			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
 		}

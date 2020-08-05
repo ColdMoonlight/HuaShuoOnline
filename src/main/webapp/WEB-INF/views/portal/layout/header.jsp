@@ -547,7 +547,7 @@
 		// wap event;
 		addWapNavEvent();
 		// main padding-top
-		$('main').css({ 'paddingTop': $('header').height() + 16 });
+		$('main').css({ 'paddingTop': $('header').height() });
 	});
 	// initial cart num
 	updateProructNumberInCart();
@@ -603,17 +603,17 @@
 		var currentY = window.pageYOffset;
 		var isPc = window.innerWidth > 1024;
 		if (currentY >= startY && currentY > 60 && isPc) {
-			!$('.ml-search').hasClass('down') && ($('.ml-search').addClass('hide down').removeClass('up'), $('main').css({ 'paddingTop': $('header').height() + 16 }));
+			!$('.ml-search').hasClass('down') && ($('.ml-search').addClass('hide down').removeClass('up'), $('main').css({ 'paddingTop': $('header').height() }));
 		}
 
 		if (currentY < startY && currentY < 60 && isPc) {
-			!$('.ml-search').hasClass('up') && ($('.ml-search').removeClass('down').removeClass('hide').addClass('up'), $('main').css({ 'paddingTop': $('header').height() + 16 }));
+			!$('.ml-search').hasClass('up') && ($('.ml-search').removeClass('down').removeClass('hide').addClass('up'), $('main').css({ 'paddingTop': $('header').height() }));
 		}
 		startY = currentY;
 	});
 	$(window).on('resize', function () {
 		debounce(function() {
-			$('main').css({ 'paddingTop': $('header').height() + 16 });
+			$('main').css({ 'paddingTop': $('header').height() });
 			if ($('.search-result-box').hasClass('active')) {
 				showSearchBox();
 			}

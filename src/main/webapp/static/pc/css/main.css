@@ -728,7 +728,7 @@ table tr td:nth-of-type(2) {
 }
 /* other */
 .container {
-	max-width: 1400px;
+	max-width: 1440px;
 	margin: 0 auto;
 }
 
@@ -762,7 +762,6 @@ main {
 
 @media only screen and (min-width: 1024px) {
 	main {
-		margin: 0 10%;
 		min-height: 60vh;
 	} 
 }
@@ -3902,14 +3901,6 @@ footer li {
 		margin: 1rem 0;
 		max-height: 124px;
 	}
-	.video-discount,
-	.video-recommend-box,
-	.video-collection,
-	.video-topsale,
-	.video-list {
-		max-width: 1440px;
-		margin: 0 auto;
-	}
 	.video-collection-title,
 	.video-topsale-title,
 	.video-recommend-title,
@@ -4038,12 +4029,10 @@ footer li {
 		width: 50%;
 	}
 }
-
 .shop-review-title {
 	display: flex;
-	padding: 1rem;
+	padding: 1rem 0;
 	flex-wrap: wrap;
-	margin: 0 auto;
 }
 .shop-review-title .right {
 	flex-grow: 1;
@@ -4068,8 +4057,8 @@ footer li {
 	margin-top: .5rem;
 	justify-content: center;
 }
-.review-base {
-	border-bottom: 1px solid #ccc;
+.shop-review-base {
+	border-bottom: 1px solid #ddd;
 }
 @media only screen and (max-width: 575px) {
 	.shop-review-title h3 {
@@ -4097,7 +4086,7 @@ footer li {
 	.review-statics-item .progress {
 		width: 50%;
 	}
-	.review-base {
+	.shop-review-base {
 		padding: 1rem;
 		margin-bottom: 1rem;
 		font-size: .875rem;
@@ -4110,13 +4099,19 @@ footer li {
 	.review-statics-item .progress {
 		width: 300px;
 	}
-	.review-base {
-		padding: .75rem 1rem;
+	.shop-review-base {
+		padding: .75rem 0;
 		font-size: 1rem;
 		margin-bottom: 1rem;
 	}
 }
-
+@media only screen and (max-width: 1439px) {
+	.shop-review-title,
+	.shop-review-base {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+}
 /* user center */
 .usercenter-title {
 	padding: 1rem 0;
