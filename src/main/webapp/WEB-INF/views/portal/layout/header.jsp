@@ -14,8 +14,11 @@
 						<button class="btn btn-search" type="submit"><i class="icon search"></i></button>
 					</div>
 				</div>
-				<div class="login">
-					<i class="icon person"></i>
+				<div class="right-box">
+					<a class="track-order" href="javascript:goToSearchTrack();" title="search your tracking info...">Track Order</a>
+					<div class="login" title="login/register">
+						<i class="icon person"></i>
+					</div>				
 				</div>
 			</div>
 		</div>
@@ -30,7 +33,7 @@
 		<div class="ml-ad"></div>
 		<div class="wap-navbar">
 			<span id="menu" class="icon menu"></span>
-			<span class="icon person"></span>
+			<span class="icon person" title="login/register"></span>
 			<a href="TEL:(501)7226336" class="icon phone"></a>
 			<a class="logo" href="javascript:goToIndex();">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
@@ -49,8 +52,18 @@
 		</div>
 
 		<div class="wap-nav-box">
-			<i class="icon close"></i>
-			<ul class="wap-nav ml-nav"></ul>
+			<div class="wap-nav-header">
+				<i class="icon close"></i>
+			</div>
+			<div class="wap-nav-body">
+				<ul class="wap-nav ml-nav"></ul>
+			</div>
+			<div class="wap-nav-footer">
+				<a class="wap-track-order" href="javascript:goToSearchTrack();">
+					<span class="icon search"></span>
+					<span class="wap-track-order-text">Search Order Track</span>
+				</a>
+			</div>
 		</div>
 
 	</div>

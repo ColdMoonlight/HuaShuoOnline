@@ -723,3 +723,64 @@
 	padding: 1rem;
 	text-align: right;
 }
+/* dashboard */
+.c-main .card {
+	position: relative;
+	min-height: 10rem;
+	padding: 1rem;
+	overflow: hidden;
+}
+.card-mask {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, .3);
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.dashboard-condition .form-group {
+	display: flex;
+	align-items: center;
+}
+.dashboard-condition .form-group .controls {
+	width: 20rem;
+	margin-left: .5rem;
+}
+.card-header {
+	font-size: 1.25rem;
+	color: #333;
+}
+.chart-quantity { font-size: 1.5rem; }
+.card-body { padding-left: 0; padding-right: 0; }
+#order-conversion { padding: 1rem; }
+.order-conversion-item {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-right: 5rem;
+}
+.order-conversion-item .name,
+.order-coversion-item .rate {
+	width: 40%;
+	font-size: 1rem;
+	color: #333;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+.order-conversion-item .num {
+	flex-grow: 1;
+	width: 30%;
+	padding: 0 1rem;
+	font-size: .875rem;
+	color: #ccc;
+}
+.order-conversion-item .view-report {
+	position: absolute;
+	right: 0;
+	font-size: .75rem;
+}
