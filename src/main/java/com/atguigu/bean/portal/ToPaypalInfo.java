@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 public class ToPaypalInfo {
 	
-//
 //    888.00, 
 //    "USD", 
 //    PaypalPaymentMethod.paypal, 
