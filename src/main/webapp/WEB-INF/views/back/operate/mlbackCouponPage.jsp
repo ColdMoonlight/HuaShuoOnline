@@ -11,7 +11,6 @@
 <body class="c-app">
 	<jsp:include page="../layout/backheader.jsp" flush="true"></jsp:include>
 	<jsp:include page="../layout/backsidebar.jsp" flush="true"></jsp:include>
-	
 	<div class="c-wrapper">
 		<div class="c-body">
 			<div class="c-main">
