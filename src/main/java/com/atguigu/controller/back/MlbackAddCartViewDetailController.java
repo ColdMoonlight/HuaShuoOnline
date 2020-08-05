@@ -79,7 +79,7 @@ public class MlbackAddCartViewDetailController {
 		urlCountReq.setSearchStartTime(starttime);
 		urlCountReq.setSearchEndTime(endtime);
 		
-		List<UrlCount> urlCountList = urlCountService.selectUrlCountByTime(urlCountReq);
+		List<UrlCount> urlCountList = urlCountService.selectCartUrlCountByTime(urlCountReq);
 		
 		return Msg.success().add("urlCountList", urlCountList);
 	}
