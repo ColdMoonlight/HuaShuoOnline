@@ -767,9 +767,13 @@
 	width: 40%;
 	font-size: 1rem;
 	color: #333;
+	flex-grow: 0;
+	flex-shrink: 0;
 }
 .order-conversion-item .num {
+	flex-grow: 1;
 	width: 30%;
+	padding: 0 1rem;
 	font-size: .875rem;
 	color: #ccc;
 }

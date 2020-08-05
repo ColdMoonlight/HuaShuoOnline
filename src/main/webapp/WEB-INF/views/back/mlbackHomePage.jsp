@@ -585,12 +585,12 @@
 						'<span class="rate">'+ mapRate["buy-now"] +'%</span>' +
 					'</div>' +
 					'<div class="order-conversion-item">'+
-						'<span class="name">Checout conversion (default)</span>' +
+						'<span class="name">Checout (default)</span>' +
 						'<span class="num">'+ checkoutNum +' sessions</span>' +
 						'<span class="rate">'+ mapRate["checkout"] +'%</span>' +
 					'</div>' +
 					'<div class="order-conversion-item">'+
-						'<span class="name">Checout conversion (from buynow)</span>' +
+						'<span class="name">Checout (from buynow)</span>' +
 						'<span class="num">'+ checkoutNum2 +' sessions</span>' +
 						'<span class="rate">'+ mapRate["checkout2"] +'%</span>' +
 					'</div>' +
