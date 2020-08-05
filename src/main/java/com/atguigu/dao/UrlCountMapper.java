@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface UrlCountMapper {
 
-	List<UrlCount> selectUrlCountByTime(UrlCount UrlCount);
+	List<UrlCount> selectCartUrlCountByTime(UrlCount urlCountReq);
+
+	List<UrlCount> selectCheckoutUrlCountByTime(UrlCount urlCountReq);
     
 }
