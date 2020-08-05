@@ -1,5 +1,6 @@
 package com.atguigu.controller.back;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,7 +62,7 @@ public class MlbackSlidesController {
 	@RequestMapping(value="/getMlbackSlideByPage")
 	@ResponseBody
 	public Msg getMlbackActShowProByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
+//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
 //		if(mlbackAdmin==null){
 //			//SysUsers对象为空
 //			return Msg.fail().add("resMsg", "session中adminuser对象为空");
@@ -198,6 +199,75 @@ public class MlbackSlidesController {
 		mlbackSlideReq.setSlideWapstatus(1);
 		List<MlbackSlide> mlbackSlideList =mlbackSlideService.selectMlbackSlidewapListByArea(mlbackSlideReq);
 		return Msg.success().add("resMsg", "查看该位置的轮播完毕").add("mlbackSlideList", mlbackSlideList);
+	}
+	
+	/**
+	 * 6.0	UseNow	190905
+	 * 查询wap不同位置的图片
+	 * @param MlbackSlide
+	 * @return 
+	 */
+	@RequestMapping(value="/getMlbackSlidewapListByArea",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getMlbackSlidewapListByArea(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackSlide mlbackSlide){
+		//接受slideArea
+		Integer slideArea = mlbackSlide.getSlideArea();
+		
+		MlbackSlide mlbackSlideReq = new MlbackSlide();
+		mlbackSlideReq.setSlideArea(slideArea);
+		mlbackSlideReq.setSlideWapstatus(1);
+		//查询本条
+		List<MlbackSlide> mlbackSlideList =mlbackSlideService.selectMlbackSlidewapListByArea(mlbackSlideReq);
+		MlbackSlide mlbackSlideOne = new MlbackSlide();
+		MlbackProduct mlbackProductOne = new MlbackProduct();
+		List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
+		if(mlbackSlideList.size()>0){
+			for(int i=0;i<mlbackSlideList.size();i++){
+				mlbackSlideOne = mlbackSlideList.get(i);
+				Integer proId = mlbackSlideOne.getSlideProid();
+				mlbackProductOne.setProductId(proId);
+				List<MlbackProduct> mlbackProductList  = mlbackProductService.selectMlbackProductByParam(mlbackProductOne);
+				if(mlbackProductList.size()>0){
+					mlbackProductResList.add(mlbackProductList.get(0));
+				}
+			}
+		}
+		return Msg.success().add("resMsg", "查看该位置的轮播完毕")
+					.add("mlbackSlideList", mlbackSlideList).add("mlbackProductResList", mlbackProductResList);
+	}
+	
+	/**
+	 * 7.0	UseNow	190905
+	 * 查询pc不同位置的图片
+	 * @param MlbackSlide
+	 * @return 
+	 */
+	@RequestMapping(value="/getMlbackSlidepcListByArea",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getMlbackSlidepcListByArea(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackSlide mlbackSlide){
+		//接受slideArea
+		Integer slideArea = mlbackSlide.getSlideArea();
+		MlbackSlide mlbackSlideReq = new MlbackSlide();
+		mlbackSlideReq.setSlideArea(slideArea);
+		mlbackSlideReq.setSlidePcstatus(1);
+		//查询本条
+		List<MlbackSlide> mlbackSlideList =mlbackSlideService.selectMlbackSlidepcListByArea(mlbackSlideReq);
+		MlbackSlide mlbackSlideOne = new MlbackSlide();
+		MlbackProduct mlbackProductOne = new MlbackProduct();
+		List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
+		if(mlbackSlideList.size()>0){
+			for(int i=0;i<mlbackSlideList.size();i++){
+				mlbackSlideOne = mlbackSlideList.get(i);
+				Integer proId = mlbackSlideOne.getSlideProid();
+				mlbackProductOne.setProductId(proId);
+				List<MlbackProduct> mlbackProductList  = mlbackProductService.selectMlbackProductByParam(mlbackProductOne);
+				if(mlbackProductList.size()>0){
+					mlbackProductResList.add(mlbackProductList.get(0));
+				}
+			}
+		}
+		return Msg.success().add("resMsg", "查看该位置的轮播完毕")
+					.add("mlbackSlideList", mlbackSlideList).add("mlbackProductResList", mlbackProductResList);
 	}
 
 }
