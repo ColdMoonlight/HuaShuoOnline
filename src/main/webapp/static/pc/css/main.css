@@ -4648,6 +4648,12 @@ footer li {
 	color: #ff0000;
 }
 /* search track order */
+.search-order-title {
+	padding: 1rem;
+	text-align: center;
+	font-size: 1rem;
+	font-weight: 600;
+}
 .search-order-condition,
 .search-track-order-result {
 	padding: 1rem;
