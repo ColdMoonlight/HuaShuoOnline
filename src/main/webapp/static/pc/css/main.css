@@ -2536,7 +2536,7 @@ footer li {
 		background-position: center;
     	background-size: unset;
 	}
-	.cart-header {		
+	.cart-header {
 		background-image: url('../img/step/wap-step-1.jpg');
 	}
 	.order-header {		
@@ -2589,6 +2589,7 @@ footer li {
 	.order-header,
 	.payment-header {
 		padding-top: 3.07692%;
+		margin-top: 1rem;
 		margin-bottom: .75rem;
 	}
 	.cart-header {		
