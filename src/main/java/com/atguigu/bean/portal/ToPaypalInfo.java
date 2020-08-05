@@ -4,14 +4,13 @@ import java.math.BigDecimal;
 
 public class ToPaypalInfo {
 	
-	//
 //    888.00, 
 //    "USD", 
 //    PaypalPaymentMethod.paypal, 
 //    PaypalPaymentIntent.sale,
 //    "payment description", 
 //    cancelUrl, 
-//    successUrl);
+//    successUrl
 	private BigDecimal MoneyNum;
 	private String MoneyType;
 	private String paypalMethod;
@@ -74,7 +73,6 @@ public class ToPaypalInfo {
 	}
 	public ToPaypalInfo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
@@ -82,7 +80,5 @@ public class ToPaypalInfo {
 				+ ", saleNumIntent=" + saleNumIntent + ", paymentDescription=" + paymentDescription + ", payCancelUrl="
 				+ payCancelUrl + ", paySuccessUrl=" + paySuccessUrl + "]";
 	}
-	
-	
 
 }

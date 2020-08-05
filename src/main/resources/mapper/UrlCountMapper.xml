@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.UrlCountMapper">
+  <resultMap id="UrlCountResultMap" type="com.atguigu.bean.UrlCount">
+    <result column="url_string" jdbcType="VARCHAR" property="UrlString" />
+    <result column="url_string_num" jdbcType="VARCHAR" property="UrlStringNum" />
+    <result column="addcartViewDetail_createTime" jdbcType="VARCHAR" property="searchStartTime" />
+    <result column="addcartViewDetail_motifyTime" jdbcType="VARCHAR" property="searchEndTime" />
+  </resultMap>
+  
+  <!-- selectCartUrlCountByTime使用中 -->
+  <select id="selectCartUrlCountByTime" parameterType="com.atguigu.bean.UrlCount" resultMap="UrlCountResultMap">
+	SELECT addcartViewDetail_proseo as url_string , COUNT(addcartViewDetail_proseo) as url_string_num
+	from tb_mlback_addcartviewdetail 
+	WHERE addcartViewDetail_createTime BETWEEN #{searchStartTime,jdbcType=VARCHAR} and #{searchEndTime,jdbcType=VARCHAR} 
+	GROUP BY addcartViewDetail_proseo ORDER BY COUNT(addcartViewDetail_proseo) DESC
+  </select>
+  
+  <!-- selectCheckoutUrlCountByTime使用中 -->
+  <select id="selectCheckoutUrlCountByTime" parameterType="com.atguigu.bean.UrlCount" resultMap="UrlCountResultMap">
+	SELECT addcheakoutviewDetail_proseo as url_string , COUNT(addcheakoutviewDetail_proseo) as url_string_num
+	from tb_mlback_addcheakoutviewdetail 
+	WHERE addcheakoutviewDetail_createTime BETWEEN #{searchStartTime,jdbcType=VARCHAR} and #{searchEndTime,jdbcType=VARCHAR} 
+	GROUP BY addcheakoutviewDetail_proseo ORDER BY COUNT(addcheakoutviewDetail_proseo) DESC
+  </select>
+  
+</mapper>
