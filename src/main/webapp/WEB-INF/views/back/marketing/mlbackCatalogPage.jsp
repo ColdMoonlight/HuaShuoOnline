@@ -171,14 +171,8 @@
 										<div class="form-group ml-subject hide">
 											<label class="col-form-label" for="catalogPageseoname">Subject</label>
 											<div class="controls">
-												<select class="form-control" id="catalogPageseoname" />
-													<option value="Friday">Friday</option>
-													<option value="Activty">Activty</option>
-													<option value="MlfrontReview/toReviewCustomer">Shop by look</option>
-													<option value="MlfrontReview/toReviewInsPage">Ins Show</option>
-													<option value="MlbackVideoShowArea/toVideoListPage">CUSTOMER VOICE</option>
-													<option value="PortalHome/videoPage">videoPage</option>
-													<option value="PortalHome/InsShowPage">InsShowPage</option>
+												<select class="form-control" id="catalogPageseoname">
+													<jsp:include page="../layout/subject-option.jsp" flush="true"></jsp:include>
 												</select>
 											</div>
 										</div>								
