@@ -585,6 +585,7 @@ function getLotteryIndex() {
 	});
 
 	if (lotteryRequest) {
+	    addFixed();
 		var $lotterGameItems = $('.lottery-game-item');
 		couponList = lotteryRequest.extend.mlbackCouponResList;
 		if (couponList.length != 8) {
@@ -595,12 +596,6 @@ function getLotteryIndex() {
 				couponArr.push(item.couponId);
 				$lotterGameItems.eq(idx).css('background-image', 'url('+ item.couponImgUrl +')');
 			});
-	
-			setTimeout(function() {
-	    		if (index > - 1) {
-					$(document.body).css('overflow', 'hidden');		    			
-	    		}
-			}, 2000);
 		}
 		index = couponArr.indexOf(lotteryRequest.extend.luckDrawDate && lotteryRequest.extend.luckDrawDate.luckDrawCouponId);
 		lotteryData = couponList[index];
