@@ -758,9 +758,11 @@
 .card-body { padding-left: 0; padding-right: 0; }
 #order-conversion { padding: 1rem; }
 .order-conversion-item {
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding-right: 5rem;
 }
 .order-conversion-item .name,
 .order-coversion-item .rate {
@@ -776,4 +778,9 @@
 	padding: 0 1rem;
 	font-size: .875rem;
 	color: #ccc;
+}
+.order-conversion-item .view-report {
+	position: absolute;
+	right: 0;
+	font-size: .75rem;
 }

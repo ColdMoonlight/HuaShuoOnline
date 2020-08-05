@@ -578,21 +578,25 @@
 						'<span class="name">Added to cart (default)</span>' +
 						'<span class="num">'+ addToCartNum +' sessions</span>' +
 						'<span class="rate">'+ mapRate["add-to-cart"] +'%</span>' +
+						'<a class="view-report" href="${APP_PATH}/MlbackAddCartViewDetail/toMlbackAddCartViewDetailPage#0">View Report</a>' +
 					'</div>' +
 					'<div class="order-conversion-item">'+
 						'<span class="name">Added to cart (from buynow)</span>' +
 						'<span class="num">'+ buyNowNum +' sessions</span>' +
 						'<span class="rate">'+ mapRate["buy-now"] +'%</span>' +
+						'<a class="view-report" href="${APP_PATH}/MlbackAddCartViewDetail/toMlbackAddCartViewDetailPage#1">View Report</a>' +
 					'</div>' +
 					'<div class="order-conversion-item">'+
 						'<span class="name">Checout (default)</span>' +
 						'<span class="num">'+ checkoutNum +' sessions</span>' +
 						'<span class="rate">'+ mapRate["checkout"] +'%</span>' +
+						'<a class="view-report" href="${APP_PATH}/MlbackAddCheakoutViewDetail/toMlbackAddCheakoutViewDetailPage#0">View Report</a>' +
 					'</div>' +
 					'<div class="order-conversion-item">'+
 						'<span class="name">Checout (from buynow)</span>' +
 						'<span class="num">'+ checkoutNum2 +' sessions</span>' +
 						'<span class="rate">'+ mapRate["checkout2"] +'%</span>' +
+						'<a class="view-report" href="${APP_PATH}/MlbackAddCheakoutViewDetail/toMlbackAddCheakoutViewDetailPage#1">View Report</a>' +
 					'</div>' +
 					'<div class="order-conversion-item">'+
 					'<span class="name">conversion Rate</span>' +
