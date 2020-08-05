@@ -573,7 +573,7 @@ function renderTablePagination(data) {
 // get slide-area product
 function getProductSlideArea(callback) {
 	$.ajax({
-		url: '${APP_PATH}/MlbackSlide/getMlbackSlidewapListByArea',
+		url: '${APP_PATH}/MlbackSlides/getMlbackSlidewapListByArea',
 		data: JSON.stringify({ "slideArea": 3 }),
 		type: 'post',
 		dataType: 'json',
