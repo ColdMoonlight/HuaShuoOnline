@@ -989,9 +989,11 @@ main {
 }
 /* pc nav */
 .pc-nav {
-	position: relative;
 	width: 100%;
 	text-align: center;
+}
+.pc-nav .ml-nav {	
+	position: relative;
 }
 .pc-nav .menu-item {
   display: inline-block;
