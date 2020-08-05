@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 
 public class ToPaypalInfo {
 	
-	//
+//
 //    888.00, 
 //    "USD", 
 //    PaypalPaymentMethod.paypal, 
 //    PaypalPaymentIntent.sale,
 //    "payment description", 
 //    cancelUrl, 
-//    successUrl);
+//    successUrl
 	private BigDecimal MoneyNum;
 	private String MoneyType;
 	private String paypalMethod;
