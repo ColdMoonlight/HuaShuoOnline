@@ -567,14 +567,14 @@
 				});
 				totalNum = addToCartNum + buyNowNum + checkoutNum + checkoutNum2;
 				if (totalNum) {
-					mapRate['add-to-cart'] = (addToCartNum * 100 / totalNum).toFixed(2);
-					mapRate['buy-now'] = (buyNowNum * 100 / totalNum).toFixed(2);
-					mapRate['checkout'] = (checkoutNum * 100 / totalNum).toFixed(2);
-					mapRate['checkout2'] = (checkoutNum2 * 100 / totalNum).toFixed(2);
+					mapRate['add-to-cart'] = (addToCartNum * 100 / totalNum);
+					mapRate['buy-now'] = (buyNowNum * 100 / totalNum);
+					mapRate['checkout'] = (checkoutNum * 100 / totalNum);
+					mapRate['checkout2'] = (checkoutNum2 * 100 / totalNum);
 
 					coversionRate = (100 * totalPayinfoNum / totalNum).toFixed(2);
 				}
-				htmlStr = '<div class="order-conversion-item">'+
+				/* htmlStr = '<div class="order-conversion-item">'+
 						'<span class="name">Added to cart (default)</span>' +
 						'<span class="num">'+ addToCartNum +' sessions</span>' +
 						'<span class="rate">'+ mapRate["add-to-cart"] +'%</span>' +
@@ -602,7 +602,24 @@
 					'<span class="name">conversion Rate</span>' +
 					'<span class="num">'+ totalPayinfoNum +' sessions</span>' +
 					'<span class="rate">'+ coversionRate +'%</span>' +
-				'</div>';
+				'</div>'; */
+				htmlStr = '<div class="order-conversion-item">'+
+						'<span class="name">Added to cart</span>' +
+						'<span class="num">'+ (addToCartNum + buyNowNum) +' sessions</span>' +
+						'<span class="rate">'+ (mapRate["add-to-cart"] + mapRate["buy-now"]).toFixed(2) +'%</span>' +
+						'<a class="view-report" href="${APP_PATH}/MlbackAddCartViewDetail/toMlbackAddCartViewDetailPage">View Report</a>' +
+					'</div>' +
+					'<div class="order-conversion-item">'+
+						'<span class="name">Checout</span>' +
+						'<span class="num">'+ (checkoutNum + checkoutNum2) +' sessions</span>' +
+						'<span class="rate">'+ (mapRate["checkout"] + mapRate["checkout2"]).toFixed(2) +'%</span>' +
+						'<a class="view-report" href="${APP_PATH}/MlbackAddCheakoutViewDetail/toMlbackAddCheakoutViewDetailPage">View Report</a>' +
+					'</div>' +
+					'<div class="order-conversion-item">'+
+						'<span class="name">conversion Rate</span>' +
+						'<span class="num">'+ totalPayinfoNum +' sessions</span>' +
+						'<span class="rate">'+ coversionRate +'%</span>' +
+					'</div>';
 				$('#order-conversion').html(htmlStr).parents('.card').find('.card-mask').hide();
 				$('.order-conversion-rate').text(coversionRate + '%');
 			}

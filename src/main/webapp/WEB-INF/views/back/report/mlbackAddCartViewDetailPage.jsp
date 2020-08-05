@@ -78,20 +78,18 @@
 			var ymd = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1 > 10 ? date.getUTCMonth() + 1 : '0' + (date.getUTCMonth() + 1)) + '-' + (date.getUTCDate() > 10 ? date.getUTCDate() : '0' + date.getUTCDate());
 			var startTime = $('#search-cart-create-time').val() || (ymd + ' 00:00:00');
 			var endTime = $('#search-cart-confirm-time').val() || (ymd + ' 23:59:59');
-			var type = window.location.hash.slice(1) || 0;
 			$.ajax({
-				url: "${APP_PATH}/MlbackAddCartViewDetail/getAddCartViewDetailList",
+				url: "${APP_PATH}/MlbackAddCartViewDetail/getAddCartViewUrlCountList",
 				type: "post",
 				data: JSON.stringify({
 					'addcartviewdetailCreatetime': startTime,
-					'addcartviewdetailMotifytime': endTime,
-					'addcartviewdetailActnum': type
+					'addcartviewdetailMotifytime': endTime
 				}),
 				dataType: "json",
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.arrayA);
+						callback && callback(data.extend.urlCountList);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -110,8 +108,8 @@
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr>' +
-					'<td>' + data[i].seoString + '</td>' +
-					'<td>' + (data[i].seoStringCount || '') + '</td>' +
+					'<td>' + data[i].urlString + '</td>' +
+					'<td>' + (data[i].urlStringNum || '') + '</td>' +
 					'</tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
