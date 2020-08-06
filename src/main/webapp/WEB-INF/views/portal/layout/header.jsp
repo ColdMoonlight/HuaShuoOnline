@@ -230,12 +230,15 @@
 	function addWapNavEvent() {
 		$('#menu').on('click', function () {
 			$('.wap-nav-box').addClass('active');
+			addFixed();
 		});
 		$('.wap-nav-box').on('click', function () {
 			$('.wap-nav-box').removeClass('active');
+			removeFixed();
 		});
 		$('.wap-nav-box .close').on('click', function () {
 			$('.wap-nav-box').removeClass('active');
+			removeFixed();
 		});
 		// dropdwon menu
 		$(".wap-nav .gw-i").click(function (e) {
