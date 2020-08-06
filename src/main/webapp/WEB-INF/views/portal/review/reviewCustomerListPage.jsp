@@ -14,81 +14,83 @@
 
 <body>
 	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
-		<div class="shop-review-title">
-			<div class="left">
-				<h3>Customer Reviews</h3>
-				<div class="review-toal-num">Based on <span class="data">1868</span> Customer Reviews</div>
-				<div class="review-toal-star-list">
-					<i class="icon star2"></i>
-					<i class="icon star2"></i>
-					<i class="icon star2"></i>
-					<i class="icon star2"></i>
-					<i class="icon star2"></i>
+	<main>		
+		<div class="container">
+			<div class="shop-review-title">
+				<div class="left">
+					<h3>Customer Reviews</h3>
+					<div class="review-toal-num">Based on <span class="data">1868</span> Customer Reviews</div>
+					<div class="review-toal-star-list">
+						<i class="icon star2"></i>
+						<i class="icon star2"></i>
+						<i class="icon star2"></i>
+						<i class="icon star2"></i>
+						<i class="icon star2"></i>
+					</div>
+				</div>
+				<div class="right">
+					<div class="review-statics-item five">
+						<div class="stars-list">
+							<i class="icon star2"></i>
+							<i class="icon star2"></i>
+							<i class="icon star2"></i>
+							<i class="icon star2"></i>
+							<i class="icon star2"></i>
+						</div>
+						<div class="progress">
+							<div class="progress-inner" style="width: 93.00%"></div>
+						</div>
+						<div class="data">93.00%</div>
+					</div>
+					<div class="review-statics-item four">
+						<div class="stars-list">
+							<i class="icon star2"></i>
+							<i class="icon star2"></i>
+							<i class="icon star2"></i>
+							<i class="icon star2"></i>
+						</div>
+						<div class="progress">
+							<div class="progress-inner" style="width: 30.00%"></div>
+						</div>
+						<div class="data">6.00%</div>
+					</div>
+					<div class="review-statics-item three">
+						<div class="stars-list">
+							<i class="icon star2"></i>
+							<i class="icon star2"></i>
+							<i class="icon star2"></i>
+						</div>
+						<div class="progress">
+							<div class="progress-inner" style="width: 5.00%"></div>
+						</div>
+						<div class="data">1.00%</div>
+					</div>
+					<div class="review-statics-item two">
+						<div class="stars-list">
+							<i class="icon star2"></i>
+							<i class="icon star2"></i>
+						</div>
+						<div class="progress">
+							<div class="progress-inner" style="width: 0.00%"></div>
+						</div>
+						<div class="data">0.00%</div>
+					</div>
+					<div class="review-statics-item one">
+						<div class="stars-list">
+							<i class="icon star2"></i>
+						</div>
+						<div class="progress">
+							<div class="progress-inner" style="width: 0.00%"></div>
+						</div>
+						<div class="data">0.00%</div>
+					</div>
 				</div>
 			</div>
-			<div class="right">
-				<div class="review-statics-item five">
-					<div class="stars-list">
-						<i class="icon star2"></i>
-						<i class="icon star2"></i>
-						<i class="icon star2"></i>
-						<i class="icon star2"></i>
-						<i class="icon star2"></i>
-					</div>
-					<div class="progress">
-						<div class="progress-inner" style="width: 93.00%"></div>
-					</div>
-					<div class="data">93.00%</div>
-				</div>
-				<div class="review-statics-item four">
-					<div class="stars-list">
-						<i class="icon star2"></i>
-						<i class="icon star2"></i>
-						<i class="icon star2"></i>
-						<i class="icon star2"></i>
-					</div>
-					<div class="progress">
-						<div class="progress-inner" style="width: 30.00%"></div>
-					</div>
-					<div class="data">6.00%</div>
-				</div>
-				<div class="review-statics-item three">
-					<div class="stars-list">
-						<i class="icon star2"></i>
-						<i class="icon star2"></i>
-						<i class="icon star2"></i>
-					</div>
-					<div class="progress">
-						<div class="progress-inner" style="width: 5.00%"></div>
-					</div>
-					<div class="data">1.00%</div>
-				</div>
-				<div class="review-statics-item two">
-					<div class="stars-list">
-						<i class="icon star2"></i>
-						<i class="icon star2"></i>
-					</div>
-					<div class="progress">
-						<div class="progress-inner" style="width: 0.00%"></div>
-					</div>
-					<div class="data">0.00%</div>
-				</div>
-				<div class="review-statics-item one">
-					<div class="stars-list">
-						<i class="icon star2"></i>
-					</div>
-					<div class="progress">
-						<div class="progress-inner" style="width: 0.00%"></div>
-					</div>
-					<div class="data">0.00%</div>
-				</div>
+			<div class="shop-review-base">Product Reviews(659)</div>
+			<!-- ins list -->
+			<div class="ins-box">
+				<div class="ins-body"></div>
 			</div>
-		</div>
-		<div class="review-base">Product Reviews(659)</div>
-		<!-- ins list -->
-		<div class="ins-box">
-			<div class="ins-body"></div>
 		</div>
 	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>

@@ -14,9 +14,11 @@
 
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
-		<!-- video list -->
-		<div class="video-list"></div>
+	<main>		
+		<div class="container">
+			<!-- video list -->
+			<div class="video-list"></div>
+		</div>
 	</main>
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>

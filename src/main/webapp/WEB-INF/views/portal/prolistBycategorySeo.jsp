@@ -16,6 +16,7 @@
 	</script>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
+	<style>main { margin-top: 1rem; }</style>
 </head>
 
 <body>

@@ -8,6 +8,7 @@
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<script> var productName = '${sessionScope.productName}'; </script>
+	<style>main { margin-top: 1rem; }</style>
 </head>
 
 <body>

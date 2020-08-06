@@ -15,79 +15,83 @@
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<main>
+		<!-- video banner -->
 		<div class="video-banner">
 			<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-banner.jpg"></div>
 			<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-banner.jpg"></div>
 		</div>
-		<!-- video discount -->
-		<div class="video-discount">			
-			<div class="video-discount-title wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-dis-title.jpg"></div>
-			<div class="video-discount-title pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-dis-title.jpg"></div>
-			<div class="video-discount-body wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-discount.jpg"></div>
-			<div class="video-discount-body pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-discount.png"></div>				
-		</div>
-		<!-- video recommend -->
-		<div class="video-recommend-box">
-			<div class="video-recommend-title">
-				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-recommend.jpg"></div>
-				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-recommend.jpg"></div>
-			</div>			
-			<div class="video-recommend-body">
-				<div class="video-recommend-item shadow-radius lazyload" data-id="157" data-video="https://www.youtube.com/embed/zD5dgYYDb08" data-src="${APP_PATH }/static/pc/img/video/pro/vd1.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="109" data-video="https://www.youtube.com/embed/qp91g1hg9nM" data-src="${APP_PATH }/static/pc/img/video/pro/vd2.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="193" data-video="https://www.youtube.com/embed/u9M_pFxuLOA" data-src="${APP_PATH }/static/pc/img/video/pro/vd3.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="84" data-video="https://www.youtube.com/embed/2cJvNAYpI6Y" data-src="${APP_PATH }/static/pc/img/video/pro/vd4.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="110" data-video="https://www.youtube.com/embed/BYgVHjc6P3k" data-src="${APP_PATH }/static/pc/img/video/pro/vd5.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="80" data-video="https://www.youtube.com/embed/TD4mGC5xNcU" data-src="${APP_PATH }/static/pc/img/video/pro/vd6.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="140" data-video="https://www.youtube.com/embed/TD4mGC5xNcU" data-src="${APP_PATH }/static/pc/img/video/pro/vd7.jpg"></div>
-				<div class="video-recommend-item shadow-radius lazyload" data-id="251" data-video="https://www.youtube.com/embed/zoZm8cPDLKM" data-src="${APP_PATH }/static/pc/img/video/pro/vd8.jpg"></div>
+		
+		<div class="container">
+			<!-- video discount -->
+			<div class="video-discount">			
+				<div class="video-discount-title wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-dis-title.jpg"></div>
+				<div class="video-discount-title pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-dis-title.jpg"></div>
+				<div class="video-discount-body wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-discount.jpg"></div>
+				<div class="video-discount-body pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-discount.png"></div>				
 			</div>
-		</div>
-		<!-- video collection -->
-		<div class="video-collection">
-			<div class="video-collection-title">
-				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-collection.jpg"></div>
-				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-collection.jpg"></div>
-			</div>
-			<div class="video-collection-body"></div>
-		</div>
-		<!-- video top sale -->
-		<div class="video-topsale">
-			<div class="video-topsale-title">
-				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-top-sale.jpg"></div>
-				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-top-sale.jpg"></div>
-			</div>
-			<div class="video-topsale-body">
-				<div class="video-topsale-style one">
-					<div class="video-topsale-style-item">
-						<a class="lazyload" href="${APP_PATH }/B-13x4-Straight-Body-Wave-Highlight-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp1.jpg"></a>
-						<div class="video-topsale-style-name">180% Density 13x4 Lace Frontal Wig </div>
-					</div>
-					<div class="video-topsale-style-item">
-						<a class="lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp2.jpg"></a>
-						<div class="video-topsale-style-name">360 Lace Frontal Wigs Body Wave</div>					
-					</div>
-					<div class="video-topsale-style-item">
-						<a class="lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp3.jpg"></a>
-						<div class="video-topsale-style-name">13x4 Lace Frontal Wig Straight Hair</div>					
-					</div>
-					<div class="video-topsale-style-item">
-						<a class="lazyload" href="${APP_PATH }/B-13x4-Water-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp4.jpg"></a>
-						<div class="video-topsale-style-name">13x4 Lace Frontal Wig Water Wave Hair</div>					
-					</div>
+			<!-- video recommend -->
+			<div class="video-recommend-box">
+				<div class="video-recommend-title">
+					<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-recommend.jpg"></div>
+					<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-recommend.jpg"></div>
+				</div>			
+				<div class="video-recommend-body">
+					<div class="video-recommend-item shadow-radius lazyload" data-id="157" data-video="https://www.youtube.com/embed/zD5dgYYDb08" data-src="${APP_PATH }/static/pc/img/video/pro/vd1.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="109" data-video="https://www.youtube.com/embed/qp91g1hg9nM" data-src="${APP_PATH }/static/pc/img/video/pro/vd2.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="193" data-video="https://www.youtube.com/embed/u9M_pFxuLOA" data-src="${APP_PATH }/static/pc/img/video/pro/vd3.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="84" data-video="https://www.youtube.com/embed/2cJvNAYpI6Y" data-src="${APP_PATH }/static/pc/img/video/pro/vd4.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="110" data-video="https://www.youtube.com/embed/BYgVHjc6P3k" data-src="${APP_PATH }/static/pc/img/video/pro/vd5.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="80" data-video="https://www.youtube.com/embed/TD4mGC5xNcU" data-src="${APP_PATH }/static/pc/img/video/pro/vd6.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="140" data-video="https://www.youtube.com/embed/TD4mGC5xNcU" data-src="${APP_PATH }/static/pc/img/video/pro/vd7.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="251" data-video="https://www.youtube.com/embed/zoZm8cPDLKM" data-src="${APP_PATH }/static/pc/img/video/pro/vd8.jpg"></div>
 				</div>
-				<div class="video-topsale-style two">
-					<div class="video-topsale-style-item">
-						<a class="lazyload" href="${APP_PATH }/13x4-Bob-Wig-1B-30-Color-Straight-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp5.jpg"></a>
-						<div class="video-topsale-style-name">13x4 1b/30 Bob Lace Frontal Straight Wig</div>					
+			</div>
+			<!-- video collection -->
+			<div class="video-collection">
+				<div class="video-collection-title">
+					<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-collection.jpg"></div>
+					<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-collection.jpg"></div>
+				</div>
+				<div class="video-collection-body"></div>
+			</div>
+			<!-- video top sale -->
+			<div class="video-topsale">
+				<div class="video-topsale-title">
+					<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-top-sale.jpg"></div>
+					<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-top-sale.jpg"></div>
+				</div>
+				<div class="video-topsale-body">
+					<div class="video-topsale-style one">
+						<div class="video-topsale-style-item">
+							<a class="lazyload" href="${APP_PATH }/B-13x4-Straight-Body-Wave-Highlight-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp1.jpg"></a>
+							<div class="video-topsale-style-name">180% Density 13x4 Lace Frontal Wig </div>
+						</div>
+						<div class="video-topsale-style-item">
+							<a class="lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp2.jpg"></a>
+							<div class="video-topsale-style-name">360 Lace Frontal Wigs Body Wave</div>					
+						</div>
+						<div class="video-topsale-style-item">
+							<a class="lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp3.jpg"></a>
+							<div class="video-topsale-style-name">13x4 Lace Frontal Wig Straight Hair</div>					
+						</div>
+						<div class="video-topsale-style-item">
+							<a class="lazyload" href="${APP_PATH }/B-13x4-Water-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp4.jpg"></a>
+							<div class="video-topsale-style-name">13x4 Lace Frontal Wig Water Wave Hair</div>					
+						</div>
 					</div>
-					<div class="video-topsale-style-item">
-						<a class="lazyload" href="${APP_PATH }/All-Color-4x4-Bob-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp6.jpg"></a>
-						<div class="video-topsale-style-name">4x4 Bob Wigs All Color Straight Hair</div>					
-					</div>
-					<div class="video-topsale-style-item">
-						<a class="lazyload" href="${APP_PATH }/2x6-Straight-Wave-Bob-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp7.jpg"></a>
-						<div class="video-topsale-style-name">Kim K 2x6 Straight Lace Closure Bob Wig</div>					
+					<div class="video-topsale-style two">
+						<div class="video-topsale-style-item">
+							<a class="lazyload" href="${APP_PATH }/13x4-Bob-Wig-1B-30-Color-Straight-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp5.jpg"></a>
+							<div class="video-topsale-style-name">13x4 1b/30 Bob Lace Frontal Straight Wig</div>					
+						</div>
+						<div class="video-topsale-style-item">
+							<a class="lazyload" href="${APP_PATH }/All-Color-4x4-Bob-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp6.jpg"></a>
+							<div class="video-topsale-style-name">4x4 Bob Wigs All Color Straight Hair</div>					
+						</div>
+						<div class="video-topsale-style-item">
+							<a class="lazyload" href="${APP_PATH }/2x6-Straight-Wave-Bob-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp7.jpg"></a>
+							<div class="video-topsale-style-name">Kim K 2x6 Straight Lace Closure Bob Wig</div>					
+						</div>
 					</div>
 				</div>
 			</div>
