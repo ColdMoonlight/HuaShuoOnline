@@ -1746,6 +1746,7 @@ footer li {
 }
 /* product media */
 .product-media { position: relative; }
+.product-media .swiper-pagination { bottom: 1.5rem !important; }
 .product-thumb-slide.swiper-container {
 	position: absolute;
 	top: 0;
@@ -1894,7 +1895,7 @@ footer li {
 }
 .product-option-item .body {
 	padding: .5rem 0;
-	margin-left: -.25rem;
+	margin: 0 -.25rem;
 }
 .product-option-item .radio {
 	display: inline-block;
