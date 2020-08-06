@@ -602,8 +602,6 @@ table tr td:nth-of-type(2) {
     bottom: 0;
     left: 0;
     z-index: 99999999999;
-
-    padding: 2rem;
     text-align: center;
     background-color: rgba(0, 0, 0, .75);
 }
@@ -675,7 +673,12 @@ table tr td:nth-of-type(2) {
 .modal-footer .btn-yes {
 	margin-left: .25rem;
 }
-
+@media only screen and (max-width: 575px) {
+	.modal { padding: 2rem 1rem; }
+}
+@media only screen and (min-width: 576px) {
+	.modal { padding: 2rem; }
+}
 @media only screen and (min-width: 1024px) {
 	.modal-header {
 		text-align: center;
@@ -684,7 +687,6 @@ table tr td:nth-of-type(2) {
 	    width: 900px;
     }
 }
-
 /* pageination */
 .pagination {
 	display: flex;
