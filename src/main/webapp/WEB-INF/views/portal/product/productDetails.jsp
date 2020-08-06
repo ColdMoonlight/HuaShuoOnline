@@ -803,7 +803,7 @@
 		});
 		// open reiview swiper
 		$(document.body).on('click', '.product-review-imgs-item', function() {
-			var activeImg = $(this).find('.lazyload').data('src');
+			var activeImg = $(this).data('src');
 			var activeNum = 0;
 			var imgs = [];
 			$(this).parent().find('.lazyload').each(function(idx, item) {
