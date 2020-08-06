@@ -374,6 +374,7 @@
 					    '<div class="review-swiper-close"><span class="icon close"></span></div>' +
 					'<div>');
 				$(document.body).append($reviewSwiper);
+				addFixed();
 				reviewSwiper = new Swiper('#review-swiper', {
 					pagination: {
 				    	el: '.swiper-pagination',
@@ -393,6 +394,7 @@
 				reviewSwiper.slideTo(activeNum, 0, false);
 				
 				$('.review-swiper-box').show();
+				addFixed();
 			}
 		}
 		/* details of main */
@@ -814,6 +816,7 @@
 		// clsoe reivew swiper		
 		$(document.body).on('click', '.review-swiper-close', function() {
 			$('.review-swiper-box').hide();
+			removeFixed();
 		});
 		// write review
 		$('#write-review').on('click', function(e) {
@@ -965,7 +968,7 @@
 			deleteReviewId();
 			setPageNum(1);
 		});
-		// addTidio();
+		addTidio();
 	</script>
 </body>
 </html>

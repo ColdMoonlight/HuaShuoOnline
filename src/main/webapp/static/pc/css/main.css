@@ -2988,7 +2988,7 @@ footer li {
 }
 @media only screen and (max-width: 575px) {
 	.back-top {	
-		bottom: 7rem;
+		bottom: 9rem;
 	}
 }
 @media only screen and (min-width: 576px) {
@@ -3303,7 +3303,7 @@ footer li {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 99999999;
+	z-index: 99999999999;
 	
 	background-color: rgba(0, 0, 0, .75);
 }
