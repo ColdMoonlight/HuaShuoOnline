@@ -50,35 +50,34 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="wap-nav-box">
-			<div class="wap-nav-header">
-				<i class="icon close"></i>
-			</div>
-			<div class="wap-nav-body">
-				<ul class="wap-nav ml-nav"></ul>
-			</div>
-			<div class="wap-nav-footer">
-				<a class="wap-track-order" href="javascript:goToSearchTrack();">
-					<span class="icon search"></span>
-					<span class="wap-track-order-text">Search Order Track</span>
-				</a>
-			</div>
-		</div>
-
-	</div>
-	<!-- search result -->
-	<div class="search-result-box">
-		<span class="icon close"></span>
-		<ul class="search-result">
-			<li class="search-result-item" data-name="bob">bob</li>
-			<li class="search-result-item" data-name="wigs">wigs</li>
-			<li class="search-result-item" data-name="bundle">bundle</li>
-			<li class="search-result-item" data-name="613">613</li>
-			<li class="search-result-item" data-name="Water">Water</li>
-		</ul>
 	</div>
 </header>
+<!-- wap menu-list -->
+<div class="wap-nav-box">
+	<div class="wap-nav-header">
+		<i class="icon close"></i>
+	</div>
+	<div class="wap-nav-body">
+		<ul class="wap-nav ml-nav"></ul>
+	</div>
+	<div class="wap-nav-footer">
+		<a class="wap-track-order" href="javascript:goToSearchTrack();">
+			<span class="icon search"></span>
+			<span class="wap-track-order-text">Search Order Track</span>
+		</a>
+	</div>
+</div>
+<!-- search result -->
+<div class="search-result-box">
+	<span class="icon close"></span>
+	<ul class="search-result">
+		<li class="search-result-item" data-name="bob">bob</li>
+		<li class="search-result-item" data-name="wigs">wigs</li>
+		<li class="search-result-item" data-name="bundle">bundle</li>
+		<li class="search-result-item" data-name="613">613</li>
+		<li class="search-result-item" data-name="Water">Water</li>
+	</ul>
+</div>
 <script>
 	// get one product data
 	function getOneProductData(reqData, callback) {
