@@ -601,7 +601,7 @@ table tr td:nth-of-type(2) {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 999999999;
+    z-index: 99999999999;
 
     padding: 2rem;
     text-align: center;
@@ -1159,7 +1159,7 @@ main {
 	background-color: #fff;
 }
 .wap-nav-header {
-	background-color: rgba(200, 200, 200, .7);
+	background-color: rgba(255, 255, 255, .7);
 }
 .wap-nav-footer {
 	border-top: 1px solid #ccc;
@@ -1204,14 +1204,6 @@ main {
   padding: 0.5em 1em;
   font: 14px/14px "";
   color: #333333;
-  border-left-width: 2px;
-  border-left-style: solid;
-  border-left-color: transparent;
-}
-.wap-nav .menu-item.active a,
-.wap-nav .menu-item a:hover {
-  border-left-color: #ff6f5e;
-  color: #ff6f5e;
 }
 .wap-nav .menu-item {
   position: relative;
@@ -1251,22 +1243,31 @@ main {
 	padding: .3rem 3rem;
 }
 .wap-nav .operate {
-  cursor: pointer;
-  z-index: 2;
-  background: url(../img/add.png) no-repeat center;
-  background-size: 26px;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  right: 0;
-  top: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 2.5rem;
+	height: 2.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
 }
-.wap-nav .operate.active {
-  background: url(../img/cut.png) no-repeat center;
-  background-size: 26px;
+.wap-nav-body .icon {
+	font-weight: bolder;
+	color: #fff;
+	border-radius: 50%;
+	background-color: #000;
 }
-.wap-nav .operate.gw-i2 {
-  background-size: 18px;
+.wap-nav-body .wap-op-one .icon {
+	width: 1.8rem;
+	height: 1.8rem;
+	font-size: 1rem;
+}
+.wap-nav-body .wap-op-two .icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	font-size: .875rem;
 }
 .wap-header,
 .pc-header,
@@ -2804,7 +2805,7 @@ footer li {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 999999999;
+	z-index: 99999999999;
 	width: 100vw;
 	height: 100vh;
 	background-color: rgba(255,255,255,.7);

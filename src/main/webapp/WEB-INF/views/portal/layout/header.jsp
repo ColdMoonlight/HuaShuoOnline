@@ -170,7 +170,7 @@
 				var subMenuHtml = '',
 					isWrap = true,
 					subMenuLen = data2[i].length;
-				if (subMenuLen) menuHhtml += '<i class="operate gw-i"></i>';
+				if (subMenuLen) menuHhtml += '<div class="operate wap-op-one"><i class="icon plus"></i></div>';
 
 				for (var j = 0; j < subMenuLen; j += 1) {
 					if (data2[i][j] && data2[i][j].length > 0) {
@@ -196,7 +196,7 @@
 							if (k == 0) {
 								subMenuHtml += '<dt>' +
 									'<a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a>' +
-									(thirdMenuLen > 1 ? '<i class="operate gw-i2"></i>' : '') + '</dt>';
+									(thirdMenuLen > 1 ? '<div class="operate wap-op-two"><i class="icon plus"></i></div>' : '') + '</dt>';
 							} else {
 								isWrap = false;
 								subMenuHtml += '<dd><a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a></dd>';
@@ -232,36 +232,43 @@
 			$('.wap-nav-box').addClass('active');
 			addFixed();
 		});
-		$('.wap-nav-box').on('click', function () {
-			$('.wap-nav-box').removeClass('active');
-			removeFixed();
+		$('.wap-nav-box').on('click', function (e) {
+			if (this == e.target) {
+				$('.wap-nav-box').removeClass('active');
+				removeFixed();				
+			}
 		});
 		$('.wap-nav-box .close').on('click', function () {
 			$('.wap-nav-box').removeClass('active');
 			removeFixed();
 		});
 		// dropdwon menu
-		$(".wap-nav .gw-i").click(function (e) {
+		$('.wap-op-one').click(function (e) {
 			e.stopPropagation();
 			var $this = $(this);
 			var str = $this.next('.sub-menu-container').css('display');
 			if (str == 'none') {
 				$this.next('.sub-menu-container').show(200);
-				$this.addClass("active");
+				$this.find('.icon').addClass('sub').removeClass('plus');
 			} else {
 				$this.next('.sub-menu-container').hide(200);
-				$this.removeClass("active");
+				$this.find('.icon').removeClass('sub').addClass('plus');
 			}
-			$this.parent('.menu-item').siblings('.menu-item').find('.gw-i.active').removeClass('active').next('.sub-menu-container').hide(200);
+			$this.parent('.menu-item')
+				.siblings('.menu-item')
+				.find('.wap-op-one .sub').removeClass('sub').addClass('plus')
+				.parent().next('.sub-menu-container').hide(200)
+				.find('dd').hide()
+				.parent().find('.wap-op-two .sub').removeClass('sub').addClass('plus');
 		});
-		$(".wap-nav .gw-i2").click(function (e) {
+		$('.wap-op-two').click(function (e) {
 			e.stopPropagation();
 			var $this = $(this);
-			if ($this.hasClass('active')) {
-				$this.removeClass('active').parents("dl").find('dd').hide(200);
+			if ($this.find('.icon').hasClass('sub')) {
+				$this.find('.icon').removeClass('sub').addClass('plus').parents('dl').find('dd').hide(200);
 			} else {
-				$('.operate.active.gw-i2').removeClass("active").parents('dl').find('dd').hide(200);
-				$this.addClass('active').parents("dl").find('dd').show(200);
+				$('.wap-op-two .sub').removeClass("sub").addClass('plus').parents('dl').find('dd').hide(200);
+				$this.find('.icon').addClass('sub').removeClass('plus').parents("dl").find('dd').show(200);
 			}
 		});
 	}
@@ -307,7 +314,6 @@
 	// ajax fetch nav data
 	function getNavMenuData(callback) {
 		$.ajax({
-			/* url: '${APP_PATH}/MlbackCategory/getCategorySuperMenu', */
 			url: '${APP_PATH}/MlbackCatalog/getCatalogSuperMenu',
 			method: 'post',
 			success: function (data) {
