@@ -632,13 +632,15 @@
 	$('#iphone-share').on('click', function() {
 		var $iphoneAdvice = $('.iphone-advice');
 		if (!$iphoneAdvice.length) {
-			$iphoneAdvice = $('<div class="iphone-advice"><img src="${APP_PATH }/static/pc/img/iphone-advice.gif" /><span class="icon close"></span></div>');
-			$(document.body).append($iphoneAdvice)
+			$iphoneAdvice = $('<div class="iphone-advice"><img src="${APP_PATH}/static/pc/img/iphone-advice.gif" /><span class="icon close"></span></div>');
+			$(document.body).append($iphoneAdvice);
+			addFixed();
 		}
 		$iphoneAdvice.show();
 	});
 	$(document.body).on('click', '.iphone-advice .close', function() {
 		$('.iphone-advice').hide();
+		removeFixed();
 	});
 	// login-register
 	$('.icon.person').on('click', function() {
