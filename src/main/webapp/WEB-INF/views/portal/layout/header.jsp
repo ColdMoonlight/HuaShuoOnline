@@ -264,12 +264,11 @@
 	}
 	// mouse enter event
 	function enterEvent($this, e) {
-		var menuContentHright = $this.find('.sub-menu-container').outerHeight();
 		var targetEl = $this.find('.sub-menu-container'),
 			outerWidth = 0,
 			clientRect = $this[0].getBoundingClientRect(),
-			navulClientRect = $('.pc-nav')[0].getBoundingClientRect();
-		offsetWidth = window.innerWidth > navulClientRect.width ? navulClientRect.width : window.innerWidth,
+			navulClientRect = $('.pc-nav .ml-nav')[0].getBoundingClientRect(),
+			offsetWidth = window.innerWidth > navulClientRect.width ? navulClientRect.width : window.innerWidth,
 			offsetLeft = clientRect.left - navulClientRect.left,
 			offsetBottom = clientRect.bottom - navulClientRect.top;
 		targetEl.addClass('active');
