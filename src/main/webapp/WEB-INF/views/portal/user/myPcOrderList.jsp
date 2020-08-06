@@ -237,6 +237,9 @@
 				trackingNumber: trackNumber
 			}, renderTrackDetails);
 		});
+		$(window).on('beforeunload', function() {
+			setPageNum(1);
+		});
 	</script>
 </body>
 </html>
