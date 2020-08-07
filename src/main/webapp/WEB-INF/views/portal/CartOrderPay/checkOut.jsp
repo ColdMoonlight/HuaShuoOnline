@@ -12,7 +12,7 @@
 
 <body>
 	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
+	<!-- main start -->
 		<div class="container">
 			<div class="order-header"></div>			
 			<div class="order-body">
@@ -103,7 +103,7 @@
 				<div class="order-right"></div>
 			</div>
 		</div>
-	</main>
+	<!-- main end -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
@@ -196,7 +196,7 @@
 				contentType: 'application/json',
 				success: function (data) {
 					el.remove();
-					if (!$('.cart-item').length) goToCartList();
+					if (!$('.order-item').length) goToCartList();
 					callback && callback();
 					deleteProductSuccessModal();
 				},

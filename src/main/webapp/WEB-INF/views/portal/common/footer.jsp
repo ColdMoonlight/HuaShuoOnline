@@ -49,7 +49,7 @@ function getProductOption(callback) {
 		type: "post",
 		async: false,
 		success: function (data) {
-			(data.code == 100) && allback && callback(data.extend.mbackProductAttributeNameResList);
+			(data.code == 100) && callback && callback(data.extend.mbackProductAttributeNameResList);
 		}
 	});
 }
