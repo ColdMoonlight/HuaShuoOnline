@@ -23,12 +23,7 @@ function productAdd(el, callback) {
 	curr += 1;
 	if (curr > max) {
 		curr = max;
-		var modal = createModal({
-			body: {
-				html: '<p>Existing inventory <b>'+ curr + '</b> pieces !</p>'
-			},
-			autoClose: true,
-		});
+		mlModalTip('<p>Existing inventory <b>'+ curr + '</b> pieces !</p>');
 	}
 
 	parentEl.find('.product-num').val(curr);
@@ -41,12 +36,7 @@ function productSub(el, callback) {
 	curr -= 1;
 	if (curr < 1) {
 		curr = 1;
-		var modal = createModal({
-			body: {
-				html: '<p>At least one product !</p>'
-			},
-			autoClose: true
-		});
+		mlModalTip('<p>At least one product !</p>');
 	}
 
 	parentEl.find('.product-num').val(curr);

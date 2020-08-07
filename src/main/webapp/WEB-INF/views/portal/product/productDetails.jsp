@@ -2,7 +2,6 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Product Details</title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
@@ -29,7 +28,6 @@
 		}
 	</style>
 </head>
-
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<main>
@@ -127,8 +125,9 @@
 			<div class="product-footer"></div>
 		</div>
 	</main>
-	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+	<!-- third lib -->
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqzoom/jquery.jqzoom.js"></script>
 	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
@@ -968,7 +967,9 @@
 			deleteReviewId();
 			setPageNum(1);
 		});
-		addTidio();
 	</script>
+	<!-- footer nav -->
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<script> addTidio(); </script>
 </body>
 </html>

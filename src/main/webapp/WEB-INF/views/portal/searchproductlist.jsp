@@ -2,7 +2,6 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Search Product List</title>
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
@@ -10,7 +9,6 @@
 	<script> var productName = '${sessionScope.productName}'; </script>
 	<style>main { margin-top: 1rem; }</style>
 </head>
-
 <body>
     <jsp:include page="layout/header.jsp" flush="true"></jsp:include>
 	<main>
@@ -18,7 +16,7 @@
 			<div class="product-list"></div>		
 		</div>
 	</main>
-	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
+	<!-- common script -->
 	<jsp:include page="common/footer.jsp" flush="true"></jsp:include>
 	<script>
 		function getProductListBySearch(productName, callback) {
@@ -74,8 +72,9 @@
 			});
 		}
 		getProductListBySearch(productName, renderProductList);
-		addTidio();
 	</script>
+	<!-- footer nav -->
+	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
+	<script> addTidio(); </script>
 </body>
-
 </html>

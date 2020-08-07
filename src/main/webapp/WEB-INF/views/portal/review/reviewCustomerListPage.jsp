@@ -2,7 +2,6 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Customer Voice</title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
@@ -11,7 +10,6 @@
 		@media only screen and (max-width: 1023px) { main { margin: -1rem 0 0 0; } }
 	</style>
 </head>
-
 <body>
 	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<main>		
@@ -93,7 +91,7 @@
 			</div>
 		</div>
 	</main>
-	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<!-- third lib -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
 		function getReviewData(num, callback) {
@@ -151,7 +149,9 @@
 				threshold: 0
 			});
 		});
-		addTidio();
 	</script>
+	<!-- footer nav -->
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<script> addTidio(); </script>
 </body>
 </html>
