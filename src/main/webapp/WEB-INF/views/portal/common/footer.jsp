@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-<!-- custom script -->
 <script>
- // modal mask
+// modal mask
 function addFixed() {
 	$(document.body).css({
 		overflow: 'hidden',
 	});
 }
-
 function removeFixed() {
 	$(document.body).css({
 		overflow: 'auto',
@@ -29,7 +27,6 @@ function productAdd(el, callback) {
 	parentEl.find('.product-num').val(curr);
 	callback && callback(parentEl, curr);
 }
-
 function productSub(el, callback) {
 	var parentEl = el.parents('.product-qty');
 	var curr = parseInt(parentEl.find('.product-num').val());
@@ -42,7 +39,6 @@ function productSub(el, callback) {
 	parentEl.find('.product-num').val(curr);
 	callback && callback(parentEl, curr);
 }
-
 /* product option */
 function getProductOption(callback) {
 	$.ajax({
@@ -53,9 +49,7 @@ function getProductOption(callback) {
 		type: "post",
 		async: false,
 		success: function (data) {
-			if (data.code == 100) {
-				callback && callback(data.extend.mbackProductAttributeNameResList);
-			}
+			(data.code == 100) && callback && callback(data.extend.mbackProductAttributeNameResList);
 		}
 	});
 }
@@ -81,7 +75,6 @@ function renderProductOptions(data, selectedRadioArr) {
 		createOption(item, selectedRadioArr && selectedRadioArr[idx]);
 	});
 }
-
 /* get coupon area data */
 function getCouponAreaData(callback) {
 	$.ajax({
@@ -90,13 +83,10 @@ function getCouponAreaData(callback) {
 		type: "post",
 		async: false,
 		success: function (data) {
-			if (data.code == 100) {
-				callback && callback(data.extend);
-			}
+			(data.code == 100) && callback && callback(data.extend);
 		}
 	});
 }
-
 /* render coupon area */
 function renderCouponAreaData(data) {
 	function generateCouponAreaDetailsListData(data) {
@@ -138,12 +128,10 @@ function getProductSkus(callback) {
 		type: "post",
 		async: false,
 		success: function (data) {
-			if (data.code == 100) {
-				callback && callback(data.extend.mlbackProductSkuResList);
-			}
+			(data.code == 100) && callback && callback(data.extend.mlbackProductSkuResList);
 		}
 	});
-}	
+}
 // skus		
 function buildResult(items) {
     var paths = getPaths(items);
@@ -165,15 +153,15 @@ function buildResult(items) {
 }
 function getPaths(items) {
     return items.reduce(function(acc, item) {
-        mapItems[item.productskuName] = item
-        acc.push(item.productskuName)
-        return acc
-    }, [])
+        mapItems[item.productskuName] = item;
+        acc.push(item.productskuName);
+        return acc;
+    }, []);
 }
 function trimSpliter(str) {
-    var reLeft = new RegExp('^,+', 'g');
-    var reRight = new RegExp(',+$', 'g');
-    var reSpliter = new RegExp(',+', 'g');
+    var reLeft = new RegExp('^,+', 'g'),
+    	reRight = new RegExp(',+$', 'g'),
+    	reSpliter = new RegExp(',+', 'g');
 
     return str.replace(reLeft, '')
         .replace(reRight, '')
@@ -190,12 +178,12 @@ function getSelectedItem() {
         }
     })
 
-    return selectedItems
+    return selectedItems;
 }
 function powerset(arr) {
     var ps = [[]];
-    for (var i = 0; i < arr.length; i+=1) {
-        for (var j = 0, len = ps.length; j < len; j+=1) {
+    for (var i = 0; i < arr.length; i += 1) {
+        for (var j = 0, len = ps.length; j < len; j += 1) {
             ps.push(ps[j].concat(arr[i]))
         }
     }
@@ -204,19 +192,17 @@ function powerset(arr) {
 function updateProductStatus(selected) {
 	var keys = Object.keys(optionObj);
     for (var i = 0, len = keys.length; i < len; i+=1) {
-        var key = keys[i];
-        var data = optionObj[key];
-        var selectArr = selected.slice();
+        var key = keys[i],
+        	data = optionObj[key],
+        	selectArr = selected.slice();
 
         for (var j = 0; j < data.length; j+=1) {
-            var item = data[j];
-
-            /* if (selected[i] == item) continue; */
-
+            var item = data[j],
+            	curr,
+            	$item;
             selectArr[i] = item;
-
-            var curr = trimSpliter(selectArr.join(','), ',');
-            var $item = $('.product-option-item[data-type="' + key + '"]').find('.radio[data-text="' + item + '"]');
+			curr = trimSpliter(selectArr.join(','), ',');
+			$item = $('.product-option-item[data-type="' + key + '"]').find('.radio[data-text="' + item + '"]');
 
             if (mapSet[curr] && mapSet[curr].count) {
                 $item.removeClass('disabled');
@@ -229,13 +215,13 @@ function updateProductStatus(selected) {
 function handleNormalClick(el) {
     el.hasClass('active')
         ? (el.siblings().removeClass('disabled'), el.removeClass('active'))
-        : (el.siblings().removeClass('active'), el.addClass('active'))
+        : (el.siblings().removeClass('active'), el.addClass('active'));
 }
 function showResult() {
-    var selectedItems = getSelectedItem();
-    var selectedKeys = [];
+    var selectedItems = getSelectedItem(),
+    	selectedKeys = [];
 
-    for (var i = 0; i < selectedItems.length; i+=1) {
+    for (var i = 0; i < selectedItems.length; i += 1) {
         var item = selectedItems[i];
         if (!!item) {
             selectedKeys.push(item);
@@ -288,7 +274,6 @@ function closeModalEvent(e) {
         $('.modal').remove();
     }
 }
-
 function mergeOpts (opts1, opts2) {
     var res = $.extend(true, {}, opts1, opts2);
 
@@ -300,7 +285,6 @@ function mergeOpts (opts1, opts2) {
 
     return res;
 }
-
 function createModal(option) {
 	var opt = mergeOpts({
 		header: {
@@ -365,12 +349,11 @@ function createModal(option) {
     
 	return modal;
 }
-
 function removeModal(modal) {
 	modal.remove();
     removeFixed();
 }
-
+/* modal tip */
 function mlModalTip(text) {
 	var modal = createModal({
 		body: {
@@ -383,35 +366,27 @@ function mlModalTip(text) {
 function sysModalTip() {
 	mlModalTip('Settlement system error, temporarily unable to get data, please try again later !');
 }
-
 function sysModalErrorTip (err) {
 	mlModalTip('Error: '+ JSON.stringify(err));
 }
-
 function refreshPageModal() {
 	mlModalTip('please refresh the page to get again !');
 }
-
 function deleteProductSuccessModal() {
 	mlModalTip('Successfully deleting  the product !');
 }
-
 function deleteProductFailModal() {
 	mlModalTip('Failed to delete the product !');
 }
-
 function updateProductNumSuccessModal() {
 	mlModalTip('Successfully updating the product !');	
 }
-
 function updateProductNumFailModal() {
 	mlModalTip('Failed to update the product !');
 }
-
 function cannotBuyProductModal() {
 	mlModalTip("I'm sorry, the goods temporarily can't buy !");
 }
-
 function loginNotTip() {
 	var loginModal = createModal({
 		header: {
@@ -425,14 +400,12 @@ function loginNotTip() {
 	loginModal.find('.modal-close').hide();
 	setTimeout(goToIndex, 3000);
 }
-
 // pay loading
 function payLoading() {
 	var $payLoading = $('<div class="pay-loading"><div class="load-list"><div class="loader-item"></div><div class="loader-item"></div><div class="loader-item"></div></div>');
 	$(document.body).append($payLoading);
 	addFixed();
 }
-
 function hidePayLoading() {
 	$('.pay-loading').remove();
 	removeFixed();
@@ -468,17 +441,14 @@ function goToUserCenerPersonal() {
 function goToSearchTrack() {
 	window.location.href = "${APP_PATH}/MlfrontOrderList/searchTrackPage";
 }
-
 /* pagination */
 /* pageNum */
 function getPageNum() {
 	return storage.getItem('pageNum') || 1
 }
-
 function setPageNum(val) {
 	storage.setItem('pageNum', val);
 }
-
 function makerArray(n) {
 	var arr = []
 	for (var i = 0; i < n; i++) {
@@ -489,7 +459,7 @@ function makerArray(n) {
 function renderTablePagination(data) {
 	if (data) {
 		$("#table-pagination").empty();
-		//构建元素
+		// create $el
 		var pageUl = $('<ul class="pagination" />'),
 			firstPageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('first')),
 			prePageLi = $('<li class="page-item" />').append($('<a class="page-link" />').append('&laquo;')),
@@ -569,9 +539,7 @@ function getProductSlideArea(callback) {
 		dataType: 'json',
 		contentType: 'application/json',
 		success: function (data) {
-			if (data.code == 100) {
-				callback && callback(data.extend.mlbackProductResList);
-			}
+			(data.code == 100)  && callback && callback(data.extend.mlbackProductResList);
 		}
 	});
 }

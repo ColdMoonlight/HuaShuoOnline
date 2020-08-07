@@ -14,25 +14,25 @@
 
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
-			<div class="video-banner">
-				<div class="wap layload" data-src="${APP_PATH }/static/pc/img/video/wap-banner.jpg"></div>
-				<div class="pc layload" data-src="${APP_PATH }/static/pc/img/video/pc-banner.jpg"></div>
+	<!-- main start -->
+		<div class="video-banner">
+			<div class="wap layload" data-src="${APP_PATH }/static/pc/img/video/wap-banner.jpg"></div>
+			<div class="pc layload" data-src="${APP_PATH }/static/pc/img/video/pc-banner.jpg"></div>
+		</div>
+		<div class="video-dicount">
+			<div class="wap">					
+				<div class="video-discount-title"></div>
+				<div class="video-discount-body"></div>
 			</div>
-			<div class="video-dicount">
-				<div class="wap">					
-					<div class="video-discount-title"></div>
-					<div class="video-discount-body"></div>
-				</div>
-				<div class="pc">					
-					<div class="video-discount-title" style="background-image: url('${APP_PATH }/static/pc/img/video/bt2.jpg')"></div>
-					<div class="video-discount-body"></div>
-				</div>
+			<div class="pc">					
+				<div class="video-discount-title" style="background-image: url('${APP_PATH }/static/pc/img/video/bt2.jpg')"></div>
+				<div class="video-discount-body"></div>
 			</div>
-	</main>
-	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+		</div>
+	<!-- main end -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
-	<script>
-	</script>
+	<!-- footer nav -->
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<script> </script>
 </body>
 </html>

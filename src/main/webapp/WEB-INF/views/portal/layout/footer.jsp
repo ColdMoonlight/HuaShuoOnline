@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-<!-- footer nav -->
+<!-- split main end -->
+</main>
 <footer>
 	<div class="footer-page-header">
 		<div class="container">
@@ -11,27 +12,22 @@
 					<div style="margin-top:6px;">Our Hair Your Glory</div>
 				</div>
 				<ul class="follow-us-list">
-					<li class="follow-icon facebook" title="megalook facebook"><a
-							href="https://www.facebook.com/MegalookHairCompany/"></a></li>
-					<li class="follow-icon instagram" title="megalook instagram"><a
-							href="https://www.instagram.com/megalookhair/"></a></li>
-					<li class="follow-icon pinterest" title="megalook pinterest"><a
-							href="https://www.pinterest.com/amegalook/"></a>
+					<li class="follow-icon facebook" title="megalook facebook"><a href="https://www.facebook.com/MegalookHairCompany/"></a></li>
+					<li class="follow-icon instagram" title="megalook instagram"><a href="https://www.instagram.com/megalookhair/"></a></li>
+					<li class="follow-icon pinterest" title="megalook pinterest"><a href="https://www.pinterest.com/amegalook/"></a>
 					</li>
-					<li class="follow-icon snapchat" title="megalook snapchat"><a
-							href="https://www.snapchat.com/add/megalook-hair"></a></li>
-					<li class="follow-icon youtube" title="megablook youtube"><a
-							href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber"></a></li>
+					<li class="follow-icon snapchat" title="megalook snapchat"><a href="https://www.snapchat.com/add/megalook-hair"></a></li>
+					<li class="follow-icon youtube" title="megablook youtube"><a href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber"></a></li>
 				</ul>
 			</div>
 			<div class="footer-nav pc-footer"></div>
 			<div class="footer-nav wap-footer"></div>	
 		</div>
 	</div>
-	<div class="footer-page-footer">	
+	<div class="footer-page-footer">
 		<div class="container">
 			<p class="copyright">Copyright © 2019, MegaLook, All Rights Reserved</p>
-			<img src="${APP_PATH }/static/pc/img/paypalcard.jpg" title="paypal card">		
+			<img src="${APP_PATH }/static/pc/img/paypalcard.jpg" title="paypal card">
 		</div>
 	</div>
 </footer>
@@ -40,21 +36,18 @@
 		for (var key in footerData) {
 			var blockData = data[footerData[key]["data-key"]];
 			for (var key2 in blockData) {
-				//加一个判断		footnavIfIncome		每条数据都有这个字段
-				//0，不能点		比如有的就纯粹是，联系方式
-				//1,能点进去		有富文本内容的。
 				if (blockData[key2].footnavIfincome) {
 					footerData[key].children.push({
 						"name": blockData[key2].footnavName,
 						"icon": "",
 						"link": "${APP_PATH}/MlbackFootNav/toFootNavPage?footnavId=" + blockData[key2].footnavId
-					})
+					});
 				} else {
 					footerData[key].children.push({
 						"name": blockData[key2].footnavName,
 						"icon": "",
 						"link": "javascritp:;"
-					})
+					});
 				}
 			}
 		}
@@ -90,7 +83,7 @@
 			$(this).find('.icon').addClass('sub').removeClass('plus').parents('.footer-nav-item').find('.footer-nav-body').slideDown();
 		});
 	}
-	
+
 	function backTop() {
 		function toTop() {
 			if (window.pageYOffset > window.innerHeight) {
@@ -114,7 +107,7 @@
 		});
 		$(document.body).on('click', '#back-top', function() {
 			$('html').animate({scrollTop: 0}, 500); 
-		})
+		});
 	}
 	// get footer nav data
 	function getFooterNavData(callback) {
