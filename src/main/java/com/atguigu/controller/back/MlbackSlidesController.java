@@ -156,7 +156,7 @@ public class MlbackSlidesController {
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg delete(@RequestBody MlbackSlide mlbackSlide){
-		//接收id信息
+		//接收SlideId
 		Integer slideId = mlbackSlide.getSlideId();
 		mlbackSlideService.deleteByPrimaryKey(slideId);
 		return Msg.success().add("resMsg", "delete success");
