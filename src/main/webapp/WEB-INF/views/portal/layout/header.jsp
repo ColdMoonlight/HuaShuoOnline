@@ -234,7 +234,7 @@
 		$('.wap-nav-box').on('click', function (e) {
 			if (this == e.target) {
 				$('.wap-nav-box').removeClass('active');
-				removeFixed();				
+				removeFixed();
 			}
 		});
 		$('.wap-nav-box .close').on('click', function () {
@@ -315,6 +315,7 @@
 		$.ajax({
 			url: '${APP_PATH}/MlbackCatalog/getCatalogSuperMenu',
 			method: 'post',
+			async: false,
 			success: function (data) {
 				if (data.code == 100) {
 					callback(data.extend);
