@@ -9,7 +9,9 @@
 </head>
 <body>
 	<jsp:include page="layout/header.jsp" flush="true"></jsp:include>
-	<main><div class="container"></div></main>
+	<!-- main start -->
+		<div class="container"></div>
+	<!-- main end -->
 	<!-- common script -->
 	<jsp:include page="common/footer.jsp" flush="true"></jsp:include>
 	<script>
