@@ -2,7 +2,6 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>My Order Details</title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
@@ -11,7 +10,6 @@
 		@media only screen and (max-width: 575px) { main { margin: 0; } }
 	</style>
 </head>
-
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<main>
@@ -25,7 +23,7 @@
 			</div>
 		</div>
 	</main>
-	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
 		function getOrderList(orderId) {
@@ -163,5 +161,7 @@
 		!loginStatus && loginNotTip();
 		loginStatus && getOrderList(orderId);
 	</script>
+	<!-- footer nav -->
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 </body>
 </html>

@@ -24,7 +24,7 @@
 			</div>
 		</div>
 	</main>
-	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
 		function getMyCouponData(callback) {
@@ -62,5 +62,7 @@
 		$('.usercenter-list .usercenter-item').eq(2).addClass('active');
 		getMyCouponData(renderMyCouponData);
 	</script>
+	<!-- footer nav -->
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 </body>
 </html>
