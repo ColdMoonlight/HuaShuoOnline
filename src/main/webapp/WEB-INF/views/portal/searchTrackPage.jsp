@@ -20,7 +20,7 @@
 				<input type="text" class="search-select-input" id="searchOrderId" placeholder="Please input order-id ..." />
 				<input type="text" class="search-select-input hide" id="searchTrackNumber" placeholder="Please input tracking-number ..." />
 
-				<btutton class="btn btn-pink btn-track-order" id="btn-track-order">Track Order</btutton>
+				<button class="btn btn-pink btn-track-order" id="btn-track-order">Track Order</button>
 			</div>
 
 			<div class="search-track-order-result">
