@@ -19,7 +19,7 @@ var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj 
 var storage = window.localStorage;
 var ml = {
 	//test的fbid googleid tidio
-	facebook_id: '611850146411825', // test
+	facebook_id: '221174955835797', // test
 	google_id: 'UA-148324397-1', // test
 	tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', 
 	//www.megalook.com的fbid googleid tidio

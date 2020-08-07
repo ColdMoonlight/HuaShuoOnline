@@ -2,7 +2,6 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Product Details</title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
@@ -22,13 +21,13 @@
 	<link href="${APP_PATH}/static/pc/js/jqzoom/jqzoom.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/pc/js/video/video.min.css" rel="stylesheet">
 	<style>
-		@media only screen and (max-width: 1023px) {
+		main {margin-top: 1rem;}
+		@media only screen and (max-width: 575px) {
 			main { margin: 0 }
 			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
 		}
 	</style>
 </head>
-
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<main>
@@ -126,8 +125,9 @@
 			<div class="product-footer"></div>
 		</div>
 	</main>
-	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+	<!-- third lib -->
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqzoom/jquery.jqzoom.js"></script>
 	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
@@ -373,6 +373,7 @@
 					    '<div class="review-swiper-close"><span class="icon close"></span></div>' +
 					'<div>');
 				$(document.body).append($reviewSwiper);
+				addFixed();
 				reviewSwiper = new Swiper('#review-swiper', {
 					pagination: {
 				    	el: '.swiper-pagination',
@@ -392,6 +393,7 @@
 				reviewSwiper.slideTo(activeNum, 0, false);
 				
 				$('.review-swiper-box').show();
+				addFixed();
 			}
 		}
 		/* details of main */
@@ -800,7 +802,7 @@
 		});
 		// open reiview swiper
 		$(document.body).on('click', '.product-review-imgs-item', function() {
-			var activeImg = $(this).find('.lazyload').data('src');
+			var activeImg = $(this).data('src');
 			var activeNum = 0;
 			var imgs = [];
 			$(this).parent().find('.lazyload').each(function(idx, item) {
@@ -813,6 +815,7 @@
 		// clsoe reivew swiper		
 		$(document.body).on('click', '.review-swiper-close', function() {
 			$('.review-swiper-box').hide();
+			removeFixed();
 		});
 		// write review
 		$('#write-review').on('click', function(e) {
@@ -964,7 +967,9 @@
 			deleteReviewId();
 			setPageNum(1);
 		});
-		// addTidio();
 	</script>
+	<!-- footer nav -->
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<script> addTidio(); </script>
 </body>
 </html>

@@ -7,6 +7,9 @@
     <title>My Order Details</title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+	<style>
+		@media only screen and (min-width: 576px) { main { margin-top: 1rem; } }
+	</style>
 </head>
 
 <body>
@@ -27,7 +30,7 @@
 			</div>
 		</div>
 	</main>
-	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
 		function getOrderList(orderId) {
@@ -165,5 +168,7 @@
 		!loginStatus && loginNotTip();
 		loginStatus && getOrderList(orderId);
 	</script>
+	<!-- footer nav -->
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 </body>
 </html>

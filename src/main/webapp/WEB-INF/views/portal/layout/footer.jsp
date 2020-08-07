@@ -36,66 +36,6 @@
 	</div>
 </footer>
 <script>
-	var footerData = [{
-		"name": "Megalook_Hair",
-		"icon": "plus",
-		"link": "javascript:;",
-		"children": [],
-		"data-key": "mlbackFootNavOneList"
-	},
-	{
-		"name": "Buyer_Service",
-		"icon": "plus",
-		"link": "javascript:;",
-		"children": [],
-		"data-key": "mlbackFootNavTwoList"
-	},
-	{
-		"name": "Activity",
-		"icon": "plus",
-		"link": "javascript:;",
-		"children": [],
-		"data-key": "mlbackFootNavThreeList"
-	},
-	{
-		"name": "Client_Service_Support",
-		"icon": "plus",
-		"link": "javascript:;",
-		"children": [],
-		"data-key": "mlbackFootNavFourList"
-	}
-	];
-
-	$.ajax({
-		url: '${APP_PATH}/MlbackFootNav/getMlfrontFootNavAllSimple',
-		type: 'post',
-		success: function (data) {
-			// console.log(data);
-			var resData = data.extend;
-			if (resData.isNav == 0) {
-				var modal = createModal({
-        			body: {
-        				html: '<p>Failed to get to the relevant data !</p>'
-        			}
-        		});
-			}
-
-			if (resData.isNav == 1) {
-				initFooterData(resData);
-				renderFooterNav($('.footer-nav'), footerData);
-				addWapFooterNavEvent();
-			}
-		},
-		error: function(err) {
-			var modal = createModal({
-    			body: {
-    				html: '<p>Error: '+ err + '</p>'
-    			},
-    			autoClose: true,
-    		});
-		}
-	});
-	backTop();
 	function initFooterData(data) {
 		for (var key in footerData) {
 			var blockData = data[footerData[key]["data-key"]];
@@ -176,4 +116,59 @@
 			$('html').animate({scrollTop: 0}, 500); 
 		})
 	}
+	// get footer nav data
+	function getFooterNavData(callback) {
+		$.ajax({
+			url: '${APP_PATH}/MlbackFootNav/getMlfrontFootNavAllSimple',
+			type: 'post',
+			async: false,
+			success: function (data) {
+				if (data.code == 100) {
+					callback && callback(data.extend);					
+				} else {
+					refreshPageModal();
+				}
+			},
+			error: function(err) {
+				refreshPageModal();
+			}
+		});
+	}
+	var footerData = [{
+		"name": "Megalook_Hair",
+		"icon": "plus",
+		"link": "javascript:;",
+		"children": [],
+		"data-key": "mlbackFootNavOneList"
+	}, {
+		"name": "Buyer_Service",
+		"icon": "plus",
+		"link": "javascript:;",
+		"children": [],
+		"data-key": "mlbackFootNavTwoList"
+	}, {
+		"name": "Activity",
+		"icon": "plus",
+		"link": "javascript:;",
+		"children": [],
+		"data-key": "mlbackFootNavThreeList"
+	}, {
+		"name": "Client_Service_Support",
+		"icon": "plus",
+		"link": "javascript:;",
+		"children": [],
+		"data-key": "mlbackFootNavFourList"
+	}];
+	getFooterNavData(function(data) {
+		if (data.isNav == 0) {
+			mlModalTip('<p>Failed to get to the relevant data !</p>');
+		}
+
+		if (data.isNav == 1) {
+			initFooterData(data);
+			renderFooterNav($('.footer-nav'), footerData);
+			addWapFooterNavEvent();
+		}
+	});
+	backTop();
 </script>

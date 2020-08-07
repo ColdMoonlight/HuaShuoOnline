@@ -50,35 +50,34 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="wap-nav-box">
-			<div class="wap-nav-header">
-				<i class="icon close"></i>
-			</div>
-			<div class="wap-nav-body">
-				<ul class="wap-nav ml-nav"></ul>
-			</div>
-			<div class="wap-nav-footer">
-				<a class="wap-track-order" href="javascript:goToSearchTrack();">
-					<span class="icon search"></span>
-					<span class="wap-track-order-text">Search Order Track</span>
-				</a>
-			</div>
-		</div>
-
-	</div>
-	<!-- search result -->
-	<div class="search-result-box">
-		<span class="icon close"></span>
-		<ul class="search-result">
-			<li class="search-result-item" data-name="bob">bob</li>
-			<li class="search-result-item" data-name="wigs">wigs</li>
-			<li class="search-result-item" data-name="bundle">bundle</li>
-			<li class="search-result-item" data-name="613">613</li>
-			<li class="search-result-item" data-name="Water">Water</li>
-		</ul>
 	</div>
 </header>
+<!-- wap menu-list -->
+<div class="wap-nav-box">
+	<div class="wap-nav-header">
+		<i class="icon close"></i>
+	</div>
+	<div class="wap-nav-body">
+		<ul class="wap-nav ml-nav"></ul>
+	</div>
+	<div class="wap-nav-footer">
+		<a class="wap-track-order" href="javascript:goToSearchTrack();">
+			<span class="icon search"></span>
+			<span class="wap-track-order-text">Search Order Track</span>
+		</a>
+	</div>
+</div>
+<!-- search result -->
+<div class="search-result-box">
+	<span class="icon close"></span>
+	<ul class="search-result">
+		<li class="search-result-item" data-name="bob">bob</li>
+		<li class="search-result-item" data-name="wigs">wigs</li>
+		<li class="search-result-item" data-name="bundle">bundle</li>
+		<li class="search-result-item" data-name="613">613</li>
+		<li class="search-result-item" data-name="Water">Water</li>
+	</ul>
+</div>
 <script>
 	// get one product data
 	function getOneProductData(reqData, callback) {
@@ -170,7 +169,7 @@
 				var subMenuHtml = '',
 					isWrap = true,
 					subMenuLen = data2[i].length;
-				if (subMenuLen) menuHhtml += '<i class="operate gw-i"></i>';
+				if (subMenuLen) menuHhtml += '<div class="operate wap-op-one"><i class="icon plus"></i></div>';
 
 				for (var j = 0; j < subMenuLen; j += 1) {
 					if (data2[i][j] && data2[i][j].length > 0) {
@@ -196,7 +195,7 @@
 							if (k == 0) {
 								subMenuHtml += '<dt>' +
 									'<a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a>' +
-									(thirdMenuLen > 1 ? '<i class="operate gw-i2"></i>' : '') + '</dt>';
+									(thirdMenuLen > 1 ? '<div class="operate wap-op-two"><i class="icon plus"></i></div>' : '') + '</dt>';
 							} else {
 								isWrap = false;
 								subMenuHtml += '<dd><a href="'+ (data2[i][j][k].catalogIfinto ? '${APP_PATH}/' + thirdNavSeo + '.html' : 'javascript:;') +'">' + data2[i][j][k].catalogName + '</a></dd>';
@@ -230,35 +229,45 @@
 	function addWapNavEvent() {
 		$('#menu').on('click', function () {
 			$('.wap-nav-box').addClass('active');
+			addFixed();
 		});
-		$('.wap-nav-box').on('click', function () {
-			$('.wap-nav-box').removeClass('active');
+		$('.wap-nav-box').on('click', function (e) {
+			if (this == e.target) {
+				$('.wap-nav-box').removeClass('active');
+				removeFixed();				
+			}
 		});
 		$('.wap-nav-box .close').on('click', function () {
 			$('.wap-nav-box').removeClass('active');
+			removeFixed();
 		});
 		// dropdwon menu
-		$(".wap-nav .gw-i").click(function (e) {
+		$('.wap-op-one').click(function (e) {
 			e.stopPropagation();
 			var $this = $(this);
 			var str = $this.next('.sub-menu-container').css('display');
 			if (str == 'none') {
 				$this.next('.sub-menu-container').show(200);
-				$this.addClass("active");
+				$this.find('.icon').addClass('sub').removeClass('plus');
 			} else {
 				$this.next('.sub-menu-container').hide(200);
-				$this.removeClass("active");
+				$this.find('.icon').removeClass('sub').addClass('plus');
 			}
-			$this.parent('.menu-item').siblings('.menu-item').find('.gw-i.active').removeClass('active').next('.sub-menu-container').hide(200);
+			$this.parent('.menu-item')
+				.siblings('.menu-item')
+				.find('.wap-op-one .sub').removeClass('sub').addClass('plus')
+				.parent().next('.sub-menu-container').hide(200)
+				.find('dd').hide()
+				.parent().find('.wap-op-two .sub').removeClass('sub').addClass('plus');
 		});
-		$(".wap-nav .gw-i2").click(function (e) {
+		$('.wap-op-two').click(function (e) {
 			e.stopPropagation();
 			var $this = $(this);
-			if ($this.hasClass('active')) {
-				$this.removeClass('active').parents("dl").find('dd').hide(200);
+			if ($this.find('.icon').hasClass('sub')) {
+				$this.find('.icon').removeClass('sub').addClass('plus').parents('dl').find('dd').hide(200);
 			} else {
-				$('.operate.active.gw-i2').removeClass("active").parents('dl').find('dd').hide(200);
-				$this.addClass('active').parents("dl").find('dd').show(200);
+				$('.wap-op-two .sub').removeClass("sub").addClass('plus').parents('dl').find('dd').hide(200);
+				$this.find('.icon').addClass('sub').removeClass('plus').parents("dl").find('dd').show(200);
 			}
 		});
 	}
@@ -304,7 +313,6 @@
 	// ajax fetch nav data
 	function getNavMenuData(callback) {
 		$.ajax({
-			/* url: '${APP_PATH}/MlbackCategory/getCategorySuperMenu', */
 			url: '${APP_PATH}/MlbackCatalog/getCatalogSuperMenu',
 			method: 'post',
 			success: function (data) {
@@ -547,7 +555,7 @@
 		// wap event;
 		addWapNavEvent();
 		// main padding-top
-		$('main').css({ 'paddingTop': $('header').height() + 16 });
+		$('main').css({ 'paddingTop': $('header').height() });
 	});
 	// initial cart num
 	updateProructNumberInCart();
@@ -603,17 +611,17 @@
 		var currentY = window.pageYOffset;
 		var isPc = window.innerWidth > 1024;
 		if (currentY >= startY && currentY > 60 && isPc) {
-			!$('.ml-search').hasClass('down') && ($('.ml-search').addClass('hide down').removeClass('up'), $('main').css({ 'paddingTop': $('header').height() + 16 }));
+			!$('.ml-search').hasClass('down') && ($('.ml-search').addClass('hide down').removeClass('up'), $('main').css({ 'paddingTop': $('header').height() }));
 		}
 
 		if (currentY < startY && currentY < 60 && isPc) {
-			!$('.ml-search').hasClass('up') && ($('.ml-search').removeClass('down').removeClass('hide').addClass('up'), $('main').css({ 'paddingTop': $('header').height() + 16 }));
+			!$('.ml-search').hasClass('up') && ($('.ml-search').removeClass('down').removeClass('hide').addClass('up'), $('main').css({ 'paddingTop': $('header').height() }));
 		}
 		startY = currentY;
 	});
 	$(window).on('resize', function () {
 		debounce(function() {
-			$('main').css({ 'paddingTop': $('header').height() + 16 });
+			$('main').css({ 'paddingTop': $('header').height() });
 			if ($('.search-result-box').hasClass('active')) {
 				showSearchBox();
 			}
@@ -623,13 +631,15 @@
 	$('#iphone-share').on('click', function() {
 		var $iphoneAdvice = $('.iphone-advice');
 		if (!$iphoneAdvice.length) {
-			$iphoneAdvice = $('<div class="iphone-advice"><img src="${APP_PATH }/static/pc/img/iphone-advice.gif" /><span class="icon close"></span></div>');
-			$(document.body).append($iphoneAdvice)
+			$iphoneAdvice = $('<div class="iphone-advice"><img src="${APP_PATH}/static/pc/img/iphone-advice.gif" /><span class="icon close"></span></div>');
+			$(document.body).append($iphoneAdvice);
+			addFixed();
 		}
 		$iphoneAdvice.show();
 	});
 	$(document.body).on('click', '.iphone-advice .close', function() {
 		$('.iphone-advice').hide();
+		removeFixed();
 	});
 	// login-register
 	$('.icon.person').on('click', function() {

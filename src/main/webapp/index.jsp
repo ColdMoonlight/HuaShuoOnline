@@ -31,10 +31,9 @@
 			<div id="showAreaTwo" class="showarea showAreaTwo"></div>
 			<div id="showAreaThree" class="showarea showAreaThree"></div>
 		</main>
-		<jsp:include page="WEB-INF/views/portal/layout/footer.jsp" flush="true"></jsp:include>
+		<!-- common script -->
 		<jsp:include page="WEB-INF/views/portal/common/footer.jsp" flush="true"></jsp:include>
-		<!-- lottery -->
-		<jsp:include page="WEB-INF/views/portal/layout/lottery.jsp" flush="true"></jsp:include>
+		<!-- third lib -->
 		<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 		<script>
 			function renderIndexCarousel(data) {
@@ -351,7 +350,11 @@
 				});
 				renderIndexCarousel(indexCarouselData);
 			});
-			addTidio();
 		</script>
+		<!-- footer nav -->
+		<jsp:include page="WEB-INF/views/portal/layout/footer.jsp" flush="true"></jsp:include>
+		<!-- lottery -->
+		<jsp:include page="WEB-INF/views/portal/layout/lottery.jsp" flush="true"></jsp:include>
+		<script> addTidio(); </script>
 	</body>
 </html>

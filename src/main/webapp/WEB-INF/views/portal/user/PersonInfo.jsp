@@ -8,7 +8,7 @@
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>
-		@media only screen and (max-width: 575px) { main { margin: -1rem 0 0 0; } }
+		@media only screen and (max-width: 575px) { main { margin: 0; } }
 	</style>
 </head>
 
@@ -56,7 +56,7 @@
 			</div>
 		</div>
 	</main>
-	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
 		function getUserInfo(callback) {
@@ -233,5 +233,7 @@
 			}));
 		});
 	</script>
+	<!-- footer nav -->
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 </body>
 </html>
