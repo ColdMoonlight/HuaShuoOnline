@@ -2,7 +2,6 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Video Area List</title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
@@ -11,14 +10,15 @@
 		@media only screen and (max-width: 1023px) { main { margin: -1rem 0 0 0; } }
 	</style>
 </head>
-
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
-		<!-- video list -->
-		<div class="video-list"></div>
+	<main>		
+		<div class="container">
+			<!-- video list -->
+			<div class="video-list"></div>
+		</div>
 	</main>
-	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
 		function renderTwoVideoData(videoLink, urlName, urlLink) {
@@ -109,7 +109,9 @@
 				renderTwoVideoData(videoLink, urlName, urlLink);
 			}
 		});
-		addTidio();
 	</script>
+	<!-- footer nav -->
+	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
+	<script> addTidio(); </script>
 </body>
 </html>

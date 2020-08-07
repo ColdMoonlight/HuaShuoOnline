@@ -2,7 +2,6 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Product List</title>
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
@@ -16,8 +15,8 @@
 	</script>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
+	<style>main { margin-top: 1rem; }</style>
 </head>
-
 <body>
     <jsp:include page="layout/header.jsp" flush="true"></jsp:include>
 	<main>
@@ -29,8 +28,9 @@
 			<div class="product-list"></div>		
 		</div>
 	</main>
-	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
+	<!-- common script -->
 	<jsp:include page="common/footer.jsp" flush="true"></jsp:include>
+	<!-- third lib -->
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script>
 		function getProductListByCategorySeo(categorySeo, hasCategory) {
@@ -114,8 +114,10 @@
 				threshold: 0
 			}));
 		});
-		addTidio();
 	</script>
+	<!-- footer nav -->
+	<jsp:include page="layout/footer.jsp" flush="true"></jsp:include>
+	<script> addTidio(); </script>
 </body>
 
 </html>
