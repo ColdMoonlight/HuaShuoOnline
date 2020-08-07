@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
+<!-- split main end -->
+</main>
 <footer>
 	<div class="footer-page-header">
 		<div class="container">

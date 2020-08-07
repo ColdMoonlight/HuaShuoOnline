@@ -12,13 +12,13 @@
 </head>
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
+	<!-- main start -->
 		<!-- video banner -->
 		<div class="video-banner">
 			<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-banner.jpg"></div>
 			<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-banner.jpg"></div>
 		</div>
-		
+
 		<div class="container">
 			<!-- video discount -->
 			<div class="video-discount">			
@@ -94,7 +94,7 @@
 				</div>
 			</div>
 		</div>
-	</main>
+	<!-- main end -->
 	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>

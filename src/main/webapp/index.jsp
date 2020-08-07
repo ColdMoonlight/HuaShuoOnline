@@ -15,7 +15,7 @@
 	</head>
 	<body>
 		<jsp:include page="WEB-INF/views/portal/layout/header.jsp" flush="true"></jsp:include>
-		<main>
+		<!-- main start -->
 			<div class="ml-index-carousel swiper-container">
 				<div class="swiper-wrapper"></div>
 		   		<div class="swiper-pagination"></div>
@@ -30,7 +30,7 @@
 			<div id="showAreaOne" class="showarea showAreaOne"></div>
 			<div id="showAreaTwo" class="showarea showAreaTwo"></div>
 			<div id="showAreaThree" class="showarea showAreaThree"></div>
-		</main>
+		<!-- main end -->
 		<!-- common script -->
 		<jsp:include page="WEB-INF/views/portal/common/footer.jsp" flush="true"></jsp:include>
 		<!-- third lib -->

@@ -14,7 +14,7 @@
 
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
+	<!-- main start -->
 		<div class="container">
 			<div class="usercenter-title">Personal Center</div>
 			<div class="usercenter-body">
@@ -25,7 +25,7 @@
 				<jsp:include page="usercenter-nav.jsp" flush="true"></jsp:include>
 			</div>
 		</div>
-	</main>
+	<!-- main end -->
 	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>

@@ -14,7 +14,7 @@
 
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
+	<!-- main start -->
 		<div class="container">
 			<div class="usercenter-back"><a href="javascript:goToUserCenter();"><span class="icon left"></span>Back</a></div>
 			<div class="usercenter-order-box">
@@ -32,7 +32,7 @@
 				</div>
 			</div>
 		</div>
-	</main>
+	<!-- main end -->
 	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>

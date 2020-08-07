@@ -78,6 +78,8 @@
 		<li class="search-result-item" data-name="Water">Water</li>
 	</ul>
 </div>
+<!-- split main start -->
+<main>
 <script>
 	// get one product data
 	function getOneProductData(reqData, callback) {
@@ -318,7 +320,7 @@
 			async: false,
 			success: function (data) {
 				if (data.code == 100) {
-					callback(data.extend);
+					callback && callback(data.extend);
 				} else {
 					mlModalTip('Failed to get to the relevant data !');
 				}
@@ -551,12 +553,12 @@
 	// initial header nav
 	getNavMenuData(function (data) {
 		renderMainCategory($('.ml-nav'), data.CatalogFirstList, data.MlbackCatalogSuperList);
+		// main padding-top
+		$('main').css({ 'paddingTop': $('header').height() });
 		// pc event
 		addNavEvent();
 		// wap event;
 		addWapNavEvent();
-		// main padding-top
-		$('main').css({ 'paddingTop': $('header').height() });
 	});
 	// initial cart num
 	updateProructNumberInCart();
