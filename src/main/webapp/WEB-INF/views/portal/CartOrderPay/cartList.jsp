@@ -12,9 +12,9 @@
 
 <body>
 	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
+	<!-- main start -->
 		<div class="container"></div>
-	</main>
+	<!-- main end -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>

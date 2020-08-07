@@ -19,7 +19,7 @@
 </head>
 <body>
     <jsp:include page="layout/header.jsp" flush="true"></jsp:include>
-	<main>
+	<!-- main start -->
 		<div class="container">
 			<div class="category-condition">
 				<span class="category-condition-name">style</span>
@@ -27,7 +27,7 @@
 			</div>
 			<div class="product-list"></div>		
 		</div>
-	</main>
+	<!-- main end -->
 	<!-- common script -->
 	<jsp:include page="common/footer.jsp" flush="true"></jsp:include>
 	<!-- third lib -->

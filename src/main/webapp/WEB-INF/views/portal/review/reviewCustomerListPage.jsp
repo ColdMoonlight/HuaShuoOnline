@@ -12,7 +12,7 @@
 </head>
 <body>
 	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>		
+	<!-- main start -->
 		<div class="container">
 			<div class="shop-review-title">
 				<div class="left">
@@ -90,7 +90,7 @@
 				<div class="ins-body"></div>
 			</div>
 		</div>
-	</main>
+	<!-- main end -->
 	<!-- third lib -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>

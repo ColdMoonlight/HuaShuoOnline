@@ -13,7 +13,7 @@
 </head>
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
+	<!-- main start -->
 		<div class="ins-banner">
 			<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/ins/wap-banner.jpg"></div>
 			<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/ins/pc-banner.jpg"></div>
@@ -28,7 +28,7 @@
 				<div class="ins-body"></div>
 			</div>		
 		</div>
-	</main>
+	<!-- main end -->
 	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>

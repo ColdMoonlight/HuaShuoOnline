@@ -12,7 +12,7 @@
 
 <body>
 	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
-	<main>
+	<!-- main start -->
 		<div class="container">
 			<div class="payment-header"></div>
 			<div class="payment-box payment-order">
@@ -42,7 +42,7 @@
 				<a href="javascript:goToIndex();" class="btn btn-black">Continue Shopping</a>
 			</div>
 		</div>
-	</main>
+	<!-- main end -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script type="text/javascript">
