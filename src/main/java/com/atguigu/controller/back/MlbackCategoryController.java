@@ -258,9 +258,8 @@ public class MlbackCategoryController {
 			session.setAttribute("categoryMetaKeyWords", categoryMetaKeyWords);
 			session.setAttribute("categoryMetaDesc", categoryMetaDesc);
 		}else{
-			
-			return "redirect:https://www.megalook.com";
-			
+			//return "redirect:https://www.megalook.com";
+			return "redirect:/";
 		}
 		//返回视图
 		return "portal/prolistBycategorySeo";
