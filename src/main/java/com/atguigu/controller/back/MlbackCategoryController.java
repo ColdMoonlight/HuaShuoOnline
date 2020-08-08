@@ -322,6 +322,7 @@ public class MlbackCategoryController {
 			 //查询白pid的产品详情
 			 MlbackProduct mlbackProductReq = new MlbackProduct();
 			 mlbackProductReq.setProductId(productidInt);
+			 //查回来的直接就是仅上架的产品
 			 mlbackProductReqList =mlbackProductService.selectMlbackProductbyCategorySeo(mlbackProductReq);
 			 if(mlbackProductReqList.size()>0){
 				 mlbackProductResOne = mlbackProductReqList.get(0);
