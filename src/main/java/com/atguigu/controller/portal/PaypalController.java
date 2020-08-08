@@ -321,6 +321,7 @@ public class PaypalController {
 		mlfrontPayInfoIOne.setPayinfoPlatformserialcode(payerId);
 		String nowTime = DateUtil.strTime14s();
 		mlfrontPayInfoIOne.setPayinfoMotifytime(nowTime);
+		mlfrontPayInfoIOne.setPayinfoReturntime(nowTime);
 		//增加生成字段信息
 		String payinfoIdStr = payinfoId+"";
 		Integer orderlen = payinfoIdStr.length();

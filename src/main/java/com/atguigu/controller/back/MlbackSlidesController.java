@@ -91,7 +91,7 @@ public class MlbackSlidesController {
 		mlbackSlide.setSlideCreatetime(nowTime);
 		mlbackSlide.setSlideWapstatus(0);//0未上架1上架中
 		mlbackSlide.setSlidePcstatus(0);//0未上架1上架中
-		//无id，insert
+		//无id,insert
 		System.out.println("插入前"+mlbackSlide.toString());
 		mlbackSlideService.insertSelective(mlbackSlide);
 		System.out.println("插入后"+mlbackSlide.toString());
@@ -144,7 +144,7 @@ public class MlbackSlidesController {
 		String nowtime = DateUtil.strTime14s();
 		mlbackSlide.setSlideMotifytime(nowtime);
 		
-		//有id，update
+		//有id,update
 		mlbackSlideService.updateByPrimaryKeySelective(mlbackSlide);
 		return Msg.success().add("resMsg", "更新成功");
 	}
@@ -156,7 +156,7 @@ public class MlbackSlidesController {
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg delete(@RequestBody MlbackSlide mlbackSlide){
-		//接收id信息
+		//接收SlideId
 		Integer slideId = mlbackSlide.getSlideId();
 		mlbackSlideService.deleteByPrimaryKey(slideId);
 		return Msg.success().add("resMsg", "delete success");

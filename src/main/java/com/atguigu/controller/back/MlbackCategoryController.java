@@ -258,9 +258,8 @@ public class MlbackCategoryController {
 			session.setAttribute("categoryMetaKeyWords", categoryMetaKeyWords);
 			session.setAttribute("categoryMetaDesc", categoryMetaDesc);
 		}else{
-			
-			return "redirect:https://www.megalook.com";
-			
+			//return "redirect:https://www.megalook.com";
+			return "redirect:/";
 		}
 		//返回视图
 		return "portal/prolistBycategorySeo";
@@ -322,6 +321,7 @@ public class MlbackCategoryController {
 			 //查询白pid的产品详情
 			 MlbackProduct mlbackProductReq = new MlbackProduct();
 			 mlbackProductReq.setProductId(productidInt);
+			 //查回来的直接就是仅上架的产品
 			 mlbackProductReqList =mlbackProductService.selectMlbackProductbyCategorySeo(mlbackProductReq);
 			 if(mlbackProductReqList.size()>0){
 				 mlbackProductResOne = mlbackProductReqList.get(0);

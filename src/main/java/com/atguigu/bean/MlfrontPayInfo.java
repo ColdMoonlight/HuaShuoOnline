@@ -25,6 +25,8 @@ public class MlfrontPayInfo {
     private String payinfoCreatetime;
 
     private String payinfoMotifytime;
+    
+    private String payinfoReturntime;
 
     private String payinfoPlatenum;//平台交易号
 
@@ -130,7 +132,15 @@ public class MlfrontPayInfo {
         this.payinfoMotifytime = payinfoMotifytime == null ? null : payinfoMotifytime.trim();
     }
 
-    public String getPayinfoPlatenum() {
+    public String getPayinfoReturntime() {
+		return payinfoReturntime;
+	}
+
+	public void setPayinfoReturntime(String payinfoReturntime) {
+		this.payinfoReturntime = payinfoReturntime == null ? null : payinfoReturntime.trim();
+	}
+
+	public String getPayinfoPlatenum() {
         return payinfoPlatenum;
     }
 
@@ -200,7 +210,7 @@ public class MlfrontPayInfo {
 
 	public MlfrontPayInfo(Integer payinfoId, Integer payinfoUid, String payinfoIp, Integer payinfoOid,
 			String payinfoPlatform, String payinfoPlatformserialcode, BigDecimal payinfoMoney, Integer payinfoStatus,
-			String payinfoReason, String payinfoCreatetime, String payinfoMotifytime, String payinfoPlatenum,
+			String payinfoReason, String payinfoCreatetime, String payinfoMotifytime, String payinfoReturntime, String payinfoPlatenum,
 			String payinfoUname, String payinfoUemail, String payinfoTransidnum, String payinfoTransStatus,
 			String payinfoEcpphsnum, String payinfoEcpphsnumStatus, String payinfoSendnum) {
 		super();
@@ -215,6 +225,7 @@ public class MlfrontPayInfo {
 		this.payinfoReason = payinfoReason;
 		this.payinfoCreatetime = payinfoCreatetime;
 		this.payinfoMotifytime = payinfoMotifytime;
+		this.payinfoReturntime = payinfoReturntime;
 		this.payinfoPlatenum = payinfoPlatenum;
 		this.payinfoUname = payinfoUname;
 		this.payinfoUemail = payinfoUemail;
@@ -231,11 +242,11 @@ public class MlfrontPayInfo {
 				+ ", payinfoOid=" + payinfoOid + ", payinfoPlatform=" + payinfoPlatform + ", payinfoPlatformserialcode="
 				+ payinfoPlatformserialcode + ", payinfoMoney=" + payinfoMoney + ", payinfoStatus=" + payinfoStatus
 				+ ", payinfoReason=" + payinfoReason + ", payinfoCreatetime=" + payinfoCreatetime
-				+ ", payinfoMotifytime=" + payinfoMotifytime + ", payinfoPlatenum=" + payinfoPlatenum
-				+ ", payinfoUname=" + payinfoUname + ", payinfoUemail=" + payinfoUemail + ", payinfoTransidnum="
-				+ payinfoTransidnum + ", payinfoTransStatus=" + payinfoTransStatus + ", payinfoEcpphsnum="
-				+ payinfoEcpphsnum + ", payinfoEcpphsnumStatus=" + payinfoEcpphsnumStatus + ", payinfoSendnum="
-				+ payinfoSendnum + "]";
+				+ ", payinfoMotifytime=" + payinfoMotifytime + ", payinfoReturntime=" + payinfoReturntime
+				+ ", payinfoPlatenum=" + payinfoPlatenum + ", payinfoUname=" + payinfoUname + ", payinfoUemail="
+				+ payinfoUemail + ", payinfoTransidnum=" + payinfoTransidnum + ", payinfoTransStatus="
+				+ payinfoTransStatus + ", payinfoEcpphsnum=" + payinfoEcpphsnum + ", payinfoEcpphsnumStatus="
+				+ payinfoEcpphsnumStatus + ", payinfoSendnum=" + payinfoSendnum + "]";
 	}
 
 }

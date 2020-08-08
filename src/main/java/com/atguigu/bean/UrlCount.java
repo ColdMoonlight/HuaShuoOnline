@@ -3,11 +3,8 @@ package com.atguigu.bean;
 public class UrlCount {
 	
 	private String UrlString;
-	
 	private String UrlStringNum;
-	
 	private String searchStartTime;
-	
 	private String searchEndTime;
 
 	public String getUrlString() {

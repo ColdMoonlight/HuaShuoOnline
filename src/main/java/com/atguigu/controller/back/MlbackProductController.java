@@ -88,7 +88,7 @@ public class MlbackProductController {
 		//取出id
 		String nowTime = DateUtil.strTime14s();
 		mlbackProduct.setProductCreatetime(nowTime);
-		//无id，insert
+		//无id,insert
 		System.out.println("插入前"+mlbackProduct.toString());
 		mlbackProductService.insertSelective(mlbackProduct);
 		System.out.println("插入后"+mlbackProduct.toString());
@@ -109,11 +109,11 @@ public class MlbackProductController {
 		String nowTime = DateUtil.strTime14s();
 		mlbackProduct.setProductCreatetime(nowTime);
 		
-		//先对这个产品选择的一些类，进行productIdStr的清理,
-		//有id，update
+		//先对这个产品选择的一些类,进行productIdStr的清理,
+		//有id,update
 		String categoryIdsStr = mlbackProduct.getProductCategoryIdsstr();
 		Integer productSupercateid = mlbackProduct.getProductSupercateid();
-		//4.0.1从中读取categoryIdsStr,切割得到每一个categoryId,遍历，把productId,填充再每个查回来的categort中的proidStr拼上
+		//4.0.1从中读取categoryIdsStr,切割得到每一个categoryId,遍历,把productId,填充再每个查回来的categort中的proidStr拼上
 		UpdateCategoryProductIdStr(categoryIdsStr,productId,productName,productSupercateid);
 		mlbackProductService.updateByPrimaryKeySelective(mlbackProduct);
 		return Msg.success().add("resMsg", "category保存成功");
@@ -122,7 +122,7 @@ public class MlbackProductController {
 	/**
 	 * 4.0.1
 	 * //从中读取categoryIdsStr,切割得到每一个categoryId,
-	 * 遍历categoryId查询，把productId,填充再每个查回来的category中的proidStr拼上
+	 * 遍历categoryId查询,把productId,填充再每个查回来的category中的proidStr拼上
 	 * */
 	private void UpdateCategoryProductIdStr(String categoryIdsStr, Integer productId,String productName, Integer productSupercateid) {
 		
@@ -132,7 +132,7 @@ public class MlbackProductController {
 			System.out.println("categoryIdsStr为空");
 			//把该productId下的
 			ProductCategoryIdsStrUpdateOld(productId,categoryIdsStr);
-			//清理掉，该产品下的类
+			//清理掉,该产品下的类
 			MlbackProduct mlbackProductReq = new MlbackProduct();
 			mlbackProductReq.setProductId(productId);
 			mlbackProductReq.setProductCategoryIdsstr("");
@@ -164,7 +164,7 @@ public class MlbackProductController {
 				categoryproductNamesStr = mlbackCategoryRes.getCategoryProductNames();
 				//把productId,填充再每个查回来的categort中的proidStr拼上
 				if(categoryProductIdsStr==null||categoryProductIdsStr.length()==0){
-					//如果当前没有,属于第一次填充，直接替代就好
+					//如果当前没有,属于第一次填充,直接替代就好
 					categoryProductIdsStr =inproductIdStr;
 					categoryproductNamesStr=productName;
 				}else{
@@ -175,15 +175,15 @@ public class MlbackProductController {
 					//先判断是否包含本次
 					if(ifHave>0){
 						//只要test.indexOf('This')返回的值不是-1说明test字符串中包含字符串'This',相反如果包含返回的值必定是-1"
-						//如果包含，跳过
+						//如果包含,跳过
 						continue;
 					}else{
-						//如果不包含，拼接
+						//如果不包含,拼接
 						categoryProductIdsStr = categoryProductIdsStr +","+ inproductIdStr;
 						categoryproductNamesStr = categoryproductNamesStr+","+productName;
 					}
 				}
-				//操作完，执行更新
+				//操作完,执行更新
 				mlbackCategoryReqUpdate.setCategoryId(categoryIdInt);
 				mlbackCategoryReqUpdate.setCategoryProductIds(categoryProductIdsStr);
 				mlbackCategoryReqUpdate.setCategoryProductNames(categoryproductNamesStr);
@@ -200,9 +200,9 @@ public class MlbackProductController {
 		for(int i=0;i<arrStr.length;i++){
 			nowPidStr =arrStr[i];
 			if(nowPidStr.equals(inproductIdStr)){
-				//有相同的，所以num增加
+				//有相同的,所以num增加
 				num++;
-				break;//找到，跳出
+				break;//找到,跳出
 			}
 		}
 		return num;
@@ -269,7 +269,7 @@ public class MlbackProductController {
 						categoryProductNamesStrNew+=productOldNamesStr+",";
 					}
 				}
-				//判断是不是空了，空了的话，不移除最后一个字符","
+				//判断是不是空了,空了的话,不移除最后一个字符","
 				if(categoryProductIdsStrNew.length()>0){
 					categoryProductIdsStrNew=categoryProductIdsStrNew.substring(0,categoryProductIdsStrNew.length()-1);
 					categoryProductNamesStrNew=categoryProductNamesStrNew.substring(0,categoryProductNamesStrNew.length()-1);
@@ -362,32 +362,36 @@ public class MlbackProductController {
 	@RequestMapping(value="/tofbProductDetailPageByhtml",method=RequestMethod.GET)
 	 public String tomfbProductDetailPageByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "productSeo") String productSeo) throws Exception{
 		
-		//System.out.println("访客通过productSeo进入落地页-productSeo:"+productSeo+" ,nowTime:"+nowTime);
 		//准备封装参数
 		MlbackProduct mlbackProductrepBySeo = new MlbackProduct();
 		mlbackProductrepBySeo.setProductSeo(productSeo);
-		//3.0.1记录落地页信息insertProView
-		//insertProView(productSeo,session);
 	
 		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductByParam(mlbackProductrepBySeo);
 	  
 		if(!(mlbackProductResList.size()>0)){
-			return "/";
+			return "redirect:/";
 		}else{
 			MlbackProduct mlbackProductRes = mlbackProductResList.get(0);
-			Integer productIdReq = mlbackProductRes.getProductId();
-			//放回响应域中
-			res.setAttribute("productId", productIdReq);
-			//放回session域中
-			session.setAttribute("productDetailId", productIdReq);
-			session.setAttribute("mlbackProductMetaTitle", mlbackProductRes.getProductMetaTitle());
-			session.setAttribute("mlbackProductMetaKeywords", mlbackProductRes.getProductMetaKeywords());
-			session.setAttribute("mlbackProductMeteDesc", mlbackProductRes.getProductMetaDesc());
-			//返回视图
-			return "portal/product/productDetails";
+			
+			Integer proStatus = mlbackProductRes.getProductStatus();
+			if(proStatus==1){
+				
+				Integer productIdReq = mlbackProductRes.getProductId();
+				//放回响应域中
+				res.setAttribute("productId", productIdReq);
+				//放回session域中
+				session.setAttribute("productDetailId", productIdReq);
+				session.setAttribute("mlbackProductMetaTitle", mlbackProductRes.getProductMetaTitle());
+				session.setAttribute("mlbackProductMetaKeywords", mlbackProductRes.getProductMetaKeywords());
+				session.setAttribute("mlbackProductMeteDesc", mlbackProductRes.getProductMetaDesc());
+				//返回视图
+				return "portal/product/productDetails";
+			}else{
+				System.out.println("通过链接点进来的productSeo:"+productSeo+",但是此产品已下架,跳回首页");
+				return "redirect:/";
+			}
 		}
 	 }
-	
 	
 	/**
 	 * 8.0	onuse	200103
@@ -403,7 +407,6 @@ public class MlbackProductController {
 		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductSimpleByParam(mlbackProductReq);
 		return Msg.success().add("mlbackProductResList", mlbackProductResList);
 	}
-	
 	
 	/**
 	 * 9.	zsh200716
