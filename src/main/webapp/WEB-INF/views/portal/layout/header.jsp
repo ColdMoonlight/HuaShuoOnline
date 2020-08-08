@@ -367,6 +367,7 @@
 	}
 	// login register fn
 	function registerFn(reqData, callback) {
+		payLoading();
 		$.ajax({
 			url: "${APP_PATH }/MlfrontUser/register",
 			type: 'post',
@@ -383,11 +384,15 @@
 			},
 			error: function() {
 				sysModalTip();
+			},
+			complete: function() {
+				hidePayLoading();
 			}
 		});
 	}
 	
 	function forgetFn(reqData, callback) {
+		payLoading();
 		$.ajax({
 			url: "${APP_PATH}/MlfrontUser/reSetPwd",
 			type: 'post',
@@ -404,11 +409,15 @@
 			},
 			error: function() {
 				sysModalTip();
+			},
+			complete: function() {
+				hidePayLoading();
 			}
 		});
 	}
 
 	function loginFn(reqData, callback) {
+		payLoading();
 		$.ajax({
 			url: "${APP_PATH }/MlfrontUser/login",
 			type: 'post',
@@ -420,11 +429,14 @@
 					mlModalTip('Login successfully !');
 					callback && callback();
 				} else {
-					mlModalTip('Login failed !');
+					mlModalTip(data.extend.resMsg);
 				}
 			},
 			error: function() {
 				sysModalTip();
+			},
+			complete: function() {
+				hidePayLoading();
 			}
 		});
 	}
