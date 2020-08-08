@@ -378,7 +378,7 @@
 					mlModalTip('Registered successfully !');
 					 callback && callback();
 				} else {
-					mlModalTip('Registered failed !');
+					mlModalTip(data.extend.resMsg);
 				}
 			},
 			error: function() {
