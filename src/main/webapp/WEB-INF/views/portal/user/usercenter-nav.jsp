@@ -29,7 +29,7 @@
 		<div class="text">More</div>
 		<span class="icon right"></span>
 	</a>
-	<a id="logout" class="usercenter-item">
+	<a id="logout" class="usercenter-item" href="javascript:;">
 		<span class="icon logout"></span>
 		<div class="text">Drop Out</div>
 		<span class="icon right"></span>

@@ -268,19 +268,13 @@ $(document.body).on('click', '.radio', function(e) {
     });
 });
 /* modal */
-function closeModalEvent(e) {
-    if (e.target == this) {
-    	removeFixed();
-        $('.modal').remove();
-    }
-}
 function mergeOpts (opts1, opts2) {
     var res = $.extend(true, {}, opts1, opts2);
 
     $.each(opts2, function (key, value) {
-      if ($.isArray(value)) {
-        res[key] = value;
-      }
+		if ($.isArray(value)) {
+			res[key] = value;
+		}
     });
 
     return res;
@@ -321,14 +315,17 @@ function createModal(option) {
     		removeModal(modal);
     	}, 1500);
 	}
-	var modalLen = $('.modal').length;
+	function setModalZindex(modal) {
+		var modalLen = $('.modal').length;
+		if (modalLen) modal.css('z-index', getComputedStyle($('.modal')[0]).zIndex + modalLen + 1);
+	}
 	$(document.body).append(modal);
 	setTimeout(function() {
 		modal.addClass('active');
 	});
     addFixed();
 	// modal z-index
-	if (modalLen) modal.css('z-index', getComputedStyle($('.modal')[0]).zIndex + modalLen + 1);
+	setModalZindex(modal);
     // auto close
     if (opt.autoClose) {
     	openTimer();
@@ -343,15 +340,21 @@ function createModal(option) {
     }
     // modal close event
     if (!opt.blockEvent) {    	
-	    modal.on('click', closeModalEvent);
-	    modal.find('.modal-close, .modal-no').on('click', closeModalEvent);
+	    modal.on('click', function (e) {
+	        if (e.target == this) {
+	        	removeModal($(this));
+	        }
+	    });
+	    modal.find('.modal-close, .modal-no').on('click', function (e) {
+	        removeModal(modal);
+	    });
     }
     
 	return modal;
 }
 function removeModal(modal) {
 	modal.remove();
-    removeFixed();
+	!$('.modal').length && removeFixed();
 }
 /* modal tip */
 function mlModalTip(text) {

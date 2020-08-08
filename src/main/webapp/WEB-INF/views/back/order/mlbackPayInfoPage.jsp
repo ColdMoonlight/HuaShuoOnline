@@ -495,7 +495,7 @@
 			$('.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode || '');
 			$('.pay-purchase-time .value').html(data.mlfrontOrderPayOneRes.orderCreatetime || '');
 			$('.pay-create-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime || '');
-			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoMotifytime || '');
+			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoReturntime || '');
 			
 
 			$('.pay-prototal .value').html('$' + (((data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney)).toFixed(2) || '0.00'));

@@ -196,31 +196,34 @@ input,
 select,
 button,
 textarea {	
-	border: none;
-	flex-grow: 1;
 	display: inline-block;
+	border: 1px solid #e5e5e5;
 	padding: .5rem;
 	outline: none;
-	box-shadow: 0 0 1px #3d3d3d;
 }
 input:focus,
 select:focus,
 button:focus,
 textarea:focus {
 	border-radius: .25rem;
-	outline: 0;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-position: center right;
+	background-repeat: no-repeat;
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='6' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 1L5 5 1 1'/%3E%3C/svg%3E");
+}
 .form-input>input,
 .form-input>select {
-  width: 100%;
-  padding: .5em 1em;
-  margin-top: .2rem;
-  font-size: .875rem;
-  border: 1px solid #e5e5e5;
-  border-radius: 2px;
-  outline: none;
+	width: 100%;
+	padding: .5em 1em;
+	margin-top: .2rem;
+	font-size: .875rem;
+	border-radius: 2px;
 }
 .hide {
 	display: none !important;
@@ -779,14 +782,16 @@ main {
 /* search box */
 .search-inputgroup {
 	display: flex;
+	justify-content: center;
 }
 .search-inputgroup input {
-	width: 16rem;
+	width: 80%;
 	padding-left: 1rem;
 }
  .search-inputgroup .btn {
 	padding: .5rem;
-	border-color: #f5f5f5;
+	margin-left: -1px;
+	border-color: #e5e5e5;
 	background-color: rgb(239, 239, 239);
 }
 .search-inputgroup .icon {
@@ -885,6 +890,9 @@ main {
 .pc-header .icon.cart:hover {
 	color: #f00;
 	background-color: #ccc;
+}
+.pc-header .search-inputgroup input {
+	width: 16rem;
 }
 /* wap navbar */
 .wap-navbar {
@@ -2736,6 +2744,7 @@ footer li {
 	font-size: .875rem;
 }
 .order-coupon-group>input {
+	flex-grow: 1;
 	padding: .5rem 1rem;
 }
 .order-coupon-group>button {
@@ -4215,7 +4224,7 @@ footer li {
 	padding: 0;
 	margin-right: .5rem;
 	background-color: #fff;
-	box-shadow: none;
+	border: none;
 	text-align: right;
 	color: #333;
 }

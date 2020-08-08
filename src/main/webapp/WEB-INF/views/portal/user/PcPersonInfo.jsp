@@ -237,6 +237,23 @@
 				}, 2000);
 			}));
 		});
+		/* logout */
+		$('#logout').on('click', function () {
+			$.ajax({
+				url: "${APP_PATH}/MlfrontUser/exit",
+				type: 'POST',
+				success: function (data) {
+					if (data.code == 100 && data.extend.exitInt == 0) {
+						window.location.href = "${APP_PATH }";
+					} else {
+						mlModalTip('Logout failed, please try again later!');					
+					}
+				},
+				error: function(err) {
+					mlModalTip('Logout failed, please try again later!');
+				}
+			})
+		});
 	</script>
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>

@@ -38,7 +38,7 @@
 			<a class="logo" href="javascript:goToIndex();">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
 			</a>
-			<span class="icon share hide" id="iphone-share"></span>
+			<span class="icon" id="iphone-share"></span>
 			<a href="${APP_PATH}/MlbackCart/toCartList" class="icon cart"><span class="num">0</span></a>
 			<span class="icon search"></span>
 
@@ -378,7 +378,7 @@
 					mlModalTip('Registered successfully !');
 					 callback && callback();
 				} else {
-					mlModalTip('Registered failed !');
+					mlModalTip(data.extend.resMsg);
 				}
 			},
 			error: function() {
@@ -542,8 +542,11 @@
 		var currentUrl = window.location.href;
 		(currentUrl == 'http://localhost:8080/HuaShuoOnline/MlbackCart/toCheakOut') && (window.location.href = currentUrl);
 	}
-	var isIOS = navigator.userAgent && navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-	if (isIOS) $('#iphone-share').removeClass('hide');
+	// iphone share
+	function initIphoneShare() {
+		var isIOS = navigator.userAgent && navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+		isIOS ? $('#iphone-share').addClass('share') : $('#iphone-share').removeClass('share');
+	}
 
 	// initial ml-ad
 	getCarouselData(5, function(data) {
@@ -553,6 +556,8 @@
 	// initial header nav
 	getNavMenuData(function (data) {
 		renderMainCategory($('.ml-nav'), data.CatalogFirstList, data.MlbackCatalogSuperList);
+		// init iphone share
+		initIphoneShare();
 		// main padding-top
 		$('main').css({ 'paddingTop': $('header').height() });
 		// pc event
@@ -628,6 +633,8 @@
 			if ($('.search-result-box').hasClass('active')) {
 				showSearchBox();
 			}
+			// reset iphone share
+			initIphoneShare();
 		}, 100);
 	});
 	// iphone share
