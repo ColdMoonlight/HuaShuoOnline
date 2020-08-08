@@ -326,7 +326,7 @@
 				}
 			},
 			error: function(err) {
-				sysModalErrorTip (err);
+				sysModalTip();
 			}
 		});
 	}

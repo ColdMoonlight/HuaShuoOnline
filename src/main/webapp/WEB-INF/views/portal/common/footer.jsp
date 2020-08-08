@@ -369,9 +369,6 @@ function mlModalTip(text) {
 function sysModalTip() {
 	mlModalTip('Settlement system error, temporarily unable to get data, please try again later !');
 }
-function sysModalErrorTip (err) {
-	mlModalTip('Error: '+ JSON.stringify(err));
-}
 function refreshPageModal() {
 	mlModalTip('please refresh the page to get again !');
 }

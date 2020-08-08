@@ -219,7 +219,7 @@
 					}
 				},
 				error: function (err) {
-					sysModalErrorTip (err);
+					sysModalTip();
 				}
 			});
 		}
@@ -239,7 +239,7 @@
 					}
 				},
 				error: function(err) {
-					sysModalErrorTip (err);
+					sysModalTip();
 				}
 			});
 		}
