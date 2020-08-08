@@ -317,7 +317,7 @@ function createModal(option) {
 	}
 	function setModalZindex(modal) {
 		var modalLen = $('.modal').length;
-		if (modalLen) modal.css('z-index', getComputedStyle($('.modal')[0]).zIndex + modalLen + 1);
+		if (modalLen) modal.css('z-index', (parseInt($('.modal').css('z-index'), 10) + modalLen + 1));
 	}
 	$(document.body).append(modal);
 	setTimeout(function() {
@@ -405,7 +405,8 @@ function loginNotTip() {
 }
 // pay loading
 function payLoading() {
-	var $payLoading = $('<div class="pay-loading"><div class="load-list"><div class="loader-item"></div><div class="loader-item"></div><div class="loader-item"></div></div>');
+	var zIndex = (parseInt($('.modal').css('z-index'), 10) + $('.modal').length + 1) || 99999999999;
+	var $payLoading = $('<div class="pay-loading" style="z-index: '+ zIndex +'"><div class="load-list"><div class="loader-item"></div><div class="loader-item"></div><div class="loader-item"></div></div>');
 	$(document.body).append($payLoading);
 	addFixed();
 }
