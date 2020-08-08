@@ -782,14 +782,16 @@ main {
 /* search box */
 .search-inputgroup {
 	display: flex;
+	justify-content: center;
 }
 .search-inputgroup input {
-	width: 16rem;
+	width: 80%;
 	padding-left: 1rem;
 }
  .search-inputgroup .btn {
 	padding: .5rem;
-	border-color: #f5f5f5;
+	margin-left: -1px;
+	border-color: #e5e5e5;
 	background-color: rgb(239, 239, 239);
 }
 .search-inputgroup .icon {
