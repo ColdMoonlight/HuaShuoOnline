@@ -891,6 +891,9 @@ main {
 	color: #f00;
 	background-color: #ccc;
 }
+.pc-header .search-inputgroup input {
+	width: 16rem;
+}
 /* wap navbar */
 .wap-navbar {
 	display: flex;
@@ -2741,6 +2744,7 @@ footer li {
 	font-size: .875rem;
 }
 .order-coupon-group>input {
+	flex-grow: 1;
 	padding: .5rem 1rem;
 }
 .order-coupon-group>button {
@@ -4220,7 +4224,7 @@ footer li {
 	padding: 0;
 	margin-right: .5rem;
 	background-color: #fff;
-	box-shadow: none;
+	border: none;
 	text-align: right;
 	color: #333;
 }
