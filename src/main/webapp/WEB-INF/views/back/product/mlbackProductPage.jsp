@@ -1630,11 +1630,11 @@
 			$('#productCategoryIdsstr').val(data.productCategoryIdsstr);
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
 			$('#productCategoryList').val(data.productCategoryNamesstr ? ' * ' + data.productCategoryNamesstr.replace(/\,/g, '\n * ') : 'No category！');
-
+console.log('smal-main: ', data.productMainsmallimgurl)
 			if (data.productMainimgurl) {
 				addPicture($('#productImgurl'), {
 					imageUrl: data.productMainimgurl,
-					thumImageUrl: data.productMainsmallimgurl
+					thumImageUrl: (data.productMainsmallimgurl || data.productMainimgurl)
 				});
 			} else {
 				resetPicture($('#productImgurl'));
@@ -1867,8 +1867,8 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].productId + '</td>' +
 					'<td>' +
-						(data[i].productMainsmallimgurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].productMainsmallimgurl) +'" /></div>'
+						((data[i].productMainsmallimgurl || data[i].productMainimgurl) ?
+							'<div class="c-table-img"><img src="'+ encodeUrl((data[i].productMainsmallimgurl || data[i].productMainimgurl)) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
 					'<td>' + data[i].productName + '</td>' +
