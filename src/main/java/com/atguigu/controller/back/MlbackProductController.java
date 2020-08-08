@@ -369,7 +369,7 @@ public class MlbackProductController {
 		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductByParam(mlbackProductrepBySeo);
 	  
 		if(!(mlbackProductResList.size()>0)){
-			return "/";
+			return "redirect:/";
 		}else{
 			MlbackProduct mlbackProductRes = mlbackProductResList.get(0);
 			
@@ -388,7 +388,7 @@ public class MlbackProductController {
 				return "portal/product/productDetails";
 			}else{
 				System.out.println("通过链接点进来的productSeo:"+productSeo+",但是此产品已下架,跳回首页");
-				return "/";
+				return "redirect:/";
 			}
 		}
 	 }
