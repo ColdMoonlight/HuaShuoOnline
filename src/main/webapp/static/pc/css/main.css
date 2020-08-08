@@ -667,9 +667,10 @@ table tr td:nth-of-type(2) {
 	display: flex;
 	border-top: 1px solid #ccc;
 	padding: .75rem 1.25rem;
-	justify-content: right;
+	justify-content: space-around;
 }
 .modal-footer .btn {
+	width: 30%;
 	padding: .3rem 1rem;
 	line-height: 1.0;
 }
