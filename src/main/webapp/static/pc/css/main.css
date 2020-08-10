@@ -2317,7 +2317,7 @@ footer li {
 	border-radius: 2rem;
 }
 
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width: 767px) {
 	.cart-empty img {
 		width: 4rem;
 		height: 4rem;
@@ -2332,7 +2332,7 @@ footer li {
 	}
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 768px) {
 	.cart-empty img {
 		width: 8rem;
 		height: 8rem;
