@@ -291,7 +291,7 @@
 			getDisplayAreaData(1, function(data) {
 				var $el = $('#showAreaOne');
 				data && renderShowArea($el, data);
-				getIntroduceProductData('top-selling', function(data) {
+				getIntroduceProductData(ml.area_one, function(data) {
 					data.length && renderProductSlide($el, 'showAreaOne', data.slice(0, 8));
 				});
 				new LazyLoad($el.find('.lazyload'), {
@@ -303,7 +303,7 @@
 			getDisplayAreaData(2, function(data) {
 				var $el = $('#showAreaTwo');
 				data && renderShowArea($el, data);
-				getIntroduceProductData('New-Arrival', function(data) {
+				getIntroduceProductData(ml.area_two, function(data) {
 					data.length && renderProductSlide($el, 'showAreaTwo', data.slice(0, 8));
 				});
 				new LazyLoad($el.find('.lazyload'), {

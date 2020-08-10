@@ -30,5 +30,7 @@ var ml = {
 	// facebook_id: '246433859565492', // huashuohair
 	// google_id: 'UA-128377932-1', // huashuohair
 	// "tidio": '//code.tidio.co/folzahtp5vdopiwathysfiyz75dk5vnm.js', 
+	area_one: 'top-selling',
+	area_two: 'New-Arrival',
 };
 </script>
