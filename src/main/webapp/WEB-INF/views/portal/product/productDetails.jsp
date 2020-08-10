@@ -636,7 +636,7 @@
 			});
 		}
 		// callback save review data
-		function saveReviewData(reqData) {
+		function saveReviewData(reqData, callback) {
 			$.ajax({
 				url: "${APP_PATH}/MlfrontReview/save",
 				type: "post",
@@ -648,6 +648,7 @@
 					if (result.code == 100) {
 						mlModalTip('Successful operation. New comment information needs to be reviewed before it can be displayed !');
 						reviewId = null;
+						callback && callback();
 					} else {
 						mlModalTip('Operation Failed !');
 					}
@@ -950,6 +951,8 @@
 				reviewDetailstr: details,
 				reviewProstarnum: starNum,
 				reviewFrom: 1,
+			}, function() {
+				removeModal(reviewModal);
 			});
 		});
 		// get introduct product
