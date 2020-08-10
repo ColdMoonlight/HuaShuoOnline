@@ -298,7 +298,7 @@
 			$('.order-item').each(function(idx, item) {
 				var $data = $(item).data('orderitem');
 
-				var orderitemPrice = parseFloat((parseFloat(((($data.orderitemProductOriginalprice || 0) + parseFloat($data.orderitemPskuMoneystr || 0)) * ($data.orderitemProductAccoff || 100) / 100).toFixed(2)) * $data.orderitemPskuNumber).toFixed(2));
+				var orderitemPrice = parseFloat((parseFloat(accuracyCal((($data.orderitemProductOriginalprice || 0) + parseFloat($data.orderitemPskuMoneystr || 0)), ($data.orderitemProductAccoff || 100))) * $data.orderitemPskuNumber).toFixed(2));
 				// bind single-product discount
 				if (couponData && couponData.couponProductOnlyTypeifHave && couponData.mlbackCouponOne && (couponData.mlbackCouponOne.couponProductonlyPidstr == $data.orderitemPid)) {
 					if (couponData.mlbackCouponOne.couponType == '0') {
@@ -428,7 +428,7 @@
 						'<div class="order-product-num">' +
 							'<div class="order-product-price">' +
 								'<span class="product-define-price">$'+ (item.orderitemProductOriginalprice || 0).toFixed(2) +'</span>' +
-								'<span class="product-now-price">$'+ (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? ((item.orderitemProductOriginalprice  + parseFloat(item.orderitemPskuMoneystr)) * item.orderitemProductAccoff / 100) : 0).toFixed(2) +'</span>' +
+								'<span class="product-now-price">$'+ (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? accuracyCal((item.orderitemProductOriginalprice + parseFloat(item.orderitemPskuMoneystr)), item.orderitemProductAccoff) : 0.00) +'</span>' +
 							'</div>' +
 							'<span class="icon delete product-delete">' + '</span>' +
 							'<div class="product-qty">' +

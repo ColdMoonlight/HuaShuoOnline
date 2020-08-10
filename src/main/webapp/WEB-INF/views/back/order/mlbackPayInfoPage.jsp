@@ -547,7 +547,7 @@
 				return skuHtml;
 			}
 			data.forEach(function(item, idx) {
-				var singlePrice = ((parseFloat(item.orderitemProductOriginalprice) + parseFloat(item.orderitemPskuMoneystr)) * (parseFloat(item.orderitemProductAccoff) / 100))
+				var singlePrice = accuracyCal(parseFloat(item.orderitemProductOriginalprice) + parseFloat(item.orderitemPskuMoneystr), parseFloat(item.orderitemProductAccoff));
 				htmlStr += '<div class="order-item">' +
 						'<img src="'+ item.orderitemProductMainimgurl +'">' +
 						'<div class="order-product-base">' +
@@ -556,10 +556,10 @@
 							'<div class="order-product-sku">SKU: '+ item.orderitemPskuCode +'</div>' +
 						'</div>' +
 						'<div class="order-product-cal">' +
-							'<div class="order-product-money">$'+ singlePrice.toFixed(2) +'</div>' +
+							'<div class="order-product-money">$'+ singlePrice +'</div>' +
 							'<div class="order-product-divider">x</div>' +
 							'<div class="order-product-num">'+ item.orderitemPskuNumber +'</div>' +
-							'<div class="order-product-total">$'+ (item.orderitemPskuNumber * singlePrice).toFixed(2) +'</div>' +
+							'<div class="order-product-total">$'+ (item.orderitemPskuNumber * parseFloat(singlePrice)).toFixed(2) +'</div>' +
 						'</div>' +
 					'</div>';
 			});
