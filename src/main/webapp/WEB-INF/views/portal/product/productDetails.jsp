@@ -825,7 +825,7 @@
 					'<input type="text" id="write-review-name" placeholder="Enter your name (public)">' +
 				'</div>' +
 				'<div class="input-group">' +
-					'<label class="name">Star Ranting</label>' +
+					'<label class="name">Star Rating</label>' +
 					'<div class="write-review-star">' +
 						'<span class="icon star" data-id="1"></span>' +
 						'<span class="icon star" data-id="2"></span>' +

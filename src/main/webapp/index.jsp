@@ -330,7 +330,7 @@
 					var customerVoiceHtml = '<div class="customer-voice">'+
 							'<div class="customer-voice-img lazyload" data-src="'+ data.productMainimgurl +'"></div>'+
 							'<div class="customer-voice-name">'+ data.productName +'</div>'+
-							'<div class="customer-voice-dprice"><span class="name">Regular Price :</span><span class="value">$'+ data.productOriginalprice +'</span></div>'+
+							'<div class="customer-voice-dprice"><span class="name">Regular Price :</span><span class="value">$'+ data.productOriginalprice.toFixed(2) +'</span></div>'+
 							'<div class="customer-voice-nprice"><span class="name">Sale Price :</span><span class="value">$'+ (data.productOriginalprice && data.productActoffoff ? (data.productOriginalprice * data.productActoffoff / 100).toFixed(2) : 0) +'</span></div>'+
 							'<a class="btn btn-pink" href="'+ (data.productSeo ? ('${APP_PATH}/' + data.productSeo +'.html') : 'jvascrtip:;') +'">Buy Now</a>'+
 						'</div>';
