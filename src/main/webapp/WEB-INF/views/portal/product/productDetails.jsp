@@ -497,7 +497,7 @@
 		function getReviewCalData(callback) {
 			$.ajax({
 				url: '${APP_PATH}/MlfrontReview/getMlfrontReviewCount',
-				data: JSON.stringify({ "productId": productId }),
+				data: JSON.stringify({ "reviewPid": productId }),
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/json',
