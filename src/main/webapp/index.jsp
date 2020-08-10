@@ -342,6 +342,11 @@
 							html: customerVoiceHtml
 						}
 					});
+					new LazyLoad(customerVoiceModal.find('.lazyload'), {
+						root: null,
+						rootMargin: "10px",
+						threshold: 0
+					});
 				});
 			});
 			$(window).on('resize', function () {
