@@ -636,7 +636,7 @@
 			var totalPayinfoNum = 0;
 			var chartInstance = []
 			var date = new Date();
-			var ymd = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1 > 10 ? date.getUTCMonth() + 1 : '0' + (date.getUTCMonth() + 1)) + '-' + (date.getUTCDate() > 10 ? date.getUTCDate() : '0' + date.getUTCDate());
+			var ymd = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1 > 9 ? date.getUTCMonth() + 1 : '0' + (date.getUTCMonth() + 1)) + '-' + (date.getUTCDate() > 9 ? date.getUTCDate() : '0' + date.getUTCDate());
 			bindDateRangeEvent(generateDashBoard);
 			generateDashBoard(ymd + ' 00:00:00', ymd + ' 23:59:59');
 			// resize for chart
