@@ -3684,6 +3684,14 @@ footer li {
 	.showaera-review-container {
 		margin-top: 1rem;
 	}
+	.ml-index-carousel .swiper-button-next,
+	.showaera-container .swiper-button-next {
+		right: 3.6rem;
+	}
+	.ml-index-carousel .swiper-button-prev,
+	.showaera-container .swiper-button-prev {
+		left: 3.6rem;
+	}
 	.ml-index-carousel .lazyload {
 		padding-top: 31.25%;
 	}
