@@ -175,7 +175,7 @@
 				return price ? (parseFloat(price) ? parseFloat(price) : 0) : 0
 			}
        		$('.product-define-price').text('$'+ (data.productPrice + getSkuPrice()).toFixed(2));
-       		$('.product-now-price').text('$'+ (data.productDiscount * (data.productPrice +getSkuPrice()) / 100).toFixed(2));
+       		$('.product-now-price').text('$'+ accuracyCal((data.productPrice + getSkuPrice()), data.productDiscount));
         }
 		// get product data
 		function getProductData () {
@@ -219,7 +219,7 @@
 					}
 				},
 				error: function (err) {
-					sysModalErrorTip (err);
+					sysModalTip();
 				}
 			});
 		}
@@ -239,7 +239,7 @@
 					}
 				},
 				error: function(err) {
-					sysModalErrorTip (err);
+					sysModalTip();
 				}
 			});
 		}
@@ -341,7 +341,7 @@
 				'productSeo': data.productSeo,
 			});
 			$('.product-name').text(data.productName);
-			$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ (data.productActoffoff * data.productOriginalprice / 100).toFixed(2) +'</div>');
+			$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
 			$('.product-tab-container[data-name="desc"]').html(data.productDesc);
 		}
 		/* product imgs */
@@ -420,7 +420,7 @@
 						'<div class="cart-checkout-productname">'+ data.cartitemProductName +'</div>' +
 						'<div class="cart-checkout-productprice">' +
 							'<div class="name">Price: </div>' +
-							'<div class="value">$'+ ((data.cartitemProductOriginalprice + parseFloat(data.cartitemProductskuMoneystr)) * data.cartitemProductActoff / 100).toFixed(2) +'</div>' +
+							'<div class="value">$'+ accuracyCal((data.cartitemProductOriginalprice + parseFloat(data.cartitemProductskuMoneystr)), data.cartitemProductActoff) +'</div>' +
 						'</div>' +
 						'<div class="btn-group">' +
 							'<a class="btn" href="javascript:goToCartList();">View Cart</a>' +
@@ -497,7 +497,7 @@
 		function getReviewCalData(callback) {
 			$.ajax({
 				url: '${APP_PATH}/MlfrontReview/getMlfrontReviewCount',
-				data: JSON.stringify({ "productId": productId }),
+				data: JSON.stringify({ "reviewPid": productId }),
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/json',
@@ -636,7 +636,7 @@
 			});
 		}
 		// callback save review data
-		function saveReviewData(reqData) {
+		function saveReviewData(reqData, callback) {
 			$.ajax({
 				url: "${APP_PATH}/MlfrontReview/save",
 				type: "post",
@@ -648,6 +648,7 @@
 					if (result.code == 100) {
 						mlModalTip('Successful operation. New comment information needs to be reviewed before it can be displayed !');
 						reviewId = null;
+						callback && callback();
 					} else {
 						mlModalTip('Operation Failed !');
 					}
@@ -690,7 +691,7 @@
 			});
 
 			var fbpid = data.productId;
-			var fbprice = (data.productOriginalprice * data.productActoffoff / 100).toFixed(2);
+			var fbprice = accuracyCal(data.productOriginalprice, data.productActoffoff);
 
 			fbq('track', 'PageView', {
 				content_ids: fbpid,
@@ -787,7 +788,7 @@
 			isCorrectProduct() && reqData && fbq('track', 'InitiateCheckout', {
 				content_ids: reqData.cartitemProductId,
 				content_type: 'product',
-				value: ((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductActoff / 100).toFixed(2),
+				value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)), reqData.cartitemProductActoff),
 				currency: "USD"
 			}), toBuyNow(reqData, goToCheckout);
 		});
@@ -796,7 +797,7 @@
 			isCorrectProduct() && reqData && (payLoading(), fbq('track', 'AddPaymentInfo', {
 				content_ids: reqData.cartitemProductId,
 				content_type: 'product',
-				value: ((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductNumber * reqData.cartitemProductActoff / 100).toFixed(2),
+				value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductNumber, reqData.cartitemProductActoff),
 				currency: 'USD'
 			}), toPayInstance(reqData));
 		});
@@ -825,7 +826,7 @@
 					'<input type="text" id="write-review-name" placeholder="Enter your name (public)">' +
 				'</div>' +
 				'<div class="input-group">' +
-					'<label class="name">Star Ranting</label>' +
+					'<label class="name">Star Rating</label>' +
 					'<div class="write-review-star">' +
 						'<span class="icon star" data-id="1"></span>' +
 						'<span class="icon star" data-id="2"></span>' +
@@ -950,6 +951,8 @@
 				reviewDetailstr: details,
 				reviewProstarnum: starNum,
 				reviewFrom: 1,
+			}, function() {
+				removeModal(reviewModal);
 			});
 		});
 		// get introduct product

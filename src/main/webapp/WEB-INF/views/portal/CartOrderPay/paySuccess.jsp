@@ -93,7 +93,7 @@
 						'</div>' +
 						'<div class="payment-product-num">' +
 							'<span class="product-num">x' + item.orderitemPskuNumber + '</span>' +
-							'<span class="product-price">$' + (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? ((item.orderitemProductOriginalprice + parseFloat(item.orderitemPskuMoneystr)) * item.orderitemProductAccoff / 100) : 0).toFixed(2) + '</span>' +
+							'<span class="product-price">$' + (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? accuracyCal((item.orderitemProductOriginalprice + parseFloat(item.orderitemPskuMoneystr)), item.orderitemProductAccoff) : 0.00) + '</span>' +
 						'</div>' +
 					'</div>';
 			});

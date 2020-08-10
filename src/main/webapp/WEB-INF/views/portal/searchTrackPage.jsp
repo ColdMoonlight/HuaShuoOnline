@@ -47,7 +47,7 @@
 							if (data.code == 100) {
 								callback && callback(data.extend.trackingRes);
 							} else {
-								mlModalTip('The order-id is invalid !');
+								mlModalTip(data.extend.resMsg);
 							}
 						},
 						error: function () {

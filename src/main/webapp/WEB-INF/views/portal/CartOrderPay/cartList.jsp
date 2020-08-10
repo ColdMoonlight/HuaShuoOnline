@@ -106,7 +106,7 @@
 				var definePrice = 0, nowPrice = 0;
 				if (item.cartitemProductOriginalprice && item.cartitemProductActoff) {
 					definePrice = (item.cartitemProductOriginalprice || 0)  + (parseFloat(item.cartitemProductskuMoneystr) || 0);
-					nowPrice = definePrice * item.cartitemProductActoff / 100;
+					nowPrice = accuracyCal(definePrice, item.cartitemProductActoff);
 				}
 				cartitemProductIdArr.push(item.cartitemProductId); // for facebook
 				$cartList.append($('<div class="cart-item">' +
@@ -117,7 +117,7 @@
 						'<div class="cart-product-num">' +
 							'<div class="cart-product-price">' +
 								'<span class="product-define-price">$'+ definePrice.toFixed(2) +'</span>' +
-								'<span class="product-now-price">$'+ nowPrice.toFixed(2) +'</span>' +
+								'<span class="product-now-price">$'+ nowPrice +'</span>' +
 							'</div>' +
 							'<span class="icon delete product-delete">' + '</span>' +
 							'<div class="product-qty">' +
@@ -158,7 +158,7 @@
 			els.each(function(idx, item) {
 				var data = $(item).data('cartitem');
 				resData.count += data.cartitemProductNumber;
-				resData.price += parseFloat((parseFloat((((data.cartitemProductOriginalprice || 0) + (parseFloat(data.cartitemProductskuMoneystr) || 0)) * (data.cartitemProductActoff || 100) / 100).toFixed(2)) * (data.cartitemProductNumber || 1)).toFixed(2));
+				resData.price += parseFloat((parseFloat(accuracyCal(((data.cartitemProductOriginalprice || 0) + (parseFloat(data.cartitemProductskuMoneystr) || 0)), (data.cartitemProductActoff || 100))) * (data.cartitemProductNumber || 1)).toFixed(2));
 			});
 			return resData;
 		}
@@ -213,9 +213,9 @@
 		function updateCartItemSku(data) {
 			var skuData = data.cartitemProductskuName.split(',');
 			var definePrice = (data.cartitemProductOriginalprice || 0)  + (parseFloat(data.cartitemProductskuMoneystr) || 0);
-			var nowPrice = definePrice * data.cartitemProductActoff / 100;
+			var nowPrice = accuracyCal(definePrice, data.cartitemProductActoff);
 			$selectedItem.find('.product-define-price').text('$' + definePrice.toFixed(2));
-			$selectedItem.find('.product-now-price').text('$' + nowPrice.toFixed(2));
+			$selectedItem.find('.product-now-price').text('$' + nowPrice);
 			$selectedItem.find('.cart-sku-list-item').each(function(idx, item) {
 				$(item).find('.value').text(skuData[idx]);
 			});
@@ -237,7 +237,7 @@
 					}
 				},
 				error: function(err) {
-					sysModalErrorTip (err);
+					sysModalTip();
 				}
 			});
 		}
