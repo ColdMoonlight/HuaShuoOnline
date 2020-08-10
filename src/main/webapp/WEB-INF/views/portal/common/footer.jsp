@@ -369,9 +369,6 @@ function mlModalTip(text) {
 function sysModalTip() {
 	mlModalTip('Settlement system error, temporarily unable to get data, please try again later !');
 }
-function sysModalErrorTip (err) {
-	mlModalTip('Error: '+ JSON.stringify(err));
-}
 function refreshPageModal() {
 	mlModalTip('please refresh the page to get again !');
 }
@@ -565,7 +562,7 @@ function generateSwiperSlideProduct(data) {
 					'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
 				'</div>' +
 				'<div class="product-price">' +
-					'<span class="product-define-price">$'+ (item.productOriginalprice || 0) +'</span>' +
+					'<span class="product-define-price">$'+ (item.productOriginalprice.toFixed(2) || 0) +'</span>' +
 					'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
 				'</div>' +
 			'</div>' +

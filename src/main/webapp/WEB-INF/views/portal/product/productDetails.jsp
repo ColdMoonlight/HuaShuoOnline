@@ -219,7 +219,7 @@
 					}
 				},
 				error: function (err) {
-					sysModalErrorTip (err);
+					sysModalTip();
 				}
 			});
 		}
@@ -239,7 +239,7 @@
 					}
 				},
 				error: function(err) {
-					sysModalErrorTip (err);
+					sysModalTip();
 				}
 			});
 		}
@@ -497,7 +497,7 @@
 		function getReviewCalData(callback) {
 			$.ajax({
 				url: '${APP_PATH}/MlfrontReview/getMlfrontReviewCount',
-				data: JSON.stringify({ "productId": productId }),
+				data: JSON.stringify({ "reviewPid": productId }),
 				type: "post",
 				dataType: 'json',
 				contentType: 'application/json',
@@ -636,7 +636,7 @@
 			});
 		}
 		// callback save review data
-		function saveReviewData(reqData) {
+		function saveReviewData(reqData, callback) {
 			$.ajax({
 				url: "${APP_PATH}/MlfrontReview/save",
 				type: "post",
@@ -648,6 +648,7 @@
 					if (result.code == 100) {
 						mlModalTip('Successful operation. New comment information needs to be reviewed before it can be displayed !');
 						reviewId = null;
+						callback && callback();
 					} else {
 						mlModalTip('Operation Failed !');
 					}
@@ -825,7 +826,7 @@
 					'<input type="text" id="write-review-name" placeholder="Enter your name (public)">' +
 				'</div>' +
 				'<div class="input-group">' +
-					'<label class="name">Star Ranting</label>' +
+					'<label class="name">Star Rating</label>' +
 					'<div class="write-review-star">' +
 						'<span class="icon star" data-id="1"></span>' +
 						'<span class="icon star" data-id="2"></span>' +
@@ -950,6 +951,8 @@
 				reviewDetailstr: details,
 				reviewProstarnum: starNum,
 				reviewFrom: 1,
+			}, function() {
+				removeModal(reviewModal);
 			});
 		});
 		// get introduct product

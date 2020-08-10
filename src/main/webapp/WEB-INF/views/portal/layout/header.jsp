@@ -112,7 +112,7 @@
 					'<div class="video-recommend-img lazyload" data-src="'+ data.productImgurl +'"></div>'+
 					'<div class="video-recommend-data">' +
 						'<div class="video-recommend-name">'+ data.productName +'</div>'+
-						'<div class="video-recommend-dprice"><span class="">Regular Price :</span><span class="value">$'+ data.productOriginalprice +'</span></div>'+
+						'<div class="video-recommend-dprice"><span class="">Regular Price :</span><span class="value">$'+ data.productOriginalprice.toFixed(2) +'</span></div>'+
 						'<div class="video-recommend-nprice"><span class="name">Sale Price :</span><span class="value">$'+ (data.productOriginalprice && data.productActoffoff ? (data.productOriginalprice * data.productActoffoff / 100).toFixed(2) : 0) +'</span></div>'+
 						'<a class="btn btn-pink" href="'+ (data.productSeo ? ('${APP_PATH}/' + data.productSeo +'.html') : 'jvascrtip:;') +'">Buy Now</a>'+
 					'</div>'+
@@ -326,7 +326,7 @@
 				}
 			},
 			error: function(err) {
-				sysModalErrorTip (err);
+				sysModalTip();
 			}
 		});
 	}
