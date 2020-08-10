@@ -2984,7 +2984,6 @@ footer li {
 .back-top {
 	position: fixed;
 	right: 1rem;
-	bottom: 2rem;
 	z-index: 2;
 
 	width: 3rem;
@@ -3007,7 +3006,15 @@ footer li {
 	font-size: 2.4rem;
 	color: #fff;
 }
+@media only screen and (max-width: 575px) {
+	.back-top {	
+		bottom: 9rem;
+	}
+}
 @media only screen and (min-width: 576px) {
+	.back-top {	
+		bottom: 2rem;
+	}
 	.back-top:hover {
 		background-color: #fe186e;
 	}
@@ -4734,20 +4741,5 @@ footer li {
 	}
 	.track-result-body .time-line-date {
 		left: -11rem;
-	}
-}
-
-/* reset tidio iframe */
-@media only screen and (max-width: 575px) {
-	#tidio-chat-iframe {
-		/* bottom: 5rem !important; */
-		-webkit-transition: bottom .6s ease-in-out;
-		-moz-transition: bottom .6s ease-in-out;
-		transition: bottom .6s ease-in-out;
-	}
-}
-@media only screen and (min-width: 576px) {
-	#tidio-chat-iframe {
-		height: 170px !important;
 	}
 }

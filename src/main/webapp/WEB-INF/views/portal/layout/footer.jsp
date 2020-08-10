@@ -95,10 +95,8 @@
 				setTimeout(function() {
 					$backTop.addClass('active');
 				}, 100);
-				$('#tidio-chat-iframe').css('bottom', '5rem');
 			} else {
 				$('.back-top').hasClass('active') & $('.back-top').removeClass('active');
-				$('#tidio-chat-iframe').css('bottom', '0');
 			}
 		}
 		$(window).on('scroll', function() {
