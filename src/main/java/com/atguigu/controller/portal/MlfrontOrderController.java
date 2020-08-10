@@ -579,7 +579,7 @@ public class MlfrontOrderController {
 				//从中取出国家字段
 				String areafreightCountryCode = mlfrontAddressRes.getAddressCountryCode();
 				MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
-//				mlbackAreafreightReq.setAreafreightCountryEnglish(areafreightCountryEnglish);
+//				mlbackAreafreightReq.setAreafreightCountryEnglish(areafreightCountryEnglish);//
 				mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
 				//查询本条
 //				List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByEng(mlbackAreafreightReq);
