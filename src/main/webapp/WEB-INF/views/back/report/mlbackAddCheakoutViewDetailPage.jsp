@@ -64,7 +64,7 @@
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	<!-- custom script -->
 	<script>
-		// init
+		// init 
 		bindDateRangeEvent(function(startTime, endTime) {
 			$('#search-checkout-create-time').val(startTime);
 			$('#search-checkout-confirm-time').val(endTime);
