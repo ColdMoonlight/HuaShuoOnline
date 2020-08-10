@@ -3243,9 +3243,6 @@ footer li {
 .review-statics-item {
 	padding: .5rem 0;
 }
-.product-review-avgstar {
-	padding: .5rem 0;
-}
 .product-review-star-item+.product-review-star-item {
 	margin-top: .5rem;
 }
@@ -4087,6 +4084,7 @@ footer li {
 	justify-content: center;
 }
 .shop-review-base {
+	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 }
 @media only screen and (max-width: 575px) {
@@ -4115,6 +4113,9 @@ footer li {
 	.review-statics-item .progress {
 		width: 50%;
 	}
+	.product-review-avgstar {
+		padding: .25rem 0;
+	}
 	.shop-review-base {
 		padding: 1rem;
 		margin-bottom: 1rem;
@@ -4127,6 +4128,9 @@ footer li {
 	}
 	.review-statics-item .progress {
 		width: 300px;
+	}
+	.product-review-avgstar {
+		padding: .5rem 0;
 	}
 	.shop-review-base {
 		padding: .75rem 0;
