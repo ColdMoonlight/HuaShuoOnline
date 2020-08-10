@@ -175,7 +175,7 @@
 				return price ? (parseFloat(price) ? parseFloat(price) : 0) : 0
 			}
        		$('.product-define-price').text('$'+ (data.productPrice + getSkuPrice()).toFixed(2));
-       		$('.product-now-price').text('$'+ (data.productDiscount * (data.productPrice +getSkuPrice()) / 100).toFixed(2));
+       		$('.product-now-price').text('$'+ accuracyCal((data.productPrice + getSkuPrice()), data.productDiscount));
         }
 		// get product data
 		function getProductData () {

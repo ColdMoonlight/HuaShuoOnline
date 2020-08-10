@@ -609,6 +609,6 @@ function accuracyCal(origin, dis) {
 	var str2FloatPrice = basePrice.toFixed(3);
 	var ap = parseInt(str2FloatPrice.slice(-1));
 	
-	return ap > 4 ? (parseFloat(strFloatPrice) + 1).toFixed(2) : strFloatPrice;
+	return ap > 4 ? (parseFloat(strFloatPrice) + 0.01).toFixed(2) : strFloatPrice;
 }
 </script>
