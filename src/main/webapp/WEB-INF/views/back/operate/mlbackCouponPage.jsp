@@ -51,6 +51,7 @@
 						</div>
 					</div>
 				</div>
+				
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
