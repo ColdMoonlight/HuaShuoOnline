@@ -64,7 +64,7 @@
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	<!-- custom script -->
 	<script>
-		// init
+		// init 
 		bindDateRangeEvent(function(startTime, endTime) {
 			$('#search-checkout-create-time').val(startTime);
 			$('#search-checkout-confirm-time').val(endTime);
@@ -75,7 +75,7 @@
 		function getChecoutsData(callback) {
 			$('.c-mask').show();
 			var date = new Date();
-			var ymd = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1 > 10 ? date.getUTCMonth() + 1 : '0' + (date.getUTCMonth() + 1)) + '-' + (date.getUTCDate() > 10 ? date.getUTCDate() : '0' + date.getUTCDate());
+			var ymd = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1 > 9 ? date.getUTCMonth() + 1 : '0' + (date.getUTCMonth() + 1)) + '-' + (date.getUTCDate() > 9 ? date.getUTCDate() : '0' + date.getUTCDate());
 			var startTime = $('#search-checkout-create-time').val() || (ymd + ' 00:00:00');
 			var endTime = $('#search-checkout-confirm-time').val() || (ymd + ' 23:59:59');
 			$.ajax({
