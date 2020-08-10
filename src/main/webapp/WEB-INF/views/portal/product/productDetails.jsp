@@ -341,7 +341,7 @@
 				'productSeo': data.productSeo,
 			});
 			$('.product-name').text(data.productName);
-			$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ (data.productActoffoff * data.productOriginalprice / 100).toFixed(2) +'</div>');
+			$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
 			$('.product-tab-container[data-name="desc"]').html(data.productDesc);
 		}
 		/* product imgs */
@@ -420,7 +420,7 @@
 						'<div class="cart-checkout-productname">'+ data.cartitemProductName +'</div>' +
 						'<div class="cart-checkout-productprice">' +
 							'<div class="name">Price: </div>' +
-							'<div class="value">$'+ ((data.cartitemProductOriginalprice + parseFloat(data.cartitemProductskuMoneystr)) * data.cartitemProductActoff / 100).toFixed(2) +'</div>' +
+							'<div class="value">$'+ accuracyCal((data.cartitemProductOriginalprice + parseFloat(data.cartitemProductskuMoneystr)), data.cartitemProductActoff) +'</div>' +
 						'</div>' +
 						'<div class="btn-group">' +
 							'<a class="btn" href="javascript:goToCartList();">View Cart</a>' +
@@ -691,7 +691,7 @@
 			});
 
 			var fbpid = data.productId;
-			var fbprice = (data.productOriginalprice * data.productActoffoff / 100).toFixed(2);
+			var fbprice = accuracyCal(data.productOriginalprice, data.productActoffoff);
 
 			fbq('track', 'PageView', {
 				content_ids: fbpid,
@@ -788,7 +788,7 @@
 			isCorrectProduct() && reqData && fbq('track', 'InitiateCheckout', {
 				content_ids: reqData.cartitemProductId,
 				content_type: 'product',
-				value: ((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductActoff / 100).toFixed(2),
+				value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)), reqData.cartitemProductActoff),
 				currency: "USD"
 			}), toBuyNow(reqData, goToCheckout);
 		});
@@ -797,7 +797,7 @@
 			isCorrectProduct() && reqData && (payLoading(), fbq('track', 'AddPaymentInfo', {
 				content_ids: reqData.cartitemProductId,
 				content_type: 'product',
-				value: ((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductNumber * reqData.cartitemProductActoff / 100).toFixed(2),
+				value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductNumber, reqData.cartitemProductActoff),
 				currency: 'USD'
 			}), toPayInstance(reqData));
 		});

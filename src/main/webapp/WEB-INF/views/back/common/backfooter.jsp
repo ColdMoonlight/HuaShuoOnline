@@ -484,4 +484,13 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 		setPageNum(1);
 		// setActiveItemNum(0);
 	});
+	/* Accuracy of calculation */
+	function accuracyCal(origin, dis) {
+		var basePrice = (origin * dis / 100);
+		var strFloatPrice = basePrice.toFixed(2);
+		var str2FloatPrice = basePrice.toFixed(3);
+		var ap = parseInt(str2FloatPrice.slice(-1));
+		
+		return ap > 4 ? (parseFloat(strFloatPrice) + 1).toFixed(2) : strFloatPrice;
+	}
 </script>

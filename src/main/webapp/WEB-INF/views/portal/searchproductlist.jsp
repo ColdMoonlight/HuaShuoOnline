@@ -54,7 +54,7 @@
 							'</div>' +
 							'<div class="product-price">' +
 								'<span class="product-define-price">$'+ (item.productOriginalprice || 0) +'</span>' +
-								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? (item.productOriginalprice * item.productActoffoff / 100).toFixed(2) : 0) +'</span>' +
+								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? accuracyCal(item.productOriginalprice, item.productActoffoff) : 0) +'</span>' +
 							'</div>' +
 						'</div>' +
 					'</div></div>';					
