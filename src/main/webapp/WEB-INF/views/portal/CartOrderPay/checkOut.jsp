@@ -248,29 +248,31 @@
 		}
 		// country combine with province
 		function countryCombineWithProvince() {
-			getProvinceData({
-				"addressCountry": $('#addressCountry').find('option:checked').data('value')
-			}, function(data) {
-				var money = data.areafreightMoney,
-					provinceList = data.mlPaypalStateprovinceList;
+			setTimeout(function() {
+				getProvinceData({
+					"addressCountry": $('#addressCountry').find('option:checked').data('value')
+				}, function(data) {
+					var money = data.areafreightMoney,
+						provinceList = data.mlPaypalStateprovinceList;
 
-				$('.order-address-shipping').data('shipping', money).find('.value').text('$' + money);
+					$('.order-address-shipping').data('shipping', money).find('.value').text('$' + money);
+	
+					if (provinceList && provinceList.length > 0) {
+						renderProvince(provinceList);
+						$('#addressProvince').data('status', false);
+	
+						hasProvince = true;
+						$("#addressProvince").parents('.form-group').show();
+						$("#addressCountry").parents('.form-group').css("width", "50%");
+					} else {
+						$('#addressProvince').val('').data('status', true);
 
-				if (provinceList && provinceList.length > 0) {
-					renderProvince(provinceList);
-					$('#addressProvince').data('status', false);
-
-					hasProvince = true;
-					$("#addressProvince").parents('.form-group').show();
-					$("#addressCountry").parents('.form-group').css("width", "50%");
-				} else {
-					$('#addressProvince').val('').data('status', true);
-
-					hasProvince = false;
-					$("#addressProvince").parents('.form-group').hide();
-					$("#addressCountry").parents('.form-group').css("width", "100%");
-				}
-			});
+						hasProvince = false;
+						$("#addressProvince").parents('.form-group').hide();
+						$("#addressCountry").parents('.form-group').css("width", "100%");
+					}
+				});				
+			}, 0);
 		}
 		// get current time
 		function getTime() {
