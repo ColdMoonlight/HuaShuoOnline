@@ -108,27 +108,15 @@ public class MlbackProductSkuController {
 	@ResponseBody
 	public Msg customerGetMlbackProductSkuListByPId(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackProductSku mlbackProductSku){
 		
-		
 		Integer productskuPid = mlbackProductSku.getProductskuPid();
 		Integer productskuStatus = mlbackProductSku.getProductskuStatus();
 		MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();
 		mlbackProductSkuReq.setProductskuPid(productskuPid);
 		mlbackProductSkuReq.setProductskuStatus(productskuStatus);
 		//接受信息
-		List<MlbackProductSku> mlbackProductSkuResList =mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuReq);
-		
-		
-		MlbackProduct mlbackProductReq = new MlbackProduct();
-		MlbackProduct mlbackProductRes = new MlbackProduct();
-		mlbackProductReq.setProductId(productskuPid);
-		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductSimpleByParam(mlbackProductReq);
-		
-		if(mlbackProductResList.size()>0){
-			mlbackProductRes = mlbackProductResList.get(0);
-		}
-		
+		List<MlbackProductSku> mlbackProductSkuResList =mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuReq);		
 		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
-					.add("mlbackProductSkuResList", mlbackProductSkuResList).add("mlbackProductOne", mlbackProductRes);
+					.add("mlbackProductSkuResList", mlbackProductSkuResList);
 	}
 
 	/**4.0	20200611
