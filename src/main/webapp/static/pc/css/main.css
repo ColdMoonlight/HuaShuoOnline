@@ -2441,11 +2441,6 @@ footer li {
 .order-product-num .product-qty {	
 	font-size: .875rem;
 }
-.cart-product-num input,
-.order-product-num input {
-	box-shadow: unset;
-	padding: .1rem .5rem;
-}
 .cart-cal-item,
 .order-cal-item {
 	display: flex;
