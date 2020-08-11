@@ -250,15 +250,18 @@ public class MlbackCategoryController {
 		if(mlbackCategoryResList.size()>0){
 			
 			MlbackCategory mlbackCategoryRes = mlbackCategoryResList.get(0);
-			
-			String categoryMetaTitle = mlbackCategoryRes.getCategoryMetatitle();
-			String categoryMetaKeyWords = mlbackCategoryRes.getCategoryMetakeywords();
-			String categoryMetaDesc = mlbackCategoryRes.getCategoryMetadesc();
-			session.setAttribute("categoryMetaTitle", categoryMetaTitle);
-			session.setAttribute("categoryMetaKeyWords", categoryMetaKeyWords);
-			session.setAttribute("categoryMetaDesc", categoryMetaDesc);
+			Integer cateStatus = mlbackCategoryRes.getCategoryStatus();
+			if(cateStatus==1){
+				String categoryMetaTitle = mlbackCategoryRes.getCategoryMetatitle();
+				String categoryMetaKeyWords = mlbackCategoryRes.getCategoryMetakeywords();
+				String categoryMetaDesc = mlbackCategoryRes.getCategoryMetadesc();
+				session.setAttribute("categoryMetaTitle", categoryMetaTitle);
+				session.setAttribute("categoryMetaKeyWords", categoryMetaKeyWords);
+				session.setAttribute("categoryMetaDesc", categoryMetaDesc);
+			}else{
+				return "redirect:/";
+			}
 		}else{
-			//return "redirect:https://www.megalook.com";
 			return "redirect:/";
 		}
 		//返回视图
