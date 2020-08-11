@@ -414,7 +414,7 @@ function hidePayLoading() {
 }
 /* jump link function */
 function goToIndex() {
-	window.location.href = '${APP_PATH}';
+	window.location.href = '${APP_PATH}/';
 }
 function goToCheckout() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCheakOut';
