@@ -1947,6 +1947,9 @@ footer li {
 	color: #333333;
 	font-weight: 500;
 }
+.product-coupons .left {
+	flex-shrink: 0;
+}
 .product-coupons ul {
 	padding-left: 0;
 	margin: 0;
