@@ -244,6 +244,7 @@ public class MlbackCategoryController {
 		MlbackCategory mlbackCategoryReq = new MlbackCategory();
 		
 		mlbackCategoryReq.setCategorySeo(categorySeoReq);
+		mlbackCategoryReq.setCategoryStatus(1);
 		
 		List<MlbackCategory> mlbackCategoryResList = mlbackCategoryService.selectMlbackCategoryBySeo(mlbackCategoryReq);
 		
