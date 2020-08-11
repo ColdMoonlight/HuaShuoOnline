@@ -184,10 +184,17 @@
 		// delete order product
 		function deleteOrderProduct(el, callback) {
 			var targetData = el.data('orderitem') || null,
+				orderitemId = parseInt(targetData.orderitemId),
 				reqData = {
-					"orderitemId": parseInt(targetData.orderitemId)
+					"orderitemId": orderitemId
 				};
-
+			function resetOrderListData() {
+				var itemIdArr = $('.order-list').data('itemidarr').split(',');
+				itemIdArr = itemIdArr.filter(function(id) {
+					return id != orderitemId;
+				});
+				$('.order-list').data('itemidarr', itemIdArr.join(','));
+			}
 			$.ajax({
 				url: '${APP_PATH}/MlfrontOrder/delOrderItem',
 				data: JSON.stringify(reqData),
@@ -198,6 +205,7 @@
 					el.remove();
 					if (!$('.order-item').length) goToCartList();
 					callback && callback();
+					resetOrderListData();
 					deleteProductSuccessModal();
 				},
 				error: function () {
