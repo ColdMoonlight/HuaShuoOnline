@@ -1,6 +1,7 @@
 package com.atguigu.bean;
 
 public class MlbackSuperCate {
+	
     private Integer supercateId;
 
     private String supercateName;
