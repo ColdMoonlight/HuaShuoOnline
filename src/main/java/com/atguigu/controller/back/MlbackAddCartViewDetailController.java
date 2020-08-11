@@ -36,7 +36,7 @@ public class MlbackAddCartViewDetailController {
 	
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		if(mlbackAdmin==null){
-			//SysUsers对象为空
+			//mlbackAdmin对象为空
 			return "back/mlbackAdminLogin";
 		}else{
 			return "back/report/mlbackAddCartViewDetailPage";

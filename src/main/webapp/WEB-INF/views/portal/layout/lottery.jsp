@@ -55,6 +55,7 @@
 	background-color: #fff;
 }
 .lottery-email {
+	position: relative;
     width: 100%;
     text-align: center;
     background-size: 100% 100%;
@@ -83,7 +84,8 @@
 	visibility: hidden;
 }
 .lottery-email-tip {
-	color: #fff;
+    width: 100%;
+	color: yellow;
 	font-style: italic;
 }
 .lottery-inner-box {
@@ -222,7 +224,7 @@
 		margin: 0 auto;
 	}
 	.lottery-email {
-		padding: 1.25rem 0;
+		padding: 1.25rem 0 1.75rem 0;
 		background-image: url('${APP_PATH}/static/pc/img/lottery/lottery-pc.jpg');
 	}	
 	.lottery-title>span:nth-of-type(1) {
@@ -256,8 +258,9 @@
 		opacity: 1;
 		visibility: visible;
 	}
-	.lottery-email-tip {	
-		margin-top: 1rem;
+	.lottery-email-tip {
+		position: absolute;
+    	bottom: .75rem;
 		font-size: .75rem;
 	}
 	.lottery-game-box {
