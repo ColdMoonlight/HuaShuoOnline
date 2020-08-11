@@ -116,8 +116,19 @@ public class MlbackProductSkuController {
 		mlbackProductSkuReq.setProductskuStatus(productskuStatus);
 		//接受信息
 		List<MlbackProductSku> mlbackProductSkuResList =mlbackProductSkuService.selectMlbackProductSkuListByPId(mlbackProductSkuReq);
+		
+		
+		MlbackProduct mlbackProductReq = new MlbackProduct();
+		MlbackProduct mlbackProductRes = new MlbackProduct();
+		mlbackProductReq.setProductId(productskuPid);
+		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductSimpleByParam(mlbackProductReq);
+		
+		if(mlbackProductResList.size()>0){
+			mlbackProductRes = mlbackProductResList.get(0);
+		}
+		
 		return Msg.success().add("resMsg", "查看本productId下的所有属性,完毕")
-					.add("mlbackProductSkuResList", mlbackProductSkuResList);
+					.add("mlbackProductSkuResList", mlbackProductSkuResList).add("mlbackProductOne", mlbackProductRes);
 	}
 
 	/**4.0	20200611
