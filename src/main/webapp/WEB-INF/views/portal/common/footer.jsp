@@ -15,7 +15,8 @@ function removeFixed() {
 /* product add/sub */
 function productAdd(el, callback) {
 	var parentEl = el.parents('.product-qty');
-	var max = parentEl.find('.product-num').data('count') && parseInt(parentEl.find('.product-num').data('count')) || Infinity;
+	/* var max = parentEl.find('.product-num').data('count') && parseInt(parentEl.find('.product-num').data('count')) || Infinity; */
+	var max = Infinity;
 	var curr = parseInt(parentEl.find('.product-num').val());
 
 	curr += 1;
@@ -413,7 +414,7 @@ function hidePayLoading() {
 }
 /* jump link function */
 function goToIndex() {
-	window.location.href = '${APP_PATH}';
+	window.location.href = '${APP_PATH}/';
 }
 function goToCheckout() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCheakOut';
