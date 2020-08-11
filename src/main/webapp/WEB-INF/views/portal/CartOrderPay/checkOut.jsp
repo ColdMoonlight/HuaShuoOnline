@@ -248,31 +248,29 @@
 		}
 		// country combine with province
 		function countryCombineWithProvince() {
-			setTimeout(function() {
-				getProvinceData({
-					"addressCountry": $('#addressCountry').find('option:checked').data('value')
-				}, function(data) {
-					var money = data.areafreightMoney,
-						provinceList = data.mlPaypalStateprovinceList;
+			getProvinceData({
+				"addressCountry": $('#addressCountry').find('option:checked').data('value')
+			}, function(data) {
+				var money = data.areafreightMoney,
+					provinceList = data.mlPaypalStateprovinceList;
 
-					$('.order-address-shipping').data('shipping', money).find('.value').text('$' + money);
-	
-					if (provinceList && provinceList.length > 0) {
-						renderProvince(provinceList);
-						$('#addressProvince').data('status', false);
-	
-						hasProvince = true;
-						$("#addressProvince").parents('.form-group').show();
-						$("#addressCountry").parents('.form-group').css("width", "50%");
-					} else {
-						$('#addressProvince').val('').data('status', true);
+				$('.order-address-shipping').data('shipping', money).find('.value').text('$' + money);
 
-						hasProvince = false;
-						$("#addressProvince").parents('.form-group').hide();
-						$("#addressCountry").parents('.form-group').css("width", "100%");
-					}
-				});				
-			}, 0);
+				if (provinceList && provinceList.length > 0) {
+					renderProvince(provinceList);
+					$('#addressProvince').data('status', false);
+
+					hasProvince = true;
+					$("#addressProvince").parents('.form-group').show();
+					$("#addressCountry").parents('.form-group').css("width", "50%");
+				} else {
+					$('#addressProvince').val('').data('status', true);
+
+					hasProvince = false;
+					$("#addressProvince").parents('.form-group').hide();
+					$("#addressCountry").parents('.form-group').css("width", "100%");
+				}
+			});
 		}
 		// get current time
 		function getTime() {
@@ -637,7 +635,7 @@
 		}
 		var hasProvince = true;
 		// initial
-		initialOrder();
+		setTimeout(initialOrder, 0);
 		// event
 		$("#addressCountry").on('change', function() {
 			countryCombineWithProvince();
