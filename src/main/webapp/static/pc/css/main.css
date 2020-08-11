@@ -2475,21 +2475,25 @@ footer li {
 .order-cal-btn .btn {
 	width: 100%;
 }
-.cartlist-modal .modal-body {
+.cartlist-modal .modal-container {
 	position: relative;
+}
+.cartlist-modal .modal-body {
 	padding-bottom: 2.5rem;
 	text-align: left;
 }
 .cartlist-modal .cart-product-sku-price {
 	position: absolute;
 	right: 0;
-	bottom: 0;
+	bottom: 3.3rem;
 	left: 0;
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
 	padding: .5rem 1rem;
 	font-size: .875rem;
+	background-color: #fff;
+	border-top: 1px solid #f5f5f5;
 }
 .cartlist-modal .cart-product-sku-price .name {
 	font-weight: 500;
