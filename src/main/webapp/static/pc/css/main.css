@@ -1862,7 +1862,6 @@ footer li {
 }
 .product-qty>input {
 	width: 3rem;
-	padding: .25rem .5rem;
 	text-align: center;
 }
 .product-qty .group-addon {
@@ -1887,6 +1886,16 @@ footer li {
 }
 .product-operate .product-qty {
 	margin-left: 1rem;
+}
+@media only screen and (max-width: 575px) {
+	.product-qty>input {	
+		padding: 0 .5rem;
+	}
+}
+@media only screen and (min-width: 576px) {
+	.product-qty>input {	
+		padding: .25rem .5rem;
+	}
 }
 /* product options */
 .product-option-item .name {
@@ -2544,7 +2553,6 @@ footer li {
 	}
 	.cart-product-num input {
 		width: 2rem;
-		padding: 0 .25rem;
 	}
 	.cart-sku-edit {
 		width: 2.6rem;
@@ -3712,11 +3720,13 @@ footer li {
 		margin-top: 1rem;
 	}
 	.ml-index-carousel .swiper-button-next,
-	.showaera-container .swiper-button-next {
+	.showaera-container .swiper-button-next,
+	.introduce-product .swiper-button-next {
 		right: 3.6rem;
 	}
 	.ml-index-carousel .swiper-button-prev,
-	.showaera-container .swiper-button-prev {
+	.showaera-container .swiper-button-prev,
+	.introduce-product .swiper-button-prev {
 		left: 3.6rem;
 	}
 	.ml-index-carousel .lazyload {
