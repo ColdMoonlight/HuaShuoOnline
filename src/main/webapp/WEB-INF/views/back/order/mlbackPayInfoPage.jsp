@@ -498,12 +498,12 @@
 			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoReturntime || '');
 			
 
-			$('.pay-prototal .value').html('$' + (((data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney)).toFixed(2) || '0.00'));
+			$('.pay-prototal .value').html('$' + (((data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney)) || 0).toFixed(2));
 			$('.pay-discount .name').html(data.mlfrontOrderPayOneRes.orderCouponCode || '');
-			$('.pay-discount .value').html('-$' + (data.mlfrontOrderPayOneRes.orderCouponPrice).toFixed(2));
-			$('.pay-shipping .value').html('$' + ((data.areafreightMoney).toFixed(2) || '0.00'));
-			$('.pay-total .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || '0.00'));
-			$('.pay-final .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || '0.00'));
+			$('.pay-discount .value').html('-$' + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0).toFixed(2));
+			$('.pay-shipping .value').html('$' + (data.areafreightMoney || 0).toFixed(2));
+			$('.pay-total .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || 0).toFixed(2));
+			$('.pay-final .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || 0).toFixed(2));
 			
 			// customer note
 			$('.customer-note').html(data.mlfrontOrderPayOneRes.orderBuyMess || 'No notes from customer...');
@@ -685,7 +685,7 @@
 					'<td>' + (data[i].payinfoPlatenum || '') + '</td>' +
 					'<td>' + data[i].payinfoCreatetime + '</td>' +
 					'<td>' + getPayStatus(data[i].payinfoStatus) + '</td>' +
-					'<td>' + data[i].payinfoMoney + '</td>' +
+					'<td>' + (data[i].payinfoMoney || 0).toFixed(2) + '</td>' +
 					'<td>' + (data[i].payinfoUname || '') + '</td>' +
 					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
 					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
