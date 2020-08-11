@@ -182,11 +182,16 @@
 				renderCartList(data);
 			} else {
 				renderCartEmpty();
-			}			
+			}
 		});
 		// update product attr-data
 		function updateProductData(data) {
-			$('.cartlist-modal .product-options').data('productsku', mapItems[data.join(',')]);
+			var skuData = mapItems[data.join(',')],
+				productSkuMoney = parseFloat(skuData && skuData.productskuMoney) || 0,
+				productOriginalPrice = parseFloat($('#cartitemProductPrice').val() || 0),
+				productDiscount = parseFloat($('#cartitemProductDiscount').val() || 100);
+			$('.cart-product-sku-price .value').text('$'+ accuracyCal(productOriginalPrice + productSkuMoney, productDiscount));
+			$('.cartlist-modal .product-options').data('productsku', skuData);
 		}
 		// update product sku data
 		function updateCartItemData(reqData, callback) {
@@ -256,7 +261,6 @@
 		}
 		// to pay instance
 		function toPayInstance(reqData) {
-			console.log(reqData)
 			$.ajax({
 				url: '${APP_PATH}/ProPay/cartToOrderPay',
 				data: JSON.stringify(reqData),
@@ -337,12 +341,20 @@
 			var targetData = $selectedItem.data('cartitem');
 			var selectedRadioArr = targetData.cartitemProductskuName.split(',');
 			productId = targetData.cartitemProductId;
+			var cartListModalHtml = '<input id="cartitemId" value="'+ targetData.cartitemId +'" hidden />' +
+				'<input id="cartitemProductPrice" value="'+ targetData.cartitemProductOriginalprice +'" hidden />' +
+				'<input id="cartitemProductDiscount" value="'+ targetData.cartitemProductActoff +'" hidden />' +
+				'<div class="product-options"></div>' +
+				'<div class="cart-product-sku-price">' +
+					'<span class="name">Price: </span>' +
+					'<span class="value">'+ $selectedItem.find('.product-now-price').text() +'</span>' +
+				'</div>';
 			cartlistModal = createModal({
 				header: {
 					html: '<p>'+ targetData.cartitemProductName +'</p>'
 				},
     			body: {
-    				html: '<input id="cartitemId" value="'+ targetData.cartitemId +'" hidden /><div class="product-options"></div>'
+    				html: cartListModalHtml,
     			},
     			footer: {
     				isShow: true
