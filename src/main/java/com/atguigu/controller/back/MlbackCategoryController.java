@@ -332,7 +332,7 @@ public class MlbackCategoryController {
 			 }
 		 }
 		 return Msg.success().add("resMsg", "searchBycategorySeo完毕")
-				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownEr", mlbackCategorydownEr).add("mlbackCategorydownList", mlbackCategorydownList);
+				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownList", mlbackCategorydownList);
 	 }
 	 
 	/**
