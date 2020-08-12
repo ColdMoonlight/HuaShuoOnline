@@ -330,9 +330,10 @@
 						$('.order-coupon-tip').html('<p>Code invalid !</p>');
 					}
 					if (couponData.mlbackCouponOne.couponType == '0') {
+						var productIdArr = $('.order-list').data('productidarr').split(',');
 						var singProductId = couponData.mlbackCouponOne.couponProductonlyPidstr;
 						
-						if (singProductId && $('.order-list').data('productidarr').indexOf(parseInt(singProductId)) > -1) {
+						if (singProductId && productIdArr.indexOf(singProductId) > -1) {
 							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
 						} else {
 							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> The coupon is invalid for the purchase of products, it is only applicable to specific products ! </p>' +
