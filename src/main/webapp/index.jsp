@@ -150,7 +150,7 @@
 					async: false,
 					success: function (data) {
 						if (data.code == 100) {
-							callback && callback(data.extend.mlbackProductResList);
+							callback && callback(data.extend.mlbackProductResList || []);
 						}
 					}
 				});

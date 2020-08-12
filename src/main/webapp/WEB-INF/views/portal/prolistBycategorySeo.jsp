@@ -53,8 +53,8 @@
 			});
 		}
 		function renderCategorySeo(data, hasCategory) {
-			if (!hasCategory) renderCategorySelect(data.mlbackCategorydownList);
-			renderProductList(data.mlbackProductResList);
+			if (!hasCategory) renderCategorySelect(data.mlbackCategorydownList || []);
+			renderProductList(data.mlbackProductResList || []);
 		}
 		function renderProductList(data) {
 			var htmlStr = '';
@@ -93,7 +93,7 @@
 		}
 		function renderCategorySelect(data) {
 			var htmlStr = '';
-			data.forEach(function(item) {
+			data.length && data.forEach(function(item) {
 				htmlStr += '<option value="'+ item.categorySeo +'" '+ (categorySeo == item.categorySeo ? 'selected' : '') +'>'+ item.categoryName +'</option>';
 			});
 			$('.category-select').html(htmlStr);
