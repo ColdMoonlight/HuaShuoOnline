@@ -693,6 +693,10 @@ table tr td:nth-of-type(2) {
     }
 }
 /* swiper */
+.swiper-pagination-bullets {
+	left: 15% !important;
+	width: 70% !important;
+}
 .swiper-pagination-bullet {
 	border: 1px solid #fff;
 }
