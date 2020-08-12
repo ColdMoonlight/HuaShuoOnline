@@ -94,7 +94,7 @@ public class MlbackCategoryController {
 		String nowTime = DateUtil.strTime14s();
 		mlbackCategory.setCategoryCreatetime(nowTime);
 		mlbackCategory.setCategoryStatus(0);//0未上架1上架中
-		//无id，insert
+		//无id,insert
 		System.out.println("插入前"+mlbackCategory.toString());
 		mlbackCategoryService.insertSelective(mlbackCategory);
 		System.out.println("插入后"+mlbackCategory.toString());
@@ -175,7 +175,7 @@ public class MlbackCategoryController {
 	
 	/**
 	 * 7.0	20200608
-	 * 获取全部类目，以便于下拉选择
+	 * 获取全部类目,以便于下拉选择
 	 * @param 无参
 	 * @return 
 	 */
@@ -183,7 +183,7 @@ public class MlbackCategoryController {
 	@ResponseBody
 	public Msg getMlbackCategoryDropdownSelect(HttpServletResponse rep,HttpServletRequest res){
 		
-		//查询全部的category信息，便于下拉选择
+		//查询全部的category信息,便于下拉选择
 		List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
 		//System.out.println("操作说明:管理员查-categorydownList菜单");
 		
@@ -279,16 +279,8 @@ public class MlbackCategoryController {
 	 public Msg searchBycategorySeo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackCategory mlbackCategory){
 		 
 		 //初始化返回下拉所需
-		 //查询all-category信息，便于下拉选择
+		 //查询all-category信息,便于下拉选择
 		 List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
-		 
-//		 List<MlbackCategory> mlbackCategorydownEr =new ArrayList<MlbackCategory>();
-//		 for(MlbackCategory mlbackCategoryOne :mlbackCategorydownList){
-//			 Integer categoryParentId = mlbackCategoryOne.getCategoryParentId();
-//			 if(categoryParentId>0){
-//				 mlbackCategorydownEr.add(mlbackCategoryOne);
-//			 }
-//		 }
 		 
 		 //接受信息
 		 String categorySeoReq = mlbackCategory.getCategorySeo();
@@ -301,7 +293,6 @@ public class MlbackCategoryController {
 		 }
 		 
 		 MlbackCategory mlbackCategoryres = mlbackCategoryList.get(0);
-		 //System.out.println("操作说明:客户点击类菜单-searchBycategorySeo");
 	 
 		 String CategoryProductIdsStr = mlbackCategoryres.getCategoryProductIds();
 		 
@@ -334,70 +325,5 @@ public class MlbackCategoryController {
 		 return Msg.success().add("resMsg", "searchBycategorySeo完毕")
 				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownList", mlbackCategorydownList);
 	 }
-	 
-	/**
-	 * 11.0	onuse	20191225	检查
-	 * 获取getCategorySuperMenu
-	 * @param rep res
-	 * @return
-	 */
-//	@RequestMapping(value="/getCategorySuperMenu",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getCategorySuperMenu(HttpServletResponse rep,HttpServletRequest res){
-//		
-//		//查询全部的category信息
-//		List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMenuMlbackCategoryGetAll();
-//		//System.out.println("操作说明:客户查询-getCategorySuperMenu");
-//		
-//		List<MlbackCategory> mlbackCategorydownFirst =new ArrayList<MlbackCategory>();
-//		for(MlbackCategory mlbackCategoryOne :mlbackCategorydownList){
-//			Integer categoryParentId = mlbackCategoryOne.getCategoryParentId();
-//			if(categoryParentId>0){
-//				//System.out.println("categoryParentId:"+categoryParentId);
-//			}else{
-//				//筛选出一级菜单(patentId=-1)的类，//第一级别的导航
-//				//存到list中，存一下这些ids,这些是一级类
-//				mlbackCategorydownFirst.add(mlbackCategoryOne);//一级类list;
-//			}
-//		}
-//		List<List<List<MlbackCategory>>> mlbackCategorySuperList =new ArrayList<List<List<MlbackCategory>>>();
-//		//遍历第一等级导航
-//		for(MlbackCategory categoryFirstOne :mlbackCategorydownFirst){
-//			Integer categoryFirstId = categoryFirstOne.getCategoryId();
-//			
-//			MlbackCategory mlbackCategorySecReq = new MlbackCategory();
-//			mlbackCategorySecReq.setCategoryParentId(categoryFirstId);
-//			
-//			//查询该父id下的全部category信息
-//			List<MlbackCategory> categoryNowSecondList = mlbackCategoryService.selectCategorylistByParam(mlbackCategorySecReq);
-//			//System.out.println("操作说明:客户查询-本二级的菜单完毕Category-菜单");
-//			
-//			List<List<MlbackCategory>> mlbackCategoryfirstdownList =new ArrayList<List<MlbackCategory>>();
-//			for(MlbackCategory categoryOne :categoryNowSecondList){
-//				Integer categoryId = categoryOne.getCategoryId();
-//				List<MlbackCategory> mlbackCategorydownEr =new ArrayList<MlbackCategory>();
-//				//
-//				mlbackCategorydownEr.add(categoryOne);
-//				//准备参数，请求此二级下的三级菜单
-//				MlbackCategory mlbackCategoryReq = new MlbackCategory();
-//				mlbackCategoryReq.setCategoryParentId(categoryId);
-//				List<MlbackCategory> mlbackCategoryReqList = mlbackCategoryService.selectCategorylistByParam(mlbackCategoryReq);
-//				
-//				if(mlbackCategoryReqList.size()>0){
-//					for(int i=0;i<mlbackCategoryReqList.size();i++){
-//						MlbackCategory mlbackCategoryThreeOne = mlbackCategoryReqList.get(i);
-//						mlbackCategorydownEr.add(mlbackCategoryThreeOne);
-//					}
-//					
-//					mlbackCategoryfirstdownList.add(mlbackCategorydownEr);
-//				}else{
-//					mlbackCategoryfirstdownList.add(mlbackCategorydownEr);
-//					//System.out.println("该二级下没有三级分类");
-//				}
-//			}
-//			mlbackCategorySuperList.add(mlbackCategoryfirstdownList);
-//		}
-//		
-//		return Msg.success().add("resMsg", "getCategoryMenuSenond-end").add("mlbackCategorySuperList", mlbackCategorySuperList).add("categoryFirstList", mlbackCategorydownFirst);
-//	}
+
 }
