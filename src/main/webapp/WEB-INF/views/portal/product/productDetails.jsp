@@ -19,7 +19,6 @@
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/pc/js/jqzoom/jqzoom.css" rel="stylesheet">
-	<link href="${APP_PATH}/static/pc/js/video/video.min.css" rel="stylesheet">
 	<style>
 		main {margin-top: 1rem;}
 		@media only screen and (max-width: 575px) {
@@ -130,7 +129,6 @@
 	<!-- third lib -->
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqzoom/jquery.jqzoom.js"></script>
-	<script src="${APP_PATH}/static/pc/js/video/video.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
 	<script>
 		// fly bubble
@@ -245,6 +243,9 @@
 		}
 		// render product media
 		function renderProductMedia(data) {
+			function stopVideo () {
+				$('#ml-video')[0].pause();
+			}
 			var htmlStr = '';
 			var htmlVideoThumb = '';
 			var htmlVideo = '';
@@ -255,7 +256,7 @@
 				htmlVideoThumb = '<div class="swiper-slide"><div class=" lazyload" data-src="' + data.video.posterUrl + '"></div></div>';
 				
 				htmlVideo = '<div class="swiper-slide">' +
-					'<video id="ml-video" class="video-js" controls preload="auto" width="500" height="500" poster="' + data.video.posterUrl + '">' +
+					'<video id="ml-video" controls preload="auto" poster="' + data.video.posterUrl + '">' +
 				    	'<source src="'+ data.video.videoUrl +'" type="video/mp4" />' +
 				  	'</video>' +
 				'</div>';
@@ -269,33 +270,6 @@
 				threshold: 0
 			});
 			// media video
-			var player = null;
-			if ($('#ml-video').length) {
-				player = videojs('ml-video', {
-	                autoPlay: false,
-	                preload: 'auto',
-	                controls: true,
-	            });
-			}
-			// video play event
-            function listenPlay() {
-                player && player.on('play', function(e) {
-                    this.bigPlayButton.eventBusEl_.style.display = 'none';
-                    player.off('play');
-                    listenPause();
-                });
-            }
-			// video pause
-            function listenPause() {
-            	 player && player.on('pause', function(e) {
-                    // console.log('pause');
-                    this.bigPlayButton.eventBusEl_.style.display = 'block';
-                    player.off('pause');
-                    listenPlay();
-                });
-            }
-
-            listenPause();
  			// media imgs
 			var swiperThumb = new Swiper('.product-thumb-slide', {
 				direction: 'vertical',
@@ -308,7 +282,7 @@
 				},
 				on: {
 					slideChangeTransitionStart: function() {
-						 player && player.pause(); // swiper slide start, stop video play
+						stopVideo(); // swiper slide start, stop video play
 					},
 				},
 			});
@@ -323,7 +297,7 @@
 				},
 				on: {
 					slideChangeTransitionStart: function() {
-						 player && player.pause(); // swiper slide start, stop video play
+						stopVideo(); // swiper slide start, stop video play
 					},
 				},
 				thumbs: { swiper: swiperThumb },
