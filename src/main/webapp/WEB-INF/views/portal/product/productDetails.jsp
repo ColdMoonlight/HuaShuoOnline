@@ -256,7 +256,7 @@
 				htmlVideoThumb = '<div class="swiper-slide"><div class=" lazyload" data-src="' + data.video.posterUrl + '"></div></div>';
 				
 				htmlVideo = '<div class="swiper-slide">' +
-					'<video id="ml-video" controls preload="auto" poster="' + data.video.posterUrl + '">' +
+					'<video id="ml-video" controls preload="none" poster="' + data.video.posterUrl + '">' +
 				    	'<source src="'+ data.video.videoUrl +'" type="video/mp4" />' +
 				  	'</video>' +
 				'</div>';
