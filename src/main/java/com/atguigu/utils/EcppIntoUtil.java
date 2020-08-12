@@ -161,7 +161,7 @@ public class EcppIntoUtil {
 //	    private Integer shipping_id;//发货方式	参见字典查询接口 name为shipping
 //	    private Integer Sales_channels;//销售渠道	参见字典查询接口		name为Sales_channels
 //	    private Integer Sales_account_id;//渠道账号	参见渠道账号查询列表
-//	    private Integer enableStockControl;//库存控制		0 默认 //1锁定扣除OOO//2锁定PPP
+//	    private Integer enableStockControl;//库存控制	0 默认 //1锁定扣除OOO//2锁定PPP
 //	    private String consignee;//*收件人
 //	    private String street1;//*地址1
 //	    private String street2;//地址2
