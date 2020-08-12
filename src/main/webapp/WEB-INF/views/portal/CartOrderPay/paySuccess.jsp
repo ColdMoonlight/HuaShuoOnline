@@ -105,12 +105,12 @@
 					'<span class="value">$' + (parseFloat(data.payinfoMoney) + parseFloat(data.orderCouponPrice) - data.shipping).toFixed(2) + '</span>' +
 				'</div>' +
 				'<div class="payment-cal-item">' +
-					'<span class="name">shipping: </span>' +
-					'<span class="value">$' + (data.shipping).toFixed(2) + '</span>' +
-				'</div>' +
-				'<div class="payment-cal-item">' +
 					'<span class="name">coupon: </span>' +
 					'<span class="value">-$' + (data.orderCouponPrice).toFixed(2) + '</span>' +
+				'</div>' +
+				'<div class="payment-cal-item">' +
+					'<span class="name">shipping: </span>' +
+					'<span class="value">$' + (data.shipping).toFixed(2) + '</span>' +
 				'</div>' +
 				'<div class="payment-cal-item">' +
 					'<span class="name">subtotal: </span>' +
