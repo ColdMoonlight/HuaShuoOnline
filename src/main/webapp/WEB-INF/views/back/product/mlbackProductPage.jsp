@@ -1630,7 +1630,7 @@
 			$('#productCategoryIdsstr').val(data.productCategoryIdsstr);
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
 			$('#productCategoryList').val(data.productCategoryNamesstr ? ' * ' + data.productCategoryNamesstr.replace(/\,/g, '\n * ') : 'No category！');
-console.log('smal-main: ', data.productMainsmallimgurl)
+
 			if (data.productMainimgurl) {
 				addPicture($('#productImgurl'), {
 					imageUrl: data.productMainimgurl,
@@ -1903,7 +1903,7 @@ console.log('smal-main: ', data.productMainsmallimgurl)
 				addUploadBlock(data[i].productimgSortOrder);
 				addPicture($('.product-img-item').last().find('.productAllImgurl'), {
 					imageUrl: data[i].productimgurl,
-					thumImageUrl: data[i].productimgSmallturl
+					thumImageUrl: data[i].productimgSmallturl ||  data[i].productimgurl
 				});
 			}
 			

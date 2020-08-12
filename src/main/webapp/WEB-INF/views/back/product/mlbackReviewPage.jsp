@@ -774,7 +774,7 @@
 				addUploadBlock(data[i].reviewimgSortOrder);
 				addPicture($('.product-img-item').last().find('.reviewImgurl'), {
 					imageUrl: data[i].reviewimgUrl,
-					thumImageUrl: data[i].reviewsmallimgUrl
+					thumImageUrl: data[i].reviewsmallimgUrl || data[i].reviewimgUrl
 				});
 			}
 
