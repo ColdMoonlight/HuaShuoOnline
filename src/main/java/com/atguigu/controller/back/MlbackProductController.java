@@ -404,7 +404,8 @@ public class MlbackProductController {
 	public Msg lownLoadProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
 		
 		MlbackProduct mlbackProductReq = new MlbackProduct();
-		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductSimpleByParam(mlbackProductReq);
+//		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductSimpleByParam(mlbackProductReq);
+		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductDownLoadByParam(mlbackProductReq);
 		return Msg.success().add("mlbackProductResList", mlbackProductResList);
 	}
 	

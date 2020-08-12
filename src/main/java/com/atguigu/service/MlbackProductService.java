@@ -108,4 +108,9 @@ public class MlbackProductService {
 		return mlbackProductList;
 	}
 
+	public List<MlbackProduct> selectMlbackProductDownLoadByParam(MlbackProduct mlbackProductReq) {
+		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductDownLoadByParam(mlbackProductReq);
+		return mlbackProductList;
+	}
+
 }

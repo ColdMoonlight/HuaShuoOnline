@@ -49,4 +49,6 @@ public interface MlbackProductMapper {
 	//模糊查询数量
 	List<MlbackProduct> selectMlbackProductLikeNum(MlbackProduct mlbackProduct);
 
+	List<MlbackProduct> selectMlbackProductDownLoadByParam(MlbackProduct mlbackProductReq);
+
 }
