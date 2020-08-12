@@ -399,7 +399,7 @@
 						}
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl || data.extend.sqlimageUrl
+							thumImageUrl: data.extend.sqlimageUrl
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
@@ -774,7 +774,7 @@
 				addUploadBlock(data[i].reviewimgSortOrder);
 				addPicture($('.product-img-item').last().find('.reviewImgurl'), {
 					imageUrl: data[i].reviewimgUrl,
-					thumImageUrl: data[i].reviewsmallimgUrl
+					thumImageUrl: data[i].reviewimgUrl
 				});
 			}
 

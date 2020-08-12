@@ -433,7 +433,7 @@
 						'<div class="order-sku-list">'+ orderSkuList +'</div>' +
 						'<div class="order-product-num">' +
 							'<div class="order-product-price">' +
-								'<span class="product-define-price">$'+ (item.orderitemProductOriginalprice || 0).toFixed(2) +'</span>' +
+								'<span class="product-define-price">$'+ ((item.orderitemProductOriginalprice + parseFloat(item.orderitemPskuMoneystr)) || 0).toFixed(2) +'</span>' +
 								'<span class="product-now-price">$'+ (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? accuracyCal((item.orderitemProductOriginalprice + parseFloat(item.orderitemPskuMoneystr)), item.orderitemProductAccoff) : 0.00) +'</span>' +
 							'</div>' +
 							'<span class="icon delete product-delete">' + '</span>' +

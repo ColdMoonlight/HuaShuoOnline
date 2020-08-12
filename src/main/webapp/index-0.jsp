@@ -63,6 +63,12 @@
 				});
 				$('.ml-index-carousel .swiper-wrapper').html(htmlStr);
 				indexCarousel = new Swiper('.ml-index-carousel', {
+					loop:true,
+					autoplay: {
+					    delay: 5000,
+					    stopOnLastSlide: false,
+					    disableOnInteraction: false,
+					},
 					pagination: {
 						el: '.swiper-pagination',
 						clickable: true
