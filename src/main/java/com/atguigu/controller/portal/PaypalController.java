@@ -374,7 +374,7 @@ public class PaypalController {
     	mlPaypalShipAddressReq.setShippingaddressLine1(payerInfoReturn.getShippingAddress().getLine1());
     	mlPaypalShipAddressReq.setShippingaddressLine2(payerInfoReturn.getShippingAddress().getLine2());
     	mlPaypalShipAddressReq.setShippingaddressRecipientName(payerInfoReturn.getShippingAddress().getRecipientName());
-    	mlPaypalShipAddressReq.setShippingaddressRecipientName(payerInfoReturn.getEmail());
+    	mlPaypalShipAddressReq.setShippingaddressEmail(payerInfoReturn.getEmail());
     	mlPaypalShipAddressReq.setShippingaddressPayinfoid(payinfoIdStr);
     	mlPaypalShipAddressReq.setShippingaddressPaymentid(paymentId);
     	mlPaypalShipAddressService.insertSelective(mlPaypalShipAddressReq);
