@@ -28,8 +28,7 @@ public class MlbackAddCartViewDetailController {
 	/**
 	 * 1.0	zsh200804
 	 * toMlbackActShowPro列表页面
-	 * @param jsp
-	 * @return 
+	 * @return jsp
 	 * */
 	@RequestMapping("/toMlbackAddCartViewDetailPage")
 	public String tologin(HttpSession session) throws Exception{
