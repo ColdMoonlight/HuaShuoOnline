@@ -112,18 +112,19 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/upload/imagecompress/category";
-		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
-		
-		try {
-			
-			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
-			sqlthumImageUrl=basePathStr+thumImageUrl;
-			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		String uploadPathcompress = "static/upload/imagecompress/category";
+//		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+//		System.out.println("realUploadPathcompress:"+realUploadPathcompress);
+//		
+//		try {
+//			
+//			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+//			sqlthumImageUrl=basePathStr+thumImageUrl;
+//			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 		MlbackCategory mlbackCategory = new MlbackCategory();
 		mlbackCategory.setCategoryId(categoryId);
@@ -170,18 +171,18 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/upload/imagecompress/product";
-		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
-		
-		try {
-			
-			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
-			sqlthumImageUrl=basePathStr+thumImageUrl;
-			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		String uploadPathcompress = "static/upload/imagecompress/product";
+//		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+//		
+//		try {
+//			
+//			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+//			sqlthumImageUrl=basePathStr+thumImageUrl;
+//			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		MlbackProduct mlbackProduct = new MlbackProduct();
 		mlbackProduct.setProductId(productId);
 		mlbackProduct.setProductMainimgurl(sqlimageUrl);
@@ -227,18 +228,18 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/upload/imagecompress/productAll";
-		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
-		
-		try {
-			
-			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
-			sqlthumImageUrl=basePathStr+thumImageUrl;
-			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		String uploadPathcompress = "static/upload/imagecompress/productAll";
+//		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+//		
+//		try {
+//			
+//			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+//			sqlthumImageUrl=basePathStr+thumImageUrl;
+//			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		//查询文件是否在
 		MlbackProductImg mlbackProductImgIf = new MlbackProductImg();
 		
@@ -314,18 +315,18 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/upload/imagecompress/productDiscount";
-		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
-		
-		try {
-			
-			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
-			sqlthumImageUrl=basePathStr+thumImageUrl;
-			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		String uploadPathcompress = "static/upload/imagecompress/productDiscount";
+//		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+//		
+//		try {
+//			
+//			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+//			sqlthumImageUrl=basePathStr+thumImageUrl;
+//			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		MlbackProduct mlbackProduct = new MlbackProduct();
 		mlbackProduct.setProductId(productId);
 		mlbackProduct.setProductDiscoutimgurl(sqlimageUrl);		
@@ -431,18 +432,18 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-		String uploadPathcompress = "static/upload/imagecompress/reviewAllImg";
-		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
-		
-		try {
-			
-			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
-			sqlthumImageUrl=basePathStr+thumImageUrl;
-			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		String uploadPathcompress = "static/upload/imagecompress/reviewAllImg";
+//		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
+//		
+//		try {
+//			
+//			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
+//			sqlthumImageUrl=basePathStr+thumImageUrl;
+//			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 		//查询文件是否在
 		MlbackReviewImg mlbackReviewImgIf = new MlbackReviewImg();
