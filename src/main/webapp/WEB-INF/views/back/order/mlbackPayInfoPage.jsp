@@ -154,17 +154,17 @@
 											</div>
 										</div>
 										<div class="pay-item">
-											<div class="pay-item-title">Shipping</div>
-											<div class="pay-shipping">
-												<div class="name"></div>
-												<div class="value">$0.00</div>
-											</div>
-										</div>
-										<div class="pay-item">
 											<div class="pay-item-title">Discount</div>
 											<div class="pay-discount">
 												<div class="name"></div>
 												<div class="value">-$0.00</div>
+											</div>
+										</div>
+										<div class="pay-item">
+											<div class="pay-item-title">Shipping</div>
+											<div class="pay-shipping">
+												<div class="name"></div>
+												<div class="value">$0.00</div>
 											</div>
 										</div>
 										<div class="pay-item">
