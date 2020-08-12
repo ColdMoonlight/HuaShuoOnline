@@ -1275,7 +1275,7 @@
 					if (data.code == 100) {
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl
+							thumImageUrl: data.extend.sqlthumImageUrl || data.extend.sqlimageUrl
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
@@ -1316,7 +1316,7 @@
 					if (data.code == 100) {
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlimageUrl
+							thumImageUrl: data.extend.sqlimageUrl || data.extend.sqlimageUrl
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
@@ -1479,7 +1479,7 @@
 						}
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl
+							thumImageUrl: data.extend.sqlthumImageUrl || data.extend.sqlimageUrl
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
