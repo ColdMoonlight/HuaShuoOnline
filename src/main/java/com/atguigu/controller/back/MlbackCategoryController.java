@@ -94,7 +94,7 @@ public class MlbackCategoryController {
 		String nowTime = DateUtil.strTime14s();
 		mlbackCategory.setCategoryCreatetime(nowTime);
 		mlbackCategory.setCategoryStatus(0);//0未上架1上架中
-		//无id，insert
+		//无id,insert
 		System.out.println("插入前"+mlbackCategory.toString());
 		mlbackCategoryService.insertSelective(mlbackCategory);
 		System.out.println("插入后"+mlbackCategory.toString());
@@ -175,7 +175,7 @@ public class MlbackCategoryController {
 	
 	/**
 	 * 7.0	20200608
-	 * 获取全部类目，以便于下拉选择
+	 * 获取全部类目,以便于下拉选择
 	 * @param 无参
 	 * @return 
 	 */
@@ -183,7 +183,7 @@ public class MlbackCategoryController {
 	@ResponseBody
 	public Msg getMlbackCategoryDropdownSelect(HttpServletResponse rep,HttpServletRequest res){
 		
-		//查询全部的category信息，便于下拉选择
+		//查询全部的category信息,便于下拉选择
 		List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
 		//System.out.println("操作说明:管理员查-categorydownList菜单");
 		
@@ -279,7 +279,7 @@ public class MlbackCategoryController {
 	 public Msg searchBycategorySeo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackCategory mlbackCategory){
 		 
 		 //初始化返回下拉所需
-		 //查询all-category信息，便于下拉选择
+		 //查询all-category信息,便于下拉选择
 		 List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
 		 
 		 //接受信息
