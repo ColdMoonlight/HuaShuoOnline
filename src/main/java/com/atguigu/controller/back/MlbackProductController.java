@@ -87,6 +87,7 @@ public class MlbackProductController {
 		//取出id
 		String nowTime = DateUtil.strTime14s();
 		mlbackProduct.setProductCreatetime(nowTime);
+		mlbackProduct.setProductReviewnum(99);
 		//无id,insert
 		System.out.println("插入前"+mlbackProduct.toString());
 		mlbackProductService.insertSelective(mlbackProduct);
