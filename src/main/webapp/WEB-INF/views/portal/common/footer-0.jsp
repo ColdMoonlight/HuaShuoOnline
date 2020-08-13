@@ -607,12 +607,12 @@ function renderIntroduceProductSlide($el, data) {
 function accuracyCal(origin, dis) {
 	var priceArr = (origin * dis / 100).toString().split('.');
 	var acurPrice = priceArr[1];
+	var newFixedPrice = '00';
 
 	if (acurPrice) {
 		var strFixedPrice = acurPrice.slice(0, 2);
 		var fixedPrice = parseInt((strFixedPrice.length == 1 ? strFixedPrice + '0' : strFixedPrice), 10);
 		var ap = parseInt(acurPrice.slice(2, 3), 10);
-		var newFixedPrice = '00';
 		fixedPrice = (ap > 4 ? (fixedPrice + 1) : fixedPrice);
 		newFixedPrice = (fixedPrice > 9 ? fixedPrice : '0' + fixedPrice);	
 	}
