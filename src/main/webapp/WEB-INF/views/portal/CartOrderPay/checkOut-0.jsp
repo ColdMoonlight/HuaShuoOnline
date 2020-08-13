@@ -203,7 +203,7 @@
 				success: function (data) {
 					el.remove();
 					if (!$('.order-item').length) goToCartList();
-					callback && callback();
+					callback && callback(targetData.orderitemPid);
 					resetOrderListData();
 					deleteProductSuccessModal();
 				},
@@ -371,6 +371,8 @@
 					}
 				}
 			}
+
+			resData.coupon = parseFloat(accuracyCal(resData.coupon, 100));
 
 			resData.subtotal = resData.prototal + resData.shipping - resData.coupon;
 
@@ -663,7 +665,13 @@
 		});
 		// delete product
 		$(document.body).on('click', '.product-delete', function() {
-			deleteOrderProduct($(this).parents('.order-item'), resetOrderCal);
+			deleteOrderProduct($(this).parents('.order-item'), function(id) {
+				var productIdArr = $('.order-list').data('productidarr').split(',');
+				productIdArr = productIdArr.filter(function(item) { return item != id });
+				$('.order-list').data('productidarr', productIdArr.join(','));
+				// reset order cal
+				resetOrderCal();
+			});
 		});
 		// check input coupon-code
 		$(document.body).on('click', '#order-check-coupon', function() {
