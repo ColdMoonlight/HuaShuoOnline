@@ -137,7 +137,7 @@ public class MlfrontReviewController {
         System.out.println("basePathStr:"+basePathStr);
 		
 		String pathBig = basePathStr;
-		String path="static/img/ReviewUImg/";
+		String path="static/upload/img/ReviewUImg/";
 		String returnReaUrl = "";
 		
 		String firstName = reviewUname.substring(0, 1);
