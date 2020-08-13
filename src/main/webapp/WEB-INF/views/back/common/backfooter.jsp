@@ -486,11 +486,17 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 	});
 	/* Accuracy of calculation */
 	function accuracyCal(origin, dis) {
-		var basePrice = (origin * dis / 100);
-		var strFloatPrice = basePrice.toFixed(2);
-		var str2FloatPrice = basePrice.toFixed(3);
-		var ap = parseInt(str2FloatPrice.slice(-1));
-		
-		return ap > 4 ? (parseFloat(strFloatPrice) + 0.01).toFixed(2) : strFloatPrice;
+		var priceArr = (origin * dis / 100).toString().split('.');
+		var acurPrice = priceArr[1];
+	
+		if (acurPrice) {
+			var strFixedPrice = acurPrice.slice(0, 2);
+			var fixedPrice = parseInt((strFixedPrice.length == 1 ? strFixedPrice + '0' : strFixedPrice), 10);
+			var ap = parseInt(acurPrice.slice(2, 3), 10);
+			var newFixedPrice = '00';
+			fixedPrice = (ap > 4 ? (fixedPrice + 1) : fixedPrice);
+			newFixedPrice = (fixedPrice > 9 ? fixedPrice : '0' + fixedPrice);	
+		}
+		return priceArr[0] + '.' + newFixedPrice;
 	}
 </script>

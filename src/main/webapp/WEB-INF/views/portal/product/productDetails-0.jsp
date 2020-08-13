@@ -158,10 +158,10 @@
             	mlModalTip("I'm sorry that the product cannot be purchased for the time being. If necessary, please contact customer service !");
             	return;
             }
-            if (parseInt($('.product-qty .product-num').val()) > productQty.count) {
+            /* if (parseInt($('.product-qty .product-num').val()) > productQty.count) {
             	$('.product-qty .product-num').val(productQty.count);
             	mlModalTip('Under the current options can buy at most <i style="font-weight: blold">'+ productQty.count +'</i> product !');
-            }
+            } */
            	$('.product-qty .product-num').data('count', productQty.count).data('productsku', productSku);
            	var productSkuMoney = productSku.productskuMoney
            	productSkuMoney ? updateProductPrice(productSkuMoney) : updateProductPrice();
@@ -766,7 +766,7 @@
 				currency: "USD"
 			}), toBuyNow(reqData, goToCheckout);
 		});
-		$('.paypal-button.paypal-now').on('click', function() {
+		/* $('.paypal-button.paypal-now').on('click', function() {
 			var reqData = getProductData();
 			isCorrectProduct() && reqData && (payLoading(), fbq('track', 'AddPaymentInfo', {
 				content_ids: reqData.cartitemProductId,
@@ -774,7 +774,7 @@
 				value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductNumber, reqData.cartitemProductActoff),
 				currency: 'USD'
 			}), toPayInstance(reqData));
-		});
+		}); */
 		// open reiview swiper
 		$(document.body).on('click', '.product-review-imgs-item', function() {
 			var activeImg = $(this).data('src');

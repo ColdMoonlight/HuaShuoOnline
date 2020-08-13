@@ -109,7 +109,7 @@
 		var videoRecommendHtml = '<div class="video-recommend">'+
 				'<iframe frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media" title="YouTube video player" width="100%" height="300" src="'+ videoLink +'"></iframe>' +
 				'<div class="video-recommend-product">'+
-					'<div class="video-recommend-img lazyload" data-src="'+ data.productImgurl +'"></div>'+
+					'<div class="video-recommend-img lazyload" data-src="'+ data.productMainimgurl +'"></div>'+
 					'<div class="video-recommend-data">' +
 						'<div class="video-recommend-name">'+ data.productName +'</div>'+
 						'<div class="video-recommend-dprice"><span class="">Regular Price :</span><span class="value">$'+ data.productOriginalprice.toFixed(2) +'</span></div>'+
