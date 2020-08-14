@@ -1275,7 +1275,7 @@
 					if (data.code == 100) {
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl || data.extend.sqlimageUrl
+							thumImageUrl: data.extend.sqlimageUrl
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
@@ -1316,7 +1316,7 @@
 					if (data.code == 100) {
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlimageUrl || data.extend.sqlimageUrl
+							thumImageUrl: data.extend.sqlimageUrl
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
@@ -1479,7 +1479,7 @@
 						}
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl || data.extend.sqlimageUrl
+							thumImageUrl: data.extend.sqlimageUrl
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
@@ -1630,11 +1630,11 @@
 			$('#productCategoryIdsstr').val(data.productCategoryIdsstr);
 			$('#productCategoryNamesstr').val(data.productCategoryNamesstr);
 			$('#productCategoryList').val(data.productCategoryNamesstr ? ' * ' + data.productCategoryNamesstr.replace(/\,/g, '\n * ') : 'No category！');
-console.log('smal-main: ', data.productMainsmallimgurl)
+
 			if (data.productMainimgurl) {
 				addPicture($('#productImgurl'), {
 					imageUrl: data.productMainimgurl,
-					thumImageUrl: (data.productMainsmallimgurl || data.productMainimgurl)
+					thumImageUrl: data.productMainimgurl
 				});
 			} else {
 				resetPicture($('#productImgurl'));
@@ -1902,8 +1902,8 @@ console.log('smal-main: ', data.productMainsmallimgurl)
 			for (var i = 0; i < len; i+=1) {
 				addUploadBlock(data[i].productimgSortOrder);
 				addPicture($('.product-img-item').last().find('.productAllImgurl'), {
-					imageUrl: data[i].productimgurl,
-					thumImageUrl: data[i].productimgSmallturl
+					imageUrl: data[i].productimgUrl,
+					thumImageUrl: data[i].productimgUrl
 				});
 			}
 			

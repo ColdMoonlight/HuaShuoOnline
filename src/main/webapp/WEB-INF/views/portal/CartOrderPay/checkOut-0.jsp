@@ -203,7 +203,7 @@
 				success: function (data) {
 					el.remove();
 					if (!$('.order-item').length) goToCartList();
-					callback && callback();
+					callback && callback(targetData.orderitemPid);
 					resetOrderListData();
 					deleteProductSuccessModal();
 				},
@@ -372,6 +372,8 @@
 				}
 			}
 
+			resData.coupon = parseFloat(accuracyCal(resData.coupon, 100));
+
 			resData.subtotal = resData.prototal + resData.shipping - resData.coupon;
 
 			return resData;
@@ -433,7 +435,7 @@
 						'<div class="order-sku-list">'+ orderSkuList +'</div>' +
 						'<div class="order-product-num">' +
 							'<div class="order-product-price">' +
-								'<span class="product-define-price">$'+ (item.orderitemProductOriginalprice || 0).toFixed(2) +'</span>' +
+								'<span class="product-define-price">$'+ ((item.orderitemProductOriginalprice + parseFloat(item.orderitemPskuMoneystr)) || 0).toFixed(2) +'</span>' +
 								'<span class="product-now-price">$'+ (item.orderitemProductOriginalprice && item.orderitemProductAccoff ? accuracyCal((item.orderitemProductOriginalprice + parseFloat(item.orderitemPskuMoneystr)), item.orderitemProductAccoff) : 0.00) +'</span>' +
 							'</div>' +
 							'<span class="icon delete product-delete">' + '</span>' +
@@ -663,7 +665,13 @@
 		});
 		// delete product
 		$(document.body).on('click', '.product-delete', function() {
-			deleteOrderProduct($(this).parents('.order-item'), resetOrderCal);
+			deleteOrderProduct($(this).parents('.order-item'), function(id) {
+				var productIdArr = $('.order-list').data('productidarr').split(',');
+				productIdArr = productIdArr.filter(function(item) { return item != id });
+				$('.order-list').data('productidarr', productIdArr.join(','));
+				// reset order cal
+				resetOrderCal();
+			});
 		});
 		// check input coupon-code
 		$(document.body).on('click', '#order-check-coupon', function() {

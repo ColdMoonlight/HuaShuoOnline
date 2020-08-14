@@ -402,10 +402,10 @@
 		});
 		// paypal button
 		// cartlist checkout
-		$(document.body).on('click', '.paypal-button', function() {
+		/* $(document.body).on('click', '.paypal-button', function() {
 			var reqData = getCheckoutData();
 			checkReqData(reqData) && (payLoading(), toPayInstance(reqData));
-		});
+		}); */
 	</script>
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
