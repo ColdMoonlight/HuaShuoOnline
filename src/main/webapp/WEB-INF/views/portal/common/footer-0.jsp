@@ -616,6 +616,6 @@ function accuracyCal(origin, dis) {
 		fixedPrice = (ap > 4 ? (fixedPrice + 1) : fixedPrice);
 		newFixedPrice = (fixedPrice > 9 ? fixedPrice : '0' + fixedPrice);	
 	}
-	return priceArr[0] + '.' + newFixedPrice;
+	return newFixedPrice == 100 ? ((parseInt(priceArr[0]) + 1) + '.00') : (priceArr[0] + '.' + newFixedPrice);
 }
 </script>

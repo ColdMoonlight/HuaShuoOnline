@@ -489,7 +489,7 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 		var priceArr = (origin * dis / 100).toString().split('.');
 		var acurPrice = priceArr[1];
 		var newFixedPrice = '00';
-	
+
 		if (acurPrice) {
 			var strFixedPrice = acurPrice.slice(0, 2);
 			var fixedPrice = parseInt((strFixedPrice.length == 1 ? strFixedPrice + '0' : strFixedPrice), 10);
@@ -497,6 +497,6 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 			fixedPrice = (ap > 4 ? (fixedPrice + 1) : fixedPrice);
 			newFixedPrice = (fixedPrice > 9 ? fixedPrice : '0' + fixedPrice);	
 		}
-		return priceArr[0] + '.' + newFixedPrice;
+		return newFixedPrice == 100 ? ((parseInt(priceArr[0]) + 1) + '.00') : (priceArr[0] + '.' + newFixedPrice);
 	}
 </script>
