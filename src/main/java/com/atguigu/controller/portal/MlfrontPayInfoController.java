@@ -229,7 +229,7 @@ public class MlfrontPayInfoController {
 	}
 	
 	/**
-	 * 6.0	useOn	0505
+	 * 6.0	zsh200815
 	 * 后台单条明细页面获取展示信息
 	 * @param MlfrontPayInfo
 	 * @return 
@@ -586,23 +586,21 @@ public class MlfrontPayInfoController {
 		MlfrontAddress addressOne = getAddressDetailByAddressId(addressId);
 		
 		String userfirstname = addressOne.getAddressUserfirstname();
-		String userlastname = addressOne.getAddressUserlastname();
-		
+		String userlastname = addressOne.getAddressUserlastname();		
 		String addressEmail = addressOne.getAddressEmail();
-		
 		String addressTelephone = addressOne.getAddressTelephone();
 		
-		tracking.setCustomerName("shaohua");
-		tracking.addEmails("mingyueqingl@163.com");
-		tracking.addSmses("+8617600209637");
+//		tracking.setCustomerName("shaohua");
+//		tracking.addEmails("mingyueqingl@163.com");
+//		tracking.addSmses("+8617600209637");
 		
 		String uname = userfirstname+" "+userlastname;
 		System.out.println("uname:"+uname);
 		System.out.println("addressEmail:"+addressEmail);
 		System.out.println("addressTelephone:"+addressTelephone);
-//		tracking.setCustomerName(uname);
-//		tracking.addEmails(addressEmail);
-//		tracking.addSmses(addressTelephone);
+		tracking.setCustomerName(uname);
+		tracking.addEmails(addressEmail);
+		tracking.addSmses(addressTelephone);
 
 		String orderitemidstr = orderOne.getOrderOrderitemidstr();
 		String orderItemArr[] =orderitemidstr.split(",");
@@ -618,7 +616,7 @@ public class MlfrontPayInfoController {
 			String orderItemNumStr = orderItemNum+"";
 			String proSkuName = orderItemOne.getOrderitemPskuName();
 			
-			proOneDetailStr= ""+orderItemNumStr+" x "+proName+"("+proSkuName+")";
+			proOneDetailStr= ""+orderItemNumStr+" x "+proName+"("+proSkuName+")"+".";
 			proStr+=proOneDetailStr;
 		}
 		

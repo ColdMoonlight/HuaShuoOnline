@@ -47,13 +47,13 @@ import com.paypal.base.rest.PayPalRESTException;
 @RequestMapping("/paypalProDetailExpress")
 public class PaypalProDetailExpressController {
 	//wap端相关路径
-	public static final String PAYPAL_SUCCESS_M_URL = "paypal/msuccess";
-    public static final String PAYPAL_CANCEL_M_URL = "paypal/mcancel";
+	public static final String PAYPAL_SUCCESS_M_URL = "paypalProDetail/msuccess";
+    public static final String PAYPAL_CANCEL_M_URL = "paypalProDetail/mcancel";
     public static final String PAYPAL_SUCCESS_M_URLIn = "msuccess";
     public static final String PAYPAL_CANCEL_M_URLIn = "mcancel";
     //pc端相关路径
-    public static final String PAYPAL_SUCCESS_P_URL = "paypal/psuccess";
-    public static final String PAYPAL_CANCEL_P_URL = "paypal/pcancel";
+    public static final String PAYPAL_SUCCESS_P_URL = "paypalProDetail/psuccess";
+    public static final String PAYPAL_CANCEL_P_URL = "paypalProDetail/pcancel";
     public static final String PAYPAL_SUCCESS_P_URLIn = "psuccess";
     public static final String PAYPAL_CANCEL_P_URLIn = "pcancel";
 
