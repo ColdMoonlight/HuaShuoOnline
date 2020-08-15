@@ -389,6 +389,7 @@
 					targetData.cartitemProductskuCode = data.cartitemProductskuCode;
 					$selectedItem.data('cartitem', targetData);
 					updateCartItemSku(targetData);
+					updateCalCart();
 					removeModal(cartlistModal);
 				} else {
 					window.location.href = window.location.href;

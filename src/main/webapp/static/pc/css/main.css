@@ -1173,7 +1173,6 @@ main {
 .wap-nav-body {
 	flex-grow: 1;
 	width: 90%;
-	overflow: auto;
 }
 .wap-nav-body,
 .wap-nav-footer {
@@ -1219,13 +1218,6 @@ main {
 	height: 100%;
 	overflow-y: auto;
 }
-.wap-nav .menu-item a {
-	position: relative;
-	display: block;
-	padding: 0.5em 1em;
-	font: 14px/14px "";
-	color: #333333;
-}
 .wap-nav .menu-item {
 	position: relative;
 	width: 100%;
@@ -1233,8 +1225,11 @@ main {
 	line-height: 2.5rem;
 }
 .wap-nav .menu-item a {
+	position: relative;
 	display: block;
-	padding: .5rem 1rem;
+	padding: .75rem 1rem;
+	font-size: .875rem;
+	line-height: 1.0;
 	color: #222;
 	text-decoration: none;
 }
@@ -1252,7 +1247,7 @@ main {
 	position: relative;
 }
 .wap-nav .sub-menu-item dt a {
-	padding: .5rem 2rem;
+	padding: .75rem 2rem;
 }
 .wap-nav .sub-menu-item dd {
 	display: none;
@@ -1266,8 +1261,8 @@ main {
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: 2.5rem;
-	height: 2.5rem;
+	width: 2.4rem;
+	height: 2.4rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
