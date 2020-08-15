@@ -357,11 +357,11 @@
 
 					if (couponData.mlbackCouponOne.couponType == '1') {
 						if (!couponData.mlbackCouponOne.couponPriceBaseline) {
-							resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+							resData.coupon = parseFloat(accuracyCal(resData.prototal, couponData.mlbackCouponOne.couponPriceoff));
 							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
 						} else {
 							if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
-								resData.coupon = parseFloat((resData.prototal * couponData.mlbackCouponOne.couponPriceoff / 100).toFixed(2));
+								resData.coupon = parseFloat(accuracyCal(resData.prototal, couponData.mlbackCouponOne.couponPriceoff));
 								$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
 							} else {
 								resData.coupon = 0;
@@ -371,8 +371,6 @@
 					}
 				}
 			}
-
-			resData.coupon = parseFloat(accuracyCal(resData.coupon, 100));
 
 			resData.subtotal = resData.prototal + resData.shipping - resData.coupon;
 
