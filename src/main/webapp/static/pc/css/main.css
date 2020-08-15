@@ -1173,6 +1173,7 @@ main {
 .wap-nav-body {
 	flex-grow: 1;
 	width: 90%;
+	overflow: auto;
 }
 .wap-nav-body,
 .wap-nav-footer {

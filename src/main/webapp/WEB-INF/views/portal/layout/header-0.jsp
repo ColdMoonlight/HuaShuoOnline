@@ -626,7 +626,7 @@
 		}
 	});
 	$(document.body).on('click', '.search-result-item', function() {
-		var searchName = $(this).data('name');
+		var searchName = '' + $(this).data('name');
 		checkSearchInput(searchName) && goToSearchProduct(searchName);
 	});
 	var startY = 0,
