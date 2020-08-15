@@ -586,10 +586,8 @@ public class MlfrontPayInfoController {
 		MlfrontAddress addressOne = getAddressDetailByAddressId(addressId);
 		
 		String userfirstname = addressOne.getAddressUserfirstname();
-		String userlastname = addressOne.getAddressUserlastname();
-		
+		String userlastname = addressOne.getAddressUserlastname();		
 		String addressEmail = addressOne.getAddressEmail();
-		
 		String addressTelephone = addressOne.getAddressTelephone();
 		
 //		tracking.setCustomerName("shaohua");
