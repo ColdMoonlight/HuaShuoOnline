@@ -523,7 +523,8 @@
 			allowDuplicates: true,
 			onTagExists: function(item, $tag) {
 				toastr.error('Youve already used the value "'+ item + '"');
-			}
+			},
+			trimValue: true
 		});
 		// delete product
 		$(document.body).on('click', '.btn-delete', function (e) {
@@ -1008,7 +1009,7 @@
 					    "productattrnameValues": optionVal.join(','),
 						"productattrnamePid": productId
 					}, function(data) {
-						optionValEl.tagsinput('add', val);
+						optionValEl.tagsinput('add', val.trim());
 					});
 				}
 			});
@@ -1227,7 +1228,8 @@
 					.tagsinput({
 						onTagExists: function(item, $tag) {
 							toastr.error('Youve already used the option "'+ item + '"');
-						}
+						},
+						trimValue: true
 					});
 			} else {
 				optionItem.find('.product-option-values')
@@ -1235,14 +1237,16 @@
 						onTagExists: function(item, $tag) {
 							toastr.error('Youve already used the option "'+ item + '"');
 						},
-						maxTags: 1
+						maxTags: 1,
+						trimValue: true
 					});
 			}
 			optionItem.find('.product-option-values')
 				.tagsinput({
 					onTagExists: function(item, $tag) {
 						toastr.error('Youve already used the option "'+ item + '"');
-					}
+					},
+					trimValue: true
 				});
 			$('.product-options').append(optionItem);
 		}
