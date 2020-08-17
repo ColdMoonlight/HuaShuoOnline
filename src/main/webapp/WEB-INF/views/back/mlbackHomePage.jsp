@@ -234,7 +234,7 @@
 					data.forEach(function(item) {
 						var hour = getHours(item.userCreatetime);
 						if (staticsObj[hour]) {
-							staticsObj[hour] += statics[hour];
+							staticsObj[hour] += 1;
 						} else {
 							staticsObj[hour] = 1;
 						}
