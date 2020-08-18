@@ -35,20 +35,22 @@
 									<input name="searchCollection" type="text" disabled placeholder="Search Collections">
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search" disabled>Save search</a>
+							</div>							
+							<div class="c-table-table table-responsive-sm">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>supercate-id</th>
+											<th>iamge</th>
+											<th>supercate-name</th>
+											<th>status</th>
+											<th>order</th>
+											<th>operation</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
 							</div>
-							<table class="c-table-table table table-responsive-sm">
-								<thead>
-									<tr>
-										<th>supercate-id</th>
-										<th>iamge</th>
-										<th>supercate-name</th>
-										<th>status</th>
-										<th>order</th>
-										<th>operation</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
 							<div id="table-pagination"></div>
 						</div>
 					</div>

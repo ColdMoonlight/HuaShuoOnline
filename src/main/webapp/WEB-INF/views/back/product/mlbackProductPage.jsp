@@ -42,24 +42,26 @@
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
-							<table class="c-table-table table table-responsive-sm">
-								<thead>
-									<tr>
-										<th>id</th>
-										<th>image</th>
-										<th>name</th>
-										<th>basic-price</th>
-										<th>discount</th>
-										<th>tag</th>
-										<th>status</th>
-										<th>sale(s)</th>
-										<th>reivew(s)</th>
-										<th>supercate</th>
-										<th>operate</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
+							<div class="c-table-table table-responsive-sm">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>id</th>
+											<th>image</th>
+											<th>name</th>
+											<th>basic-price</th>
+											<th>discount</th>
+											<th>tag</th>
+											<th>status</th>
+											<th>sale(s)</th>
+											<th>reivew(s)</th>
+											<th>supercate</th>
+											<th>operate</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
 							<div id="table-pagination"></div>
 						</div>
 					</div>
@@ -736,8 +738,8 @@
 	            	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') : item.join('/');
 	            	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'" data-skuname="'+ (item.productskuName || item.join(',')) +'">'+
 	            		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
-	            		'<input type="number" class="product-sku-td product-sku-stock" min="0" data-stock="'+ item.productskuStock +'" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
-	            		'<input type="number" class="product-sku-td product-sku-price" min="0" data-price="'+ item.productskuMoney +'" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
+	            		'<input type="text" class="product-sku-td product-sku-stock" data-stock="'+ item.productskuStock +'" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
+	            		'<input type="text" class="product-sku-td product-sku-price" data-price="'+ item.productskuMoney +'" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
 	            		'<input type="text" class="product-sku-td product-sku-sku" data-sku="'+ item.productskuCode +'" value="'+ (item.productskuCode ? item.productskuCode : '') +'"/>' +
 	            		'<div class="product-sku-td product-sku-operate">'+ 
 		            		'<button class="btn btn-primary product-sku-edit" style="display: '+ (isCreate ? 'none' : 'inherit') +';">' +

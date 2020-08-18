@@ -29,24 +29,26 @@
 							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
-							<table class="c-table-table table table-responsive-sm">
-								<thead>
-									<tr>
-										<th>id</th>
-										<th>title</th>
-										<th>area</th>
-										<th>order</th>
-										<th>wap-image</th>
-										<th>wap-status</th>
-										<th>pc-image</th>
-										<th>pc-status</th>
-										<th>create-time</th>
-										<th>update-time</th>
-										<th>operate</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
+							<div class="c-table-table table-responsive-sm">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>id</th>
+											<th>title</th>
+											<th>area</th>
+											<th>order</th>
+											<th>wap-image</th>
+											<th>wap-status</th>
+											<th>pc-image</th>
+											<th>pc-status</th>
+											<th>create-time</th>
+											<th>update-time</th>
+											<th>operate</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
 							<div id="table-pagination"></div>
 						</div>
 					</div>

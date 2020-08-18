@@ -39,25 +39,27 @@
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
-							<table class="c-table-table table table-responsive-sm">
-								<thead>
-									<tr>
-										<th>id</th>
-										<th>name</th>
-										<th>parent-id</th>
-										<th>parent-name</th>
-										<th>tag</th>
-										<th>order</th>
-										<th>product/subject/colleciton</th>
-										<th>seo</th>
-										<th>ifInto</th>
-										<th>status</th>
-										<th>path-desc</th>
-										<th>operate</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
+							<div class="c-table-table table-responsive-sm">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>id</th>
+											<th>name</th>
+											<th>parent-id</th>
+											<th>parent-name</th>
+											<th>tag</th>
+											<th>order</th>
+											<th>product/subject/colleciton</th>
+											<th>seo</th>
+											<th>ifInto</th>
+											<th>status</th>
+											<th>path-desc</th>
+											<th>operate</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
 							<div id="table-pagination"></div>
 						</div>
 					</div>

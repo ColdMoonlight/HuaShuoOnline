@@ -204,6 +204,7 @@
 	font-weight: 600;
 	font-size: 1.6rem;	
 }
+.table-responsive-sm { overflow-x: auto; }
 .c-table,
 .c-form {
 	margin-top: 1rem;
@@ -580,7 +581,7 @@
 .product-sku-head-price,
 .product-sku-stock,
 .product-sku-price {
-	width: 60px;
+	width: 100px;
 	margin-left: .5rem;
 }
 .product-sku-head-sku,

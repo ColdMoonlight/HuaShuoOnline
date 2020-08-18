@@ -26,7 +26,7 @@
 				data: {"productName": productName},
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.mlbackProductResList);
+						callback && callback(descPrdouct(data.extend.mlbackProductResList));
 					} else {
 						refreshPageModal();
 					}
