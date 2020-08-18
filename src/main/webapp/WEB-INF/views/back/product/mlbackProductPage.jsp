@@ -738,8 +738,8 @@
 	            	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') : item.join('/');
 	            	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'" data-skuname="'+ (item.productskuName || item.join(',')) +'">'+
 	            		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
-	            		'<input type="number" class="product-sku-td product-sku-stock" min="0" data-stock="'+ item.productskuStock +'" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
-	            		'<input type="number" class="product-sku-td product-sku-price" min="0" data-price="'+ item.productskuMoney +'" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
+	            		'<input type="text" class="product-sku-td product-sku-stock" data-stock="'+ item.productskuStock +'" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
+	            		'<input type="text" class="product-sku-td product-sku-price" data-price="'+ item.productskuMoney +'" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
 	            		'<input type="text" class="product-sku-td product-sku-sku" data-sku="'+ item.productskuCode +'" value="'+ (item.productskuCode ? item.productskuCode : '') +'"/>' +
 	            		'<div class="product-sku-td product-sku-operate">'+ 
 		            		'<button class="btn btn-primary product-sku-edit" style="display: '+ (isCreate ? 'none' : 'inherit') +';">' +
