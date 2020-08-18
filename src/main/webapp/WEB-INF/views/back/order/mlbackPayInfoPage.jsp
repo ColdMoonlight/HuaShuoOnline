@@ -392,8 +392,8 @@
 			});
 		});
 		// View  Order
-		$(document.body).on('click', '.btn-view', function (e) {
-			var payinfoId = parseInt($(this).data('id'));
+		$(document.body).on('click', '.btn-view, .c-table-table tbody tr', function (e) {
+			var payinfoId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
 			getOneOrderData({
 				payinfoId: payinfoId
 			}, function(resData) {
