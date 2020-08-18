@@ -374,6 +374,8 @@
 
 			resData.subtotal = resData.prototal + resData.shipping - resData.coupon;
 
+			if (resData.coupon <= 0) $('.order-coupon-group').data('coupon', '');
+
 			return resData;
 		}
 		// reset order  cal
