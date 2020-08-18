@@ -1,7 +1,6 @@
 package com.atguigu.bean;
 
 public class MlbackActShowPro {
-	
     private Integer actshowproId;
 
     private String actshowproName;

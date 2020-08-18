@@ -271,7 +271,7 @@ public class MlbackCategoryController {
 	/**
 	  * 10.0	20200608
 	  * 通过产品名查看单条产品的详情
-	  * @param mlbackCategory-categorySeo
+	  * @param mlbackCategory-bycategorySeo
 	  * @return 
 	  */
 	 @RequestMapping(value="/searchBycategorySeo",method=RequestMethod.POST)

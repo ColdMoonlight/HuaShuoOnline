@@ -25,7 +25,7 @@ public class IfMobileUtils {
 	 * */
 	public static boolean  isMobileDevice(String requestHeader){
         /**
-         * android : 所有android设备
+         * android :所有android设备
          * mac os : iphone ipad
          * windows phone:Nokia等windows系统的手机
          */

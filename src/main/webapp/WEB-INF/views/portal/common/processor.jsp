@@ -2,8 +2,8 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-<!-- siteMap -->
-<meta name="google-site-verification" content="SAL4KVmok7Gucsll1buOMRYO2RQVPPNdF163maxOVSU" />
+<!-- siteMap 认证
+<meta name="google-site-verification" content="SAL4KVmok7Gucsll1buOMRYO2RQVPPNdF163maxOVSU" /> -->
 <!-- google-site-verification 网站地图所需 上线时打开
 <meta name="google-site-verification" content="S_nwEF7Oc2MiSJHmAoJ8M8QA8vIA9QxyUrFDSTq1-YI" /> -->
 <!-- icon -->
@@ -23,9 +23,9 @@ var ml = {
 	google_id: 'UA-148324397-1', // test
 	tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', 
 	//www.megalook.com的fbid googleid tidio
-	// facebook_id: '667403967094866', // megalook
-	// google_id: 'UA-145178467-1', // megalook
-	// "tidio": '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', 
+	//facebook_id: '667403967094866', // megalook
+	//google_id: 'UA-145178467-1', // megalook
+	//tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', 
 	//www.huashuohair.com的fbid googleid tidio
 	// facebook_id: '246433859565492', // huashuohair
 	// google_id: 'UA-128377932-1', // huashuohair
