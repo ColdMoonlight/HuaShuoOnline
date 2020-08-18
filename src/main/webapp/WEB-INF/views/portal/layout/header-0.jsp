@@ -70,13 +70,7 @@
 <!-- search result -->
 <div class="search-result-box">
 	<span class="icon close"></span>
-	<ul class="search-result">
-		<li class="search-result-item" data-name="bob">bob</li>
-		<li class="search-result-item" data-name="wigs">wigs</li>
-		<li class="search-result-item" data-name="bundle">bundle</li>
-		<li class="search-result-item" data-name="613">613</li>
-		<li class="search-result-item" data-name="Water">Water</li>
-	</ul>
+	<ul class="search-result"></ul>
 </div>
 <!-- split main start -->
 <main>
@@ -342,6 +336,15 @@
 			}
 		});
 	}
+	// render introduce search
+	function renderIntroduceSearch() {
+		var data = ["U part", "Deep Wave", "Closure Wig", "99J", "Highlight", "Bob", "Water Wave", "Pixie Cut", "Glueless", "Ponytail", "Piano Color", "Affordable", "Lace Closure Wig", "Full Lace Wig", "Bundles", "360 Lace Frontal Wig", "613"];
+		var searchRsultHtml = '';
+		data.forEach(function(item, idx) {
+			searchRsultHtml += '<li class="search-result-item" data-name="'+ item +'">'+ item +'</li>';
+		});
+		$('.search-result').html(searchRsultHtml);
+	}
 	// check user login or not
 	function checkUserLoginOrNot() {
 		var flag = false;
@@ -591,6 +594,7 @@
 		} else {
 			$('.search-result-box').css('top', $('.pc-header').outerHeight() - $('.pc-nav').height());
 		}
+		renderIntroduceSearch();
 	}
 	$('.pc-header .search-input, .wap-navbar .search').on('click', showSearchBox);
 	// close search-result box
@@ -603,7 +607,7 @@
 			$(this).removeClass('active').slideUp(300);				
 		}
 	});
-	$('.search-result-box .close, .search-result-item').on('click', function () {
+	$('.search-result-box .close').on('click', function () {
 		removeFixed();
 		if (window.innerWidth < 1023) {
 			$('.wap-navbar .search-box').slideUp();
@@ -621,8 +625,8 @@
 			checkSearchInput(searchName) && goToSearchProduct(searchName);
 		}
 	});
-	$('.search-result-item').on('click', function() {
-		var searchName = $(this).data('name');
+	$(document.body).on('click', '.search-result-item', function() {
+		var searchName = '' + $(this).data('name');
 		checkSearchInput(searchName) && goToSearchProduct(searchName);
 	});
 	var startY = 0,

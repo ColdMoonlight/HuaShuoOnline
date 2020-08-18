@@ -508,7 +508,7 @@
 			// customer note
 			$('.customer-note').html(data.mlfrontOrderPayOneRes.orderBuyMess || 'No notes from customer...');
 			// track
-			$('.track-number .value').html(data.mlfrontPayInfoOne.payinfoSendnum || '');
+			$('.track-number .value').html('('+ (data.mlfrontOrderPayOneRes.orderLogisticsname || '') +')' + (data.mlfrontPayInfoOne.payinfoSendnum || ''));
 			$('.ecpp-number .value').html(data.mlfrontPayInfoOne.payinfoEcpphsnum || '');
 			// shipping
 			$('.shipping-item.firstname .value').html(data.mlfrontAddressOne.addressUserfirstname || '');

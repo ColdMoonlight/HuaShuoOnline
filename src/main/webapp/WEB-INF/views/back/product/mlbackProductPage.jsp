@@ -523,7 +523,8 @@
 			allowDuplicates: true,
 			onTagExists: function(item, $tag) {
 				toastr.error('Youve already used the value "'+ item + '"');
-			}
+			},
+			trimValue: true
 		});
 		// delete product
 		$(document.body).on('click', '.btn-delete', function (e) {
@@ -732,8 +733,8 @@
             data = flag ? generateSkus(data) : data;
             if (data.length) {
 	            data.forEach(function(item) {
-	            	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') :item.join('/');
-	            	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'">'+
+	            	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') : item.join('/');
+	            	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'" data-skuname="'+ (item.productskuName || item.join(',')) +'">'+
 	            		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
 	            		'<input type="number" class="product-sku-td product-sku-stock" min="0" data-stock="'+ item.productskuStock +'" value="'+ (item.productskuStock ? item.productskuStock : 0) +'"/>' +
 	            		'<input type="number" class="product-sku-td product-sku-price" min="0" data-price="'+ item.productskuMoney +'" value="'+ (item.productskuMoney ? item.productskuMoney : 0) +'"/>' +
@@ -837,10 +838,10 @@
 				if (isCreate) {
 					renderProductSkus(getOptionData(), true);					
 				} else {
-					$('.product-sku-name').each(function(idx, item) {
-						var itemText = $(item).text().split('/');
+					$('.product-sku-item').each(function(idx, item) {
+						var itemText = $(item).data('skuname').split(',');
 						itemText.splice(itemText.indexOf(optionVal), 1);
-						$(item).text(itemText.join('/'));
+						$(item).data('skuname', itemText.join(',')).find('.product-sku-name').text(itemText.join('/'));
 					});
 				}
 			});
@@ -905,7 +906,7 @@
 				'stock': parentEl.find('.product-sku-stock').val(),
 				'price': parentEl.find('.product-sku-price').val(),
 				'sku': parentEl.find('.product-sku-sku').val(),
-				'name':  parentEl.find('.product-sku-name').text().split('/'),
+				'name': parentEl.data('skuname').split(','),
 			});
 		});
 		// initial product skus
@@ -1008,7 +1009,7 @@
 					    "productattrnameValues": optionVal.join(','),
 						"productattrnamePid": productId
 					}, function(data) {
-						optionValEl.tagsinput('add', val);
+						optionValEl.tagsinput('add', val.trim());
 					});
 				}
 			});
@@ -1040,10 +1041,9 @@
 			function getProductSkus() {
 				var skusArr = [];
 				$('.product-sku-item').each(function(idx, item) {
-					var productSkuName = $(item).find('.product-sku-name').text() && $(item).find('.product-sku-name').text().split('/').join(',');
 					skusArr.push({
 						"productskuId": ($(item).data('id') || null),
-						"productskuName": productSkuName,
+						"productskuName": $(item).data('skuname'),
 					    "productskuStock": $(item).find('.product-sku-stock').val(),
 					    "productskuMoney": $(item).find('.product-sku-price').val(),
 					    "productskuCode": $(item).find('.product-sku-sku').val(),
@@ -1228,7 +1228,8 @@
 					.tagsinput({
 						onTagExists: function(item, $tag) {
 							toastr.error('Youve already used the option "'+ item + '"');
-						}
+						},
+						trimValue: true
 					});
 			} else {
 				optionItem.find('.product-option-values')
@@ -1236,14 +1237,16 @@
 						onTagExists: function(item, $tag) {
 							toastr.error('Youve already used the option "'+ item + '"');
 						},
-						maxTags: 1
+						maxTags: 1,
+						trimValue: true
 					});
 			}
 			optionItem.find('.product-option-values')
 				.tagsinput({
 					onTagExists: function(item, $tag) {
 						toastr.error('Youve already used the option "'+ item + '"');
-					}
+					},
+					trimValue: true
 				});
 			$('.product-options').append(optionItem);
 		}
