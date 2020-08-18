@@ -140,7 +140,7 @@
 					async: false,
 					success: function (data) {
 						if (data.code == 100) {
-							callback && callback(data.extend.mlbackActShowProList);
+							callback && callback(data.extend.mlbackActShowProList || []);
 						}
 					}
 				});
@@ -156,7 +156,7 @@
 					async: false,
 					success: function (data) {
 						if (data.code == 100) {
-							callback && callback(data.extend.mlbackProductResList || []);
+							callback && callback(descPrdouct(data.extend.mlbackProductResList || []));
 						}
 					}
 				});

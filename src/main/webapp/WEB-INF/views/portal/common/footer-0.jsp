@@ -12,6 +12,19 @@ function removeFixed() {
 		overflow: 'auto',
 	});
 }
+/* product desc */
+function descPrdouct(data) {
+	return data.sort(function(item, item2) {
+		var compare = item.productHavesalenum - item2.productHavesalenum;
+		if (compare > 0) {
+			return -1;
+		} else if (compare < 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+	});
+}
 /* product add/sub */
 function productAdd(el, callback) {
 	var parentEl = el.parents('.product-qty');
@@ -541,7 +554,7 @@ function getProductSlideArea(callback) {
 		dataType: 'json',
 		contentType: 'application/json',
 		success: function (data) {
-			(data.code == 100)  && callback && callback(data.extend.mlbackProductResList);
+			(data.code == 100)  && callback && callback(descPrdouct(data.extend.mlbackProductResList || []));
 		}
 	});
 }
