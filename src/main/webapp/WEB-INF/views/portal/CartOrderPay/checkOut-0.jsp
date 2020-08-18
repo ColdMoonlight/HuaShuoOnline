@@ -305,7 +305,7 @@
 
 				var orderitemPrice = parseFloat((parseFloat(accuracyCal((($data.orderitemProductOriginalprice || 0) + parseFloat($data.orderitemPskuMoneystr || 0)), ($data.orderitemProductAccoff || 100))) * $data.orderitemPskuNumber).toFixed(2));
 				// bind single-product discount
-				if (couponData && couponData.couponProductOnlyTypeifHave && couponData.mlbackCouponOne && (couponData.mlbackCouponOne.couponProductonlyPidstr == $data.orderitemPid)) {
+				if (couponData && couponData.mlbackCouponOne && couponData.mlbackCouponOne.couponProductonlyType && (couponData.mlbackCouponOne.couponProductonlyPidstr == $data.orderitemPid)) {
 					if (couponData.mlbackCouponOne.couponType == '0') {
 						resData.coupon = couponData.mlbackCouponOne.couponPrice;
 					} else {
@@ -373,6 +373,8 @@
 			}
 
 			resData.subtotal = resData.prototal + resData.shipping - resData.coupon;
+
+			if (resData.coupon <= 0) $('.order-coupon-group').data('coupon', '');
 
 			return resData;
 		}

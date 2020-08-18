@@ -759,12 +759,12 @@
 		// buy now
 		$(document.body).on('click', '.buy-now', function() {
 			var reqData = getProductData();
-			isCorrectProduct() && reqData && fbq('track', 'InitiateCheckout', {
+			isCorrectProduct() && reqData && (fbq('track', 'InitiateCheckout', {
 				content_ids: reqData.cartitemProductId,
 				content_type: 'product',
 				value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)), reqData.cartitemProductActoff),
 				currency: "USD"
-			}), toBuyNow(reqData, goToCheckout);
+			}), toBuyNow(reqData, goToCheckout));
 		});
 		/* $('.paypal-button.paypal-now').on('click', function() {
 			var reqData = getProductData();

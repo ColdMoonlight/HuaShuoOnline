@@ -54,7 +54,7 @@
 		}
 		function renderCategorySeo(data, hasCategory) {
 			if (!hasCategory) renderCategorySelect(data.mlbackCategorydownList || []);
-			renderProductList(data.mlbackProductResList || []);
+			renderProductList(descPrdouct(data.mlbackProductResList || []));
 		}
 		function renderProductList(data) {
 			var htmlStr = '';

@@ -86,22 +86,24 @@
 							</div>
 						</div>
 						<div class="c-table-content">
-							<table class="c-table-table table table-responsive-sm">
-								<thead>
-									<tr>
-										<th>id</th>
-										<th>Profile Picture</th>
-										<th>Review Customer</th>
-										<th>Product Id</th>
-										<th>Review Time</th>
-										<th>Review Status</th>
-										<th>Rating Star</th>
-										<th>Review Source</th>
-										<th>operate</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
+							<div class="c-table-table table-responsive-sm">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>id</th>
+											<th>Profile Picture</th>
+											<th>Review Customer</th>
+											<th>Product Id</th>
+											<th>Review Time</th>
+											<th>Review Status</th>
+											<th>Rating Star</th>
+											<th>Review Source</th>
+											<th>operate</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
 							<div id="table-pagination"></div>
 						</div>
 					</div>
