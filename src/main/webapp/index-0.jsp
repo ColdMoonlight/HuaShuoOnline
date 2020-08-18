@@ -229,8 +229,13 @@
 				});
 			}
 			// render product slide
-			function renderProductSlide($el, typeCls, data) {
+			function renderProductSlide($el, typeCls, data, seo) {
+				var moreLink = seo ? '${APP_PATH}/search/' + seo + '.html' : 'javascript:;';
+				var $productMore = $('<div class="swiper-slide product-item product-more-img lazyload" data-src="${APP_PATH}/static/pc/img/product-more.jpg">' +
+						'<a href="'+ moreLink +'"><div class="product-img"></div><div class="product-more-desc"></div></a>' +
+					'</div>');
 				var productSlide = generateSwiperSlideProduct(data).addClass('showaera-container');
+				productSlide.find('.swiper-wrapper').append((seo && $productMore));
 				$el.append(productSlide)
 				new Swiper(('.' + typeCls + ' .swiper-container'), {
 					slidesPerView: 'auto',
@@ -298,7 +303,7 @@
 				var $el = $('#showAreaOne');
 				data && renderShowArea($el, data);
 				getIntroduceProductData(ml.area_one, function(data) {
-					data.length && renderProductSlide($el, 'showAreaOne', data.slice(0, 8));
+					data.length && renderProductSlide($el, 'showAreaOne', data.slice(0, 8), ml.area_one);
 				});
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,
@@ -310,7 +315,7 @@
 				var $el = $('#showAreaTwo');
 				data && renderShowArea($el, data);
 				getIntroduceProductData(ml.area_two, function(data) {
-					data.length && renderProductSlide($el, 'showAreaTwo', data.slice(0, 8));
+					data.length && renderProductSlide($el, 'showAreaTwo', data.slice(0, 8), ml.area_two);
 				});
 				new LazyLoad($el.find('.lazyload'), {
 					root: null,
