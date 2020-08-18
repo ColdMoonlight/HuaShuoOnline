@@ -204,6 +204,7 @@
 	font-weight: 600;
 	font-size: 1.6rem;	
 }
+.table-responsive-sm { overflow-x: auto; }
 .c-table,
 .c-form {
 	margin-top: 1rem;

@@ -58,27 +58,29 @@
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
-							<table class="c-table-table table table-responsive-sm">
-								<thead>
-									<tr>
-										<th>payId</th>
-										<th>orderid</th>
-										<th>plate-num</th>
-										<th>date</th>
-										<th>pay-status</th>
-										<th>price</th>
-										<th>customer</th>
-										<!-- <th>customer-email</th> -->
-										<th>paypal-num</th>
-										<th>paypal-status</th>
-										<th>ecpp-num</th>
-										<th>ecpp-status</th>
-										<th>tracking-num</th>
-										<th>operate</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
+							<div class="c-table-table table-responsive-sm">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>payId</th>
+											<th>orderid</th>
+											<th>plate-num</th>
+											<th>date</th>
+											<th>pay-status</th>
+											<th>price</th>
+											<th>customer</th>
+											<!-- <th>customer-email</th> -->
+											<th>paypal-num</th>
+											<th>paypal-status</th>
+											<th>ecpp-num</th>
+											<th>ecpp-status</th>
+											<th>tracking-num</th>
+											<th>operate</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
 							<div id="table-pagination"></div>
 						</div>
 					</div>

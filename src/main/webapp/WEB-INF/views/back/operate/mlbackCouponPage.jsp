@@ -26,27 +26,29 @@
 							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
-							<table class="c-table-table table table-responsive-sm">
-								<thead>
-									<tr>
-										<th>id</th>
-										<th>Name</th>
-										<th>couponCode</th>
-										<th>scope</th>
-										<th>couponType</th>
-										<th>couponPrice</th>
-										<th>couponPriceoff</th>
-										<th>Draw or no</th>
-										<th>Draw Image</th>
-										<th>Draw Weight</th>
-										<th>Product or no</th>
-										<th>product id/seo</th>
-										<th>state</th>
-										<th>operate</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
+							<div class="c-table-table table-responsive-sm">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>id</th>
+											<th>Name</th>
+											<th>couponCode</th>
+											<th>scope</th>
+											<th>couponType</th>
+											<th>couponPrice</th>
+											<th>couponPriceoff</th>
+											<th>Draw or no</th>
+											<th>Draw Image</th>
+											<th>Draw Weight</th>
+											<th>Product or no</th>
+											<th>product id/seo</th>
+											<th>state</th>
+											<th>operate</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
 							<div id="table-pagination"></div>
 						</div>
 					</div>

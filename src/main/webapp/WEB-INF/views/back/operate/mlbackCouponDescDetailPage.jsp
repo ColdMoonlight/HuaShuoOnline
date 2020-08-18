@@ -25,21 +25,23 @@
 							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
-							<table class="c-table-table table table-responsive-sm">
-								<thead>
-									<tr>
-										<th>id</th>
-										<th>Name</th>
-										<th>Discount Before</th>
-										<th>Discount</th>
-										<th>Code Before</th>
-										<th>Code</th>
-										<th>state</th>
-										<th>operate</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
+							<div class="c-table-table table-responsive-sm">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>id</th>
+											<th>Name</th>
+											<th>Discount Before</th>
+											<th>Discount</th>
+											<th>Code Before</th>
+											<th>Code</th>
+											<th>state</th>
+											<th>operate</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
 							<div id="table-pagination"></div>
 						</div>
 					</div>
