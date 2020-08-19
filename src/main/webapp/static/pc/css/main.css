@@ -1811,7 +1811,6 @@ footer li {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 999;
 	display: none;
 	width: 200px;
 	height: 200px;

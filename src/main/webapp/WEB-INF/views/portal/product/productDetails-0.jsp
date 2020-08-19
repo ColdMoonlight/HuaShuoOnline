@@ -18,7 +18,6 @@
 	</script>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
-	<link href="${APP_PATH}/static/pc/js/jqzoom/jqzoom.css" rel="stylesheet">
 	<style>
 		main {margin-top: 1rem;}
 		@media only screen and (max-width: 575px) {
@@ -128,9 +127,70 @@
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<!-- third lib -->
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
-	<script src="${APP_PATH}/static/pc/js/jqzoom/jquery.jqzoom.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
 	<script>
+		// imagezoom
+		(function($) {
+		    $.fn.imagezoom = function(options) {
+		        var settings = {
+		            xzoom: 300,
+		            yzoom: 300,
+		            scale: 3
+		        };
+		        var self = this;
+		        if (options) {
+		            $.extend(settings, options);
+		        }
+		        $(this).bind("mouseover",  function(ev) {
+		            var imageLeft = $(this).offset().left;
+		            var imageTop = $(this).offset().top;
+		            var imageWidth = $(this).get(0).offsetWidth;
+		            var imageHeight = $(this).get(0).offsetHeight;
+		            var boxLeft = $(this).parent().offset().left;
+		            var boxTop = $(this).parent().offset().top;
+		            var boxWidth = $(this).parent().width();
+		            var boxHeight = $(this).parent().height();
+		            var imageUrl = $(this).attr("rel");
+		
+		            if ($("div.zoomDiv").get().length == 0) {
+		                $(document.body).append("<div class='zoomDiv'><img class='bigimg' src='" + imageUrl + "'/></div>");
+		            }
+		
+		            $(this).css('cursor', 'crosshair');
+		
+		            $("div.zoomDiv").css({ top: boxTop, left: (boxLeft + boxWidth) });
+		            $("div.zoomDiv").width(settings.xzoom);
+		            $("div.zoomDiv").height(settings.yzoom);
+		            $("div.zoomDiv .bigimg").width(settings.xzoom * settings.scale);
+		            $("div.zoomDiv .bigimg").height(settings.yzoom * settings.scale);
+		            $("div.zoomDiv").show();
+		
+		            $(document.body).mousemove(function(e) {
+		                var mouse = {
+		                		x: e.pageX,
+		                		y: e.pageY
+		                	};
+		                if (mouse.x < imageLeft || (mouse.x > imageLeft + imageWidth) || mouse.y < imageTop || (mouse.y > imageTop + imageHeight)) {
+		                    mouseOutImage();
+		                } else {                	
+		                	var bigWidth = $(".bigimg").get(0).offsetWidth;
+		                	var bigHeight = $(".bigimg").get(0).offsetHeight;
+		                	var scalex = boxWidth / (bigWidth - settings.xzoom);
+		                	var scaley = boxHeight / (bigHeight - settings.yzoom);
+		                	var xposs = mouse.x - imageLeft;
+		                	var yposs = mouse.y - imageTop;
+		                	
+		                	$("div.zoomDiv").get(0).scrollLeft = xposs / scalex;
+		                	$("div.zoomDiv").get(0).scrollTop = yposs / scaley;
+		                }
+		            });
+		        });
+		        function mouseOutImage() {
+		            $(document.body).unbind("mousemove");
+		            $("div.zoomDiv").remove();
+		        }
+		    }
+		})(jQuery);
 		// fly bubble
 		function generateFlyBubble(event, callback) {
 			$('<img class="ml-flyer" src="'+ mainUrl +'" />').fly({
