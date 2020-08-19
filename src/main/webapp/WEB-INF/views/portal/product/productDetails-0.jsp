@@ -244,7 +244,7 @@
 		// render product media
 		function renderProductMedia(data) {
 			function stopVideo () {
-				$('#ml-video')[0].pause();
+				$('#ml-video')[0] && $('#ml-video')[0].pause();
 			}
 			var htmlStr = '';
 			var htmlVideoThumb = '';
