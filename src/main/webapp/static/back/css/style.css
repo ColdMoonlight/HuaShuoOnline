@@ -4673,16 +4673,14 @@ button.close {
 }
 
 .card-title {
-	padding: 2rem;
 	padding-bottom: 0;
 }
 .card-title-name {
-	margin-bottom: 1rem;
 	font-weight: 400;
 	font-size: 1.5rem;
 }
-.card-body{  
-	padding: 2rem;
+.card-body {  
+	padding: 1rem .5rem;
 }
 
 /* custom text style */
