@@ -27,8 +27,11 @@
 								<input class="form-control daterangetimepicker" id="search-ecpp-time" type="text" />
 							</div>
 						</div>
-						<div class="ecpp-btn-group col-md-9">
+						<!-- <div class="ecpp-btn-group col-md-3">
 							<button class="btn btn-secondary ecpp-verify-sync">checkEcppIfVerify</button>						
+							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
+						</div> -->
+						<div class="col-md-3">					
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
 						</div>
 					</div>
@@ -315,6 +318,10 @@
 	<script>
 		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "orders";
 		// init
+		var date = new Date();
+		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
+		$('#search-payinfo-create-time').val(ymd + ' 00:00:00');
+		$('#search-payinfo-confirm-time').val(ymd + ' 23:59:59');
 		bindDateRangeEvent(function(startTime, endTime) {
 			$('#search-payinfo-create-time').val(startTime);
 			$('#search-payinfo-confirm-time').val(endTime);
@@ -364,7 +371,7 @@
 			});
 		});
 		//checkEcppIfVerify
-		$('.ecpp-verify-sync').on('click', function() {
+		/* $('.ecpp-verify-sync').on('click', function() {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlfrontPayInfo/checkEcppIfVerify",
@@ -390,7 +397,7 @@
 					$('.c-mask').hide();
 				}
 			});
-		});
+		}); */
 		// View  Order
 		$(document.body).on('click', '.btn-view, .c-table-table tbody tr', function (e) {
 			var payinfoId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
