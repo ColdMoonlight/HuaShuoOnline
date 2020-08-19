@@ -545,7 +545,8 @@
 		// callback get search data
 		function getSearchReviewsData() {
 			$('.c-mask').show();
-
+			var date = new Date();
+			var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
 			$.ajax({
 				url: "${APP_PATH}/MlfrontReview/selectMlblackReviewListBySearch",
 				type: "post",
@@ -554,8 +555,8 @@
 					'reviewUid': parseInt(getPageNum()),
 					'reviewSupercateidstr': $('#search-supercate').val() == '-1' ? 0 : $('#search-supercate').val(),
 					'reviewPid': $('#search-product').val() == '-1' ? 0 : parseInt($('#search-product').val()),
-					'reviewCreatetime': $('#search-review-create-time').val(),
-					'reviewMotifytime': $('#search-review-confirm-time').val(),
+					'reviewCreatetime': ($('#search-review-create-time').val() || (ymd + ' 00:00:00')),
+					'reviewMotifytime': ($('#search-review-confirm-time').val() || (ymd + ' 23:59:59')),
 					'reviewStatus': $('#search-review-status').val() == '-1' ? 999 : $('#search-review-status').val(),
 					'reviewFrom': $('#search-review-source').val() == '-1' ? 999 : $('#search-review-source').val(),
 					'reviewProstarnum': $('#search-review-star').val() == '-1' ? 0 : $('#search-review-star').val(),
