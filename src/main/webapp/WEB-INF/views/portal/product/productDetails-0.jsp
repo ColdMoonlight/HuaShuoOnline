@@ -686,7 +686,7 @@
 		$(window).on('resize', imageZoomEvent);
 		// image zoom resize
 		function imageZoomEvent() {
-			if (window.innerWidth < 1024) {
+			if (window.innerWidth < 1300) {
 				$('.product-slide.product-zoom').find('.img').off('mouseover');
 			} else {
 				$('.product-slide.product-zoom').find('.img').imagezoom();
