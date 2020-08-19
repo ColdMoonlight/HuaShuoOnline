@@ -584,7 +584,6 @@ public class MlfrontPayInfoController {
 
 	private void sendVerfirtEmail(String payinfoPlateNum,String userEmail) {
 		String toCustomerVerifyInfoStr = "";
-		
 		//查询
 		MlbackOrderStateEmail mlbackOrderStateEmailReq = new MlbackOrderStateEmail();
 		mlbackOrderStateEmailReq.setOrderstateemailName("Verifyed");
@@ -599,17 +598,14 @@ public class MlfrontPayInfoController {
 			
 			toCustomerVerifyInfoStr = getToCustomerVerifyEmail(payinfoPlateNum);
 		}
-		//11.1
+		//提醒客户准备发货
 		try {
-			//提醒客户准备发货
 			String getToEmail = userEmail;
 			EmailUtilshtml.readyEmailVerifySuccess(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
 			EmailUtilshtmlCustomer.readyEmailVerifyCustomer(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	private String getToCustomerVerifyEmailManage(MlbackOrderStateEmail mlbackOrderStateEmailOne,String payinfoPlateNum) {
@@ -642,8 +638,8 @@ public class MlfrontPayInfoController {
 		Message=Message+"Telephone/SMS:"+Telephone+"<br>";
 		return Message;
 	}
-		
-	//11.1
+	
+	//ToCustomerVerifyEmail
 	private String getToCustomerVerifyEmail(String payinfoPlateNum) {
 		String Message ="";
 		Message =Message+"Hi gorgeous girl ,"+"<br><br>";

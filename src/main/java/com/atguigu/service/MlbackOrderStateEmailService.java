@@ -32,12 +32,10 @@ public class MlbackOrderStateEmailService {
 		return intReslut;
 	}
 	
-	
 	/**
 	 * @author Shinelon
 	 * @param 
 	 * @exception 更新本条信息
-	 * 
 	 * */
 	public int updateByPrimaryKeySelective(MlbackOrderStateEmail MlbackOrderStateEmail) {
 		int  intReslut = mlbackOrderStateEmailMapper.updateByPrimaryKeySelective(MlbackOrderStateEmail);
@@ -48,7 +46,6 @@ public class MlbackOrderStateEmailService {
 	 * @author Shinelon
 	 * @param MlbackOrderStateEmail
 	 * @exception 查看用户信息是否存在
-	 * 
 	 * */
 	public List<MlbackOrderStateEmail> selectMlbackOrderStateEmailById(MlbackOrderStateEmail MlbackOrderStateEmail) {
 		List<MlbackOrderStateEmail>  MlbackOrderStateEmailList = mlbackOrderStateEmailMapper.selectMlbackOrderStateEmailById(MlbackOrderStateEmail);
@@ -58,8 +55,7 @@ public class MlbackOrderStateEmailService {
 	/**
 	 * @author Shinelon
 	 * @param 
-	 * @exception 查看全部用户信息
-	 * 
+	 * @exception 查看全部
 	 * */
 	public List<MlbackOrderStateEmail> selectMlbackOrderStateEmailGetAll() {
 		List<MlbackOrderStateEmail>  MlbackOrderStateEmailList = mlbackOrderStateEmailMapper.selectMlbackOrderStateEmailGetAll();
