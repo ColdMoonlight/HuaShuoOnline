@@ -157,7 +157,7 @@ public class EcppUpdateWebStatusUtil {
     	}else if("113".equals(order_status)){
 			OrderStatusCode="UOO";//审核完成
     	}else if("114".equals(order_status)){
-			OrderStatusCode="POO";
+			OrderStatusCode="POO";//审核完成
     	}else if("115".equals(order_status)){
 			OrderStatusCode="UUF";
     	}else if("116".equals(order_status)){
@@ -187,7 +187,7 @@ public class EcppUpdateWebStatusUtil {
     	}else if("128".equals(order_status)){
 			OrderStatusCode="PUH";
     	}else if("129".equals(order_status)){
-			OrderStatusCode="PPP";
+			OrderStatusCode="PPP";//审核完成
     	}else if("130".equals(order_status)){
 			OrderStatusCode="UPO";
     	}else if("131".equals(order_status)){
