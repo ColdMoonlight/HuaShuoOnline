@@ -121,7 +121,6 @@
 					type: "post",
 					dataType: "json",
 					contentType: 'application/json',
-					async: false,
 					success: function (data) {
 						if (data.code == 100) {
 							callback && callback(data.extend.mlbackShowAreaOne);
@@ -153,7 +152,6 @@
 					type: 'post',
 					dataType: 'json',
 					contentType: 'application/json',
-					async: false,
 					success: function (data) {
 						if (data.code == 100) {
 							callback && callback(descPrdouct(data.extend.mlbackProductResList || []));
@@ -169,7 +167,6 @@
 					type: "post",
 					dataType: 'json',
 					contentType: 'application/json',
-					async: false,
 					success: function (data) {
 						if (data.code == 100) {
 							callback && callback(data.extend);
