@@ -27,8 +27,11 @@
 								<input class="form-control daterangetimepicker" id="search-ecpp-time" type="text" />
 							</div>
 						</div>
-						<div class="ecpp-btn-group col-md-9">
+						<!-- <div class="ecpp-btn-group col-md-3">
 							<button class="btn btn-secondary ecpp-verify-sync">checkEcppIfVerify</button>						
+							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
+						</div> -->
+						<div class="col-md-3">					
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
 						</div>
 					</div>
@@ -95,7 +98,7 @@
 					</div>
 					<div class="c-form row">
 						<!-- left panel -->
-						<div class="left-panel col-lg-7 col-md-12">
+						<div class="left-panel col-lg-8 col-md-12">
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">Order Info</div>
@@ -104,8 +107,165 @@
 									<div class="order-list">
 										<p>no product for order...</p>
 									</div>
-								</div>	
+									<div class="pay-list">
+										<div class="pay-item">
+											<div class="pay-item-title">Product Total</div>
+											<div class="pay-prototal">
+												<div class="name"></div>
+												<div class="value">$0.00</div>
+											</div>
+										</div>
+										<div class="pay-item">
+											<div class="pay-item-title">Discount</div>
+											<div class="pay-discount">
+												<div class="name"></div>
+												<div class="value">-$0.00</div>
+											</div>
+										</div>
+										<div class="pay-item">
+											<div class="pay-item-title">Shipping</div>
+											<div class="pay-shipping">
+												<div class="name"></div>
+												<div class="value">$0.00</div>
+											</div>
+										</div>
+										<div class="pay-item">
+											<div class="pay-item-title">Total</div>
+											<div class="pay-total">
+												<div class="name"></div>
+												<div class="value">$0.00</div>
+											</div>
+										</div>									
+									</div>
+									<div class="pay-final sum-item">
+										<div class="name">Paid by customer</div>
+										<div class="value">$0.00</div>
+									</div>
+									<div class="customer-note">
+										<div class="name">Customer Note</div>
+										<div class="value">No notes from customer...</div>
+									</div>
+								</div>
 							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="card">
+										<div class="card-title">
+											<div class="card-title-name">Shipping Address</div>
+										</div>
+										<div class="card-body shipping-list">
+											<div class="shipping-item firstname">
+												<div class="name">First Name</div>
+												<div class="value"></div>
+											</div>
+											<div class="shipping-item lastname">
+												<div class="name">Last Name</div>
+												<div class="value"></div>
+											</div>
+											<div class="shipping-item email">
+												<div class="name">E-mail</div>
+												<div class="value"></div>
+											</div>
+											<div class="shipping-item phone">
+												<div class="name">Phone</div>
+												<div class="value"></div>
+											</div>
+											<div class="shipping-item country">
+												<div class="name">Country</div>
+												<div class="value"></div>
+											</div>
+											<div class="shipping-item province">
+												<div class="name">Province/State</div>
+												<div class="value"></div>
+											</div>
+											<div class="shipping-item city">
+												<div class="name">city</div>
+												<div class="value"></div>
+											</div>
+											<div class="shipping-item postcode">
+												<div class="name">Post Code</div>
+												<div class="value"></div>
+											</div>									
+											<div class="shipping-item address">
+												<div class="name">Address Details</div>
+												<div class="value"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="card">
+										<div class="card-title">
+											<div class="card-title-name">Billing Address</div>
+										</div>
+										<div class="card-body billing-list">
+											<div class="billing-item paymentid">
+												<div class="name">Payment ID</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item username">
+												<div class="name">User Name</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item email">
+												<div class="name">E-mail</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item country">
+												<div class="name">Country Code</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item province">
+												<div class="name">Province/State</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item city">
+												<div class="name">city</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item postcode">
+												<div class="name">Post Code</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item line1">
+												<div class="name">line 1</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item line2">
+												<div class="name">line 2</div>
+												<div class="value"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- right panel -->
+						<div class="right-panel col-lg-4 col-md-12">
+							<!-- <div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Customer Note</div>
+								</div>
+								<div class="card-body">
+									<div class="customer-note">No notes from customer...</div>
+								</div>
+							</div> -->
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Tracking</div>
+								</div>
+								<div class="card-body">
+									<div class="track-number track-item">
+										<div class="name">Tracking Number</div>
+										<div class="value"></div>
+									</div>
+									<div class="ecpp-number track-item">
+										<div class="name">ECPP Number</div>
+										<div class="value"></div>
+									</div>
+								</div>
+							</div>
+							
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">Pay Info</div>
@@ -146,154 +306,8 @@
 									<div class="pay-end-time sum-item">
 										<div class="name">Pay End Time</div>
 										<div class="value"></div>
-									</div>
-									<div class="pay-list">
-										<div class="pay-item">
-											<div class="pay-item-title">Product Total</div>
-											<div class="pay-prototal">
-												<div class="name"></div>
-												<div class="value">$0.00</div>
-											</div>
-										</div>
-										<div class="pay-item">
-											<div class="pay-item-title">Discount</div>
-											<div class="pay-discount">
-												<div class="name"></div>
-												<div class="value">-$0.00</div>
-											</div>
-										</div>
-										<div class="pay-item">
-											<div class="pay-item-title">Shipping</div>
-											<div class="pay-shipping">
-												<div class="name"></div>
-												<div class="value">$0.00</div>
-											</div>
-										</div>
-										<div class="pay-item">
-											<div class="pay-item-title">Total</div>
-											<div class="pay-total">
-												<div class="name"></div>
-												<div class="value">$0.00</div>
-											</div>
-										</div>									
-									</div>
-									<div class="pay-final sum-item">
-										<div class="name">Paid by customer</div>
-										<div class="value">$0.00</div>
-									</div>
-								</div>	
-							</div>
-						</div>
-						<!-- right panel -->
-						<div class="right-panel col-lg-5 col-md-12">
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Customer Note</div>
-								</div>
-								<div class="card-body">
-									<div class="customer-note">No notes from customer...</div>
-								</div>
-							</div>
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Tracking</div>
-								</div>
-								<div class="card-body">
-									<div class="track-number track-item">
-										<div class="name">Tracking Number</div>
-										<div class="value"></div>
-									</div>
-									<div class="ecpp-number track-item">
-										<div class="name">ECPP Number</div>
-										<div class="value"></div>
-									</div>
-								</div>
-							</div>
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Shipping Address</div>
-								</div>
-								<div class="card-body shipping-list">
-									<div class="shipping-item firstname">
-										<div class="name">First Name</div>
-										<div class="value"></div>
-									</div>
-									<div class="shipping-item lastname">
-										<div class="name">Last Name</div>
-										<div class="value"></div>
-									</div>
-									<div class="shipping-item email">
-										<div class="name">E-mail</div>
-										<div class="value"></div>
-									</div>
-									<div class="shipping-item phone">
-										<div class="name">Phone</div>
-										<div class="value"></div>
-									</div>
-									<div class="shipping-item country">
-										<div class="name">Country</div>
-										<div class="value"></div>
-									</div>
-									<div class="shipping-item province">
-										<div class="name">Province/State</div>
-										<div class="value"></div>
-									</div>
-									<div class="shipping-item city">
-										<div class="name">city</div>
-										<div class="value"></div>
-									</div>
-									<div class="shipping-item postcode">
-										<div class="name">Post Code</div>
-										<div class="value"></div>
 									</div>									
-									<div class="shipping-item address">
-										<div class="name">Address Details</div>
-										<div class="value"></div>
-									</div>
-								</div>
-							</div>
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Billing Address</div>
-								</div>
-								<div class="card-body billing-list">
-									<div class="billing-item paymentid">
-										<div class="name">Payment ID</div>
-										<div class="value"></div>
-									</div>
-									<div class="billing-item username">
-										<div class="name">User Name</div>
-										<div class="value"></div>
-									</div>
-									<div class="billing-item email">
-										<div class="name">E-mail</div>
-										<div class="value"></div>
-									</div>
-									<div class="billing-item country">
-										<div class="name">Country Code</div>
-										<div class="value"></div>
-									</div>
-									<div class="billing-item province">
-										<div class="name">Province/State</div>
-										<div class="value"></div>
-									</div>
-									<div class="billing-item city">
-										<div class="name">city</div>
-										<div class="value"></div>
-									</div>
-									<div class="billing-item postcode">
-										<div class="name">Post Code</div>
-										<div class="value"></div>
-									</div>
-									<div class="billing-item line1">
-										<div class="name">line 1</div>
-										<div class="value"></div>
-									</div>
-									<div class="billing-item line2">
-										<div class="name">line 2</div>
-										<div class="value"></div>
-									</div>
-								</div>
+								</div>	
 							</div>
 						</div>
 					</div>
@@ -315,6 +329,10 @@
 	<script>
 		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "orders";
 		// init
+		var date = new Date();
+		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
+		$('#search-payinfo-create-time').val(ymd + ' 00:00:00');
+		$('#search-payinfo-confirm-time').val(ymd + ' 23:59:59');
 		bindDateRangeEvent(function(startTime, endTime) {
 			$('#search-payinfo-create-time').val(startTime);
 			$('#search-payinfo-confirm-time').val(endTime);
@@ -364,7 +382,7 @@
 			});
 		});
 		//checkEcppIfVerify
-		$('.ecpp-verify-sync').on('click', function() {
+		/* $('.ecpp-verify-sync').on('click', function() {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlfrontPayInfo/checkEcppIfVerify",
@@ -390,7 +408,7 @@
 					$('.c-mask').hide();
 				}
 			});
-		});
+		}); */
 		// View  Order
 		$(document.body).on('click', '.btn-view, .c-table-table tbody tr', function (e) {
 			var payinfoId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
@@ -508,7 +526,7 @@
 			$('.pay-final .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || 0).toFixed(2));
 			
 			// customer note
-			$('.customer-note').html(data.mlfrontOrderPayOneRes.orderBuyMess || 'No notes from customer...');
+			$('.customer-note .value').html(data.mlfrontOrderPayOneRes.orderBuyMess || 'No notes from customer...');
 			// track
 			$('.track-number .value').html('('+ (data.mlfrontOrderPayOneRes.orderLogisticsname || '') +')' + (data.mlfrontPayInfoOne.payinfoSendnum || ''));
 			$('.ecpp-number .value').html(data.mlfrontPayInfoOne.payinfoEcpphsnum || '');

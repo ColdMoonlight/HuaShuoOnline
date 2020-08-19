@@ -106,7 +106,7 @@ function renderCouponAreaData(data) {
 	function generateCouponAreaDetailsListData(data) {
 		var html = '';
 		data.forEach(function(item, idx) {
-			html += '<li>'+ item.coupondescdetailStrengthpre +'&nbsp;<span>&nbsp;'+ item.coupondescdetailStrength +'&nbsp;</span>&nbsp;'+ item.coupondescdetailCodepre +'&nbsp;<b>&nbsp;'+ item.coupondescdetailCode +'</b></li>';
+			html += '<li>'+ item.coupondescdetailStrengthpre +'&nbsp;<span class="text-color">&nbsp;'+ item.coupondescdetailStrength +'&nbsp;</span>&nbsp;'+ item.coupondescdetailCodepre +'&nbsp;<b>&nbsp;'+ item.coupondescdetailCode +'</b></li>';
 		});
 		return html;
 	}

@@ -1978,7 +1978,10 @@ footer li {
 .product-coupons li {
 	list-style: none;
 }
-
+.product-coupons .text-color {
+	color: #ff1671;
+	font-weight: 500;
+}
 @media only screen and (max-width: 575px) {
 	.product-coupons {	
 		padding: .5rem;
