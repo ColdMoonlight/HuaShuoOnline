@@ -466,7 +466,7 @@
 			// generate chart
 			function generateChart($el, coordinates) {
 				// console.log(coordinates)
-				$el.css('height', parseInt($el.width() / 16 * 9));
+				$el.css('height', 300);
 				var instance = echarts.init($el[0]);
 				instance.setOption({
 					enableBasicAutocompletion: !0,
