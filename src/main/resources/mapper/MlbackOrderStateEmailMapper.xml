@@ -117,4 +117,23 @@
       orderStateEmail_five = #{orderstateemailFive,jdbcType=VARCHAR}
     where orderStateEmail_id = #{orderstateemailId,jdbcType=INTEGER}
   </update>
+    
+  <!-- selectMlbackOrderStateEmailById -->
+  <select id="selectMlbackOrderStateEmailById" parameterType="com.atguigu.bean.MlbackOrderStateEmail"  resultMap="BaseResultMap">
+    select *
+    from tb_mlback_orderstateemail
+    where orderStateEmail_id = #{orderstateemailId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- selectMlbackOrderStateEmailGetAll -->
+  <select id="selectMlbackOrderStateEmailGetAll" parameterType="com.atguigu.bean.MlbackOrderStateEmail"  resultMap="BaseResultMap">
+    select *
+    from tb_mlback_orderstateemail order by orderStateEmail_id desc
+  </select>
+  
+  <!-- selectMlbackOrderStateEmailByName -->
+  <select id="selectMlbackOrderStateEmailByName" parameterType="com.atguigu.bean.MlbackOrderStateEmail"  resultMap="BaseResultMap">
+    select *
+    from tb_mlback_orderstateemail where orderStateEmail_name = #{orderstateemailName,jdbcType=VARCHAR}
+  </select>
 </mapper>
