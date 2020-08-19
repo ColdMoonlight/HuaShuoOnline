@@ -484,6 +484,15 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 		setPageNum(1);
 		// setActiveItemNum(0);
 	});
+	/* c-menu event */
+	$('.c-menu').on('click', function() {
+		var $sidebarMenu = $('#sidebar-menu');
+		if ($sidebarMenu.hasClass('show')) {
+			$sidebarMenu.removeClass('show').removeAttr('style');
+		} else {
+			$sidebarMenu.addClass('show').css('left', 0);
+		}
+	});
 	/* Accuracy of calculation */
 	function accuracyCal(origin, dis) {
 		var priceArr = (origin * dis / 100).toString().split('.');
