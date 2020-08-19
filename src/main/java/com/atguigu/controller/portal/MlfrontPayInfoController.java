@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlPaypalShipAddress;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackAreafreight;
+import com.atguigu.bean.MlbackOrderStateEmail;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
@@ -27,6 +28,7 @@ import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlPaypalShipAddressService;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackAreafreightService;
+import com.atguigu.service.MlbackOrderStateEmailService;
 import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
@@ -35,6 +37,8 @@ import com.atguigu.service.MlfrontUserService;
 import com.atguigu.ship.Classes.ConnectionAPI;
 import com.atguigu.ship.Classes.Tracking;
 import com.atguigu.utils.EcppUpdateWebStatusUtil;
+import com.atguigu.utils.EmailUtilshtml;
+import com.atguigu.utils.EmailUtilshtmlCustomer;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.vo.AfterShipReturn;
 import com.atguigu.vo.EcppTrackItem;
@@ -66,6 +70,9 @@ public class MlfrontPayInfoController {
 	
 	@Autowired
 	MlPaypalShipAddressService mlPaypalShipAddressService;
+	
+	@Autowired
+	MlbackOrderStateEmailService mlbackOrderStateEmailService;
 	
 //	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
@@ -335,11 +342,6 @@ public class MlfrontPayInfoController {
 	@ResponseBody
 	public Msg checkEcppIfVerify(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo){
 		
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
-//		if(mlbackAdmin==null){
-//			//SysUsers对象为空
-//			return Msg.fail().add("resMsg", "请重新登陆");
-//		}else{
 			String startTime = mlfrontPayInfo.getPayinfoCreatetime();
 			String endTime = mlfrontPayInfo.getPayinfoMotifytime();
 			
@@ -449,7 +451,219 @@ public class MlfrontPayInfoController {
 				//当前没有状态为已支付的数据
 				return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子,无改变");
 			}
-//		}
+	}
+	
+	/**7.0	zsh200720
+	 * 检查已支付的单子,是否在ecpp上已经审核
+	 * 1,收到前台的查询时间范围,后台查询这些时间内的已支付订单,
+	 * 2,便利这些单子,用token+H号,去查询本条的状态,
+	 * 3.1如果是审核完毕,就在我方系统中,将本条改成已经审核的状态
+	 * 3.2如果是已发货,就在我方系统中,将本单改成已经已发货的状态;并且把哪家物流的名字+track_no,同步回我方后台
+	 * @param Integer payInfoId,Integer orderId,String ecppHSnum,Integer orderId,
+	 */
+	@RequestMapping(value="/checkEcppOneIfVerify",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg checkEcppOneIfVerify(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo){
+		
+		Integer payInfoId = mlfrontPayInfo.getPayinfoId();
+		Integer orderId = mlfrontPayInfo.getPayinfoOid();
+		String payinfoPlateNumInto = mlfrontPayInfo.getPayinfoPlatenum();
+		String payinfoUemailInto = mlfrontPayInfo.getPayinfoUemail();
+		
+		//取出mlfrontPayInfoOne中的Ecpphsnum中的信息
+		String ecppHSnum = mlfrontPayInfo.getPayinfoEcpphsnum();
+		String order_sn = ecppHSnum;
+		String token = (String) PropertiesUtil.getProperty("megalook.properties", "ecppToken");
+		
+		String soapXML = EcppUpdateWebStatusUtil.getXML(token,order_sn);
+		
+		MlfrontPayInfo mlfrontPayInfoUpdate = new MlfrontPayInfo();
+		
+		try {
+			EcppTrackItem ecppTrackItem = EcppUpdateWebStatusUtil.send(token,soapXML);
+			String ecppOrderStatusCode = ecppTrackItem.getEcppOrderStatusCode();
+			MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+    		mlfrontOrderReq.setOrderId(orderId);
+    		
+			if("OOO".equals(ecppOrderStatusCode)){
+				//131-OOO-订单核对完成(已发货)
+				//更新成-发货-状态
+				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+        		mlfrontPayInfoUpdate.setPayinfoStatus(3);//payinfo状态为3,已发货
+        		mlfrontPayInfoUpdate.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo());
+        		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+        		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+        		
+        		//查询本条的order信息,更新物流单号+物流名称
+        		mlfrontOrderReq.setOrderLogisticsname(ecppTrackItem.getShippingName());
+        		mlfrontOrderReq.setOrderLogisticsnumber(ecppTrackItem.getEcppOrderTrackNo());
+        		mlfrontOrderReq.setOrderStatus(4);//orderStatus == 4已发货,待接收
+        		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+        		
+        		String orderLogisticsname = ecppTrackItem.getShippingName();
+        		String orderLogisticsnumber = ecppTrackItem.getEcppOrderTrackNo();
+        		String payinfoPlateNum = mlfrontPayInfo.getPayinfoPlatenum();
+        		
+        		//10.1向afterShip官方发送物流添加按钮
+        		try {
+        			//向物流中插入物流单号,订单号(Item,价格),传递orderId,即可全部走查询
+        			AfterShipReturn afterShipReturn = new AfterShipReturn();
+        			afterShipReturn = addTrackingNumberIntoAfterShip(orderId,payinfoPlateNum,orderLogisticsnumber);
+        			String afterOperateStatus = afterShipReturn.getAfterOperateStatus();
+        			
+        			if("1".equals(afterOperateStatus)){
+        				//往aftership中插入成功
+        				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip成功,返回的物流名为:"+afterShipReturn.getAfterShipSlugName());
+        				orderLogisticsname  = afterShipReturn.getAfterShipSlugName();
+        				//更新order表中本条成最终的物流信息的物流名称
+        				MlfrontOrder mlfrontOrderAfterReq = new MlfrontOrder();
+        				mlfrontOrderAfterReq.setOrderId(orderId);
+        				mlfrontOrderAfterReq.setOrderLogisticsname(orderLogisticsname);
+        				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterReq);
+        			}else{
+        				//往aftership没有插入成功
+        				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败");
+        			}
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        			System.out.println("aftership中插入物流单号--有异常");
+        			System.out.println(e.getMessage());
+        		}
+			}else if("UOO".equals(ecppOrderStatusCode)){
+				//113-UOO-客服审核完成的状态,就更新成审核完毕的状态
+				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+        		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,已审单//orderStatus == 3已审单,待发货
+        		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+        		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+        		
+        		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
+        		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+        		//发审核完毕的邮件通知客户
+        		sendVerfirtEmail(payinfoPlateNumInto,payinfoUemailInto);
+			}else if("POO".equals(ecppOrderStatusCode)){
+				//114-POO-客服审核完成的状态,就更新成审核完毕的状态
+				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+        		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,已审单//orderStatus == 3已审单,待发货
+        		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+        		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+        		
+        		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
+        		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+        		//发审核完毕的邮件通知客户
+        		sendVerfirtEmail(payinfoPlateNumInto,payinfoUemailInto);
+			}else if("PPP".equals(ecppOrderStatusCode)){
+				//129-PPP-客服审核完成的状态,就更新成审核完毕的状态
+				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+        		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,已审单//orderStatus == 3已审单,待发货
+        		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+        		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+        		
+        		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
+        		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+        		//发审核完毕的邮件通知客户
+        		sendVerfirtEmail(payinfoPlateNumInto,payinfoUemailInto);
+			}else if("DEL".equals(ecppOrderStatusCode)){
+				//124-DEL-客户退件了,这是ecpp取消发货后的状态,就更新成取消发货的状态
+				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+        		mlfrontPayInfoUpdate.setPayinfoStatus(4);//payinfoStatus=2已审单//payinfoStatus=3已发货//4已退款
+        		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+        		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+        		
+        		mlfrontOrderReq.setOrderStatus(5);//orderStatus == 5已退款//
+        		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
+			}else{
+				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);//不改状态,只赋值
+				mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+				mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Msg.success().add("resMsg", "本次刷新有修改,请注意观察payInfo列表变化");
+	}
+
+	private void sendVerfirtEmail(String payinfoPlateNum,String userEmail) {
+		String toCustomerVerifyInfoStr = "";
+		
+		//查询
+		MlbackOrderStateEmail mlbackOrderStateEmailReq = new MlbackOrderStateEmail();
+		mlbackOrderStateEmailReq.setOrderstateemailName("Verifyed");
+		//查询本条
+		List<MlbackOrderStateEmail> mlbackOrderStateEmailList =mlbackOrderStateEmailService.selectMlbackOrderStateEmailByName(mlbackOrderStateEmailReq);
+		if(mlbackOrderStateEmailList.size()>0){
+			
+			MlbackOrderStateEmail mlbackOrderStateEmailOne =mlbackOrderStateEmailList.get(0);
+			
+			toCustomerVerifyInfoStr = getToCustomerVerifyEmailManage(mlbackOrderStateEmailOne,payinfoPlateNum);
+		}else{
+			
+			toCustomerVerifyInfoStr = getToCustomerVerifyEmail(payinfoPlateNum);
+		}
+		//11.1
+		try {
+			//提醒客户准备发货
+			String getToEmail = userEmail;
+			EmailUtilshtml.readyEmailVerifySuccess(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
+			EmailUtilshtmlCustomer.readyEmailVerifyCustomer(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	private String getToCustomerVerifyEmailManage(MlbackOrderStateEmail mlbackOrderStateEmailOne,String payinfoPlateNum) {
+		
+		String emailOneStr =  mlbackOrderStateEmailOne.getOrderstateemailOne();
+		String emailTwoStr =  mlbackOrderStateEmailOne.getOrderstateemailTwo();
+		String emailThreeStr =  mlbackOrderStateEmailOne.getOrderstateemailThree();
+		String emailFourStr =  mlbackOrderStateEmailOne.getOrderstateemailFour();
+		String emailFiveStr =  mlbackOrderStateEmailOne.getOrderstateemailFive();
+		String Message ="";
+		Message =Message+"Hi gorgeous girl ,"+"<br><br>";
+		Message=Message+emailOneStr+" # ("+payinfoPlateNum+") "+emailTwoStr+"<br><br>";
+		Message=Message+emailThreeStr+"<br><br>";
+		Message=Message+emailFourStr+"<br><br>";
+		if("".equals(emailFiveStr)){
+			System.out.println("emailFiveStr:"+emailFiveStr+"这句话为空");
+		}else{
+			Message=Message+emailFiveStr+"<br><br>";
+		}
+		Message=Message+"Best Regards,<br>";
+		Message=Message+"-----------------------------------<br>";
+		String team = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.team");
+		String email = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.email");
+		String whatsapp = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.whatsapp");
+		String Telephone = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.Telephone");
+		//读取配置文件
+		Message=Message+team+"<br>";
+		Message=Message+"Email:"+email+"<br>";
+		Message=Message+"Whatsapp:"+whatsapp+"<br>";
+		Message=Message+"Telephone/SMS:"+Telephone+"<br>";
+		return Message;
+	}
+		
+	//11.1
+	private String getToCustomerVerifyEmail(String payinfoPlateNum) {
+		String Message ="";
+		Message =Message+"Hi gorgeous girl ,"+"<br><br>";
+		Message=Message+"This is Megalook Hair  <br>. ";
+		Message=Message+"We have received your order # ("+payinfoPlateNum+")  and confirmed your payment. <br><br><br>";
+		Message=Message+"The hair you ordered is in stock and is expected to be shipped within 24-48 hours .<br><br>";
+		Message=Message+"We will send the parcel tracking number to you through email & SMS after delivery, and you can also view it on the PayPal bill.<br><br><br>";
+		Message=Message+"Please don't hesitate to call me if you need help. We still here behind Megalook Hair.<br><br>";
+		Message=Message+"Best Regards,<br>";
+		Message=Message+"-----------------------------------<br>";
+		String team = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.team");
+		String email = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.email");
+		String whatsapp = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.whatsapp");
+		String Telephone = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.Telephone");
+		//读取配置文件
+		Message=Message+team+"<br>";
+		Message=Message+"Email:"+email+"<br>";
+		Message=Message+"Whatsapp:"+whatsapp+"<br>";
+		Message=Message+"Telephone/SMS:"+Telephone+"<br>";
+		return Message;
 	}
 
 	/**8.0	zsh200722
