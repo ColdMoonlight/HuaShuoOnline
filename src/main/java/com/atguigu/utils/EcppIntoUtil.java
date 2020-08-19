@@ -182,7 +182,7 @@ public class EcppIntoUtil {
 		ecppOrder.setCurrency("USD");
 //		ecppOrder.setShipping_id(1);//发货方式	参见字典查询接口 name为shipping
 		ecppOrder.setSales_channels(220);//销售渠道(220,)	参见字典查询接口		name为Sales_channels
-		ecppOrder.setSales_account_id(30);//(30	Magalook test)		渠道账号	参见渠道账号查询列表
+		ecppOrder.setSales_account_id(32);//(30Magalook mall/32Magalook test )		渠道账号	参见渠道账号查询列表
 		ecppOrder.setEnableStockControl(0);
 		
 		ecppOrder.setConsignee(mlfrontAddressToPay.getAddressUserfirstname()+" "+mlfrontAddressToPay.getAddressUserlastname());
