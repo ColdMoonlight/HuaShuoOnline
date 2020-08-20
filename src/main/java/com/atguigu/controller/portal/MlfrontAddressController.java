@@ -279,10 +279,10 @@ public class MlfrontAddressController {
 		Integer areafreightMoney = 0;
 		if(mlfrontAddressResList.size()>0){
 			 mlfrontAddressOne =mlfrontAddressResList.get(0);
-			 String areafreightCountryEnglish = mlfrontAddressOne.getAddressCountry();
-			 //接受areafreightCountryEnglish
+			 String areafreightCountryCode = mlfrontAddressOne.getAddressCountryCode();
+			 //接受areafreightCountryCode
 			 MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
-			 mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryEnglish);
+			 mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
 			 //查询本条
 			 List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
 			 
@@ -290,10 +290,10 @@ public class MlfrontAddressController {
 				areafreightMoney =mlbackAreafreightResList.get(0).getAreafreightPrice();
 			 }
 		}else{
-			String areafreightCountryEnglish = "United States";
-			//接受areafreightCountryEnglish
+			String areafreightCountryCode = "US";
+			//接受areafreightCountryCode
 			 MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
-			 mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryEnglish);
+			 mlbackAreafreightReq.setAreafreightCountryCode(areafreightCountryCode);
 			 //查询本条
 			 List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
 			 
