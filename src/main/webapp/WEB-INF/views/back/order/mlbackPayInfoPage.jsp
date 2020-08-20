@@ -27,11 +27,8 @@
 								<input class="form-control daterangetimepicker" id="search-ecpp-time" type="text" />
 							</div>
 						</div>
-						<!-- <div class="ecpp-btn-group col-md-3">
+						<div class="ecpp-btn-group col-md-3">
 							<button class="btn btn-secondary ecpp-verify-sync">checkEcppIfVerify</button>						
-							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
-						</div> -->
-						<div class="col-md-3">					
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
 						</div>
 					</div>
@@ -382,7 +379,7 @@
 			});
 		});
 		//checkEcppIfVerify
-		/* $('.ecpp-verify-sync').on('click', function() {
+		$('.ecpp-verify-sync').on('click', function() {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlfrontPayInfo/checkEcppIfVerify",
@@ -408,7 +405,7 @@
 					$('.c-mask').hide();
 				}
 			});
-		}); */
+		});
 		// View  Order
 		$(document.body).on('click', '.btn-view, .c-table-table tbody tr', function (e) {
 			var payinfoId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));

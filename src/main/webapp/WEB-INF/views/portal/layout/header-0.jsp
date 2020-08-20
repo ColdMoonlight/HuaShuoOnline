@@ -453,12 +453,12 @@
 				'<div class="tab-pane signin active">' +
 					'<form id="signin">' +
 						'<div class="input-group">' +
-							'<label for="userEmail">E-mail</label>' +
-							'<input type="email" id="userEmail" name="userEmail" placeholder="eamil" required>' +
+							'<label for="suserEmail">E-mail</label>' +
+							'<input type="email" id="suserEmail" name="userEmail" placeholder="eamil" required>' +
 						'</div>' +
 						'<div class="input-group">' +
-							'<label for="userPassword">Password</label>' +
-							'<input type="password" id="userPassword" name="userPassword" placeholder="password at least six figures">' +
+							'<label for="suserPassword">Password</label>' +
+							'<input type="password" id="suserPassword" name="userPassword" placeholder="password at least six figures">' +
 						'</div>' +
 					'</form>' +
 					'<div class="btn-group">' +
@@ -469,16 +469,16 @@
 				'<div class="tab-pane register">' +
 					'<form id="register">' +
 						'<div class="input-group">' +
-							'<label for="userEmail">E-mail</label>' +
-							'<input type="email" id="userEmail" name="userEmail" placeholder="please input eamil" required>' +
+							'<label for="ruserEmail">E-mail</label>' +
+							'<input type="email" id="ruserEmail" name="userEmail" placeholder="please input eamil" required>' +
 						'</div>' +
 						'<div class="input-group">' +
-							'<label for="userPassword">Password</label>' +
-							'<input type="password" id="userPassword" name="userPassword" placeholder="password at least six figures">' +
+							'<label for="ruserPassword">Password</label>' +
+							'<input type="password" id="ruserPassword" name="userPassword" placeholder="password at least six figures">' +
 						'</div>' +
 						'<div class="input-group">' +
-							'<label for="ConfirmPassword">ConfirmPassword</label>' +
-							'<input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="ConfirmPassword">' +
+							'<label for="rConfirmPassword">ConfirmPassword</label>' +
+							'<input type="password" id="rConfirmPassword" name="ConfirmPassword" placeholder="ConfirmPassword">' +
 						'</div>' +
 					'</form>' +
 					'<div class="btn-group">' +
@@ -490,16 +490,16 @@
 			'<div class="right-box">' +
 				'<form id="forget-password">' +
 					'<div class="input-group">' +
-						'<label for="userEmail">E-mail</label>' +
-						'<input type="email" id="userEmail" name="userEmail" placeholder="please input eamil" required>' +
+						'<label for="fuserEmail">E-mail</label>' +
+						'<input type="email" id="fuserEmail" name="userEmail" placeholder="please input eamil" required>' +
 					'</div>' +
 					'<div class="input-group">' +
-						'<label for="userPassword">Password</label>' +
-						'<input type="password" id="userPassword" name="userPassword" placeholder="password at least six figures">' +
+						'<label for="fuserPassword">Password</label>' +
+						'<input type="password" id="fuserPassword" name="userPassword" placeholder="password at least six figures">' +
 					'</div>' +
 					'<div class="input-group">' +
-						'<label for="ConfirmPassword">ConfirmPassword</label>' +
-						'<input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="ConfirmPassword">' +
+						'<label for="fConfirmPassword">ConfirmPassword</label>' +
+						'<input type="password" id="fConfirmPassword" name="ConfirmPassword" placeholder="ConfirmPassword">' +
 					'</div>' +
 				'</form>' +
 				'<div class="btn-group">' +
@@ -555,7 +555,7 @@
 	// refresh page or not
 	function refreshPage() {
 		var currentUrl = window.location.href;
-		(currentUrl == 'http://localhost:8080/HuaShuoOnline/MlbackCart/toCheakOut') && (window.location.href = currentUrl);
+		(currentUrl == '${APP_PATH}/MlbackCart/toCheakOut') && (window.location.href = currentUrl);
 	}
 	// iphone share
 	function initIphoneShare() {
