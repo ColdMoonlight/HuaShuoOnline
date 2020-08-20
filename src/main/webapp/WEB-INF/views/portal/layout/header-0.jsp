@@ -555,7 +555,7 @@
 	// refresh page or not
 	function refreshPage() {
 		var currentUrl = window.location.href;
-		(currentUrl == 'http://localhost:8080/HuaShuoOnline/MlbackCart/toCheakOut') && (window.location.href = currentUrl);
+		(currentUrl == '${APP_PATH}/MlbackCart/toCheakOut') && (window.location.href = currentUrl);
 	}
 	// iphone share
 	function initIphoneShare() {
