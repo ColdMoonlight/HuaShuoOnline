@@ -677,7 +677,7 @@
 					statusText = '<a class="badge badge-success">audited</a>'; // 已审核  green
 					break;
 				case 3:
-					statusText = '<a class="badge badge-secondary">delivered</a>'; // 已发货  blue
+					statusText = '<a class="badge badge-primary">delivered</a>'; // 已发货  blue
 				    break;
 				case 4:
 					statusText = '<a class="badge badge-info">refunded</a>'; // 已退款  purple
