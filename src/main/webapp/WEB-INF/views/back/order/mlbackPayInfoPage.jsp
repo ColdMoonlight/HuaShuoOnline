@@ -306,6 +306,13 @@
 									</div>									
 								</div>	
 							</div>
+							
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Customer Info</div>
+								</div>
+								<div class="card-body customer-info">Non-registered user!</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -547,6 +554,14 @@
 			$('.billing-item.postcode .value').html(data.mlPaypalShipAddressOne.shippingaddressPostalCode || '');
 			$('.billing-item.line1 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine1 || '');
 			$('.billing-item.line2 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine2 || '');
+			// customer info
+			if (data.mlfrontUserOne) {
+				var html = '<div class="customer-item"><div class="name">E-mail:</div><div class="value">'+ data.mlfrontUserOne.userEmail +'</div></div>' +
+					'<div class="customer-item"><div class="name">Customer Name:</div><div class="value">'+ (data.userLastname && (data.userLastname + ' ' + data.mlfrontUserOne.userFirstname) || '') +'</div></div>' +
+					'<div class="customer-item"><div class="name">Telephone Number:</div><div class="value">'+ (data.mlfrontUserOne.userTelephone || '') +'</div></div>' +
+					'<div class="customer-item"><div class="name">Purchase times:</div><div class="value">'+ data.mlfrontUserOne.userTimes +'</div></div>';
+				$('.customer-info').html(html);
+			}
 		}
 		// callback order list
 		function renderOrderList(data) {

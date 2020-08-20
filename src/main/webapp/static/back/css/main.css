@@ -632,7 +632,8 @@
 .billing-item,
 .pay-discount,
 .order-item,
-.order-product-cal {
+.order-product-cal,
+.customer-item {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -684,7 +685,8 @@
 .pay-item .name,
 .track-item .name,
 .shipping-item .name,
-.billing-item .name {
+.billing-item .name,
+.customer-item .name {
 	font-weight: 500;
 	font-size: 1rem;
 }
@@ -692,7 +694,8 @@
 .pay-item .value,
 .track-item .value,
 .shipping-item .value,
-.billing-item .value {
+.billing-item .value,
+.customer-item .value {
 	font-size: .875rem;
 	color: #333;
 }
