@@ -98,7 +98,6 @@
 						<span class="c-option-title">View Order</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-back">Back</button>
-							<button class="btn btn-primary hide" id="ecpp-verify">Ecpp Verify</button>
 						</div>
 					</div>
 					<div class="c-form row">
@@ -151,7 +150,7 @@
 										<div class="value">No notes from customer...</div>
 									</div>
 									<div class="payinfo-group">
-										<button class="btn btn-warning hide btn-audit">Aduited</button>
+										<button class="btn btn-warning hide btn-audit" id="ecpp-verify">Aduited</button>
 										<button class="btn btn-danger hide btn-abandon-purchase">Abandon Purchase</button>
 										<button class="btn btn-primary hide btn-refund">Refund</button>
 										<button class="btn btn-dark hide btn-close">Close</button>
@@ -582,7 +581,7 @@
 			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
 				$('.btn-abandon-purchase,.btn-close').removeClass('hide');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
-				$('.btn-audit,.btn-refund,#ecpp-verify').removeClass('hide');
+				$('.btn-audit,.btn-refund').removeClass('hide');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 && data.mlfrontPayInfoOne.payinfoStatus == 3) {
 				$('.btn-refund').removeClass('hide');
 			}
@@ -765,10 +764,10 @@
 					statusText = '<a class="badge badge-success">audited</a>'; // 已审核  green
 					break;
 				case 3:
-					statusText = '<a class="badge badge-primary">delivered</a>'; // 已发货  blue
+					statusText = '<a class="badge badge-info">delivered</a>'; // 已发货  purple
 				    break;
 				case 4:
-					statusText = '<a class="badge badge-info">refunded</a>'; // 已退款  purple
+					statusText = '<a class="badge badge-primary">refunded</a>'; // 已退款  blue
 					break;
 				case 5:
 					statusText = '<a class="badge badge-light">abandon-purchase</a>'; // 已通知弃购  light
