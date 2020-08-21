@@ -765,10 +765,10 @@
 					statusText = '<a class="badge badge-success">audited</a>'; // 已审核  green
 					break;
 				case 3:
-					statusText = '<a class="badge badge-primary">delivered</a>'; // 已发货  blue
+					statusText = '<a class="badge badge-info">delivered</a>'; // 已发货  purple
 				    break;
 				case 4:
-					statusText = '<a class="badge badge-info">refunded</a>'; // 已退款  purple
+					statusText = '<a class="badge badge-primary">refunded</a>'; // 已退款  blue
 					break;
 				case 5:
 					statusText = '<a class="badge badge-light">abandon-purchase</a>'; // 已通知弃购  light
