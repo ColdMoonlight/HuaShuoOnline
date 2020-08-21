@@ -306,8 +306,8 @@
   <!-- selectMlfrontPayInfoSuccessAll -->
   <select id="selectMlfrontPayInfoSuccessAll" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
     select * from tb_mlfront_payinfo where payInfo_id>0
-    and payInfo_status!=0
-    order by payInfo_id desc
+    and payInfo_status!=0 AND payInfo_status!=6 
+    order by payInfo_returnTime desc, payInfo_id desc
   </select>
   <!-- selectMlfrontPayInfoByDate -->
   <select id="selectMlfrontPayInfoByDate" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
