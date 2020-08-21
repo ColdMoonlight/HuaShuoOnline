@@ -741,12 +741,10 @@
 	text-align: right;
 }
 /* ecpp sync */
-.download-order,
 .ecpp-sync {
-	padding: 1rem;
+	padding: 1.5rem 1rem;
 	text-align: right;
 }
-.download-pay-status { width: 100%; }
 /* dashboard */
 .c-main .card {
 	position: relative;
