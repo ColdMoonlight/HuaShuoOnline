@@ -20,16 +20,41 @@
 						<!-- <button class="btn btn-primary btn-create">Create Order</button> -->
 					</div>
 					<div class="ecpp-sync row">
-						<div class="form-group col-md-3">
+						<div class="form-group col-md-6">
 							<div class="controls">
 								<input hidden id="search-payinfo-create-time" />
 								<input hidden id="search-payinfo-confirm-time" />
 								<input class="form-control daterangetimepicker" id="search-ecpp-time" type="text" />
 							</div>
 						</div>
-						<div class="ecpp-btn-group col-md-3">
+						<div class="order-btn-group col-md-6">
 							<button class="btn btn-secondary ecpp-verify-sync">checkEcppIfVerify</button>						
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
+						</div>
+					</div>
+					<div class="download-order row">
+						<div class="form-group col-md-5">
+							<div class="controls">
+								<input hidden id="download-create-time" />
+								<input hidden id="download-confirm-time" />
+								<input class="form-control daterangetimepicker" id="download-order-time" type="text" />
+							</div>
+						</div>
+						<div class="col-md-3">
+							<select class="download-pay-status" id="download-pay-status">
+								<option value="999">Please select order-status</option>
+								<option value="0">unpaid</option>
+								<option value="1">paid</option>
+								<option value="2">audited</option>
+								<option value="3">delivered</option>
+								<option value="4">refunded</option>
+								<option value="5">abandon-purchase</option>
+								<option value="6">closed</option>
+							</select>						
+						</div>
+						<div class="order-btn-group col-md-4">
+							<button class="btn btn-secondary download-audit" id="download-audit">Download Audit Data</button>						
+							<button class="btn btn-primary download-ecpp" id="download-ecpp">Download Ecpp Data</button>
 						</div>
 					</div>
 					<div class="c-table">
@@ -52,7 +77,7 @@
 										<option value="2">audited</option>
 										<option value="3">delivered</option>
 										<option value="4">refunded</option>
-										<option value="5">re-purchase notified</option>
+										<option value="5">abandon-purchase</option>
 										<option value="6">closed</option>
 									</select>
 								</div>
@@ -91,6 +116,7 @@
 						<span class="c-option-title">View Order</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-back">Back</button>
+							<button class="btn btn-primary hide" id="ecpp-verify">Ecpp Verify</button>
 						</div>
 					</div>
 					<div class="c-form row">
@@ -141,6 +167,12 @@
 									<div class="customer-note">
 										<div class="name">Customer Note</div>
 										<div class="value">No notes from customer...</div>
+									</div>
+									<div class="payinfo-group">
+										<button class="btn btn-warning hide btn-audit">Aduited</button>
+										<button class="btn btn-danger hide btn-abandon-purchase">Abandon Purchase</button>
+										<button class="btn btn-primary hide btn-refund">Refund</button>
+										<button class="btn btn-dark hide btn-close">Close</button>
 									</div>
 								</div>
 							</div>
@@ -239,14 +271,6 @@
 						</div>
 						<!-- right panel -->
 						<div class="right-panel col-lg-4 col-md-12">
-							<!-- <div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Customer Note</div>
-								</div>
-								<div class="card-body">
-									<div class="customer-note">No notes from customer...</div>
-								</div>
-							</div> -->
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">Tracking</div>
@@ -306,6 +330,13 @@
 									</div>									
 								</div>	
 							</div>
+							
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Customer Info</div>
+								</div>
+								<div class="card-body customer-info">Non-registered user!</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -330,9 +361,17 @@
 		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
 		$('#search-payinfo-create-time').val(ymd + ' 00:00:00');
 		$('#search-payinfo-confirm-time').val(ymd + ' 23:59:59');
-		bindDateRangeEvent(function(startTime, endTime) {
-			$('#search-payinfo-create-time').val(startTime);
-			$('#search-payinfo-confirm-time').val(endTime);
+		$('#download-create-time').val(ymd + ' 00:00:00');
+		$('#download-confirm-time').val(ymd + ' 23:59:59');
+		bindDateRangeEvent(function(startTime, endTime, self) {
+			if (self.element[0].id == 'download-order-time') {
+				$('#download-create-time').val(startTime);
+				$('#download-confirm-time').val(endTime);
+			}
+			if (self.element[0].id == 'search-ecpp-time') {
+				$('#search-payinfo-create-time').val(startTime);
+				$('#search-payinfo-confirm-time').val(endTime);
+			}			
 		});
 		renderTabItems();
 		// pagination a-click
@@ -406,6 +445,36 @@
 				}
 			});
 		});
+		// single order ecpp verify
+		$('#ecpp-verify').on('click', function() {
+			var ecppData = $(this).data('ecpp');
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayInfo/checkEcppOneIfVerify",
+				type: "post",
+				data: JSON.stringify(ecppData),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						getOneOrderData({
+							payinfoId: ecppData.payinfoId
+						}, function(resData) {
+							renderOrderDetails(resData);
+						});
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('Failed to refresh ecpp-verify-data, please refresh the page to get again!');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		});
 		// View  Order
 		$(document.body).on('click', '.btn-view, .c-table-table tbody tr', function (e) {
 			var payinfoId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
@@ -458,6 +527,26 @@
 			timer = setTimeout(function() {
 				updateSearchData();
 			}, distanceTime);
+		});
+		// download data
+		$('#download-audit').on('click', function() {
+			console.log($('#download-create-time').val(), $('#download-confirm-time').val(), $('#download-pay-status').val());
+		});
+		$('#download-ecpp').on('click', function() {
+			
+		});
+		// order operate
+		$('.btn-audit').on('click', function() {
+			
+		});
+		$('.btn-abandon-purchase').on('click', function() {
+			
+		});
+		$('.btn-refund').on('click', function() {
+			
+		});
+		$('.btn-close').on('click', function() {
+			
 		});
 		// search status change
 		function updateSearchData() {
@@ -514,6 +603,15 @@
 			$('.pay-create-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime || '');
 			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoReturntime || '');
 			
+			/* order operate */
+			$('.payinfo-group .btn').addClass('hide');
+			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
+				$('.btn-abandon-purchase,.btn-close').removeClass('hide');
+			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
+				$('.btn-audit,.btn-refund,#ecpp-verify').removeClass('hide');
+			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 && data.mlfrontPayInfoOne.payinfoStatus == 3) {
+				$('.btn-refund').removeClass('hide');
+			}
 
 			$('.pay-prototal .value').html('$' + (((data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney)) || 0).toFixed(2));
 			$('.pay-discount .name').html(data.mlfrontOrderPayOneRes.orderCouponCode || '');
@@ -547,6 +645,22 @@
 			$('.billing-item.postcode .value').html(data.mlPaypalShipAddressOne.shippingaddressPostalCode || '');
 			$('.billing-item.line1 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine1 || '');
 			$('.billing-item.line2 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine2 || '');
+			// customer info
+			if (data.mlfrontUserOne) {
+				var html = '<div class="customer-item"><div class="name">E-mail:</div><div class="value">'+ data.mlfrontUserOne.userEmail +'</div></div>' +
+					'<div class="customer-item"><div class="name">Customer Name:</div><div class="value">'+ (data.userLastname && (data.userLastname + ' ' + data.mlfrontUserOne.userFirstname) || '') +'</div></div>' +
+					'<div class="customer-item"><div class="name">Telephone Number:</div><div class="value">'+ (data.mlfrontUserOne.userTelephone || '') +'</div></div>' +
+					'<div class="customer-item"><div class="name">Purchase times:</div><div class="value">'+ data.mlfrontUserOne.userTimes +'</div></div>';
+				$('.customer-info').html(html);
+			}
+			// ecpp-verfiy prop data
+			$('#ecpp-verify').data('ecpp', {
+				"payinfoId": data.mlfrontPayInfoOne.payinfoId,
+			    "payinfoOid": data.mlfrontPayInfoOne.payinfoId,
+			    "payinfoPlatenum": data.mlfrontPayInfoOne.payinfoPlatenum,
+			    "payinfoUemail": (data.mlfrontAddressOne.addressEmail || data.mlPaypalShipAddressOne.shippingaddressEmail),
+			    "payinfoEcpphsnum": data.mlfrontPayInfoOne.payinfoEcpphsnum
+			});
 		}
 		// callback order list
 		function renderOrderList(data) {
@@ -677,13 +791,13 @@
 					statusText = '<a class="badge badge-success">audited</a>'; // 已审核  green
 					break;
 				case 3:
-					statusText = '<a class="badge badge-secondary">delivered</a>'; // 已发货  blue
+					statusText = '<a class="badge badge-primary">delivered</a>'; // 已发货  blue
 				    break;
 				case 4:
 					statusText = '<a class="badge badge-info">refunded</a>'; // 已退款  purple
 					break;
 				case 5:
-					statusText = '<a class="badge badge-light">re-purchase notified</a>'; // 已通知复购  light
+					statusText = '<a class="badge badge-light">abandon-purchase</a>'; // 已通知弃购  light
 					break;
 				case 6:
 					statusText = '<a class="badge badge-dark">closed</a>'; // 已关闭  dark

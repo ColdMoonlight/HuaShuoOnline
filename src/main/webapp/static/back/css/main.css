@@ -308,7 +308,8 @@
 	height: auto;
 }
 .c-search>.form-control input,
-.c-search>.form-control select {
+.c-search>.form-control select,
+.download-pay-status {
 	border: none;
 	flex-grow: 1;
 	display: inline-block;
@@ -322,7 +323,8 @@
 	border-width: 2px;
 }
 .c-search>.form-control input:focus,
-.c-search>.form-control select:focus {
+.c-search>.form-control select:focus,
+.download-pay-status {
 	border-radius: .25rem;
 }
 .c-table-header {
@@ -631,7 +633,8 @@
 .billing-item,
 .pay-discount,
 .order-item,
-.order-product-cal {
+.order-product-cal,
+.customer-item {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -683,15 +686,16 @@
 .pay-item .name,
 .track-item .name,
 .shipping-item .name,
-.billing-item .name {
+.billing-item .name,
+.customer-item .name {
 	font-weight: 500;
 	font-size: 1rem;
 }
 .sum-item .value,
-.pay-item .value,
 .track-item .value,
 .shipping-item .value,
-.billing-item .value {
+.billing-item .value,
+.customer-item .value {
 	font-size: .875rem;
 	color: #333;
 }
@@ -711,21 +715,16 @@
 	padding: .5rem 0;
 	margin-top: 1rem;
 	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-}
-.pay-item {
-	padding: .25rem 0;
+	border-bottom: 1px solid #f5f5f5;
+	font-size: .8rem;
 }
 .pay-final {
-	padding: 1rem 0;
+	padding: .5rem 0;
+	font-size: .875rem !important;
 }
 .pay-final .name {
 	font-weight: 400;
-	font-size: 1rem !important;
 	color: #333;
-}
-.pay-final .value {
-	font-size: 1rem;
 }
 .customer-note {
 	padding: 1rem 0;
@@ -738,11 +737,16 @@
 	margin-top: 1rem;
 	font-style: italic;
 }
+.payinfo-group {
+	text-align: right;
+}
 /* ecpp sync */
+.download-order,
 .ecpp-sync {
 	padding: 1rem;
 	text-align: right;
 }
+.download-pay-status { width: 100%; }
 /* dashboard */
 .c-main .card {
 	position: relative;
