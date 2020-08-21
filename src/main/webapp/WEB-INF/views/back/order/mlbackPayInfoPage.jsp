@@ -19,42 +19,46 @@
 						<span class="c-option-title">Order list</span>
 						<!-- <button class="btn btn-primary btn-create">Create Order</button> -->
 					</div>
-					<div class="ecpp-sync row">
-						<div class="form-group col-md-6">
-							<div class="controls">
-								<input hidden id="search-payinfo-create-time" />
-								<input hidden id="search-payinfo-confirm-time" />
-								<input class="form-control daterangetimepicker" id="search-ecpp-time" type="text" />
+					<div class="order-block">
+						<div class="download-order row">
+							<div class="form-group col-md-5">
+								<div class="controls">
+									<input hidden id="download-create-time" />
+									<input hidden id="download-confirm-time" />
+									<input class="form-control daterangetimepicker" id="download-order-time" type="text" />
+								</div>
 							</div>
-						</div>
-						<div class="order-btn-group col-md-6">
-							<button class="btn btn-secondary ecpp-verify-sync">checkEcppIfVerify</button>						
-							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
+							<div class="col-md-3">
+								<select class="download-pay-status" id="download-pay-status">
+									<option value="999">Please select order-status</option>
+									<option value="0">unpaid</option>
+									<option value="1">paid</option>
+									<option value="2">audited</option>
+									<option value="3">delivered</option>
+									<option value="4">refunded</option>
+									<option value="5">abandon-purchase</option>
+									<option value="6">closed</option>
+								</select>						
+							</div>
+							<div class="order-btn-group col-md-4">
+								<button class="btn btn-secondary download-audit" id="download-audit">Download Audit Data</button>						
+								<button class="btn btn-primary download-ecpp" id="download-ecpp">Download Ecpp Data</button>
+							</div>
 						</div>
 					</div>
-					<div class="download-order row">
-						<div class="form-group col-md-5">
-							<div class="controls">
-								<input hidden id="download-create-time" />
-								<input hidden id="download-confirm-time" />
-								<input class="form-control daterangetimepicker" id="download-order-time" type="text" />
+					<div class="order-block">
+						<div class="ecpp-sync row">
+							<div class="form-group col-md-6">
+								<div class="controls">
+									<input hidden id="search-payinfo-create-time" />
+									<input hidden id="search-payinfo-confirm-time" />
+									<input class="form-control daterangetimepicker" id="search-ecpp-time" type="text" />
+								</div>
 							</div>
-						</div>
-						<div class="col-md-3">
-							<select class="download-pay-status" id="download-pay-status">
-								<option value="999">Please select order-status</option>
-								<option value="0">unpaid</option>
-								<option value="1">paid</option>
-								<option value="2">audited</option>
-								<option value="3">delivered</option>
-								<option value="4">refunded</option>
-								<option value="5">abandon-purchase</option>
-								<option value="6">closed</option>
-							</select>						
-						</div>
-						<div class="order-btn-group col-md-4">
-							<button class="btn btn-secondary download-audit" id="download-audit">Download Audit Data</button>						
-							<button class="btn btn-primary download-ecpp" id="download-ecpp">Download Ecpp Data</button>
+							<div class="order-btn-group col-md-6">
+								<button class="btn btn-secondary ecpp-verify-sync">checkEcppIfVerify</button>						
+								<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
+							</div>
 						</div>
 					</div>
 					<div class="c-table">
