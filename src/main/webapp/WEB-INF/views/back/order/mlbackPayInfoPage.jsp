@@ -28,7 +28,12 @@
 							</div>
 						</div>
 						<div class="order-btn-group col-md-8">
-							<button class="btn btn-secondary download-audit" id="download-audit">Export</button>						
+							<button class="btn btn-secondary download-audit" id="download-audit">
+								<svg class="c-icon">
+									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-export"></use>
+								</svg>
+								<span>Export</span>
+							</button>						
 							<!-- <button class="btn btn-primary download-ecpp" id="download-ecpp">Download Ecpp Data</button> -->			
 							<button class="btn btn-info ecpp-verify-sync">checkEcppIfVerify</button>						
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
