@@ -20,41 +20,23 @@
 						<!-- <button class="btn btn-primary btn-create">Create Order</button> -->
 					</div>
 					<div class="ecpp-sync row">
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
 							<div class="controls">
-								<input hidden id="search-payinfo-create-time" />
-								<input hidden id="search-payinfo-confirm-time" />
-								<input class="form-control daterangetimepicker" id="search-ecpp-time" type="text" />
+								<input hidden id="order-create-time" />
+								<input hidden id="order-confirm-time" />
+								<input class="form-control daterangetimepicker" id="order-time" type="text" />
 							</div>
 						</div>
-						<div class="order-btn-group col-md-6">
-							<button class="btn btn-secondary ecpp-verify-sync">checkEcppIfVerify</button>						
+						<div class="order-btn-group col-md-8">
+							<button class="btn btn-secondary download-audit" id="download-audit">
+								<svg class="c-icon">
+									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-export"></use>
+								</svg>
+								<span>Export</span>
+							</button>						
+							<!-- <button class="btn btn-primary download-ecpp" id="download-ecpp">Download Ecpp Data</button> -->			
+							<button class="btn btn-info ecpp-verify-sync">checkEcppIfVerify</button>						
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
-						</div>
-					</div>
-					<div class="download-order row">
-						<div class="form-group col-md-5">
-							<div class="controls">
-								<input hidden id="download-create-time" />
-								<input hidden id="download-confirm-time" />
-								<input class="form-control daterangetimepicker" id="download-order-time" type="text" />
-							</div>
-						</div>
-						<div class="col-md-3">
-							<select class="download-pay-status" id="download-pay-status">
-								<option value="999">Please select order-status</option>
-								<option value="0">unpaid</option>
-								<option value="1">paid</option>
-								<option value="2">audited</option>
-								<option value="3">delivered</option>
-								<option value="4">refunded</option>
-								<option value="5">abandon-purchase</option>
-								<option value="6">closed</option>
-							</select>						
-						</div>
-						<div class="order-btn-group col-md-4">
-							<button class="btn btn-secondary download-audit" id="download-audit">Download Audit Data</button>						
-							<button class="btn btn-primary download-ecpp" id="download-ecpp">Download Ecpp Data</button>
 						</div>
 					</div>
 					<div class="c-table">
@@ -359,19 +341,11 @@
 		// init
 		var date = new Date();
 		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-		$('#search-payinfo-create-time').val(ymd + ' 00:00:00');
-		$('#search-payinfo-confirm-time').val(ymd + ' 23:59:59');
-		$('#download-create-time').val(ymd + ' 00:00:00');
-		$('#download-confirm-time').val(ymd + ' 23:59:59');
+		$('#order-create-time').val(ymd + ' 00:00:00');
+		$('#order-confirm-time').val(ymd + ' 23:59:59');
 		bindDateRangeEvent(function(startTime, endTime, self) {
-			if (self.element[0].id == 'download-order-time') {
-				$('#download-create-time').val(startTime);
-				$('#download-confirm-time').val(endTime);
-			}
-			if (self.element[0].id == 'search-ecpp-time') {
-				$('#search-payinfo-create-time').val(startTime);
-				$('#search-payinfo-confirm-time').val(endTime);
-			}			
+			$('#order-create-time').val(startTime);
+			$('#order-confirm-time').val(endTime);		
 		});
 		renderTabItems();
 		// pagination a-click
@@ -396,8 +370,8 @@
 				url: "${APP_PATH}/MlfrontPayInfo/checkEcppIfSend",
 				type: "post",
 				data: JSON.stringify({
-					"payinfoCreatetime": $('#search-payinfo-create-time').val(),
-				    "payinfoMotifytime": $('#search-payinfo-confirm-time').val()
+					"payinfoCreatetime": $('#order-create-time').val(),
+				    "payinfoMotifytime": $('#order-confirm-time').val()
 				}),
 				dataType: "json",
 				contentType: 'application/json',
@@ -424,8 +398,8 @@
 				url: "${APP_PATH}/MlfrontPayInfo/checkEcppIfVerify",
 				type: "post",
 				data: JSON.stringify({
-					"payinfoCreatetime": $('#search-payinfo-create-time').val(),
-				    "payinfoMotifytime": $('#search-payinfo-confirm-time').val()
+					"payinfoCreatetime": $('#order-create-time').val(),
+				    "payinfoMotifytime": $('#order-confirm-time').val()
 				}),
 				dataType: "json",
 				contentType: 'application/json',
@@ -528,9 +502,9 @@
 				updateSearchData();
 			}, distanceTime);
 		});
-		// download data
+		// order data
 		$('#download-audit').on('click', function() {
-			console.log($('#download-create-time').val(), $('#download-confirm-time').val(), $('#download-pay-status').val());
+			console.log($('#order-create-time').val(), $('#order-confirm-time').val(), $('#payinfoStatus').val());
 		});
 		$('#download-ecpp').on('click', function() {
 			
