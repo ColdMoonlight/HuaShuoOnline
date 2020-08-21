@@ -629,7 +629,7 @@
 			// ecpp-verfiy prop data
 			$('#ecpp-verify').data('ecpp', {
 				"payinfoId": data.mlfrontPayInfoOne.payinfoId,
-			    "payinfoOid": data.mlfrontPayInfoOne.payinfoId,
+			    "payinfoOid": data.mlfrontPayInfoOne.payinfoOid,
 			    "payinfoPlatenum": data.mlfrontPayInfoOne.payinfoPlatenum,
 			    "payinfoUemail": (data.mlfrontAddressOne.addressEmail || data.mlPaypalShipAddressOne.shippingaddressEmail),
 			    "payinfoEcpphsnum": data.mlfrontPayInfoOne.payinfoEcpphsnum
