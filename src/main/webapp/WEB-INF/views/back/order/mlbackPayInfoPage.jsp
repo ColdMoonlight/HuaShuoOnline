@@ -582,7 +582,7 @@
 				$('.btn-abandon-purchase,.btn-close').removeClass('hide');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
 				$('.btn-audit,.btn-refund').removeClass('hide');
-			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 && data.mlfrontPayInfoOne.payinfoStatus == 3) {
+			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 || data.mlfrontPayInfoOne.payinfoStatus == 3) {
 				$('.btn-refund').removeClass('hide');
 			}
 
