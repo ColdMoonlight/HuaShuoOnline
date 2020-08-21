@@ -14,7 +14,7 @@
 	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
 		<div class="container">
-			<div class="order-header"></div>			
+			<div class="order-header"></div>
 			<div class="order-body">
 				<div class="order-left">
 					<div class="cart-box">
@@ -620,10 +620,10 @@
 			// userinfo initial
 			getUserInfo(function(data) {
 				var addressData = data.mlfrontAddressOne;
-				if (data.usertype) {
+				/* if (data.usertype) { */
 					addressData && initOrderAddress(addressData);
-					// $('.order-address-shipping').data('shipping', data.areafreightMoney).find('.value', '$' + data.areafreightMoney);
-				}
+					$('.order-address-shipping').data('shipping', data.areafreightMoney).find('.value', '$' + data.areafreightMoney);
+				/* } */
 				countryCombineWithProvince();
 			});
 			// 2
