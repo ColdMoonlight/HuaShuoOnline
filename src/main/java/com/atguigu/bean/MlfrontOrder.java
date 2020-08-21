@@ -3,7 +3,6 @@ package com.atguigu.bean;
 import java.math.BigDecimal;
 
 public class MlfrontOrder {
-	
     private Integer orderId;
 
     private Integer orderUid;
