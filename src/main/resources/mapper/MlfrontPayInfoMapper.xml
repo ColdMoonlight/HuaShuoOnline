@@ -286,12 +286,7 @@
     from tb_mlfront_payinfo 
     where payInfo_status = #{payinfoStatus,jdbcType=INTEGER} 
     and payInfo_createTime between #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR} order by payInfo_id desc
-  </select> 
-  <!-- selectAll使用中 -->
-<!--   <select id="selectMlfrontPayInfoGetAll" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
-    select *
-    from tb_mlfront_payinfo order by payInfo_id desc
-  </select> -->
+  </select>
   <!-- selectHighPayInfoListBySearch -->
   <select id="selectHighPayInfoListBySearch" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
     select * from tb_mlfront_payinfo where payInfo_id>0
