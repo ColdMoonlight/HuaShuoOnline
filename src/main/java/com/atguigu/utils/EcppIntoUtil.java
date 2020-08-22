@@ -199,7 +199,7 @@ public class EcppIntoUtil {
 		for(MlfrontOrderItem mlfrontOrderItem:mlfrontOrderItemEcppNeedList){
 			ecppItem ecppItemOne = new ecppItem();
 			ecppItemOne.setGoods_sn(mlfrontOrderItem.getOrderitemPskuCode());
-			ecppItemOne.setGoods_name(mlfrontOrderItem.getOrderitemPseo()+" , "+mlfrontOrderItem.getOrderitemPskuName());
+			ecppItemOne.setGoods_name(mlfrontOrderItem.getOrderitemPseo()+","+mlfrontOrderItem.getOrderitemPskuName());
 			ecppItemOne.setGoods_qty(mlfrontOrderItem.getOrderitemPskuNumber());
 			ecppItemOne.setGoods_price(mlfrontOrderItem.getOrderitemPskuMoneystr());
 			ecppItemList.add(ecppItemOne);
