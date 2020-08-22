@@ -42,15 +42,6 @@ public class MlfrontPayInfoService {
 		return intReslut;
 	}
 	
-	/**4
-	 * @author Shinelon
-	 * @exception selectMlfrontPayInfoAll
-	 * */
-//	public List<MlfrontPayInfo> selectMlfrontPayInfoAll() {
-//		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoGetAll();
-//		return mlfrontPayInfoList;
-//	}
-	
 	/**5
 	 * @author Shinelon
 	 * @param 
