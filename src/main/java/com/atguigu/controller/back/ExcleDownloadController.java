@@ -22,8 +22,8 @@ import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.utils.DateUtil;
 
 @Controller
-@RequestMapping("/HighPayInfo")
-public class DownloadController {
+@RequestMapping("/ExcleDownload")
+public class ExcleDownloadController {
 		
 	@Autowired
 	MlfrontPayInfoService mlfrontPayInfoService;
