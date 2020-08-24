@@ -22,8 +22,8 @@ import com.atguigu.service.DownPayCheckDateService;
 import com.atguigu.service.MlfrontPayInfoService;
 
 @Controller
-@RequestMapping("/ExcleUpload")
-public class ExcleUploadController {
+@RequestMapping("/ExcleImport")
+public class ExcleImportController {
 		
 	@Autowired
 	MlfrontPayInfoService mlfrontPayInfoService;
@@ -35,10 +35,10 @@ public class ExcleUploadController {
 	 * zsh 200730
 	 * 中控台首页
 	 * */
-	@RequestMapping("/ReviewsInportPage")
-	public String ReviewsInportPage(HttpSession session){
+	@RequestMapping("/reviewsInportPage")
+	public String reviewsInportPage(HttpSession session){
 		
-		return "back/product/mlbackReviewDownloadPage";
+		return "back/product/excleImportPage";
 	}
 	
 	/**
