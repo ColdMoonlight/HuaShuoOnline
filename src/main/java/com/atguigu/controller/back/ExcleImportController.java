@@ -22,7 +22,7 @@ import com.atguigu.service.DownPayCheckDateService;
 import com.atguigu.service.MlfrontPayInfoService;
 
 @Controller
-@RequestMapping("/ExcleImport")
+@RequestMapping("/excleImport")
 public class ExcleImportController {
 		
 	@Autowired
