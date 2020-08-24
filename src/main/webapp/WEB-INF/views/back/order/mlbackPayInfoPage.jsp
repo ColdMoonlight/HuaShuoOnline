@@ -72,7 +72,8 @@
 											<th>payId</th>
 											<th>orderid</th>
 											<th>plate-num</th>
-											<th>date</th>
+											<th>payinfoCreatetime</th>
+											<th>payinfoReturntime</th>
 											<th>pay-status</th>
 											<th>price</th>
 											<th>customer</th>
@@ -147,11 +148,11 @@
 									</div>
 									<div class="customer-note">
 										<div class="name">Customer Note</div>
-										<div class="value">No notes from customer...</div>
+										<div class="value" style="color: #f00;">No notes from customer...</div>
 									</div>
 									<div class="payinfo-group">
 										<button class="btn btn-warning hide btn-audit" id="ecpp-verify">Aduited</button>
-										<button class="btn btn-danger hide btn-abandon-purchase">Abandon Purchase</button>
+										<!-- <button class="btn btn-danger hide btn-abandon-purchase">Abandon Purchase</button> -->
 										<button class="btn btn-primary hide btn-refund">Refund</button>
 										<button class="btn btn-dark hide btn-close">Close</button>
 									</div>
@@ -503,7 +504,11 @@
 		});
 		// order data
 		$('#download-audit').on('click', function() {
-			console.log($('#order-create-time').val(), $('#order-confirm-time').val(), $('#payinfoStatus').val());
+			var payinfoStatus =$("#payinfoStatus").val();
+			var payinfoCreatetime =$('#order-create-time').val()
+			var payinfoMotifytime  = $('#order-confirm-time').val()
+			console.log("payinfoStatus:"+payinfoStatus+"payinfoCreatetime:"+payinfoCreatetime+"payinfoMotifytime"+payinfoMotifytime);
+			window.location.href = "${APP_PATH}/ExcleDownload/exportPayInfoIF?payinfoStatus="+payinfoStatus+"&payinfoCreatetime="+payinfoCreatetime+"&payinfoMotifytime="+payinfoMotifytime;
 		});
 		$('#download-ecpp').on('click', function() {
 			
@@ -516,9 +521,66 @@
 			
 		});
 		$('.btn-refund').on('click', function() {
+			var refundData = $(this).data('refundm');
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayStatus/refundPayOrder",
+				type: "post",
+				data: JSON.stringify(refundData),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+					  console.log(data)
+						toastr.success(data.extend.resMsg);
+						getOneOrderData({
+							payinfoId: refundData.payinfoId
+						}, function(resData) {
+							renderOrderDetails(resData);
+						});
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
 			
 		});
 		$('.btn-close').on('click', function() {
+			var closeData = $(this).data('colsem');
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayStatus/closePayOrder",
+				type: "post",
+				data: JSON.stringify(closeData),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+					  console.log(data)
+						toastr.success(data.extend.resMsg);
+						getOneOrderData({
+							payinfoId: closeData.payinfoId
+						}, function(resData) {
+							renderOrderDetails(resData);
+						});
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+			
 			
 		});
 		// search status change
@@ -634,6 +696,17 @@
 			    "payinfoUemail": (data.mlfrontAddressOne.addressEmail || data.mlPaypalShipAddressOne.shippingaddressEmail),
 			    "payinfoEcpphsnum": data.mlfrontPayInfoOne.payinfoEcpphsnum
 			});
+			
+			
+			$('.btn-refund').data('refundm',{
+				"payinfoId": data.mlfrontPayInfoOne.payinfoId,
+				"payinfoOid": data.mlfrontPayInfoOne.payinfoOid,
+			});
+			$('.btn-close').data('colsem',{
+				"payinfoId": data.mlfrontPayInfoOne.payinfoId,
+				"payinfoOid": data.mlfrontPayInfoOne.payinfoOid,
+			});
+			
 		}
 		// callback order list
 		function renderOrderList(data) {
@@ -788,6 +861,7 @@
 					'<td>' + (data[i].payinfoOid || '') + '</td>' +
 					'<td>' + (data[i].payinfoPlatenum || '') + '</td>' +
 					'<td>' + data[i].payinfoCreatetime + '</td>' +
+					'<td>' + data[i].payinfoReturntime + '</td>' +
 					'<td>' + getPayStatus(data[i].payinfoStatus) + '</td>' +
 					'<td>' + (data[i].payinfoMoney || 0).toFixed(2) + '</td>' +
 					'<td>' + (data[i].payinfoUname || '') + '</td>' +
