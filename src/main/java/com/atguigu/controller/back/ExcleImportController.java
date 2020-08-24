@@ -35,10 +35,10 @@ public class ExcleImportController {
 	 * zsh 200730
 	 * 中控台首页
 	 * */
-	@RequestMapping("/reviewsInportPage")
-	public String reviewsInportPage(HttpSession session){
+	@RequestMapping("/reviewsImportPage")
+	public String reviewsImportPage(HttpSession session){
 		
-		return "back/product/excleImportPage";
+		return "back/product/excleintoPage";
 	}
 	
 	/**
