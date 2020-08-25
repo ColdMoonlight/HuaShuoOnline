@@ -226,6 +226,7 @@
 		$('#menu').on('click', function () {
 			$('.wap-nav-box').addClass('active');
 			addFixed();
+			$('.lottery').length && $('.lottery').addClass('hide');
 		});
 		$('.wap-nav-box').on('click', function (e) {
 			if (this == e.target) {
@@ -236,6 +237,7 @@
 		$('.wap-nav-box .close').on('click', function () {
 			$('.wap-nav-box').removeClass('active');
 			removeFixed();
+			$('.lottery').length && $('.lottery').removeClass('hide');
 		});
 		// dropdwon menu
 		$('.wap-op-one').click(function (e) {
