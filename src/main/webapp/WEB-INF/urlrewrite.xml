@@ -51,4 +51,8 @@
         <from>^/MyInfo.html</from>
         <to>/MlfrontUser/toUserCenter</to>
     </rule>
+    <rule>
+        <from>^/index.html</from>
+        <to>/</to>
+    </rule>
 </urlrewrite>

@@ -212,4 +212,52 @@ public class MlfrontOrder {
     public void setOrderLogisticsnumber(String orderLogisticsnumber) {
         this.orderLogisticsnumber = orderLogisticsnumber == null ? null : orderLogisticsnumber.trim();
     }
+
+	public MlfrontOrder() {
+		super();
+	}
+
+	public MlfrontOrder(Integer orderId, Integer orderUid, String orderIp, String orderOrderitemidstr,
+			BigDecimal orderMoney, Integer orderCouponId, String orderCouponCode, BigDecimal orderCouponPrice,
+			Integer orderAddressinfoId, String orderAddressinfoUname, String orderAddressinfoUemail,
+			String orderPronumStr, Integer orderPayPlate, String orderPayPlatestr, String orderBuyMess,
+			Integer orderStatus, String orderCreatetime, String orderMotifytime, Integer orderLogisticsid,
+			String orderLogisticsname, String orderLogisticsnumber) {
+		super();
+		this.orderId = orderId;
+		this.orderUid = orderUid;
+		this.orderIp = orderIp;
+		this.orderOrderitemidstr = orderOrderitemidstr;
+		this.orderMoney = orderMoney;
+		this.orderCouponId = orderCouponId;
+		this.orderCouponCode = orderCouponCode;
+		this.orderCouponPrice = orderCouponPrice;
+		this.orderAddressinfoId = orderAddressinfoId;
+		this.orderAddressinfoUname = orderAddressinfoUname;
+		this.orderAddressinfoUemail = orderAddressinfoUemail;
+		this.orderPronumStr = orderPronumStr;
+		this.orderPayPlate = orderPayPlate;
+		this.orderPayPlatestr = orderPayPlatestr;
+		this.orderBuyMess = orderBuyMess;
+		this.orderStatus = orderStatus;
+		this.orderCreatetime = orderCreatetime;
+		this.orderMotifytime = orderMotifytime;
+		this.orderLogisticsid = orderLogisticsid;
+		this.orderLogisticsname = orderLogisticsname;
+		this.orderLogisticsnumber = orderLogisticsnumber;
+	}
+
+	@Override
+	public String toString() {
+		return "MlfrontOrder [orderId=" + orderId + ", orderUid=" + orderUid + ", orderIp=" + orderIp
+				+ ", orderOrderitemidstr=" + orderOrderitemidstr + ", orderMoney=" + orderMoney + ", orderCouponId="
+				+ orderCouponId + ", orderCouponCode=" + orderCouponCode + ", orderCouponPrice=" + orderCouponPrice
+				+ ", orderAddressinfoId=" + orderAddressinfoId + ", orderAddressinfoUname=" + orderAddressinfoUname
+				+ ", orderAddressinfoUemail=" + orderAddressinfoUemail + ", orderPronumStr=" + orderPronumStr
+				+ ", orderPayPlate=" + orderPayPlate + ", orderPayPlatestr=" + orderPayPlatestr + ", orderBuyMess="
+				+ orderBuyMess + ", orderStatus=" + orderStatus + ", orderCreatetime=" + orderCreatetime
+				+ ", orderMotifytime=" + orderMotifytime + ", orderLogisticsid=" + orderLogisticsid
+				+ ", orderLogisticsname=" + orderLogisticsname + ", orderLogisticsnumber=" + orderLogisticsnumber + "]";
+	}
+    
 }
