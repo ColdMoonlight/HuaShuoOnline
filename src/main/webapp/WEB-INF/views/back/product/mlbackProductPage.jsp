@@ -268,13 +268,18 @@
 									</div>
 									<div class="pictureDetails">
 										<h3>Product Details Picture</h3> 
-										<i class="text-danger">Upload up to 6 images！</i>
+										<i class="text-danger">Upload up to 7 images！</i>
 										<button class="btn btn-info" id="custom-pic-order">Custom sort</button>
 										<div class="product-img-list">
 											<div class="product-img-item c-upload-img">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 												</svg>
+												<div class="product-img-delete hide">
+													<svg class="c-icon">
+														<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>
+													</svg>
+												</div>
 												<div class="c-backshow"></div>						
 												<input class="productAllImgurl" data-order="1" type="file" accept="image/png, image/jpeg, image/gif" />										
 												<!-- spinner -->
@@ -1111,6 +1116,56 @@
 		$(document.body).on('click', '#imgModal .right-panel .product-imgs-sort-item', function() {
 			$('#imgModal .left-panel').append($(this));
 		});
+		// delte product img
+		$(document.body).on('click', '.product-img-delete', function() {
+			var productItem = $(this).parent();
+			var dataVal = productItem.find('.productAllImgurl').data('val');
+
+			var productImgId = dataVal ? dataVal.imgId : null;
+			if (!productImgId) {
+				toastr.error('无法删除图片');
+				return ;
+			}
+			$('#deleteModal').find('.modal-title').html('Delete product Img!');
+			$('#deleteModal').modal('show');
+			$('#deleteModal .btn-ok').one('click', function () {
+				deleteProductImgData({
+					productimgId: productImgId,
+				}, function(data) {
+					var imgsLen = $('.product-img-item').length;
+					var count = $('.product-img-item').last().find('.productAllImgurl').data('order');
+					productItem.remove();
+					if (imgsLen >= 6) addUploadBlock(count + 1);
+				});
+			});
+		});
+		// callback delete
+		function deleteProductImgData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackProductImg/delete",
+				type: "post",
+				cache: false,
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						$('#deleteModal').modal('hide');
+						callback && callback();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
 		// delete product sku
 		$(document.body).on('click', '.product-sku-delete', function() {
 			var parentEl = $(this).parents('.product-sku-item');
@@ -1351,7 +1406,7 @@
 					if (data.code == 100) {
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlimageUrl
+							thumImageUrl: data.extend.sqlimageUrl,
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
@@ -1549,13 +1604,14 @@
 				dataType: 'json',
 				success: function (data) {
 					if (data.code == 100) {
-						var count = $('.product-img-item').length;
+						var count = $('.product-img-item').last().find('.productAllImgurl').data('order');
 						if (count < 6 && !$this.attr('data-val')) {
 							addUploadBlock(count + 1);
 						}
 						addPicture($this, {
 							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlimageUrl
+							thumImageUrl: data.extend.sqlimageUrl,
+							imgId: (data.extend.mlbackProductImg ? data.extend.mlbackProductImg.productimgId : '')
 						});
 					} else {
 						toastr.error('网络错误， 请稍后重试！');	
@@ -1573,7 +1629,7 @@
 			var parentEl = el.parent();
 			el.attr('data-val', JSON.stringify(data));
 			parentEl.addClass('active');
-			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.thumImageUrl) + '" />');
+			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.thumImageUrl) + '" />').end().find('.product-img-delete').removeClass('hide');
 		}
 		function resetPicture(el) {
 			var parentEl = el.parent();
@@ -1586,6 +1642,11 @@
 				'<svg class="c-icon">' +
 					'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>' +
 				'</svg>' +
+				'<div class="product-img-delete hide">' +
+					'<svg class="c-icon">' +
+						'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
+					'</svg>' +
+				'</div>' +
 				'<div class="c-backshow"></div>' +
 				'<input class="productAllImgurl" data-order="'+ idx +'" type="file" accept="image/png, image/jpeg, image/gif" />' +
 				'<div class="spinner">' +
@@ -1979,7 +2040,8 @@
 				addUploadBlock(data[i].productimgSortOrder);
 				addPicture($('.product-img-item').last().find('.productAllImgurl'), {
 					imageUrl: data[i].productimgUrl,
-					thumImageUrl: data[i].productimgUrl
+					thumImageUrl: data[i].productimgUrl,
+					imgId: data[i].productimgId
 				});
 			}
 			
