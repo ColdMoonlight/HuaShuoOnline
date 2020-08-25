@@ -267,8 +267,9 @@
 										</div>
 									</div>
 									<div class="pictureDetails">
-										<h3>Product Details Picture</h3>
+										<h3>Product Details Picture</h3> 
 										<i class="text-danger">Upload up to 6 images！</i>
+										<button class="btn btn-info" id="custom-pic-order">Custom sort</button>
 										<div class="product-img-list">
 											<div class="product-img-item c-upload-img">
 												<svg class="c-icon">
@@ -374,6 +375,7 @@
 	<jsp:include page="../common/editModal.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/videoModal.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/skuModal.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/imgModal.jsp" flush="true"></jsp:include>
 
 	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
 	<script src="${APP_PATH}/static/back/lib/codemirror/codemirror.js"></script>
@@ -1066,6 +1068,49 @@
 				}, renderProductSkus)
 			});
 		});
+		$('#custom-pic-order').on('click', function() {
+			getProductAllImgData({
+				productId: $('#productId').val()
+			}, function(data) {
+				var imgsHtml = '';
+
+				data.forEach(function(item, idx) {
+					imgsHtml += '<div class="product-imgs-sort-item" data-id="'+ item.productimgId +'"><img src="'+ item.productimgUrl +'"></div>';
+				});
+				$('#imgModal').data('len', data.length).find('.left-panel').html(imgsHtml).end().modal('show');
+			});
+		})
+		$('#imgModal .btn-save').on('click', function() {
+			var productImgsArr = [];
+			var productImgsItem = $('#imgModal .right-panel .product-imgs-sort-item');
+			if (productImgsItem.length < $('#imgModal').data('len')) {
+				toastr.error('未完成排序，请继续操作');
+				return ;
+			}
+			productImgsItem.each(function(idx, item) {
+				productImgsArr.push({
+					"productimgId": ($(item).data('id') || null),
+					"productimgSortOrder": (idx + 1),
+				});
+			});
+			var formData = new FormData();
+			var productId = $('#productId').val();
+			formData.append("productId", productId);
+			formData.append("teams", JSON.stringify(productImgsArr));
+			saveProductImgsData(formData, function(data) {
+				$('#imgModal').find('.right-panel').html('').end().modal('hide');
+				getProductAllImgData({
+					productId: productId
+				}, renderProductAllData);
+			});
+		});
+		$(document.body).on('click', '#imgModal .left-panel .product-imgs-sort-item', function() {
+			$('#imgModal .right-panel').append($(this));
+		});
+
+		$(document.body).on('click', '#imgModal .right-panel .product-imgs-sort-item', function() {
+			$('#imgModal .left-panel').append($(this));
+		});
 		// delete product sku
 		$(document.body).on('click', '.product-sku-delete', function() {
 			var parentEl = $(this).parents('.product-sku-item');
@@ -1124,6 +1169,32 @@
 				success: function (data) {
 					if (data.code == 100) {
 						callback(data.extend.mlbackProductSkuResList);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		function saveProductImgsData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH }/MlbackProductImg/productImgUpdateSort",
+				type: "post",
+				dataType: "json",
+				processData: false,
+				contentType: false,
+				cache: false,
+				data: reqData,
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);

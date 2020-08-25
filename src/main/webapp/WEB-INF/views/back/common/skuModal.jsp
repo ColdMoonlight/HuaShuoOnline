@@ -57,6 +57,6 @@
 </div>
 <script>
 	$('#skuModal .btn-cancel').on('click', function () {
-		$('#skuModal .btn-ok').off('click');
+		$('#skuModal .btn-save').off('click');
 	});
 </script>
