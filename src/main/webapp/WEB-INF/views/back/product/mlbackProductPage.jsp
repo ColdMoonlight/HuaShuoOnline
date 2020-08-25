@@ -711,10 +711,10 @@
 				} else {
 					$this.hide();
 					isSaveSku = true;
-					$('.product-sku-name').each(function(idx, item) {
-						var itemText = $(item).text().split('/');
+					$('.product-sku-item').each(function(idx, item) {
+						var itemText = $(item).data('skuname').split(',');
 						itemText.push(optionVal);
-						$(item).text(itemText.join('/'));
+						$(item).data('skuname', itemText.join(',')).find('.product-sku-name').text(itemText.join('/'));
 					});
 				}
 			});
