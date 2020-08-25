@@ -268,7 +268,7 @@
 									</div>
 									<div class="pictureDetails">
 										<h3>Product Details Picture</h3> 
-										<i class="text-danger">Upload up to 7 images！</i>
+										<i class="text-danger">Upload up to 6 images！</i>
 										<button class="btn btn-info" id="custom-pic-order">Custom sort</button>
 										<div class="product-img-list">
 											<div class="product-img-item c-upload-img">
@@ -2047,7 +2047,7 @@
 			
 			if (len < 0) addUploadBlock(1);
 
-			if (len < 6) addUploadBlock(len);
+			if (len < 6) addUploadBlock(($('.product-img-item').last().find('.productAllImgurl').data('order') + 1));
 		}
 		
 		// render parentCategoryData
