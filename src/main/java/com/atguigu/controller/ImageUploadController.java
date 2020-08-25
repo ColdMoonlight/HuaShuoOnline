@@ -278,7 +278,7 @@ public class ImageUploadController {
 		}
 		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
-				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
+				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl).add("mlbackProductImg", mlbackProductImg);
 	}
 	/**
 	 * 	onuse	20200103	检查
