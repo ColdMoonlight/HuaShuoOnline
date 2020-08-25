@@ -381,7 +381,7 @@ function mlModalTip(text) {
 }
 
 function sysModalTip() {
-	mlModalTip('Settlement system error, temporarily unable to get data, please try again later !');
+	mlModalTip('Network anomaly, temporarily unable to get data, please try again later !');
 }
 function refreshPageModal() {
 	mlModalTip('please refresh the page to get again !');
