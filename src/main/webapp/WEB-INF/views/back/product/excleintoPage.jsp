@@ -14,26 +14,44 @@
 <!-- 	<button id="excleImport">
 	导入产品
 	</button> -->
-	<div class="c-upload-img" style="margin: 100px auto">
-		<svg class="c-icon">
-			<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-movie"></use>
-		</svg>
-		<div class="c-backshow"></div>	
-			<!-- <input type="file" id="file" name="myfile" style="display: none" />
-			<input type="text" id="filename" style="display:none"></span>
-			<input type="button" onclick="upload()" value="选择文件上传" /> -->
-		<input id="excleImport" type="file" name="myfile" />										
-		<!-- spinner -->
-		<div class="spinner">
-			<div class="spinner-border" role="status" aria-hidden="true"></div>
+	<div class="row" style="width: 80%; margin: 0 auto;">
+		<div class="col-md-6">
+			<a href="###">下载模板</a>
+			<div class="c-upload-img" id="download" style="margin: 100px auto">
+			  <svg class="c-icon">
+			  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-movie"></use>
+			  </svg>
+			</div>
 		</div>
+		<div class="col-md-6">
+			<a href="###">上传文档</a>
+			<div class="c-upload-img" style="margin: 100px auto">
+				<svg class="c-icon">
+					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-movie"></use>
+				</svg>
+				<div class="c-backshow"></div>	
+					<!-- <input type="file" id="file" name="myfile" style="display: none" />
+					<input type="text" id="filename" style="display:none"></span>
+					<input type="button" onclick="upload()" value="选择文件上传" /> -->
+				<input id="excleImport" type="file" name="myfile" />										
+				<!-- spinner -->
+				<div class="spinner">
+					<div class="spinner-border" role="status" aria-hidden="true"></div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 	
-
+	
 
 	<script type="text/javascript" src="${APP_PATH}/static/common/jquery.min.js"></script>
 	<!-- custom script -->
 	<script>
+	$('#download').on('click', function() {
+		window.location.href = "${APP_PATH}/excleImport/exportReviewsImportDemo";
+	});
+	
 	
 	$('#excleImport').on('change', function(e) {
 		var $this = $(this);
