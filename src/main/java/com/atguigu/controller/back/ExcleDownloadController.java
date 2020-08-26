@@ -119,7 +119,7 @@ public class ExcleDownloadController {
 	        row.createCell(7).setCellValue(downPayIFDateOne.getMlfrontOrder().getOrderOrderitemidstr());
 	        row.createCell(8).setCellValue(downPayIFDateOne.getMlfrontAddress().getAddressEmail());
 	        row.createCell(9).setCellValue(downPayIFDateOne.getMlfrontAddress().getAddressTelephone());
-	        row.createCell(10).setCellValue(downPayIFDateOne.getMlfrontAddress().getAddressUserfirstname()+downPayIFDateOne.getMlfrontAddress().getAddressUserlastname());
+	        row.createCell(10).setCellValue(downPayIFDateOne.getMlfrontAddress().getAddressUserfirstname()+" "+downPayIFDateOne.getMlfrontAddress().getAddressUserlastname());
 	        row.createCell(11).setCellValue(downPayIFDateOne.getMlfrontOrderItem().getOrderitemId());
 	        row.createCell(12).setCellValue(downPayIFDateOne.getMlfrontOrderItem().getOrderId()+"");
 	        row.createCell(13).setCellValue(downPayIFDateOne.getMlfrontOrderItem().getOrderitemPseo());
