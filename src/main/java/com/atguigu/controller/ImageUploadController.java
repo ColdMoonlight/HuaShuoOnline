@@ -265,9 +265,7 @@ public class ImageUploadController {
 		if(mlbackProductImgIfList.size()>0){
 			//取出id
 			int pImgId = mlbackProductImgIfList.get(0).getProductimgId();
-			
 			mlbackProductImg.setProductimgId(pImgId);
-			
 			mlbackProductImgService.updateByPrimaryKeySelective(mlbackProductImg);
 			
 			//存在update
