@@ -460,6 +460,21 @@
 	align-items: center;
 	justify-content: center;
 }
+.product-img-delete {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 999;
+	width: 1.5rem;
+	height: 1.5rem;
+	text-align: center;
+	background-color: #ff0000;
+	border-radius: .2rem;
+	cursor: pointer;
+}
+.product-img-delete .c-icon {
+	fill: #fff;
+}
 .c-upload-img .video-preview {
 	position: absolute;
 	top: 0;
