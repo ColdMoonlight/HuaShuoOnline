@@ -1082,7 +1082,7 @@
 				data.forEach(function(item, idx) {
 					imgsHtml += '<div class="product-imgs-sort-item" data-id="'+ item.productimgId +'"><img src="'+ item.productimgUrl +'"></div>';
 				});
-				$('#imgModal').data('len', data.length).find('.left-panel').html(imgsHtml).end().modal('show');
+				$('#imgModal').data('len', data.length).find('.left-panel').html(imgsHtml).end().find('.right-panel').html('').end().modal('show');
 			});
 		})
 		$('#imgModal .btn-save').on('click', function() {
@@ -1103,7 +1103,7 @@
 			formData.append("productId", productId);
 			formData.append("teams", JSON.stringify(productImgsArr));
 			saveProductImgsData(formData, function(data) {
-				$('#imgModal').find('.right-panel').html('').end().modal('hide');
+				$('#imgModal').modal('hide');
 				getProductAllImgData({
 					productId: productId
 				}, renderProductAllData);
