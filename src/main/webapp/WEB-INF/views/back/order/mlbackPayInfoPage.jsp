@@ -72,8 +72,8 @@
 											<th>payId</th>
 											<th>orderid</th>
 											<th>plate-num</th>
-											<th>payinfoCreatetime</th>
-											<th>payinfoReturntime</th>
+											<!--<th>payinfoCreatetime</th>-->
+											<th>pay-time</th>
 											<th>pay-status</th>
 											<th>price</th>
 											<th>customer</th>
@@ -860,7 +860,7 @@
 				htmlStr += '<tr><td>' + data[i].payinfoId + '</td>' +
 					'<td>' + (data[i].payinfoOid || '') + '</td>' +
 					'<td>' + (data[i].payinfoPlatenum || '') + '</td>' +
-					'<td>' + data[i].payinfoCreatetime + '</td>' +
+					/*'<td>' + data[i].payinfoCreatetime + '</td>' +*/
 					'<td>' + data[i].payinfoReturntime + '</td>' +
 					'<td>' + getPayStatus(data[i].payinfoStatus) + '</td>' +
 					'<td>' + (data[i].payinfoMoney || 0).toFixed(2) + '</td>' +
