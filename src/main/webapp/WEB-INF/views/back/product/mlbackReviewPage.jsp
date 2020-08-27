@@ -855,7 +855,8 @@
 				});
 				
 			}else{
-				console.log("格式不正确")
+				console.log("The file format is incorrect")
+				alert("The file format is incorrect")
 			}
 			
 			
