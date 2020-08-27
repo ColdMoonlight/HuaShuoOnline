@@ -313,6 +313,7 @@ public class MlfrontOrderController {
 		mlfrontPayInfoNew.setPayinfoMoney(amTotalBig);//总钱数排除一分钱后的计算结果
 		mlfrontPayInfoNew.setPayinfoCreatetime(nowTime);
 		mlfrontPayInfoNew.setPayinfoMotifytime(nowTime);
+		mlfrontPayInfoNew.setPayinfoReturntime(nowTime);
 		mlfrontPayInfoService.insertSelective(mlfrontPayInfoNew);
 		Integer payinfoId = mlfrontPayInfoNew.getPayinfoId();
 		session.setAttribute("payinfoId", payinfoId);

@@ -34,6 +34,7 @@ import com.atguigu.utils.URLUtils;
 import com.atguigu.utils.EcppIntoUtil;
 import com.atguigu.utils.EmailUtilshtml;
 import com.atguigu.utils.EmailUtilshtmlCustomer;
+import com.atguigu.utils.PaypalErrorUtil;
 import com.atguigu.vo.order;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.PayerInfo;
@@ -135,6 +136,7 @@ public class PaypalController {
             System.out.println("---------e.getMessage()------end-------");
             System.out.println("---------e.getDetails()-----begin------");
             System.out.println(e.getDetails());
+            //PaypalErrorUtil.getPaypalError(e.getDetails());
             if(e.getDetails()==null){
             	PaypalErrorName = "retry fails..  check log for more information";
             }else{
