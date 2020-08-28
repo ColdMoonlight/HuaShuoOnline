@@ -6,6 +6,20 @@
   "description": "demo",
   "glyphs": [
     {
+      "icon_id": "742556",
+      "name": "shippingInfo",
+      "font_class": "shipping",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "16553730",
+      "name": "order-status-shipping",
+      "font_class": "shipping2",
+      "unicode": "e886",
+      "unicode_decimal": 59526
+    },
+    {
       "icon_id": "4472443",
       "name": "tip-2",
       "font_class": "tip",

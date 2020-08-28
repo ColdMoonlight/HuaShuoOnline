@@ -32,9 +32,9 @@
 	<div class="wap-header">
 		<div class="ml-ad"></div>
 		<div class="wap-search-track">
-			<a class="wap-track-order" href="javascript:goToSearchTrack();">
+			<a class="wap-track-order" id="search-product">
 				<span class="icon search"></span>
-				<span class="wap-track-order-text">Search Order Track</span>
+				<span class="wap-track-order-text">Search Product...</span>
 			</a>
 		</div>
 		<div class="wap-navbar">
@@ -46,8 +46,7 @@
 			</a>
 			<span class="icon" id="iphone-share"></span>
 			<a href="${APP_PATH}/MlbackCart/toCartList" class="icon cart"><span class="num">0</span></a>
-			<span class="icon search"></span>
-
+			<a href="javascript:goToSearchTrack();" class="icon shipping"></a>
 			<div class="search-box">
 				<div class="title">What are you Looking for?</div>
 				<div class="search-inputgroup">
@@ -599,7 +598,7 @@
 		}
 		renderIntroduceSearch();
 	}
-	$('.pc-header .search-input, .wap-navbar .search').on('click', showSearchBox);
+	$('.pc-header .search-input, #search-product').on('click', showSearchBox);
 	// close search-result box
 	$('.search-result-box').on('click', function (e) {
 		if (e.target == this) {

@@ -446,6 +446,14 @@ a.btn-pink,
 	color: #333333;
 }
 
+.icon.shipping:before {
+  content: "\e64f";
+}
+
+.icon.shipping2:before {
+  content: "\e886";
+}
+
 .icon.tip:before {
   content: "\e704";
 }
