@@ -31,6 +31,12 @@
 	</div>
 	<div class="wap-header">
 		<div class="ml-ad"></div>
+		<div class="wap-search-track">
+			<a class="wap-track-order" href="javascript:goToSearchTrack();">
+				<span class="icon search"></span>
+				<span class="wap-track-order-text">Search Order Track</span>
+			</a>
+		</div>
 		<div class="wap-navbar">
 			<span id="menu" class="icon menu"></span>
 			<span class="icon person" title="login/register"></span>
@@ -60,12 +66,7 @@
 	<div class="wap-nav-body">
 		<ul class="wap-nav ml-nav"></ul>
 	</div>
-	<div class="wap-nav-footer">
-		<a class="wap-track-order" href="javascript:goToSearchTrack();">
-			<span class="icon search"></span>
-			<span class="wap-track-order-text">Search Order Track</span>
-		</a>
-	</div>
+	<div class="wap-nav-footer"></div>
 </div>
 <!-- search result -->
 <div class="search-result-box">
