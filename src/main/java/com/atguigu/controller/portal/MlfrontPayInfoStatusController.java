@@ -75,7 +75,6 @@ public class MlfrontPayInfoStatusController {
 		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderPay);
 		return Msg.success().add("resMsg", "重复单关闭");
 	}
-	
 	//PayinfoStatus(5);//0未支付//1支付成功//2审单完毕//3发货完毕 //4已退款//5发送弃购//6重复单关
 	//OrderStatus(6);//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款//6发送弃购//7重复单关闭
 }
