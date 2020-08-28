@@ -1185,19 +1185,29 @@ main {
 .wap-nav-footer {
 	border-top: 1px solid #ddd;
 }
+.wap-search-track {
+	padding: .5rem;
+}
 .wap-track-order {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	width: 100%;
+	padding: .25rem;
 	font-size: 1rem;
 	color: #333;
 	text-decoration: none;
+	border: 1px solid #eee;
 }
 .wap-track-order .icon {
-	width: 1.5rem;
-	height: 1.5rem;
+	width: 1.2rem;
+	height: 1.2rem;
 	font-size: 1.5rem;
-	margin-right: 2rem;
+	margin-right: 1rem;
+	color: #888;
+}
+.wap-track-order-text {
+	color: #666;
 }
 .wap-nav-header > .icon.close {
 	width: 2rem;
