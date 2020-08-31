@@ -228,7 +228,7 @@
 					var singProductId = couponData.mlbackCouponOne.couponProductonlyPidstr;
 					
 					if (singProductId && productIdArr.indexOf(singProductId) > -1) {
-						$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
+						$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> used successful ! </p>');
 					} else {
 						$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> The coupon is invalid for the purchase of products, it is only applicable to specific products ! </p>' +
 								'<p>eg: <a style="color: #333;" href="${APP_PATH}/'+ couponData.mlbackCouponOne.couponProductseonamesstronlyPid +'.html">'+ couponData.mlbackCouponOne.couponProductpronamesstronlyPid +'</a></p>');
@@ -238,11 +238,11 @@
 				if (couponData.mlbackCouponOne.couponType == '0') {
 					if (!couponData.mlbackCouponOne.couponPriceBaseline) {
 						resData.coupon = couponData.mlbackCouponOne.couponPrice;
-						$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
+						$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> used successful ! </p>');
 					} else {
 						if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
 							resData.coupon = couponData.mlbackCouponOne.couponPrice;
-							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
+							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> used successful ! </p>');
 						} else {
 							resData.coupon = 0;
 							$('.order-coupon-tip').html('<p>The minimum usage price of this coupon is + <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>');
@@ -253,11 +253,11 @@
 				if (couponData.mlbackCouponOne.couponType == '1') {
 					if (!couponData.mlbackCouponOne.couponPriceBaseline) {
 						resData.coupon = parseFloat(accuracyCal(resData.prototal, couponData.mlbackCouponOne.couponPriceoff));
-						$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
+						$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> used successful ! </p>');
 					} else {
 						if (resData.prototal >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
 							resData.coupon = parseFloat(accuracyCal(resData.prototal, couponData.mlbackCouponOne.couponPriceoff));
-							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> Has been used ! </p>');
+							$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> used successful ! </p>');
 						} else {
 							resData.coupon = 0;
 							$('.order-coupon-tip').html('<p>The minimum usage price of this coupon is + <i style="color: #f00">$'+ couponData.mlbackCouponOne.couponPriceBaseline +'<i></p>');
