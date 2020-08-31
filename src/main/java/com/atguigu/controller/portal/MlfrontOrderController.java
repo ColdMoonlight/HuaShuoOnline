@@ -188,6 +188,11 @@ public class MlfrontOrderController {
 	@ResponseBody
 	public Msg orderToPayInfo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontOrder mlfrontOrder){
 		//0.0接受参数信息
+		String intoOrderMessage = mlfrontOrder.getOrderBuyMess();
+		System.out.println("intoOrderMessage:"+intoOrderMessage);
+		String afterMessage = intoOrderMessage.replaceAll("[^\\u0000-\\uFFFF]", "");
+		System.out.println("afterMessage:"+afterMessage);
+		mlfrontOrder.setOrderBuyMess(afterMessage);
 		Integer originalOrderId = mlfrontOrder.getOrderId();
 		String filnanyNumber = mlfrontOrder.getOrderPronumStr();
 		Integer CouponId =mlfrontOrder.getOrderCouponId();
