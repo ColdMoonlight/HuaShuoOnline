@@ -226,6 +226,7 @@ public class MlbackSlidesController {
 				mlbackSlideOne = mlbackSlideList.get(i);
 				Integer proId = mlbackSlideOne.getSlideProid();
 				mlbackProductOne.setProductId(proId);
+				mlbackProductOne.setProductStatus(1);
 				List<MlbackProduct> mlbackProductList  = mlbackProductService.selectMlbackProductByParam(mlbackProductOne);
 				if(mlbackProductList.size()>0){
 					mlbackProductResList.add(mlbackProductList.get(0));
@@ -260,6 +261,7 @@ public class MlbackSlidesController {
 				mlbackSlideOne = mlbackSlideList.get(i);
 				Integer proId = mlbackSlideOne.getSlideProid();
 				mlbackProductOne.setProductId(proId);
+				mlbackProductOne.setProductStatus(1);
 				List<MlbackProduct> mlbackProductList  = mlbackProductService.selectMlbackProductByParam(mlbackProductOne);
 				if(mlbackProductList.size()>0){
 					mlbackProductResList.add(mlbackProductList.get(0));
