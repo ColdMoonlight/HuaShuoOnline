@@ -85,6 +85,7 @@ function renderProductOptions(data, selectedRadioArr) {
 		optionItem.html(htmlStr);
 		$('.product-options').append(optionItem);
 	}
+	optionObj = {};
 	data.forEach(function(item, idx) {
 		createOption(item, selectedRadioArr && selectedRadioArr[idx]);
 	});
@@ -208,13 +209,12 @@ function updateProductStatus(selected) {
     for (var i = 0, len = keys.length; i < len; i+=1) {
         var key = keys[i],
         	data = optionObj[key],
-        	selectArr = selected;
-
+        	selectArr = selected.slice();
         for (var j = 0; j < data.length; j+=1) {
-            var item = data[j],
+            var item = String(data[j]),
             	curr,
             	$item;
-
+			selectArr[i] = item;
 			curr = trimSpliter(selectArr.join(','), ',');
 			$item = $('.product-option-item[data-type="' + key + '"]').find('.radio[data-text="' + item + '"]');
             if (mapSet[curr] && mapSet[curr].count) {
