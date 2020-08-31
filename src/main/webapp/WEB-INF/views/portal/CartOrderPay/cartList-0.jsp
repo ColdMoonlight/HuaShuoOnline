@@ -374,7 +374,8 @@
 		$(document.body).on('click', '.cartlist-modal .modal-ok', function() {
 			if (!isCorrectProduct()) return;
 			var reqData = $('.cartlist-modal .product-options').data('productsku');
-			updateCartItemData({
+			!reqData && removeModal(cartlistModal);
+			reqData && updateCartItemData({
 				"cartitemId": $('#cartitemId').val(),
 				"cartitemProductskuId": reqData.productskuId,
 				"cartitemProductskuName": reqData.productskuName,
