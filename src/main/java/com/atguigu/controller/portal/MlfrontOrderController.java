@@ -191,7 +191,7 @@ public class MlfrontOrderController {
 		String intoOrderMessage = mlfrontOrder.getOrderBuyMess();
 		System.out.println("intoOrderMessage:"+intoOrderMessage);
 		String afterMessage = intoOrderMessage.replaceAll("[^\\u0000-\\uFFFF]", "");
-		System.out.println("afterMessage:"+afterMessage);
+		System.out.println("afterOrderMessage:"+afterMessage);
 		mlfrontOrder.setOrderBuyMess(afterMessage);
 		Integer originalOrderId = mlfrontOrder.getOrderId();
 		String filnanyNumber = mlfrontOrder.getOrderPronumStr();

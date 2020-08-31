@@ -66,7 +66,7 @@ public class ExcleDownloadController {
 		}
 		
 		List<DownPayCheckDate> highPayIFList= downPayCheckDateService.selectHighPayCheckList(downPayIFDateReq);
-		System.out.println(highPayIFList.toString());
+		System.out.println("highPayIFList.size():"+highPayIFList.size());
 		
 		cell.setCellValue("num");
 	    cell = row.createCell(1);

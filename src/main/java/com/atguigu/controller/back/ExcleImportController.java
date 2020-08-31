@@ -180,7 +180,7 @@ public class ExcleImportController {
 		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		                    reviewOne.setReviewFrom(Integer.parseInt(getCell.getStringCellValue()));
 		                }
-						System.out.println(reviewOne.toString());
+						//System.out.println("reviewOne.toString( ):"+reviewOne.toString());
 						reviewList.add(reviewOne);
 					}
 					is.close();
