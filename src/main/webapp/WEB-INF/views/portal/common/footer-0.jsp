@@ -208,16 +208,15 @@ function updateProductStatus(selected) {
     for (var i = 0, len = keys.length; i < len; i+=1) {
         var key = keys[i],
         	data = optionObj[key],
-        	selectArr = selected.slice();
+        	selectArr = selected;
 
         for (var j = 0; j < data.length; j+=1) {
             var item = data[j],
             	curr,
             	$item;
-            selectArr[i] = item;
+
 			curr = trimSpliter(selectArr.join(','), ',');
 			$item = $('.product-option-item[data-type="' + key + '"]').find('.radio[data-text="' + item + '"]');
-
             if (mapSet[curr] && mapSet[curr].count) {
                 $item.removeClass('disabled');
             } else {
