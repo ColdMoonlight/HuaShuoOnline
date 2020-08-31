@@ -187,7 +187,7 @@ public class MlfrontOrderController {
 	@RequestMapping(value="/orderToPayInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg orderToPayInfo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontOrder mlfrontOrder){
-		//0.0接受参数信息
+		//0.0接受参数信息,替换留言中的表情字符
 		String intoOrderMessage = mlfrontOrder.getOrderBuyMess();
 		System.out.println("intoOrderMessage:"+intoOrderMessage);
 		String afterMessage = intoOrderMessage.replaceAll("[^\\u0000-\\uFFFF]", "");
