@@ -454,8 +454,8 @@
 	        	</div>
 	            <input type="text" placeholder="E-mail address">
 	            <div class="lottery-join-tip">
-	            	<div class="wap">Enter Your Email, Get Gift Pack 30$ & Barcelet 25$ ,Free ！！！</div>
-	            	<div class="pc">Enter your email, get our gift pack (value 30$) & a barcelet (value 25$), all free！</div>
+	            	<div class="wap">Enter Your Email,Try Your Luck!</div>
+	            	<div class="pc">Enter Your Email,Try Your Luck!</div>
 	            </div>
 	            <div class="lottery-email-tip"></div>
 	        </div>

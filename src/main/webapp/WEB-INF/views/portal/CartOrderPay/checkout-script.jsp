@@ -411,7 +411,7 @@
 		var $cartBuyerMsgBox = $('<div class="cart-box">'+
 				'<div class="cart-box-title"><span class="order-sort">5</span>ADDITIONAL INFORMATION</div>'+
 				'<div class="cart-box-body">'+
-					'<div class="order-buyer-msg"><textarea rows="4" placeholder="Buyer message"></textarea></div>'+
+					'<div class="order-buyer-msg"><textarea rows="4" placeholder="Any Request,Notes Here."></textarea></div>'+
 				'</div>'+
 			'</div>');
 		$('main .order-right').append($cartBuyerMsgBox);
