@@ -65,6 +65,7 @@
 		<table tableName="tb_mlback_orderstateemail" domainObjectName="MlbackOrderStateEmail" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_addcartviewdetail" domainObjectName="MlbackAddCartViewDetail" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_addcheakoutviewdetail" domainObjectName="MlbackAddCheakoutViewDetail" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_mlback_caclPay" domainObjectName="MlbackCaclPay" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 		
 		<!--	tb_mlfront
