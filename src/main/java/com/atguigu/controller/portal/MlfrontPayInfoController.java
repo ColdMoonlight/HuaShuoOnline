@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlPaypalShipAddress;
 import com.atguigu.bean.MlbackAreafreight;
+import com.atguigu.bean.MlbackCaclPay;
 import com.atguigu.bean.MlbackOrderStateEmail;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
@@ -27,6 +28,7 @@ import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlPaypalShipAddressService;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackAreafreightService;
+import com.atguigu.service.MlbackCaclPayService;
 import com.atguigu.service.MlbackOrderStateEmailService;
 import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontOrderItemService;
@@ -35,6 +37,7 @@ import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.ship.Classes.ConnectionAPI;
 import com.atguigu.ship.Classes.Tracking;
+import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.EcppUpdateWebStatusUtil;
 import com.atguigu.utils.EmailUtilshtml;
 import com.atguigu.utils.EmailUtilshtmlCustomer;
@@ -72,6 +75,9 @@ public class MlfrontPayInfoController {
 	
 	@Autowired
 	MlbackOrderStateEmailService mlbackOrderStateEmailService;
+	
+	@Autowired
+	MlbackCaclPayService mlbackCaclPayService;
 	
 //	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
@@ -157,8 +163,12 @@ public class MlfrontPayInfoController {
 		//1.查询本条pay支付单
 		List<MlfrontPayInfo> mlfrontPayInfoResList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoReq);
 		MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
+		String payinfoPlatenumInto = null;
 		if(mlfrontPayInfoResList.size()>0){
 			mlfrontPayInfoOne =mlfrontPayInfoResList.get(0);
+			//前面成功页面,是否首次调用支付信息明细,
+			Integer ifFirst = checkPayIdIfcale(mlfrontPayInfoOne);
+			
 			//2.获取本条单子的orderId,2.1查询本条的order详情;2.2从详情中拿到addressid;2.3orderItemIDStr;2.4uid信息,历史购买次数;
 			//2.1查询本条的order详情;
 			Integer payinfoOid = mlfrontPayInfoOne.getPayinfoOid();
@@ -223,7 +233,7 @@ public class MlfrontPayInfoController {
 				mlPaypalShipAddressRes = mlPaypalShipAddressResList.get(0);
 			}
 			//完毕回传
-			return Msg.success().add("resMsg", "查看单条mlfrontPayInfoOne的详情细节完毕")
+			return Msg.success().add("resMsg", "查看单条mlfrontPayInfoOne的详情细节完毕").add("ifFirst", ifFirst)
 						.add("mlfrontPayInfoOne", mlfrontPayInfoOne).add("mlfrontOrderPayOneRes", mlfrontOrderPayOneRes)
 						.add("mlfrontAddressOne", mlfrontAddressOne).add("mlfrontOrderItemList", mlfrontOrderItemList)
 						.add("mlfrontUserOne", mlfrontUserOne).add("mlPaypalShipAddressOne", mlPaypalShipAddressRes).add("areafreightMoney", areafreightMoney);
@@ -234,6 +244,27 @@ public class MlfrontPayInfoController {
 		}
 	}
 	
+	//前面成功页面,是否首次调用支付信息明细,
+	private Integer checkPayIdIfcale(MlfrontPayInfo mlfrontPayInfoOne) {
+
+		String payinfoPlatenum = mlfrontPayInfoOne.getPayinfoPlatenum();
+		Integer poid = mlfrontPayInfoOne.getPayinfoOid();
+		MlbackCaclPay mlbackCaclPayReq = new MlbackCaclPay();
+		mlbackCaclPayReq.setTbMlbackCaclpayPaltenum(payinfoPlatenum);
+		List<MlbackCaclPay> mlbackCaclPayList = mlbackCaclPayService.selectMlbackCaclPayByParams(mlbackCaclPayReq);
+		if(mlbackCaclPayList.size()>0){
+			return 1;//本条已经在数据库中,未被计算过
+		}else{
+			String nowtime = DateUtil.strTime14s();
+			mlbackCaclPayReq.setTbMlbackCaclpayCreatetime(nowtime);
+			mlbackCaclPayReq.setTbMlbackCaclpayMotifytime(nowtime);
+			mlbackCaclPayReq.setTbMlbackCaclpayOrderid(poid);
+			mlbackCaclPayService.insertSelective(mlbackCaclPayReq);
+			System.out.println("mlbackCaclPayReq:"+mlbackCaclPayReq.toString());
+			return 0;//本条已经在数据库中,未被计算过
+		}
+	}
+
 	/**
 	 * 6.0	zsh200815
 	 * 后台单条明细页面获取展示信息
