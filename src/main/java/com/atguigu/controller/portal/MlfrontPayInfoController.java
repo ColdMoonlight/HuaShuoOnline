@@ -163,7 +163,6 @@ public class MlfrontPayInfoController {
 		//1.查询本条pay支付单
 		List<MlfrontPayInfo> mlfrontPayInfoResList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoReq);
 		MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
-		String payinfoPlatenumInto = null;
 		if(mlfrontPayInfoResList.size()>0){
 			mlfrontPayInfoOne =mlfrontPayInfoResList.get(0);
 			//前面成功页面,是否首次调用支付信息明细,
