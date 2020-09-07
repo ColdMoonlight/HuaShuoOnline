@@ -239,7 +239,7 @@ public class MlfrontPayInfoController {
 		}else{
 			mlfrontPayInfoOne = null;
 			//账户异常
-			return Msg.success().add("resMsg", "查单条mlfrontPayInfoOne的详情细节完毕").add("mlfrontPayInfoOne", mlfrontPayInfoOne);
+			return Msg.success().add("resMsg", "查询单条mlfrontPayInfoOne的详情细节完毕").add("mlfrontPayInfoOne", mlfrontPayInfoOne);
 		}
 	}
 	
