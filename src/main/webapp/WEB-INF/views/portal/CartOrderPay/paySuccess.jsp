@@ -163,6 +163,7 @@
 			var resDataAddressOne = data.mlfrontAddressOne;
 			var mlPaypalShipAddressOne = data.mlPaypalShipAddressOne;
 			if (data.mlfrontPayInfoOne) {
+				var isFirst = data.ifFirst;
 				var orderData = resDataOrderPayOne;
 				orderData.shipping = data.areafreightMoney;
 				orderData.list = resDataOrderItemList;
@@ -174,7 +175,7 @@
 				renderReceiverinfo(resDataAddressOne);
 				renderPaypaladdress(mlPaypalShipAddressOne);
 
-				fbq('track', 'Purchase', {
+				!isFirst && fbq('track', 'Purchase', {
 					'content_ids': payinfoProductArr,
 					'content_type': 'product',
 					'value': orderData.payinfoMoney,
@@ -182,7 +183,7 @@
 				});
 
 				setTimeout(function() {
-					gtag('event', 'purchase', {
+					!isFirst && gtag('event', 'purchase', {
 						'transaction_id': resDataPayInfoOne.payinfoPlatenum,
 						'affiliation': 'MegaLookHair',
 						'value': String(orderData.payinfoMoney),
