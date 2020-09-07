@@ -244,7 +244,7 @@ public class MlfrontPayInfoController {
 		}
 	}
 	
-	//前面成功页面,是否首次调用支付信息明细,
+	//前面成功页面,是否首次调用支付信息明细
 	private Integer checkPayIdIfcale(MlfrontPayInfo mlfrontPayInfoOne) {
 
 		String payinfoPlatenum = mlfrontPayInfoOne.getPayinfoPlatenum();
