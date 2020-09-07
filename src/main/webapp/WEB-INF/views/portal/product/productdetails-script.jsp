@@ -1,6 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <script>
+	function addHeaderInfo(productData) {
+		var productNameStr = productData.productName,
+			productMetaDescStr = productData.productMetaDesc,
+			productSeoStr = productData.productSeo,
+			urlStr = 'https://megalook.com/' + productSeoStr + '.html',
+			imageStr = productData.productMainimgurl,
+			amountStr = (productData.productOriginalprice * productData.productActoffoff / 100).toFixed(2),
+			productIdStr = productData.productId;
+		var meta = $('<meta property = "og:title" content ="' + productNameStr + '">' +
+			'<meta property = "og:description" content = "' + productMetaDescStr + '" >' +
+			'<meta property = "og:url" content = "' + urlStr + '" >' +
+			'<meta property = "og:image" content = "' + imageStr + '" >' +
+			'<meta property = "product:brand" content = "MegaLook" >' +
+			'<meta property = "product:availability" content = "in stock" >' +
+			'<meta property = "product:condition" content = "new" > ' +
+			'<meta property = "product:price:amount" content = "' + amountStr + '" >' +
+			'<meta property = "product:price:currency" content = "USD" >' +
+			'<meta property = "product:retailer_item_id" content = "' + productIdStr + '" >' +
+			'');
+		$(document.head).append(meta);
+	}
 	// imagezoom
 	(function($) {
 	    $.fn.imagezoom = function(options) {
@@ -596,9 +617,9 @@
 			data.length && buildResult(data);				
 		});
 
+		addHeaderInfo(data);
 		var fbpid = data.productId;
 		var fbprice = accuracyCal(data.productOriginalprice, data.productActoffoff);
-
 		fbq('track', 'PageView', {
 			content_ids: fbpid,
 			contents: [{ "id": fbpid, "quantity": 999, "item_price": fbprice }],
