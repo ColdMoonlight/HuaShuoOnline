@@ -97,4 +97,12 @@
     delete from tb_mlback_caclpay
     where tb_mlback_caclPay_id = #{tbMlbackCaclpayId,jdbcType=INTEGER}
   </delete>
+  
+  <!-- 使用中selectMlbackCaclPayByParams -->
+  <select id="selectMlbackCaclPayByParams" parameterType="com.atguigu.bean.MlbackCaclPay" resultMap="BaseResultMap">
+  	select
+  	tb_mlback_caclPay_id, tb_mlback_caclPay_palteNum, tb_mlback_caclPay_orderId, tb_mlback_caclPay_createTime, 
+    tb_mlback_caclPay_motifyTime
+  	from tb_mlback_caclpay where tb_mlback_caclPay_palteNum = #{tbMlbackCaclpayPaltenum,jdbcType=VARCHAR}
+  </select>
 </mapper>
