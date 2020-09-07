@@ -163,7 +163,6 @@ public class MlfrontPayInfoController {
 		//1.查询本条pay支付单
 		List<MlfrontPayInfo> mlfrontPayInfoResList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoReq);
 		MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
-		String payinfoPlatenumInto = null;
 		if(mlfrontPayInfoResList.size()>0){
 			mlfrontPayInfoOne =mlfrontPayInfoResList.get(0);
 			//前面成功页面,是否首次调用支付信息明细,
@@ -240,11 +239,11 @@ public class MlfrontPayInfoController {
 		}else{
 			mlfrontPayInfoOne = null;
 			//账户异常
-			return Msg.success().add("resMsg", "查看单条mlfrontPayInfoOne的详情细节完毕").add("mlfrontPayInfoOne", mlfrontPayInfoOne);
+			return Msg.success().add("resMsg", "查单条mlfrontPayInfoOne的详情细节完毕").add("mlfrontPayInfoOne", mlfrontPayInfoOne);
 		}
 	}
 	
-	//前面成功页面,是否首次调用支付信息明细,
+	//前面成功页面,是否首次调用支付信息明细
 	private Integer checkPayIdIfcale(MlfrontPayInfo mlfrontPayInfoOne) {
 
 		String payinfoPlatenum = mlfrontPayInfoOne.getPayinfoPlatenum();
