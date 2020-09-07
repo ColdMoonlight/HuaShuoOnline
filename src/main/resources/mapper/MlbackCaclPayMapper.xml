@@ -18,10 +18,7 @@
     from tb_mlback_caclpay
     where tb_mlback_caclPay_id = #{tbMlbackCaclpayId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_mlback_caclpay
-    where tb_mlback_caclPay_id = #{tbMlbackCaclpayId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.atguigu.bean.MlbackCaclPay">
     insert into tb_mlback_caclpay (tb_mlback_caclPay_id, tb_mlback_caclPay_palteNum, 
       tb_mlback_caclPay_orderId, tb_mlback_caclPay_createTime, 
@@ -30,7 +27,16 @@
       #{tbMlbackCaclpayOrderid,jdbcType=INTEGER}, #{tbMlbackCaclpayCreatetime,jdbcType=VARCHAR}, 
       #{tbMlbackCaclpayMotifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackCaclPay">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackCaclPay">
+    update tb_mlback_caclpay
+    set tb_mlback_caclPay_palteNum = #{tbMlbackCaclpayPaltenum,jdbcType=VARCHAR},
+      tb_mlback_caclPay_orderId = #{tbMlbackCaclpayOrderid,jdbcType=INTEGER},
+      tb_mlback_caclPay_createTime = #{tbMlbackCaclpayCreatetime,jdbcType=VARCHAR},
+      tb_mlback_caclPay_motifyTime = #{tbMlbackCaclpayMotifytime,jdbcType=VARCHAR}
+    where tb_mlback_caclPay_id = #{tbMlbackCaclpayId,jdbcType=INTEGER}
+  </update>
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="tbMlbackCaclpayId" parameterType="com.atguigu.bean.MlbackCaclPay">
     insert into tb_mlback_caclpay
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="tbMlbackCaclpayId != null">
@@ -67,6 +73,7 @@
       </if>
     </trim>
   </insert>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackCaclPay">
     update tb_mlback_caclpay
     <set>
@@ -85,12 +92,9 @@
     </set>
     where tb_mlback_caclPay_id = #{tbMlbackCaclpayId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackCaclPay">
-    update tb_mlback_caclpay
-    set tb_mlback_caclPay_palteNum = #{tbMlbackCaclpayPaltenum,jdbcType=VARCHAR},
-      tb_mlback_caclPay_orderId = #{tbMlbackCaclpayOrderid,jdbcType=INTEGER},
-      tb_mlback_caclPay_createTime = #{tbMlbackCaclpayCreatetime,jdbcType=VARCHAR},
-      tb_mlback_caclPay_motifyTime = #{tbMlbackCaclpayMotifytime,jdbcType=VARCHAR}
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlback_caclpay
     where tb_mlback_caclPay_id = #{tbMlbackCaclpayId,jdbcType=INTEGER}
-  </update>
+  </delete>
 </mapper>

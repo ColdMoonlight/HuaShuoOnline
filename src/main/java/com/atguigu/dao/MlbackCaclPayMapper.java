@@ -1,17 +1,22 @@
 package com.atguigu.dao;
 
+import java.util.List;
+
 import com.atguigu.bean.MlbackCaclPay;
 
 public interface MlbackCaclPayMapper {
-    int deleteByPrimaryKey(Integer tbMlbackCaclpayId);
 
     int insert(MlbackCaclPay record);
 
-    int insertSelective(MlbackCaclPay record);
-
     MlbackCaclPay selectByPrimaryKey(Integer tbMlbackCaclpayId);
 
+    int updateByPrimaryKey(MlbackCaclPay record);
+    
+    int insertSelective(MlbackCaclPay record);
+    
+    int deleteByPrimaryKey(Integer tbMlbackCaclpayId);
+    
     int updateByPrimaryKeySelective(MlbackCaclPay record);
 
-    int updateByPrimaryKey(MlbackCaclPay record);
+	List<MlbackCaclPay> selectMlbackCaclPayByParams(MlbackCaclPay mlbackCaclPay);
 }
