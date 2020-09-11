@@ -759,6 +759,7 @@
 				mlModalTip('The new account has been automatically logged in !');
 			}, 2000);
 			fbq('track', 'CompleteRegistration');
+			pintrk('track', 'signup');
 		});
 	});
 	// forget password event
