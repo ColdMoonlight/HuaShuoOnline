@@ -289,6 +289,11 @@
 			value: orderMoney,
 			currency: 'USD'
 		});
+		pintrk('track', 'checkout', {
+			value: orderMoney,
+			order_quantity: $('.cart-cal-total').text(),
+			currency: 'USD'
+		});
 	}
 	// check reqData
 	function checkReqData(reqData) {
