@@ -216,6 +216,11 @@
 		}
 		$('.product-thumb-slide .swiper-wrapper').html(htmlVideoThumb + htmlStr);
 		$('.product-slide .swiper-wrapper').html(htmlVideo + htmlStr);
+		
+		$('#ml-video').on('play', function() {
+			pintrk('track', 'watchvideo');
+		});
+
 		// lazyload
 		new LazyLoad($('.product-media .lazyload'), {
 			root: null,
@@ -706,6 +711,11 @@
 					value: reqData.cartitemProductOriginalprice,
 					currency: 'USD'
 				});
+				pintrk('track', 'addtocart', {
+					value: reqData.cartitemProductOriginalprice,
+					order_quantity: $('.product-qty .product-num').val(),
+					currency: 'USD'
+				});
 			}
 		}, 300);
 	});
@@ -717,6 +727,10 @@
 			content_type: 'product',
 			value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)), reqData.cartitemProductActoff),
 			currency: "USD"
+		}), pintrk('track', 'checkout', {
+			value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)), reqData.cartitemProductActoff),
+			order_quantity: $('.product-qty .product-num').val(),
+			currency: 'USD'
 		}), toBuyNow(reqData, goToCheckout));
 	});
 	/* $('.paypal-button.paypal-now').on('click', function() {
