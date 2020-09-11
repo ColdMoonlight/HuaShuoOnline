@@ -129,7 +129,7 @@
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
 	<!-- productdetails script -->
-	<jsp:include page="./productdetails-script.jsp" flush="true"></jsp:include>	
+	<jsp:include page="./productdetails-script.min.jsp" flush="true"></jsp:include>	
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
