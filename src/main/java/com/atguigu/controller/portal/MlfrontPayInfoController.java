@@ -563,6 +563,7 @@ public class MlfrontPayInfoController {
 				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
         		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,已审单//orderStatus == 3已审单,待发货
         		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+        		mlfrontPayInfoUpdate.setPayinfoTransStatus("completed");//人工审核后必须账户已收款
         		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
         		
         		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
