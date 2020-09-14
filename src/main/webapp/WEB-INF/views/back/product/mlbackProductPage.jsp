@@ -23,7 +23,10 @@
 				<div class="c-init">
 					<div class="c-option">
 						<span class="c-option-title">Products</span>
-						<button class="btn btn-primary btn-create">Create product</button>
+						<div class="right-box">						
+							<button class="btn btn-primary btn-create">Create product</button>
+							<button class="btn btn-secondary btn-copy">Copy product</button>
+						</div>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -497,6 +500,44 @@
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
 		});
+		// copy product
+		$('.btn-copy').on('click', function () {
+			$('#editModal').find('.modal-title').html('Copy one product...');
+			$('#editModal').modal('show');
+			// get parentCategory data
+			getAllProductData(renderAllProductData);
+			$('#editModal .btn-ok').one('click', function () {
+				var productId = $('#editModal').find('input:checked') && $('#editModal').find('input:checked').data('id');
+				if (!productId) {
+					toastr.warning('没有选择任何产品，无法完成拷贝！！！');
+					return false;
+				}
+				$.ajax({
+					url: "${APP_PATH }/MlbackProduct/copyProByPid",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					async: false,
+					data: JSON.stringify({
+						'productId': productId
+					}),
+					success: function (data) {
+						if (data.code == 100) {
+							$('#editModal').modal('hide');
+							toastr.success(data.extend.resMsg);
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function (err) {
+						toastr.error(err);
+					},
+					complete: function () {
+						$('.c-mask').hide();
+					}
+				});
+			});
+		});
 		// create product
 		$('.btn-create').on('click', function () {
 			$('.c-create .c-option-title').text('Create Product');
@@ -630,7 +671,7 @@
 		});
 		// eidt product category
 		$('#editProductCategory').on('click', function() {
-			$('#editModal').find('.modal-title').html('selete category for product');
+			$('#editModal').find('.modal-title').html('select category for product');
 			$('#editModal').modal('show');
 			// get parentCategory data
 			getAllCollectionData(renderParentCategory);
@@ -2036,18 +2077,19 @@
 			var len = data.length;
 			$('.product-img-list').html('');
 
-			for (var i = 0; i < len; i+=1) {
-				addUploadBlock(data[i].productimgSortOrder);
-				addPicture($('.product-img-item').last().find('.productAllImgurl'), {
-					imageUrl: data[i].productimgUrl,
-					thumImageUrl: data[i].productimgUrl,
-					imgId: data[i].productimgId
-				});
+			if (!len) {
+				addUploadBlock(1);
+			} else {
+				for (var i = 0; i < len; i+=1) {
+					addUploadBlock(data[i].productimgSortOrder);
+					addPicture($('.product-img-item').last().find('.productAllImgurl'), {
+						imageUrl: data[i].productimgUrl,
+						thumImageUrl: data[i].productimgUrl,
+						imgId: data[i].productimgId
+					});
+				}
+				if (len < 6) addUploadBlock(($('.product-img-item').last().find('.productAllImgurl').data('order') + 1));
 			}
-			
-			if (len < 0) addUploadBlock(1);
-
-			if (len < 6) addUploadBlock(($('.product-img-item').last().find('.productAllImgurl').data('order') + 1));
 		}
 		
 		// render parentCategoryData
@@ -2059,11 +2101,26 @@
 				var categoryName = data[i].categoryDesc;
 				var checkedStatus = defaultProductCategory.indexOf(String(cagtegoryId)) > -1 ? "checked" : "";
 				htmlStr += '<div class="col-form-label"><div class="form-check checkbox">' +
-						'<input class="form-check-input" '+ checkedStatus +' id="'+ cagtegoryId +'" type="checkbox" value="" data-id="'+ cagtegoryId +'" data-name="'+ categoryName +'"}>' +
+						'<input class="form-check-input" '+ checkedStatus +' id="'+ cagtegoryId +'" type="checkbox" value="" data-id="'+ cagtegoryId +'" data-name="'+ categoryName +'">' +
 						'<label class="form-check-label" for="'+ cagtegoryId +'">No.' + cagtegoryId + ' ' + categoryName +'</label>' +
 					'</div></div>';
 			}
 			$('#editModal .modal-body-body').html(htmlStr);
+		}
+		
+		// render all product data
+		function renderAllProductData(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				var productId = data[i].productId;
+				var productName = data[i].productName;
+				htmlStr += '<div class="col-form-label"><div class="form-check checkbox">' +
+						'<input class="form-check-input" name="copyProductRadio" id="'+ productId +'" type="radio" value="" data-id="'+ productId +'">' +
+						'<label class="form-check-label" for="'+ productId +'">No.' + productId + ' ' + productName +'</label>' +
+					'</div></div>';
+			}
+			$('#editModal .modal-body-body').html(htmlStr);
+			$('#editModal .spinner').hide();
 		}
 	</script>
 </body>
