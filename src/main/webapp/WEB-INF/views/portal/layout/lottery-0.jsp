@@ -19,18 +19,19 @@
 }
 .lottery-close {
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: -.8rem;
+	right: -.8rem;
+	z-index: 11;
 	width: 2rem;
 	height: 2rem;
 	background-color: #555555;
 	color: #fff;
 	text-align: center;
 	cursor: pointer;
+	border-radius: 50%;
 }
 .lottery-close:hover {
 	background-color: #333;
-	border-radius: .25rem;
 }
 .lottery {
     width: 100%;
@@ -46,13 +47,15 @@
 	vertical-align: middle;
 }
 .lottery-container {
+	position: relative;
 	display: inline-block;
 	vertical-align: middle;
-    box-shadow: 0 0 .5rem #000;
-    border-radius: .75rem;
+}
+.lottery-oh {
 	border-radius: 1rem;
-    overflow: hidden;
+    box-shadow: 0 0 .5rem #000;
 	background-color: #fff;
+    overflow: hidden;
 }
 .lottery-email {
 	position: relative;
@@ -444,39 +447,41 @@
 }
 </style>
 <div class="lottery-box hide">
-	<div class="lottery-close icon close"></div>
 	<div class="lottery">
         <div class="lottery-container">
-        	<div class="lottery-email">
-	        	<div class="lottery-title">
-	        		<span><b>M</b>EGA<b>L</b>OOK</span>
-	        		<span>Your Hair Your Surprise</span>
-	        	</div>
-	            <input type="text" placeholder="E-mail address">
-	            <div class="lottery-join-tip">
-	            	<div class="wap">Enter Your Email,Try Your Luck!</div>
-	            	<div class="pc">Enter Your Email,Try Your Luck!</div>
-	            </div>
-	            <div class="lottery-email-tip"></div>
-	        </div>
-			
-	        <div class="lottery-game-box">
-	        	<div class="lottery-inner-box">
-		            <div class="lottery-game">
-		                <div class="lottery-startgame"></div>
-		                <div class="lottery-game-list">
-		                	<div class="lottery-game-item"></div>
-		                	<div class="lottery-game-item"></div>
-		                	<div class="lottery-game-item"></div>
-		                	<div class="lottery-game-item"></div>
-		                	<div class="lottery-game-item"></div>
-		                	<div class="lottery-game-item"></div>
-		                	<div class="lottery-game-item"></div>
-		                	<div class="lottery-game-item"></div>
-		                </div>
+			<div class="lottery-close icon close"></div>
+			<div class="lottery-oh">			
+	        	<div class="lottery-email">
+		        	<div class="lottery-title">
+		        		<span><b>M</b>EGA<b>L</b>OOK</span>
+		        		<span>Your Hair Your Surprise</span>
+		        	</div>
+		            <input type="text" placeholder="E-mail address">
+		            <div class="lottery-join-tip">
+		            	<div class="wap">Enter Your Email,Try Your Luck!</div>
+		            	<div class="pc">Enter Your Email,Try Your Luck!</div>
 		            </div>
-		         </div>
-	        </div>
+		            <div class="lottery-email-tip"></div>
+		        </div>
+				
+		        <div class="lottery-game-box">
+		        	<div class="lottery-inner-box">
+			            <div class="lottery-game">
+			                <div class="lottery-startgame"></div>
+			                <div class="lottery-game-list">
+			                	<div class="lottery-game-item"></div>
+			                	<div class="lottery-game-item"></div>
+			                	<div class="lottery-game-item"></div>
+			                	<div class="lottery-game-item"></div>
+			                	<div class="lottery-game-item"></div>
+			                	<div class="lottery-game-item"></div>
+			                	<div class="lottery-game-item"></div>
+			                	<div class="lottery-game-item"></div>
+			                </div>
+			            </div>
+			         </div>
+		        </div>
+			</div>
         </div>
     </div>
 </div>
