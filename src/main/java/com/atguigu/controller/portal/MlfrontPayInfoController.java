@@ -488,7 +488,7 @@ public class MlfrontPayInfoController {
 	 * 2,便利这些单子,用token+H号,去查询本条的状态,
 	 * 3.1如果是审核完毕,就在我方系统中,将本条改成已经审核的状态
 	 * 3.2如果是已发货,就在我方系统中,将本单改成已经已发货的状态;并且把哪家物流的名字+track_no,同步回我方后台
-	 * @param Integer payInfoId,Integer orderId,String ecppHSnum,Integer orderId,
+	 * @param Integer payInfoId,Integer orderId,String ecppHSnum,Integer orderId
 	 */
 	@RequestMapping(value="/checkEcppOneIfVerify",method=RequestMethod.POST)
 	@ResponseBody
@@ -563,6 +563,7 @@ public class MlfrontPayInfoController {
 				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
         		mlfrontPayInfoUpdate.setPayinfoStatus(2);//payinfo状态为2,已审单//orderStatus == 3已审单,待发货
         		mlfrontPayInfoUpdate.setPayinfoEcpphsnumStatus(ecppOrderStatusCode);
+        		mlfrontPayInfoUpdate.setPayinfoTransStatus("completed");//人工审核后必须账户已收款
         		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
         		
         		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
