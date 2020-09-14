@@ -475,4 +475,38 @@ public class MlbackProductController {
 	  return Msg.success().add("resMsg", "产品名模糊搜索完毕")
 	     .add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName);
 	 }
+	 
+	 /**12.0	20200914
+	 * MlbackProduct	copyProByPid
+	 * @param MlbackProduct
+	 * @return
+	 */
+	@RequestMapping(value="/copyProByPid",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg copyProByPid(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackProduct mlbackProduct){
+		//接受参数信息
+		Integer productId =  mlbackProduct.getProductId();
+		
+		MlbackProduct mlbackProductReq = new MlbackProduct();
+		mlbackProductReq.setProductId(productId);
+		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductLike(mlbackProductReq);
+		
+		MlbackProduct mlbackProductRes = new MlbackProduct();
+		mlbackProductRes = mlbackProductResList.get(0);
+		String productName = mlbackProductRes.getProductName();
+		String proSeo = mlbackProductRes.getProductSeo();
+		
+		MlbackProduct mlbackProductIn =  mlbackProductRes;
+		mlbackProductIn.setProductId(null);
+		mlbackProductIn.setProductName(productName+"COPY");
+		mlbackProductIn.setProductSeo(proSeo+"COPY");
+		mlbackProductIn.setProductStatus(0);//0,不上架1,上架	刚复制完
+		
+		String nowTime = DateUtil.strTime14s();
+		mlbackProductIn.setProductCreatetime(nowTime);
+		mlbackProductIn.setProductMotifytime(nowTime);
+		
+		mlbackProductService.insertSelective(mlbackProductIn);
+		return Msg.success().add("resMsg", "copy产品成功").add("productOne", mlbackProductIn);
+	}
 }
