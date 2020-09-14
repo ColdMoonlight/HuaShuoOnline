@@ -2077,18 +2077,19 @@
 			var len = data.length;
 			$('.product-img-list').html('');
 
-			for (var i = 0; i < len; i+=1) {
-				addUploadBlock(data[i].productimgSortOrder);
-				addPicture($('.product-img-item').last().find('.productAllImgurl'), {
-					imageUrl: data[i].productimgUrl,
-					thumImageUrl: data[i].productimgUrl,
-					imgId: data[i].productimgId
-				});
+			if (!len) {
+				addUploadBlock(1);
+			} else {
+				for (var i = 0; i < len; i+=1) {
+					addUploadBlock(data[i].productimgSortOrder);
+					addPicture($('.product-img-item').last().find('.productAllImgurl'), {
+						imageUrl: data[i].productimgUrl,
+						thumImageUrl: data[i].productimgUrl,
+						imgId: data[i].productimgId
+					});
+				}
+				if (len < 6) addUploadBlock(($('.product-img-item').last().find('.productAllImgurl').data('order') + 1));
 			}
-			
-			if (len < 0) addUploadBlock(1);
-
-			if (len < 6) addUploadBlock(($('.product-img-item').last().find('.productAllImgurl').data('order') + 1));
 		}
 		
 		// render parentCategoryData
