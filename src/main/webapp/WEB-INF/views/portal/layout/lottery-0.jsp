@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <style>
-@font-face {
-	font-family: copperplateGothic;
-	src: url('${APP_PATH}/static/pc/font/copperplateGothic.ttf');
-	font-weight: normal;
-  	font-style: normal;
-}
 .lottery-box {
 	position: fixed;
 	top: 0;
@@ -71,6 +65,12 @@
 }
 .lottery-title>span {
 	display: block;
+}
+.lottery-title>span:nth-of-type(1) {
+	background-image: url('${APP_PATH}/static/pc/img/lottery/lottery-logo.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 .lottery-email>input {
     display: inline-block;
@@ -231,12 +231,7 @@
 		background-image: url('${APP_PATH}/static/pc/img/lottery/lottery-pc.jpg');
 	}	
 	.lottery-title>span:nth-of-type(1) {
-		font-size: 1.625rem;
-		font-family: copperplateGothic !important;
-		letter-spacing: .2rem;
-	}
-	.lottery-title>span:nth-of-type(1)>b {
-		font-size: 1.5rem;
+		padding-top: 30px;
 	}
 	.lottery-title>span:nth-of-type(2) {
 		margin-top: .25rem;
@@ -345,12 +340,7 @@
 		background-image: url('${APP_PATH}/static/pc/img/lottery/lottery-pc.jpg');
 	}	
 	.lottery-title>span:nth-of-type(1) {
-		font-size: 2.5rem;
-		font-family: copperplateGothic !important;
-		letter-spacing: .25rem;
-	}
-	.lottery-title>span:nth-of-type(1)>b {
-		font-size: 2.75rem;
+		padding-top: 50px;
 	}
 	.lottery-title>span:nth-of-type(2) {
 		margin-top: 1rem;
@@ -453,7 +443,7 @@
 			<div class="lottery-oh">			
 	        	<div class="lottery-email">
 		        	<div class="lottery-title">
-		        		<span><b>M</b>EGA<b>L</b>OOK</span>
+		        		<span></span>
 		        		<span>Your Hair Your Surprise</span>
 		        	</div>
 		            <input type="text" placeholder="E-mail address">
