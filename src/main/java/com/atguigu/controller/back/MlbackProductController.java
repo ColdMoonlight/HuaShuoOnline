@@ -489,7 +489,7 @@ public class MlbackProductController {
 		
 		MlbackProduct mlbackProductReq = new MlbackProduct();
 		mlbackProductReq.setProductId(productId);
-		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductLike(mlbackProductReq);
+		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductByParam(mlbackProductReq);
 		
 		MlbackProduct mlbackProductRes = new MlbackProduct();
 		mlbackProductRes = mlbackProductResList.get(0);
