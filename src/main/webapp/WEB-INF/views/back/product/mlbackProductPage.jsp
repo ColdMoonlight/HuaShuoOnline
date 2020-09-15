@@ -2114,7 +2114,7 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var productId = data[i].productId;
 				var productName = data[i].productName;
-				htmlStr += '<div class="col-form-label"><div class="form-check checkbox">' +
+				htmlStr += '<div class="col-form-label"><div class="form-check radio">' +
 						'<input class="form-check-input" name="copyProductRadio" id="'+ productId +'" type="radio" value="" data-id="'+ productId +'">' +
 						'<label class="form-check-label" for="'+ productId +'">No.' + productId + ' ' + productName +'</label>' +
 					'</div></div>';
