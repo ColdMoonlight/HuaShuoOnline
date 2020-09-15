@@ -44,14 +44,16 @@ function productAdd(el, callback) {
 function productSub(el, callback) {
 	var parentEl = el.parents('.product-qty');
 	var curr = parseInt(parentEl.find('.product-num').val());
+	var flag = false;
 	curr -= 1;
 	if (curr < 1) {
 		curr = 1;
+		flag = true;
 		mlModalTip('<p>At least one product !</p>');
 	}
 
 	parentEl.find('.product-num').val(curr);
-	callback && callback(parentEl, curr);
+	callback && callback(parentEl, curr, flag);
 }
 /* product option */
 function getProductOption(callback) {

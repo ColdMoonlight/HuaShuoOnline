@@ -2093,6 +2093,7 @@
 		
 		// copy one product data
 		function copyOneProductData(reqData, callback) {
+			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH }/MlbackProduct/copyProByPid",
 				type: "post",
