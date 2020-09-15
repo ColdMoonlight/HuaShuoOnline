@@ -506,35 +506,18 @@
 			$('#editModal').modal('show');
 			// get parentCategory data
 			getAllProductData(renderAllProductData);
+
 			$('#editModal .btn-ok').one('click', function () {
 				var productId = $('#editModal').find('input:checked') && $('#editModal').find('input:checked').data('id');
 				if (!productId) {
 					toastr.warning('没有选择任何产品，无法完成拷贝！！！');
 					return false;
 				}
-				$.ajax({
-					url: "${APP_PATH }/MlbackProduct/copyProByPid",
-					type: "post",
-					dataType: "json",
-					contentType: 'application/json',
-					async: false,
-					data: JSON.stringify({
-						'productId': productId
-					}),
-					success: function (data) {
-						if (data.code == 100) {
-							$('#editModal').modal('hide');
-							toastr.success(data.extend.resMsg);
-						} else {
-							toastr.error(data.extend.resMsg);
-						}
-					},
-					error: function (err) {
-						toastr.error(err);
-					},
-					complete: function () {
-						$('.c-mask').hide();
-					}
+				copyOneProductData({
+					'productId': productId
+				}, function() {
+					$('#editModal').modal('hide');
+					updateSearchData();
 				});
 			});
 		});
@@ -2108,13 +2091,39 @@
 			$('#editModal .modal-body-body').html(htmlStr);
 		}
 		
+		// copy one product data
+		function copyOneProductData(reqData, callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlbackProduct/copyProByPid",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback();
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		
 		// render all product data
 		function renderAllProductData(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var productId = data[i].productId;
 				var productName = data[i].productName;
-				htmlStr += '<div class="col-form-label"><div class="form-check checkbox">' +
+				htmlStr += '<div class="col-form-label"><div class="form-check radio">' +
 						'<input class="form-check-input" name="copyProductRadio" id="'+ productId +'" type="radio" value="" data-id="'+ productId +'">' +
 						'<label class="form-check-label" for="'+ productId +'">No.' + productId + ' ' + productName +'</label>' +
 					'</div></div>';
