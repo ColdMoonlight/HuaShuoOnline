@@ -315,8 +315,8 @@
 	});
 	// sub product
 	$(document.body).on('click', '.product-sub', function() {
-		productSub($(this), function(el, num) {
-			updateCartNum(el, num, updateCalCart);
+		productSub($(this), function(el, num, flag) {
+			!flag && updateCartNum(el, num, updateCalCart);
 		});
 	});
 	// delete product
