@@ -185,7 +185,7 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script src="${APP_PATH}/static/common/jquery.min.js"></script>
     <script>
-    	var stripe = Stripe("pk_test_51HRakYF2ZSOE8cstvkueDV7Ipp5krpozKb0FoWCVF1JFj5sItOAINT1ygMcwD6nrupY0beKYXYQQnfRGlgS93CqE00xANQWcfC");
+    	var stripe = Stripe("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA");
 
 		// The items the customer wants to buy
 		var purchase = {
