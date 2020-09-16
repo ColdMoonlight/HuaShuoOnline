@@ -9,7 +9,7 @@
 				<h3 class="follow-us-title wap-follow-us">FOLLOW US</h3>
 				<div class="follow-us-title pc-follow-us">
 					<img src="${APP_PATH }/static/common/dblogo.png" alt="" title="megalook" style="width:150px">
-					<div style="margin-top:6px;">My New Look</div>
+					<div style="margin-top:6px;">My New Look </div>
 				</div>
 				<ul class="follow-us-list">
 					<li class="follow-icon facebook" title="megalook facebook"><a href="https://www.facebook.com/MegalookHairCompany/"></a></li>
