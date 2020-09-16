@@ -59,7 +59,7 @@ public class MlfrontPayInfoStatusController {
 	@ResponseBody
 	public Msg closePayOrder(HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo){
 		
-		//PayinfoStatus(6);//0未支付//1支付成功//2审单完毕//3发货完毕 //4已退款//5发送弃购//6重复单关
+		//PayinfoStatus(6);//0未支付//1支付成功//2审单完毕//3发货完毕 //4已退款//5发送弃购//6重复单关闭
 		Integer payinfoId = mlfrontPayInfo.getPayinfoId();
 		Integer payinfoOid = mlfrontPayInfo.getPayinfoOid();
 		//接受payinfoId
