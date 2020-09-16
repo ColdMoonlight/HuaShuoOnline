@@ -44,8 +44,7 @@ public class StripeController {
 	
 	private static Gson gson = new Gson();
 	
-//	 port(4242);
-     Dotenv dotenv = Dotenv.load();
+
 
 	static class CreatePaymentBody {
         @SerializedName("items")
@@ -99,16 +98,17 @@ public class StripeController {
 	@ResponseBody
     public String stripePay(HttpSession session,HttpServletResponse response,HttpServletRequest request){
 		
+		Stripe.apiKey = "sk_test_51HNEjlGgEkMvvUCbQmhbiwmioK5hlLfueCutt7tlYQniSGV7zkZxxXEwbhi0fUL2m83yxPZQ1UaRXS76ZjfCZ0ol00O1WgmFS0";
+		
 		//接收参数
 //		CreatePaymentBody postBody = gson.fromJson(request.body(), CreatePaymentBody.class);
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-                .setCurrency("135").setAmount((long)136)
+                .setCurrency("usd").setAmount((long)136)
                 .build();
         // Create a PaymentIntent with the order amount and currency
-        PaymentIntent intent;
 		try {
-			intent = PaymentIntent.create(createParams);
-			return gson.toJson(new CreatePaymentResponse(dotenv.get("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA"), intent.getClientSecret()));
+			PaymentIntent intent = PaymentIntent.create(createParams);
+			return gson.toJson(new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret()));
 		} catch (StripeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
