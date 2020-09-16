@@ -262,6 +262,24 @@
 		</dependency>
 		<!-- 解析ecpp返回的soap报文所需 end -->
 		
+		<!-- 解析stripe信用卡所需的begin -->
+		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>20.2.0</version>
+		</dependency>
+		<dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>2.8.0</version>
+        </dependency> 
+		<dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>java-dotenv</artifactId>
+            <version>5.1.1</version>
+        </dependency>
+		<!-- 解析stripe信用卡所需的end -->
+		
 	</dependencies>
 	<build>
 		<finalName>HuaShuoOnline</finalName>
