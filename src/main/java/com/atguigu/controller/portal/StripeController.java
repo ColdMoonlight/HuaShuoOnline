@@ -109,8 +109,8 @@ public class StripeController {
 		//
 //		ConfirmationMethod ConfirmationMethod = null;
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-                .setCurrency("usd").setAmount((long)136).setDescription("userEmail").setConfirm(true)
-                .setConfirmationMethod(ConfirmationMethod.MANUAL).setReturnUrl("成功页面")
+                .setCurrency("usd").setAmount((long)136)
+//                .setDescription("userEmail").setConfirm(true).setConfirmationMethod(ConfirmationMethod.MANUAL)
                 .build();
         // Create a PaymentIntent with the order amount and currency
 		try {
