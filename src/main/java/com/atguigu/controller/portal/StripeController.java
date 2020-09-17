@@ -3,8 +3,10 @@ package com.atguigu.controller.portal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.nio.file.Paths;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.atguigu.bean.MlfrontPayInfo;
 //import static spark.Spark.get;
 //import static spark.Spark.post;
 //import static spark.Spark.staticFiles;
@@ -81,23 +84,14 @@ public class StripeController {
         //用户直接在客户端上操纵金额
         return 1400;
     }
-    
-	/**
-	 * 1.0	UseNow	0505
-	 * toPaySuccessPage列表页面
-	 * @param jsp
-	 * @return 
-	 * */
-	@RequestMapping("/toIndexPage")
-	public String toPaySuccessPage() throws Exception{
-	
-		return "portal/cardpayindex";
-	}
-	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/create-payment-intent")
 	@ResponseBody
-    public String stripePay(HttpSession session,HttpServletResponse response,HttpServletRequest request){
+    public String stripePay(HttpSession session,HttpServletResponse response,HttpServletRequest request,@RequestBody MlfrontPayInfo mlfrontPayInfoInto){
+		
+		Integer payinfoid = mlfrontPayInfoInto.getPayinfoId();
+		
+		Integer orderid = mlfrontPayInfoInto.getPayinfoOid();
 		
 		Stripe.apiKey = "sk_test_51HNEjlGgEkMvvUCbQmhbiwmioK5hlLfueCutt7tlYQniSGV7zkZxxXEwbhi0fUL2m83yxPZQ1UaRXS76ZjfCZ0ol00O1WgmFS0";
 		
@@ -124,71 +118,7 @@ public class StripeController {
 		return "";
 		
 	}
-	
-//	
-//	@RequestMapping(method = RequestMethod.GET, value = "mpay")
-//    public String stripePay(HttpSession session){
-//	      
-//	      Stripe.apiKey = "sk_test_51HNEjlGgEkMvvUCbQmhbiwmioK5hlLfueCutt7tlYQniSGV7zkZxxXEwbhi0fUL2m83yxPZQ1UaRXS76ZjfCZ0ol00O1WgmFS0";
-//
-//
-//	      port(4242);
-//	        Dotenv dotenv = Dotenv.load();
-//
-//	        Stripe.apiKey = dotenv.get("STRIPE_SECRET_KEY");
-//
-//	        staticFiles.externalLocation(
-//	                Paths.get(Paths.get("").toAbsolutePath().toString(), dotenv.get("STATIC_DIR")).normalize().toString());
-//
-//	        post("/create-payment-intent", (request, response) -> {
-//	            response.type("application/json");
-//
-//	            CreatePaymentBody postBody = gson.fromJson(request.body(), CreatePaymentBody.class);
-//	            PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-//	                    .setCurrency(postBody.getCurrency()).setAmount(new Long(calculateOrderAmount(postBody.getItems())))
-//	                    .build();
-//	            // Create a PaymentIntent with the order amount and currency
-//	            PaymentIntent intent = PaymentIntent.create(createParams);
-//	            // Send publishable key and PaymentIntent details to client
-//	            return gson.toJson(new CreatePaymentResponse(dotenv.get("STRIPE_PUBLISHABLE_KEY"), intent.getClientSecret()));
-//	        });
-//
-//	        post("/webhook", (request, response) -> {
-//	            String payload = request.body();
-//	            String sigHeader = request.headers("Stripe-Signature");
-//	            String endpointSecret = dotenv.get("STRIPE_WEBHOOK_SECRET");
-//
-//	            Event event = null;
-//
-//	            try {
-//	                event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
-//	            } catch (SignatureVerificationException e) {
-//	                // Invalid signature
-//	                response.status(400);
-//	                return "";
-//	            }
-//
-//	            switch (event.getType()) {
-//	            case "payment_intent.succeeded":
-//	                // Fulfill any orders, e-mail receipts, etc
-//	                // To cancel the payment you will need to issue a Refund
-//	                // (https://stripe.com/docs/api/refunds)
-//	                System.out.println("💰Payment received!");
-//	                break;
-//	            case "payment_intent.payment_failed":
-//	                System.out.println("❌ Payment failed.");
-//	                break;
-//	            default:
-//	                // Unexpected event type
-//	                response.status(400);
-//	                return "";
-//	            }
-//
-//	            response.status(200);
-//	            return "";
-//	        });
-//			return "";
-//	}
+
 //	
 //	public static void main(String[] args) {
 //        port(4242);
