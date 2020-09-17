@@ -398,8 +398,8 @@
 						'<div class="order-payment-item custom-check">'+
 							'<input type="radio" name="payment" id="payment-paypalcard" value="1">' +
 							'<label for="payment-paypalcard">' +
+								'<b style="margin-right: .2rem;">Credit card</b>' +
 								'<img src="${APP_PATH}/static/pc/img/paypal-2.png">' +
-								'<span>Credit card via PayPal</span>' +
 							'</label>' +
 						'</div>' +
 					'</div>'+
@@ -681,7 +681,7 @@
   				$('#payment-form .btn-text').removeClass('hide');
   			}
   		}
-  		
+
   		// create one payment
   		function createPayment(reqData, stripe, card) {
 			$.ajax({
