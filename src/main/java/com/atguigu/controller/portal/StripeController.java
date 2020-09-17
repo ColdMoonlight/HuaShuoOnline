@@ -84,19 +84,6 @@ public class StripeController {
         //用户直接在客户端上操纵金额
         return 1400;
     }
-    
-	/**
-	 * 1.0	UseNow	0505
-	 * toPaySuccessPage列表页面
-	 * @param jsp
-	 * @return 
-	 * */
-	@RequestMapping("/toIndexPage")
-	public String toPaySuccessPage() throws Exception{
-	
-		return "portal/cardpayindex";
-	}
-	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/create-payment-intent")
 	@ResponseBody
