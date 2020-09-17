@@ -22,6 +22,8 @@ var ml = {
 	facebook_id: '221174955835797', // test
 	google_id: 'UA-148324397-1', // test
 	tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js',
+	// stripe test
+	stripe_key: 'pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA',
 	// pinterest test
 	pinterest_id: '2613999865733',
 	pinterest_email: 'lvzhenbang@outlook.com',
