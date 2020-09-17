@@ -139,7 +139,7 @@
 			contentType: 'application/json',
 			success: function (data) {
 				if (data.code == 100) {
-					callback && callback();
+					callback && callback(data.extend);
 				} else {
 					sysModalTip();
 				}
@@ -631,14 +631,14 @@
 	  				}
   				})
   				.then(function(result) {
-  				if (result.error) {
-  					// Show error to your customer
-  					paymentError(result.error.message);
-  				} else {
-  					// The payment succeeded!
-  					paymentSuccess(result.paymentIntent.id);
-  				}
-  			});
+	  				if (result.error) {
+	  					// Show error to your customer
+	  					paymentError(result.error.message);
+	  				} else {
+	  					// The payment succeeded!
+	  					paymentSuccess(result.paymentIntent.id);
+	  				}
+	  			});
   		}
 
   		function paymentSuccess() {
@@ -684,17 +684,24 @@
 
   		// create one payment
   		function createPayment(reqData, stripe, card) {
-			$.ajax({
-  				url: '${APP_PATH}/stripe/create-payment-intent',
-  				data: JSON.stringify(reqData),
-  				type: 'post',
-  				dataType: 'json',
-  				contentType: 'application/json',
-  				success: function (data) {
-  					payWithCard(stripe, card, data.clientSecret);
-  				},
-  				error: function () {}
-  		    });
+  			orderPay(reqData, function(data) {
+  				$.ajax({
+  	  				url: '${APP_PATH}/stripe/create-payment-intent',
+  	  				data: JSON.stringify({
+  	  					'payinfoid': data.payinfoId,
+  	  					'payinfoOid': data.orderId
+  	  				}),
+  	  				type: 'post',
+  	  				dataType: 'json',
+  	  				contentType: 'application/json',
+  	  				success: function (data) {
+  	  					payWithCard(stripe, card, data.clientSecret);
+  	  				},
+  	  				error: function () {
+  	  					sysModalTip();
+  	  				}
+  	  		    });
+  			});
   		}
   		var style = {
   			base: {
