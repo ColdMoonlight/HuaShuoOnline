@@ -395,6 +395,10 @@
 								'<span>Pay with PayPal account</span>' +
 							'</label>' +
 						'</div>' +
+						'<div class="paypal-box">' +
+					    	'<img src="${APP_PATH}/static/pc/img/paypal-3.svg">' +
+					    	'<div class="paypal-des">After clicking “Complete order”, you will be redirected to PayPal to complete your purchase securely.</div>' +
+					    '</div>' +
 						'<div class="order-payment-item custom-check">'+
 							'<input type="radio" name="payment" id="payment-paypalcard" value="1">' +
 							'<label for="payment-paypalcard">' +
@@ -402,12 +406,12 @@
 								'<img src="${APP_PATH}/static/pc/img/paypal-2.png">' +
 							'</label>' +
 						'</div>' +
+						'<div class="card-element-box mask hide">' +
+					    	'<div class="spinner"></div>' +
+					    	'<div id="card-element"></div>' +
+					    	'<p id="card-error" role="alert"></p>' +
+					    '</div>' +
 					'</div>'+
-					'<div class="card-element-box mask hide">' +
-				    	'<div class="spinner"></div>' +
-				    	'<div id="card-element"></div>' +
-				    	'<p id="card-error" role="alert"></p>' +
-				    '</div>' +
 				'</div>'+
 			'</div>');
 		$('main .order-right').append($cartPaymentBox);
@@ -434,7 +438,7 @@
 						'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ (calOrder.shipping).toFixed(2) +'</span></div>' +
 						'<div class="order-cal-item"><span class="name">subtotal</span><span class="value order-cal-subtotal" data-price="'+ (calOrder.subtotal).toFixed(2) +'">$'+ (calOrder.subtotal).toFixed(2) +'</span></div>' +
 						'<div class="order-cal-btn">' +
-							'<a href="javascript:;" id="pay-now" class="btn btn-pink">Pay Securely Now</a>' +
+							'<a href="javascript:;" id="pay-now" class="btn btn-pink">Complete Order</a>' +
 							'<button id="payment-form" class="btn btn-pink hide" disabled><div class="spinner hide"></div><span class="btn-text">Pay Securely Now</span></button>' +
 						'</div>' +
 					'</div>'+
@@ -752,10 +756,12 @@
   		});
   	}
 
+	var hasStripe = false;
 	// tab pay
 	$(document.body).on('change', 'input[type="radio"][name="payment"]', function() {
 		var payType = $('input[name="payment"]:checked').val();
 		if (payType == '0') {
+			$('.paypal-box').removeClass('hide');
 			$('.card-element-box').addClass('hide');
 			$('#pay-now').removeClass('hide');
 			$('#payment-form').addClass('hide');
@@ -763,6 +769,7 @@
 
 		if (payType == '1') {
 			!hasStripe && addStripeScript();;
+			$('.paypal-box').addClass('hide');
 			$('.card-element-box').removeClass('hide');
 			$('#pay-now').addClass('hide');
 			$('#payment-form').removeClass('hide');
