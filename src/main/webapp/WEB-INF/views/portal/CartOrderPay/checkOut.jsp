@@ -8,13 +8,133 @@
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>main { margin: 0; }</style>
+	<style>
+		/* stripe payment */
+		.spinner,
+		.spinner:before,
+		.spinner:after {
+			border-radius: 50%;
+		}
+		.spinner {
+			position: relative;
+			margin-right: .75rem;
+			color: #ffffff;
+			width: 20px;
+			height: 20px;
+			box-shadow: inset 0 0 0 2px;
+			-webkit-transform: translateZ(0);
+			-ms-transform: translateZ(0);
+			transform: translateZ(0);
+		}
+		.spinner:before,
+		.spinner:after {
+			position: absolute;
+			content: "";
+			background: #5469d4;
+		}
+		.spinner:before {
+			width: 10.4px;
+			height: 20.4px;
+			border-radius: 20.4px 0 0 20.4px;
+			top: -0.2px;
+			left: -0.2px;
+			-webkit-transform-origin: 10.4px 10.2px;
+			transform-origin: 10.4px 10.2px;
+			-webkit-animation: loading 2s infinite ease 1.5s;
+			animation: loading 2s infinite ease 1.5s;
+		}
+		.spinner:after {
+			width: 10.4px;
+			height: 10.2px;
+			border-radius: 0 10.2px 10.2px 0;
+			top: -0.1px;
+			left: 10.2px;
+			-webkit-transform-origin: 0px 10.2px;
+			transform-origin: 0px 10.2px;
+			-webkit-animation: loading 2s infinite ease;
+			animation: loading 2s infinite ease;
+		}
+		@-webkit-keyframes loading {
+			0% {
+				-webkit-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+			100% {
+				-webkit-transform: rotate(360deg);
+				transform: rotate(360deg);
+			}
+		}
+		@keyframes loading {
+			0% {
+				-webkit-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+			100% {
+				-webkit-transform: rotate(360deg);
+				transform: rotate(360deg);
+			}
+		}
+		.card-element-box {
+			position: relative;
+			padding: 1rem;
+			margin: 0 1rem;
+			background-color: #f5f5f5;
+		}
+		.card-element-box .spinner:before,
+		.card-element-box .spinner:after {
+		  	background-color: #f5f5f5;
+		}
+		#card-element {
+			width: 100%;
+			height: 2.75rem;
+			padding: .75rem;
+			border-radius: .25rem .25rem 0 0 ;
+			border: 1px solid rgba(50, 50, 93, 0.1);
+			background-color: #fff;
+		}
+		#card-error {
+			margin: .25rem 0 0 0;
+			font-style: italic;
+			font-size: .75rem;
+			text-align: left;
+			color: #ff1671;
+		}
+		.card-element-box.mask #card-element {
+			background-color: #f5f5f5;
+			border-color: #f5f5f5;
+		}
+		.card-element-box.mask .spinner {
+		  	display: block;
+		  	color: #333;
+		}
+		#payment-form {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		#payment-form .spinner:before,
+		#payment-form .spinner:after {
+		  	background-color: #ccc;
+		}
+		#payment-form[disabled] {
+			background-color: #ccc;
+			border-color: #ccc;
+		}
+		.card-element-box .spinner {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			display: none;
+			transform: translate(-50%, -50%);
+		}
+	</style>
 </head>
 
 <body>
 	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
 		<div class="container">
-			<div class="order-header"></div>			
+			<div class="order-header"></div>
 			<div class="order-body">
 				<div class="order-left">
 					<div class="cart-box">
@@ -106,7 +226,7 @@
 	<!-- main end -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<!-- checkout script -->	
-	<jsp:include page="./checkout-script.min.jsp" flush="true"></jsp:include>
+	<jsp:include page="./checkout-script.jsp" flush="true"></jsp:include>
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
