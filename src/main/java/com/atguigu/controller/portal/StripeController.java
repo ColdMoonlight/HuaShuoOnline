@@ -19,13 +19,14 @@ import javax.servlet.http.HttpSession;
 //import static spark.Spark.port;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-
+import com.paypal.api.payments.Metadata;
 import com.stripe.Stripe;
 import com.stripe.model.Event;
 import com.stripe.model.PaymentIntent;
 import com.stripe.exception.*;
 import com.stripe.net.Webhook;
 import com.stripe.param.PaymentIntentCreateParams;
+import com.stripe.param.PaymentIntentCreateParams.ConfirmationMethod;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import spark.Request;
@@ -102,8 +103,14 @@ public class StripeController {
 		
 		//接收参数
 //		CreatePaymentBody postBody = gson.fromJson(request.body(), CreatePaymentBody.class);
+		
+		Metadata metadata = new Metadata();
+		//metadata.s
+		//
+//		ConfirmationMethod ConfirmationMethod = null;
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-                .setCurrency("usd").setAmount((long)136)
+                .setCurrency("usd").setAmount((long)136).setDescription("userEmail").setConfirm(true)
+                .setConfirmationMethod(ConfirmationMethod.MANUAL).setReturnUrl("成功页面")
                 .build();
         // Create a PaymentIntent with the order amount and currency
 		try {
