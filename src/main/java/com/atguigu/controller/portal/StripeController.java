@@ -433,13 +433,13 @@ public class StripeController {
         	//2.2修改order的状态
         	toUpdateOrderInfoCardSuccess(session,payinfoId,CardID);
             
-            return "redirect:/Success.html";
+            return "1";
         } catch (Exception e) {
             log.error(e.getMessage());
             System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----begin------");
             System.out.println(e.getMessage());
             System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----end------");
-            return "redirect:/MlbackCart/toCheakOut";
+            return "0";
         }
     }
     
