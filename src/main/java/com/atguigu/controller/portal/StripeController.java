@@ -25,6 +25,7 @@ import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.portal.ToPaypalInfo;
+import com.atguigu.common.Msg;
 import com.atguigu.service.MlPaypalShipAddressService;
 import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontOrderItemService;
@@ -422,7 +423,7 @@ public class StripeController {
      * */
     @RequestMapping(method = RequestMethod.POST, value = "/cardSuccessInfo")
 	@ResponseBody
-    public String successPay(HttpSession session,@RequestParam("payinfoId") Integer payinfoId, @RequestParam("CardID") String CardID){
+    public Msg successPay(HttpSession session,@RequestParam("payinfoId") Integer payinfoId, @RequestParam("CardID") String CardID){
 
     	try {
             session.setAttribute("successpayinfoId", payinfoId);
@@ -432,13 +433,13 @@ public class StripeController {
         	toUpdatePayInfoStateCardSuccess(session,payinfoId,CardID);
         	//2.2修改order的状态
         	toUpdateOrderInfoCardSuccess(session,payinfoId,CardID);
-            return "1";
+        	return Msg.success().add("updateStatus", 1);
         } catch (Exception e) {
             log.error(e.getMessage());
             System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----begin------");
             System.out.println(e.getMessage());
             System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----end------");
-            return "0";
+            return Msg.success().add("updateStatus", 0);
         }
     }
     
