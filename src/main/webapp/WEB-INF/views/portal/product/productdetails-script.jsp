@@ -476,11 +476,11 @@
 	function renderProudctReviewCal (data) {
 		var reviewNum = data.allReviewNum,
 			reviewStarList = data.StartNumList,
-			total = reviewStarList ? reviewStarList.reduce(function(acc, item) {acc += item.startCount; return acc;}, 0) : 0,
+			total = reviewStarList ? reviewStarList.reduce(function(acc, item) {acc += item.startCount * item.startNum; return acc;}, 0) : 0,
 			avgStar = Math.ceil(total / reviewNum);
 			htmlStr = '';
 		for (var i = 4, percent = 0; i >= 0; i-=1) {
-			percent = (total ? reviewStarList[i].startCount * 100 / total : 0);
+			percent = (data.allReviewNum ? reviewStarList[i].startCount * 100 / data.allReviewNum : 0);
 			htmlStr += '<div class="product-review-star-item">' +
      	 		'<div class="stars">'+ (i+1) +' star</div>' +
      	 		'<div class="progress">' +
