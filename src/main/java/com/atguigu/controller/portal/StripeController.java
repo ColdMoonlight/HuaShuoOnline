@@ -43,12 +43,21 @@ import com.paypal.api.payments.Item;
 import com.paypal.api.payments.ItemList;
 import com.paypal.api.payments.Metadata;
 import com.stripe.Stripe;
+import com.stripe.model.Address;
 import com.stripe.model.Event;
 import com.stripe.model.PaymentIntent;
+import com.stripe.model.PaymentIntent.PaymentMethodOptions;
+import com.stripe.param.PaymentIntentConfirmParams.PaymentMethodData.BillingDetails;
+//import com.stripe.model.issuing.Card.Shipping;
+//import com.stripe.param.PaymentIntentCreateParams.Shipping;
+//import com.stripe.param.PaymentIntentConfirmParams.PaymentMethodData.BillingDetails.Address;
 import com.stripe.exception.*;
 import com.stripe.net.Webhook;
+import com.stripe.param.PaymentIntentConfirmParams;
+import com.stripe.param.PaymentIntentCreateParams.PaymentMethodData;
 import com.stripe.param.PaymentIntentCreateParams;
 import com.stripe.param.PaymentIntentCreateParams.ConfirmationMethod;
+import com.stripe.param.PaymentIntentCreateParams.Shipping;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import spark.Request;
@@ -139,7 +148,6 @@ public class StripeController {
     	//1.5,准备支付前,从session中获取orderList详情
     	List<MlfrontOrderItem> mlfrontOrderItemList = getMlfrontOrderItemList(session);
     	
-    	
     	String subMoney = "";
     	
     	ItemList itemList = new ItemList();
@@ -158,7 +166,6 @@ public class StripeController {
   			String skuNumStr = skuNum+"";
   			String money = mlfrontOrderItem.getOrderitemPskuReamoney();
   			String oneMoney = getOnemoney(skuNum,money);
-//  		demo:	item.setName(name).setQuantity("1").setCurrency("USD").setPrice(money);
   			item.setName(name).setQuantity(skuNumStr).setCurrency("USD").setPrice(oneMoney);
   			money = getOneAllMoney(skuNum,oneMoney);
   			subMoney = money;
@@ -205,21 +212,39 @@ public class StripeController {
 		
 		//接收参数
 //		CreatePaymentBody postBody = gson.fromJson(request.body(), CreatePaymentBody.class);
-		
-		Metadata metadata = new Metadata();
-		//metadata.s
 		//
 //		ConfirmationMethod ConfirmationMethod = null;
+//		BillingDetails billingDetails = new BillingDetails();
+//		BillingDetails.setName("");
+//		BillingDetails.setEmail("");
+//		BillingDetails.setPhone("");
+//		Address address = new Address();
+//		address.setLine1("");
+//		BillingDetails.setAddress(address);
+		//paymentMethodData.getBillingDetails();
+		
+//		PaymentMethodData aaa = PaymentMethodData.builder().setBillingDetails("");
+//		com.stripe.param.PaymentIntentCreateParams.PaymentMethodData PaymentMethodOptionsaa = new PaymentMethodData();
+//		Address shipingaddress = null; 
+		//shipingaddress
+		//Shipping shipping = new Shipping(shipingaddress, amTotal, null, amTotal, amTotal, amTotal);
+//		Shipping.builder().setAddress(address)
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-                .setCurrency("usd").setAmount(amTotalFen)
-//                .setDescription("userEmail").setConfirm(true).setConfirmationMethod(ConfirmationMethod.MANUAL)
+                .setCurrency("usd").setAmount(amTotalFen).addPaymentMethodType("card").setReceiptEmail(mlfrontAddress.getAddressEmail())
+                .setDescription(toPaypalInfo.getPaymentDescription())
+                //.setMandate(mandate)
+                //.setPaymentMethodData(paymentMethodData)
+                //.setConfirm(true).setReturnUrl("https://megalook.com/success.html")初始化的时候
+                //.setCustomer("zsh1020064691@qq.com")
+                //.setShipping(shipping)
                 .build();
         // Create a PaymentIntent with the order amount and currency
 		try {
 			PaymentIntent intent = PaymentIntent.create(createParams);
-			return gson.toJson(new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret()));
+//			return gson.toJson(new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret()));
+			CreatePaymentResponse paymentResponse = new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret());
+		    return gson.toJson(paymentResponse);
 		} catch (StripeException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         // Send publishable key and PaymentIntent details to client
