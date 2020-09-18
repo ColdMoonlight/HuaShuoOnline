@@ -2,6 +2,7 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<meta name="msvalidate.01" content="5490B8CBC84E3C9D7F95D2FE93A263BC" />
 <!-- siteMap 认证
 <meta name="google-site-verification" content="SAL4KVmok7Gucsll1buOMRYO2RQVPPNdF163maxOVSU" /> -->
 <!-- google-site-verification 网站地图所需 上线时打开

@@ -1102,11 +1102,14 @@
 				productId: $('#productId').val()
 			}, function(data) {
 				var imgsHtml = '';
-
-				data.forEach(function(item, idx) {
-					imgsHtml += '<div class="product-imgs-sort-item" data-id="'+ item.productimgId +'"><img src="'+ item.productimgUrl +'"></div>';
-				});
-				$('#imgModal').data('len', data.length).find('.left-panel').html(imgsHtml).end().find('.right-panel').html('').end().modal('show');
+				if (data.length) {
+					data.forEach(function(item, idx) {
+						imgsHtml += '<div class="product-imgs-sort-item" data-id="'+ item.productimgId +'"><img src="'+ item.productimgUrl +'"></div>';
+					});
+					$('#imgModal').data('len', data.length).find('.left-panel').html(imgsHtml).end().find('.right-panel').html('').end().modal('show');					
+				} else {
+					toastr.warning('没有图片可进行排序！！！');
+				}
 			});
 		})
 		$('#imgModal .btn-save').on('click', function() {
@@ -1140,7 +1143,7 @@
 		$(document.body).on('click', '#imgModal .right-panel .product-imgs-sort-item', function() {
 			$('#imgModal .left-panel').append($(this));
 		});
-		// delte product img
+		// delete product img
 		$(document.body).on('click', '.product-img-delete', function() {
 			var productItem = $(this).parent();
 			var dataVal = productItem.find('.productAllImgurl').data('val');
@@ -1156,7 +1159,7 @@
 				deleteProductImgData({
 					productimgId: productImgId,
 				}, function(data) {
-					var imgsLen = $('.product-img-item').length;
+					var imgsLen = $('.product-img-item.valid').length;
 					var count = $('.product-img-item').last().find('.productAllImgurl').data('order');
 					productItem.remove();
 					if (imgsLen >= 6) addUploadBlock(count + 1);
@@ -1629,7 +1632,7 @@
 				success: function (data) {
 					if (data.code == 100) {
 						var count = $('.product-img-item').last().find('.productAllImgurl').data('order');
-						if (count < 6 && !$this.attr('data-val')) {
+						if ($('.product-img-item').length < 6 && !$this.attr('data-val')) {
 							addUploadBlock(count + 1);
 						}
 						addPicture($this, {
@@ -1652,6 +1655,7 @@
 		function addPicture(el, data) {
 			var parentEl = el.parent();
 			el.attr('data-val', JSON.stringify(data));
+			parentEl.addClass('valid');
 			parentEl.addClass('active');
 			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.thumImageUrl) + '" />').end().find('.product-img-delete').removeClass('hide');
 		}
