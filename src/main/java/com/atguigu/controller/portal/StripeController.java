@@ -19,11 +19,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
+import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.portal.ToPaypalInfo;
 import com.atguigu.service.MlPaypalShipAddressService;
 import com.atguigu.service.MlfrontAddressService;
@@ -31,10 +31,12 @@ import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
-//import static spark.Spark.get;
-//import static spark.Spark.post;
-//import static spark.Spark.staticFiles;
-//import static spark.Spark.port;
+import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.EcppIntoUtil;
+import com.atguigu.utils.EmailUtilshtml;
+import com.atguigu.utils.EmailUtilshtmlCustomer;
+import com.atguigu.utils.PropertiesUtil;
+import com.atguigu.vo.order;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.paypal.api.payments.Amount;
@@ -281,21 +283,15 @@ public class StripeController {
     	ToPaypalInfo toPaypalInfo = new ToPaypalInfo();
 		//从对象中获取参数
 		String toPayTelephone = mlfrontAddressToPay.getAddressTelephone();
-		String toPayCountry = mlfrontAddressToPay.getAddressCountry();
-		String toPayProvince = mlfrontAddressToPay.getAddressProvince();
-		String toPayCity = mlfrontAddressToPay.getAddressCity();
-		String toPayDetail = mlfrontAddressToPay.getAddressDetail();
 		String toPayUserfirstname = mlfrontAddressToPay.getAddressUserfirstname();
 		String toPayUserlastname = mlfrontAddressToPay.getAddressUserlastname();
+		String toPayUserEmail = mlfrontAddressToPay.getAddressEmail();
 		//拼接参数
 		String toPayDesc = "";
 		toPayDesc+="VIP";
 		toPayDesc+=payinfoIdStr+",";
 		toPayDesc+=toPayTelephone+",";
-		toPayDesc+=toPayCountry+",";
-		toPayDesc+=toPayProvince+",";
-		toPayDesc+=toPayCity+",";
-		toPayDesc+=toPayDetail+",";
+		toPayDesc+=toPayUserEmail+",";
 		toPayDesc+=toPayUserfirstname+",";
 		toPayDesc+=toPayUserlastname;
 		toPaypalInfo.setMoneyNum(totalprice);
@@ -420,71 +416,291 @@ public class StripeController {
 		return Onemoney;
 	}
 
-//	
-//	public static void main(String[] args) {
-//        port(4242);
-//        Dotenv dotenv = Dotenv.load();
-//
-////        Stripe.apiKey = dotenv.get("STRIPE_SECRET_KEY");
-//        Stripe.apiKey = "sk_test_51HNEjlGgEkMvvUCbQmhbiwmioK5hlLfueCutt7tlYQniSGV7zkZxxXEwbhi0fUL2m83yxPZQ1UaRXS76ZjfCZ0ol00O1WgmFS0";
-//
-//        staticFiles.externalLocation(
-//                Paths.get(Paths.get("").toAbsolutePath().toString(), dotenv.get("STATIC_DIR")).normalize().toString());
-//
-//        post("/create-payment-intent", (request, response) -> {
-//            response.type("application/json");
-//
-//            CreatePaymentBody postBody = gson.fromJson(request.body(), CreatePaymentBody.class);
-//            PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-//                    .setCurrency(postBody.getCurrency()).setAmount(new Long(calculateOrderAmount(postBody.getItems())))
-//                    .build();
-//            // Create a PaymentIntent with the order amount and currency
-//            //使用订单金额和币种创建PaymentIntent
-//            PaymentIntent intent = PaymentIntent.create(createParams);
-//            // Send publishable key and PaymentIntent details to client
-//            //将可发布的密钥和PaymentIntent详细信息发送给客户端
-//            return gson.toJson(new CreatePaymentResponse(dotenv.get("STRIPE_PUBLISHABLE_KEY"), intent.getClientSecret()));
-//        });
-//
-//        post("/webhook", (request, response) -> {
-//            String payload = request.body();
-//            String sigHeader = request.headers("Stripe-Signature");
-//            String endpointSecret = dotenv.get("STRIPE_WEBHOOK_SECRET");
-//
-//            Event event = null;
-//
-//            try {
-//                event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
-//            } catch (SignatureVerificationException e) {
-//                // Invalid signature
-//            	//无效的签名
-//                response.status(400);
-//                return "";
-//            }
-//
-//            switch (event.getType()) {
-//            case "payment_intent.succeeded":
-//                // Fulfill any orders, e-mail receipts, etc
-//                // To cancel the payment you will need to issue a Refund
-//            	//完成所有订单，电子邮件回执等
-//            	//要取消付款，您将需要退款
-//                // (https://stripe.com/docs/api/refunds)
-//                System.out.println("💰Payment received!");
-//                break;
-//            case "payment_intent.payment_failed":
-//                System.out.println("❌ Payment failed.");
-//                break;
-//            default:
-//                // Unexpected event type
-//            	//意外的事件类型
-//                response.status(400);
-//                return "";
-//            }
-//
-//            response.status(200);
-//            return "";
-//        });
-//    }
+	/**2.0
+     * wap端返回成功页面
+     * mfront/paySuccess
+     * */
+    @RequestMapping(method = RequestMethod.POST, value = "/cardSuccessInfo")
+	@ResponseBody
+    public String successPay(HttpSession session,@RequestParam("payinfoId") Integer payinfoId, @RequestParam("CardID") String CardID){
 
+    	try {
+            session.setAttribute("successpayinfoId", payinfoId);
+            session.setAttribute("successCardID", CardID);
+            //2.1wap+pc端处理toUpdatePayInfoStateSuccess
+            //1生成支付号,2更改payinfo的状态,从返回的payment中获取VIPId=payinfoId
+        	toUpdatePayInfoStateCardSuccess(session,payinfoId,CardID);
+        	//2.2修改order的状态
+        	toUpdateOrderInfoCardSuccess(session,payinfoId,CardID);
+            
+            return "redirect:/Success.html";
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----begin------");
+            System.out.println(e.getMessage());
+            System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----end------");
+            return "redirect:/MlbackCart/toCheakOut";
+        }
+    }
+    
+    /**20200611
+     * 2.1wap+pc端
+     * 处理toUpdatePayInfoStateSuccess
+     * 生成支付号,修改支付成功的payinfo状态
+     * @param payment 
+     * */
+    private void toUpdatePayInfoStateCardSuccess(HttpSession session, Integer payinfoIdInto, String CardID) {
+    	
+    	Integer payinfoId =  payinfoIdInto;
+    	session.setAttribute("payinfoId", payinfoId);
+    	//修改支付单状态
+    	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
+		mlfrontPayInfoNew.setPayinfoId(payinfoId);
+		List<MlfrontPayInfo> MlfrontPayInfoList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoNew);
+		MlfrontPayInfo mlfrontPayInfoIOne = MlfrontPayInfoList.get(0);
+		//从中取出payOid
+		Integer PayOid = mlfrontPayInfoIOne.getPayinfoOid();
+		
+		MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+		mlfrontOrderReq.setOrderId(PayOid);
+		
+		List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
+		MlfrontOrder mlfrontOrderOne = mlfrontOrderList.get(0);
+		
+    	String CardpayEmail = mlfrontOrderOne.getOrderAddressinfoUemail();
+    	String CardUName = mlfrontOrderOne.getOrderAddressinfoUname();
+		
+		mlfrontPayInfoIOne.setPayinfoStatus(1);//付款成功
+		mlfrontPayInfoIOne.setPayinfoPlatformserialcode(CardID);
+		String nowTime = DateUtil.strTime14s();
+		mlfrontPayInfoIOne.setPayinfoMotifytime(nowTime);
+		mlfrontPayInfoIOne.setPayinfoReturntime(nowTime);
+		//增加生成字段信息
+		String payinfoIdStr = payinfoId+"";
+		Integer orderlen = payinfoIdStr.length();
+		if(orderlen==6){
+			payinfoIdStr = "0"+payinfoIdStr;
+		}else if(orderlen==5){
+			payinfoIdStr = "00"+payinfoIdStr;
+		}else if(orderlen==4){
+			payinfoIdStr = "000"+payinfoIdStr;
+		}else if(orderlen==3){
+			payinfoIdStr = "0000"+payinfoIdStr;
+		}else if(orderlen==2){
+			payinfoIdStr = "00000"+payinfoIdStr;
+		}else if(orderlen==1){
+			payinfoIdStr = "000000"+payinfoIdStr;
+		}
+		String payInfoTime = DateUtil.getDateTime();
+		String teamLogo = (String) PropertiesUtil.getProperty("megalook.properties", "teamLogo");
+		//  ML(megalook)	HSH(huashuohair)
+		String payinfoPlateNum = teamLogo+payInfoTime+payinfoIdStr;
+		mlfrontPayInfoIOne.setPayinfoPlatenum(payinfoPlateNum);
+		mlfrontPayInfoIOne.setPayinfoTransidnum(CardID);
+		mlfrontPayInfoIOne.setPayinfoTransStatus("succeeded");	
+		mlfrontPayInfoIOne.setPayinfoUemail(CardpayEmail);
+		mlfrontPayInfoIOne.setPayinfoUname(CardUName);
+		
+		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoIOne);
+		
+		//2.1.2准备调用ecpp接口,将客户的付款信息,导入ecpp中
+		payInfoIntoEcpp(mlfrontPayInfoIOne);
+		session.setAttribute("mlfrontPayInfoIOne", mlfrontPayInfoIOne);
+		session.setAttribute("payinfoIdStr", payinfoIdStr);//这个是长串MLXXXXXXXXX0001;
+		session.setAttribute("orderId", PayOid);
+		
+	}
+    
+    /**
+     * 2.2wap/pc端处理toUpdateOrderInfoSuccess
+	 * @param payment
+     * */
+	private void toUpdateOrderInfoCardSuccess(HttpSession session,Integer payinfoIdInto,String CardID) {
+    	
+    	Integer payinfoId =  payinfoIdInto;
+    	
+    	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
+		mlfrontPayInfoNew.setPayinfoId(payinfoId);
+		List<MlfrontPayInfo> MlfrontPayInfoList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoNew);
+		MlfrontPayInfo mlfrontPayInfoIOne = MlfrontPayInfoList.get(0);
+		//从中取出payOid
+		Integer orderId = mlfrontPayInfoIOne.getPayinfoOid();
+		//修改order单状态
+    	String nowTime = DateUtil.strTime14s();
+    	System.out.println("orderId:"+orderId);
+		//封装req
+		MlfrontOrder mlfrontOrderPayReq = new MlfrontOrder();
+		mlfrontOrderPayReq.setOrderId(orderId);
+		//查回结果
+		List<MlfrontOrder> mlfrontOrderList =  mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPayReq);
+		System.out.println("mlfrontOrderList:"+mlfrontOrderList.toString());
+		MlfrontOrder mlfrontOrderResOne = mlfrontOrderList.get(0);
+		//准备更新数据
+		mlfrontOrderResOne.setOrderStatus(1);
+		mlfrontOrderResOne.setOrderMotifytime(nowTime);
+		//执行更新
+		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderResOne);
+		//将付款成功的参数successPayinfoId,successOrderId放入session中
+		session.setAttribute("successPayinfoId", payinfoId);
+		session.setAttribute("successOrderId", orderId);
+		
+		String ShippingMoney = "这里是个运费";
+		String addressMoney = ShippingMoney;
+		//2.2.1	wap+pc同时处理邮件
+		sendResultEmail(session,mlfrontPayInfoIOne, mlfrontOrderResOne,addressMoney);
+		
+		//更新用户的vip等级+购买次数
+		MlfrontUser mlfrontUser= (MlfrontUser) session.getAttribute("loginUser");
+		if(mlfrontUser==null){
+			System.out.println("次购买为非注册用户,不对mlfrontUser进行任何操作");
+		}else{
+			//获取session中的mlfrontUser信息，从中获取userEmail
+			String userEmail = mlfrontUser.getUserEmail();
+			//拿到userEmail,准备信息
+			MlfrontUser mlfrontUserByEmail = new MlfrontUser();
+			mlfrontUserByEmail.setUserEmail(userEmail);
+			List<MlfrontUser> mlfrontUserByEmailListres =  mlfrontUserService.selectMlfrontUserWhenFirst(mlfrontUserByEmail);
+			MlfrontUser mlfrontUserByEmailres = mlfrontUserByEmailListres.get(0);
+			Integer uid = mlfrontUserByEmailres.getUserId();
+			Integer userTimesOld = mlfrontUserByEmailres.getUserTimes();
+			if(userTimesOld==null){
+				userTimesOld = 0;
+			}
+			Integer userTimesafter =userTimesOld+1;
+			Integer userVipLevelOld =mlfrontUserByEmailres.getUserViplevel();
+			if(userVipLevelOld==null){
+				userVipLevelOld = 0;
+			}
+			Integer userVipLevelafter = userVipLevelOld+1;
+			mlfrontUserByEmailres.setUserId(uid);
+			mlfrontUserByEmailres.setUserTimes(userTimesafter);
+			mlfrontUserByEmailres.setUserViplevel(userVipLevelafter);
+			mlfrontUserService.updateByPrimaryKeySelective(mlfrontUserByEmailres);
+		}
+	}
+	
+	/**
+     * 2.2.1	wap+pc同时处理邮件
+     * */
+    private void sendResultEmail(HttpSession session,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney) {
+    	try {
+    		
+    		Integer orderId = mlfrontOrderResOne.getOrderId();
+        	List<MlfrontOrderItem> mlfrontOrderItemList = successGetMlfrontOrderItemList(orderId);
+        	
+        	Integer addressId = mlfrontOrderResOne.getOrderAddressinfoId();
+    		MlfrontAddress mlfrontAddressReq = new MlfrontAddress();
+    		MlfrontAddress mlfrontAddressRes = new MlfrontAddress();
+    		mlfrontAddressReq.setAddressId(addressId);
+    		
+    		List<MlfrontAddress> mlfrontAddressResList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddressReq);
+    		mlfrontAddressRes = mlfrontAddressResList.get(0);
+    		String userEmail = mlfrontAddressRes.getAddressEmail();
+    		
+			//测试方法
+			String getToEmail = userEmail;
+			String Message = "pay Success</br>,已收到您的付款,会尽快给您安排发货,注意留意发货通知.祝您购物愉快";
+			EmailUtilshtml.readyEmailPaySuccess(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney);
+			EmailUtilshtmlCustomer.readyEmailPaySuccessCustomer(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+    
+    /**
+     * 1.5.2从session中获取orderList详情
+     * 支付成功后,用orderId查询orderList详情
+     * */
+    private List<MlfrontOrderItem> successGetMlfrontOrderItemList(Integer orderId) {
+    	
+    	MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
+    	mlfrontOrderReq.setOrderId(orderId);
+    	List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
+    	//这一行报错了,没查到值
+    	MlfrontOrder mlfrontOrderRes = mlfrontOrderList.get(0);
+    	//这一行报错了,没查到值
+    	String orderitemidstr = mlfrontOrderRes.getOrderOrderitemidstr();
+    	String orderitemidArr[] = orderitemidstr.split(",");
+    	
+    	MlfrontOrderItem mlfrontOrderItemReq = new MlfrontOrderItem();
+    	MlfrontOrderItem mlfrontOrderItemRes = new MlfrontOrderItem();
+    	List<MlfrontOrderItem> mlfrontOrderItemsList = new ArrayList<MlfrontOrderItem>();
+    	for(int i=0;i<orderitemidArr.length;i++){
+			Integer orderItemId = Integer.parseInt(orderitemidArr[i]);
+			mlfrontOrderItemReq.setOrderitemId(orderItemId);
+			List<MlfrontOrderItem> mlfrontOrderItemList = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemReq);
+			mlfrontOrderItemRes = mlfrontOrderItemList.get(0);
+			mlfrontOrderItemsList.add(mlfrontOrderItemRes);
+		}
+		return mlfrontOrderItemsList;
+	}
+    
+    /**
+     * 2.1.2准备调用ecpp接口,将客户的付款信息,导入ecpp中
+     * */
+    private void payInfoIntoEcpp(MlfrontPayInfo mlfrontPayInfoIn) {
+    	
+    	Integer payinfoId = mlfrontPayInfoIn.getPayinfoId();
+    	
+    	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
+		mlfrontPayInfoNew.setPayinfoId(payinfoId);
+		List<MlfrontPayInfo> MlfrontPayInfoList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoNew);
+		MlfrontPayInfo mlfrontPayInfoIOne = MlfrontPayInfoList.get(0);
+		System.out.println(mlfrontPayInfoIOne.toString());
+		
+		//获取orderId
+		Integer orderId = mlfrontPayInfoIOne.getPayinfoOid();
+		String paypalIdStr = mlfrontPayInfoIOne.getPayinfoTransidnum();
+		
+		//封装MlfrontOrderReq
+		MlfrontOrder mlfrontOrderPayReq = new MlfrontOrder();
+		mlfrontOrderPayReq.setOrderId(orderId);
+		//查回结果
+		List<MlfrontOrder> mlfrontOrderList =  mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPayReq);
+		System.out.println("mlfrontOrderList:"+mlfrontOrderList.toString());
+		MlfrontOrder mlfrontOrderResOne = mlfrontOrderList.get(0);
+		
+		String orderitemidstr = mlfrontOrderResOne.getOrderOrderitemidstr();
+		String orderitemidArr[] = orderitemidstr.split(",");
+		List<MlfrontOrderItem> mlfrontOrderItemEcppNeedList =new ArrayList<MlfrontOrderItem>();
+		for(int x=0;x<orderitemidArr.length;x++){
+			MlfrontOrderItem mlfrontOrderItem = new MlfrontOrderItem();
+			int orderItemId = Integer .parseInt(orderitemidArr[x]);
+			mlfrontOrderItem.setOrderitemId(orderItemId);
+			List<MlfrontOrderItem>  mlfrontOrderItemList= mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItem);
+			MlfrontOrderItem mlfrontOrderItemRes = mlfrontOrderItemList.get(0);
+			mlfrontOrderItemEcppNeedList.add(mlfrontOrderItemRes);
+		}
+		
+		//准备从中获取地址id
+		Integer payAddressinfoId = mlfrontOrderResOne.getOrderAddressinfoId();
+		MlfrontAddress mlfrontAddress =new MlfrontAddress();
+		mlfrontAddress.setAddressId(payAddressinfoId);
+		List<MlfrontAddress> mlfrontAddressToPayList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddress);
+		
+		MlfrontAddress mlfrontAddressToPay = mlfrontAddressToPayList.get(0);
+		
+		order ecppOrderResult = EcppIntoUtil.getEcppNeedOrder(mlfrontPayInfoIOne,mlfrontOrderResOne,mlfrontOrderItemEcppNeedList,mlfrontAddressToPay);
+		
+		String token = (String) PropertiesUtil.getProperty("megalook.properties", "ecppToken");
+//		String token="Lujia2015200708";
+		
+		String soapXML = EcppIntoUtil.getXML(token,ecppOrderResult);
+		
+		String EcppHSNum = "";
+		try {
+			EcppHSNum = EcppIntoUtil.send(token,soapXML,paypalIdStr);
+			
+			//将ecpp返回的EcppHSNum,更新入本条mlfrontPayInfo中
+	    	
+	    	MlfrontPayInfo mlfrontPayInfoEcppreturnReq = new MlfrontPayInfo();
+	    	mlfrontPayInfoEcppreturnReq.setPayinfoId(payinfoId);
+	    	mlfrontPayInfoEcppreturnReq.setPayinfoEcpphsnum(EcppHSNum);
+			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoEcppreturnReq);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
