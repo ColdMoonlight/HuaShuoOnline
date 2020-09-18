@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -180,9 +181,22 @@ public class StripeController {
   		amount.setCurrency("USD");
   		// Total must be equal to sum of shipping, tax and subtotal.
   		
+  		
+  		//实际需要付款的钱
   		String amTotal = getamountTotal(subMoney,Shopdiscount,addressMoney);
+  		
+  		//转bigD
+  		BigDecimal amTotalBig = new BigDecimal(amTotal);
+  		
+  		BigDecimal amTotalBigFen =  amTotalBig.multiply(new BigDecimal(100));
+//  		DecimalFormat df1 = new DecimalFormat("0");
+//  		String amTotalFen = df1.format(amTotalBigFen);
+  		
+  		Long amTotalFen = amTotalBigFen.longValue();
+  		
   		amount.setTotal(amTotal);
   		amount.setDetails(details);
+  		System.out.println(amount.toJSON());
 //  		transaction.setAmount(amount);
 //  		transaction.setItemList(itemList);
 		
@@ -197,7 +211,7 @@ public class StripeController {
 		//
 //		ConfirmationMethod ConfirmationMethod = null;
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-                .setCurrency("usd").setAmount((long)136)
+                .setCurrency("usd").setAmount(amTotalFen)
 //                .setDescription("userEmail").setConfirm(true).setConfirmationMethod(ConfirmationMethod.MANUAL)
                 .build();
         // Create a PaymentIntent with the order amount and currency
