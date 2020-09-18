@@ -286,15 +286,23 @@
 										<div class="name">Pay Method</div>
 										<div class="value">Other</div>
 									</div>
-									<div class="pay-paypal-id sum-item">
+									<div class="pay-paypal-id pay-paypal sum-item">
 										<div class="name">Paypal ID</div>
 										<div class="value"></div>
+									</div>									
+									<div class="pay-paypal-id pay-stripe hide sum-item">
+										<div class="name">Stripe ID</div>
+										<div class="value"></div>
 									</div>
-									<div class="pay-paypal-status sum-item">
+									<div class="pay-paypal-status pay-paypal sum-item">
 										<div class="name">Paypal Status</div>
 										<div class="value"></div>
 									</div>
-									<div class="pay-paypal-number sum-item">
+									<div class="pay-paypal-status pay-stripe sum-item">
+										<div class="name">Stripe Status</div>
+										<div class="value"></div>
+									</div>
+									<div class="pay-paypal-number pay-paypal sum-item">
 										<div class="name">Paypal number</div>
 										<div class="value"></div>
 									</div>
@@ -631,9 +639,19 @@
 			$('.pay-status .value').html(getPayStatus(data.mlfrontPayInfoOne.payinfoStatus));
 			$('.pay-number .value').html(data.mlfrontPayInfoOne.payinfoPlatenum || '');
 			$('.pay-method .value').html(data.mlfrontPayInfoOne.payinfoPlatform || '');
-			$('.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
-			$('.pay-paypal-status .value').html('<a class="badge '+ (data.mlfrontPayInfoOne.payinfoTransStatus == 'completed' ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data.mlfrontPayInfoOne.payinfoTransStatus || '') +'</a>');
-			$('.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode || '');
+			var payStatus = '<a class="badge '+ (data.mlfrontPayInfoOne.payinfoTransStatus == 'completed' ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data.mlfrontPayInfoOne.payinfoTransStatus || '') +'</a>';
+			if (data.mlfrontPayInfoOne.payinfoPlatform == 'bank_Card') {
+				$('.pay-paypal').addClass('hide');
+				$('.pay-stripe').removeClass('hide');
+				$('.pay-stripe.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
+				$('.pay-stripe.pay-paypal-status .value').html(payStatus);
+			} else {
+				$('.pay-paypal').removeClass('hide');
+				$('.pay-stripe').addClass('hide');
+				$('.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
+				$('.pay-paypal.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode || '');
+				$('.pay-paypal.pay-paypal-status .value').html(payStatus);
+			}
 			$('.pay-purchase-time .value').html(data.mlfrontOrderPayOneRes.orderCreatetime || '');
 			$('.pay-create-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime || '');
 			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoReturntime || '');
