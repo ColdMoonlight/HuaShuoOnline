@@ -47,6 +47,7 @@ import com.stripe.model.Event;
 import com.stripe.model.PaymentIntent;
 import com.stripe.exception.*;
 import com.stripe.net.Webhook;
+import com.stripe.param.PaymentIntentConfirmParams.PaymentMethodData;
 import com.stripe.param.PaymentIntentCreateParams;
 import com.stripe.param.PaymentIntentCreateParams.ConfirmationMethod;
 
@@ -139,7 +140,6 @@ public class StripeController {
     	//1.5,准备支付前,从session中获取orderList详情
     	List<MlfrontOrderItem> mlfrontOrderItemList = getMlfrontOrderItemList(session);
     	
-    	
     	String subMoney = "";
     	
     	ItemList itemList = new ItemList();
@@ -158,7 +158,6 @@ public class StripeController {
   			String skuNumStr = skuNum+"";
   			String money = mlfrontOrderItem.getOrderitemPskuReamoney();
   			String oneMoney = getOnemoney(skuNum,money);
-//  		demo:	item.setName(name).setQuantity("1").setCurrency("USD").setPrice(money);
   			item.setName(name).setQuantity(skuNumStr).setCurrency("USD").setPrice(oneMoney);
   			money = getOneAllMoney(skuNum,oneMoney);
   			subMoney = money;
@@ -207,16 +206,19 @@ public class StripeController {
 //		CreatePaymentBody postBody = gson.fromJson(request.body(), CreatePaymentBody.class);
 		
 		Metadata metadata = new Metadata();
+		//metadata.
 		//metadata.s
 		//
 //		ConfirmationMethod ConfirmationMethod = null;
+		PaymentMethodData paymentMethodData = null;
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-                .setCurrency("usd").setAmount(amTotalFen)
+                .setCurrency("usd").setAmount(amTotalFen).setDescription(toPaypalInfo.getPaymentDescription()).setCustomer(mlfrontAddress.getAddressEmail())
 //                .setDescription("userEmail").setConfirm(true).setConfirmationMethod(ConfirmationMethod.MANUAL)
                 .build();
         // Create a PaymentIntent with the order amount and currency
 		try {
 			PaymentIntent intent = PaymentIntent.create(createParams);
+			gson.toJson(new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret()));
 			return gson.toJson(new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret()));
 		} catch (StripeException e) {
 			// TODO Auto-generated catch block
