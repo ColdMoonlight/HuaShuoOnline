@@ -661,7 +661,11 @@
 				cache: false,
 				dataType: 'json',
 				success: function (data) {
-					window.lcation.href= '${APP_PATH}/success.html';
+					if (data.code == 100 && data.extend.updateStatus) {
+						window.location.href= '${APP_PATH}/success.html';						
+					} else {
+						$('#card-error').text('The payment is successful, but the shopping list cannot be generated, please contact customer service for help');
+					}
 				},
 				error: function() {
 					$('#card-error').text('The payment is successful, but the shopping list cannot be generated, please contact customer service for help');
