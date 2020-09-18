@@ -432,7 +432,6 @@ public class StripeController {
         	toUpdatePayInfoStateCardSuccess(session,payinfoId,CardID);
         	//2.2修改order的状态
         	toUpdateOrderInfoCardSuccess(session,payinfoId,CardID);
-            
             return "1";
         } catch (Exception e) {
             log.error(e.getMessage());
