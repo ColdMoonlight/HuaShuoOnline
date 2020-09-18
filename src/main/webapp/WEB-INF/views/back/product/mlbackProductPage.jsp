@@ -1102,11 +1102,14 @@
 				productId: $('#productId').val()
 			}, function(data) {
 				var imgsHtml = '';
-
-				data.forEach(function(item, idx) {
-					imgsHtml += '<div class="product-imgs-sort-item" data-id="'+ item.productimgId +'"><img src="'+ item.productimgUrl +'"></div>';
-				});
-				$('#imgModal').data('len', data.length).find('.left-panel').html(imgsHtml).end().find('.right-panel').html('').end().modal('show');
+				if (data.length) {
+					data.forEach(function(item, idx) {
+						imgsHtml += '<div class="product-imgs-sort-item" data-id="'+ item.productimgId +'"><img src="'+ item.productimgUrl +'"></div>';
+					});
+					$('#imgModal').data('len', data.length).find('.left-panel').html(imgsHtml).end().find('.right-panel').html('').end().modal('show');					
+				} else {
+					toastr.warning('没有图片可进行排序！！！');
+				}
 			});
 		})
 		$('#imgModal .btn-save').on('click', function() {
