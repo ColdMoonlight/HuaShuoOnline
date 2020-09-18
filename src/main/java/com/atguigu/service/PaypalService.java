@@ -209,7 +209,6 @@ public class PaypalService {
         return payment.execute(apiContext, paymentExecute);
     }
 	
-	
 	private ItemList getItemList(List<MlfrontOrderItem> mlfrontOrderItemList) {
 		ItemList itemList = new ItemList();
 		List<Item> items = new ArrayList<Item>();
