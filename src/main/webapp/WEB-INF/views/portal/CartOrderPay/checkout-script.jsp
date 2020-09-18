@@ -640,9 +640,31 @@
 	  					paymentError(result.error.message);
 	  				} else {
 	  					// The payment succeeded!
-	  					paymentSuccess(result.paymentIntent.id);
+	  					paymentSuccess(result.paymentIntent);
 	  				}
 	  			});
+  		}
+  		
+  		function backSendCardInfo(data) {
+  			var formData = new FormData();
+  			$('#card-error').text(data.status);
+  			
+  			formData.append('payinfoId', data.description.split(',')[0].replace('VIP', ''));
+			formData.append('CardID', data.payment_method);
+
+			$.ajax({
+				url: "${APP_PATH}/cardSuccessInfo",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {},
+				error: function() {
+					$('#card-error').text('The payment is successful, but the shopping list cannot be generated, please contact customer service for help');
+				}
+			});
   		}
 
   		function paymentSuccess() {
@@ -656,19 +678,16 @@
 				value: orderMoney,
 				currency: 'USD'
 			});
-  			// jump to success
-  			paymentLoading(false);
-  			setTimeout(function() {
-  				window.location.href = '${APP_PATH}/success.html';
-  			}, 100);
+			// send card info
+  			backSendCardInfo(data);
   		}
 
   		function paymentError(errorMsgText) {
   			paymentLoading(false);
   			var errorMsg = $('#card-error');
-  			errorMsg.textContent = errorMsgText;
+  			errorMsg.text(errorMsgText);
   			setTimeout(function() {
-  				errorMsg.textContent = '';
+  				errorMsg.text('');
   			}, 4000);
   		}
 
