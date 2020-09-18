@@ -543,7 +543,7 @@ public class StripeController {
 		session.setAttribute("successPayinfoId", payinfoId);
 		session.setAttribute("successOrderId", orderId);
 		
-		String ShippingMoney = "这里是个运费";
+		String ShippingMoney = (String) session.getAttribute("addressMoney");
 		String addressMoney = ShippingMoney;
 		//2.2.1	wap+pc同时处理邮件
 		sendResultEmail(session,mlfrontPayInfoIOne, mlfrontOrderResOne,addressMoney);
