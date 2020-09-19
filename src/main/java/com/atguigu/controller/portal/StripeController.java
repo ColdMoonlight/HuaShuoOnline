@@ -506,7 +506,7 @@ public class StripeController {
 		//2.1.2准备调用ecpp接口,将客户的付款信息,导入ecpp中
 		payInfoIntoEcpp(mlfrontPayInfoIOne);
 		session.setAttribute("mlfrontPayInfoIOne", mlfrontPayInfoIOne);
-		session.setAttribute("payinfoIdStr", payinfoIdStr);//这个是长串MLXXXXXXXXX0001;
+		session.setAttribute("payinfoIdStr", payinfoIdStr);//这个是长串MLXXXXXXXX0001;
 		session.setAttribute("orderId", PayOid);
 		
 	}
