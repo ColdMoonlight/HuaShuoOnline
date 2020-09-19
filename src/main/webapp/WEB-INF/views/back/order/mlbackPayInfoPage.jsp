@@ -287,23 +287,15 @@
 										<div class="value">Other</div>
 									</div>
 									<div class="pay-paypal-id pay-paypal sum-item">
-										<div class="name">Paypal ID</div>
-										<div class="value"></div>
-									</div>									
-									<div class="pay-paypal-id pay-stripe hide sum-item">
-										<div class="name">Stripe ID</div>
+										<div class="name"><span class="pay-pay-method">...</span> ID</div>
 										<div class="value"></div>
 									</div>
 									<div class="pay-paypal-status pay-paypal sum-item">
-										<div class="name">Paypal Status</div>
-										<div class="value"></div>
-									</div>
-									<div class="pay-paypal-status pay-stripe sum-item">
-										<div class="name">Stripe Status</div>
+										<div class="name"><span class="pay-pay-method">...</span> Status</div>
 										<div class="value"></div>
 									</div>
 									<div class="pay-paypal-number pay-paypal sum-item">
-										<div class="name">Paypal number</div>
+										<div class="name"><span class="pay-pay-method">...</span> number</div>
 										<div class="value"></div>
 									</div>
 									<div class="pay-purchase-time sum-item">
@@ -639,19 +631,20 @@
 			$('.pay-status .value').html(getPayStatus(data.mlfrontPayInfoOne.payinfoStatus));
 			$('.pay-number .value').html(data.mlfrontPayInfoOne.payinfoPlatenum || '');
 			$('.pay-method .value').html(data.mlfrontPayInfoOne.payinfoPlatform || '');
-			var payStatus = '<a class="badge '+ (data.mlfrontPayInfoOne.payinfoTransStatus == 'completed' ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data.mlfrontPayInfoOne.payinfoTransStatus || '') +'</a>';
-			/* if (data.mlfrontPayInfoOne.payinfoPlatform == 'bank_Card') {
-				$('.pay-paypal').addClass('hide');
-				$('.pay-stripe').removeClass('hide');
-				$('.pay-stripe.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
-				$('.pay-stripe.pay-paypal-status .value').html(payStatus);
+			var payStatus = '<a class="badge '+ ((data.mlfrontPayInfoOne.payinfoTransStatus == 'completed' || data.mlfrontPayInfoOne.payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data.mlfrontPayInfoOne.payinfoTransStatus || '') +'</a>';
+
+			$('.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
+			$('.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode || '');
+			$('.pay-paypal-status .value').html(payStatus);
+		
+			if (/pm\_/.test(data.mlfrontPayInfoOne.payinfoTransidnum)) {
+				$('.pay-pay-method').text('Stripe ');
+				$('.pay-paypal-number').addClass('hide');
 			} else {
-				$('.pay-paypal').removeClass('hide');
-				$('.pay-stripe').addClass('hide'); */
-				$('.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
-				$('.pay-paypal.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode || '');
-				$('.pay-paypal.pay-paypal-status .value').html(payStatus);
-			/* } */
+				$('.pay-pay-method').text('Paypal ');
+				$('.pay-paypal-number').removeClass('hide');
+			}
+			
 			$('.pay-purchase-time .value').html(data.mlfrontOrderPayOneRes.orderCreatetime || '');
 			$('.pay-create-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime || '');
 			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoReturntime || '');
@@ -885,7 +878,7 @@
 					'<td>' + (data[i].payinfoUname || '') + '</td>' +
 					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
 					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
-					'<td><a class="badge '+ (data[i].payinfoTransStatus == 'completed' ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
+					'<td><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnumStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoSendnum || '') + '</td>' +
