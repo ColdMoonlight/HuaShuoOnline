@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
+	<jsp:include page="../layout/header.jsp" flush="true"></jsp:include> 
 	<!-- main start -->
 		<div class="container">
 			<div class="order-header"></div>
