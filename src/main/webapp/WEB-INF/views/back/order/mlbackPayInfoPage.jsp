@@ -640,18 +640,18 @@
 			$('.pay-number .value').html(data.mlfrontPayInfoOne.payinfoPlatenum || '');
 			$('.pay-method .value').html(data.mlfrontPayInfoOne.payinfoPlatform || '');
 			var payStatus = '<a class="badge '+ (data.mlfrontPayInfoOne.payinfoTransStatus == 'completed' ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data.mlfrontPayInfoOne.payinfoTransStatus || '') +'</a>';
-			if (data.mlfrontPayInfoOne.payinfoPlatform == 'bank_Card') {
+			/* if (data.mlfrontPayInfoOne.payinfoPlatform == 'bank_Card') {
 				$('.pay-paypal').addClass('hide');
 				$('.pay-stripe').removeClass('hide');
 				$('.pay-stripe.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
 				$('.pay-stripe.pay-paypal-status .value').html(payStatus);
 			} else {
 				$('.pay-paypal').removeClass('hide');
-				$('.pay-stripe').addClass('hide');
+				$('.pay-stripe').addClass('hide'); */
 				$('.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
 				$('.pay-paypal.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode || '');
 				$('.pay-paypal.pay-paypal-status .value').html(payStatus);
-			}
+			/* } */
 			$('.pay-purchase-time .value').html(data.mlfrontOrderPayOneRes.orderCreatetime || '');
 			$('.pay-create-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime || '');
 			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoReturntime || '');
