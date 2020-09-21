@@ -631,8 +631,31 @@
   			stripe
   				.confirmCardPayment(clientSecret, {
 	  				payment_method: {
-	  					card: card
-	  				}
+	  					card: card,
+	  					billing_details: {
+	  						name: (addressData.addressUserfirstname + addressData.addressUserlastname),
+							phone: addressData.addressTelephone,
+							email: addressData.addressEmail,
+	  						address: {
+	  							country: addressData.addressCountryCode,
+	  						    state: addressData.addressProvince,
+	  						    city: addressData.addressCity,
+	  						    postal_code: addressData.addressPost,
+	  							line1: addressData.addressDetail,
+	  						}
+	  					}
+	  				},
+  					shipping: {
+  						name: (addressData.addressUserfirstname + addressData.addressUserlastname),
+						phone: addressData.addressTelephone,
+  						address: {
+  						    country: addressData.addressCountry,
+  						    state: addressData.addressProvince,
+  						    city: addressData.addressCity,
+  						    postal_code: addressData.addressPost,
+  							line1: addressData.addressDetail,
+  						}
+  					}
   				})
   				.then(function(result) {
 	  				if (result.error) {
@@ -773,7 +796,8 @@
 				orderSaveAddress(getOrderAddress(), function(data) {
 					$('#addressId').val(data.addressId);
 
-					createPayment(getOrderPayInfo(), stripe, card, data.clientSecret);
+	  		    	addressData = getOrderAddress();
+					createPayment(addressData, stripe, card, data.clientSecret);
 				});
   		    } else {
   		    	paymentLoading(false);
@@ -782,6 +806,7 @@
   	}
 
 	var hasStripe = false;
+	var addressData = null;
 	// tab pay
 	$(document.body).on('change', 'input[type="radio"][name="payment"]', function() {
 		var payType = $('input[name="payment"]:checked').val();

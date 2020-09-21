@@ -34,7 +34,7 @@
 				</div>
 				<div class="payment-box-body">
 					<div class="payment-address payment-shipping-address"></div>
-					<div class="payment-address payment-billing-address"></div>
+					<div class="payment-address payment-billing-address hide"></div>
 				</div>
 			</div>
 			<p class="payment-tip">If there's any questions, plz contact the customer service </p>
@@ -144,7 +144,7 @@
 			$(".payment-billing-address").html('<div class="payment-address-title">Billing Address</div>' +
 				'<div class="payment-address-item"><span class="name">Postcode: </span><span class="value">' + data.shippingaddressPostalCode + '</span></div>' +
 				'<div class="payment-address-item"><span class="name">Address: </span><span class="value">' + data.shippingaddressCountryCode + ' ' + data.shippingaddressCity + ' ' + data.shippingaddressLine1 + '</span></div>' +
-				'</div');
+				'</div').removeClass('hide');
 		}
 
 		var payinfoId = '${sessionScope.payinfoId}';
@@ -173,7 +173,9 @@
 	
 				renerPaymentInfo(orderData);
 				renderReceiverinfo(resDataAddressOne);
-				renderPaypaladdress(mlPaypalShipAddressOne);
+				if (!/pm\_/.test(resDataPayInfoOne.payinfoPlatformserialcode)) {
+					renderPaypaladdress(mlPaypalShipAddressOne);					
+				}
 
 				!isFirst && fbq('track', 'Purchase', {
 					'content_ids': payinfoProductArr,
