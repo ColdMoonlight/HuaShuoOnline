@@ -9,15 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.math.BigDecimal;
-import java.nio.file.Paths;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -46,39 +42,21 @@ import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Details;
 import com.paypal.api.payments.Item;
 import com.paypal.api.payments.ItemList;
-import com.paypal.api.payments.Metadata;
 import com.stripe.Stripe;
-import com.stripe.model.Address;
-import com.stripe.model.Event;
 import com.stripe.model.PaymentIntent;
-import com.stripe.model.PaymentIntent.PaymentMethodOptions;
-import com.stripe.model.PaymentMethod.BillingDetails;
-import com.stripe.model.issuing.Card.Shipping;
-import com.stripe.param.PaymentIntentCreateParams.TransferData;
-//import com.stripe.param.PaymentIntentCreateParams.Shipping;
-//import com.stripe.param.PaymentIntentConfirmParams.PaymentMethodData.BillingDetails.Address;
 import com.stripe.exception.*;
-import com.stripe.net.Webhook;
-import com.stripe.param.PaymentIntentConfirmParams;
-import com.stripe.param.PaymentIntentCreateParams.PaymentMethodData;
-import com.stripe.param.PaymentIntentCreateParams.Shipping.Address.Builder;
 import com.stripe.param.PaymentIntentCreateParams;
-import com.stripe.param.PaymentIntentCreateParams.ConfirmationMethod;
-
-import io.github.cdimascio.dotenv.Dotenv;
-import spark.Request;
-import spark.Response;
 
 @Controller
 @RequestMapping("/stripe")
 public class StripeController {
 	//wap端相关路径
-	public static final String PAYPAL_SUCCESS_M_URL = "stripe/msuccess";
-    public static final String PAYPAL_CANCEL_M_URL = "stripe/mcancel";
-    public static final String PAYPAL_SUCCESS_M_URLIn = "stripe";
-    public static final String PAYPAL_CANCEL_M_URLIn = "stripe";
-
-    private Logger log = LoggerFactory.getLogger(getClass());
+//	public static final String PAYPAL_SUCCESS_M_URL = "stripe/msuccess";
+//    public static final String PAYPAL_CANCEL_M_URL = "stripe/mcancel";
+//    public static final String PAYPAL_SUCCESS_M_URLIn = "stripe";
+//    public static final String PAYPAL_CANCEL_M_URLIn = "stripe";
+//
+//    private Logger log = LoggerFactory.getLogger(getClass());
     
     @Autowired
 	MlfrontPayInfoService mlfrontPayInfoService;
@@ -194,46 +172,34 @@ public class StripeController {
   		amount.setCurrency("USD");
   		// Total must be equal to sum of shipping, tax and subtotal.
   		
-  		
   		//实际需要付款的钱
   		String amTotal = getamountTotal(subMoney,Shopdiscount,addressMoney);
   		
   		//转bigD
   		BigDecimal amTotalBig = new BigDecimal(amTotal);
-  		
   		BigDecimal amTotalBigFen =  amTotalBig.multiply(new BigDecimal(100));
-//  		DecimalFormat df1 = new DecimalFormat("0");
-//  		String amTotalFen = df1.format(amTotalBigFen);
-  		
   		Long amTotalFen = amTotalBigFen.longValue();
   		
   		amount.setTotal(amTotal);
   		amount.setDetails(details);
   		System.out.println(amount.toJSON());
-//  		transaction.setAmount(amount);
-//  		transaction.setItemList(itemList);
-		
 		
 		Stripe.apiKey = "sk_test_51HNEjlGgEkMvvUCbQmhbiwmioK5hlLfueCutt7tlYQniSGV7zkZxxXEwbhi0fUL2m83yxPZQ1UaRXS76ZjfCZ0ol00O1WgmFS0";
 		
 		//接收参数
-//		CreatePaymentBody postBody = gson.fromJson(request.body(), CreatePaymentBody.class);
-		//
-//		ConfirmationMethod ConfirmationMethod = null;
-		BillingDetails billingDetails = new BillingDetails();
-		billingDetails.setName("");
-		billingDetails.setEmail("");
-		billingDetails.setPhone("");
-		Address address = new Address();
-		address.setLine1(mlfrontAddress.getAddressDetail());
-		address.setCountry(mlfrontAddress.getAddressCountryCode());
-		address.setPostalCode(mlfrontAddress.getAddressProvincecode());
-		address.setState(mlfrontAddress.getAddressProvincecode());
-		address.setCity(mlfrontAddress.getAddressCity());
-		billingDetails.setAddress(address);
-		Map<String, Object> billingDetailsMap = new HashMap<>();
-		billingDetailsMap.put("billing_details", billingDetailsMap);
-		//paymentMethodData.getBillingDetails();
+//		BillingDetails billingDetails = new BillingDetails();
+//		billingDetails.setName("");
+//		billingDetails.setEmail("");
+//		billingDetails.setPhone("");
+//		Address address = new Address();
+//		address.setLine1(mlfrontAddress.getAddressDetail());
+//		address.setCountry(mlfrontAddress.getAddressCountryCode());
+//		address.setPostalCode(mlfrontAddress.getAddressProvincecode());
+//		address.setState(mlfrontAddress.getAddressProvincecode());
+//		address.setCity(mlfrontAddress.getAddressCity());
+//		billingDetails.setAddress(address);
+//		Map<String, Object> billingDetailsMap = new HashMap<>();
+//		billingDetailsMap.put("billing_details", billingDetailsMap);
 		
 		Map<String, String> metadataMap = new HashMap<>();
 		metadataMap.put("shop_id", "999");
@@ -241,36 +207,15 @@ public class StripeController {
 		metadataMap.put("manual_entry", "false");
 		metadataMap.put("order_id", "20120145224");
 		metadataMap.put("email", "1020064691@qq.com");
-		
-//		PaymentMethodData PaymentMethodData = new PaymentMethodData.Builder().setBillingDetails(billingDetailsaa);;
-//		com.stripe.param.PaymentIntentCreateParams.PaymentMethodData.BillingDetails billingDetailsaa =null;
-//		billingDetailsaa.builder().setName("shoahua").setPhone("17600209637");
-//		PaymentMethodData.builder().setBillingDetails(billingDetailsaa);
-		
-		Address shippaddress = new Address();
-		shippaddress.setLine1("");
-		//Builder().setCity("").setCountry("").setLine1("").setPostalCode("").setState("");
-		//com.stripe.param.PaymentIntentCreateParams.Shipping Shipping = new com.stripe.param.PaymentIntentCreateParams.Shipping.Builder().setPhone("17600209637").setName("shaohua").setAddress(shippaddress);
-		//Shipping Shipping = new com.stripe.param.PaymentIntentCreateParams.Shipping.Builder().setPhone("17600209637").setName("shaohua").setAddress(shippaddress);
 
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
                 .setCurrency("usd").setAmount(amTotalFen).addPaymentMethodType("card").setReceiptEmail(mlfrontAddress.getAddressEmail())
                 .setDescription(toPaypalInfo.getPaymentDescription()).putAllMetadata(metadataMap)
-                //.setPaymentMethodData(PaymentMethodData)
-                //.putAllExtraParam(billingDetailsMap)
-                //.putExtraParam("billing_details", "billingDetails")
-                //.setPaymentMethodData(paymentMethodData)
-                //setTransferData(TransferData).
-                //.putExtraParam(key, value);
-                //.setPaymentMethodData(paymentMethodData)
-                //.setConfirm(true).setReturnUrl("https://megalook.com/success.html")初始化的时候
-                //.setCustomer("zsh1020064691@qq.com")
-                //.setShipping(shipping)
                 .build();
         // Create a PaymentIntent with the order amount and currency
 		try {
 			PaymentIntent intent = PaymentIntent.create(createParams);
-//			return gson.toJson(new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret()));
+			System.out.println("PaymentIntent:"+intent.toJson());
 			CreatePaymentResponse paymentResponse = new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret());
 		    return gson.toJson(paymentResponse);
 		} catch (StripeException e) {
@@ -461,7 +406,6 @@ public class StripeController {
         	toUpdateOrderInfoCardSuccess(session,payinfoId,CardID);
         	return Msg.success().add("updateStatus", 1);
         } catch (Exception e) {
-            log.error(e.getMessage());
             System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----begin------");
             System.out.println(e.getMessage());
             System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----end------");
