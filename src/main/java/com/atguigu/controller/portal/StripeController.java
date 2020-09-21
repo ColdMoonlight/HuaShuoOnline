@@ -198,8 +198,6 @@ public class StripeController {
 //		address.setState(mlfrontAddress.getAddressProvincecode());
 //		address.setCity(mlfrontAddress.getAddressCity());
 //		billingDetails.setAddress(address);
-//		Map<String, Object> billingDetailsMap = new HashMap<>();
-//		billingDetailsMap.put("billing_details", billingDetailsMap);
 		
 		Map<String, String> metadataMap = new HashMap<>();
 		metadataMap.put("shop_id", "999");
