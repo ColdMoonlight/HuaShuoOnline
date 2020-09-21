@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,8 +22,9 @@ public class EcppIntoUtil {
 	public static String getXML(String token, order ecppOrder) {
 		
 		List<ecppItem> ecppItemList = ecppOrder.getItem();
+		BigDecimal ecppNeedOrdermoney =  ecppOrder.getOrder_amount();
 		
-		String ecppItemListStr = getEcppItemListStr(ecppItemList);
+		String ecppItemListStr = getEcppItemListStr(ecppItemList,ecppNeedOrdermoney);
 		
 		String ecppItemState = ecppOrder.getState();
 		if(ecppItemState.length()>0){
@@ -118,7 +120,9 @@ public class EcppIntoUtil {
 		return EcppHSNum;
 	}
 	
-	public static String getEcppItemListStr(List<ecppItem> ecppItemList) {
+	public static String getEcppItemListStr(List<ecppItem> ecppItemList, BigDecimal ecppNeedOrdermoney) {
+		
+		String ecppOneProPrice = ecppNeedOrdermoney.toString();
 
 		String ecppItemInfoStr = "";
 		Integer ecppItemListNums = ecppItemList.size();
@@ -138,7 +142,7 @@ public class EcppIntoUtil {
 								+"<goods_sn>"+ecppItemOne.getGoods_sn()+"</goods_sn>"
 								+"<goods_name>"+ecppItemOne.getGoods_name()+"</goods_name>"
 								+"<goods_qty>"+ecppItemOne.getGoods_qty()+"</goods_qty>"
-								+"<goods_price>"+ecppItemOne.getGoods_price()+"</goods_price>"
+								+"<goods_price>"+ecppOneProPrice+"</goods_price>"
 								+"</item>"
 							+"</items>";
 		}
