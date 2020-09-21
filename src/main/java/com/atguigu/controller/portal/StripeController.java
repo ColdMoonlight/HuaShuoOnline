@@ -14,7 +14,9 @@ import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,17 +52,18 @@ import com.stripe.model.Address;
 import com.stripe.model.Event;
 import com.stripe.model.PaymentIntent;
 import com.stripe.model.PaymentIntent.PaymentMethodOptions;
-import com.stripe.param.PaymentIntentConfirmParams.PaymentMethodData.BillingDetails;
-//import com.stripe.model.issuing.Card.Shipping;
+import com.stripe.model.PaymentMethod.BillingDetails;
+import com.stripe.model.issuing.Card.Shipping;
+import com.stripe.param.PaymentIntentCreateParams.TransferData;
 //import com.stripe.param.PaymentIntentCreateParams.Shipping;
 //import com.stripe.param.PaymentIntentConfirmParams.PaymentMethodData.BillingDetails.Address;
 import com.stripe.exception.*;
 import com.stripe.net.Webhook;
 import com.stripe.param.PaymentIntentConfirmParams;
 import com.stripe.param.PaymentIntentCreateParams.PaymentMethodData;
+import com.stripe.param.PaymentIntentCreateParams.Shipping.Address.Builder;
 import com.stripe.param.PaymentIntentCreateParams;
 import com.stripe.param.PaymentIntentCreateParams.ConfirmationMethod;
-import com.stripe.param.PaymentIntentCreateParams.Shipping;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import spark.Request;
@@ -217,25 +220,48 @@ public class StripeController {
 //		CreatePaymentBody postBody = gson.fromJson(request.body(), CreatePaymentBody.class);
 		//
 //		ConfirmationMethod ConfirmationMethod = null;
-//		BillingDetails billingDetails = new BillingDetails();
-//		BillingDetails.setName("");
-//		BillingDetails.setEmail("");
-//		BillingDetails.setPhone("");
-//		Address address = new Address();
-//		address.setLine1("");
-//		BillingDetails.setAddress(address);
+		BillingDetails billingDetails = new BillingDetails();
+		billingDetails.setName("");
+		billingDetails.setEmail("");
+		billingDetails.setPhone("");
+		Address address = new Address();
+		address.setLine1(mlfrontAddress.getAddressDetail());
+		address.setCountry(mlfrontAddress.getAddressCountryCode());
+		address.setPostalCode(mlfrontAddress.getAddressProvincecode());
+		address.setState(mlfrontAddress.getAddressProvincecode());
+		address.setCity(mlfrontAddress.getAddressCity());
+		billingDetails.setAddress(address);
+		Map<String, Object> billingDetailsMap = new HashMap<>();
+		billingDetailsMap.put("billing_details", billingDetailsMap);
 		//paymentMethodData.getBillingDetails();
 		
-//		PaymentMethodData aaa = PaymentMethodData.builder().setBillingDetails("");
-//		com.stripe.param.PaymentIntentCreateParams.PaymentMethodData PaymentMethodOptionsaa = new PaymentMethodData();
-//		Address shipingaddress = null; 
-		//shipingaddress
-		//Shipping shipping = new Shipping(shipingaddress, amTotal, null, amTotal, amTotal, amTotal);
-//		Shipping.builder().setAddress(address)
+		Map<String, String> metadataMap = new HashMap<>();
+		metadataMap.put("shop_id", "999");
+		metadataMap.put("shop_name", "megalook.com");
+		metadataMap.put("manual_entry", "false");
+		metadataMap.put("order_id", "20120145224");
+		metadataMap.put("email", "1020064691@qq.com");
+		
+//		PaymentMethodData PaymentMethodData = new PaymentMethodData.Builder().setBillingDetails(billingDetailsaa);;
+//		com.stripe.param.PaymentIntentCreateParams.PaymentMethodData.BillingDetails billingDetailsaa =null;
+//		billingDetailsaa.builder().setName("shoahua").setPhone("17600209637");
+//		PaymentMethodData.builder().setBillingDetails(billingDetailsaa);
+		
+		Address shippaddress = new Address();
+		shippaddress.setLine1("");
+		//Builder().setCity("").setCountry("").setLine1("").setPostalCode("").setState("");
+		//com.stripe.param.PaymentIntentCreateParams.Shipping Shipping = new com.stripe.param.PaymentIntentCreateParams.Shipping.Builder().setPhone("17600209637").setName("shaohua").setAddress(shippaddress);
+		//Shipping Shipping = new com.stripe.param.PaymentIntentCreateParams.Shipping.Builder().setPhone("17600209637").setName("shaohua").setAddress(shippaddress);
+
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
                 .setCurrency("usd").setAmount(amTotalFen).addPaymentMethodType("card").setReceiptEmail(mlfrontAddress.getAddressEmail())
-                .setDescription(toPaypalInfo.getPaymentDescription())
-                //.setMandate(mandate)
+                .setDescription(toPaypalInfo.getPaymentDescription()).putAllMetadata(metadataMap)
+                //.setPaymentMethodData(PaymentMethodData)
+                //.putAllExtraParam(billingDetailsMap)
+                //.putExtraParam("billing_details", "billingDetails")
+                //.setPaymentMethodData(paymentMethodData)
+                //setTransferData(TransferData).
+                //.putExtraParam(key, value);
                 //.setPaymentMethodData(paymentMethodData)
                 //.setConfirm(true).setReturnUrl("https://megalook.com/success.html")初始化的时候
                 //.setCustomer("zsh1020064691@qq.com")
