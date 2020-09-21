@@ -633,7 +633,7 @@
 	  				payment_method: {
 	  					card: card,
 	  					billing_details: {
-	  						name: (addressData.addressUserfirstname + addressData.addressUserlastname),
+	  						name: (addressData.addressUserfirstname + ' ' + addressData.addressUserlastname),
 							phone: addressData.addressTelephone,
 							email: addressData.addressEmail,
 	  						address: {
@@ -646,7 +646,7 @@
 	  					}
 	  				},
   					shipping: {
-  						name: (addressData.addressUserfirstname + addressData.addressUserlastname),
+  						name: (addressData.addressUserfirstname + ' ' + addressData.addressUserlastname),
 						phone: addressData.addressTelephone,
   						address: {
   						    country: addressData.addressCountry,
