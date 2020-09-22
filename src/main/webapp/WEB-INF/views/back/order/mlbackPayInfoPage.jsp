@@ -78,7 +78,8 @@
 											<th>price</th>
 											<th>customer</th>
 											<!-- <th>customer-email</th> -->
-											<th>paypal-num</th>
+											<th>pay-method</th>
+											<th>pay-num</th>
 											<th>paypal-status</th>
 											<th>ecpp-num</th>
 											<th>ecpp-status</th>
@@ -877,6 +878,7 @@
 					'<td>' + (data[i].payinfoMoney || 0).toFixed(2) + '</td>' +
 					'<td>' + (data[i].payinfoUname || '') + '</td>' +
 					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
+					'<td><img style="width: 60px;" src="${APP_PATH}/static/pc/img/' + ((data[i].payinfoPlatform).toLowerCase() == 'bank_card' ? 'paypal-2.png' : 'paypal-1.png') + '"/></td>' +
 					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
 					'<td><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
