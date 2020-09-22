@@ -197,7 +197,6 @@ public class StripeController {
 //		address.setCity(mlfrontAddress.getAddressCity());
 //		billingDetails.setAddress(address);
 		
-		String payinfoidStr = payinfoid+"";
 		String orderidStr = orderid+"";
 		String metadataEmail = mlfrontAddress.getAddressEmail();
 		
