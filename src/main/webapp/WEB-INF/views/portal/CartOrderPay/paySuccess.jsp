@@ -197,7 +197,8 @@
 				}, 0);
 			}
 		});
-	</script>
+	</script>>
+	<script> addTidio(); </script>
 </body>
 
 </html>
