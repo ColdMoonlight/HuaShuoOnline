@@ -223,13 +223,15 @@
 @media only screen and (max-width: 798px) {
 	.lottery-container,
 	.lottery-result {
+		max-width: 500px;
 		width: 90%;
 		margin: 0 auto;
 	}
 	.lottery-email {
-		padding: 1.25rem 0 1.75rem 0;
-		background-image: url('${APP_PATH}/static/pc/img/lottery/lottery-pc.jpg');
-	}	
+		height: 200px;
+		padding-top: 1.25rem;
+		background-image: url('${APP_PATH}/static/pc/img/lottery/lottery-wap.jpg');
+	}
 	.lottery-title>span:nth-of-type(1) {
 		padding-top: 30px;
 	}
@@ -242,12 +244,12 @@
 	.lottery-email>input {		
 	    width: 80%;
 	    padding: .5rem 1rem;
-	    margin-top: 1rem;
-	    font-size: 1rem;
+	    margin-top: .5rem;
+	    font-size: .875rem;
 	    border-radius: 2rem;
 	}
-	.lottery-join-tip {		
-	    margin-top: .75rem;
+	.lottery-join-tip {
+	    margin-top: .5rem;
 	    margin-bottom: .5rem;
 	    font-size: .875rem;
 	}
@@ -257,14 +259,13 @@
 		visibility: visible;
 	}
 	.lottery-email-tip {
-		position: absolute;
-    	bottom: .75rem;
 		font-size: .75rem;
 	}
 	.lottery-game-box {
+		position: relative;
 		width: 290px;
 		padding: 10px;
-		margin: 1rem auto;
+		margin: -2.5rem auto 1rem;
 	}
 	.lottery-inner-box {
 		padding: 10px;
@@ -335,7 +336,7 @@
 		margin: 0 auto;
 	}
 	.lottery-email {
-		height: 300px;
+		height: 310px;
 		padding-top: 2rem;
 		background-image: url('${APP_PATH}/static/pc/img/lottery/lottery-pc.jpg');
 	}	
@@ -370,9 +371,10 @@
 		font-size: .75rem;
 	}
 	.lottery-game-box {
+		position: relative;
 		width: 500px;
 		padding: 10px;
-		margin: 2rem auto;
+		margin: -4rem auto 2rem;
 	}
 	.lottery-inner-box {
 		padding: 10px;
@@ -548,7 +550,7 @@ function renderLotterySuccess() {
 		+ '<div class="lottery-card">'
 		+ '<div class ="card-item card-price"><span>';
 	if (parseInt(lotteryData.couponType)) {
-		lotteryResultHtml += parseInt(lotteryData.couponPriceOff) + '%';
+		lotteryResultHtml += parseInt(lotteryData.couponPriceoff) + '%';
 	} else {
 		lotteryResultHtml += '$' + lotteryData.couponPrice;
 	}
