@@ -750,7 +750,7 @@
   	  				success: function (data) {
   	  					if (data.code == 100) {
   	  						var stripeData = JSON.parse(data.extend.intentKey);
-  	  						payWithCard(stripe, card, stripeData.clientSecret);
+  	  						payWithCard(stripe, card, stripeData.clientSecret); 
   	  					} else {
   	  						sysModalTip();
   	  					}
