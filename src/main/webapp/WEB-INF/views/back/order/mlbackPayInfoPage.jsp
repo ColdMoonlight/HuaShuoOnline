@@ -80,7 +80,7 @@
 											<!-- <th>customer-email</th> -->
 											<th>pay-method</th>
 											<th>pay-num</th>
-											<th>paypal-status</th>
+											<th>money-status</th>
 											<th>ecpp-num</th>
 											<th>ecpp-status</th>
 											<th>tracking-num</th>
