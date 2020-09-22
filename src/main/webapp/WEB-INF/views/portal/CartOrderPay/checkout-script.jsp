@@ -625,6 +625,9 @@
 		script.onload = function() {
 			stripePayment();
 		}
+		script.onerror = function() {
+			mlModalTip('Credit card loading failed, Please refresh the page later and try again...');
+		}
 	}
 	function stripePayment() {
   		function payWithCard(stripe, card, clientSecret) {
