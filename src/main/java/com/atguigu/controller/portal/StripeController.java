@@ -107,7 +107,7 @@ public class StripeController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/create-payment-intent")
 	@ResponseBody
-    public String stripePay(HttpSession session,HttpServletResponse response,HttpServletRequest request,@RequestBody MlfrontPayInfo mlfrontPayInfoInto){
+    public Msg stripePay(HttpSession session,HttpServletResponse response,HttpServletRequest request,@RequestBody MlfrontPayInfo mlfrontPayInfoInto){
 		
 		Integer payinfoid = mlfrontPayInfoInto.getPayinfoId();
 		
@@ -219,12 +219,13 @@ public class StripeController {
 			CreatePaymentResponse paymentResponse = new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret());
 //			CreatePaymentResponse paymentResponse = new CreatePaymentResponse("pk_live_MDVwDQQHW9EeoxWf8vW2K6zC00wbQUa37k", intent.getClientSecret());
 
-			return gson.toJson(paymentResponse);
+			//return gson.toJson(paymentResponse);
+			return Msg.success().add("intentKey", gson.toJson(paymentResponse));
 		} catch (StripeException e) {
 			e.printStackTrace();
+			return Msg.fail().add("resMsg", "exception");
+			// Send publishable key and PaymentIntent details to client
 		}
-        // Send publishable key and PaymentIntent details to client
-		return "";
 		
 	}
 	
