@@ -1,7 +1,5 @@
 package com.atguigu.controller.portal;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,12 +49,6 @@ import com.stripe.param.PaymentIntentCreateParams;
 @RequestMapping("/stripe")
 public class StripeController {
 	//wap端相关路径
-//	public static final String PAYPAL_SUCCESS_M_URL = "stripe/msuccess";
-//    public static final String PAYPAL_CANCEL_M_URL = "stripe/mcancel";
-//    public static final String PAYPAL_SUCCESS_M_URLIn = "stripe";
-//    public static final String PAYPAL_CANCEL_M_URLIn = "stripe";
-//
-//    private Logger log = LoggerFactory.getLogger(getClass());
     
     @Autowired
 	MlfrontPayInfoService mlfrontPayInfoService;
@@ -83,7 +75,7 @@ public class StripeController {
         Object[] items;
 
         @SerializedName("currency")
-        String currency;//字符串货币；
+        String currency;//字符串货币;
 
         public Object[] getItems() {
             return items;
@@ -186,6 +178,12 @@ public class StripeController {
 		
 		Stripe.apiKey = "sk_test_51HNEjlGgEkMvvUCbQmhbiwmioK5hlLfueCutt7tlYQniSGV7zkZxxXEwbhi0fUL2m83yxPZQ1UaRXS76ZjfCZ0ol00O1WgmFS0";
 		
+		String publicKey = "pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA";
+//		
+//		Stripe.apiKey = "sk_live_YeCmda8AAYQt06MgtBh1wAqv00N9PYH7a4";
+//		
+//		String publicKey = "pk_live_MDVwDQQHW9EeoxWf8vW2K6zC00wbQUa37k";
+		
 		//接收参数
 //		BillingDetails billingDetails = new BillingDetails();
 //		billingDetails.setName("");
@@ -199,12 +197,16 @@ public class StripeController {
 //		address.setCity(mlfrontAddress.getAddressCity());
 //		billingDetails.setAddress(address);
 		
+		String payinfoidStr = payinfoid+"";
+		String orderidStr = orderid+"";
+		String metadataEmail = mlfrontAddress.getAddressEmail();
+		
 		Map<String, String> metadataMap = new HashMap<>();
-		metadataMap.put("shop_id", "999");
+		metadataMap.put("shop_id", "999999999");
 		metadataMap.put("shop_name", "megalook.com");
 		metadataMap.put("manual_entry", "false");
-		metadataMap.put("order_id", "20120145224");
-		metadataMap.put("email", "1020064691@qq.com");
+		metadataMap.put("order_id", orderidStr);
+		metadataMap.put("email", metadataEmail);
 
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
                 .setCurrency("usd").setAmount(amTotalFen).addPaymentMethodType("card").setReceiptEmail(mlfrontAddress.getAddressEmail())
@@ -215,7 +217,9 @@ public class StripeController {
 			PaymentIntent intent = PaymentIntent.create(createParams);
 			System.out.println("PaymentIntent:"+intent.toJson());
 			CreatePaymentResponse paymentResponse = new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret());
-		    return gson.toJson(paymentResponse);
+//			CreatePaymentResponse paymentResponse = new CreatePaymentResponse("pk_live_MDVwDQQHW9EeoxWf8vW2K6zC00wbQUa37k", intent.getClientSecret());
+
+			return gson.toJson(paymentResponse);
 		} catch (StripeException e) {
 			e.printStackTrace();
 		}
@@ -392,14 +396,14 @@ public class StripeController {
      * */
     @RequestMapping(method = RequestMethod.POST, value = "/cardSuccessInfo")
 	@ResponseBody
-    public Msg successPay(HttpSession session,@RequestParam("payinfoId") Integer payinfoId, @RequestParam("CardID") String CardID){
+    public Msg successPay(HttpSession session,@RequestParam("payinfoId") Integer payinfoId, @RequestParam("CardID") String CardID, @RequestParam("PayUname") String PayUname){
 
     	try {
             session.setAttribute("successpayinfoId", payinfoId);
             session.setAttribute("successCardID", CardID);
             //2.1wap+pc端处理toUpdatePayInfoStateSuccess
             //1生成支付号,2更改payinfo的状态,从返回的payment中获取VIPId=payinfoId
-        	toUpdatePayInfoStateCardSuccess(session,payinfoId,CardID);
+        	toUpdatePayInfoStateCardSuccess(session,payinfoId,CardID,PayUname);
         	//2.2修改order的状态
         	toUpdateOrderInfoCardSuccess(session,payinfoId,CardID);
         	return Msg.success().add("updateStatus", 1);
@@ -417,7 +421,7 @@ public class StripeController {
      * 生成支付号,修改支付成功的payinfo状态
      * @param payment 
      * */
-    private void toUpdatePayInfoStateCardSuccess(HttpSession session, Integer payinfoIdInto, String CardID) {
+    private void toUpdatePayInfoStateCardSuccess(HttpSession session, Integer payinfoIdInto, String CardID,String PayUname) {
     	
     	Integer payinfoId =  payinfoIdInto;
     	session.setAttribute("payinfoId", payinfoId);
@@ -436,7 +440,7 @@ public class StripeController {
 		MlfrontOrder mlfrontOrderOne = mlfrontOrderList.get(0);
 		
     	String CardpayEmail = mlfrontOrderOne.getOrderAddressinfoUemail();
-    	String CardUName = mlfrontOrderOne.getOrderAddressinfoUname();
+    	String CardUName = PayUname;
 		
 		mlfrontPayInfoIOne.setPayinfoStatus(1);//付款成功
 		mlfrontPayInfoIOne.setPayinfoPlatformserialcode(CardID);

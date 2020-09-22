@@ -24,20 +24,24 @@ var ml = {
 	facebook_id: '221174955835797', // test
 	google_id: 'UA-148324397-1', // test
 	tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js',
-	// stripe test
-	stripe_key: 'pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA',
 	// pinterest test
 	pinterest_id: '2613999865733',
 	pinterest_email: 'lvzhenbang@outlook.com',
 	pinterest_hash_email: 'a6243724a31979a66daa0edc9aa348e44146a59cbe981e0c1139f990d12cd64d',
-	// pinterest megalook
-	// pinterest_id: '2612741055158',
-	// pinterest_email: 'phannah0303@gmail.com',
-	// pinterest_hash_email: 'dc231ca84370402a003d5fbab542f06bcdf55a056ab1fcbea56eaab2e21dec7a',
+	// stripe test
+	stripe_key: 'pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA',
+	
 	//www.megalook.com的fbid googleid tidio
 	//facebook_id: '667403967094866', // megalook
 	//google_id: 'UA-145178467-1', // megalook
 	//tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', 
+	// pinterest megalook
+	// pinterest_id: '2612741055158',
+	// pinterest_email: 'phannah0303@gmail.com',
+	// pinterest_hash_email: 'dc231ca84370402a003d5fbab542f06bcdf55a056ab1fcbea56eaab2e21dec7a',
+	// stripe test
+	//stripe_key: 'pk_live_MDVwDQQHW9EeoxWf8vW2K6zC00wbQUa37k',
+	
 	//www.huashuohair.com的fbid googleid tidio
 	// facebook_id: '246433859565492', // huashuohair
 	// google_id: 'UA-128377932-1', // huashuohair
