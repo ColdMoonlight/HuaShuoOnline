@@ -421,7 +421,7 @@
 		var $cartBuyerMsgBox = $('<div class="cart-box">'+
 				'<div class="cart-box-title"><span class="order-sort">5</span>ADDITIONAL INFORMATION</div>'+
 				'<div class="cart-box-body">'+
-					'<div class="order-buyer-msg"><textarea rows="4" placeholder="Any Request,Notes Here."></textarea></div>'+
+					'<div class="order-buyer-msg"><textarea rows="2" placeholder="Any Request,Notes Here."></textarea></div>'+
 				'</div>'+
 			'</div>');
 		$('main .order-right').append($cartBuyerMsgBox);
@@ -624,6 +624,9 @@
 		document.body.appendChild(script);
 		script.onload = function() {
 			stripePayment();
+		}
+		script.onerror = function() {
+			mlModalTip('Credit card loading failed, Please refresh the page later and try again...');
 		}
 	}
 	function stripePayment() {

@@ -208,8 +208,9 @@ public class StripeController {
 		metadataMap.put("email", metadataEmail);
 
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-                .setCurrency("usd").setAmount(amTotalFen).addPaymentMethodType("card").setReceiptEmail(mlfrontAddress.getAddressEmail())
+                .setCurrency("usd").setAmount(amTotalFen).addPaymentMethodType("card")
                 .setDescription(toPaypalInfo.getPaymentDescription()).putAllMetadata(metadataMap)
+                //.setReceiptEmail(mlfrontAddress.getAddressEmail())
                 .build();
         // Create a PaymentIntent with the order amount and currency
 		try {
@@ -408,9 +409,9 @@ public class StripeController {
         	toUpdateOrderInfoCardSuccess(session,payinfoId,CardID);
         	return Msg.success().add("updateStatus", 1);
         } catch (Exception e) {
-            System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----begin------");
+            System.out.println("----wap端返回成功接口的Exception----e.getMessage()-----begin------");
             System.out.println(e.getMessage());
-            System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----end------");
+            System.out.println("----wap端返回成功接口的Exception----e.getMessage()-----end------");
             return Msg.success().add("updateStatus", 0);
         }
     }
