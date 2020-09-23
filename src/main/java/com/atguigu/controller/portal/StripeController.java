@@ -208,8 +208,9 @@ public class StripeController {
 		metadataMap.put("email", metadataEmail);
 
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-                .setCurrency("usd").setAmount(amTotalFen).addPaymentMethodType("card").setReceiptEmail(mlfrontAddress.getAddressEmail())
+                .setCurrency("usd").setAmount(amTotalFen).addPaymentMethodType("card")
                 .setDescription(toPaypalInfo.getPaymentDescription()).putAllMetadata(metadataMap)
+                //.setReceiptEmail(mlfrontAddress.getAddressEmail())
                 .build();
         // Create a PaymentIntent with the order amount and currency
 		try {
