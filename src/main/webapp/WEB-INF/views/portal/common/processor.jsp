@@ -4,8 +4,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 <!-- xu 认证
 <meta name="msvalidate.01" content="5490B8CBC84E3C9D7F95D2FE93A263BC" /> -->
-<!-- siteMap 认证
-<meta name="google-site-verification" content="SAL4KVmok7Gucsll1buOMRYO2RQVPPNdF163maxOVSU" /> -->
 <!-- google-site-verification 网站地图所需 上线时打开
 <meta name="google-site-verification" content="S_nwEF7Oc2MiSJHmAoJ8M8QA8vIA9QxyUrFDSTq1-YI" /> -->
 <!-- icon -->
@@ -36,9 +34,9 @@ var ml = {
 	//google_id: 'UA-145178467-1', // megalook
 	//tidio: '//code.tidio.co/sjcpaqy3xxtkt935ucnyf2gxv1zuh9us.js', 
 	// pinterest megalook
-	// pinterest_id: '2612741055158',
-	// pinterest_email: 'phannah0303@gmail.com',
-	// pinterest_hash_email: 'dc231ca84370402a003d5fbab542f06bcdf55a056ab1fcbea56eaab2e21dec7a',
+	//pinterest_id: '2612741055158',
+	//pinterest_email: 'phannah0303@gmail.com',
+	//pinterest_hash_email: 'dc231ca84370402a003d5fbab542f06bcdf55a056ab1fcbea56eaab2e21dec7a',
 	// stripe test
 	//stripe_key: 'pk_live_MDVwDQQHW9EeoxWf8vW2K6zC00wbQUa37k',
 	
