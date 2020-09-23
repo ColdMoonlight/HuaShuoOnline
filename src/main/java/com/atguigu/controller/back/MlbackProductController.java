@@ -365,6 +365,8 @@ public class MlbackProductController {
 		//准备封装参数
 		MlbackProduct mlbackProductrepBySeo = new MlbackProduct();
 		mlbackProductrepBySeo.setProductSeo(productSeo);
+		String nowTime = DateUtil.strTime14s();
+		System.out.println("nowTime:"+nowTime+"客户点击ProSeo链接进入: "+productSeo);
 	
 		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductByParam(mlbackProductrepBySeo);
 	  
