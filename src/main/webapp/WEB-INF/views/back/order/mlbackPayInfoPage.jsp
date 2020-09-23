@@ -699,6 +699,8 @@
 					'<div class="customer-item"><div class="name">Telephone Number:</div><div class="value">'+ (data.mlfrontUserOne.userTelephone || '') +'</div></div>' +
 					'<div class="customer-item"><div class="name">Purchase times:</div><div class="value">'+ data.mlfrontUserOne.userTimes +'</div></div>';
 				$('.customer-info').html(html);
+			} else {
+				$('.customer-info').html('Non-registered user!');
 			}
 			// ecpp-verfiy prop data
 			$('#ecpp-verify').data('ecpp', {
