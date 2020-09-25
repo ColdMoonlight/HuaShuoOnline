@@ -24,6 +24,7 @@
 				url: "${APP_PATH}/MlbackProduct/searchProductLike",
 				type: "post",
 				data: {"productName": productName},
+				async: false,
 				success: function (data) {
 					if (data.code == 100) {
 						callback && callback(descPrdouct(data.extend.mlbackProductResList));
