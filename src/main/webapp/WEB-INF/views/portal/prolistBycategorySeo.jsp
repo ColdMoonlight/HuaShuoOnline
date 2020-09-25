@@ -40,6 +40,7 @@
 				data: JSON.stringify({"categorySeo": categorySeo}),
 				dataType: 'json',
 				contentType: 'application/json',
+				async: false,
 				success: function (data) {
 					if (data.code == 100) {
 						renderCategorySeo(data.extend, hasCategory);

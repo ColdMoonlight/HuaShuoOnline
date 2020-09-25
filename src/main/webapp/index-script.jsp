@@ -86,7 +86,6 @@
 			type: "post",
 			dataType: "json",
 			contentType: 'application/json',
-			async: false,
 			success: function (data) {
 				if (data.code == 100) {
 					callback && callback(data.extend.mlbackShowAreaOne);
@@ -95,14 +94,14 @@
 		});
 	}
 	// get activity product data
-	function getActivityProductData(num, callback) {
+	function getActivityProductData(num, async, callback) {
 		$.ajax({
 			url: '${APP_PATH}/MlbackActShowPro/getMlbackActShowProListByActnum',
 			data: JSON.stringify({"actshowproActnum": num}),
 			type: "post",
 			dataType: "json",
 			contentType: 'application/json',
-			async: false,
+			async: async,
 			success: function (data) {
 				if (data.code == 100) {
 					callback && callback(data.extend.mlbackActShowProList || []);
@@ -118,7 +117,6 @@
 			type: 'post',
 			dataType: 'json',
 			contentType: 'application/json',
-			async: false,
 			success: function (data) {
 				if (data.code == 100) {
 					callback && callback(descPrdouct(data.extend.mlbackProductResList || []));
@@ -165,7 +163,7 @@
 		$el.html(htmlStr);
 	}
 	function hotFive() {
-		!hasHotFive && getActivityProductData(9, function(data) {
+		!hasHotFive && getActivityProductData(9, false, function(data) {
 			var htmlStr = '';
 			var $el = $('#hot-five');
 			data.length && data.forEach(function(item, idx) {
@@ -223,12 +221,12 @@
 		$el.append($reviewList);
 	}
 	var indexCarousel, indexCarouselData, hasHotFive = false;
-	getCarouselData(1, function(data) {
+	getCarouselData(1, false, function(data) {
 		indexCarouselData = data;
 		data.length && renderIndexCarousel(data);
 	});
 	hotFive();
-	getActivityProductData(8, function(data) {
+	getActivityProductData(8, false, function(data) {
 		var $el = $('#hot-two');
 		data.length && renderActivityProduct($el, data, 'hot-two');				
 		new LazyLoad($el.find('.lazyload'), {
@@ -237,7 +235,7 @@
 			threshold: 0
 		});
 	});
-	getCarouselData(2, function(data) {
+	getCarouselData(2, true, function(data) {
 		var $el = $('#hot-coupon');
 		data.length && renderCarouselAd($el, data, 'hot-coupon');				
 		new LazyLoad($el.find('.lazyload'), {
@@ -246,7 +244,7 @@
 			threshold: 0
 		});
 	});
-	getActivityProductData(7, function(data) {
+	getActivityProductData(7, true, function(data) {
 		var $el = $('#activity-product');
 		data.length && renderActivityProduct($el, data, 'activity-product');				
 		new LazyLoad($el.find('.lazyload'), {
@@ -255,7 +253,7 @@
 			threshold: 0
 		});
 	});
-	getActivityProductData(6, function(data) {
+	getActivityProductData(6, true, function(data) {
 		var $el = $('#hot-collection');
 		data.length && renderActivityProduct($el, data, 'hot-collection');				
 		new LazyLoad($el.find('.lazyload'), {
@@ -269,11 +267,11 @@
 		data && renderShowArea($el, data);
 		getIntroduceProductData(ml.area_one, function(data) {
 			data.length && renderProductSlide($el, 'showAreaOne', data.slice(0, 8), ml.area_one);
-		});
-		new LazyLoad($el.find('.lazyload'), {
-			root: null,
-			rootMargin: "10px",
-			threshold: 0
+			new LazyLoad($el.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			});
 		});
 	});
 	getDisplayAreaData(2, function(data) {
@@ -281,11 +279,11 @@
 		data && renderShowArea($el, data);
 		getIntroduceProductData(ml.area_two, function(data) {
 			data.length && renderProductSlide($el, 'showAreaTwo', data.slice(0, 8), ml.area_two);
-		});
-		new LazyLoad($el.find('.lazyload'), {
-			root: null,
-			rootMargin: "10px",
-			threshold: 0
+			new LazyLoad($el.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			});
 		});
 	});
 	getDisplayAreaData(3, function(data) {
@@ -293,11 +291,11 @@
 		data && renderShowArea($el, data);
 		getIntroduceReviewData(function(data) {
 			data.mlfrontReviewList.length && renderIntroduceReview($el, data);
-		});
-		new LazyLoad($el.find('.lazyload'), {
-			root: null,
-			rootMargin: "10px",
-			threshold: 0
+			new LazyLoad($el.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			});
 		});
 	});
 	$(document.body).on('click', '.showarea-review-item', function(e) {
