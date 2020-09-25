@@ -176,13 +176,17 @@ public class StripeController {
   		amount.setDetails(details);
   		System.out.println(amount.toJSON());
 		
+  		//少华测试
 		Stripe.apiKey = "sk_test_51HNEjlGgEkMvvUCbQmhbiwmioK5hlLfueCutt7tlYQniSGV7zkZxxXEwbhi0fUL2m83yxPZQ1UaRXS76ZjfCZ0ol00O1WgmFS0";
-		
 		String publicKey = "pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA";
-//		
+		
+		//A站信用卡Api密钥
 //		Stripe.apiKey = "sk_live_YeCmda8AAYQt06MgtBh1wAqv00N9PYH7a4";
-//		
 //		String publicKey = "pk_live_MDVwDQQHW9EeoxWf8vW2K6zC00wbQUa37k";
+		
+		//M站信用卡Api密钥
+//		Stripe.apiKey = "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";
+//		String publicKey = "pk_live_51HUkrmEXijfWDpTx7kLOdXEVzLRNTntZkhnufyXy4u5bLHM5emheTMjiBKROxvV96sEhw1EBRQ5rzwFZlPibDa4d00mAmuZkW1";
 		
 		//接收参数
 //		BillingDetails billingDetails = new BillingDetails();
@@ -218,8 +222,8 @@ public class StripeController {
 			System.out.println("PaymentIntent:"+intent.toJson());
 			CreatePaymentResponse paymentResponse = new CreatePaymentResponse("pk_test_51HNEjlGgEkMvvUCbMCN9IWPKBXCZv6ldWEq3XdnEGX9MtF3NqE3WfzQ6xZtLiYfiXdZh5F7gqkHAzKfm5s0OuSew00FQWoN8UA", intent.getClientSecret());
 //			CreatePaymentResponse paymentResponse = new CreatePaymentResponse("pk_live_MDVwDQQHW9EeoxWf8vW2K6zC00wbQUa37k", intent.getClientSecret());
-
-			//return gson.toJson(paymentResponse);
+//			CreatePaymentResponse paymentResponse = new CreatePaymentResponse("pk_live_51HUkrmEXijfWDpTx7kLOdXEVzLRNTntZkhnufyXy4u5bLHM5emheTMjiBKROxvV96sEhw1EBRQ5rzwFZlPibDa4d00mAmuZkW1", intent.getClientSecret());
+			
 			return Msg.success().add("intentKey", gson.toJson(paymentResponse));
 		} catch (StripeException e) {
 			e.printStackTrace();
