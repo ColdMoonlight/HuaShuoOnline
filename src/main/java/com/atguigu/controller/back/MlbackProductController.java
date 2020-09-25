@@ -109,7 +109,7 @@ public class MlbackProductController {
 		String nowTime = DateUtil.strTime14s();
 		mlbackProduct.setProductCreatetime(nowTime);
 		
-		//先对这个产品选择的一些类,进行productIdStr的清理,
+		//先对这个产品选择的一些类,进行productIdStr的清理
 		//有id,update
 		String categoryIdsStr = mlbackProduct.getProductCategoryIdsstr();
 		Integer productSupercateid = mlbackProduct.getProductSupercateid();
@@ -121,7 +121,7 @@ public class MlbackProductController {
 	
 	/**
 	 * 4.0.1
-	 * //从中读取categoryIdsStr,切割得到每一个categoryId,
+	 * 从中读取categoryIdsStr,切割得到每一个categoryId,
 	 * 遍历categoryId查询,把productId,填充再每个查回来的category中的proidStr拼上
 	 * */
 	private void UpdateCategoryProductIdStr(String categoryIdsStr, Integer productId,String productName, Integer productSupercateid) {
