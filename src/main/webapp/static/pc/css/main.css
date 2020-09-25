@@ -3590,12 +3590,25 @@ footer li {
 .hot-five {
 	position: relative;
 	overflow: hidden;
+	padding: 1rem .5rem;
+	align-items: center;
+	overflow-x: scroll;
 }
 .hot-five-item {
+	flex-shrink: 0;
 	display: inline-block;
 	vertical-align: top;
+	width: 32%;
+	padding-top: 45%;
 }
-.hot-five-item:nth-of-type(1),
+.hot-five-item+.hot-five-item {
+	margin-left: 1.333333%;
+}
+.hot-five-item.loaded {
+	background-size: 100% 100%;
+	background-color: #fff;
+}
+/* .hot-five-item:nth-of-type(1),
 .hot-five-item:nth-of-type(5) {
 	width: 32%;
 	padding-top: 40%;
@@ -3620,7 +3633,7 @@ footer li {
 }
 .hot-five-item:nth-of-type(4) {
 	right: 32%;
-}
+} */
 /* customer voice */
 .showarea-review-item {
 	cursor: pointer;
@@ -3659,8 +3672,8 @@ footer li {
 	margin-top: 1rem;
 }
 @media only screen and (max-width: 575px) {
-	.hot-two,
-	.hot-five,
+	/* .hot-two,
+	.hot-five, */
 	.hot-coupon,
 	.activity-product-item,
 	.showarea,
@@ -3690,6 +3703,10 @@ footer li {
 		display: block;
 		visibility: visible;
 		opacity: 1;		
+	}
+	.hot-five {
+		display: flex !important;
+		background-color: #fff;
 	}
 	.showarea-banner.wap {
 		padding-top: 19.97%;
