@@ -97,5 +97,35 @@ public class BackHomeController {
 		List<MlfrontUser> mlfrontUserList =  mlfrontUserService.selectMlfrontUserByDate(mlfrontUser);
 		return Msg.success().add("resMsg", "统计面板某时间内的总用户数").add("mlfrontUserList", mlfrontUserList);
 	}
+	
+	/**
+	 * zsh 200730
+	 * 中控台获取付款总金额钱数,总单数
+	 * */
+	@RequestMapping(value="/getRepurchaseRateNum",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getRepurchaseRateNum(HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo) throws Exception{
+		
+		List<MlfrontPayInfo> mlfrontPayInfoList =  mlfrontPayInfoService.selectMlfrontPayInfoByDate(mlfrontPayInfo);
+		List<MlfrontPayInfo> mlfrontPayInfoSuccessList = new ArrayList<MlfrontPayInfo>();
+		Integer payInfoStatus = 0;
+		if(mlfrontPayInfoList.size()>0){
+			
+			for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
+				payInfoStatus = mlfrontPayInfoOne.getPayinfoStatus();
+				//0未支付//1支付成功//2审单完毕//3发货完毕 //4已退款
+				if(1==payInfoStatus){
+					mlfrontPayInfoSuccessList.add(mlfrontPayInfoOne);
+				}else if(2==payInfoStatus){
+					mlfrontPayInfoSuccessList.add(mlfrontPayInfoOne);
+				}else if(3==payInfoStatus){
+					mlfrontPayInfoSuccessList.add(mlfrontPayInfoOne);
+				}
+			}
+		}
+		Integer allGoToPayNum = mlfrontPayInfoList.size();
+		System.out.println("所选时间出了多少结算单allGoToPayNum:"+allGoToPayNum);
+		return Msg.success().add("resMsg", "统计面板查询某时间内的成交金额,单数").add("mlfrontPayInfoSuccessList", mlfrontPayInfoSuccessList).add("allGoToPayNum", allGoToPayNum);
+	}
 
 }

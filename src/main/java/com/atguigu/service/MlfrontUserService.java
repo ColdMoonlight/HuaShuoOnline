@@ -76,5 +76,10 @@ public class MlfrontUserService {
 		List<MlfrontUser>  mlfrontUserList = mlfrontUsertMapper.selectMlfrontUserByDate(mlfrontUser);
 		return mlfrontUserList;
 	}
-
+	
+	public List<MlfrontUser> selectMlfrontUserSimpleByDate(MlfrontUser mlfrontUser) {
+		List<MlfrontUser>  mlfrontUserList = mlfrontUsertMapper.selectMlfrontUserSimpleByDate(mlfrontUser);
+		return mlfrontUserList;
+	}
+	
 }
