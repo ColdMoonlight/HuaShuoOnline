@@ -3590,7 +3590,7 @@ footer li {
 .hot-five {
 	position: relative;
 	overflow: hidden;
-	padding: 1rem .5rem;
+	padding: 1rem;
 	align-items: center;
 	overflow-x: scroll;
 }
@@ -3598,11 +3598,11 @@ footer li {
 	flex-shrink: 0;
 	display: inline-block;
 	vertical-align: top;
-	width: 32%;
-	padding-top: 45%;
+	width: 30%;
+	padding-top: 39%;
 }
 .hot-five-item+.hot-five-item {
-	margin-left: 1.333333%;
+	margin-left: 5%;
 }
 .hot-five-item.loaded {
 	background-size: 100% 100%;
