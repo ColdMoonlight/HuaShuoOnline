@@ -81,7 +81,9 @@ public class BackHomeController {
 				
 			}
 		}
-		return Msg.success().add("resMsg", "统计面板查询某时间内的成交金额,单数").add("mlfrontPayInfoSuccessList", mlfrontPayInfoSuccessList);
+		Integer allGoToPayNum = mlfrontPayInfoList.size();
+		System.out.println("mlfrontPayInfoList.size():"+mlfrontPayInfoList.size());
+		return Msg.success().add("resMsg", "统计面板查询某时间内的成交金额,单数").add("mlfrontPayInfoSuccessList", mlfrontPayInfoSuccessList).add("allGoToPayNum", allGoToPayNum);
 	}
 	
 	/**

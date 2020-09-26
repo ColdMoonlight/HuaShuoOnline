@@ -166,7 +166,7 @@
 					async: false,
 					success: function (data) {
 						if (data.code == 100) {
-							callback && callback(data.extend.mlfrontPayInfoSuccessList);
+							callback && callback(data.extend.mlfrontPayInfoSuccessList, data.extend.allGoToPayNum);
 						} else {
 							toastr.error(data.extend.resMsg);
 						}
@@ -492,7 +492,7 @@
 			}
 			// generate payinfo chart
 			function generatePayinfoChart() {
-				getStaticsPayinfoData(function(data) {
+				getStaticsPayinfoData(function(data, allOrder) {
 					function getCalPayinfoMoney(data) {
 						var acc = 0;
 						for (var key in data) {
@@ -516,7 +516,7 @@
 					generateChart($('#payinfo-total-chart'), generateCoordinatesData(calPayinfo, 'payinfo'));
 					// payinfo order
 					totalPayinfoNum = allCalPayinfoQuantity;
-					$('.payinfo-order').text(allCalPayinfoQuantity);
+					$('.payinfo-order').text(allCalPayinfoQuantity + ' / ' + allOrder);
 					generateChart($('#payinfo-order-chart'), generateCoordinatesData(calPayinfo, 'payinfoorder'));
 					// avg
 					$('.payinfo-avg-money').text('$' + calPayinfoAvgMoney);
