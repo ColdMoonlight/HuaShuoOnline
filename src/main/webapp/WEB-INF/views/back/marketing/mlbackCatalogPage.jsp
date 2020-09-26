@@ -129,6 +129,7 @@
 												<option value="7">7 - video</option>
 												<option value="8">8 - Best Quality</option>
 												<option value="9">9 - 15A</option>
+												<option value="10">10 - hot-test</option>
 											</select>
 										</div>
 										<i>useless: 5-ins, 6-reivew, 7-video, 8-beset quality</i>

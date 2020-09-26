@@ -1123,6 +1123,10 @@ main {
 	background: url(../img/navlabel/hot.gif) no-repeat;
 	background-size: 35px 25px;
 }
+.label-hot-test {
+	background: url(../img/navlabel/hot-test.gif) no-repeat;
+	background-size: 35px 25px;
+}
 .label-new {
 	background: url(../img/navlabel/new.gif) no-repeat center top;
 	background-size: 35px 25px;
