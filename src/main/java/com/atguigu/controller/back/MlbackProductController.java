@@ -65,7 +65,7 @@ public class MlbackProductController {
 	 */
 	@RequestMapping(value="/getMlbackProductByPage")
 	@ResponseBody
-	public Msg getGroupDisplayWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+	public Msg getMlbackProductByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
 
 		int PagNum = 30;
 		PageHelper.startPage(pn, PagNum);
@@ -89,9 +89,9 @@ public class MlbackProductController {
 		mlbackProduct.setProductCreatetime(nowTime);
 		mlbackProduct.setProductReviewnum(99);
 		//无id,insert
-		System.out.println("插入前"+mlbackProduct.toString());
+		//System.out.println("插入前"+mlbackProduct.toString());
 		mlbackProductService.insertSelective(mlbackProduct);
-		System.out.println("插入后"+mlbackProduct.toString());
+		//System.out.println("插入后"+mlbackProduct.toString());
 		return Msg.success().add("resMsg", "Product初始化成功").add("mlbackProduct", mlbackProduct);
 	}
 	
@@ -169,9 +169,7 @@ public class MlbackProductController {
 					categoryproductNamesStr=productName;
 				}else{
 					//如果产品类下已经有数据
-					
 					int ifHave = cheakifHave(categoryProductIdsStr,inproductIdStr);
-					
 					//先判断是否包含本次
 					if(ifHave>0){
 						//只要test.indexOf('This')返回的值不是-1说明test字符串中包含字符串'This',相反如果包含返回的值必定是-1"

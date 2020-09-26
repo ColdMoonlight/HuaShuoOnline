@@ -128,10 +128,10 @@ public class MlfrontUserController {
 		List<MlfrontUser> mlfrontUserList= mlfrontUserService.selectMlfrontUserWhenFirst(mlfrontUserreq);
 		String nowtime = DateUtil.strTime14s();
 		if(mlfrontUserList.size()>0){
-			//此账号邮箱已经注册，返回即可
+			//此账号邮箱已经注册,返回即可
 			return Msg.success().add("resMsg", "Registration failed, the email has been registered").add("registerYes", registerYes);//0的话取出resMsg
 		}else{
-			//此账号邮箱未注册，继续封装参数,插入即可
+			//此账号邮箱未注册,继续封装参数,插入即可
 			mlfrontUserreq.setUserPassword(userPassword);
 			//给user的Coupon字段加入优惠券的idStr
 			mlfrontUserreq.setUserCouponidstr("1,2,3");
