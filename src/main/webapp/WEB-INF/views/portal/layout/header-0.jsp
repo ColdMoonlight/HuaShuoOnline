@@ -309,11 +309,11 @@
 		$this.find('a').addClass('active');
 	}
 	// ajax fetch nav data
-	function getNavMenuData(callback) {
+	function getNavMenuData(async, callback) {
 		$.ajax({
 			url: '${APP_PATH}/MlbackCatalog/getCatalogSuperMenu',
 			method: 'post',
-			async: false,
+			async: async,
 			success: function (data) {
 				if (data.code == 100) {
 					callback && callback(data.extend);
@@ -571,7 +571,7 @@
 		hData && renderHeaderAd(hData);
 	});
 	// initial header nav
-	getNavMenuData(function (data) {
+	getNavMenuData((window.innerWidth > 1024 ? false : true), function (data) {
 		renderMainCategory($('.ml-nav'), data.CatalogFirstList, data.MlbackCatalogSuperList);
 		// init iphone share
 		initIphoneShare();
