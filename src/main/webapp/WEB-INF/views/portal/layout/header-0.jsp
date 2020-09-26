@@ -138,6 +138,8 @@
 			return "label-doubledrawn";
 		} else if (id == 9) {
 			return "label-15a";
+		} else if (id == 10) {
+			return "label-hot-test";
 		}
 		return "";
 	}
