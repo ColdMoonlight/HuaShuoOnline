@@ -345,6 +345,12 @@
     from tb_mlfront_user  where user_createTime between #{userCreatetime,jdbcType=VARCHAR} and #{userMotifytime,jdbcType=VARCHAR} order by user_id desc
   </select>
   <!-- updatePwdByEmail -->
+  <!-- selectMlfrontUserSimpleByDate使用中 -->
+  <select id="selectMlfrontUserSimpleByDate" parameterType="com.atguigu.bean.MlfrontUser" resultMap="BaseResultMap">
+    select 
+    user_id, user_email,user_telephone, user_createTime
+    from tb_mlfront_user where user_createTime between #{userCreatetime,jdbcType=VARCHAR} and #{userMotifytime,jdbcType=VARCHAR} order by user_id desc
+  </select>
   <!-- updatePwdByEmail -->
   <!-- updatePwdByEmail -->
 </mapper>

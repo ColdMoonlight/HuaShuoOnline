@@ -1,11 +1,9 @@
 package com.atguigu.controller.back;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.atguigu.bean.MlbackProduct;
@@ -37,7 +34,6 @@ public class MlbackProductSkuController {
 	@Autowired
 	MlbackProductService mlbackProductService;
 	
-
 	/**1.0	20200611
 	 * MlbackChannel	insert
 	 * @param MlbackChannel
@@ -75,7 +71,6 @@ public class MlbackProductSkuController {
 		//本条存在,执行删除
 		mlbackProductSkuService.deleteByPrimaryKey(productskuId);
 		return Msg.success().add("resMsg", "delete success");
-
 	}
 	
 	/**
@@ -87,7 +82,6 @@ public class MlbackProductSkuController {
 	@RequestMapping(value="/getMlbackProductSkuListByPId",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg getMlbackProductSkuListByPId(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackProductSku mlbackProductSku){
-		
 		
 		Integer productskuPid = mlbackProductSku.getProductskuPid();
 		MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();

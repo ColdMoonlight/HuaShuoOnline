@@ -24,4 +24,7 @@ public interface MlfrontUserMapper {
     List<MlfrontUser> selectMlfrontUserByConditionS(MlfrontUser example);
   	//通过时间查询MlfrontUser
   	List<MlfrontUser> selectMlfrontUserByDate(MlfrontUser record);
+	//通过时间查询简单的MlfrontUser
+  	List<MlfrontUser> selectMlfrontUserSimpleByDate(MlfrontUser record);
+  	
 }

@@ -12,13 +12,17 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.atguigu.bean.DownPayCheckDate;
+import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlfrontUser;
 import com.atguigu.service.DownPayCheckDateService;
 import com.atguigu.service.MlfrontPayInfoService;
+import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
 
 @Controller
@@ -30,6 +34,9 @@ public class ExcleDownloadController {
 	
 	@Autowired
 	DownPayCheckDateService downPayCheckDateService;
+	
+	@Autowired
+	MlfrontUserService mlfrontUserService;
 	
 	/**
 	 * 下载弃购数据
@@ -139,4 +146,63 @@ public class ExcleDownloadController {
 		
 	}
 	
+	/**
+	 * 下载注册客户email,telphone数据
+	 * */
+	@RequestMapping(value="/exportUserEmailBydate",method=RequestMethod.GET)
+	public void exportUserEmailBydate(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "userCreatetime") String userCreatetime,
+			@RequestParam(value = "userMotifytime") String userMotifytime,@RequestBody MlbackAdmin mlbackAdmin,HttpSession session){
+		
+		rep.setContentType("application/octet-stream");
+		
+		String nowTime = DateUtil.strTime14();
+		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"userEmail.xls");
+		
+		//session.getAttribute("");
+		
+		HSSFWorkbook wb = new HSSFWorkbook();
+		
+		HSSFSheet sheet = wb.createSheet("sheet0");
+		
+		HSSFRow row = sheet.createRow(0);
+		
+		HSSFCell cell = row.createCell(0);
+		
+		MlfrontUser mlfrontUserReq = new MlfrontUser();
+		mlfrontUserReq.setUserCreatetime(userCreatetime);
+		mlfrontUserReq.setUserMotifytime(userMotifytime);
+		
+		List<MlfrontUser> mlfrontUserList= mlfrontUserService.selectMlfrontUserSimpleByDate(mlfrontUserReq);
+		System.out.println("下载注册客户的邮箱mlfrontUserList.size():"+mlfrontUserList.size());
+		
+		//user_id, user_email,user_telephone, user_createTime
+		
+		cell.setCellValue("user_id");
+	    cell = row.createCell(1);
+		cell.setCellValue("user_email");
+	    cell = row.createCell(2);
+	    cell.setCellValue("user_telephone");
+	    cell = row.createCell(3);
+	    cell.setCellValue("user_createTime");
+	    cell = row.createCell(4);
+	    
+	    MlfrontUser mlfrontUserOne = new MlfrontUser();
+	    for (int i = 0; i < mlfrontUserList.size(); i++) {
+	    	mlfrontUserOne = mlfrontUserList.get(i);
+	        row = sheet.createRow(i+1);
+	        row.createCell(0).setCellValue(i+1);
+	        row.createCell(1).setCellValue(mlfrontUserOne.getUserId());
+	        row.createCell(2).setCellValue(mlfrontUserOne.getUserEmail()+"");
+	        row.createCell(3).setCellValue(mlfrontUserOne.getUserTelephone()+"");
+	        row.createCell(4).setCellValue(mlfrontUserOne.getUserCreatetime());
+	    }
+		try {
+			OutputStream out =rep.getOutputStream();
+			wb.write(out);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
