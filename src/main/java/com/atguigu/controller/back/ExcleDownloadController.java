@@ -173,8 +173,6 @@ public class ExcleDownloadController {
 		String nowTime = DateUtil.strTime14();
 		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"userEmail.xls");
 		
-		//session.getAttribute("");
-		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		
 		HSSFSheet sheet = wb.createSheet("sheet0");
