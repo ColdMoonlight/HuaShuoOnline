@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.atguigu.bean.DownPayCheckDate;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlfrontUser;
@@ -167,14 +166,12 @@ public class ExcleDownloadController {
 	 * */
 	@RequestMapping(value="/exportUserEmailBydate",method=RequestMethod.GET)
 	public void exportUserEmailBydate(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "userCreatetime") String userCreatetime,
-			@RequestParam(value = "userMotifytime") String userMotifytime,@RequestBody MlbackAdmin mlbackAdmin,HttpSession session){
+			@RequestParam(value = "userMotifytime") String userMotifytime,HttpSession session){
 		
 		rep.setContentType("application/octet-stream");
 		
 		String nowTime = DateUtil.strTime14();
 		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"userEmail.xls");
-		
-		//session.getAttribute("");
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		
