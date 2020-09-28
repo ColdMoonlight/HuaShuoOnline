@@ -191,14 +191,16 @@ public class ExcleDownloadController {
 		
 		//user_id, user_email,user_telephone, user_createTime
 		
-		cell.setCellValue("user_id");
+		cell.setCellValue("num_id");
 	    cell = row.createCell(1);
-		cell.setCellValue("user_email");
+		cell.setCellValue("user_id");
 	    cell = row.createCell(2);
-	    cell.setCellValue("user_telephone");
+		cell.setCellValue("user_email");
 	    cell = row.createCell(3);
-	    cell.setCellValue("user_createTime");
+	    cell.setCellValue("user_telephone");
 	    cell = row.createCell(4);
+	    cell.setCellValue("user_createTime");
+	    cell = row.createCell(5);
 	    
 	    MlfrontUser mlfrontUserOne = new MlfrontUser();
 	    for (int i = 0; i < mlfrontUserList.size(); i++) {
