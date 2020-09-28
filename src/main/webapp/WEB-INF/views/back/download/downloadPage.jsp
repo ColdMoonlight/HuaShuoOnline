@@ -88,11 +88,12 @@
 		});
 
 		$('#download-email').on('click', function() {
-			$('#verifyModal').modal('show');
+			/* $('#verifyModal').modal('show'); */
+			downloadUserEmail();
 		});
 
 		$('#verifyModal .btn-ok').on('click', function() {
-			/* var usernameVal = $('#username').val().trim();
+			var usernameVal = $('#username').val().trim();
 			var passwordVal = $('#password').val().trim();
 			
 			if (!usernameVal) {
@@ -107,10 +108,10 @@
 			checkUserRole({
 				'adminAccname': usernameVal,
 				'adminPassword': passwordVal,
-			}, function() { */
+			}, function() {
 				downloadUserEmail();
-			/* 	$('#verifyModal').modal('hide');				
-			});	 */		
+				$('#verifyModal').modal('hide');				
+			});			
 		});
 	</script>
 </body>
