@@ -60,7 +60,7 @@
 		}
 		
 		function checkUserRole(reqData, callback) {
-			$.ajax({
+			/* $.ajax({
 				url: "${APP_PATH }/MlbackAdmin/CheakAdminUser",
 				type: "post",
 				dataType: "json",
@@ -77,7 +77,13 @@
 				error: function() {
 					toastr.error('Login failed, please login again！');
 				}
-			});
+			}); */
+			if (reqData == 'abcd123456abcd') {
+				toastr.info('正在下载过程中。。。');
+				callback && callback();
+			} else {
+				toastr.error('下载码错误，请重新输入！！！');
+			}
 		}
 
 		$('#create-time').val(ymd + ' 00:00:00');
@@ -88,27 +94,17 @@
 		});
 
 		$('#download-email').on('click', function() {
-			/* $('#verifyModal').modal('show'); */
-			downloadUserEmail();
+			$('#verifyModal').modal('show');
 		});
 
 		$('#verifyModal .btn-ok').on('click', function() {
-			var usernameVal = $('#username').val().trim();
 			var passwordVal = $('#password').val().trim();
-			
-			if (!usernameVal) {
-				toastr.error('用户名不能为空!!!');
-				return;
-			}
 			if (!passwordVal) {
 				toastr.error('密码不能为空!!!');
 				return;
 			}
 
-			checkUserRole({
-				'adminAccname': usernameVal,
-				'adminPassword': passwordVal,
-			}, function() {
+			checkUserRole(passwordVal, function() {
 				downloadUserEmail();
 				$('#verifyModal').modal('hide');				
 			});			

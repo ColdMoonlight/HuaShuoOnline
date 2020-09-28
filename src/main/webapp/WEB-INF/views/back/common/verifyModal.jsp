@@ -13,16 +13,16 @@
 			</div>
 			<div class="modal-body">
 				<div class="modal-body-body">
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label class="col-form-label" for="username">Name</label>
 						<div class="controls">
 							<input class="form-control" id="username" type="text" placeholder="Please enter your name..." />
 						</div>
-					</div>
+					</div> -->
 					<div class="form-group">
-						<label class="col-form-label" for="password">Password</label>
+						<label class="col-form-label" for="password">Code</label>
 						<div class="controls">
-							 <input class="form-control" id="password" type="text" placeholder="Please enter your password..." />
+							 <input class="form-control" id="password" type="text" placeholder="Please enter your download-code..." />
 						</div>
 					</div>
 				</div>
