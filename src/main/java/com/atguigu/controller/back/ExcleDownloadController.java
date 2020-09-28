@@ -166,7 +166,7 @@ public class ExcleDownloadController {
 	 * */
 	@RequestMapping(value="/exportUserEmailBydate",method=RequestMethod.GET)
 	public void exportUserEmailBydate(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "userCreatetime") String userCreatetime,
-			@RequestParam(value = "userMotifytime") String userMotifytime,@RequestBody MlbackAdmin mlbackAdmin,HttpSession session){
+			@RequestParam(value = "userMotifytime") String userMotifytime,HttpSession session){
 		
 		rep.setContentType("application/octet-stream");
 		
