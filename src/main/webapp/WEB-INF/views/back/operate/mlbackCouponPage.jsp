@@ -19,7 +19,6 @@
 						<span class="c-option-title">Coupon list</span>
 						<button class="btn btn-primary btn-create">Create Coupon</button>
 					</div>
-					
 					<div class="c-table">
 						<div class="c-table-tab">
 							<div class="c-table-tab-item" data-idx="0">All</div>
