@@ -39,6 +39,22 @@ public class ExcleDownloadController {
 	MlfrontUserService mlfrontUserService;
 	
 	/**
+	 * zsh 200730
+	 * 中控台首页
+	 * */
+	@RequestMapping("/DownloadPage")
+	public String DownloadPage(HttpSession session) throws Exception{
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/download/downloadPage";
+		}
+	}
+	
+	/**
 	 * 下载弃购数据
 	 * */
 	@RequestMapping(value="/exportPayInfoIF",method=RequestMethod.GET)
