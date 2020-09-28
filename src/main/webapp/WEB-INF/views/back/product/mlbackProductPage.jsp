@@ -505,7 +505,7 @@
 			$('#editModal').find('.modal-title').html('Copy one product...');
 			$('#editModal').modal('show');
 			// get parentCategory data
-			getAllProductData(renderAllProductData);
+			getAllProductData(renderAllProductData, !0);
 
 			$('#editModal .btn-ok').one('click', function () {
 				var productId = $('#editModal').find('input:checked') && $('#editModal').find('input:checked').data('id');
