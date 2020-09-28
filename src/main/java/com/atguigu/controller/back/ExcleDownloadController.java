@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.atguigu.bean.DownPayCheckDate;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.service.DownPayCheckDateService;
 import com.atguigu.service.MlfrontPayInfoService;
@@ -190,14 +191,16 @@ public class ExcleDownloadController {
 		
 		//user_id, user_email,user_telephone, user_createTime
 		
-		cell.setCellValue("user_id");
+		cell.setCellValue("num_id");
 	    cell = row.createCell(1);
-		cell.setCellValue("user_email");
+		cell.setCellValue("user_id");
 	    cell = row.createCell(2);
-	    cell.setCellValue("user_telephone");
+		cell.setCellValue("user_email");
 	    cell = row.createCell(3);
-	    cell.setCellValue("user_createTime");
+	    cell.setCellValue("user_telephone");
 	    cell = row.createCell(4);
+	    cell.setCellValue("user_createTime");
+	    cell = row.createCell(5);
 	    
 	    MlfrontUser mlfrontUserOne = new MlfrontUser();
 	    for (int i = 0; i < mlfrontUserList.size(); i++) {
@@ -218,4 +221,63 @@ public class ExcleDownloadController {
 			e.printStackTrace();
 		}
 	}
+	
+//	/**
+//	 * 下载支付/未支付客户email,telphone数据
+//	 * */
+//	@RequestMapping(value="/exportPaySuccessEmailBydate",method=RequestMethod.GET)
+//	public void exportPaySuccessEmailBydate(HttpServletResponse rep,HttpServletRequest res,
+//			@RequestParam(value = "payinfoCreatetime") String payinfoCreatetime,
+//			@RequestParam(value = "payinfoMotifytime") String payinfoMotifytime,HttpSession session){
+//		
+//		rep.setContentType("application/octet-stream");
+//		
+//		String nowTime = DateUtil.strTime14();
+//		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"userEmail.xls");
+//		
+//		HSSFWorkbook wb = new HSSFWorkbook();
+//		
+//		HSSFSheet sheet = wb.createSheet("sheet0");
+//		
+//		HSSFRow row = sheet.createRow(0);
+//		
+//		HSSFCell cell = row.createCell(0);
+//		
+//		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+//		mlfrontPayInfoReq.setPayinfoCreatetime(payinfoCreatetime);
+//		mlfrontPayInfoReq.setPayinfoMotifytime(payinfoMotifytime);
+//		
+//		List<MlfrontPayInfo> mlfrontPayInfoList= mlfrontPayInfoService.selectMlfrontPayInfoEmailByDate(mlfrontPayInfoReq);
+//		System.out.println("下载注册客户的邮箱mlfrontUserList.size():"+mlfrontPayInfoList.size());
+//		
+//		//user_id, user_email,user_telephone, user_createTime
+//		
+//		cell.setCellValue("user_id");
+//	    cell = row.createCell(1);
+//		cell.setCellValue("user_email");
+//	    cell = row.createCell(2);
+//	    cell.setCellValue("user_telephone");
+//	    cell = row.createCell(3);
+//	    cell.setCellValue("user_createTime");
+//	    cell = row.createCell(4);
+//	    
+//	    MlfrontUser mlfrontUserOne = new MlfrontUser();
+//	    for (int i = 0; i < mlfrontUserList.size(); i++) {
+//	    	mlfrontUserOne = mlfrontUserList.get(i);
+//	        row = sheet.createRow(i+1);
+//	        row.createCell(0).setCellValue(i+1);
+//	        row.createCell(1).setCellValue(mlfrontUserOne.getUserId());
+//	        row.createCell(2).setCellValue(mlfrontUserOne.getUserEmail()+"");
+//	        row.createCell(3).setCellValue(mlfrontUserOne.getUserTelephone()+"");
+//	        row.createCell(4).setCellValue(mlfrontUserOne.getUserCreatetime());
+//	    }
+//		try {
+//			OutputStream out =rep.getOutputStream();
+//			wb.write(out);
+//			out.flush();
+//			out.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }
