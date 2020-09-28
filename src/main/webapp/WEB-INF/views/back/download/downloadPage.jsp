@@ -7,8 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Marketing</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
-	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 </head>
 
 <body class="c-app">
@@ -45,13 +44,42 @@
 	</div>
 
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
-	
+	<jsp:include page="../common/verifyModal.jsp" flush="true"></jsp:include>
+
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	<!-- custom script -->
 	<script>
 		var date = new Date();
 		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
+		
+		function downloadUserEmail() {
+			var createTime =$('#create-time').val();
+			var confirmTime  = $('#confirm-time').val();
+			window.location.href = "${APP_PATH}/ExcleDownload/exportUserEmailBydate?userCreatetime="+createTime+"&userMotifytime="+confirmTime;
+		}
+		
+		function checkUserRole(reqData, callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlbackAdmin/CheakAdminUser",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.info('正在下载过程中。。。');
+						callback && calback();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function() {
+					toastr.error('Login failed, please login again！');
+				}
+			});
+		}
+
 		$('#create-time').val(ymd + ' 00:00:00');
 		$('#confirm-time').val(ymd + ' 23:59:59');
 		bindDateRangeEvent(function(startTime, endTime, self) {
@@ -60,10 +88,29 @@
 		});
 
 		$('#download-email').on('click', function() {
-			var createTime =$('#create-time').val();
-			var confirmTime  = $('#confirm-time').val();
-			window.location.href = "${APP_PATH}/ExcleDownload/exportUserEmailBydate?userCreatetime="+createTime+"&userMotifytime="+confirmTime;
-			// window.location.href = "${APP_PATH}/ExcleDownload/exportPayInfoIF?payinfoStatus=999+&payinfoCreatetime="+createTime+"&payinfoMotifytime="+confirmTime;
+			$('#verifyModal').modal('show');
+		});
+
+		$('#verifyModal .btn-ok').on('click', function() {
+			/* var usernameVal = $('#username').val().trim();
+			var passwordVal = $('#password').val().trim();
+			
+			if (!usernameVal) {
+				toastr.error('用户名不能为空!!!');
+				return;
+			}
+			if (!passwordVal) {
+				toastr.error('密码不能为空!!!');
+				return;
+			}
+
+			checkUserRole({
+				'adminAccname': usernameVal,
+				'adminPassword': passwordVal,
+			}, function() { */
+				downloadUserEmail();
+			/* 	$('#verifyModal').modal('hide');				
+			});	 */		
 		});
 	</script>
 </body>
