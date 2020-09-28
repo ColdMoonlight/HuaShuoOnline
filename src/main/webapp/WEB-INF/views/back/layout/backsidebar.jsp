@@ -149,5 +149,14 @@
 				<span class="c-text">Footer Nav</span>
 			</a>
 		</li>
+		<!-- download -->
+		<li class="c-sidebar-nav-item">
+			<a class="c-sidebar-nav-link" href="${APP_PATH}/ExcleDownload/DownloadPage">
+				<svg class="c-sidebar-nav-icon">
+					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-calculator"></use>
+				</svg>
+				<span class="c-text">Download</span>
+			</a>
+		</li>
 	</ul>
 </div>
