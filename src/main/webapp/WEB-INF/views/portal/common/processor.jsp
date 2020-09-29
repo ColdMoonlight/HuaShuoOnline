@@ -38,7 +38,7 @@ var ml = {
 	//pinterest_email: 'phannah0303@gmail.com',
 	//pinterest_hash_email: 'dc231ca84370402a003d5fbab542f06bcdf55a056ab1fcbea56eaab2e21dec7a',
 	// stripe test
-	//stripe_key: 'pk_live_MDVwDQQHW9EeoxWf8vW2K6zC00wbQUa37k',
+	//stripe_key: 'pk_live_51HUkrmEXijfWDpTx7kLOdXEVzLRNTntZkhnufyXy4u5bLHM5emheTMjiBKROxvV96sEhw1EBRQ5rzwFZlPibDa4d00mAmuZkW1',
 	
 	//www.huashuohair.com的fbid googleid tidio
 	// facebook_id: '246433859565492', // huashuohair
