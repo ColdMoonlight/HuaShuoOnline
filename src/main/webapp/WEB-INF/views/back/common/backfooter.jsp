@@ -287,13 +287,13 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 	}
 	
 	// callback get all product
-	function getAllProductData(callback) {
+	function getAllProductData(callback, async) {
 		$('.c-mask').show();
 		$.ajax({
 			url: "${APP_PATH}/MlbackProduct/lownLoadProduct",
 			type: "post",
 			contentType: 'application/json',
-			async: false,
+			async: (async ? true : false),
 			success: function (data) {
 				if (data.code == 100) {
 					toastr.success(data.extend.resMsg);

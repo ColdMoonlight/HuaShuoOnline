@@ -49,7 +49,7 @@ public class BackHomeController {
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		if(mlbackAdmin==null){
-			//SysUsers对象为空
+			//SysUser对象为空
 			return "back/mlbackAdminLogin";
 		}else{
 			return "back/mlbackHomePage";

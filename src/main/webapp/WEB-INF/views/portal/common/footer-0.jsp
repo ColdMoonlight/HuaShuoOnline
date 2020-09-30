@@ -113,11 +113,33 @@ function renderCouponAreaData(data) {
 		});
 		return html;
 	}
+	
+	function splitData(data) {
+		var resData = {
+				dis: [],
+				full: []
+			};
+		data.forEach(function(item) {
+			if (/%/.test(item.coupondescdetailStrength)) {
+				resData.dis.push(item);
+			} else {
+				resData.full.push(item);
+			}
+		});
+		return resData;
+	}
 	var $el = $('.product-coupons');
+	var $discountEl = $el.find('.discount');
+	var $fullEl = $el.find('.full');
+	var newData = splitData(data.mlbackCouponDescDetailList);
 	var htmlStr = '<div class="left lazyload" data-src="'+  data.mlbackCouponDescTitleList[0].coupondesctieleImgurl +'"></div>' +
 				'<div class="right">' +
 			'<div class="title">'+ data.mlbackCouponDescTitleList[0].coupondesctieleTieledetail +'</div>' +
-			'<ul class="body">' + generateCouponAreaDetailsListData(data.mlbackCouponDescDetailList) + '</ul>' +
+			'<div class="body">' +
+				'<ul class="discount">' + generateCouponAreaDetailsListData(newData.dis) + '</ul>' +
+				'<div class="divider" style="height: 1px;margin: .5rem 0;background-color: #eb8378;"></div>' +
+				'<ul class="full">' + generateCouponAreaDetailsListData(newData.full) + '</ul>' +
+			'</div>' +
 		'</div>';
 	
 	$el.html(htmlStr);

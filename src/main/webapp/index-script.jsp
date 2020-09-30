@@ -29,6 +29,7 @@
 		$('.ml-index-carousel .swiper-wrapper').html(htmlStr);
 		indexCarousel = new Swiper('.ml-index-carousel', {
 			loop:true,
+			speed: 600,
 			autoplay: {
 			    delay: 5000,
 			    stopOnLastSlide: false,
