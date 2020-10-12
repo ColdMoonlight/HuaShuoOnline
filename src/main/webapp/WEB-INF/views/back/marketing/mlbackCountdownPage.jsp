@@ -220,7 +220,7 @@
 			data.countdownStarttime = $('#countdownStarttime').val();
 			data.countdownEndtime = $('#countdownEndtime').val();
 
-			data.videoStatus = $('#countdownStatus').prop('checked') ? 1 : 0;
+			data.countdownStatus = $('#countdownStatus').prop('checked') ? 1 : 0;
 
 			return data;
 		}

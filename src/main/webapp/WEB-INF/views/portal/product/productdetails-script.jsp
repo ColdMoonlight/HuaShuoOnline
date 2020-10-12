@@ -621,7 +621,8 @@
 		getProductSkus(function(data) {
 			data.length && buildResult(data);				
 		});
-
+		// countdown time
+		getCoundownTimeData(2, rednerCountDownAreaOne);
 		addHeaderInfo(data);
 		var fbpid = data.productId;
 		var fbprice = accuracyCal(data.productOriginalprice, data.productActoffoff);

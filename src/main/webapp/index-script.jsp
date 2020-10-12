@@ -227,6 +227,7 @@
 		data.length && renderIndexCarousel(data);
 	});
 	hotFive();
+	getCoundownTimeData(1, rednerCountDownAreaOne);
 	getActivityProductData(8, false, function(data) {
 		var $el = $('#hot-two');
 		data.length && renderActivityProduct($el, data, 'hot-two');				
