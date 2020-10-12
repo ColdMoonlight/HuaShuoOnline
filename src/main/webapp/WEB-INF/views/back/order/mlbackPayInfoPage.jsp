@@ -842,7 +842,7 @@
 			var statusText;
 			switch(num) {
 				case 0:
-					statusText = '<a class="badge badge-danger">uppaid</a>'; // 未支付 red
+					statusText = '<a class="badge badge-danger">unpaid</a>'; // 未支付 red
 				    break;
 				case 1:
 					statusText = '<a class="badge badge-warning">paid</a>'; // 已支付  yellow
@@ -863,7 +863,7 @@
 					statusText = '<a class="badge badge-dark">closed</a>'; // 已关闭  dark
 					break;
 				default:
-					statusText = '<a class="badge badge-danger">uppaid</a>'; // 未支付 red
+					statusText = '<a class="badge badge-danger">unpaid</a>'; // 未支付 red
 			}
 			return statusText;
 		}
