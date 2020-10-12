@@ -123,7 +123,7 @@ public class MlbackCountdownController {
 		mlbackCountdownReq.setCountdownId(countdownId);
 		//查询本条
 		List<MlbackCountdown> mlbackCountdownOne =mlbackCountdownService.selectMlbackCountdownById(mlbackCountdownReq);
-		return Msg.success().add("resMsg", "查看单条Slide的详情完毕")
+		return Msg.success().add("resMsg", "查看单条倒计时的详情完毕")
 					.add("mlbackCountdownOne", mlbackCountdownOne);
 	}
 
