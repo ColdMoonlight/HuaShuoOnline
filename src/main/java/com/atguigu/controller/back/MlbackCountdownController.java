@@ -1,6 +1,5 @@
 package com.atguigu.controller.back;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,16 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlbackCategory;
-import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackCountdown;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
-import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackCountdownService;
-import com.atguigu.service.MlbackProductService;
 import com.atguigu.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -45,7 +39,7 @@ public class MlbackCountdownController {
 	@RequestMapping("/toMlbackCountdownPage")
 	public String tologin() throws Exception{
 	
-		return "back/marketing/MlbackCountdownPage";
+		return "back/marketing/mlbackCountdownPage";
 	}
 	
 	/**2.0	20200707
@@ -73,30 +67,30 @@ public class MlbackCountdownController {
 	@ResponseBody
 	public Msg initializaSlide(HttpServletResponse rep,HttpServletRequest res){
 		
-		MlbackCountdown MlbackCountdown = new MlbackCountdown();
+		MlbackCountdown mlbackCountdown = new MlbackCountdown();
 		//取出id
 		String nowTime = DateUtil.strTime14s();
-		MlbackCountdown.setCountdownCreatetime(nowTime);
+		mlbackCountdown.setCountdownCreatetime(nowTime);
 		//无id,insert
-		System.out.println("插入前"+MlbackCountdown.toString());
-		mlbackCountdownService.insertSelective(MlbackCountdown);
-		System.out.println("插入后"+MlbackCountdown.toString());
-		return Msg.success().add("resMsg", "Catalog初始化成功").add("MlbackCountdown", MlbackCountdown);
+		System.out.println("插入前"+mlbackCountdown.toString());
+		mlbackCountdownService.insertSelective(mlbackCountdown);
+		System.out.println("插入后"+mlbackCountdown.toString());
+		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackCountdown", mlbackCountdown);
 	}
 	
 	/**3.0	20200707
-	 * MlbackActShowPro	save
-	 * @param MlbackActShowPro
+	 * mlbackCountdown	save
+	 * @param mlbackCountdown
 	 */
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackCountdown MlbackCountdown){
+	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackCountdown mlbackCountdown){
 		//接受参数信息
 		//mlbackProductService;
 		String nowtime = DateUtil.strTime14s();
-		MlbackCountdown.setCountdownMotifytime(nowtime);
+		mlbackCountdown.setCountdownMotifytime(nowtime);
 		//有id,update
-		mlbackCountdownService.updateByPrimaryKeySelective(MlbackCountdown);
+		mlbackCountdownService.updateByPrimaryKeySelective(mlbackCountdown);
 		return Msg.success().add("resMsg", "更新成功");
 	}
 	
@@ -106,10 +100,10 @@ public class MlbackCountdownController {
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg delete(@RequestBody MlbackCountdown MlbackCountdown){
+	public Msg delete(@RequestBody MlbackCountdown mlbackCountdown){
 		//接收SlideId
-		Integer slideId = MlbackCountdown.getCountdownId();
-		mlbackCountdownService.deleteByPrimaryKey(slideId);
+		Integer countdownId = mlbackCountdown.getCountdownId();
+		mlbackCountdownService.deleteByPrimaryKey(countdownId);
 		return Msg.success().add("resMsg", "delete success");
 	}
 	
@@ -121,16 +115,16 @@ public class MlbackCountdownController {
 	 */
 	@RequestMapping(value="/getOneMlbackCountdownDetail",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneMlbackCountdownDetail(@RequestBody MlbackCountdown MlbackCountdown){
+	public Msg getOneMlbackCountdownDetail(@RequestBody MlbackCountdown mlbackCountdown){
 		
-		Integer slideId = MlbackCountdown.getCountdownId();
+		Integer countdownId = mlbackCountdown.getCountdownId();
 		//接受actshowproId
-		MlbackCountdown MlbackCountdownReq = new MlbackCountdown();
-		MlbackCountdownReq.setCountdownId(slideId);
+		MlbackCountdown mlbackCountdownReq = new MlbackCountdown();
+		mlbackCountdownReq.setCountdownId(countdownId);
 		//查询本条
-		List<MlbackCountdown> MlbackCountdownOne =mlbackCountdownService.selectMlbackCountdownById(MlbackCountdownReq);
+		List<MlbackCountdown> mlbackCountdownOne =mlbackCountdownService.selectMlbackCountdownById(mlbackCountdownReq);
 		return Msg.success().add("resMsg", "查看单条Slide的详情完毕")
-					.add("MlbackCountdownOne", MlbackCountdownOne);
+					.add("mlbackCountdownOne", mlbackCountdownOne);
 	}
 
 }
