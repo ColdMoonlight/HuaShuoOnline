@@ -61,19 +61,19 @@
 				<div class="video-topsale-body">
 					<div class="video-topsale-style one">
 						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/B-13x4-Straight-Body-Wave-Highlight-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp1.jpg"></a>
-							<div class="video-topsale-style-name">180% Density 13x4 Lace Frontal Wig </div>
+							<a class="lazyload" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/c4.jpg"></a>
+							<div class="video-topsale-style-name">Piano Color Lace Frontal Wigs</div>
 						</div>
 						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp2.jpg"></a>
+							<a class="lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/c2.jpg"></a>
 							<div class="video-topsale-style-name">360 Lace Frontal Wigs Body Wave</div>					
 						</div>
 						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp3.jpg"></a>
-							<div class="video-topsale-style-name">13x4 Lace Frontal Wig Straight Hair</div>					
+							<a class="lazyload" href="${APP_PATH }/B-13x4-Straight-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/c1.jpg"></a>
+							<div class="video-topsale-style-name">13x4 Lace Frontal Wig Natural Color</div>					
 						</div>
 						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/B-13x4-Water-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp4.jpg"></a>
+							<a class="lazyload" href="${APP_PATH }/B-13x4-Water-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/c3.jpg"></a>
 							<div class="video-topsale-style-name">13x4 Lace Frontal Wig Water Wave Hair</div>					
 						</div>
 					</div>

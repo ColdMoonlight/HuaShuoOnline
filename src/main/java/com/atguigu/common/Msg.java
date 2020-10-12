@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author lfy
+ * @author zsh
  */
 public class Msg {
-	
 	
 	//
 	private int code;

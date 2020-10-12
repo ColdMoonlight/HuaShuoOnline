@@ -78,7 +78,7 @@ public class ImageUploadController {
 	MlbackCouponService mlbackCouponService;
 	
 	/**
-	 * 	onuse	20200103	检查
+	 * 	zsh	20201010
 	 * */
 	@RequestMapping(value="/thumImageCategory",method=RequestMethod.POST)
 	@ResponseBody
@@ -112,30 +112,58 @@ public class ImageUploadController {
 			e.printStackTrace();
 		}
 		
-//		String uploadPathcompress = "static/upload/imagecompress/category";
-//		String realUploadPathcompress = session.getServletContext().getRealPath(uploadPathcompress);
-//		System.out.println("realUploadPathcompress:"+realUploadPathcompress);
-//		
-//		try {
-//			
-//			thumImageUrl = thumbnailService.Thumbnail(file, uploadPathcompress, realUploadPathcompress,imgName);
-//			sqlthumImageUrl=basePathStr+thumImageUrl;
-//			System.out.println("sqlthumImageUrl:"+sqlthumImageUrl);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		
 		MlbackCategory mlbackCategory = new MlbackCategory();
 		mlbackCategory.setCategoryId(categoryId);
-		mlbackCategory.setCategoryImgpcurl(sqlimageUrl);
-		mlbackCategory.setCategoryImgurl(sqlthumImageUrl);	
+		mlbackCategory.setCategoryImgurl(sqlimageUrl);	
 		mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategory);
 		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
 	}
 	
+	/**
+	 * 	zsh	20201012
+	 * */
+	@RequestMapping(value="/thumImageCategoryPc",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg thumImageCategoryPc(@RequestParam("image")CommonsMultipartFile file,@RequestParam("categorySeo")String categorySeo,
+			@RequestParam("categoryId")Integer categoryId,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);
+		
+		String categoryIdStr = categoryId+"";
+		String imgName = ImageNameUtil.getfilename(typeName,categoryIdStr);
+		
+		String uploadPath = "static/upload/img/category";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String imageUrl ="";
+		String thumImageUrl ="";
+		String sqlimageUrl="";
+		String sqlthumImageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		MlbackCategory mlbackCategory = new MlbackCategory();
+		mlbackCategory.setCategoryId(categoryId);
+		mlbackCategory.setCategoryImgpcurl(sqlimageUrl);	
+		mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategory);
+		
+		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
+				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
+	}
 	/**
 	 * 	onuse	20200103	检查
 	 * */
