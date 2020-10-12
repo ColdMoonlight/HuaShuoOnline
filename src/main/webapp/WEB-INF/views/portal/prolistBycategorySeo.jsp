@@ -55,7 +55,7 @@
 			});
 		}
 		function renderCategorySeo(data, hasCategory) {
-			renderSearchBanner(data.mlbackCategoryOne);
+			renderSearchBanner(data.imgUrl);
 			if (!hasCategory) renderCategorySelect(data.mlbackCategorydownList || []);
 			renderProductList(descPrdouct(data.mlbackProductResList || []));
 		}
@@ -101,12 +101,12 @@
 			});
 			$('.category-select').html(htmlStr);
 		}
-		function renderSearchBanner(data) {
+		function renderSearchBanner(imgUrl) {
 			var $searchBanner = $('.search-product-banner');
-			if (data.categoryImgurl || data.categoryImgpcurl) {
+			if (imgUrl) {
 				$searchBanner.attr('data-src')
-				var htmlStr = '<div class="wap lazyload" data-src="'+ data.categoryImgurl +'"></div>' +
-					'<div class="pc lazyload" data-src="'+ data.categoryImgpcurl +'"></div>'
+				var htmlStr = '<div class="wap lazyload" data-src="'+ imgUrl +'"></div>' +
+					'<div class="pc lazyload" data-src="'+ imgUrl +'"></div>'
 					$searchBanner.html(htmlStr);
 			} else {
 				$searchBanner.addClass('hide');
