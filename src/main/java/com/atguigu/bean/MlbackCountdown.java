@@ -70,4 +70,30 @@ public class MlbackCountdown {
     public void setCountdownMotifytime(String countdownMotifytime) {
         this.countdownMotifytime = countdownMotifytime == null ? null : countdownMotifytime.trim();
     }
+    
+	public MlbackCountdown() {
+		super();
+	}
+
+	public MlbackCountdown(Integer countdownId, String countdownTitle, String countdownDescription,
+			String countdownStarttime, String countdownEndtime, String countdownCreatetime,
+			String countdownMotifytime) {
+		super();
+		this.countdownId = countdownId;
+		this.countdownTitle = countdownTitle;
+		this.countdownDescription = countdownDescription;
+		this.countdownStarttime = countdownStarttime;
+		this.countdownEndtime = countdownEndtime;
+		this.countdownCreatetime = countdownCreatetime;
+		this.countdownMotifytime = countdownMotifytime;
+	}
+
+	@Override
+	public String toString() {
+		return "MlbackCountdown [countdownId=" + countdownId + ", countdownTitle=" + countdownTitle
+				+ ", countdownDescription=" + countdownDescription + ", countdownStarttime=" + countdownStarttime
+				+ ", countdownEndtime=" + countdownEndtime + ", countdownCreatetime=" + countdownCreatetime
+				+ ", countdownMotifytime=" + countdownMotifytime + "]";
+	}
+    
 }

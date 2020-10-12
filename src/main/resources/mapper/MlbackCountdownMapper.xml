@@ -20,10 +20,7 @@
     from tb_mlblack_countdown
     where countDown_id = #{countdownId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_mlblack_countdown
-    where countDown_id = #{countdownId,jdbcType=INTEGER}
-  </delete>
+  
   <insert id="insert" parameterType="com.atguigu.bean.MlbackCountdown">
     insert into tb_mlblack_countdown (countDown_id, countDown_title, countDown_description, 
       countDown_startTime, countDown_endTime, countDown_createTime, 
@@ -32,7 +29,19 @@
       #{countdownStarttime,jdbcType=VARCHAR}, #{countdownEndtime,jdbcType=VARCHAR}, #{countdownCreatetime,jdbcType=VARCHAR}, 
       #{countdownMotifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackCountdown">
+  
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackCountdown">
+    update tb_mlblack_countdown
+    set countDown_title = #{countdownTitle,jdbcType=VARCHAR},
+      countDown_description = #{countdownDescription,jdbcType=VARCHAR},
+      countDown_startTime = #{countdownStarttime,jdbcType=VARCHAR},
+      countDown_endTime = #{countdownEndtime,jdbcType=VARCHAR},
+      countDown_createTime = #{countdownCreatetime,jdbcType=VARCHAR},
+      countDown_motifyTime = #{countdownMotifytime,jdbcType=VARCHAR}
+    where countDown_id = #{countdownId,jdbcType=INTEGER}
+  </update>
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="countdownId" parameterType="com.atguigu.bean.MlbackCountdown">
     insert into tb_mlblack_countdown
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="countdownId != null">
@@ -81,6 +90,12 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlblack_countdown
+    where countDown_id = #{countdownId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackCountdown">
     update tb_mlblack_countdown
     <set>
@@ -105,14 +120,17 @@
     </set>
     where countDown_id = #{countdownId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackCountdown">
-    update tb_mlblack_countdown
-    set countDown_title = #{countdownTitle,jdbcType=VARCHAR},
-      countDown_description = #{countdownDescription,jdbcType=VARCHAR},
-      countDown_startTime = #{countdownStarttime,jdbcType=VARCHAR},
-      countDown_endTime = #{countdownEndtime,jdbcType=VARCHAR},
-      countDown_createTime = #{countdownCreatetime,jdbcType=VARCHAR},
-      countDown_motifyTime = #{countdownMotifytime,jdbcType=VARCHAR}
-    where countDown_id = #{countdownId,jdbcType=INTEGER}
-  </update>
+  
+  <!-- selectMlbackCountdownGetAll -->
+  <select id="selectMlbackCountdownGetAll" parameterType="com.atguigu.bean.MlbackCountdown" resultMap="BaseResultMap">
+    select * 
+    from tb_mlblack_countdown order by countDown_id
+  </select>
+  
+  <!-- selectMlbackCountdownById -->
+  <select id="selectMlbackCountdownById" parameterType="com.atguigu.bean.MlbackCountdown" resultMap="BaseResultMap">
+    select * 
+    from tb_mlblack_countdown where countDown_id = #{countdownId,jdbcType=INTEGER}
+  </select>
+  
 </mapper>
