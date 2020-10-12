@@ -4886,13 +4886,9 @@ footer li {
 
 .dark .time-item {
   position: relative;
-  min-width: 2.5em;
-  padding: .75em .5em 1em .5em;
   font-weight: 500;
-  font-size: 26px;
   color: #fff;
   text-align: center;
-  border-radius: .25em;
   background: -webkit-linear-gradient(top, #999 , #000);
   background: -moz-linear-gradient(bottom, #999, #000);
   background: -o-linear-gradient(bottom, #999, #000);
@@ -4902,17 +4898,13 @@ footer li {
 .dark .time-item .text {
   position: absolute;
   right: 0;
-  bottom: .3em;
   display: block;
   width: 100%;
-  font-size: 14px;
   font-weight: bold;
 }
 
 .dark .separator {
   display: block;
-  padding: .5em;
-  font-size: 16px;
   font-weight: bold;
 }
 
@@ -4926,4 +4918,46 @@ footer li {
   color: #fff;
   background-color: yellowgreen;
   border-radius: 3px;
+}
+
+@media screen and (max-width: 977px) {
+	.dark .time-item {	
+		  min-width: 2.5em;
+		  padding: .75em .5em 1em .5em;
+		  font-size: 1.5em;
+		  border-radius: .25em;
+	}
+	.dark .time-item .text {		
+		  bottom: .3em;
+		  font-size: .875em;
+	}
+	.dark .separator {
+	  padding: .5em;
+	  font-size: 1em;
+	}
+	
+	.dark .state {
+	  top: -.75em;
+	}
+}
+
+@media screen and (min-width: 978px) {
+	.dark .time-item {	
+		  min-width: 3.2em;
+		  padding: 1em .5em 1.5em .5em;
+		  font-size: 2em;
+		  border-radius: .25em;
+	}
+	.dark .time-item .text {		
+		  bottom: .5em;
+		  font-size: 1rem;
+	}
+	.dark .separator {
+	  padding: .5em;
+	  font-size: 1.5em;
+	}
+	
+	.dark .state {
+	  top: -.75em;
+	}
 }
