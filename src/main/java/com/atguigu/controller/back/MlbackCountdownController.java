@@ -122,9 +122,12 @@ public class MlbackCountdownController {
 		MlbackCountdown mlbackCountdownReq = new MlbackCountdown();
 		mlbackCountdownReq.setCountdownId(countdownId);
 		//查询本条
-		List<MlbackCountdown> mlbackCountdownOne =mlbackCountdownService.selectMlbackCountdownById(mlbackCountdownReq);
-		return Msg.success().add("resMsg", "查看单条倒计时的详情完毕")
-					.add("mlbackCountdownOne", mlbackCountdownOne);
+		List<MlbackCountdown> mlbackCountdowList =mlbackCountdownService.selectMlbackCountdownById(mlbackCountdownReq);
+		MlbackCountdown mlbackCountdownOne = new MlbackCountdown();
+		if(mlbackCountdowList.size()>0){
+			mlbackCountdownOne =  mlbackCountdowList.get(0);
+		}
+		return Msg.success().add("resMsg", "查看单条倒计时的详情完毕").add("mlbackCountdownOne", mlbackCountdownOne);
 	}
 
 }
