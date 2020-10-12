@@ -9,6 +9,8 @@ public class ImageNameUtil {
 		String typeName = "";
 		if("category".equals(type)){
 			typeName="cateid";
+		}else if("categorypc".equals(type)){
+			typeName="catepcid";
 		}else if("product".equals(type)){
 			typeName="proid";
 		}else if("productDiscout".equals(type)){
