@@ -163,6 +163,7 @@
 												<div class="spinner-border" role="status" aria-hidden="true"></div>
 											</div>
 										</div>
+										<p>width/height: 750 * 400</p>
 									</div>
 									<div class="col-md-6">
 										<h3>Pc</h3>
@@ -177,6 +178,7 @@
 												<div class="spinner-border" role="status" aria-hidden="true"></div>
 											</div>
 										</div>
+										<p>width/height: 1920 * 500</p>
 									</div>
 								</div>
 							</div>
