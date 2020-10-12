@@ -439,11 +439,11 @@ public class MlfrontPayInfoController {
 	                				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterReq);
 	                			}else{
 	                				//往aftership没有插入成功
-	                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败");
+	                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败----------0201");
 	                			}
 	                		} catch (Exception e) {
 	                			e.printStackTrace();
-	                			System.out.println("aftership中插入物流单号--有异常");
+	                			System.out.println("aftership中插入物流单号--有异常----------0202");
 	                			System.out.println(e.getMessage());
 	                		}
 						}else if("UOO".equals(ecppOrderStatusCode)){
@@ -871,13 +871,13 @@ public class MlfrontPayInfoController {
 			
 			System.out.println("trackingPosted.getSlug()------------------------");
 			System.out.println(trackingPosted.getSlug());
-			System.out.println("afterShipReturn:"+afterShipReturn.toString());
+			System.out.println("向aftership中插入成功:"+afterShipReturn.toString()+"----------0101");
 			return afterShipReturn;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			System.out.println("afterShipReturn:"+afterShipReturn.toString());
+			System.out.println("向aftership中插入失败:"+afterShipReturn.toString()+"----------010");
 			return afterShipReturn;
 		}
 	}
