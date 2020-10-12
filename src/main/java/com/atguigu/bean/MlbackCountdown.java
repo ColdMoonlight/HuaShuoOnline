@@ -4,6 +4,8 @@ public class MlbackCountdown {
     private Integer countdownId;
 
     private String countdownTitle;
+    
+    private Integer countdownStatus;
 
     private String countdownDescription;
 
@@ -30,8 +32,16 @@ public class MlbackCountdown {
     public void setCountdownTitle(String countdownTitle) {
         this.countdownTitle = countdownTitle == null ? null : countdownTitle.trim();
     }
+    
+    public Integer getCountdownStatus() {
+		return countdownStatus;
+	}
 
-    public String getCountdownDescription() {
+	public void setCountdownStatus(Integer countdownStatus) {
+		this.countdownStatus = countdownStatus;
+	}
+
+	public String getCountdownDescription() {
         return countdownDescription;
     }
 
@@ -75,12 +85,13 @@ public class MlbackCountdown {
 		super();
 	}
 
-	public MlbackCountdown(Integer countdownId, String countdownTitle, String countdownDescription,
-			String countdownStarttime, String countdownEndtime, String countdownCreatetime,
+	public MlbackCountdown(Integer countdownId, String countdownTitle, Integer countdownStatus,
+			String countdownDescription, String countdownStarttime, String countdownEndtime, String countdownCreatetime,
 			String countdownMotifytime) {
 		super();
 		this.countdownId = countdownId;
 		this.countdownTitle = countdownTitle;
+		this.countdownStatus = countdownStatus;
 		this.countdownDescription = countdownDescription;
 		this.countdownStarttime = countdownStarttime;
 		this.countdownEndtime = countdownEndtime;
@@ -91,9 +102,9 @@ public class MlbackCountdown {
 	@Override
 	public String toString() {
 		return "MlbackCountdown [countdownId=" + countdownId + ", countdownTitle=" + countdownTitle
-				+ ", countdownDescription=" + countdownDescription + ", countdownStarttime=" + countdownStarttime
-				+ ", countdownEndtime=" + countdownEndtime + ", countdownCreatetime=" + countdownCreatetime
-				+ ", countdownMotifytime=" + countdownMotifytime + "]";
+				+ ", countdownStatus=" + countdownStatus + ", countdownDescription=" + countdownDescription
+				+ ", countdownStarttime=" + countdownStarttime + ", countdownEndtime=" + countdownEndtime
+				+ ", countdownCreatetime=" + countdownCreatetime + ", countdownMotifytime=" + countdownMotifytime + "]";
 	}
-    
+	
 }

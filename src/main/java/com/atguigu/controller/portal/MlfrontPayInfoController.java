@@ -824,14 +824,10 @@ public class MlfrontPayInfoController {
 		String addressEmail = addressOne.getAddressEmail();
 		String addressTelephone = addressOne.getAddressTelephone();
 		
-//		tracking.setCustomerName("shaohua");
-//		tracking.addEmails("mingyueqingl@163.com");
-//		tracking.addSmses("+8617600209637");
-		
 		String uname = userfirstname+" "+userlastname;
-		System.out.println("uname:"+uname);
-		System.out.println("addressEmail:"+addressEmail);
-		System.out.println("addressTelephone:"+addressTelephone);
+//		System.out.println("uname:"+uname);
+//		System.out.println("addressEmail:"+addressEmail);
+//		System.out.println("addressTelephone:"+addressTelephone);
 		tracking.setCustomerName(uname);
 		tracking.addEmails(addressEmail);
 		tracking.addSmses(addressTelephone);
@@ -875,11 +871,13 @@ public class MlfrontPayInfoController {
 			
 			System.out.println("trackingPosted.getSlug()------------------------");
 			System.out.println(trackingPosted.getSlug());
+			System.out.println("afterShipReturn:"+afterShipReturn.toString());
 			return afterShipReturn;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
+			System.out.println("afterShipReturn:"+afterShipReturn.toString());
 			return afterShipReturn;
 		}
 	}
