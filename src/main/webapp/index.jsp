@@ -21,6 +21,7 @@
 	            <div class="swiper-btn swiper-button-prev"></div>
 			</div>
 			<div id="hot-five" class="hot-five"></div>
+			<div id="countdown-area"></div>
 			<div id="hot-two" class="hot-two"></div>
 			<div id="hot-coupon" class="hot-coupon"></div>
 			<div id="activity-product" class="activity-product"></div>
@@ -34,7 +35,7 @@
 		<!-- third lib -->
 		<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 		<!-- index script -->
-		<jsp:include page="index-script.min.jsp" flush="true"></jsp:include>
+		<jsp:include page="index-script.jsp" flush="true"></jsp:include>
 		<!-- footer nav -->
 		<jsp:include page="WEB-INF/views/portal/layout/footer.jsp" flush="true"></jsp:include>
 		<!-- lottery -->

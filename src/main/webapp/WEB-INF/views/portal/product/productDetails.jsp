@@ -70,6 +70,7 @@
 						<!-- <div title="paypal" class="btn paypal-button paypal-now paypal-button-paypal"></div>
 				        <div title="credit" class="btn paypal-button paypal-now paypal-button-credit"></div> -->
 					</div>
+					<div id="countdown-area"></div>
 				</div>
 			</div>
 			<div class="product-body">
