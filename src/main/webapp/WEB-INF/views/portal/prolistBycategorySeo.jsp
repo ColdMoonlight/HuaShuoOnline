@@ -55,7 +55,7 @@
 			});
 		}
 		function renderCategorySeo(data, hasCategory) {
-			renderSearchBanner(data.imgUrl);
+			renderSearchBanner(data.cateImg);
 			if (!hasCategory) renderCategorySelect(data.mlbackCategorydownList || []);
 			renderProductList(descPrdouct(data.mlbackProductResList || []));
 		}
