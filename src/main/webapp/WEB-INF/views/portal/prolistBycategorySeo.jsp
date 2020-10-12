@@ -15,11 +15,12 @@
 	</script>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
-	<style>main { margin-top: 1rem; }</style>
+	<style>@media only screen and (max-width: 1023px) { main { margin: 0; } main .container { margin: 1rem; } } @media only screen and (min-width: 1024px) { main .container { margin-top: 1rem; } }</style>
 </head>
 <body>
     <jsp:include page="layout/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
+		<div class="search-product-banner"></div>
 		<div class="container">
 			<div class="category-condition">
 				<span class="category-condition-name">style</span>
@@ -54,6 +55,7 @@
 			});
 		}
 		function renderCategorySeo(data, hasCategory) {
+			renderSearchBanner(data.mlbackCategoryOne);
 			if (!hasCategory) renderCategorySelect(data.mlbackCategorydownList || []);
 			renderProductList(descPrdouct(data.mlbackProductResList || []));
 		}
@@ -98,6 +100,23 @@
 				htmlStr += '<option value="'+ item.categorySeo +'" '+ (categorySeo == item.categorySeo ? 'selected' : '') +'>'+ item.categoryName +'</option>';
 			});
 			$('.category-select').html(htmlStr);
+		}
+		function renderSearchBanner(data) {
+			var $searchBanner = $('.search-product-banner');
+			if (data.categoryImgurl || data.categoryImgpcurl) {
+				$searchBanner.attr('data-src')
+				var htmlStr = '<div class="wap lazyload" data-src="'+ data.categoryImgurl +'"></div>' +
+					'<div class="pc lazyload" data-src="'+ data.categoryImgpcurl +'"></div>'
+					$searchBanner.html(htmlStr);
+			} else {
+				$searchBanner.addClass('hide');
+			}
+			// lazyload
+			new LazyLoad($searchBanner.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			});
 		}
 		getProductListByCategorySeo(categorySeo, false);
 		$(document.body).on('change', '.category-select', function() {
