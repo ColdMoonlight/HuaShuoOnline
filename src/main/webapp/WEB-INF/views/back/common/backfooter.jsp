@@ -226,6 +226,7 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 		$('.datetimepicker').daterangepicker({
 			singleDatePicker: true,
 			timePicker: true,
+			timePicker24Hour: true,
 			timePickerSeconds: true,
 			showWeekNumbers: true,
 			locale: {

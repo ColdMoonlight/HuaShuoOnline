@@ -3897,6 +3897,7 @@ footer li {
 	margin: 0 auto;
 }
 @media only screen and (max-width: 575px) {
+	.search-product-banner .wap,
 	.video-discount .wap,
 	.video-banner .wap,
 	.video-area-item .wap,
@@ -3907,6 +3908,7 @@ footer li {
 		opacity: 1;
 		visibility: visible;
 	}
+	.search-product-banner,
 	.video-banner .wap {
 		padding-top: 53.3%;
 	}
@@ -4002,6 +4004,7 @@ footer li {
 	}
 }
 @media only screen and (min-width: 576px) {
+	.search-product-banner .pc,
 	.video-discount .pc,
 	.video-banner .pc,
 	.video-area-item .pc,
@@ -4012,6 +4015,7 @@ footer li {
 		opacity: 1;
 		visibility: visible;
 	}
+	.search-product-banner .pc,
 	.video-banner .pc {
 		padding-top: 26%;
 	}
