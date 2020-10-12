@@ -3908,7 +3908,7 @@ footer li {
 		opacity: 1;
 		visibility: visible;
 	}
-	.search-product-banner,
+	.search-product-banner .wap,
 	.video-banner .wap {
 		padding-top: 53.3%;
 	}
