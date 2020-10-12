@@ -24,6 +24,7 @@ import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.IfMobileUtils;
 
 @Controller
 @RequestMapping("/MlbackCategory")
@@ -293,6 +294,7 @@ public class MlbackCategoryController {
 		 }
 		 
 		 MlbackCategory mlbackCategoryres = mlbackCategoryList.get(0);
+
 	 
 		 String CategoryProductIdsStr = mlbackCategoryres.getCategoryProductIds();
 		 
@@ -322,7 +324,14 @@ public class MlbackCategoryController {
 				 mlbackProductResList.add(mlbackProductResOne);
 			 }
 		 }
-		 return Msg.success().add("resMsg", "searchBycategorySeo完毕")
+		 MlbackCategory mlbackCategoryOne = new MlbackCategory();
+		  String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		  if(ifMobile.equals("1")){
+			  mlbackCategoryOne.setCategoryImgurl(mlbackCategoryres.getCategoryImgurl());
+		  }else{
+			  mlbackCategoryOne.setCategoryImgpcurl(mlbackCategoryres.getCategoryImgpcurl());
+		  }
+		 return Msg.success().add("resMsg", "searchBycategorySeo完毕").add("mlbackCategoryOne", mlbackCategoryOne)
 				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownList", mlbackCategorydownList);
 	 }
 
