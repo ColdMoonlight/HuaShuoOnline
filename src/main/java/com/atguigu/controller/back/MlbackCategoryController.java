@@ -324,14 +324,15 @@ public class MlbackCategoryController {
 				 mlbackProductResList.add(mlbackProductResOne);
 			 }
 		 }
-		 MlbackCategory mlbackCategoryOne = new MlbackCategory();
-		  String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
-		  if(ifMobile.equals("1")){
-			  mlbackCategoryOne.setCategoryImgurl(mlbackCategoryres.getCategoryImgurl());
-		  }else{
-			  mlbackCategoryOne.setCategoryImgpcurl(mlbackCategoryres.getCategoryImgpcurl());
-		  }
-		 return Msg.success().add("resMsg", "searchBycategorySeo完毕").add("mlbackCategoryOne", mlbackCategoryOne)
+		 
+		 String cateImg = "";
+		 String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		 if(ifMobile.equals("1")){
+			  cateImg = mlbackCategoryres.getCategoryImgurl();
+		 }else{
+			  cateImg = mlbackCategoryres.getCategoryImgpcurl();
+		 }
+		 return Msg.success().add("resMsg", "searchBycategorySeo完毕").add("cateImg", cateImg)
 				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownList", mlbackCategorydownList);
 	 }
 
