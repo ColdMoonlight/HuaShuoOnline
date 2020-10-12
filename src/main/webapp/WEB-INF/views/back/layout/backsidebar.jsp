@@ -138,6 +138,12 @@
 						<span class="c-text">Video List</span>
 					</a>
 				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackCountdown/toMlbackCountdownPage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">CountDown Time</span>
+					</a>
+				</li>
 			</ul>
 		</li>
 		<!-- foot nav -->

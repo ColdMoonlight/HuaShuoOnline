@@ -13,6 +13,7 @@
     <jsp:include page="layout/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
 		<div class="container">
+			<div class="search-product-banner"></div>
 			<div class="product-list"></div>		
 		</div>
 	<!-- main end -->

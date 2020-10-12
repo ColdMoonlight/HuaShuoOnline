@@ -7,6 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Video List</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
+	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
 </head>
 
 <body class="c-app">
@@ -17,8 +18,8 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Video</span>
-						<button class="btn btn-primary btn-create">Create Video</button>
+						<span class="c-option-title">CountDown-time</span>
+						<button class="btn btn-primary btn-create">Create CountDown-time</button>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -32,14 +33,10 @@
 									<thead>
 										<tr>
 											<th>id</th>
-											<th>name</th>
-											<th>image</th>
-											<th>area</th>
-											<th>order</th>
-											<th>video-url</th>
-											<th>product/subject/colleciton</th>
-											<th>seo</th>
-											<!-- <th>ifInto</th> -->
+											<th>title</th>
+											<th>description</th>
+											<th>startTime</th>
+											<th>endTime</th>
 											<th>status</th>
 											<th>operate</th>
 										</tr>
@@ -54,142 +51,54 @@
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">Edit Video</span>
+						<span class="c-option-title">Edit CountDown-time</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save Video</button>
+							<button class="btn btn-primary btn-save">Save CountDown-time</button>
 						</div>
 					</div>
 					<div class="c-form row">
-						<input id="videoId" hidden>
+						<input id="countdownId" hidden>
 						<!-- left panel  -->
-						<div class="left-panel col-lg-7 col-md-12">
+						<div class="left-panel col-lg-12 col-md-12">
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">General</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="videoName">Video Name</label>
+										<label class="col-form-label" for="countdownTitle">title</label>
 										<div class="controls">
-											<input class="form-control" id="videoName" type="text" />
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="videoArea">Area</label>
-										<div class="controls">
-											<select class="form-control ml-videoarea" id="videoArea" /></select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="videoOrderthNum">Video Sort</label>
-										<div class="controls">
-											<select class="form-control" id="videoOrderthNum" />
-												<option value="-1">Please select Video sort-order</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-												<option value="9">9</option>
-												<option value="10">10</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="videoUrl">Video URL</label>
-										<div class="controls">
-											<input class="form-control" id="videoUrl" type="text" />
+											<input class="form-control" id="countdownTitle" type="text" />
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="videoStatus">Status</label>
+										<label class="col-md-3 col-form-label" for="countdownStatus">Status</label>
 										<div class="controls col-md-3">
 											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="videoStatus" type="checkbox">
+												<input class="c-switch-input" id="countdownStatus" type="checkbox">
 												<span class="c-switch-slider"></span>
 											</label>
 										</div>
 									</div>
-								</div>
-							</div>
-							<!-- product media -->
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Video Image</div>
-								</div>
-								<div class="card-body">
-									<div class="row">
-										<div class="col-md-6">
-											<h3>Image</h3>
-											<div class="c-upload-img">
-												<svg class="c-icon">
-													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-												</svg>
-												<div class="c-backshow"></div>						
-												<input id="videoImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
-												<!-- spinner -->
-												<div class="spinner">
-													<div class="spinner-border" role="status" aria-hidden="true"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- right panel  -->
-						<div class="right-panel col-lg-5 col-md-12">							
-							<!-- product or subject -->
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Product & Subject & Collection</div>
-								</div>
-								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="videoIfproorcateorpage">Product Or Subject Or Collection</label>
+										<label class="col-form-label" for="countdownStarttime">startTime</label>
 										<div class="controls">
-											<select class="form-control" id="videoIfproorcateorpage" />
-												<option value="0" data-class="ml-product">product</option>
-												<option value="1" data-class="ml-category">collection</option>
-												<option value="2" data-class="ml-subject">subject</option>
-											</select>
+											<input class="form-control datetimepicker" id="countdownStarttime" type="text" placeholder="@exmaple 2020-01-01 00:00:59" />
 										</div>
 									</div>
-									<div>
-										<div class="form-group ml-product">
-											<label class="col-form-label" for="videoProid">Product</label>
-											<div class="controls">
-												<select class="form-control product-list" id="videoProid" /></select>
-											</div>
-										</div>
-										<div class="form-group ml-category hide">
-											<label class="col-form-label" for="videoCateid">Category</label>
-											<div class="controls">
-												<select class="form-control collection-list" id="videoCateid" /></select>
-											</div>
-										</div>	
-										<div class="form-group ml-subject hide">
-											<label class="col-form-label" for="videoPageseoname">Subject</label>
-											<div class="controls">
-												<select class="form-control" id="videoPageseoname">
-													<jsp:include page="../layout/subject-option.jsp" flush="true"></jsp:include>
-												</select>
-											</div>
-										</div>								
-									</div>
-									<!-- <div class="form-group">
-										<label class="col-form-label" for="slideIfinto">click entry or not</label>
+									<div class="form-group">
+										<label class="col-form-label" for="countdownEndtime">endTime</label>
 										<div class="controls">
-											<select class="form-control" id="slideIfinto" />
-												<option value="0" selected="selected">disable</option>
-					  							<option value="1">enalbe</option>
-											</select>
+											<input class="form-control datetimepicker" id="countdownEndtime" type="text" placeholder="@exmaple 2020-01-01 00:00:59" />
 										</div>
-									</div> -->
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="countdownDescription">Description</label>
+										<div class="controls">
+											<input class="form-control" id="countdownDescription" type="text" />
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -206,114 +115,58 @@
 
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
+
+	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
+	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	<!-- custom script -->
 	<script>
-		var hasCollectionList = false;
-		var hasProductList = false;
-		var hasVideoAreaList = false;
 		var isCreate = false;
 
-		$('#videoIfproorcateorpage').on('change', function() {
-			$('.' + $(this).find('option:checked').data('class')).removeClass('hide').siblings().addClass('hide').find('select').val('-1');
-		});
-
 		// init
+		bindDateTimepicker();
 		getVideosData()
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create .c-option-title').text('Create Video');
+			$('.c-create .c-option-title').text('Create CountDown-time');
 
-			getVideoId(function(data) {
+			getCountdownId(function(data) {
 				// init formData
 				resetFormData();
-				$('#videoId').val(data.videoId);
+				$('#countdownId').val(data.countdownId);
 				showCreateBlock();
 				isCreate = true;
 			});
 		});
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
-			var videoId = $(this).data('id');
+			var countdownId = $(this).data('id');
 			getOneVideoData({
-				videoId: videoId
+				countdownId: countdownId
 			}, function(resData) {
-			 	$('.c-create .c-option-title').text('Edit Video');
+			 	$('.c-create .c-option-title').text('Edit CountDown-time');
 				showCreateBlock();
 				initFormData(resData);
 			});			
 		});
 		// delete collection
 		$(document.body).on('click', '.btn-delete', function (e) {
-			var videoId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete Video!');
+			var countdownId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('Delete CountDown-time!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
 				deleteVideoData({
-					videoId: videoId,
+					countdownId: countdownId,
 				}, function() {
 					getVideosData();
 				});
 			});
 		});
 		$(window).on('beforeunload', function() {
-			var videoId = $('#videoId').val();
-			isCreate && videoId && deleteVideoData({
-				videoId: videoId,
+			var countdownId = $('#countdownId').val();
+			isCreate && countdownId && deleteVideoData({
+				countdownId: countdownId,
 			});
 		});
-		// upload picture
-		$('#videoImgurl').on('change', function(e) {
-			var $this = $(this);
-			var file = $this[0].files[0];
-			var formData = new FormData();
-
-			if (!file) return false;
-
-			$this.parent().find('.spinner').show();
-			$this.val('');
-
-			formData.append('type', 'VideoYTB');
-			formData.append('image', file);
-			formData.append('videoId', parseInt($('#videoId').val()));
-
-			$.ajax({
-				url: "${APP_PATH}/ImageYTBUpload/uploadVideoImg",
-				type: "post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				cache: false,
-				dataType: 'json',
-				success: function (data) {
-					if (data.code == 100) {
-						addPicture($this, {
-							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlthumImageUrl
-						});
-					} else {
-						toastr.error('网络错误， 请稍后重试！');	
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$this.parent().find('.spinner').hide();
-				}
-			});
-		});
-		function addPicture(el, data) {
-			var parentEl = el.parent();
-			el.attr('data-val', JSON.stringify(data));
-			parentEl.addClass('active');
-			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.imageUrl) + '" />');
-		}
-		function resetPicture(el) {
-			var parentEl = el.parent();
-			el.attr('data-val', '');
-			parentEl.removeClass('active');
-			parentEl.find('.c-backshow').html('');
-		}
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
 			saveVideoData(getFormData(), function() {
@@ -322,7 +175,7 @@
 
 				getVideosData();
 				showInitBlock();
-				$('#videoId').val('');
+				$('#countdownId').val('');
 			});
 		});
 		// cancel collection save
@@ -331,54 +184,17 @@
 				isCreate = false;
 				// delete null Video
 				deleteVideoData({
-					videoId: $('#videoId').val(),
+					countdownId: $('#countdownId').val(),
 				}, function() {
-					console.log("cancel create Video");
+					console.log("cancel create CountDown-time");
 				});
 			}
 
 			showInitBlock();
 		});
-		// render video area-list
-		function renderVideoAreaList(data) {
-			var htmlStr = '<option value="-1">Please select the location of the Video</option>';
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<option value="' + data[i].videoshowareaId + '">'+ data[i].videoshowareaId + ' ' + data[i].videoshowareaName +'</option>';
-			}
-			$('.ml-videoarea').html(htmlStr);
-			hasVideoAreaList = true;
-		}
-		function getAllVideoAreaData(callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackVideoShowArea/getMlbackVideoShowAreaAllList",
-				type: "get",
-				contentType: 'application/json',
-				async: false,
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						callback(data.extend.mlbackVideoShowAreaList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
-			$('.c-create').removeClass('hide');
-
-			if (!hasCollectionList) getAllCollectionData(renderAllCollection);
-			if (!hasProductList) getAllProductData(renderAllProduct);
-			if (!hasVideoAreaList) getAllVideoAreaData(renderVideoAreaList);
-			
+			$('.c-create').removeClass('hide');			
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
@@ -387,115 +203,50 @@
 		// handle formData
 		// reset data
 		function resetFormData() {
-			$('#videoId').val('');
-			$('#videoName').val('');
-			$('#videoArea').val('-1');
-			$('#videoOrderthNum').val('-1');
-			$('#videoUrl').val('');
-			$('#videoStatus').prop('checked', false);
+			$('#countdownId').val('');
+			$('#countdownTitle').val('');
+			$('#countdownDescription').val('');
+			$('#countdownStarttime').val('');
+			$('#countdownEndtime').val('');
 
-			resetPicture($('#videoImgurl'));
-			
-			$('#videoIfproorcateorpage').val('0');
-			$('.ml-product').removeClass('hide').siblings().addClass('hide');
-			$('#videoProid').val('-1');
-			$('#videoCateid').val('-1');
-			$('#videoPageseoname').val('-1');
-			/* $('#slideIfinto').val('0'); */
+			$('#videoStatus').prop('checked', false);
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
-			data.videoId = parseInt($('#videoId').val());
-			data.videoName = $('#videoName').val();
-			data.videoArea = parseInt($('#videoArea').val());
-			data.videoOrderthNum = $('#videoOrderthNum').val();
-			data.videoUrl = $('#videoUrl').val();
-			data.videoStatus = $('#videoStatus').prop('checked') ? 1 : 0;
+			data.countdownId = parseInt($('#countdownId').val());
+			data.countdownTitle = $('#countdownTitle').val();
+			data.countdownDescription = $('#countdownDescription').val();
+			data.countdownStarttime = $('#countdownStarttime').val();
+			data.countdownEndtime = $('#countdownEndtime').val();
 
-			data.videoImgurl = $('#videoImgurl').attr('data-val') && JSON.parse($('#videoImgurl').attr('data-val')).imageUrl;
-
-			var videoIfproorcateorpage = $('#videoIfproorcateorpage').val();
-			data.videoIfproorcateorpage = videoIfproorcateorpage;
-			if (videoIfproorcateorpage == 0) {
-				data.videoProid = $('#videoProid').val();
-				data.videoProname = $('#videoProid').find('option:checked').data('name') || '';
-				data.videoSeoname = $('#videoProid').find('option:checked').data('seo') || '';
-				data.videoCateid = '';
-				data.videoCatename = '';
-				data.videoCateseoname = '';
-				data.videoPageseoname = '';
-			} else if (videoIfproorcateorpage == 1) {
-				data.videoProid = '';
-				data.videoProname = '';
-				data.videoSeoname = '';
-				data.videoCateid = $('#videoCateid').val();
-				data.videoCatename = $('#videoCateid').find('option:checked').data('name') || '';
-				data.videoCateseoname = $('#videoCateid').find('option:checked').data('seo') || '';
-				data.videoPageseoname = '';
-			} else if (videoIfproorcateorpage == 2) {
-				data.videoProid = '';
-				data.videoProname = '';
-				data.videoSeoname = '';
-				data.videoCateid ='';
-				data.videoCatename = '';
-				data.videoCateseoname = '';
-				data.videoPageseoname = $('#videoPageseoname').val();
-			}
-			/* data.slideIfinto = $('#slideIfinto').val(); */
+			data.videoStatus = $('#countdownStatus').prop('checked') ? 1 : 0;
 
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
-			// initial
-			$('#videoProid').val('-1');
-			$('#videoCateid').val('-1');
-			$('#videoPageseoname').val('-1');
 			// init
-			$('#videoId').val(data.videoId);
-			$('#videoName').val(data.videoName);
-			$('#videoArea').val(data.videoArea || '-1');
-			$('#videoOrderthNum').val(data.videoOrderthNum ? data.videoOrderthNum : '-1');
-			$('#videoUrl').val(data.videoUrl);
-			$('#videoStatus').prop('checked', data.videoStatus);
-			
-			if (data.videoImgurl) {
-				addPicture($('#videoImgurl'), {
-					imageUrl: data.videoImgurl
-				});				
-			} else {
-				resetPicture($('#videoImgurl'));
-			}
+			$('#countdownId').val(data.countdownId);
+			$('#countdownTitle').val(data.countdownTitle);
+			$('#countdownDescription').val(data.countdownDescription);
+			$('#countdownStarttime').val(data.countdownStarttime);
+			$('#countdownEndtime').val(data.countdownEndtime);
 
-			var videoIfproorcateorpage = data.videoIfproorcateorpage;
-			$('#videoIfproorcateorpage').val(videoIfproorcateorpage || 0);
-			if (videoIfproorcateorpage == 0) {
-				$('#videoProid').val(data.videoProid || '-1');
-				$('.ml-product').removeClass('hide').siblings().addClass('hide');
-			} else if (videoIfproorcateorpage == 1) {
-				$('#videoCateid').val(data.videoCateid || '-1');
-				$('.ml-category').removeClass('hide').siblings().addClass('hide');
-			} else if (videoIfproorcateorpage == 2) {
-				$('#videoPageseoname').val(data.videoPageseoname || '-1');
-				$('.ml-subject').removeClass('hide').siblings().addClass('hide');
-			}
-			
-			/* $('#slideIfinto').val(data.slideIfinto); */
-
+			$('#countdownStatus').prop('checked', data.countdownStatus);
 		}
 		// callback get id
-		function getVideoId(callback) {
+		function getCountdownId(callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH }/MlbackVideo/initializaVideo",
+				url: "${APP_PATH }/MlbackCountdown/initializaSlide",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.mlbackVideo);
+						callback && callback(data.extend.mlbackCountdown);
 						toastr.success(data.extend.resMsg);
 					} else {
 						showInitBlock();
@@ -518,7 +269,7 @@
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH}/MlbackVideo/getMlbackVideoByPage",
+				url: "${APP_PATH}/MlbackCountdown/getMlbackCountdownByPage",
 				type: "post",
 				processData: false,
 				contentType: false,
@@ -534,7 +285,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Video, please refresh the page to get again！');
+					toastr.error('Failed to get CountDown-time, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -545,21 +296,21 @@
 		function getOneVideoData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackVideo/getOneMlbackVideoDetail",
+				url: "${APP_PATH}/MlbackCountdown/getOneMlbackCountdownDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: 'json',
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.mlbackVideoOne);
+						callback(data.extend.mlbackCountdownOne);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Video, please refresh the page to get again！');
+					toastr.error('Failed to get CountDown-time, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -570,7 +321,7 @@
 		function saveVideoData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackVideo/save",
+				url: "${APP_PATH}/MlbackCountdown/save",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -596,7 +347,7 @@
 		function deleteVideoData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackVideo/delete",
+				url: "${APP_PATH}/MlbackCountdown/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -623,37 +374,19 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				var logName, logSeo;
-				if (data[i].videoIfproorcateorpage == 0) {
-					logName = '<b>product</b> ' + data[i].videoProid;
-					logSeo = data[i].videoSeoname;
-				} else if (data[i].videoIfproorcateorpage == 1) {
-					logName = '<b>collection</b> ' + data[i].videoCateid;
-					logSeo = data[i].videoCateseoname;
-				} else if (data[i].videoIfproorcateorpage == 2) {
-					logName = '<b>subject</b> ' + data[i].videoPageseoname;
-					logSeo = data[i].videoPageseoname;
-				}
-				htmlStr += '<tr><td>' + data[i].videoId + '</td>' +
-					'<td>' + data[i].videoName + '</td>' +
-					'<td>' + (data[i].videoImgurl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].videoImgurl) +'" /></div>'
-							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
-					'</td>' +
-					'<td>' + data[i].videoArea + '</td>' +
-					'<td>' + data[i].videoOrderthNum + '</td>' +
-					'<td>' + data[i].videoUrl + '</td>' +
-					'<td>' + (logName || '') + '</td>' +
-					'<td>' + (logSeo || '') + '</td>' +
-					/* '<td>' + (data[i].slideIfinto ? 'YES' : 'NO') + '</td>' + */
-					'<td><a class="badge '+ (data[i].videoStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].videoStatus ? 'enable' : 'disable') + '</a></td>' +
+				htmlStr += '<tr><td>' + data[i].countdownId + '</td>' +
+					'<td>' + data[i].countdownTitle + '</td>' +
+					'<td>' + data[i].countdownDescription + '</td>' +
+					'<td>' + data[i].countdownStarttime + '</td>' +
+					'<td>' + data[i].countdownEndtime + '</td>' +
+					'<td><a class="badge '+ (data[i].countdownStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].countdownStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' +
-						'<button class="btn btn-primary btn-edit" data-id="' + data[i].videoId + '">' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].countdownId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
 						'</button>' +
-						'<button class="btn btn-danger btn-delete" data-id="' + data[i].videoId + '">' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].countdownId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
 							'</svg>' +
