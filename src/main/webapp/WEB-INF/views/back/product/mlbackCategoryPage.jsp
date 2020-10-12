@@ -44,7 +44,8 @@
 									<thead>
 										<tr>
 											<th>id</th>
-											<th>image</th>
+											<th>wap-image</th>
+											<th>pc-image</th>
 											<th>name</th>
 											<th>parent-id</th>
 											<th>parent-name</th>
@@ -149,15 +150,32 @@
 									<div class="card-title-name">Collection Image</div>
 								</div>
 								<div class="card-body">
-									<div id="uploadImg" class="c-upload-img">
-										<svg class="c-icon">
-											<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-										</svg>
-										<div class="c-backshow"></div>						
-										<input id="categoryImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
-										<!-- spinner -->
-										<div class="spinner">
-											<div class="spinner-border" role="status" aria-hidden="true"></div>
+									<div class="col-md-6">
+										<h3>Wap</h3>
+										<div class="c-upload-img">
+											<svg class="c-icon">
+												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+											</svg>
+											<div class="c-backshow"></div>						
+											<input id="categoryImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+											<!-- spinner -->
+											<div class="spinner">
+												<div class="spinner-border" role="status" aria-hidden="true"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<h3>Pc</h3>
+										<div class="c-upload-img">
+											<svg class="c-icon">
+												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+											</svg>
+											<div class="c-backshow"></div>						
+											<input id="categoryImgpcurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+											<!-- spinner -->
+											<div class="spinner">
+												<div class="spinner-border" role="status" aria-hidden="true"></div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -452,7 +470,49 @@
 					toastr.error(err);
 				},
 				complete: function () {
-					$('.c-upload-img .spinner').hide();
+					$this.parent().find('.spinner').hide();
+				}
+			});
+		});
+		// upload img
+		$('#categoryImgpcurl').on('change', function(e) {
+			var $this = $(this);
+			var file = $this[0].files[0];
+			var formData = new FormData();
+
+			if (!file) return false;
+	
+			$this.parent().find('.spinner').show();
+			$this.val('');
+
+			formData.append('type', 'categorypc');
+			formData.append('image', file);
+			formData.append('categoryId', parseInt($('#categoryId').val()));
+			formData.append('categorySeo', $('#categorySeo').val());
+
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/thumImageCategoryPc",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						addPicture($this, {
+							imageUrl: data.extend.sqlimageUrl,
+							thumImageUrl: data.extend.sqlimageUrl
+						});
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$this.parent().find('.spinner').hide();
 				}
 			});
 		});
@@ -489,6 +549,7 @@
 			$('#categoryDesc').val('');
 
 			resetPicture($('#categoryImgurl'));
+			resetPicture($('#categoryImgpcurl'));
 
 			$('#categorySuperCateId').val('-1');
 			$('#categoryParentId').val('-1');
@@ -512,8 +573,9 @@
 			data.categoryDesc = $('#categoryDesc').val();
 
 			var imageData = $('#categoryImgurl').attr('data-val') && JSON.parse($('#categoryImgurl').attr('data-val'));
-			data.categoryImgpcurl = imageData.imageUrl;
-			data.categoryImgurl = imageData.thumImageUrl;
+			var imagePcData = $('#categoryImgpcurl').attr('data-val') && JSON.parse($('#categoryImgpcurl').attr('data-val'));
+			data.categoryImgpcurl = imagePcData.imageUrl;
+			data.categoryImgurl = imageData.imageUrl;
 
 			data.categorySuperCateId = $('#categorySuperCateId').val();
 			data.categorySuperCateName = $('#categorySuperCateId').find('option:selected').text();
@@ -555,11 +617,20 @@
 
 			if (data.categoryImgurl) {
 				addPicture($('#categoryImgurl'), {
-					imageUrl: data.categoryImgpcurl,
+					imageUrl: data.categoryImgurl,
 					thumImageUrl: data.categoryImgurl
 				});				
 			} else {
 				resetPicture($('#categoryImgurl'));
+			}
+
+			if (data.categoryImgpcurl) {
+				addPicture($('#categoryImgpcurl'), {
+					imageUrl: data.categoryImgpcurl,
+					thumImageUrl: data.categoryImgpcurl
+				});				
+			} else {
+				resetPicture($('#categoryImgpcurl'));
 			}
 
 			$('#categorySeo').val(data.categorySeo);
@@ -749,6 +820,11 @@
 					'<td>' +
 						(data[i].categoryImgurl ?
 							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].categoryImgurl) +'" /></div>'
+							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+					'</td>' +
+					'<td>' +
+						(data[i].categoryImgpcurl ?
+							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].categoryImgpcurl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
 					'<td>' + data[i].categoryName + '</td>' +
