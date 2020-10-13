@@ -256,7 +256,10 @@
 						<div class="right-panel col-lg-4 col-md-12">
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Tracking</div>
+									<div class="card-title-name">
+										<span>Tracking</span>
+										<button class="btn btn-info hide" id="btn-manual-delivery">manual delivery</button>
+									</div>
 								</div>
 								<div class="card-body">
 									<div class="track-number track-item">
@@ -532,10 +535,39 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-					  console.log(data)
 						toastr.success(data.extend.resMsg);
 						getOneOrderData({
 							payinfoId: refundData.payinfoId
+						}, function(resData) {
+							renderOrderDetails(resData);
+						});
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+			
+		});
+		$('#btn-manual-delivery').on('click', function() {
+			var deliveryData = $(this).data('delivery');
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayInfo/manualUpdateSendSucceed",
+				type: "post",
+				data: JSON.stringify(deliveryData),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						getOneOrderData({
+							payinfoId: deliveryData.payinfoId
 						}, function(resData) {
 							renderOrderDetails(resData);
 						});
@@ -629,7 +661,11 @@
 			var nStr = '';
 			if (str) {
 				if (str.endsWith('intofail')) {
-					nStr = str.replace('intofail', '') + '<i style="color: red; font-weight: bold">intofail</i>';		
+					nStr = str.replace('intofail', '<i style="color: red; font-weight: bold">intofail</i>');
+					$('#btn-manual-delivery').removeClass('hide');
+				} else if (str.endWith('succeed')) {
+					nStr = str.replace('succeed', '<i style="color: green; font-weight: bold">succeed</i>');
+					$('#btn-manual-delivery').addClass('hide');
 				} else {
 					nStr = str;
 				}
@@ -733,7 +769,10 @@
 				"payinfoId": data.mlfrontPayInfoOne.payinfoId,
 				"payinfoOid": data.mlfrontPayInfoOne.payinfoOid,
 			});
-			
+			$('#btn-manual-delivery').data('delivery',{
+				"payinfoId": data.mlfrontPayInfoOne.payinfoId,
+				"payinfoSendnum": data.mlfrontPayInfoOne.payinfoSendnum,
+			});
 		}
 		// callback order list
 		function renderOrderList(data) {

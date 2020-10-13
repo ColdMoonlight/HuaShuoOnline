@@ -4676,6 +4676,9 @@ button.close {
 	padding-bottom: 0;
 }
 .card-title-name {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	font-weight: 400;
 	font-size: 1.5rem;
 }
