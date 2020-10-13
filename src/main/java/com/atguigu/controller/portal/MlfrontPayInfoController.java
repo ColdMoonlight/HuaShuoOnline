@@ -553,7 +553,7 @@ public class MlfrontPayInfoController {
         				//往aftership没有插入成功
         				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败");
         				
-        				//需要往payOrder类表上,更新出失败插入失败的提示
+        				//需要往pay表,更新出失败插入失败的提示
         				MlfrontPayInfo mlfrontPayInfoFail = new MlfrontPayInfo();
         				mlfrontPayInfoFail.setPayinfoId(payInfoId);
         				mlfrontPayInfoFail.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo()+"intofail");
