@@ -4861,14 +4861,9 @@ footer li {
   text-align: center;
 }
 
-#countdown-area .body {
-  -webkit-transform: scale(.8);
-  transform: scale(.8);
-}
-
 #countdown-area .desc {
-  padding: .5em;
-  font-size: 13px;
+  padding: .5rem;
+  font-size: .875rem;
   text-align: center;
 }
 
@@ -4886,7 +4881,6 @@ footer li {
 
 .dark .time-item {
   position: relative;
-  font-weight: 500;
   color: #fff;
   text-align: center;
   background: -webkit-linear-gradient(top, #999 , #000);
@@ -4895,12 +4889,15 @@ footer li {
   background: linear-gradient(to bottom, #000000 , #a5a5a5);
 }
 
+.dark .time-item .number {
+	font-weight: 500;
+}
+
 .dark .time-item .text {
   position: absolute;
   right: 0;
   display: block;
   width: 100%;
-  font-weight: bold;
 }
 
 .dark .separator {
@@ -4910,54 +4907,57 @@ footer li {
 
 .dark .state {
   position: absolute;
-  top: -13px;
+  top: -.875rem;
   left: 0;
   display: inline-block;
-  padding: 6px 12px;
-  font-size: 14px;
+  padding: .375rem .75rem;
+  font-size: .75rem;
   color: #fff;
   background-color: yellowgreen;
-  border-radius: 3px;
+  border-radius: .25rem;
 }
 
 @media screen and (max-width: 977px) {
-	.dark .time-item {	
-		  min-width: 2.5em;
-		  padding: .75em .5em 1em .5em;
-		  font-size: 1.5em;
-		  border-radius: .25em;
+	.dark .time-item {
+		min-width: 2.5rem;
+		padding: .75rem 1rem 1.5rem 1rem;
+		border-radius: .25rem;
 	}
+	.dark .time-item .number {
+		font-size: 1.5rem;
+  	}
 	.dark .time-item .text {		
-		  bottom: .3em;
-		  font-size: .875em;
+		  bottom: .3rem;
+		  font-size: .875rem;
 	}
 	.dark .separator {
-	  padding: .5em;
-	  font-size: 1em;
+		padding: .5rem;
+		font-size: 1rem;
 	}
-	
 	.dark .state {
-	  top: -.75em;
+		top: -.75rem;
 	}
 }
 
 @media screen and (min-width: 978px) {
 	.dark .time-item {	
-		  min-width: 3.2em;
-		  padding: 1em .5em 1.5em .5em;
-		  font-size: 2em;
-		  border-radius: .25em;
+		  min-width: 3.2rem;
+		  padding: 1rem 1.5rem 2rem 1.5rem;
+		  border-radius: .25rem;
+	}
+	.dark .time-item .number {
+		font-size: 2rem;
 	}
 	.dark .time-item .text {		
-		  bottom: .5em;
+		  bottom: .5rem;
 		  font-size: 1rem;
 	}
 	.dark .separator {
-	  padding: .5em;
-	  font-size: 1.5em;
+	  padding: .5rem;
+	  font-size: 1.5rem;
 	}
 	
 	.dark .state {
-	  top: -.75em;
+	  top: -.75rem;
 	}
 }
