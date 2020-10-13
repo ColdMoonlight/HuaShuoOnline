@@ -124,7 +124,7 @@
 
 		// init
 		bindDateTimepicker();
-		getVideosData()
+		getCountdownTimeData()
 		// create collection
 		$('.btn-create').on('click', function () {
 			$('.c-create .c-option-title').text('Create CountDown-time');
@@ -140,7 +140,7 @@
 		// edit collection
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var countdownId = $(this).data('id');
-			getOneVideoData({
+			getOneCountdownTimeData({
 				countdownId: countdownId
 			}, function(resData) {
 			 	$('.c-create .c-option-title').text('Edit CountDown-time');
@@ -157,7 +157,7 @@
 				deleteVideoData({
 					countdownId: countdownId,
 				}, function() {
-					getVideosData();
+					getCountdownTimeData();
 				});
 			});
 		});
@@ -169,11 +169,11 @@
 		});
 		// save collection
 		$('.c-create .btn-save').on('click', function () {
-			saveVideoData(getFormData(), function() {
+			saveCountdownTimeData(getFormData(), function() {
 				// redirect tab-active & then search-data
 				if (isCreate) isCreate = false;
 
-				getVideosData();
+				getCountdownTimeData();
 				showInitBlock();
 				$('#countdownId').val('');
 			});
@@ -262,7 +262,7 @@
 			});
 		}
 		// callback get all data
-		function getVideosData() {
+		function getCountdownTimeData() {
 			$('.c-mask').show();
 
 			var formData = new FormData();
@@ -293,7 +293,7 @@
 			});
 		}
 		// callback get one data
-		function getOneVideoData(reqData, callback) {
+		function getOneCountdownTimeData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackCountdown/getOneMlbackCountdownDetail",
@@ -318,7 +318,7 @@
 			});
 		}
 		// callback save
-		function saveVideoData(reqData, callback) {
+		function saveCountdownTimeData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackCountdown/save",
