@@ -559,12 +559,12 @@ public class MlfrontPayInfoController {
         				mlfrontPayInfoFail.setPayinfoId(payInfoId);
         				mlfrontPayInfoFail.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo()+"intofail");
                 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoFail);
-                		
-                		//需要往OrderOne里面放置,更新出失败插入失败的提示
-                		MlfrontOrder mlfrontOrderAfterFail = new MlfrontOrder();
-                		mlfrontOrderAfterFail.setOrderId(orderId);
-                		mlfrontOrderAfterFail.setOrderLogisticsname(ecppTrackItem.getShippingName()+"intofail");
-        				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterFail);
+//                		
+//                		//需要往OrderOne里面放置,更新出失败插入失败的提示
+//                		MlfrontOrder mlfrontOrderAfterFail = new MlfrontOrder();
+//                		mlfrontOrderAfterFail.setOrderId(orderId);
+//                		mlfrontOrderAfterFail.setOrderLogisticsname(ecppTrackItem.getShippingName()+"intofail");
+//        				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterFail);
         				
         			}
         		} catch (Exception e) {
