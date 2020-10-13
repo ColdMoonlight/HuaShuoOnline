@@ -6,6 +6,8 @@ public class MlbackCategory {
     private String categoryName;
 
     private String categoryImgurl;
+    
+    private Integer categoryImgStatus;
 
     private Integer categoryParentId;
 
@@ -30,6 +32,8 @@ public class MlbackCategory {
     private String categoryProductNames;
 
     private String categoryImgpcurl;
+    
+    private Integer categoryImgPcStatus;
 
     private String categoryMetatitle;
 
@@ -40,37 +44,6 @@ public class MlbackCategory {
     private Integer categorySuperCateId;
     
     private String categorySuperCateName;
-
-    public MlbackCategory(Integer categoryId, String categoryName, String categoryImgurl, Integer categoryParentId,
-    		String categoryParentName, Integer categoryStatus, Integer categoryLable, String categorySeo,
-    		Integer categorySortOrder, String categoryCreatetime, String categoryMotifytime, String categoryDesc,
-    		String categoryProductIds, String categoryProductNames, String categoryImgpcurl, String categoryMetatitle,
-    		String categoryMetakeywords, String categoryMetadesc,Integer categorySuperCateId,String categorySuperCateName) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-        this.categoryImgurl = categoryImgurl;
-        this.categoryParentId = categoryParentId;
-        this.categoryParentName = categoryParentName;
-        this.categoryStatus = categoryStatus;
-        this.categoryLable = categoryLable;
-        this.categorySeo = categorySeo;
-        this.categorySortOrder = categorySortOrder;
-        this.categoryCreatetime = categoryCreatetime;
-        this.categoryMotifytime = categoryMotifytime;
-        this.categoryDesc = categoryDesc;
-        this.categoryProductIds = categoryProductIds;
-        this.categoryProductNames = categoryProductNames;
-        this.categoryImgpcurl = categoryImgpcurl;
-        this.categoryMetatitle = categoryMetatitle;
-        this.categoryMetakeywords = categoryMetakeywords;
-        this.categoryMetadesc = categoryMetadesc;
-        this.categorySuperCateId = categorySuperCateId;
-        this.categorySuperCateName = categorySuperCateName;
-    }
-
-    public MlbackCategory() {
-        super();
-    }
 
     public Integer getCategoryId() {
         return categoryId;
@@ -231,18 +204,55 @@ public class MlbackCategory {
 	public void setCategorySuperCateName(String categorySuperCateName) {
 		this.categorySuperCateName = categorySuperCateName == null ? null : categorySuperCateName.trim();
 	}
+	
+	public MlbackCategory(Integer categoryId, String categoryName, String categoryImgurl, Integer categoryImgStatus,
+			Integer categoryParentId, String categoryParentName, Integer categoryStatus, Integer categoryLable,
+			String categorySeo, Integer categorySortOrder, String categoryCreatetime, String categoryMotifytime,
+			String categoryDesc, String categoryProductIds, String categoryProductNames, String categoryImgpcurl,
+			Integer categoryImgPcStatus, String categoryMetatitle, String categoryMetakeywords, String categoryMetadesc,
+			Integer categorySuperCateId, String categorySuperCateName) {
+		super();
+		this.categoryId = categoryId;
+		this.categoryName = categoryName;
+		this.categoryImgurl = categoryImgurl;
+		this.categoryImgStatus = categoryImgStatus;
+		this.categoryParentId = categoryParentId;
+		this.categoryParentName = categoryParentName;
+		this.categoryStatus = categoryStatus;
+		this.categoryLable = categoryLable;
+		this.categorySeo = categorySeo;
+		this.categorySortOrder = categorySortOrder;
+		this.categoryCreatetime = categoryCreatetime;
+		this.categoryMotifytime = categoryMotifytime;
+		this.categoryDesc = categoryDesc;
+		this.categoryProductIds = categoryProductIds;
+		this.categoryProductNames = categoryProductNames;
+		this.categoryImgpcurl = categoryImgpcurl;
+		this.categoryImgPcStatus = categoryImgPcStatus;
+		this.categoryMetatitle = categoryMetatitle;
+		this.categoryMetakeywords = categoryMetakeywords;
+		this.categoryMetadesc = categoryMetadesc;
+		this.categorySuperCateId = categorySuperCateId;
+		this.categorySuperCateName = categorySuperCateName;
+	}
+
+	public MlbackCategory() {
+		super();
+	}
 
 	@Override
 	public String toString() {
 		return "MlbackCategory [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryImgurl="
-				+ categoryImgurl + ", categoryParentId=" + categoryParentId + ", categoryParentName="
-				+ categoryParentName + ", categoryStatus=" + categoryStatus + ", categoryLable=" + categoryLable
-				+ ", categorySeo=" + categorySeo + ", categorySortOrder=" + categorySortOrder + ", categoryCreatetime="
-				+ categoryCreatetime + ", categoryMotifytime=" + categoryMotifytime + ", categoryDesc=" + categoryDesc
-				+ ", categoryProductIds=" + categoryProductIds + ", categoryProductNames=" + categoryProductNames
-				+ ", categoryImgpcurl=" + categoryImgpcurl + ", categoryMetatitle=" + categoryMetatitle
+				+ categoryImgurl + ", categoryImgStatus=" + categoryImgStatus + ", categoryParentId=" + categoryParentId
+				+ ", categoryParentName=" + categoryParentName + ", categoryStatus=" + categoryStatus
+				+ ", categoryLable=" + categoryLable + ", categorySeo=" + categorySeo + ", categorySortOrder="
+				+ categorySortOrder + ", categoryCreatetime=" + categoryCreatetime + ", categoryMotifytime="
+				+ categoryMotifytime + ", categoryDesc=" + categoryDesc + ", categoryProductIds=" + categoryProductIds
+				+ ", categoryProductNames=" + categoryProductNames + ", categoryImgpcurl=" + categoryImgpcurl
+				+ ", categoryImgPcStatus=" + categoryImgPcStatus + ", categoryMetatitle=" + categoryMetatitle
+				+ ", categoryMetakeywords=" + categoryMetakeywords + ", categoryMetadesc=" + categoryMetadesc
 				+ ", categorySuperCateId=" + categorySuperCateId + ", categorySuperCateName=" + categorySuperCateName
-				+ ", categoryMetakeywords=" + categoryMetakeywords + ", categoryMetadesc=" + categoryMetadesc + "]";
+				+ "]";
 	}
     
 }

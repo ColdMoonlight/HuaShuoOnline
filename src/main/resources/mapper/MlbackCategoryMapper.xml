@@ -396,5 +396,4 @@
     from tb_mlback_category
     where category_seo = #{categorySeo,jdbcType=VARCHAR}
   </select>
-  
 </mapper>
