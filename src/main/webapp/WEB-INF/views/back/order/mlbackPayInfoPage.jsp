@@ -567,7 +567,7 @@
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
 						getOneOrderData({
-							payinfoId: refundData.payinfoId
+							payinfoId: deliveryData.payinfoId
 						}, function(resData) {
 							renderOrderDetails(resData);
 						});
