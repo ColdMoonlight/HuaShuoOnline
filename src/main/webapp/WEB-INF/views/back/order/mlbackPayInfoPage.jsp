@@ -625,6 +625,18 @@
 			}
 		}
 		// callback init order details
+		function getNewPayinfoSendNum (str){
+			var nStr = '';
+			if (str) {
+				if (str.endsWith('intofail')) {
+					nStr = str.replace('intofail', '') + '<i style="color: red; font-weight: bold">intofail</i>';		
+				} else {
+					nStr = str;
+				}
+			}
+			return nStr;
+		}
+		
 		function renderOrderDetails(data) {
 			// order list
 			renderOrderList(data.mlfrontOrderItemList);
@@ -670,7 +682,8 @@
 			// customer note
 			$('.customer-note .value').html(data.mlfrontOrderPayOneRes.orderBuyMess || 'No notes from customer...');
 			// track
-			$('.track-number .value').html('('+ (data.mlfrontOrderPayOneRes.orderLogisticsname || '') +')' + (data.mlfrontPayInfoOne.payinfoSendnum || ''));
+			
+			$('.track-number .value').html('('+ (data.mlfrontOrderPayOneRes.orderLogisticsname || '') +')' + (getNewPayinfoSendNum(data.mlfrontPayInfoOne.payinfoSendnum)));
 			$('.ecpp-number .value').html(data.mlfrontPayInfoOne.payinfoEcpphsnum || '');
 			// shipping
 			$('.shipping-item.firstname .value').html(data.mlfrontAddressOne.addressUserfirstname || '');
@@ -885,7 +898,7 @@
 					'<td><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnumStatus || '') + '</td>' +
-					'<td>' + (data[i].payinfoSendnum || '') + '</td>' +
+					'<td>' + (getNewPayinfoSendNum(data[i].payinfoSendnum)) + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-view" data-id="' + data[i].payinfoId + '">' +
 							'<svg class="c-icon">' +
