@@ -209,7 +209,7 @@
 			$('#countdownStarttime').val('');
 			$('#countdownEndtime').val('');
 
-			$('#videoStatus').prop('checked', false);
+			$('#countdownStatus').prop('checked', false);
 		}
 		// getFormdData
 		function getFormData() {
