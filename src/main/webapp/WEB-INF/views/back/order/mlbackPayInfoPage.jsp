@@ -663,7 +663,7 @@
 				if (str.endsWith('intofail')) {
 					nStr = str.replace('intofail', '<i style="color: red; font-weight: bold">intofail</i>');
 					$('#btn-manual-delivery').removeClass('hide');
-				} else if (str.endWith('succeed')) {
+				} else if (str.endsWith('succeed')) {
 					nStr = str.replace('succeed', '<i style="color: green; font-weight: bold">succeed</i>');
 					$('#btn-manual-delivery').addClass('hide');
 				} else {
