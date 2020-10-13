@@ -969,8 +969,8 @@ public class MlfrontPayInfoController {
 	
 	/**
 	 * 9.0	zsh	200720
-	 * to	全部支付单的状态-分状态查询
-	 * @param pn,Integer payinfoStatus,String payinfoPlateNum;
+	 * to	手动发送物流邮件后的通知manualUpdateSendSucceed
+	 * @param PayinfoId,PayinfoSendnum
 	 * @return
 	 */
 	@RequestMapping(value="/manualUpdateSendSucceed",method=RequestMethod.POST)
