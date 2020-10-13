@@ -538,7 +538,7 @@
 			$('#deleteModal .btn-ok').one('click', function () {
 				var reqData = {};
 				reqData[inputFile.data('type')] = dataVal.imageUrl;
-				reqData.cateId = $('#categoryId').val();
+				reqData.categoryId = $('#categoryId').val();
 				deletecollectionImgData(reqData, function(data) {
 					resetPicture(inputFile);
 				});
