@@ -154,7 +154,7 @@
 			$('#deleteModal').find('.modal-title').html('Delete CountDown-time!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteVideoData({
+				deleteCountdownTimeData({
 					countdownId: countdownId,
 				}, function() {
 					getCountdownTimeData();
@@ -163,7 +163,7 @@
 		});
 		$(window).on('beforeunload', function() {
 			var countdownId = $('#countdownId').val();
-			isCreate && countdownId && deleteVideoData({
+			isCreate && countdownId && deleteCountdownTimeData({
 				countdownId: countdownId,
 			});
 		});
@@ -182,8 +182,8 @@
 		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
-				// delete null Video
-				deleteVideoData({
+				// delete null countdown-time
+				deleteCountdownTimeData({
 					countdownId: $('#countdownId').val(),
 				}, function() {
 					console.log("cancel create CountDown-time");
@@ -194,7 +194,7 @@
 		});
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
-			$('.c-create').removeClass('hide');			
+			$('.c-create').removeClass('hide');
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
@@ -344,7 +344,7 @@
 			});
 		}
 		// callback delete
-		function deleteVideoData(reqData, callback) {
+		function deleteCountdownTimeData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackCountdown/delete",
