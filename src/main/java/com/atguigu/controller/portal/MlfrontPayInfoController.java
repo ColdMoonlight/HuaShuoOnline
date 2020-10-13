@@ -557,7 +557,7 @@ public class MlfrontPayInfoController {
         				MlfrontPayInfo mlfrontPayInfoFail = new MlfrontPayInfo();
         				
         				mlfrontPayInfoFail.setPayinfoId(payInfoId);
-        				mlfrontPayInfoFail.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo()+""+ecppTrackItem.getShippingName()+"intofail");
+        				mlfrontPayInfoFail.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo()+"intofail");
                 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoFail);
                 		
                 		//需要往OrderOne里面放置,更新出失败插入失败的提示
