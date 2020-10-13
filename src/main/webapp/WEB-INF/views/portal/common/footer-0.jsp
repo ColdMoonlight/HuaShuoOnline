@@ -685,15 +685,14 @@ function rednerCountDownAreaOne(data) {
 			'<div class="body"></div>' +
 			'<div class="desc">' + data.countdownDescription + '</div>';
 		$('#countdown-area').html(html);
-		
-		
+	
 		if ((!data.countdownStarttime && !data.countdownEndtime) || (data.countdownStarttime == data.countdownEndtime)) {
 			var date = new Date();
 			var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-			data.countdownStarttime = ymd + ' ' + date.getDate() + ':' + date.getHours() + ':' + date.getSeconds();
+			data.countdownStarttime = ymd + ' ' + (date.getHours() > 9 ? date.getHours() : '0' + date.getHours()) + ':' + (date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes()) + ':' + (date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds());
 			data.countdownEndtime = ymd + ' 23:59:59';
 		}
-		
+
 		var countdown = new countDown('#countdown-area .body', {
 			start: {
 				time: data.countdownStarttime

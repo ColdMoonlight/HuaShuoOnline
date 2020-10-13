@@ -4855,38 +4855,37 @@ footer li {
 }
 
 #countdown-area .title {
-  padding: 1em;
-  font-size: 1rem;
-  font-weight: bolder;
-  text-align: center;
+	padding: 1em;
+	font-size: 1rem;
+	font-weight: bolder;
+	text-align: center;
+}
+
+#countdown-area .body {
+	padding-top: 1rem;
 }
 
 #countdown-area .desc {
-  padding: .5rem;
-  font-size: .875rem;
-  text-align: center;
-}
-
-#countdown-area .state {
-	display: none;
-	visibility: hidden;
+	padding: .5rem;
+	font-size: .875rem;
+	text-align: center;
 }
 
 /* dark */
 .dark {
-  position: relative;
-  display: flex;
-  align-items: center;
+	position: relative;
+	display: flex;
+	align-items: center;
 }
 
 .dark .time-item {
-  position: relative;
-  color: #fff;
-  text-align: center;
-  background: -webkit-linear-gradient(top, #999 , #000);
-  background: -moz-linear-gradient(bottom, #999, #000);
-  background: -o-linear-gradient(bottom, #999, #000);
-  background: linear-gradient(to bottom, #000000 , #a5a5a5);
+	position: relative;
+	color: #fff;
+	text-align: center;
+	background: -webkit-linear-gradient(top, #999 , #000);
+	background: -moz-linear-gradient(bottom, #999, #000);
+	background: -o-linear-gradient(bottom, #999, #000);
+	background: linear-gradient(to bottom, #000000 , #a5a5a5);
 }
 
 .dark .time-item .number {
@@ -4894,27 +4893,25 @@ footer li {
 }
 
 .dark .time-item .text {
-  position: absolute;
-  right: 0;
-  display: block;
-  width: 100%;
+	position: absolute;
+	right: 0;
+	display: block;
+	width: 100%;
 }
 
 .dark .separator {
-  display: block;
-  font-weight: bold;
+	display: block;
+	font-weight: bold;
 }
 
 .dark .state {
-  position: absolute;
-  top: -.875rem;
-  left: 0;
-  display: inline-block;
-  padding: .375rem .75rem;
-  font-size: .75rem;
-  color: #fff;
-  background-color: yellowgreen;
-  border-radius: .25rem;
+	position: absolute;
+	top: -.875rem;
+	left: 0;
+	display: inline-block;
+	padding: .375rem .75rem;
+	font-size: .75rem;
+	font-style: italic;
 }
 
 @media screen and (max-width: 977px) {
