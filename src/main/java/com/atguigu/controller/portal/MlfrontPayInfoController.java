@@ -987,7 +987,6 @@ public class MlfrontPayInfoController {
 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoReq);
 		
 		return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子,无改变");
-		
 	}
 	
 }
