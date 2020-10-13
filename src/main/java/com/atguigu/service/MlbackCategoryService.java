@@ -1,17 +1,13 @@
 package com.atguigu.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.dao.MlbackCategoryMapper;
 
-
 @Service
 public class MlbackCategoryService {
-	
 	
 	@Autowired
 	MlbackCategoryMapper mlbackCategoryMapper;
@@ -20,7 +16,6 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param MlbackCategory
 	 * @exception 查看用户信息是否存在
-	 * 	3.0
 	 * */
 	public List<MlbackCategory> selectMlbackCategory(MlbackCategory mlbackCategory) {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategory(mlbackCategory);
@@ -30,7 +25,6 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param MlbackCategory
 	 * @exception 查看用户信息是否存在
-	 * 	3.0
 	 * */
 	public MlbackCategory selectMlbackCategoryById(MlbackCategory mlbackCategory) {
 		MlbackCategory  mlbackCategoryOne = mlbackCategoryMapper.selectMlbackCategoryById(mlbackCategory);
@@ -41,7 +35,6 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param MlbackCategory
 	 * @exception add方法用户信息是否存在
-	 * 	3.0
 	 * */
 	public int insertSelective(MlbackCategory mlbackCategory) {
 		int intReslut = mlbackCategoryMapper.insertSelective(mlbackCategory);
@@ -52,7 +45,6 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param 
 	 * @exception 查看全部用户信息
-	 * 	3.0
 	 * */
 	public List<MlbackCategory> selectMlbackCategoryGetAll() {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategoryGetAll();
@@ -62,7 +54,6 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param 
 	 * @exception 查看全部用户信息
-	 * 
 	 * */
 	public List<MlbackCategory> selectMlbackCategoryGetAllByParentId() {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategoryGetAllByParentId();
@@ -73,7 +64,6 @@ public class MlbackCategoryService {
 	 * @author
 	 * @param 
 	 * @exception 查看全部用户信息
-	 * 	3.0
 	 * */
 	public List<MlbackCategory> selectMenuMlbackCategoryGetAll() {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMenuMlbackCategoryGetAll();
@@ -83,7 +73,6 @@ public class MlbackCategoryService {
 	 * @author
 	 * @param 
 	 * @exception 删除本条信息
-	 * 	3.0
 	 * */
 	public int deleteByPrimaryKey(int categoryId) {
 		int  intReslut = mlbackCategoryMapper.deleteByPrimaryKey(categoryId);
@@ -103,7 +92,6 @@ public class MlbackCategoryService {
 	 * @author Shinelon
 	 * @param 
 	 * @exception 通过CategoryBySeo查找该类的详情
-	 * 	3.0
 	 * */
 	public List<MlbackCategory> selectMlbackCategoryBySeo(MlbackCategory mlbackCategory) {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategoryBySeo(mlbackCategory);
@@ -113,7 +101,6 @@ public class MlbackCategoryService {
 	 * @autho	onuse	20191226	检查
 	 * @param MlbackCategory
 	 * @exception	
-	 * 	3.0
 	 * */
 	public List<MlbackCategory> selectCategorylistByParam(MlbackCategory mlbackCategory) {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectCategorylistByParam(mlbackCategory);
@@ -124,7 +111,6 @@ public class MlbackCategoryService {
 	 * @autho	3.0
 	 * @param MlbackCategory
 	 * @exception
-	 * 	3.0	
 	 * */
 	public List<MlbackCategory> selectMlbackCategoryBackSearch(MlbackCategory mlbackCategoryReq) {
 		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategoryBackSearch(mlbackCategoryReq);
