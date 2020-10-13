@@ -335,5 +335,30 @@ public class MlbackCategoryController {
 		 return Msg.success().add("resMsg", "searchBycategorySeo完毕").add("cateImg", cateImg)
 				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownList", mlbackCategorydownList);
 	 }
+	 
+	 /**
+	  * 10.0	20200608
+	  * 删除类的产品信息
+	  * @param mlbackCategory-removeCateImg
+	  * @return 
+	  */
+	 @RequestMapping(value="/removeCateImg",method=RequestMethod.POST)
+	 @ResponseBody
+	 public Msg removeCateImg(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackCategory mlbackCategory){
+		 
+		 String cateSeo = mlbackCategory.getCategorySeo();
+		 String imgUrl = mlbackCategory.getCategoryImgurl();
+		 String imgPcUrl = mlbackCategory.getCategoryImgpcurl();
+		 MlbackCategory mlbackCategoryReq = new MlbackCategory();
+		 mlbackCategoryReq.setCategorySeo(cateSeo);
+		 if(imgUrl.length()>10){
+			 mlbackCategoryReq.setCategoryImgurl("");
+		 }else if(imgPcUrl.length()>10){
+			 mlbackCategoryReq.setCategoryImgpcurl("");
+		 }
+		 mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategoryReq);
+
+		 return Msg.success().add("resMsg", "图片delete完毕");
+	 }
 
 }
