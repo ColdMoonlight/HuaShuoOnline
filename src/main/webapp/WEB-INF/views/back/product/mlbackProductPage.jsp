@@ -1663,7 +1663,7 @@
 			var parentEl = el.parent();
 			el.attr('data-val', '');
 			parentEl.removeClass('active');
-			parentEl.find('.c-backshow').html('');
+			parentEl.find('.c-backshow').html('').end().find('.product-img-delete').addClass('hide');
 		}
 		function addUploadBlock(idx) {
 			var htmlStr = '<div class="product-img-item c-upload-img">' +
