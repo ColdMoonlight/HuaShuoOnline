@@ -966,4 +966,28 @@ public class MlfrontPayInfoController {
 	
 	//PayinfoStatus(5);//0未支付//1支付成功//2审单完毕//3发货完毕 //4已退款//5发送弃购//6重复单关
 	//OrderStatus(6);//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款//6发送弃购//7重复单关闭
+	
+	/**
+	 * 9.0	zsh	200720
+	 * to	全部支付单的状态-分状态查询
+	 * @param pn,Integer payinfoStatus,String payinfoPlateNum;
+	 * @return
+	 */
+	@RequestMapping(value="/manualUpdateSendSucceed",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg manualUpdateSendSucceed(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfoInto) {
+		
+		//初始化请求参数
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		mlfrontPayInfoReq.setPayinfoId(mlfrontPayInfoInto.getPayinfoId());
+		String sendNumStr = mlfrontPayInfoInto.getPayinfoSendnum();
+		String sendNumStrNow = sendNumStr.replace("intofail", "succeed");
+		System.out.println("manualUpdateSendSucceed,mlfrontPayInfoReq"+mlfrontPayInfoReq.toString());
+		mlfrontPayInfoReq.setPayinfoSendnum(sendNumStrNow);
+		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoReq);
+		
+		return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子,无改变");
+		
+	}
+	
 }
