@@ -346,11 +346,11 @@ public class MlbackCategoryController {
 	 @ResponseBody
 	 public Msg removeCateImg(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackCategory mlbackCategory){
 		 
-		 String cateSeo = mlbackCategory.getCategorySeo();
+		 Integer cateId = mlbackCategory.getCategoryId();
 		 String imgUrl = mlbackCategory.getCategoryImgurl();
 		 String imgPcUrl = mlbackCategory.getCategoryImgpcurl();
 		 MlbackCategory mlbackCategoryReq = new MlbackCategory();
-		 mlbackCategoryReq.setCategorySeo(cateSeo);
+		 mlbackCategoryReq.setCategoryId(cateId);
 		 if(imgUrl.length()>10){
 			 mlbackCategoryReq.setCategoryImgurl("");
 		 }else if(imgPcUrl.length()>10){
