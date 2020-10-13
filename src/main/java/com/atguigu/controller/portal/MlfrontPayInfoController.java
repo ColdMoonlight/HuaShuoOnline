@@ -440,6 +440,11 @@ public class MlfrontPayInfoController {
 	                			}else{
 	                				//往aftership没有插入成功
 	                				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败----------0201");
+	                				//需要往pay表,更新出失败插入失败的提示
+	                				MlfrontPayInfo mlfrontPayInfoFail = new MlfrontPayInfo();
+	                				mlfrontPayInfoFail.setPayinfoId(payInfoId);
+	                				mlfrontPayInfoFail.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo()+"intofail");
+	                        		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoFail);
 	                			}
 	                		} catch (Exception e) {
 	                			e.printStackTrace();
@@ -558,12 +563,6 @@ public class MlfrontPayInfoController {
         				mlfrontPayInfoFail.setPayinfoId(payInfoId);
         				mlfrontPayInfoFail.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo()+"intofail");
                 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoFail);
-//                		
-//                		//需要往OrderOne里面放置,更新出失败插入失败的提示
-//                		MlfrontOrder mlfrontOrderAfterFail = new MlfrontOrder();
-//                		mlfrontOrderAfterFail.setOrderId(orderId);
-//                		mlfrontOrderAfterFail.setOrderLogisticsname(ecppTrackItem.getShippingName()+"intofail");
-//        				mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderAfterFail);
         				
         			}
         		} catch (Exception e) {
@@ -785,6 +784,10 @@ public class MlfrontPayInfoController {
                 			}else{
                 				//没有插入成功
                 				System.out.println("平台号为"+payinfoPlateNum+"的成交单,物流号插入AfterShip失败");
+                				MlfrontPayInfo mlfrontPayInfoFail = new MlfrontPayInfo();
+                				mlfrontPayInfoFail.setPayinfoId(payInfoId);
+                				mlfrontPayInfoFail.setPayinfoSendnum(ecppTrackItem.getEcppOrderTrackNo()+"intofail");
+                        		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoFail);
                 			}
                 		} catch (Exception e) {
                 			e.printStackTrace();
