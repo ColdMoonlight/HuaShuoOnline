@@ -156,8 +156,13 @@
 											<svg class="c-icon">
 												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 											</svg>
+											<div class="product-img-delete hide">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>
+												</svg>
+											</div>
 											<div class="c-backshow"></div>						
-											<input id="categoryImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+											<input id="categoryImgurl" data-type="categoryImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 											<!-- spinner -->
 											<div class="spinner">
 												<div class="spinner-border" role="status" aria-hidden="true"></div>
@@ -171,8 +176,13 @@
 											<svg class="c-icon">
 												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 											</svg>
+											<div class="product-img-delete hide">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>
+												</svg>
+											</div>
 											<div class="c-backshow"></div>						
-											<input id="categoryImgpcurl" type="file" accept="image/png, image/jpeg, image/gif" />										
+											<input id="categoryImgpcurl" data-type="categoryImgpcurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 											<!-- spinner -->
 											<div class="spinner">
 												<div class="spinner-border" role="status" aria-hidden="true"></div>
@@ -518,17 +528,60 @@
 				}
 			});
 		});
+		// delete product img
+		$(document.body).on('click', '.product-img-delete', function() {
+			var inputFile = $(this).parent().find('input');
+			var dataVal = inputFile.data('val');
+
+			$('#deleteModal').find('.modal-title').html('Delete collection Img!');
+			$('#deleteModal').modal('show');
+			$('#deleteModal .btn-ok').one('click', function () {
+				var reqData = {};
+				reqData[inputFile.data('type')] = dataVal.imageUrl;
+				reqData.cateId = $('#categoryId').val();
+				deletecollectionImgData(reqData, function(data) {
+					resetPicture(inputFile);
+				});
+			});
+		});
+		// callback delete
+		function deletecollectionImgData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackCategory/removeCateImg",
+				type: "post",
+				cache: false,
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						$('#deleteModal').modal('hide');
+						callback && callback();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
 		function addPicture(el, data) {
 			var parentEl = el.parent();
 			el.attr('data-val', JSON.stringify(data));
 			parentEl.addClass('active');
-			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.thumImageUrl) + '" />');
+			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.thumImageUrl) + '" />').end().find('.product-img-delete').removeClass('hide');
 		}
 		function resetPicture(el) {
 			var parentEl = el.parent();
 			el.attr('data-val', '');
 			parentEl.removeClass('active');
-			parentEl.find('.c-backshow').html('');
+			parentEl.find('.c-backshow').html('').end().find('.product-img-delete').addClass('hide');
 		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
