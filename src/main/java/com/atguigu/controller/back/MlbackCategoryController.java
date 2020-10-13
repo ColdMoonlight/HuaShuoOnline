@@ -351,12 +351,20 @@ public class MlbackCategoryController {
 		 String imgPcUrl = mlbackCategory.getCategoryImgpcurl();
 		 MlbackCategory mlbackCategoryReq = new MlbackCategory();
 		 mlbackCategoryReq.setCategoryId(cateId);
-		 if(imgUrl.length()>10){
+//		 if(imgUrl.length()>10){
+//			 mlbackCategoryReq.setCategoryImgurl("");
+//			 Integer cateIdaa = mlbackCategoryService.updateImgEmpty(mlbackCategoryReq);
+//		 }else if(imgPcUrl.length()>10){
+//			 mlbackCategoryReq.setCategoryImgpcurl("");
+//			 Integer cateIdaa = mlbackCategoryService.updateImgPcEmpty(mlbackCategoryReq);
+//		 }
+		 if((imgUrl!=null)||(imgUrl!="")){
 			 mlbackCategoryReq.setCategoryImgurl("");
-		 }else if(imgPcUrl.length()>10){
-			 mlbackCategoryReq.setCategoryImgpcurl("");
-		 }
-		 mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategoryReq);
+	     }
+		 if((imgPcUrl!=null)||(imgPcUrl!="")){
+	    	 mlbackCategoryReq.setCategoryImgpcurl("");
+	     }
+	     mlbackCategoryService.updateByPrimaryKeySelective(mlbackCategoryReq);
 
 		 return Msg.success().add("resMsg", "图片delete完毕");
 	 }
