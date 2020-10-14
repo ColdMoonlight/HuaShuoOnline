@@ -151,16 +151,25 @@
 								</div>
 								<div class="card-body">
 									<div class="col-md-6">
-										<h3>Wap</h3>
+										<h3>Wap</h3>										
+										<div class="form-group row">
+											<label class="col-md-3 col-form-label" for="categoryImgstatus">Status</label>
+											<div class="controls col-md-3">
+												<label class="c-switch c-switch-primary">
+													<input class="c-switch-input" id="categoryImgstatus" type="checkbox">
+													<span class="c-switch-slider"></span>
+												</label>
+											</div>
+										</div>
 										<div class="c-upload-img">
 											<svg class="c-icon">
 												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 											</svg>
-											<div class="product-img-delete hide">
+											<%-- <div class="product-img-delete hide">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>
 												</svg>
-											</div>
+											</div> --%>
 											<div class="c-backshow"></div>						
 											<input id="categoryImgurl" data-type="categoryImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 											<!-- spinner -->
@@ -172,16 +181,25 @@
 									</div>
 									<div class="col-md-6">
 										<h3>Pc</h3>
+										<div class="form-group row">
+											<label class="col-md-3 col-form-label" for="categoryImgpcstatus">Status</label>
+											<div class="controls col-md-3">
+												<label class="c-switch c-switch-primary">
+													<input class="c-switch-input" id="categoryImgpcstatus" type="checkbox">
+													<span class="c-switch-slider"></span>
+												</label>
+											</div>
+										</div>
 										<div class="c-upload-img">
 											<svg class="c-icon">
 												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 											</svg>
-											<div class="product-img-delete hide">
+											<%-- <div class="product-img-delete hide">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>
 												</svg>
-											</div>
-											<div class="c-backshow"></div>						
+											</div> --%>
+											<div class="c-backshow"></div>
 											<input id="categoryImgpcurl" data-type="categoryImgpcurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 											<!-- spinner -->
 											<div class="spinner">
@@ -603,6 +621,9 @@
 			$('#categoryLable').val('0');
 			$('#categoryDesc').val('');
 
+			$('#categoryImgstatus').prop('checked', false);
+			$('#categoryImgpcstatus').prop('checked', false);
+
 			resetPicture($('#categoryImgurl'));
 			resetPicture($('#categoryImgpcurl'));
 
@@ -626,6 +647,9 @@
 			data.categorySortOrder = $('#categorySortOrder').val();
 			data.categoryLable = parseInt($('#categoryLable').val());
 			data.categoryDesc = $('#categoryDesc').val();
+
+			data.categoryImgstatus = $('#categoryImgstatus').prop('checked') ? 1 : 0;
+			data.categoryImgpcstatus = $('#categoryImgpcstatus').prop('checked') ? 1 : 0;
 
 			var imageData = $('#categoryImgurl').attr('data-val') && JSON.parse($('#categoryImgurl').attr('data-val'));
 			var imagePcData = $('#categoryImgpcurl').attr('data-val') && JSON.parse($('#categoryImgpcurl').attr('data-val'));
@@ -669,6 +693,9 @@
 			$('#categoryProductIds').val(data.categoryProductIds);
 			$('#categoryProductNames').val(data.categoryProductNames);
 			$('#categoryProductList').val(data.categoryProductNames ? ' * ' + data.categoryProductNames.replace(/\,/g, '\n * '): 'No product！').attr('data-val', data.categoryProductNames);
+
+			$('#categoryImgstatus').prop('checked', data.categoryImgstatus);
+			$('#categoryImgpcstatus').prop('checked', data.categoryImgpcstatus);
 
 			if (data.categoryImgurl) {
 				addPicture($('#categoryImgurl'), {
