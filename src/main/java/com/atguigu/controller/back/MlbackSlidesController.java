@@ -76,6 +76,19 @@ public class MlbackSlidesController {
 //		}
 	}
 	
+	/**2.1	20200707
+	 * 分类MlbackActShowPro列表分页list数据
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/getMlbackActShowProDownlist")
+	@ResponseBody
+	public Msg getMlbackActShowProDownlist(HttpSession session) {
+		List<MlbackSlide> mlbackSlideList = mlbackSlideService.selectMlbackSlideGetAll();
+		System.out.println("mlbackSlideList.size:"+mlbackSlideList.size());
+		return Msg.success().add("mlbackSlideList", mlbackSlideList);
+	}
+	
 	/**3.0	20200703
 	 * MlbackSlide	initializaSlide
 	 * @param MlbackSlide
