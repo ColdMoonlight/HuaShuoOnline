@@ -1,11 +1,9 @@
 package com.atguigu.controller.back;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +15,6 @@ import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
-import com.atguigu.bean.MlbackShowArea;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -27,11 +24,9 @@ import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.utils.DateUtil;
 
-
 @Controller
 @RequestMapping("/MlbackActShowPro")
 public class MlbackActShowProController {
-	
 	
 	@Autowired
 	MlbackActShowProService mlbackActShowProService;

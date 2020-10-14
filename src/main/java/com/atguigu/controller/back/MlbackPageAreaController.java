@@ -2,19 +2,26 @@ package com.atguigu.controller.back;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackPageArea;
+import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackPageAreaService;
 import com.atguigu.service.MlfrontUserService;
+import com.atguigu.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -62,4 +69,63 @@ public class MlbackPageAreaController {
 		PageInfo page = new PageInfo(mlbackActShowProList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
+	
+	/**3.0	20201014
+	 * mlbackPageArea	initializaPageArea
+	 * @param mlbackPageArea
+	 * @return
+	 */
+	@RequestMapping(value="/initializaPageArea",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg initializaPageArea(HttpServletResponse rep,HttpServletRequest res){
+		
+		MlbackPageArea mlbackPageArea = new MlbackPageArea();
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		mlbackPageArea.setPageareaCreatetime(nowTime);
+		mlbackPageArea.setPageareaStatus(0);//0未上架1上架中
+		mlbackPageArea.setPageareaPcstatus(0);//0未上架1上架中
+		//无id,insert
+		System.out.println("插入前"+mlbackPageArea.toString());
+		mlbackPageAreaService.insertSelective(mlbackPageArea);
+		System.out.println("插入后"+mlbackPageArea.toString());
+		return Msg.success().add("resMsg", "PageArea初始化成功").add("mlbackPageArea", mlbackPageArea);
+	}
+	
+	/**4.0	20201014
+	 * mlbackPageArea	save
+	 * @param mlbackPageArea
+	 */
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackPageArea mlbackPageArea){
+		//接收参数信息
+		String nowTime = DateUtil.strTime14s();
+		mlbackPageArea.setPageareaMotifytime(nowTime);
+		//有id,update
+		mlbackPageAreaService.updateByPrimaryKeySelective(mlbackPageArea);
+		System.out.println("mlbackPageArea-save"+mlbackPageArea.toString());
+		return Msg.success().add("resMsg", "更新成功");
+	}
+	
+//	/**3.0	20200703
+//	 * MlbackActShowPro	initializaActShowPro
+//	 * @param MlbackActShowPro
+//	 * @return
+//	 */
+//	@RequestMapping(value="/initializaActShowPro",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Msg initializaActShowPro(HttpServletResponse rep,HttpServletRequest res){
+//		
+//		MlbackActShowPro mlbackActShowPro = new MlbackActShowPro();
+//		//取出id
+//		String nowTime = DateUtil.strTime14s();
+//		mlbackActShowPro.setActshowproCreatetime(nowTime);
+//		mlbackActShowPro.setActshowproStatus(0);//0未上架1上架中
+//		//无id，insert
+//		System.out.println("插入前"+mlbackActShowPro.toString());
+//		mlbackActShowProService.insertSelective(mlbackActShowPro);
+//		System.out.println("插入后"+mlbackActShowPro.toString());
+//		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackActShowPro", mlbackActShowPro);
+//	}
 }
