@@ -341,7 +341,7 @@
 			 	$('.c-create .c-option-title').text('Edit Page Area');
 				showCreateBlock();
 				initFormData(resData);
-			});			
+			});	
 		});
 		// delete page area
 		$(document.body).on('click', '.btn-delete', function (e) {

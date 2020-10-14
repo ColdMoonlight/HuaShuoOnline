@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-center modal-dialog-scrollable" role="document">
 		<div class="modal-content">
@@ -26,6 +26,6 @@
 </div>
 <script>
 	$('#editModal .btn-cancel').on('click', function () {
-		$('#deleteModal .btn-ok').off('click');
+		$('#editModal .btn-ok').off('click');
 	});
 </script>
