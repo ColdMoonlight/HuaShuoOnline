@@ -1,6 +1,6 @@
 package com.atguigu.bean;
 
-public class MlbackPagearea {
+public class MlbackPageArea {
     private Integer pageareaId;
 
     private String pageareaSeo;
@@ -8,6 +8,10 @@ public class MlbackPagearea {
     private String pageareaName;
 
     private String pageareaAscription;
+
+    private Integer pageareaSupercateid;
+
+    private String pageareaSupercatename;
 
     private Integer pageareaStatus;
 
@@ -57,6 +61,22 @@ public class MlbackPagearea {
 
     public void setPageareaAscription(String pageareaAscription) {
         this.pageareaAscription = pageareaAscription == null ? null : pageareaAscription.trim();
+    }
+
+    public Integer getPageareaSupercateid() {
+        return pageareaSupercateid;
+    }
+
+    public void setPageareaSupercateid(Integer pageareaSupercateid) {
+        this.pageareaSupercateid = pageareaSupercateid;
+    }
+
+    public String getPageareaSupercatename() {
+        return pageareaSupercatename;
+    }
+
+    public void setPageareaSupercatename(String pageareaSupercatename) {
+        this.pageareaSupercatename = pageareaSupercatename == null ? null : pageareaSupercatename.trim();
     }
 
     public Integer getPageareaStatus() {
