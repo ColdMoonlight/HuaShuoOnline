@@ -108,6 +108,39 @@ public class MlbackPageAreaController {
 		return Msg.success().add("resMsg", "更新成功");
 	}
 	
+	/**5.0	20201014
+	 * mlbackPageArea	delete
+	 * @param id
+	 */
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg delete(@RequestBody MlbackPageArea mlbackPageArea){
+		//接收id信息
+		Integer pageareaId = mlbackPageArea.getPageareaId();
+		mlbackPageAreaService.deleteByPrimaryKey(pageareaId);
+		System.out.println("删除了首页pageareaId为:"+pageareaId+"的展区");
+		return Msg.success().add("resMsg", "delete success");
+	}
+	/**
+	 * 6.0	20201014
+	 * 查看单条类目的详情细节
+	 * @param MlbackPageArea
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlbackPageAreaDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlbackPageAreaDetail(@RequestBody MlbackPageArea mlbackPageArea){
+		
+		Integer pageareaId = mlbackPageArea.getPageareaId();
+		//接受actshowproId
+		MlbackPageArea mlbackPageAreaReq = new MlbackPageArea();
+		mlbackPageAreaReq.setPageareaId(pageareaId);
+		//查询本条
+		MlbackPageArea mlbackPageAreaOne =mlbackPageAreaService.selectMlbackPageAreaById(mlbackPageAreaReq);
+		return Msg.success().add("resMsg", "查看单条类目的详情细节完毕")
+					.add("mlbackPageAreaOne", mlbackPageAreaOne);
+	}
+	
 //	/**3.0	20200703
 //	 * MlbackActShowPro	initializaActShowPro
 //	 * @param MlbackActShowPro
