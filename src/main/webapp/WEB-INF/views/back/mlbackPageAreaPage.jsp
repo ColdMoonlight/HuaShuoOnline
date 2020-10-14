@@ -2,653 +2,650 @@
 <% pageContext.setAttribute("APP_PATH" , request.getContextPath()); %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>MEGALOOK ADMIN</title>
-		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
-		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
-		<style> .card-body { padding-left: 0; padding-right: 0; } </style>
-	</head>
 
-	<body class="c-app">
-		<jsp:include page="layout/backheader.jsp" flush="true"></jsp:include>
-		<jsp:include page="layout/backsidebar.jsp" flush="true"></jsp:include>
-		<div class="c-wrapper">
-			<div class="c-body">
-				<div class="c-main">
-					<div class="dashboard-condition">
-						<div class="form-group">
-							<label class="col-form-label" for="search-time">
-								<svg class="c-icon">
-									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-av-timer"></use>
-								</svg>
-							</label>
-							<div class="controls">
-								<input hidden id="search-create-time" />
-								<input hidden id="search-confirm-time" />
-								<input class="form-control daterangetimepicker" id="search-time" type="text">
-							</div>
-						</div>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Page Area</title>
+	<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
+</head>
+
+<body class="c-app">
+	<jsp:include page="layout/backheader.jsp" flush="true"></jsp:include>
+	<jsp:include page="layout/backsidebar.jsp" flush="true"></jsp:include>
+	<div class="c-wrapper">
+		<div class="c-body">
+			<div class="c-main">
+				<div class="c-init">
+					<div class="c-option">
+						<span class="c-option-title">Page Area</span>
+						<button class="btn btn-primary btn-create">Create Page Area</button>
 					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Total Sales</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity payinfo-total-money"></div>
-									</div>
-									<div class="chart-body" id="payinfo-total-chart"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
+					<div class="c-table">
+						<div class="c-table-tab">
+							<div class="c-table-tab-item" data-idx="0">All</div>
+							<div class="c-table-tab-list"></div>
+							<div class="c-table-tab-tempory"></div>
 						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Register Users</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity user-quantity"></div>
-									</div>
-									<div class="chart-body" id="user-chart"></div>
+						<div class="c-table-content">
+							<div class="input-group c-search">
+								<svg class="c-icon">
+									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
+								</svg>
+								<div class="form-control">
+									<input id="searchCatalog" type="text" placeholder="Search Page Area by seo..." />						
+									<select class="supercate-list" id="searchSupercate"></select>
 								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
+								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
+							<div class="c-table-table table-responsive-sm">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>id</th>
+											<th>name</th>
+											<th>seo</th>
+											<th>wap-status</th>
+											<th>wap-sort</th>
+											<th>pc-status</th>
+											<th>pc-sort</th>
+											<th>desc</th>
+											<th>operate</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
+							<div id="table-pagination"></div>
 						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Average order value</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity payinfo-avg-money"></div>
-									</div>
-									<div class="chart-body" id="payinfo-avg-chart"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Total orders</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity payinfo-order"></div>
-									</div>
-									<div class="chart-body" id="payinfo-order-chart"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Online store conversion rate</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity order-conversion-rate"></div>
-									</div>
-									<div class="chart-body" id="order-conversion"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /.col-->
-						<!-- <div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Returning customer rate</div>
-								<div class="card-body">
-									
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div> -->
-						<!-- /.col-->
 					</div>
 				</div>
+				<!-- edit or create -->
+				<div class="c-create hide">
+					<div class="c-option">
+						<span class="c-option-title">Edit Page Area</span>
+						<div class="group">
+							<button class="btn btn-secondary btn-cancel">Cancel</button>
+							<button class="btn btn-primary btn-save">Save Page Area</button>
+						</div>
+					</div>
+					<div class="c-form row">
+						<input id="pageareaId" hidden />
+						<!-- left panel  -->
+						<div class="left-panel col-lg-7 col-md-12">
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">General</div>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="pageareaName">Name</label>
+										<div class="controls">
+											<input class="form-control" id="pageareaName" type="text" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="pageareaSeo">SEO</label>
+										<div class="controls">
+											<input class="form-control" id="pageareaSeo" type="text" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-3 col-form-label" for="pageareaStatus">Wap Status</label>
+										<div class="controls col-md-3">
+											<label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="pageareaStatus" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="pageareaSort">Wap Sort</label>
+										<div class="controls">
+											<select class="form-control" id="pageareaSort" />
+												<option value="99">Please select page-area wap sort...</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-3 col-form-label" for="pageareaPcstatus">Pc Status</label>
+										<div class="controls col-md-3">
+											<label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="pageareaPcstatus" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="pageareaPcsort">Pc Sort</label>
+										<div class="controls">
+											<select class="form-control" id="pageareaPcsort" />
+												<option value="99">Please select page-area pc sort...</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="13">13</option>
+												<option value="14">14</option>
+												<option value="15">15</option>
+												<option value="16">16</option>
+												<option value="17">17</option>
+												<option value="18">18</option>
+												<option value="19">19</option>
+												<option value="20">20</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="pageareaAscription">Description</label>
+										<div class="controls">
+											<input class="form-control" id="pageareaAscription" type="text" disabled />
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Type Selection</div>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="pageareaType">Type</label>
+										<div class="controls">
+											<select class="form-control" id="pageareaType" />
+												<option value="-1">Please page area type...</option>
+												<option value="0">轮播</option>
+												<option value="1">活动</option>
+												<option value="2">展区</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="categoryParentId">Details(集合详情)</label>
+										<input type="hidden" id="pageareaTypedetailIdstr" />
+										<input type="hidden" id="pageareaTypedetail" />
+										<div class="controls" style="display: flex;">
+											<textarea id="pageAreaDetailList" class="form-control" rows="5" disabled></textarea>
+											<button id="pageAreaDetailEdit" class="btn btn-info" style="margin-left: 1rem;">edit</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- right panel  -->
+						<div class="right-panel col-lg-5 col-md-12">
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Super Category</div>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="catalogSupercateId">Super Category</label>
+										<div class="controls">
+											<select class="form-control supercate-list" id="catalogSupercateId" /></select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- mask -->
+				<div class="c-mask">
+					<div class="spinner-border"></div>
+				</div>
 			</div>
-			<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
 		</div>
+		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
+	</div>
 
-		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
-		<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
-		<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
-		<script type="text/javascript" src="${APP_PATH}/static/back/lib/echarts/echarts.min.js"></script>
-		<script>
-			/* get statics data */
-			function getStaticsUserData(callback) {
-				$.ajax({
-					url: "${APP_PATH}/BackHome/getBackHomeUserListInfo",
-					type: "post",
-					dataType: "json",
-					contentType: 'application/json',
-					data: JSON.stringify({
-						'userCreatetime': $('#search-create-time').val(),
-						'userMotifytime': $('#search-confirm-time').val()
-					}),
-					async: false,
-					success: function (data) {
-						if (data.code == 100) {
-							callback && callback(data.extend.mlfrontUserList);
-						} else {
-							toastr.error(data.extend.resMsg);
-						}
-					},
-					error: function () {
-						toastr.error('Failed to get user-data, please refresh the page to get again！');
-					}
-				});
-			}
-			function getStaticsPayinfoData(callback) {
-				$.ajax({
-					url: "${APP_PATH}/BackHome/getBackHomePayInfo",
-					type: "post",
-					dataType: "json",
-					contentType: 'application/json',
-					data: JSON.stringify({
-						'payinfoCreatetime': $('#search-create-time').val(),
-						'payinfoMotifytime': $('#search-confirm-time').val()
-					}),
-					async: false,
-					success: function (data) {
-						if (data.code == 100) {
-							callback && callback(data.extend.mlfrontPayInfoSuccessList, data.extend.allGoToPayNum);
-						} else {
-							toastr.error(data.extend.resMsg);
-						}
-					},
-					error: function () {
-						toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
-					}
-				});
-			}
-			function getStaticsOrderConversionData(id, callback) {
-				$.ajax({
-					url: "${APP_PATH}/MlbackAddCartViewDetail/getAddCartViewDetailNumByTimeAndActnum",
-					type: "post",
-					dataType: "json",
-					contentType: 'application/json',
-					data: JSON.stringify({
-						'addcartviewdetailCreatetime': $('#search-create-time').val(),
-						'addcartviewdetailMotifytime': $('#search-confirm-time').val(),
-						'addcartviewdetailActnum': id
-					}),
-					async: false,
-					success: function (data) {
-						if (data.code == 100) {
-							callback && callback(data.extend.toDayNum);
-						} else {
-							toastr.error(data.extend.resMsg);
-						}
-					},
-					error: function () {
-						toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
-					}
-				});
-			}
-			function getStaticsCheckoutConversionData(id, callback) {
-				$.ajax({
-					url: "${APP_PATH}/MlbackAddCheakoutViewDetail/getAddCheakoutViewDetailNum",
-					type: "post",
-					dataType: "json",
-					contentType: 'application/json',
-					data: JSON.stringify({
-						'addcheakoutviewdetailCreatetime': $('#search-create-time').val(),
-						'addcheakoutviewdetailMotifytime': $('#search-confirm-time').val(),
-						'addcheakoutviewdetailActnum': id
-					}),
-					async: false,
-					success: function (data) {
-						if (data.code == 100) {
-							callback && callback(data.extend.toDayNum);
-						} else {
-							toastr.error(data.extend.resMsg);
-						}
-					},
-					error: function () {
-						toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
-					}
-				});
-			}			
-			/* statics cal */			
-			// cal user data
-			function calStaticsUserData(data) {
-				var createTime = getMilliseconds($('#search-create-time').val());
-				var endTime = getMilliseconds($('#search-confirm-time').val());
-				var staticsObj = {};
-				if (((endTime - createTime) / 3600000) <= 24) {
-					data.forEach(function(item) {
-						var hour = getHours(item.userCreatetime);
-						if (staticsObj[hour]) {
-							staticsObj[hour] += 1;
-						} else {
-							staticsObj[hour] = 1;
-						}
-					});
-					return {
-						type: 'hour',
-						result: staticsObj
-					};
-				} else if (((endTime - createTime) / 3600000) > 24 && ((endTime - createTime) / 86400000) < 31) {
-					data.forEach(function(item) {
-						var day = getDays(item.userCreatetime);
-						var month = getMonths(item.userCreatetime);
-						if (staticsObj[month+ '-' +day]) {
-							staticsObj[month+ '-' +day] += 1;
-						} else {
-							staticsObj[month+ '-' +day] = 1;
-						}
-					});
-					return {
-						type: 'day',
-						result: staticsObj
-					};
-				} else if (((endTime - createTime) / 86400000) < 366) {
-					data.forEach(function(item) {
-						var year = getYears(item.userCreatetime);
-						var month = getMonths(item.userCreatetime);
-						if (staticsObj[year + '-' + month]) {
-							staticsObj[year + '-' + month] += 1;
-						} else {
-							staticsObj[year + '-' + month] = 1;
-						}
-					});
-					return {
-						type: 'month',
-						result: staticsObj
-					};
-				} else {
-					toastr.warning('暂不支持超过一年的数据查询！');
-				}
-			}
-			// cal payinfo data
-			function calStaticsPayinfoData(data) {
-				var createTime = getMilliseconds($('#search-create-time').val());
-				var endTime = getMilliseconds($('#search-confirm-time').val());
-				var staticsObj = {};
-				if (((endTime - createTime) / 3600000) <= 24) {
-					data.forEach(function(item) {
-						var hour = getHours(item.payinfoCreatetime);
-						if (staticsObj[hour]) {
-							staticsObj[hour].quantity += 1;
-							staticsObj[hour].money += item.payinfoMoney;
-						} else {
-							staticsObj[hour] = {
-								quantity: 1,
-								money: item.payinfoMoney
-							};
-						}
-					});
-					return {
-						type: 'hour',
-						result: staticsObj
-					};
-				} else if (((endTime - createTime) / 3600000) > 24 && ((endTime - createTime) / 86400000) < 31) {
-					data.forEach(function(item) {
-						var day = getDays(item.payinfoCreatetime);
-						var month = getMonths(item.payinfoCreatetime);
-						if (staticsObj[month+ '-' +day]) {
-							staticsObj[month+ '-' +day].quantity += 1;
-							staticsObj[month+ '-' +day].money += item.payinfoMoney;
-						} else {
-							staticsObj[month+ '-' +day] = {
-								quantity: 1,
-								money: item.payinfoMoney
-							};
-						}
-					});
-					return {
-						type: 'day',
-						result: staticsObj
-					};
-				} else if (((endTime - createTime) / 86400000) < 366) {
-					data.forEach(function(item) {
-						var year = getYears(item.payinfoCreatetime);
-						var month = getMonths(item.payinfoCreatetime);
-						if (staticsObj[year + '-' + month]) {
-							staticsObj[year + '-' + month].quantity += 1;
-							staticsObj[year + '-' + month].money += item.payinfoMoney;
-						} else {
-							staticsObj[year + '-' + month] = {
-								quantity: 1,
-								money: item.payinfoMoney
-							};
-						}
-					});
-					return {
-						type: 'month',
-						result: staticsObj
-					};
-				} else {
-					toastr.warning('暂不支持超过一年的数据查询！');
-				}
-			}
-			/* generate coordinates data */
-			function generateCoordinatesData(data, type) {
-				function getDayOfMonth(val, flag) {
-					if (val == 2) {
-						return flag ? 29 : 28;
-					}
-					
-					return [1, 3, 5, 7, 8, 10, 12].indexOf(val) > -1 ? 31 : 30;
-				}
-				var coordinates = {
-						x: [],
-						y: []
-					};
-				var yData;
-				if (data.type == 'hour') {
-					for (var i=0; i<24; i+=1) {
-						coordinates.x.push(i + ':00');
-						if (type == 'user') {
-							yData = data.result[i] ? data.result[i] : 0;
-						}
-						if (type == 'payinfo') {
-							yData = data.result[i] ? (data.result[i].money).toFixed(2) : 0;
-						}
-						if (type == 'payinfoavg') {
-							yData = data.result[i] ? (data.result[i].money / data.result[i].quantity).toFixed(2) : 0;
-						}
-						if (type == 'payinfoorder') {
-							yData = data.result[i] ? data.result[i].quantity : 0;
-						}
-						coordinates.y.push(yData);
-					}
-				}
-				if (data.type == 'day') {
-					function makeDayMap() {
-						var map = [];
-						var createTime = $('#search-create-time').val();
-						var endTime = $('#search-confirm-time').val();
-						if (getMonths(createTime) == getMonths(endTime)) {
-							var month = getMonths(createTime);
-							var startDay = getDays(createTime);
-							var endDay = getDays(endTime);
-							for (var i = startDay; i <= endDay; i += 1) {
-								map.push(month + '-' + i);
-							}
-						} else {
-							var month = getMonths(createTime);
-							var month2 = getMonths(endTime);
-							var day = getDays(createTime);
-							var day2 = getDays(endTime);
-							var edg = getDayOfMonth(month, isLeapYear(createTime));
-							for (var i = day; i <= edg; i += 1) {
-								map.push(month + '-' + i);
-							}
+	<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
 
-							for (var j = 1; j <= day2; j += 1) {
-								map.push(month2 + '-' + j);
-							}
-						}
-						return map;
-					}
-					var dayMap = makeDayMap();
-					coordinates.x = dayMap;
-					for (var i = 0, len = dayMap.length; i < len; i += 1) {
-						if (type == 'user') {
-							yData = data.result[dayMap[i]] ? data.result[dayMap[i]] : 0;
-						}
-						if (type == 'payinfo') {
-							yData = data.result[dayMap[i]] ? (data.result[dayMap[i]].money).toFixed(2) : 0;
-						}
-						if (type == 'payinfoavg') {
-							yData = data.result[dayMap[i]] ? (data.result[dayMap[i]].money / data.result[dayMap[i]].quantity).toFixed(2) : 0;
-						}
-						if (type == 'payinfoorder') {
-							yData = data.result[dayMap[i]] ? data.result[dayMap[i]].quantity : 0;
-						}
-						
-						coordinates.y.push(yData);
-					}
+	<jsp:include page="common/deleteModal.jsp" flush="true"></jsp:include>
+	<jsp:include page="common/editModal.jsp" flush="true"></jsp:include>
+
+	<!-- custom script -->
+	<script>
+		var hasSuperCateList = false;
+		var isCreate = false;
+		var storageName = 'pagearea';
+
+		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
+	 	$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
+
+		// init
+		renderTabItems();
+		// save search
+		$('.btn-save-search').on('click', function () {
+			var searchPageareaVal = {
+				supercate: $('#searchSupercate').find('option:selected').text(),
+				supercateId: $('#searchSupercate').val(),
+				pagearea: $('#searchPagearea').val()
+			};
+			// cancel repeat add save-search
+			if (checkNewItem(searchPageareaVal)) return;
+			if (parseInt(searchPageareaVal.supercateId) < 0) searchPageareaVal.supercate = "";
+			if (searchPageareaVal.supercate || searchPageareaVal.pagearea) {
+				addStorageItem(searchPageareaVal);
+				$('.c-table-tab-tempory').html('');
+				createTableTabItem(searchPageareaVal);
+				addTableTabItem(searchPageareaVal, $('.c-table-tab-item').length);
+			}
+		});
+		// search it
+		$('#searchSupercate').on('change', function() {
+			$(this).attr('data-val', $(this).val());
+			updateSearchData();
+		});
+		var oldTime = (new Date()).getTime(),
+			timer = null;
+		$('#searchPagearea').on('keyup', function() {
+			var distanceTime = 1000,
+				newTime =  (new Date()).getTime();
+			if (newTime - oldTime < 1000) clearTimeout(timer);
+			oldTime = newTime;
+			timer = setTimeout(function() {
+				updateSearchData();
+			}, distanceTime);
+		});
+		// search status change
+		function updateSearchData() {
+			var searchPageareaVal = {
+				supercate: $('#searchSupercate').find('option:selected').text(),
+				supercateId: $('#searchSupercate').val(),
+				pagearea: $('#searchPagearea').val()
+			};
+			// inital pagination num
+			setPageNum(1);
+			// check searchPagearea
+			if (parseInt(searchPageareaVal.supercateId) < 0) searchPageareaVal.supercate = "";
+
+			$('.c-table-tab-item.active').removeClass('active');
+			$('.c-table-tab-tempory').html(createTableTabItem(searchPageareaVal).addClass('active'));
+			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
+		}
+		// tab-item click
+		$(document.body).on('click', '.c-table-tab-item', function (e) {
+			$('.c-table-tab-item').removeClass('active');
+			$(this).addClass('active');
+			// inital pagination num
+			setPageNum(1);
+			setActiveItemNum($(this).data('idx'));
+			getTabSearchData($(this));
+		});
+		// get Data for table
+		function getTabSearchData($this) {
+			var dataVal = $this.data('val');
+			if (dataVal && (dataVal.pagearea || dataVal.supercate)) {
+				$('#searchPagearea').val(dataVal.pagearea || '');
+				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
+				$('#searchSupercate').val(dataVal.supercateId || '-1');
+				getSearchMarkegingsData();
+			} else {
+				$('#searchSupercate').val('-1');
+				$('#searchPagearea').val('');
+				initActiveItemNum();
+				getPageAreasData();
+			}
+		}
+		// tab delete
+		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
+		// pagination a-click
+		$(document.body).on('click', '#table-pagination li', function (e) {
+			getTabSearchData($('.c-table-tab-item.active'));
+		});
+		// create page area
+		$('.btn-create').on('click', function () {
+			$('.c-create .c-option-title').text('Create Page Area');
+			showCreateBlock();
+			// init formData
+			resetFormData();
+			getPageAreaId();
+			isCreate = true;
+		});
+		// edit page area
+		$(document.body).on('click', '.btn-edit', function (e) {
+			var pageareaId = $(this).data('id');
+			getOnePageAreaData({
+			 pageareaId: pageareaId
+			}, function(resData) {
+			 	$('.c-create .c-option-title').text('Edit Page Area');
+				showCreateBlock();
+				initFormData(resData);
+			});			
+		});
+		// delete page area
+		$(document.body).on('click', '.btn-delete', function (e) {
+			var pageareaId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('Delete Page Area!');
+			$('#deleteModal').modal('show');
+			$('#deleteModal .btn-ok').one('click', function () {
+				deletePageAreaData({
+					pageareaId: pageareaId,
+				}, function() {
+					getPageAreasData();
+				});
+			});
+		});
+		$(window).on('beforeunload', function() {
+			var pageareaId = $('#pageareaId').val();
+			isCreate && pageareaId && deletePageAreaData({
+				pageareaId: pageareaId,
+			});
+		});
+		// save page area
+		$('.c-create .btn-save').on('click', function () {
+			savePageAreaData(getFormData(), function() {
+				// redirect tab-active & then search-data
+				if (isCreate) {
+					isCreate = false;
+					initActiveItemNum();
+					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
 				}
-				if (data.type == 'month') {
-					function makeMonthMap() {
-						var map = [];
-						var createTime = $('#search-create-time').val();
-						var endTime = $('#search-confirm-time').val();
-						if (getYears(createTime) == getYears(endTime)) {
-							var year = getYears(createTime);
-							var startMonth = getMonths(createTime);
-							var endMonth = getMonths(endTime);
-							for (var i = startMonth; i <= endMonth; i += 1) {
-								map.push(year + '-' + i);
-							}
+
+				getTabSearchData($('.c-table-tab-item.active'));
+				showInitBlock();
+				$('#pageareaId').val('');
+			});
+		});
+		// cancel page area save
+		$('.c-create .btn-cancel').on('click', function () {
+			if (isCreate) {
+				isCreate = false;
+				/* initActiveItemNum(); */
+				// delete null pagearea
+				deletePageAreaData({
+					pageareaId: $('#pageareaId').val(),
+				}, function() {
+					console.log("cancel create Page Area");
+				});
+			}
+
+			showInitBlock();
+		});
+		function showCreateBlock() {
+			$('.c-init').addClass('hide');
+			$('.c-create').removeClass('hide');
+		}
+		function showInitBlock() {
+			$('.c-init').removeClass('hide');
+			$('.c-create').addClass('hide');
+		}
+		// handle formData
+		// reset data
+		function resetFormData() {
+			$('#pageareaId').val('');
+			$('#pageareaName').val('');
+			$('#pageareaSeo').val('');
+			$('#pageareaStatus').prop('checked', false)
+			$('#pageareaSort').val('-1');
+			$('#pageareaPcstatus').prop('checked', false)
+			$('#pageareaPcsort').val('-1');
+			$('#pageareaAscription').val('');
+
+			$('#catalogSupercateId').val('-1');
+
+		}
+		// getFormdData
+		function getFormData() {
+			var data = {};
+			data.pageareaId = parseInt($('#pageareaId').val());
+			data.pageareaName = $('#pageareaName').val();
+			data.pageareaSeo = $('#pageareaSeo').val();
+			data.pageareaStatus = $('#pageareaStatus').prop('checked') ? 1 : 0;
+			data.pageareaSort = $('#pageareaSort').val();
+			data.pageareaPcstatus = $('#pageareaPcstatus').prop('checked') ? 1 : 0;
+			data.pageareaPcsort = $('#pageareaPcsort').val();
+			data.pageareaAscription = $('#pageareaAscription').val();
+
+			data.catalogSupercateId = $('#catalogSupercateId').val();
+			data.catalogSupercateName = $('#catalogSupercateId').find('option:selected').text();
+
+			return data;
+		}
+		// initFormData
+		function initFormData(data) {
+			// init
+			$('#pageareaId').val(data.pageareaId);
+			$('#pageareaName').val(data.pageareaName);
+			$('#pageareaSeo').val(data.pageareaSeo);
+			$('#pageareaStatus').prop('checked', data.pageareaStatus);
+			$('#pageareaSort').val(data.pageareaSort ? data.pageareaSort : '-1');
+			$('#pageareaPcstatus').prop(data.pageareaPcstatus);
+			$('#pageareaPcsort').val(data.pageareaPcsort ? data.pageareaPcsort : '-1');
+			$('#pageareaAscription').val(data.pageareaAscription);
+			
+			$('#catalogSupercateId').val(data.catalogSupercateId || '-1');
+		}
+		// callback get id
+		function getPageAreaId() {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH }/MlbackPageArea/initializaPageArea",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						var pageareaId = data.extend && data.extend.mlbackPageArea && data.extend.mlbackPageArea.pageareaId;
+						if (pageareaId) {
+							$('#pageareaId').val(pageareaId);
+							toastr.success(data.extend.resMsg);
 						} else {
-							var year = getYears(createTime);
-							var year2 = getYears(endTime);
-							var month = getMonths(createTime);
-							var month2 = getMonths(endTime);
-							for (var i = month; i <= 12; i += 1) {
-								map.push(year + '-' + i);
-							}
-
-							for (var j = 1; j <= month2; j += 1) {
-								map.push(year2 + '-' + j);
-							}
+							toastr.error('create page-area fail! Please try again.');
 						}
-						return map;
+					} else {
+						showInitBlock();
+						toastr.error(data.extend.resMsg);
 					}
-					var monthMap = makeMonthMap();
-					coordinates.x = monthMap;
-					for (var i = 0, len = monthMap.length; i < len; i += 1) {
-						if (type == 'user') {
-							yData = data.result[monthMap[i]] ? data.result[monthMap[i]] : 0;
-						}
-						if (type == 'payinfo') {
-							yData = data.result[monthMap[i]] ? (data.result[monthMap[i]].money).toFixed(2) : 0;
-						}
-						if (type == 'payinfoavg') {
-							yData = data.result[monthMap[i]] ? (data.result[monthMap[i]].money / data.result[monthMap[i]].quantity).toFixed(2) : 0;
-						}
-						if (type == 'payinfoorder') {
-							yData = data.result[monthMap[i]] ? data.result[monthMap[i]].quantity : 0;
-						}
-						coordinates.y.push(yData);
-					}
-				}
-				return coordinates;
-			}
-			// generate chart
-			function generateChart($el, coordinates) {
-				// console.log(coordinates)
-				$el.css('height', 300);
-				var instance = echarts.init($el[0]);
-				instance.setOption({
-					enableBasicAutocompletion: !0,
-			        enableSnippets: !0,
-			        enableLiveAutocompletion: !0,
-					tooltip: {
-						formatter: '{b0} : {c0}'
-					},
-				    xAxis: {
-				        type: 'category',
-				        data: coordinates.x
-				    },
-				    yAxis: {
-				        type: 'value'
-				    },
-				    series: [{
-				        data: coordinates.y,
-				        type: 'line'
-				    }]
-				});
-				chartInstance.push(instance);
-				$el.parents('.card').find('.card-mask').hide();
-			}
-			// generate payinfo chart
-			function generatePayinfoChart() {
-				getStaticsPayinfoData(function(data, allOrder) {
-					function getCalPayinfoMoney(data) {
-						var acc = 0;
-						for (var key in data) {
-							acc += data[key].money;
-						}
-						return acc;
-					}
-					function getCalPayinfoQuantity(data) {
-						var acc = 0;
-						for (var key in data) {
-							acc += data[key].quantity;
-						}
-						return acc;
-					}
-					var calPayinfo = calStaticsPayinfoData(data);
-					var allCalPayinfoMoney = (calPayinfo.result && getCalPayinfoMoney(calPayinfo.result)) || 0;
-					var allCalPayinfoQuantity = (calPayinfo.result && getCalPayinfoQuantity(calPayinfo.result)) || 0;
-					var calPayinfoAvgMoney = allCalPayinfoMoney && allCalPayinfoQuantity ? (allCalPayinfoMoney / allCalPayinfoQuantity).toFixed(2) : 0;
-					// total
-					$('.payinfo-total-money').text('$' + allCalPayinfoMoney.toFixed(2) );
-					generateChart($('#payinfo-total-chart'), generateCoordinatesData(calPayinfo, 'payinfo'));
-					// payinfo order
-					totalPayinfoNum = allCalPayinfoQuantity;
-					$('.payinfo-order').text(allCalPayinfoQuantity + ' / ' + allOrder);
-					generateChart($('#payinfo-order-chart'), generateCoordinatesData(calPayinfo, 'payinfoorder'));
-					// avg
-					$('.payinfo-avg-money').text('$' + calPayinfoAvgMoney);
-					generateChart($('#payinfo-avg-chart'), generateCoordinatesData(calPayinfo, 'payinfoavg'));
-				});
-			}
-			// generate user chart
-			function generateUserChart() {
-				getStaticsUserData(function(data) {
-					function getCalUserQuantity(data) {
-						var acc = 0;
-						for (var key in data) {
-							acc += data[key];
-						}
-						return acc;
-					}
-					var calUser = calStaticsUserData(data);
-					var allCalUserQuantity = (calUser.result && getCalUserQuantity(calUser.result)) || 0;
-					$('.user-quantity').text(allCalUserQuantity);
-					generateChart($('#user-chart'), generateCoordinatesData(calUser, 'user'));
-				});
-			}
-			// generate order conversion
-			function generateOrderConversion() {
-				var htmlStr = '';
-				var totalNum = 0;
-				var addToCartNum = 0;
-				var buyNowNum = 0;
-				var checkoutNum = 0;
-				var checkoutNum2 = 0;
-				var coversionRate = 0;
-				var mapRate = {
-						'add-to-cart': 0.00,
-						'buy-now': 0.00,
-						'checkout': 0.00,
-						'checkout2': 0.00
-					};
-				getStaticsOrderConversionData(0, function(data) {
-					addToCartNum = data;
-				});
-				getStaticsOrderConversionData(1, function(data) {
-					buyNowNum = data;
-				});
-				getStaticsCheckoutConversionData(0, function(data) {
-					checkoutNum = data;
-				});
-				getStaticsCheckoutConversionData(1, function(data) {
-					checkoutNum2 = data;
-				});
-				totalNum = addToCartNum + buyNowNum + checkoutNum + checkoutNum2;
-				if (totalNum) {
-					mapRate['add-to-cart'] = (addToCartNum * 100 / totalNum);
-					mapRate['buy-now'] = (buyNowNum * 100 / totalNum);
-					mapRate['checkout'] = (checkoutNum * 100 / totalNum);
-					mapRate['checkout2'] = (checkoutNum2 * 100 / totalNum);
-
-					coversionRate = (100 * totalPayinfoNum / totalNum).toFixed(2);
-				}
-				/* htmlStr = '<div class="order-conversion-item">'+
-						'<span class="name">Added to cart (default)</span>' +
-						'<span class="num">'+ addToCartNum +' sessions</span>' +
-						'<span class="rate">'+ mapRate["add-to-cart"] +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackAddCartViewDetail/toMlbackAddCartViewDetailPage#0">View Report</a>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-						'<span class="name">Added to cart (from buynow)</span>' +
-						'<span class="num">'+ buyNowNum +' sessions</span>' +
-						'<span class="rate">'+ mapRate["buy-now"] +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackAddCartViewDetail/toMlbackAddCartViewDetailPage#1">View Report</a>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-						'<span class="name">Checout (default)</span>' +
-						'<span class="num">'+ checkoutNum +' sessions</span>' +
-						'<span class="rate">'+ mapRate["checkout"] +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackAddCheakoutViewDetail/toMlbackAddCheakoutViewDetailPage#0">View Report</a>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-						'<span class="name">Checout (from buynow)</span>' +
-						'<span class="num">'+ checkoutNum2 +' sessions</span>' +
-						'<span class="rate">'+ mapRate["checkout2"] +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackAddCheakoutViewDetail/toMlbackAddCheakoutViewDetailPage#1">View Report</a>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-					'<span class="name">conversion Rate</span>' +
-					'<span class="num">'+ totalPayinfoNum +' sessions</span>' +
-					'<span class="rate">'+ coversionRate +'%</span>' +
-				'</div>'; */
-				htmlStr = '<div class="order-conversion-item">'+
-						'<span class="name">Added to cart</span>' +
-						'<span class="num">'+ (addToCartNum + buyNowNum) +' sessions</span>' +
-						'<span class="rate">'+ (mapRate["add-to-cart"] + mapRate["buy-now"]).toFixed(2) +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackAddCartViewDetail/toMlbackAddCartViewDetailPage">View Report</a>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-						'<span class="name">Checout</span>' +
-						'<span class="num">'+ (checkoutNum + checkoutNum2) +' sessions</span>' +
-						'<span class="rate">'+ (mapRate["checkout"] + mapRate["checkout2"]).toFixed(2) +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackAddCheakoutViewDetail/toMlbackAddCheakoutViewDetailPage">View Report</a>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-						'<span class="name">conversion Rate</span>' +
-						'<span class="num">'+ totalPayinfoNum +' sessions</span>' +
-						'<span class="rate">'+ coversionRate +'%</span>' +
-					'</div>';
-				$('#order-conversion').html(htmlStr).parents('.card').find('.card-mask').hide();
-				$('.order-conversion-rate').text(coversionRate + '%');
-			}
-			// generate dashboard
-			function generateDashBoard(startTime, endTime) {
-				$('#search-create-time').val(startTime);
-				$('#search-confirm-time').val(endTime);
-				generatePayinfoChart();
-				generateUserChart();
-				generateOrderConversion();
-			}
-			/* init */
-			var totalPayinfoNum = 0;
-			var chartInstance = []
-			var date = new Date();
-			var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-			bindDateRangeEvent(generateDashBoard);
-			generateDashBoard(ymd + ' 00:00:00', ymd + ' 23:59:59');
-			// resize for chart
-			$(window).on('resize', function() {
-				if (chartInstance.length) {
-					chartInstance.forEach(function(item, idx) {
-						item.resize();
-					});
-				} else {
-					generateDashBoard($('#search-create-time').val(), $('#search-confirm-time').val());
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
 				}
 			});
-		</script>
-	</body>
+		}
+		// callback get all data
+		function getPageAreasData() {
+			$('.c-mask').show();
+
+			var formData = new FormData();
+			formData.append('pn', getPageNum());
+
+			$.ajax({
+				url: "${APP_PATH}/MlbackPageArea/getMlbackPageAreaByPage",
+				type: "post",
+				processData: false,
+				contentType: false,
+				cache: false,
+				data: formData,
+				success: function (data) {
+					if (data.code == 100) {
+						renderTable(data.extend.pageInfo.list);
+						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get Page Area, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback get one data
+		function getOnePageAreaData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackPageArea/getOneMlbackPageAreaDetail",
+				type: "post",
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend.mlbackPageAreaOne);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get Page Area, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback get search data
+		function getSearchMarkegingsData(data) {
+			$('.c-mask').show();
+
+			var formData = new FormData();
+			formData.append('pageareaName', $('#searchCatalog').val());
+			formData.append('catalogSupercateId', ($('#searchSupercate').attr('data-val') || '-1'));
+			formData.append('pn', getPageNum());
+
+			$.ajax({
+				url: "${APP_PATH}/MlbackCatalog/backSearchByCatalog",
+				type: "post",
+				processData: false,
+				contentType: false,
+				cache: false,
+				data: formData,
+				success: function (data) {
+					if (data.code == 100) {
+						renderTable(data.extend.pageInfo.list);
+						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get Page Area, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback save
+		function savePageAreaData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackPageArea/save",
+				type: "post",
+				cache: false,
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						callback();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback delete
+		function deletePageAreaData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackPageArea/delete",
+				type: "post",
+				cache: false,
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						$('#deleteModal').modal('hide');
+						callback();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// init table-list
+		function renderTable(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				htmlStr += '<tr><td>' + data[i].pageareaId + '</td>' +
+					'<td>' + data[i].pageareaName + '</td>' +
+					'<td>' + data[i].pageareaSeo + '</td>' +
+					'<td><a class="badge '+ (data[i].pageareaStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].pageareaStatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td>' + data[i].pageareaSort + '</td>' +
+					'<td><a class="badge '+ (data[i].pageareaPcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].pageareaPcstatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td>' + data[i].pageareaPcsort + '</td>' +
+					'<td>' + data[i].pageareaAscription + '</td>' +
+					'<td>' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].pageareaId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
+							'</svg>' +
+						'</button>' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].pageareaId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
+							'</svg>' +
+						'</button>' +
+					'</td></tr>';
+			}
+			$('.c-table-table tbody').html(htmlStr);
+		}
+	</script>
+</body>
+
 </html>
