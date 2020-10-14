@@ -326,13 +326,16 @@ public class MlbackCategoryController {
 		 }
 		 
 		 String cateImg = "";
+		 Integer cateImgStatus = 0;
 		 String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
 		 if(ifMobile.equals("1")){
 			  cateImg = mlbackCategoryres.getCategoryImgurl();
+			  cateImgStatus=mlbackCategoryres.getCategoryImgstatus();
 		 }else{
 			  cateImg = mlbackCategoryres.getCategoryImgpcurl();
+			  cateImgStatus = mlbackCategoryres.getCategoryImgpcstatus();
 		 }
-		 return Msg.success().add("resMsg", "searchBycategorySeo完毕").add("cateImg", cateImg)
+		 return Msg.success().add("resMsg", "searchBycategorySeo完毕").add("cateImg", cateImg).add("cateImgStatus", cateImgStatus)
 				 .add("mlbackProductResList", mlbackProductResList).add("mlbackCategorydownList", mlbackCategorydownList);
 	 }
 
