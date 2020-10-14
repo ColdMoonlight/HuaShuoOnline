@@ -30,10 +30,7 @@
     from tb_mlblack_pagearea
     where pagearea_id = #{pageareaId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_mlblack_pagearea
-    where pagearea_id = #{pageareaId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.atguigu.bean.MlbackPageArea">
     insert into tb_mlblack_pagearea (pagearea_id, pagearea_seo, pagearea_name, 
       pagearea_ascription, pagearea_superCateId, 
@@ -48,7 +45,28 @@
       #{pageareaType,jdbcType=INTEGER}, #{pageareaTypedetail,jdbcType=VARCHAR}, #{pageareaTypedetailIdstr,jdbcType=VARCHAR}, 
       #{pageareaCreatetime,jdbcType=VARCHAR}, #{pageareaMotifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackPageArea">
+
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackPageArea">
+    update tb_mlblack_pagearea
+    set pagearea_seo = #{pageareaSeo,jdbcType=VARCHAR},
+      pagearea_name = #{pageareaName,jdbcType=VARCHAR},
+      pagearea_ascription = #{pageareaAscription,jdbcType=VARCHAR},
+      pagearea_superCateId = #{pageareaSupercateid,jdbcType=INTEGER},
+      pagearea_superCateName = #{pageareaSupercatename,jdbcType=VARCHAR},
+      pagearea_status = #{pageareaStatus,jdbcType=INTEGER},
+      pagearea_sort = #{pageareaSort,jdbcType=INTEGER},
+      pagearea_pcstatus = #{pageareaPcstatus,jdbcType=INTEGER},
+      pagearea_pcsort = #{pageareaPcsort,jdbcType=INTEGER},
+      pagearea_type = #{pageareaType,jdbcType=INTEGER},
+      pagearea_typeDetail = #{pageareaTypedetail,jdbcType=VARCHAR},
+      pagearea_typeDetail_idStr = #{pageareaTypedetailIdstr,jdbcType=VARCHAR},
+      pagearea_createTime = #{pageareaCreatetime,jdbcType=VARCHAR},
+      pagearea_motifyTime = #{pageareaMotifytime,jdbcType=VARCHAR}
+    where pagearea_id = #{pageareaId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pageareaId" parameterType="com.atguigu.bean.MlbackPageArea">
     insert into tb_mlblack_pagearea
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pageareaId != null">
@@ -145,6 +163,12 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlblack_pagearea
+    where pagearea_id = #{pageareaId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackPageArea">
     update tb_mlblack_pagearea
     <set>
@@ -193,22 +217,15 @@
     </set>
     where pagearea_id = #{pageareaId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackPageArea">
-    update tb_mlblack_pagearea
-    set pagearea_seo = #{pageareaSeo,jdbcType=VARCHAR},
-      pagearea_name = #{pageareaName,jdbcType=VARCHAR},
-      pagearea_ascription = #{pageareaAscription,jdbcType=VARCHAR},
-      pagearea_superCateId = #{pageareaSupercateid,jdbcType=INTEGER},
-      pagearea_superCateName = #{pageareaSupercatename,jdbcType=VARCHAR},
-      pagearea_status = #{pageareaStatus,jdbcType=INTEGER},
-      pagearea_sort = #{pageareaSort,jdbcType=INTEGER},
-      pagearea_pcstatus = #{pageareaPcstatus,jdbcType=INTEGER},
-      pagearea_pcsort = #{pageareaPcsort,jdbcType=INTEGER},
-      pagearea_type = #{pageareaType,jdbcType=INTEGER},
-      pagearea_typeDetail = #{pageareaTypedetail,jdbcType=VARCHAR},
-      pagearea_typeDetail_idStr = #{pageareaTypedetailIdstr,jdbcType=VARCHAR},
-      pagearea_createTime = #{pageareaCreatetime,jdbcType=VARCHAR},
-      pagearea_motifyTime = #{pageareaMotifytime,jdbcType=VARCHAR}
+  <!-- selectMlbackPageAreaGetAll -->
+  <select id="selectMlbackPageAreaGetAll" parameterType="com.atguigu.bean.MlbackPageArea" resultMap="BaseResultMap">
+    select *
+    from tb_mlblack_pagearea order by pagearea_id desc
+  </select>
+  <!-- selectMlbackPageAreaById -->
+  <select id="selectMlbackPageAreaById" parameterType="com.atguigu.bean.MlbackPageArea" resultMap="BaseResultMap">
+    select *
+    from tb_mlblack_pagearea 
     where pagearea_id = #{pageareaId,jdbcType=INTEGER}
-  </update>
+  </select>
 </mapper>

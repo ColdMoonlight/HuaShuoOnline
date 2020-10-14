@@ -150,4 +150,42 @@ public class MlbackPageArea {
     public void setPageareaMotifytime(String pageareaMotifytime) {
         this.pageareaMotifytime = pageareaMotifytime == null ? null : pageareaMotifytime.trim();
     }
+
+	public MlbackPageArea() {
+		super();
+	}
+
+	public MlbackPageArea(Integer pageareaId, String pageareaSeo, String pageareaName, String pageareaAscription,
+			Integer pageareaSupercateid, String pageareaSupercatename, Integer pageareaStatus, Integer pageareaSort,
+			Integer pageareaPcstatus, Integer pageareaPcsort, Integer pageareaType, String pageareaTypedetail,
+			String pageareaTypedetailIdstr, String pageareaCreatetime, String pageareaMotifytime) {
+		super();
+		this.pageareaId = pageareaId;
+		this.pageareaSeo = pageareaSeo;
+		this.pageareaName = pageareaName;
+		this.pageareaAscription = pageareaAscription;
+		this.pageareaSupercateid = pageareaSupercateid;
+		this.pageareaSupercatename = pageareaSupercatename;
+		this.pageareaStatus = pageareaStatus;
+		this.pageareaSort = pageareaSort;
+		this.pageareaPcstatus = pageareaPcstatus;
+		this.pageareaPcsort = pageareaPcsort;
+		this.pageareaType = pageareaType;
+		this.pageareaTypedetail = pageareaTypedetail;
+		this.pageareaTypedetailIdstr = pageareaTypedetailIdstr;
+		this.pageareaCreatetime = pageareaCreatetime;
+		this.pageareaMotifytime = pageareaMotifytime;
+	}
+
+	@Override
+	public String toString() {
+		return "MlbackPageArea [pageareaId=" + pageareaId + ", pageareaSeo=" + pageareaSeo + ", pageareaName="
+				+ pageareaName + ", pageareaAscription=" + pageareaAscription + ", pageareaSupercateid="
+				+ pageareaSupercateid + ", pageareaSupercatename=" + pageareaSupercatename + ", pageareaStatus="
+				+ pageareaStatus + ", pageareaSort=" + pageareaSort + ", pageareaPcstatus=" + pageareaPcstatus
+				+ ", pageareaPcsort=" + pageareaPcsort + ", pageareaType=" + pageareaType + ", pageareaTypedetail="
+				+ pageareaTypedetail + ", pageareaTypedetailIdstr=" + pageareaTypedetailIdstr + ", pageareaCreatetime="
+				+ pageareaCreatetime + ", pageareaMotifytime=" + pageareaMotifytime + "]";
+	}
+    
 }
