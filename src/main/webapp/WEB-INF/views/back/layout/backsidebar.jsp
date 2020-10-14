@@ -146,6 +146,15 @@
 				</li>
 			</ul>
 		</li>
+		<!-- index-area -->
+		<li class="c-sidebar-nav-item">
+			<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackPageArea/MlbackPageAreaPage">
+				<svg class="c-sidebar-nav-icon">
+					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-calculator"></use>
+				</svg>
+				<span class="c-text">Home Page Area</span>
+			</a>
+		</li>
 		<!-- foot nav -->
 		<li class="c-sidebar-nav-item">
 			<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackFootNav/toMlbackFootNavPage">
