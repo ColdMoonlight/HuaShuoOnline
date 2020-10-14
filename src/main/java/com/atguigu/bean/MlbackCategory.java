@@ -7,7 +7,7 @@ public class MlbackCategory {
 
     private String categoryImgurl;
     
-    private Integer categoryImgStatus;
+    private Integer categoryImgstatus;
 
     private Integer categoryParentId;
 
@@ -33,7 +33,7 @@ public class MlbackCategory {
 
     private String categoryImgpcurl;
     
-    private Integer categoryImgPcStatus;
+    private Integer categoryImgpcstatus;
 
     private String categoryMetatitle;
 
@@ -68,8 +68,17 @@ public class MlbackCategory {
     public void setCategoryImgurl(String categoryImgurl) {
         this.categoryImgurl = categoryImgurl == null ? null : categoryImgurl.trim();
     }
+    
 
-    public Integer getCategoryParentId() {
+    public Integer getCategoryImgstatus() {
+		return categoryImgstatus;
+	}
+
+	public void setCategoryImgstatus(Integer categoryImgstatus) {
+		this.categoryImgstatus = categoryImgstatus;
+	}
+
+	public Integer getCategoryParentId() {
         return categoryParentId;
     }
 
@@ -165,6 +174,14 @@ public class MlbackCategory {
         this.categoryImgpcurl = categoryImgpcurl == null ? null : categoryImgpcurl.trim();
     }
 
+	public Integer getCategoryImgpcstatus() {
+		return categoryImgpcstatus;
+	}
+
+	public void setCategoryImgpcstatus(Integer categoryImgpcstatus) {
+		this.categoryImgpcstatus = categoryImgpcstatus;
+	}
+
     public String getCategoryMetatitle() {
         return categoryMetatitle;
     }
@@ -205,17 +222,17 @@ public class MlbackCategory {
 		this.categorySuperCateName = categorySuperCateName == null ? null : categorySuperCateName.trim();
 	}
 	
-	public MlbackCategory(Integer categoryId, String categoryName, String categoryImgurl, Integer categoryImgStatus,
+	public MlbackCategory(Integer categoryId, String categoryName, String categoryImgurl, Integer categoryImgstatus,
 			Integer categoryParentId, String categoryParentName, Integer categoryStatus, Integer categoryLable,
 			String categorySeo, Integer categorySortOrder, String categoryCreatetime, String categoryMotifytime,
 			String categoryDesc, String categoryProductIds, String categoryProductNames, String categoryImgpcurl,
-			Integer categoryImgPcStatus, String categoryMetatitle, String categoryMetakeywords, String categoryMetadesc,
+			Integer categoryImgpcstatus, String categoryMetatitle, String categoryMetakeywords, String categoryMetadesc,
 			Integer categorySuperCateId, String categorySuperCateName) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryImgurl = categoryImgurl;
-		this.categoryImgStatus = categoryImgStatus;
+		this.categoryImgstatus = categoryImgstatus;
 		this.categoryParentId = categoryParentId;
 		this.categoryParentName = categoryParentName;
 		this.categoryStatus = categoryStatus;
@@ -228,7 +245,7 @@ public class MlbackCategory {
 		this.categoryProductIds = categoryProductIds;
 		this.categoryProductNames = categoryProductNames;
 		this.categoryImgpcurl = categoryImgpcurl;
-		this.categoryImgPcStatus = categoryImgPcStatus;
+		this.categoryImgpcstatus = categoryImgpcstatus;
 		this.categoryMetatitle = categoryMetatitle;
 		this.categoryMetakeywords = categoryMetakeywords;
 		this.categoryMetadesc = categoryMetadesc;
@@ -243,13 +260,13 @@ public class MlbackCategory {
 	@Override
 	public String toString() {
 		return "MlbackCategory [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryImgurl="
-				+ categoryImgurl + ", categoryImgStatus=" + categoryImgStatus + ", categoryParentId=" + categoryParentId
+				+ categoryImgurl + ", categoryImgstatus=" + categoryImgstatus + ", categoryParentId=" + categoryParentId
 				+ ", categoryParentName=" + categoryParentName + ", categoryStatus=" + categoryStatus
 				+ ", categoryLable=" + categoryLable + ", categorySeo=" + categorySeo + ", categorySortOrder="
 				+ categorySortOrder + ", categoryCreatetime=" + categoryCreatetime + ", categoryMotifytime="
 				+ categoryMotifytime + ", categoryDesc=" + categoryDesc + ", categoryProductIds=" + categoryProductIds
 				+ ", categoryProductNames=" + categoryProductNames + ", categoryImgpcurl=" + categoryImgpcurl
-				+ ", categoryImgPcStatus=" + categoryImgPcStatus + ", categoryMetatitle=" + categoryMetatitle
+				+ ", categoryImgpcstatus=" + categoryImgpcstatus + ", categoryMetatitle=" + categoryMetatitle
 				+ ", categoryMetakeywords=" + categoryMetakeywords + ", categoryMetadesc=" + categoryMetadesc
 				+ ", categorySuperCateId=" + categorySuperCateId + ", categorySuperCateName=" + categorySuperCateName
 				+ "]";

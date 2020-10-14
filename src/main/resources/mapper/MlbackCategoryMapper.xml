@@ -5,7 +5,7 @@
  	<id column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
     <result column="category_imgurl" jdbcType="VARCHAR" property="categoryImgurl" />
-    <result column="category_imgstatus" jdbcType="INTEGER" property="categoryImgStatus" />
+    <result column="category_imgstatus" jdbcType="INTEGER" property="categoryImgstatus" />
     <result column="category_parent_id" jdbcType="INTEGER" property="categoryParentId" />
     <result column="category_parent_name" jdbcType="VARCHAR" property="categoryParentName" />
     <result column="category_status" jdbcType="INTEGER" property="categoryStatus" />
@@ -18,7 +18,7 @@
     <result column="category_product_ids" jdbcType="VARCHAR" property="categoryProductIds" />
     <result column="category_product_names" jdbcType="VARCHAR" property="categoryProductNames" />
     <result column="category_imgpcurl" jdbcType="VARCHAR" property="categoryImgpcurl" />
-    <result column="category_imgpcstatus" jdbcType="INTEGER" property="categoryImgPcStatus" />
+    <result column="category_imgpcstatus" jdbcType="INTEGER" property="categoryImgpcstatus" />
     <result column="category_metaTitle" jdbcType="VARCHAR" property="categoryMetatitle" />
     <result column="category_metaKeyWords" jdbcType="VARCHAR" property="categoryMetakeywords" />
     <result column="category_metaDesc" jdbcType="VARCHAR" property="categoryMetadesc" />
@@ -49,12 +49,12 @@
       category_desc, category_product_ids, category_product_names, 
       category_imgpcurl, category_imgpcstatus, category_metaTitle, category_metaKeyWords, 
       category_metaDesc,category_superCate_id, category_superCate_name)
-    values (#{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{categoryImgurl,jdbcType=VARCHAR}, #{categoryImgStatus,jdbcType=INTEGER}, 
+    values (#{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{categoryImgurl,jdbcType=VARCHAR}, #{categoryImgstatus,jdbcType=INTEGER}, 
       #{categoryParentId,jdbcType=INTEGER}, #{categoryParentName,jdbcType=VARCHAR}, #{categoryStatus,jdbcType=INTEGER}, 
       #{categoryLable,jdbcType=INTEGER}, #{categorySeo,jdbcType=VARCHAR}, #{categorySortOrder,jdbcType=INTEGER}, 
       #{categoryCreatetime,jdbcType=VARCHAR}, #{categoryMotifytime,jdbcType=VARCHAR}, 
       #{categoryDesc,jdbcType=VARCHAR}, #{categoryProductIds,jdbcType=VARCHAR}, #{categoryProductNames,jdbcType=VARCHAR}, 
-      #{categoryImgpcurl,jdbcType=VARCHAR}, #{categoryImgPcStatus,jdbcType=INTEGER}, #{categoryMetatitle,jdbcType=VARCHAR}, #{categoryMetakeywords,jdbcType=VARCHAR}, 
+      #{categoryImgpcurl,jdbcType=VARCHAR}, #{categoryImgpcstatus,jdbcType=INTEGER}, #{categoryMetatitle,jdbcType=VARCHAR}, #{categoryMetakeywords,jdbcType=VARCHAR}, 
       #{categoryMetadesc,jdbcType=VARCHAR}, #{categorySuperCateId,jdbcType=INTEGER}, #{categorySuperCateName,jdbcType=VARCHAR})
 
   </insert>
@@ -70,7 +70,7 @@
       <if test="categoryImgurl != null">
         category_imgurl,
       </if>
-      <if test="categoryImgStatus != null">
+      <if test="categoryImgstatus != null">
         category_imgstatus,
       </if>
       <if test="categoryParentId != null">
@@ -109,7 +109,7 @@
       <if test="categoryImgpcurl != null">
         category_imgpcurl,
       </if>
-      <if test="categoryImgPcStatus != null">
+      <if test="categoryImgpcstatus != null">
         category_imgpcstatus,
       </if>
       <if test="categoryMetatitle != null">
@@ -138,8 +138,8 @@
       <if test="categoryImgurl != null">
         #{categoryImgurl,jdbcType=VARCHAR},
       </if>
-      <if test="categoryImgStatus != null">
-        #{categoryImgStatus,jdbcType=INTEGER},
+      <if test="categoryImgstatus != null">
+        #{categoryImgstatus,jdbcType=INTEGER},
       </if>
       <if test="categoryParentId != null">
         #{categoryParentId,jdbcType=INTEGER},
@@ -177,8 +177,8 @@
       <if test="categoryImgpcurl != null">
         #{categoryImgpcurl,jdbcType=VARCHAR},
       </if>
-      <if test="categoryImgPcStatus != null">
-        #{categoryImgPcStatus,jdbcType=INTEGER},
+      <if test="categoryImgpcstatus != null">
+        #{categoryImgpcstatus,jdbcType=INTEGER},
       </if>
       <if test="categoryMetatitle != null">
         #{categoryMetatitle,jdbcType=VARCHAR},
@@ -206,8 +206,8 @@
       <if test="categoryImgurl != null">
         category_imgurl = #{categoryImgurl,jdbcType=VARCHAR},
       </if>
-      <if test="categoryImgStatus != null">
-        category_imgstatus = #{categoryImgStatus,jdbcType=INTEGER},
+      <if test="categoryImgstatus != null">
+        category_imgstatus = #{categoryImgstatus,jdbcType=INTEGER},
       </if>
       <if test="categoryParentId != null">
         category_parent_id = #{categoryParentId,jdbcType=INTEGER},
@@ -245,8 +245,8 @@
       <if test="categoryImgpcurl != null">
         category_imgpcurl = #{categoryImgpcurl,jdbcType=VARCHAR},
       </if>
-      <if test="categoryImgPcStatus != null">
-        category_imgpcstatus = #{categoryImgPcStatus,jdbcType=INTEGER},
+      <if test="categoryImgpcstatus != null">
+        category_imgpcstatus = #{categoryImgpcstatus,jdbcType=INTEGER},
       </if>
       <if test="categoryMetatitle != null">
         category_metaTitle = #{categoryMetatitle,jdbcType=VARCHAR},
@@ -270,7 +270,7 @@
     update tb_mlback_category
     set category_name = #{categoryName,jdbcType=VARCHAR},
       category_imgurl = #{categoryImgurl,jdbcType=VARCHAR},
-      category_imgstatus = #{categoryImgStatus,jdbcType=INTEGER},
+      category_imgstatus = #{categoryImgstatus,jdbcType=INTEGER},
       category_parent_id = #{categoryParentId,jdbcType=INTEGER},
       category_parent_name = #{categoryParentName,jdbcType=VARCHAR},
       category_status = #{categoryStatus,jdbcType=INTEGER},
@@ -283,7 +283,7 @@
       category_product_ids = #{categoryProductIds,jdbcType=VARCHAR},
       category_product_names = #{categoryProductNames,jdbcType=VARCHAR},
       category_imgpcurl = #{categoryImgpcurl,jdbcType=VARCHAR},
-      category_imgpcstatus = #{categoryImgPcStatus,jdbcType=INTEGER},
+      category_imgpcstatus = #{categoryImgpcstatus,jdbcType=INTEGER},
       category_metaTitle = #{categoryMetatitle,jdbcType=VARCHAR},
       category_metaKeyWords = #{categoryMetakeywords,jdbcType=VARCHAR},
       category_metaDesc = #{categoryMetadesc,jdbcType=VARCHAR},
@@ -311,8 +311,8 @@
       <if test="categoryImgurl != null">
         category_imgurl = #{categoryImgurl,jdbcType=VARCHAR},
       </if>
-      <if test="categoryImgStatus != null">
-        category_imgstatus = #{categoryImgStatus,jdbcType=INTEGER},
+      <if test="categoryImgstatus != null">
+        category_imgstatus = #{categoryImgstatus,jdbcType=INTEGER},
       </if>
       <if test="categoryParentId != null">
         category_parent_id = #{categoryParentId,jdbcType=INTEGER},
@@ -350,8 +350,8 @@
       <if test="categoryImgpcurl != null">
         category_imgpcurl = #{categoryImgpcurl,jdbcType=VARCHAR},
       </if>
-      <if test="categoryImgPcStatus != null">
-        category_imgpcstatus = #{categoryImgPcStatus,jdbcType=INTEGER},
+      <if test="categoryImgpcstatus != null">
+        category_imgpcstatus = #{categoryImgpcstatus,jdbcType=INTEGER},
       </if>
       <if test="categoryMetatitle != null">
         category_metaTitle = #{categoryMetatitle,jdbcType=VARCHAR},
