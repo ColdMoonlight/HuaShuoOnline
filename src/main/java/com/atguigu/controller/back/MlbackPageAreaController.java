@@ -8,19 +8,19 @@ import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.service.MlfrontUserService;
 
 /**
- * MlbackPagearea
+ * MlbackPageArea
  * @author
  */
 @Controller
-@RequestMapping("/MlbackPagearea")
-public class MlbackPageareaController {
+@RequestMapping("/MlbackPageArea")
+public class MlbackPageAreaController {
 	
 	@Autowired
 	MlfrontUserService mlfrontUserService;
 	
 	/**
 	 * zsh 201014
-	 * 中控台首页
+	 * 首页后台控制台
 	 * */
 	@RequestMapping("/MlbackPageareaPage")
 	public String MlbackPageareaPage(HttpSession session) throws Exception{
