@@ -89,7 +89,7 @@ public class MlbackPageAreaController {
 		System.out.println("插入前"+mlbackPageArea.toString());
 		mlbackPageAreaService.insertSelective(mlbackPageArea);
 		System.out.println("插入后"+mlbackPageArea.toString());
-		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackPageArea", mlbackPageArea);
+		return Msg.success().add("resMsg", "PageArea初始化成功").add("mlbackPageArea", mlbackPageArea);
 	}
 	
 	/**4.0	20201014
