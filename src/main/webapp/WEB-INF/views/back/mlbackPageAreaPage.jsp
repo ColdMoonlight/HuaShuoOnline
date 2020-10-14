@@ -49,6 +49,7 @@
 											<th>wap-sort</th>
 											<th>pc-status</th>
 											<th>pc-sort</th>
+											<th>supercate</th>
 											<th>desc</th>
 											<th>operate</th>
 										</tr>
@@ -209,9 +210,9 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="catalogSupercateId">Super Category</label>
+										<label class="col-form-label" for="pageareaSupercateid">Super Category</label>
 										<div class="controls">
-											<select class="form-control supercate-list" id="catalogSupercateId" /></select>
+											<select class="form-control supercate-list" id="pageareaSupercateid" /></select>
 										</div>
 									</div>
 								</div>
@@ -415,7 +416,7 @@
 
 			$('#pageareaAscription').val('');
 
-			$('#catalogSupercateId').val('-1');
+			$('#pageareaSupercateid').val('-1');
 
 		}
 		// getFormdData
@@ -433,8 +434,8 @@
 
 			data.pageareaAscription = $('#pageareaAscription').val();
 
-			data.catalogSupercateId = $('#catalogSupercateId').val();
-			data.catalogSupercateName = $('#catalogSupercateId').find('option:selected').text();
+			data.pageareaSupercateid = $('#pageareaSupercateid').val();
+			data.pageareaSupercatename = $('#pageareaSupercateid').find('option:selected').text();
 
 			return data;
 		}
@@ -453,7 +454,7 @@
 			
 			$('#pageareaAscription').val(data.pageareaAscription);
 			
-			$('#catalogSupercateId').val(data.catalogSupercateId || '-1');
+			$('#pageareaSupercateid').val(data.pageareaSupercateid || '-1');
 		}
 		// callback get id
 		function getPageAreaId() {
@@ -548,7 +549,7 @@
 
 			var formData = new FormData();
 			formData.append('pageareaName', $('#searchCatalog').val());
-			formData.append('catalogSupercateId', ($('#searchSupercate').attr('data-val') || '-1'));
+			formData.append('pageareaSupercateid', ($('#searchSupercate').attr('data-val') || '-1'));
 			formData.append('pn', getPageNum());
 
 			$.ajax({
@@ -662,6 +663,7 @@
 					'<td>' + data[i].pageareaSort + '</td>' +
 					'<td><a class="badge '+ (data[i].pageareaPcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].pageareaPcstatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].pageareaPcsort + '</td>' +
+					'<td>' + data[i].pageareaSupercatename + '</td>' +
 					'<td>' + data[i].pageareaAscription + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].pageareaId + '">' +
