@@ -165,11 +165,11 @@
 											<svg class="c-icon">
 												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 											</svg>
-											<div class="product-img-delete hide">
+											<%-- <div class="product-img-delete hide">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>
 												</svg>
-											</div>
+											</div> --%>
 											<div class="c-backshow"></div>						
 											<input id="categoryImgurl" data-type="categoryImgurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 											<!-- spinner -->
@@ -194,12 +194,12 @@
 											<svg class="c-icon">
 												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
 											</svg>
-											<div class="product-img-delete hide">
+											<%-- <div class="product-img-delete hide">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>
 												</svg>
-											</div>
-											<div class="c-backshow"></div>						
+											</div> --%>
+											<div class="c-backshow"></div>
 											<input id="categoryImgpcurl" data-type="categoryImgpcurl" type="file" accept="image/png, image/jpeg, image/gif" />										
 											<!-- spinner -->
 											<div class="spinner">
