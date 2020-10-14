@@ -43,7 +43,8 @@
 										<tr>
 											<th>id</th>
 											<th>name</th>
-											<th>seo</th>
+											<th>seo</th>、
+											<th>type</th>
 											<th>wap-status</th>
 											<th>wap-sort</th>
 											<th>pc-status</th>
@@ -409,6 +410,9 @@
 			$('#pageareaSort').val('-1');
 			$('#pageareaPcstatus').prop('checked', false)
 			$('#pageareaPcsort').val('-1');
+
+			$('#pageareaType').val('-1');
+
 			$('#pageareaAscription').val('');
 
 			$('#catalogSupercateId').val('-1');
@@ -424,6 +428,9 @@
 			data.pageareaSort = $('#pageareaSort').val();
 			data.pageareaPcstatus = $('#pageareaPcstatus').prop('checked') ? 1 : 0;
 			data.pageareaPcsort = $('#pageareaPcsort').val();
+
+			data.pageareaType = $('#pageareaType').val();
+
 			data.pageareaAscription = $('#pageareaAscription').val();
 
 			data.catalogSupercateId = $('#catalogSupercateId').val();
@@ -441,6 +448,9 @@
 			$('#pageareaSort').val(data.pageareaSort ? data.pageareaSort : '-1');
 			$('#pageareaPcstatus').prop(data.pageareaPcstatus);
 			$('#pageareaPcsort').val(data.pageareaPcsort ? data.pageareaPcsort : '-1');
+
+			$('#pageareaType').val(data.pageareaType);
+			
 			$('#pageareaAscription').val(data.pageareaAscription);
 			
 			$('#catalogSupercateId').val(data.catalogSupercateId || '-1');
@@ -620,11 +630,34 @@
 		}
 		// init table-list
 		function renderTable(data) {
+			function getType(type) {
+				var res = '';
+				switch(type) {
+					case 0: {
+						res = '轮播';
+						break;
+					}
+					case 1: {
+						res = '活动';
+						break;
+					}
+					case 2: {
+						res = '展区';
+						break;
+					}
+					default: {
+						res = '***';
+						break;
+					}
+				}
+				return res;
+			}
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].pageareaId + '</td>' +
 					'<td>' + data[i].pageareaName + '</td>' +
 					'<td>' + data[i].pageareaSeo + '</td>' +
+					'<td>' + (getType(data[i].pageareaType)) + '</td>' +
 					'<td><a class="badge '+ (data[i].pageareaStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].pageareaStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].pageareaSort + '</td>' +
 					'<td><a class="badge '+ (data[i].pageareaPcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].pageareaPcstatus ? 'enable' : 'disable') + '</a></td>' +
