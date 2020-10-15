@@ -163,7 +163,7 @@ public class MlbackPageAreaController {
 			mlbackPageAreaReq.setPageareaPcstatus(1);
 			mlbackPageAreaResList = mlbackPageAreaService.selectHomepageByPcStatus(mlbackPageAreaReq);
 		}
-		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackPageAreaResList", mlbackPageAreaResList);
+		return Msg.success().add("resMsg", "PageArea初始化成功").add("mlbackPageAreaResList", mlbackPageAreaResList);
 	}
 		
 	
