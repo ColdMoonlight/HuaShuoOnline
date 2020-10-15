@@ -77,7 +77,6 @@
 											</label>
 										</div>
 									</div>
-									
 									<div class="form-group">
 										<label class="col-form-label" for="couponName">Coupon Name</label>
 										<div class="controls">
