@@ -152,7 +152,7 @@
 				<svg class="c-sidebar-nav-icon">
 					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-calculator"></use>
 				</svg>
-				<span class="c-text">Home Page Area</span>
+				<span class="c-text">Page Area</span>
 			</a>
 		</li>
 		<!-- foot nav -->

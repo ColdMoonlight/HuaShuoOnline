@@ -878,3 +878,32 @@
 		visibility: hidden;
 	}
 }
+.page-area-item {
+	padding: .5rem;
+}
+.page-area-item+.page-area-item {
+	border-top: 1px solid #ccc;
+}
+.page-area-item:hover {
+	background-color: #ccc;
+}
+.page-area-item .radio, .page-area-item .checkbox {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.form-check-label {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+.form-check-label .table-th {
+	width: 100px;
+}
+
+#editModal .modal-footer {
+	position: relative;
+}
+#editModal .modal-footer .select-result {
+	position: absolute;
+	left: 1rem;
+}

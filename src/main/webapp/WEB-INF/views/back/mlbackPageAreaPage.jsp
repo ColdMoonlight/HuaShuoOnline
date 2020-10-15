@@ -43,11 +43,13 @@
 										<tr>
 											<th>id</th>
 											<th>name</th>
-											<th>seo</th>
+											<th>seo</th>、
+											<th>type</th>
 											<th>wap-status</th>
 											<th>wap-sort</th>
 											<th>pc-status</th>
 											<th>pc-sort</th>
+											<th>supercate</th>
 											<th>desc</th>
 											<th>operate</th>
 										</tr>
@@ -189,7 +191,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="categoryParentId">Details(集合详情)</label>
+										<label class="col-form-label" for="pageAreaDetailList">Details(集合详情)</label>
 										<input type="hidden" id="pageareaTypedetailIdstr" />
 										<input type="hidden" id="pageareaTypedetail" />
 										<div class="controls" style="display: flex;">
@@ -208,9 +210,9 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="catalogSupercateId">Super Category</label>
+										<label class="col-form-label" for="pageareaSupercateid">Super Category</label>
 										<div class="controls">
-											<select class="form-control supercate-list" id="catalogSupercateId" /></select>
+											<select class="form-control supercate-list" id="pageareaSupercateid" /></select>
 										</div>
 									</div>
 								</div>
@@ -237,6 +239,8 @@
 		var hasSuperCateList = false;
 		var isCreate = false;
 		var storageName = 'pagearea';
+		var selectedName = [];
+		var selectedId = [];
 
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
 	 	$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
@@ -340,7 +344,7 @@
 			 	$('.c-create .c-option-title').text('Edit Page Area');
 				showCreateBlock();
 				initFormData(resData);
-			});			
+			});	
 		});
 		// delete page area
 		$(document.body).on('click', '.btn-delete', function (e) {
@@ -391,6 +395,257 @@
 
 			showInitBlock();
 		});
+		// slelect content
+		$('#pageAreaDetailEdit').on('click', function() {
+			var $eidtModal = $('#editModal');
+			var $selectResult = $('#editModal .select-result .value');
+			var defaultId = $('#pageareaTypedetailIdstr').val();
+			var defaultName = $('#pageareaTypedetail').val();
+			var type = $('#pageareaType').val();
+
+			if (!defaultId) {
+				selectedId = [];
+				selectedName = [];
+				$selectResult.text('');				
+			} else {
+				selectedId = defaultId.split(',');
+				selectedName = defaultName.split(',');
+				$selectResult.text(defaultId);
+			}
+
+			if (type == '0') {
+				$eidtModal.find('.modal-title').text('Select Carousel-item block ...');
+				getAllCarouselsData(renderCarouselsData);
+			} else if (type == '1') {
+				$eidtModal.find('.modal-title').text('Select Activity product block...');
+				getAllActivityProductData(renderActivityProductData);
+			} else if (type == '2') {
+				$eidtModal.find('.modal-title').text('Select Display-area block...');
+				getAllDsiplayAreaData(renderDisplayAreaData);
+			}
+
+			$eidtModal.modal('show');
+		});
+		$(document.body).on('click', '#editModal .form-check-input', function() {
+			var $this = $(this);
+			var id = '' + $this.data('id');
+			var name = $this.data('name');
+			if ($this.prop('checked')) {
+				selectedId.push(id);
+				selectedName.push(name);
+			} else {
+				var idx = selectedId.indexOf(id);
+				var namex = selectedId.indexOf(name);
+				idx > -1  && selectedId.indexOf(idx, 1);
+				namex > -1  && selectedName.splice(namex, 1);
+			}
+			$('#editModal .select-result .value').text(selectedId.join(', '));
+		});
+		$('#editModal .btn-ok').on('click', function() {
+			if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
+				$('#pageareaTypedetailIdstr').val(selectedId.join(','));
+				$('#pageareaTypedetail').val(selectedName.join(','));
+				$('#pageAreaDetailList').val(generatePageAreaDetails(selectedId, selectedName));
+			}
+			
+			$('#editModal').modal('hide');
+		});
+		// edit get all carousel data
+		function getAllCarouselsData(callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlbackSlides/getMlbackSlideDownlist",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend.mlbackSlideList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// add to dom for eidt-modal eg: carousel
+		function renderCarouselsData(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				var carouselId = data[i].slideId;
+				var carouselName = data[i].slideName;
+				var logName = '', logSeo = '';
+				if (data[i].slideIfproorcateorpage == 0) {
+					logName = '<b>product</b> ' + data[i].slideProid;
+					logSeo = data[i].slideSeoname;
+				} else if (data[i].slideIfproorcateorpage == 1) {
+					logName = '<b>collection</b> ' + data[i].slideCateid;
+					logSeo = data[i].slideCateseoname;
+				} else if (data[i].slideIfproorcateorpage == 2) {
+					logName = '<b>subject</b> ' + data[i].slidePageseoname;
+					logSeo = data[i].slidePageseoname;
+				}
+				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
+						'<input class="form-check-input" id="'+ carouselId +'" type="checkbox"'+ (selectedId.indexOf('' + carouselId) > -1 ? ' checked' : '') +' data-name="'+ carouselName +'" data-id="'+ carouselId +'">' +
+						'<label class="form-check-label" for="'+ carouselId +'">'+
+							'<span class="table-th">'+ carouselId +'</span>' +
+							'<span class="table-th">'+ carouselName +'</span>' +
+							'<span class="table-th">'+ data[i].slideArea +'</span>' +
+							'<span class="table-th">'+ data[i].slideFirthNum +'</span>' +
+							'<span class="table-th">'+ logName +'</span>' +
+							'<span class="table-th">'+ logSeo +'</span>' +
+							'<span class="table-th">'+ (data[i].slideIfinto ? 'YES' : 'NO') +'</span>' +
+							'<span class="table-th">'+ (data[i].slideWapimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slideWapimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slideWapstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slideWapstatus ? 'enable' : 'disable') + '</a></span>' +
+							'<span class="table-th">'+ (data[i].slidePcimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slidePcimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slidePcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slidePcstatus ? 'enable' : 'disable') + '</a></span>' +
+						'</label>' +
+					'</div></div>';
+			}
+			$('#editModal .modal-body-body').html(htmlStr);
+			$('#editModal .spinner').hide();
+		}
+		// get all display-area data
+		function getAllDisplayAreaData(callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlbackSlides/getMlbackActShowProDownlist",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend.mlbackSlideList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// add to dom for edit-modal eg: display-area
+		function renderDisplayAreaData(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				var carouselId = data[i].slideId;
+				var logName = '', logSeo = '';
+				if (data[i].slideIfproorcateorpage == 0) {
+					logName = '<b>product</b> ' + data[i].slideProid;
+					logSeo = data[i].slideSeoname;
+				} else if (data[i].slideIfproorcateorpage == 1) {
+					logName = '<b>collection</b> ' + data[i].slideCateid;
+					logSeo = data[i].slideCateseoname;
+				} else if (data[i].slideIfproorcateorpage == 2) {
+					logName = '<b>subject</b> ' + data[i].slidePageseoname;
+					logSeo = data[i].slidePageseoname;
+				}
+				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
+						'<input class="form-check-input" id="'+ carouselId +'" type="checkbox"'+ (selectedId.indexOf('' + carouselId) > -1 ? ' checked' : '') +' value="" data-id="'+ carouselId +'">' +
+						'<label class="form-check-label" for="'+ carouselId +'">'+
+							'<span class="table-th">'+ carouselId +'</span>' +
+							'<span class="table-th">'+ data[i].slideName +'</span>' +
+							'<span class="table-th">'+ data[i].slideArea +'</span>' +
+							'<span class="table-th">'+ data[i].slideFirthNum +'</span>' +
+							'<span class="table-th">'+ logName +'</span>' +
+							'<span class="table-th">'+ logSeo +'</span>' +
+							'<span class="table-th">'+ (data[i].slideIfinto ? 'YES' : 'NO') +'</span>' +
+							'<span class="table-th">'+ (data[i].slideWapimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slideWapimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slideWapstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slideWapstatus ? 'enable' : 'disable') + '</a></span>' +
+							'<span class="table-th">'+ (data[i].slidePcimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slidePcimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slidePcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slidePcstatus ? 'enable' : 'disable') + '</a></span>' +
+						'</label>' +
+					'</div></div>';
+			}
+			$('#editModal .modal-body-body').html(htmlStr);
+			$('#editModal .spinner').hide();
+		}
+		// get all activity-product data
+		function getAllActivityProductData(callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlbackActShowPro/getMlbackActShowProDownlist",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend.mlbackActShowProList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// add to dom for edit-modal eg: activity-product 
+		function renderActivityProductData(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				var carouselId = data[i].slideId;
+				var logName = '', logSeo = '';
+				if (data[i].slideIfproorcateorpage == 0) {
+					logName = '<b>product</b> ' + data[i].slideProid;
+					logSeo = data[i].slideSeoname;
+				} else if (data[i].slideIfproorcateorpage == 1) {
+					logName = '<b>collection</b> ' + data[i].slideCateid;
+					logSeo = data[i].slideCateseoname;
+				} else if (data[i].slideIfproorcateorpage == 2) {
+					logName = '<b>subject</b> ' + data[i].slidePageseoname;
+					logSeo = data[i].slidePageseoname;
+				}
+				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
+						'<input class="form-check-input" id="'+ carouselId +'" type="checkbox"'+ (selectedId.indexOf('' + carouselId) > -1 ? ' checked' : '') +' value="" data-id="'+ carouselId +'">' +
+						'<label class="form-check-label" for="'+ carouselId +'">'+
+							'<span class="table-th">'+ carouselId +'</span>' +
+							'<span class="table-th">'+ data[i].slideName +'</span>' +
+							'<span class="table-th">'+ data[i].slideArea +'</span>' +
+							'<span class="table-th">'+ data[i].slideFirthNum +'</span>' +
+							'<span class="table-th">'+ logName +'</span>' +
+							'<span class="table-th">'+ logSeo +'</span>' +
+							'<span class="table-th">'+ (data[i].slideIfinto ? 'YES' : 'NO') +'</span>' +
+							'<span class="table-th">'+ (data[i].slideWapimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slideWapimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slideWapstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slideWapstatus ? 'enable' : 'disable') + '</a></span>' +
+							'<span class="table-th">'+ (data[i].slidePcimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slidePcimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slidePcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slidePcstatus ? 'enable' : 'disable') + '</a></span>' +
+						'</label>' +
+					'</div></div>';
+			}
+			$('#editModal .modal-body-body').html(htmlStr);
+			$('#editModal .spinner').hide();
+		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
@@ -400,6 +655,15 @@
 			$('.c-create').addClass('hide');
 		}
 		// handle formData
+		function generatePageAreaDetails(ids, names) {
+			var htmlStr = '';
+			if (ids.length && names.length) {
+				ids.forEach(function(id, index) {
+					htmlStr += '* ' + id + ' —— ' + names[index] + '\n';
+				});
+			}
+			return htmlStr;
+		}
 		// reset data
 		function resetFormData() {
 			$('#pageareaId').val('');
@@ -409,10 +673,15 @@
 			$('#pageareaSort').val('-1');
 			$('#pageareaPcstatus').prop('checked', false)
 			$('#pageareaPcsort').val('-1');
+
+			$('#pageareaType').val('-1');
+			$('#pageareaTypedetailIdstr').val('');
+			$('#pageareaTypedetail').val('');
+			$('#pageAreaDetailList').html('');
+
 			$('#pageareaAscription').val('');
 
-			$('#catalogSupercateId').val('-1');
-
+			$('#pageareaSupercateid').val('-1');
 		}
 		// getFormdData
 		function getFormData() {
@@ -424,10 +693,16 @@
 			data.pageareaSort = $('#pageareaSort').val();
 			data.pageareaPcstatus = $('#pageareaPcstatus').prop('checked') ? 1 : 0;
 			data.pageareaPcsort = $('#pageareaPcsort').val();
+
+			data.pageareaType = $('#pageareaType').val();
+			data.pageareaTypedetailIdstr = $('#pageareaTypedetailIdstr').val();
+			data.pageareaTypedetail = $('#pageareaTypedetail').val();
+			data.pageAreaDetailList = $('#pageAreaDetailList').val();
+
 			data.pageareaAscription = $('#pageareaAscription').val();
 
-			data.catalogSupercateId = $('#catalogSupercateId').val();
-			data.catalogSupercateName = $('#catalogSupercateId').find('option:selected').text();
+			data.pageareaSupercateid = $('#pageareaSupercateid').val();
+			data.pageareaSupercatename = $('#pageareaSupercateid').find('option:selected').text();
 
 			return data;
 		}
@@ -441,9 +716,17 @@
 			$('#pageareaSort').val(data.pageareaSort ? data.pageareaSort : '-1');
 			$('#pageareaPcstatus').prop(data.pageareaPcstatus);
 			$('#pageareaPcsort').val(data.pageareaPcsort ? data.pageareaPcsort : '-1');
+
+			$('#pageareaType').val(data.pageareaType);
+			var pageAreaDetailsIdStr = data.pageareaTypedetailIdstr;
+			var pageAreaDetails = data.pageareaTypedetail;
+			$('#pageareaTypedetailIdstr').val(pageAreaDetailsIdStr);
+			$('#pageareaTypedetail').val(pageAreaDetails);
+			$('#pageAreaDetailList').val(generatePageAreaDetails(pageAreaDetailsIdStr.split(','), pageAreaDetails.split(',')));
+			
 			$('#pageareaAscription').val(data.pageareaAscription);
 			
-			$('#catalogSupercateId').val(data.catalogSupercateId || '-1');
+			$('#pageareaSupercateid').val(data.pageareaSupercateid || '-1');
 		}
 		// callback get id
 		function getPageAreaId() {
@@ -538,7 +821,7 @@
 
 			var formData = new FormData();
 			formData.append('pageareaName', $('#searchCatalog').val());
-			formData.append('catalogSupercateId', ($('#searchSupercate').attr('data-val') || '-1'));
+			formData.append('pageareaSupercateid', ($('#searchSupercate').attr('data-val') || '-1'));
 			formData.append('pn', getPageNum());
 
 			$.ajax({
@@ -620,15 +903,39 @@
 		}
 		// init table-list
 		function renderTable(data) {
+			function getType(type) {
+				var res = '';
+				switch(type) {
+					case 0: {
+						res = '轮播';
+						break;
+					}
+					case 1: {
+						res = '活动';
+						break;
+					}
+					case 2: {
+						res = '展区';
+						break;
+					}
+					default: {
+						res = '***';
+						break;
+					}
+				}
+				return res;
+			}
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].pageareaId + '</td>' +
 					'<td>' + data[i].pageareaName + '</td>' +
 					'<td>' + data[i].pageareaSeo + '</td>' +
+					'<td>' + (getType(data[i].pageareaType)) + '</td>' +
 					'<td><a class="badge '+ (data[i].pageareaStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].pageareaStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].pageareaSort + '</td>' +
 					'<td><a class="badge '+ (data[i].pageareaPcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].pageareaPcstatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' + data[i].pageareaPcsort + '</td>' +
+					'<td>' + data[i].pageareaSupercatename + '</td>' +
 					'<td>' + data[i].pageareaAscription + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].pageareaId + '">' +
