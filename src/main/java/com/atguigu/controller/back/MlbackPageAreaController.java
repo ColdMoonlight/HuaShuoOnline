@@ -13,12 +13,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackCatalog;
+import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackPageArea;
+import com.atguigu.bean.MlbackProduct;
+import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
+import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackPageAreaService;
+import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlbackSlideService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.IfMobileUtils;
+import com.atguigu.vo.PageAreaDetail;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -35,6 +43,15 @@ public class MlbackPageAreaController {
 	
 	@Autowired
 	MlbackPageAreaService mlbackPageAreaService;
+	
+	@Autowired
+	MlbackSlideService mlbackSlideService;
+	
+	@Autowired
+	MlbackCategoryService mlbackCategoryService;
+	
+	@Autowired
+	MlbackProductService mlbackProductService;
 	
 	/**
 	 * zsh 201014
@@ -154,18 +171,131 @@ public class MlbackPageAreaController {
 		
 		List<MlbackPageArea> mlbackPageAreaResList = new ArrayList<MlbackPageArea>();
 		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		
+		List<List<PageAreaDetail>> pageArealist = new ArrayList<List<PageAreaDetail>>();
 		if(ifMobile.equals("1")){
 			//手机
 			mlbackPageAreaReq.setPageareaStatus(1);
 			mlbackPageAreaResList = mlbackPageAreaService.selectHomepageByStatus(mlbackPageAreaReq);
+			
+			pageArealist = toReturnList(mlbackPageAreaResList,ifMobile);
 		}else{
 			//pc
 			mlbackPageAreaReq.setPageareaPcstatus(1);
 			mlbackPageAreaResList = mlbackPageAreaService.selectHomepageByPcStatus(mlbackPageAreaReq);
+			pageArealist = toReturnList(mlbackPageAreaResList,ifMobile);
+			
 		}
-		return Msg.success().add("resMsg", "PageArea初始化成功").add("mlbackPageAreaResList", mlbackPageAreaResList);
+		return Msg.success().add("resMsg", "PageArea初始化成功").add("pageArealist", pageArealist);
 	}
+
+	private List<List<PageAreaDetail>> toReturnList(List<MlbackPageArea> mlbackPageAreaResList,String ifMobile) {
 		
+		List<List<PageAreaDetail>> pageAreaDetailAllList = new ArrayList<List<PageAreaDetail>>();
+		
+		for(MlbackPageArea mlbackPageAreaOne:mlbackPageAreaResList){
+			//第一层
+			Integer type = mlbackPageAreaOne.getPageareaType();//0轮播1活动品
+			String idstr = mlbackPageAreaOne.getPageareaTypedetailIdstr();
+			
+			String idstrArr [] = idstr.split(",");
+			
+			List<PageAreaDetail> pageAreaDetailFollrList = new ArrayList<PageAreaDetail>();
+			if(type==0){
+				//type==0
+				for(int i=0;i<idstrArr.length;i++){
+					//第一个
+					PageAreaDetail pageAreaDetailOne = new PageAreaDetail();
+					
+					String slideIdStr=idstrArr[i];
+					Integer slideIdInt = Integer.parseInt(slideIdStr);
+					
+					MlbackSlide mlbackSlideReq = new MlbackSlide();
+					mlbackSlideReq.setSlideId(slideIdInt);
+					
+					MlbackSlide mlbackSlideRes= mlbackSlideService.selectMlbackSlideById(mlbackSlideReq);
+					if(mlbackSlideRes!=null){
+						Integer ifproORcateORpage = mlbackSlideRes.getSlideIfproorcateorpage();
+						pageAreaDetailOne.setPageAreaDetailType(0);//这个轮播
+						if(ifMobile.equals("1")){
+							pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlideWapimgurl());
+						}else{
+							pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlidePcimgurl());
+						}
+						pageAreaDetailOne.setPageAreaDetailIfinto(mlbackSlideRes.getSlideIfinto());
+						
+						if(ifproORcateORpage==0){
+							//0pro
+							pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlideSeoname()+".html");
+						}else if(ifproORcateORpage==1){
+							//1cate
+							pageAreaDetailOne.setPageAreaDetaiLinklUrl("search/"+mlbackSlideRes.getSlideCateseoname()+".html");
+						}else{
+							//2page
+							pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlidePageseoname()+".html");
+						}
+					}
+					pageAreaDetailFollrList.add(pageAreaDetailOne);
+				}
+			}else if(type==1){
+				//type==1活动品
+				
+			}else{
+				//type==2类目
+				for(int i=0;i<idstrArr.length;i++){
+					//第一个
+					PageAreaDetail pageAreaDetailOne = new PageAreaDetail();
+					
+					String cateIdStr=idstrArr[i];
+					Integer cateIdInt = Integer.parseInt(cateIdStr);
+					
+					MlbackCategory mlbackCategoryReq = new MlbackCategory();
+					mlbackCategoryReq.setCategoryId(cateIdInt);
+					
+					MlbackCategory mlbackCategoryRes= mlbackCategoryService.selectMlbackCategoryById(mlbackCategoryReq);
+					List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
+					if(mlbackCategoryRes!=null){
+						String pidsStr = mlbackCategoryRes.getCategoryProductIds();
+						if(pidsStr==null){
+							continue;
+						}
+						if("".equals(pidsStr)){
+							continue;
+						}else{
+							String productidsStrArr [] = pidsStr.split(",");
+							String productidStr ="";
+							Integer productidInt =0;
+							List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
+							
+							MlbackProduct mlbackProductResOne = new MlbackProduct();
+							for(int x=0;x<productidsStrArr.length;x++){
+								productidStr = productidsStrArr[x];
+								productidInt = Integer.parseInt(productidStr);
+								//查询白pid的产品详情
+								MlbackProduct mlbackProductReq = new MlbackProduct();
+								mlbackProductReq.setProductId(productidInt);
+								//查回来的直接就是仅上架的产品
+								mlbackProductReqList =mlbackProductService.selectMlbackProductbyPid(mlbackProductReq);
+								if(mlbackProductReqList.size()>0){
+									mlbackProductResOne = mlbackProductReqList.get(0);
+									mlbackProductResList.add(mlbackProductResOne);
+								}
+							}
+						}
+					}//cateResList结束
+					for(MlbackProduct mlbackProductOne :mlbackProductResList){
+						pageAreaDetailOne.setMlbackProduct(mlbackProductOne);
+						pageAreaDetailOne.setPageAreaDetailIfinto(1);
+						pageAreaDetailOne.setPageAreaDetailType(2);
+					}
+					pageAreaDetailFollrList.add(pageAreaDetailOne);
+				}
+			}
+			pageAreaDetailAllList.add(pageAreaDetailFollrList);
+		}
+		return pageAreaDetailAllList;
+		
+	}
 	
 //	/**3.0	20200703
 //	 * MlbackActShowPro	initializaActShowPro
