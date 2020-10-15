@@ -64,8 +64,13 @@ public class MlbackPageAreaService {
 		return MlbackPageAreaList;
 	}
 
-	public List<MlbackPageArea> selectHomepageByIfMobile(MlbackPageArea mlbackPageAreaReq) {
-		List<MlbackPageArea>  MlbackPageAreaList = mlbackPageAreaMapper.selectHomepageByIfMobile(mlbackPageAreaReq);
+	public List<MlbackPageArea> selectHomepageByStatus(MlbackPageArea mlbackPageAreaReq) {
+		List<MlbackPageArea>  MlbackPageAreaList = mlbackPageAreaMapper.selectHomepageByStatus(mlbackPageAreaReq);
+		return MlbackPageAreaList;
+	}
+	
+	public List<MlbackPageArea> selectHomepageByPcStatus(MlbackPageArea mlbackPageAreaReq) {
+		List<MlbackPageArea>  MlbackPageAreaList = mlbackPageAreaMapper.selectHomepageByPcStatus(mlbackPageAreaReq);
 		return MlbackPageAreaList;
 	}
 

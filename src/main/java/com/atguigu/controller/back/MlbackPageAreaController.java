@@ -1,7 +1,7 @@
 package com.atguigu.controller.back;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,12 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackPageArea;
-import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackPageAreaService;
 import com.atguigu.service.MlfrontUserService;
@@ -155,18 +151,19 @@ public class MlbackPageAreaController {
 		//取出id
 		String nowTime = DateUtil.strTime14s();
 		mlbackPageAreaReq.setPageareaCreatetime(nowTime);
+		
+		List<MlbackPageArea> mlbackPageAreaResList = new ArrayList<MlbackPageArea>();
 		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
 		if(ifMobile.equals("1")){
 			//手机
 			mlbackPageAreaReq.setPageareaStatus(1);
-			mlbackPageAreaReq.setPageareaPcstatus(null);
+			mlbackPageAreaResList = mlbackPageAreaService.selectHomepageByStatus(mlbackPageAreaReq);
 		}else{
 			//pc
 			mlbackPageAreaReq.setPageareaPcstatus(1);
-			mlbackPageAreaReq.setPageareaStatus(null);
+			mlbackPageAreaResList = mlbackPageAreaService.selectHomepageByPcStatus(mlbackPageAreaReq);
 		}
-		List<MlbackPageArea> mlbackPageAreaList = mlbackPageAreaService.selectHomepageByIfMobile(mlbackPageAreaReq);
-		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackPageAreaList", mlbackPageAreaList);
+		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackPageAreaResList", mlbackPageAreaResList);
 	}
 		
 	

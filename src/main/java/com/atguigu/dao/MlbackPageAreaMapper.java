@@ -22,5 +22,7 @@ public interface MlbackPageAreaMapper {
 
 	List<MlbackPageArea> selectMlbackPageAreaGetAll();
 
-	List<MlbackPageArea> selectHomepageByIfMobile(MlbackPageArea mlbackPageAreaReq);
+	List<MlbackPageArea> selectHomepageByStatus(MlbackPageArea mlbackPageAreaReq);
+	
+	List<MlbackPageArea> selectHomepageByPcStatus(MlbackPageArea mlbackPageAreaReq);
 }
