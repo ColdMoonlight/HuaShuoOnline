@@ -43,7 +43,7 @@
 										<tr>
 											<th>id</th>
 											<th>name</th>
-											<th>seo</th>、
+											<th>seo</th>
 											<th>type</th>
 											<th>wap-status</th>
 											<th>wap-sort</th>
@@ -736,7 +736,7 @@
 			$('#pageareaSeo').val(data.pageareaSeo);
 			$('#pageareaStatus').prop('checked', data.pageareaStatus);
 			$('#pageareaSort').val(data.pageareaSort ? data.pageareaSort : '-1');
-			$('#pageareaPcstatus').prop(data.pageareaPcstatus);
+			$('#pageareaPcstatus').prop('checked', data.pageareaPcstatus);
 			$('#pageareaPcsort').val(data.pageareaPcsort ? data.pageareaPcsort : '-1');
 
 			$('#pageareaType').val(data.pageareaType);
@@ -744,7 +744,7 @@
 			var pageAreaDetails = data.pageareaTypedetail;
 			$('#pageareaTypedetailIdstr').val(pageAreaDetailsIdStr);
 			$('#pageareaTypedetail').val(pageAreaDetails);
-			$('#pageAreaDetailList').val(generatePageAreaDetails(pageAreaDetailsIdStr.split(','), pageAreaDetails.split(',')));
+			$('#pageAreaDetailList').val(pageAreaDetails && pageAreaDetails && generatePageAreaDetails(pageAreaDetailsIdStr.split(','), pageAreaDetails.split(',')));
 			
 			$('#pageareaAscription').val(data.pageareaAscription);
 			
