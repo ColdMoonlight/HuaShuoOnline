@@ -191,7 +191,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="categoryParentId">Details(集合详情)</label>
+										<label class="col-form-label" for="pageAreaDetailList">Details(集合详情)</label>
 										<input type="hidden" id="pageareaTypedetailIdstr" />
 										<input type="hidden" id="pageareaTypedetail" />
 										<div class="controls" style="display: flex;">
@@ -239,6 +239,8 @@
 		var hasSuperCateList = false;
 		var isCreate = false;
 		var storageName = 'pagearea';
+		var selectedName = [];
+		var selectedId = [];
 
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
 	 	$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
@@ -393,6 +395,257 @@
 
 			showInitBlock();
 		});
+		// slelect content
+		$('#pageAreaDetailEdit').on('click', function() {
+			var $eidtModal = $('#editModal');
+			var $selectResult = $('#editModal .select-result .value');
+			var defaultId = $('#pageareaTypedetailIdstr').val();
+			var defaultName = $('#pageareaTypedetail').val();
+			var type = $('#pageareaType').val();
+
+			if (!defaultId) {
+				selectedId = [];
+				selectedName = [];
+				$selectResult.text('');				
+			} else {
+				selectedId = defaultId.split(',');
+				selectedName = defaultName.split(',');
+				$selectResult.text(defaultId);
+			}
+
+			if (type == '0') {
+				$eidtModal.find('.modal-title').text('Select Carousel-item block ...');
+				getAllCarouselsData(renderCarouselsData);
+			} else if (type == '1') {
+				$eidtModal.find('.modal-title').text('Select Activity product block...');
+				getAllActivityProductData(renderActivityProductData);
+			} else if (type == '2') {
+				$eidtModal.find('.modal-title').text('Select Display-area block...');
+				getAllDsiplayAreaData(renderDisplayAreaData);
+			}
+
+			$eidtModal.modal('show');
+		});
+		$(document.body).on('click', '#editModal .form-check-input', function() {
+			var $this = $(this);
+			var id = '' + $this.data('id');
+			var name = $this.data('name');
+			if ($this.prop('checked')) {
+				selectedId.push(id);
+				selectedName.push(name);
+			} else {
+				var idx = selectedId.indexOf(id);
+				var namex = selectedId.indexOf(name);
+				idx > -1  && selectedId.indexOf(idx, 1);
+				namex > -1  && selectedName.splice(namex, 1);
+			}
+			$('#editModal .select-result .value').text(selectedId.join(', '));
+		});
+		$('#editModal .btn-ok').on('click', function() {
+			if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
+				$('#pageareaTypedetailIdstr').val(selectedId.join(','));
+				$('#pageareaTypedetail').val(selectedName.join(','));
+				$('#pageAreaDetailList').val(generatePageAreaDetails(selectedId, selectedName));
+			}
+			
+			$('#editModal').modal('hide');
+		});
+		// edit get all carousel data
+		function getAllCarouselsData(callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlbackSlides/getMlbackSlideDownlist",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend.mlbackSlideList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// add to dom for eidt-modal eg: carousel
+		function renderCarouselsData(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				var carouselId = data[i].slideId;
+				var carouselName = data[i].slideName;
+				var logName = '', logSeo = '';
+				if (data[i].slideIfproorcateorpage == 0) {
+					logName = '<b>product</b> ' + data[i].slideProid;
+					logSeo = data[i].slideSeoname;
+				} else if (data[i].slideIfproorcateorpage == 1) {
+					logName = '<b>collection</b> ' + data[i].slideCateid;
+					logSeo = data[i].slideCateseoname;
+				} else if (data[i].slideIfproorcateorpage == 2) {
+					logName = '<b>subject</b> ' + data[i].slidePageseoname;
+					logSeo = data[i].slidePageseoname;
+				}
+				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
+						'<input class="form-check-input" id="'+ carouselId +'" type="checkbox"'+ (selectedId.indexOf('' + carouselId) > -1 ? ' checked' : '') +' data-name="'+ carouselName +'" data-id="'+ carouselId +'">' +
+						'<label class="form-check-label" for="'+ carouselId +'">'+
+							'<span class="table-th">'+ carouselId +'</span>' +
+							'<span class="table-th">'+ carouselName +'</span>' +
+							'<span class="table-th">'+ data[i].slideArea +'</span>' +
+							'<span class="table-th">'+ data[i].slideFirthNum +'</span>' +
+							'<span class="table-th">'+ logName +'</span>' +
+							'<span class="table-th">'+ logSeo +'</span>' +
+							'<span class="table-th">'+ (data[i].slideIfinto ? 'YES' : 'NO') +'</span>' +
+							'<span class="table-th">'+ (data[i].slideWapimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slideWapimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slideWapstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slideWapstatus ? 'enable' : 'disable') + '</a></span>' +
+							'<span class="table-th">'+ (data[i].slidePcimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slidePcimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slidePcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slidePcstatus ? 'enable' : 'disable') + '</a></span>' +
+						'</label>' +
+					'</div></div>';
+			}
+			$('#editModal .modal-body-body').html(htmlStr);
+			$('#editModal .spinner').hide();
+		}
+		// get all display-area data
+		function getAllDisplayAreaData(callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlbackSlides/getMlbackActShowProDownlist",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend.mlbackSlideList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// add to dom for edit-modal eg: display-area
+		function renderDisplayAreaData(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				var carouselId = data[i].slideId;
+				var logName = '', logSeo = '';
+				if (data[i].slideIfproorcateorpage == 0) {
+					logName = '<b>product</b> ' + data[i].slideProid;
+					logSeo = data[i].slideSeoname;
+				} else if (data[i].slideIfproorcateorpage == 1) {
+					logName = '<b>collection</b> ' + data[i].slideCateid;
+					logSeo = data[i].slideCateseoname;
+				} else if (data[i].slideIfproorcateorpage == 2) {
+					logName = '<b>subject</b> ' + data[i].slidePageseoname;
+					logSeo = data[i].slidePageseoname;
+				}
+				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
+						'<input class="form-check-input" id="'+ carouselId +'" type="checkbox"'+ (selectedId.indexOf('' + carouselId) > -1 ? ' checked' : '') +' value="" data-id="'+ carouselId +'">' +
+						'<label class="form-check-label" for="'+ carouselId +'">'+
+							'<span class="table-th">'+ carouselId +'</span>' +
+							'<span class="table-th">'+ data[i].slideName +'</span>' +
+							'<span class="table-th">'+ data[i].slideArea +'</span>' +
+							'<span class="table-th">'+ data[i].slideFirthNum +'</span>' +
+							'<span class="table-th">'+ logName +'</span>' +
+							'<span class="table-th">'+ logSeo +'</span>' +
+							'<span class="table-th">'+ (data[i].slideIfinto ? 'YES' : 'NO') +'</span>' +
+							'<span class="table-th">'+ (data[i].slideWapimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slideWapimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slideWapstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slideWapstatus ? 'enable' : 'disable') + '</a></span>' +
+							'<span class="table-th">'+ (data[i].slidePcimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slidePcimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slidePcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slidePcstatus ? 'enable' : 'disable') + '</a></span>' +
+						'</label>' +
+					'</div></div>';
+			}
+			$('#editModal .modal-body-body').html(htmlStr);
+			$('#editModal .spinner').hide();
+		}
+		// get all activity-product data
+		function getAllActivityProductData(callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlbackActShowPro/getMlbackActShowProDownlist",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend.mlbackActShowProList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// add to dom for edit-modal eg: activity-product 
+		function renderActivityProductData(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				var carouselId = data[i].slideId;
+				var logName = '', logSeo = '';
+				if (data[i].slideIfproorcateorpage == 0) {
+					logName = '<b>product</b> ' + data[i].slideProid;
+					logSeo = data[i].slideSeoname;
+				} else if (data[i].slideIfproorcateorpage == 1) {
+					logName = '<b>collection</b> ' + data[i].slideCateid;
+					logSeo = data[i].slideCateseoname;
+				} else if (data[i].slideIfproorcateorpage == 2) {
+					logName = '<b>subject</b> ' + data[i].slidePageseoname;
+					logSeo = data[i].slidePageseoname;
+				}
+				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
+						'<input class="form-check-input" id="'+ carouselId +'" type="checkbox"'+ (selectedId.indexOf('' + carouselId) > -1 ? ' checked' : '') +' value="" data-id="'+ carouselId +'">' +
+						'<label class="form-check-label" for="'+ carouselId +'">'+
+							'<span class="table-th">'+ carouselId +'</span>' +
+							'<span class="table-th">'+ data[i].slideName +'</span>' +
+							'<span class="table-th">'+ data[i].slideArea +'</span>' +
+							'<span class="table-th">'+ data[i].slideFirthNum +'</span>' +
+							'<span class="table-th">'+ logName +'</span>' +
+							'<span class="table-th">'+ logSeo +'</span>' +
+							'<span class="table-th">'+ (data[i].slideIfinto ? 'YES' : 'NO') +'</span>' +
+							'<span class="table-th">'+ (data[i].slideWapimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slideWapimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slideWapstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slideWapstatus ? 'enable' : 'disable') + '</a></span>' +
+							'<span class="table-th">'+ (data[i].slidePcimgurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slidePcimgurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].slidePcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slidePcstatus ? 'enable' : 'disable') + '</a></span>' +
+						'</label>' +
+					'</div></div>';
+			}
+			$('#editModal .modal-body-body').html(htmlStr);
+			$('#editModal .spinner').hide();
+		}
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
@@ -402,6 +655,15 @@
 			$('.c-create').addClass('hide');
 		}
 		// handle formData
+		function generatePageAreaDetails(ids, names) {
+			var htmlStr = '';
+			if (ids.length && names.length) {
+				ids.forEach(function(id, index) {
+					htmlStr += '* ' + id + ' —— ' + names[index] + '\n';
+				});
+			}
+			return htmlStr;
+		}
 		// reset data
 		function resetFormData() {
 			$('#pageareaId').val('');
@@ -413,11 +675,13 @@
 			$('#pageareaPcsort').val('-1');
 
 			$('#pageareaType').val('-1');
+			$('#pageareaTypedetailIdstr').val('');
+			$('#pageareaTypedetail').val('');
+			$('#pageAreaDetailList').html('');
 
 			$('#pageareaAscription').val('');
 
 			$('#pageareaSupercateid').val('-1');
-
 		}
 		// getFormdData
 		function getFormData() {
@@ -431,6 +695,9 @@
 			data.pageareaPcsort = $('#pageareaPcsort').val();
 
 			data.pageareaType = $('#pageareaType').val();
+			data.pageareaTypedetailIdstr = $('#pageareaTypedetailIdstr').val();
+			data.pageareaTypedetail = $('#pageareaTypedetail').val();
+			data.pageAreaDetailList = $('#pageAreaDetailList').val();
 
 			data.pageareaAscription = $('#pageareaAscription').val();
 
@@ -451,6 +718,11 @@
 			$('#pageareaPcsort').val(data.pageareaPcsort ? data.pageareaPcsort : '-1');
 
 			$('#pageareaType').val(data.pageareaType);
+			var pageAreaDetailsIdStr = data.pageareaTypedetailIdstr;
+			var pageAreaDetails = data.pageareaTypedetail;
+			$('#pageareaTypedetailIdstr').val(pageAreaDetailsIdStr);
+			$('#pageareaTypedetail').val(pageAreaDetails);
+			$('#pageAreaDetailList').val(generatePageAreaDetails(pageAreaDetailsIdStr.split(','), pageAreaDetails.split(',')));
 			
 			$('#pageareaAscription').val(data.pageareaAscription);
 			

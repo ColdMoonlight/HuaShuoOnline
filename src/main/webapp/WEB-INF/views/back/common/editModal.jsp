@@ -3,7 +3,7 @@
 
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
 	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-center modal-dialog-scrollable" role="document">
+	<div class="modal-dialog modal-lg modal-dialog-center modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title"></h4>
@@ -18,6 +18,10 @@
 				<div class="modal-body-body"></div>
 			</div>
 			<div class="modal-footer">
+				<div class="select-result">
+					<span class="name">selected: </span>
+					<span class="value"></span>
+				</div>
 				<button class="btn btn-secondary btn-cancel" type="button" data-dismiss="modal">No</button>
 				<button class="btn btn-danger btn-ok" type="button">Yes</button>
 			</div>
