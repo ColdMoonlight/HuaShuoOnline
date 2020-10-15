@@ -19,7 +19,9 @@ import com.atguigu.bean.MlbackPageArea;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
+import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackPageAreaService;
+import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackSlideService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
@@ -44,6 +46,12 @@ public class MlbackPageAreaController {
 	
 	@Autowired
 	MlbackSlideService mlbackSlideService;
+	
+	@Autowired
+	MlbackCategoryService mlbackCategoryService;
+	
+	@Autowired
+	MlbackProductService mlbackProductService;
 	
 	/**
 	 * zsh 201014
@@ -229,16 +237,65 @@ public class MlbackPageAreaController {
 					}
 					pageAreaDetailFollrList.add(pageAreaDetailOne);
 				}
-			}else{
+			}else if(type==1){
 				//type==1活动品
 				
+			}else{
+				//type==2类目
+				for(int i=0;i<idstrArr.length;i++){
+					//第一个
+					PageAreaDetail pageAreaDetailOne = new PageAreaDetail();
+					
+					String cateIdStr=idstrArr[i];
+					Integer cateIdInt = Integer.parseInt(cateIdStr);
+					
+					MlbackCategory mlbackCategoryReq = new MlbackCategory();
+					mlbackCategoryReq.setCategoryId(cateIdInt);
+					
+					MlbackCategory mlbackCategoryRes= mlbackCategoryService.selectMlbackCategoryById(mlbackCategoryReq);
+					List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
+					if(mlbackCategoryRes!=null){
+						String pidsStr = mlbackCategoryRes.getCategoryProductIds();
+						if(pidsStr==null){
+							continue;
+						}
+						if("".equals(pidsStr)){
+							continue;
+						}else{
+							String productidsStrArr [] = pidsStr.split(",");
+							String productidStr ="";
+							Integer productidInt =0;
+							List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
+							
+							MlbackProduct mlbackProductResOne = new MlbackProduct();
+							for(int x=0;x<productidsStrArr.length;x++){
+								productidStr = productidsStrArr[x];
+								productidInt = Integer.parseInt(productidStr);
+								//查询白pid的产品详情
+								MlbackProduct mlbackProductReq = new MlbackProduct();
+								mlbackProductReq.setProductId(productidInt);
+								//查回来的直接就是仅上架的产品
+								mlbackProductReqList =mlbackProductService.selectMlbackProductbyPid(mlbackProductReq);
+								if(mlbackProductReqList.size()>0){
+									mlbackProductResOne = mlbackProductReqList.get(0);
+									mlbackProductResList.add(mlbackProductResOne);
+								}
+							}
+						}
+					}//cateResList结束
+					for(MlbackProduct mlbackProductOne :mlbackProductResList){
+						pageAreaDetailOne.setMlbackProduct(mlbackProductOne);
+						pageAreaDetailOne.setPageAreaDetailIfinto(1);
+						pageAreaDetailOne.setPageAreaDetailType(2);
+					}
+					pageAreaDetailFollrList.add(pageAreaDetailOne);
+				}
 			}
 			pageAreaDetailAllList.add(pageAreaDetailFollrList);
 		}
 		return pageAreaDetailAllList;
 		
 	}
-		
 	
 //	/**3.0	20200703
 //	 * MlbackActShowPro	initializaActShowPro

@@ -475,6 +475,15 @@
      </if>
     order by product_id desc
   </select>
+  <!--selectMlbackProductbyPid使用中 -->
+  <select id="selectMlbackProductbyPid" parameterType="com.atguigu.bean.MlbackProduct" resultMap="BaseResultMap">
+    select 	
+	product_id, product_name, product_seo, product_superCateId, product_superCateName, product_mainimgurl, product_discoutimgurl, product_discoutimgshow,
+	product_videourl, product_videoimgurl, product_originalPrice, 
+    product_haveSaleNum, product_status, product_lable, product_firsth, product_actoffOff, product_reviewNum
+	from tb_mlback_product
+    where product_id = #{productId,jdbcType=INTEGER} AND product_status = 1
+  </select>
   <!--selectMlbackProductbyCategorySeo使用中 -->
   <select id="selectMlbackProductbyCategorySeo" parameterType="com.atguigu.bean.MlbackProduct" resultMap="BaseResultMap">
     select 	

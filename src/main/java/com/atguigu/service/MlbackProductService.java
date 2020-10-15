@@ -74,6 +74,11 @@ public class MlbackProductService {
 		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductBackSearch(mlbackProductReq);
 		return mlbackProductList;
 	}
+	
+	public List<MlbackProduct> selectMlbackProductbyPid(MlbackProduct mlbackProductReq) {
+		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductbyPid(mlbackProductReq);
+		return mlbackProductList;
+	}
 
 	public List<MlbackProduct> selectMlbackProductbyCategorySeo(MlbackProduct mlbackProductReq) {
 		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductbyCategorySeo(mlbackProductReq);
