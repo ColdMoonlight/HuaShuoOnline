@@ -442,8 +442,8 @@
 				selectedName.push(name);
 			} else {
 				var idx = selectedId.indexOf(id);
-				var namex = selectedId.indexOf(name);
-				idx > -1  && selectedId.indexOf(idx, 1);
+				var namex = selectedName.indexOf(name);
+				idx > -1  && selectedId.splice(idx, 1);
 				namex > -1  && selectedName.splice(namex, 1);
 			}
 			$('#editModal .select-result .value').text(selectedId.join(', '));
