@@ -679,6 +679,7 @@
 		// handle formData
 		function generatePageAreaDetails(ids, names) {
 			var htmlStr = '';
+			console.log(ids, names)
 			if (ids.length && names.length) {
 				ids.forEach(function(id, index) {
 					htmlStr += '* ' + id + ' —— ' + names[index] + '\n';
@@ -744,7 +745,7 @@
 			var pageAreaDetails = data.pageareaTypedetail;
 			$('#pageareaTypedetailIdstr').val(pageAreaDetailsIdStr);
 			$('#pageareaTypedetail').val(pageAreaDetails);
-			$('#pageAreaDetailList').val(generatePageAreaDetails(pageAreaDetailsIdStr.split(','), pageAreaDetails.split(',')));
+			$('#pageAreaDetailList').val(pageAreaDetails && pageAreaDetails && generatePageAreaDetails(pageAreaDetailsIdStr.split(','), pageAreaDetails.split(',')));
 			
 			$('#pageareaAscription').val(data.pageareaAscription);
 			
