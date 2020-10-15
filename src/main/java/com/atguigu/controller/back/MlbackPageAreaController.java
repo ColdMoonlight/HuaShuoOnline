@@ -1,7 +1,7 @@
 package com.atguigu.controller.back;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,16 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackPageArea;
-import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackPageAreaService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.IfMobileUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -141,6 +138,35 @@ public class MlbackPageAreaController {
 					.add("mlbackPageAreaOne", mlbackPageAreaOne);
 	}
 	
+	/**3.0	20200703
+	 * MlbackActShowPro	initializaActShowPro
+	 * @param MlbackActShowPro
+	 * @return
+	 */
+	@RequestMapping(value="/portalSelectPageArea",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg portalSelectPageArea(HttpServletResponse rep,HttpServletRequest res){
+		
+		MlbackPageArea mlbackPageAreaReq = new MlbackPageArea();
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		mlbackPageAreaReq.setPageareaCreatetime(nowTime);
+		
+		List<MlbackPageArea> mlbackPageAreaResList = new ArrayList<MlbackPageArea>();
+		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		if(ifMobile.equals("1")){
+			//手机
+			mlbackPageAreaReq.setPageareaStatus(1);
+			mlbackPageAreaResList = mlbackPageAreaService.selectHomepageByStatus(mlbackPageAreaReq);
+		}else{
+			//pc
+			mlbackPageAreaReq.setPageareaPcstatus(1);
+			mlbackPageAreaResList = mlbackPageAreaService.selectHomepageByPcStatus(mlbackPageAreaReq);
+		}
+		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackPageAreaResList", mlbackPageAreaResList);
+	}
+		
+	
 //	/**3.0	20200703
 //	 * MlbackActShowPro	initializaActShowPro
 //	 * @param MlbackActShowPro
@@ -161,4 +187,5 @@ public class MlbackPageAreaController {
 //		System.out.println("插入后"+mlbackActShowPro.toString());
 //		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackActShowPro", mlbackActShowPro);
 //	}
+	
 }

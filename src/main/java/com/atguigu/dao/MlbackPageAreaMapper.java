@@ -21,4 +21,8 @@ public interface MlbackPageAreaMapper {
 	MlbackPageArea selectMlbackPageAreaById(MlbackPageArea mlbackPageArea);
 
 	List<MlbackPageArea> selectMlbackPageAreaGetAll();
+
+	List<MlbackPageArea> selectHomepageByStatus(MlbackPageArea mlbackPageAreaReq);
+	
+	List<MlbackPageArea> selectHomepageByPcStatus(MlbackPageArea mlbackPageAreaReq);
 }

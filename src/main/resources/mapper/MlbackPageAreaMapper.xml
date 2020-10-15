@@ -228,4 +228,26 @@
     from tb_mlblack_pagearea 
     where pagearea_id = #{pageareaId,jdbcType=INTEGER}
   </select>
+  <!-- 使用中selectHomepageByStatus -->
+  <select id="selectHomepageByStatus" parameterType="com.atguigu.bean.MlbackPageArea" resultMap="BaseResultMap">
+  	select
+  	pagearea_id, pagearea_seo, pagearea_name,pagearea_status, pagearea_sort,
+    pagearea_type, pagearea_typeDetail, pagearea_typeDetail_idStr
+  	from tb_mlblack_pagearea where pagearea_id>0 
+  	<if test="pageareaStatus != null">
+       and pagearea_status = #{pageareaStatus,jdbcType=INTEGER} 
+    </if>
+    order by pagearea_sort
+  </select>
+  <!-- 使用中selectHomepageByPcStatus -->
+  <select id="selectHomepageByPcStatus" parameterType="com.atguigu.bean.MlbackPageArea" resultMap="BaseResultMap">
+  	select
+  	pagearea_id, pagearea_seo, pagearea_name,pagearea_pcstatus, pagearea_pcsort, 
+    pagearea_type, pagearea_typeDetail, pagearea_typeDetail_idStr
+  	from tb_mlblack_pagearea where pagearea_id>0 
+  	<if test="pageareaPcstatus != null">
+      and pagearea_pcstatus = #{pageareaPcstatus,jdbcType=INTEGER}
+    </if>
+    order by pagearea_pcsort
+  </select>
 </mapper>
