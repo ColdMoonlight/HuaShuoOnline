@@ -403,11 +403,18 @@
 			var defaultName = $('#pageareaTypedetail').val();
 			var type = $('#pageareaType').val();
 
-			if (!defaultId) {
-				selectedId = [];
-				selectedName = [];
-				$selectResult.text('');				
-			} else {
+			
+			if ($('#pageareaType').val() == '-1') {
+				toastr.error('Please select page-area type firstly!!!');
+				$('#pageareaType').focus();
+				return false;
+			}
+			
+			selectedId = [];
+			selectedName = [];
+			$selectResult.text('');				
+
+			if (defaultId) {
 				selectedId = defaultId.split(',');
 				selectedName = defaultName.split(',');
 				$selectResult.text(defaultId);
@@ -440,17 +447,30 @@
 				namex > -1  && selectedName.splice(namex, 1);
 			}
 			$('#editModal .select-result .value').text(selectedId.join(', '));
+			$('#editModal .btn-ok').one('click', function() {
+				if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
+					$('#pageareaTypedetailIdstr').val(selectedId.join(','));
+					$('#pageareaTypedetail').val(selectedName.join(','));
+					$('#pageAreaDetailList').val(generatePageAreaDetails(selectedId, selectedName));
+				} else {
+					console.log('数据错误！！！');
+				}
+				
+				$('#editModal').modal('hide');
+			});
 		});
-		$('#editModal .btn-ok').on('click', function() {
-			if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
-				$('#pageareaTypedetailIdstr').val(selectedId.join(','));
-				$('#pageareaTypedetail').val(selectedName.join(','));
-				$('#pageAreaDetailList').val(generatePageAreaDetails(selectedId, selectedName));
-			} else {
-				console.log('数据错误！！！');
+		// status combinewith supercate
+		$('#pageareaStatus, #pageareaPcstatus').on('change', function(e) {
+			if (parseInt($('#pageareaSupercateid').val()) < 0) {
+				toastr.info('Please Select super-category!');
+				$('#pageareaSupercateid').focus();
+				$('#pageareaStatus, #pageareaPcstatus').prop('checked', false);
 			}
-			
-			$('#editModal').modal('hide');
+		});
+		$('#pageareaSupercateid').on('change', function() {
+			if ($(this).val() == '-1') {
+				$('#pageareaStatus, #pageareaPcstatus').prop('checked', false);
+			}
 		});
 		// edit get all carousel data
 		function getAllCarouselsData(callback) {
@@ -679,7 +699,7 @@
 			$('#pageareaType').val('-1');
 			$('#pageareaTypedetailIdstr').val('');
 			$('#pageareaTypedetail').val('');
-			$('#pageAreaDetailList').html('');
+			$('#pageAreaDetailList').val('');
 
 			$('#pageareaAscription').val('');
 
