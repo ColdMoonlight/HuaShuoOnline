@@ -442,8 +442,8 @@
 				selectedName.push(name);
 			} else {
 				var idx = selectedId.indexOf(id);
-				var namex = selectedId.indexOf(name);
-				idx > -1  && selectedId.indexOf(idx, 1);
+				var namex = selectedName.indexOf(name);
+				idx > -1  && selectedId.splice(idx, 1);
 				namex > -1  && selectedName.splice(namex, 1);
 			}
 			$('#editModal .select-result .value').text(selectedId.join(', '));
@@ -954,9 +954,9 @@
 					'<td>' + data[i].pageareaSeo + '</td>' +
 					'<td>' + (getType(data[i].pageareaType)) + '</td>' +
 					'<td><a class="badge '+ (data[i].pageareaStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].pageareaStatus ? 'enable' : 'disable') + '</a></td>' +
-					'<td>' + data[i].pageareaSort + '</td>' +
+					'<td>' + (data[i].pageareaSort == 99 ? '--' : data[i].pageareaSort) + '</td>' +
 					'<td><a class="badge '+ (data[i].pageareaPcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].pageareaPcstatus ? 'enable' : 'disable') + '</a></td>' +
-					'<td>' + data[i].pageareaPcsort + '</td>' +
+					'<td>' + (data[i].pageareaPcsort == 99 ? '--' : data[i].pageareaPcsort) + '</td>' +
 					'<td>' + data[i].pageareaSupercatename + '</td>' +
 					'<td>' + data[i].pageareaAscription + '</td>' +
 					'<td>' +
