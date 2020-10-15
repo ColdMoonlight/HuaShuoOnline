@@ -13,12 +13,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackCatalog;
+import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackPageArea;
+import com.atguigu.bean.MlbackProduct;
+import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackPageAreaService;
+import com.atguigu.service.MlbackSlideService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.IfMobileUtils;
+import com.atguigu.vo.PageAreaDetail;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -35,6 +41,9 @@ public class MlbackPageAreaController {
 	
 	@Autowired
 	MlbackPageAreaService mlbackPageAreaService;
+	
+	@Autowired
+	MlbackSlideService mlbackSlideService;
 	
 	/**
 	 * zsh 201014
@@ -154,16 +163,80 @@ public class MlbackPageAreaController {
 		
 		List<MlbackPageArea> mlbackPageAreaResList = new ArrayList<MlbackPageArea>();
 		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		
+		List<List<PageAreaDetail>> pageArealist = new ArrayList<List<PageAreaDetail>>();
 		if(ifMobile.equals("1")){
 			//手机
 			mlbackPageAreaReq.setPageareaStatus(1);
 			mlbackPageAreaResList = mlbackPageAreaService.selectHomepageByStatus(mlbackPageAreaReq);
+			
+			pageArealist = toReturnList(mlbackPageAreaResList,ifMobile);
 		}else{
 			//pc
 			mlbackPageAreaReq.setPageareaPcstatus(1);
 			mlbackPageAreaResList = mlbackPageAreaService.selectHomepageByPcStatus(mlbackPageAreaReq);
+			pageArealist = toReturnList(mlbackPageAreaResList,ifMobile);
+			
 		}
-		return Msg.success().add("resMsg", "PageArea初始化成功").add("mlbackPageAreaResList", mlbackPageAreaResList);
+		return Msg.success().add("resMsg", "PageArea初始化成功").add("pageArealist", pageArealist);
+	}
+
+	private List<List<PageAreaDetail>> toReturnList(List<MlbackPageArea> mlbackPageAreaResList,String ifMobile) {
+		
+		List<List<PageAreaDetail>> pageAreaDetailAllList = new ArrayList<List<PageAreaDetail>>();
+		
+		for(MlbackPageArea mlbackPageAreaOne:mlbackPageAreaResList){
+			//第一层
+			Integer type = mlbackPageAreaOne.getPageareaType();//0轮播1活动品
+			String idstr = mlbackPageAreaOne.getPageareaTypedetailIdstr();
+			
+			String idstrArr [] = idstr.split(",");
+			
+			List<PageAreaDetail> pageAreaDetailFollrList = new ArrayList<PageAreaDetail>();
+			if(type==0){
+				//type==0
+				for(int i=0;i<idstrArr.length;i++){
+					//第一个
+					PageAreaDetail pageAreaDetailOne = new PageAreaDetail();
+					
+					String slideIdStr=idstrArr[i];
+					Integer slideIdInt = Integer.parseInt(slideIdStr);
+					
+					MlbackSlide mlbackSlideReq = new MlbackSlide();
+					mlbackSlideReq.setSlideId(slideIdInt);
+					
+					MlbackSlide mlbackSlideRes= mlbackSlideService.selectMlbackSlideById(mlbackSlideReq);
+					if(mlbackSlideRes!=null){
+						Integer ifproORcateORpage = mlbackSlideRes.getSlideIfproorcateorpage();
+						pageAreaDetailOne.setPageAreaDetailType(0);//这个轮播
+						if(ifMobile.equals("1")){
+							pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlideWapimgurl());
+						}else{
+							pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlidePcimgurl());
+						}
+						pageAreaDetailOne.setPageAreaDetailIfinto(mlbackSlideRes.getSlideIfinto());
+						
+						if(ifproORcateORpage==0){
+							//0pro
+							pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlideSeoname()+".html");
+						}else if(ifproORcateORpage==1){
+							//1cate
+							pageAreaDetailOne.setPageAreaDetaiLinklUrl("search/"+mlbackSlideRes.getSlideCateseoname()+".html");
+						}else{
+							//2page
+							pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlidePageseoname()+".html");
+						}
+					}
+					pageAreaDetailFollrList.add(pageAreaDetailOne);
+				}
+			}else{
+				//type==1活动品
+				
+			}
+			pageAreaDetailAllList.add(pageAreaDetailFollrList);
+		}
+		return pageAreaDetailAllList;
+		
 	}
 		
 	
