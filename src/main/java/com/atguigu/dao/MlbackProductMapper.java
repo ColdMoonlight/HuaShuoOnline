@@ -30,6 +30,8 @@ public interface MlbackProductMapper {
     //查询BackSearch
     List<MlbackProduct> selectMlbackProductBackSearch(MlbackProduct mlbackProductReq);
     
+    List<MlbackProduct> selectMlbackProductbyPid(MlbackProduct mlbackProductReq);
+    
     List<MlbackProduct> selectMlbackProductbyCategorySeo(MlbackProduct mlbackProductReq);
 //  //查询后台登陆用户
 //  MlbackProduct selectMlbackProductById(MlbackProduct example);
