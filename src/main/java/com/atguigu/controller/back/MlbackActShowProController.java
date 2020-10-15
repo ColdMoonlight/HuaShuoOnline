@@ -81,7 +81,6 @@ public class MlbackActShowProController {
 	
 	/**2.0	onuse	20200103	检查
 	 * 分类MlbackActShowPro列表分页list数据
-	 * @param pn
 	 * @return
 	 */
 	@RequestMapping(value="/getMlbackActShowProDownlist")
