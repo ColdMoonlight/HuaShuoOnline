@@ -81,9 +81,9 @@ public class MlbackSlidesController {
 	 * @param pn
 	 * @return
 	 */
-	@RequestMapping(value="/getMlbackActShowProDownlist")
+	@RequestMapping(value="/getMlbackSlideDownlist")
 	@ResponseBody
-	public Msg getMlbackActShowProDownlist(HttpSession session) {
+	public Msg getMlbackSlideDownlist(HttpSession session) {
 		List<MlbackSlide> mlbackSlideList = mlbackSlideService.selectMlbackSlideGetAll();
 		System.out.println("mlbackSlideList.size:"+mlbackSlideList.size());
 		return Msg.success().add("mlbackSlideList", mlbackSlideList);
