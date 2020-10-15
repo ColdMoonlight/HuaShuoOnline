@@ -403,11 +403,18 @@
 			var defaultName = $('#pageareaTypedetail').val();
 			var type = $('#pageareaType').val();
 
-			if (!defaultId) {
-				selectedId = [];
-				selectedName = [];
-				$selectResult.text('');				
-			} else {
+			
+			if ($('#pageareaType').val() == '-1') {
+				toastr.error('Please select page-area type firstly!!!');
+				$('#pageareaType').focus();
+				return false;
+			}
+			
+			selectedId = [];
+			selectedName = [];
+			$selectResult.text('');				
+
+			if (defaultId) {
 				selectedId = defaultId.split(',');
 				selectedName = defaultName.split(',');
 				$selectResult.text(defaultId);
@@ -440,15 +447,30 @@
 				namex > -1  && selectedName.splice(namex, 1);
 			}
 			$('#editModal .select-result .value').text(selectedId.join(', '));
+			$('#editModal .btn-ok').one('click', function() {
+				if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
+					$('#pageareaTypedetailIdstr').val(selectedId.join(','));
+					$('#pageareaTypedetail').val(selectedName.join(','));
+					$('#pageAreaDetailList').val(generatePageAreaDetails(selectedId, selectedName));
+				} else {
+					console.log('数据错误！！！');
+				}
+				
+				$('#editModal').modal('hide');
+			});
 		});
-		$('#editModal .btn-ok').on('click', function() {
-			if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
-				$('#pageareaTypedetailIdstr').val(selectedId.join(','));
-				$('#pageareaTypedetail').val(selectedName.join(','));
-				$('#pageAreaDetailList').val(generatePageAreaDetails(selectedId, selectedName));
+		// status combinewith supercate
+		$('#pageareaStatus, #pageareaPcstatus').on('change', function(e) {
+			if (parseInt($('#pageareaSupercateid').val()) < 0) {
+				toastr.info('Please Select super-category!');
+				$('#pageareaSupercateid').focus();
+				$('#pageareaStatus, #pageareaPcstatus').prop('checked', false);
 			}
-			
-			$('#editModal').modal('hide');
+		});
+		$('#pageareaSupercateid').on('change', function() {
+			if ($(this).val() == '-1') {
+				$('#pageareaStatus, #pageareaPcstatus').prop('checked', false);
+			}
 		});
 		// edit get all carousel data
 		function getAllCarouselsData(callback) {
@@ -517,71 +539,6 @@
 			$('#editModal .spinner').hide();
 		}
 		// get all display-area data
-		function getAllDisplayAreaData(callback) {
-			$.ajax({
-				url: "${APP_PATH }/MlbackSlides/getMlbackActShowProDownlist",
-				type: "post",
-				dataType: "json",
-				contentType: 'application/json',
-				async: false,
-				success: function (data) {
-					if (data.code == 100) {
-						callback && callback(data.extend.mlbackSlideList);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
-		// add to dom for edit-modal eg: display-area
-		function renderDisplayAreaData(data) {
-			var htmlStr = '';
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				var carouselId = data[i].slideId;
-				var logName = '', logSeo = '';
-				if (data[i].slideIfproorcateorpage == 0) {
-					logName = '<b>product</b> ' + data[i].slideProid;
-					logSeo = data[i].slideSeoname;
-				} else if (data[i].slideIfproorcateorpage == 1) {
-					logName = '<b>collection</b> ' + data[i].slideCateid;
-					logSeo = data[i].slideCateseoname;
-				} else if (data[i].slideIfproorcateorpage == 2) {
-					logName = '<b>subject</b> ' + data[i].slidePageseoname;
-					logSeo = data[i].slidePageseoname;
-				}
-				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
-						'<input class="form-check-input" id="'+ carouselId +'" type="checkbox"'+ (selectedId.indexOf('' + carouselId) > -1 ? ' checked' : '') +' value="" data-id="'+ carouselId +'">' +
-						'<label class="form-check-label" for="'+ carouselId +'">'+
-							'<span class="table-th">'+ carouselId +'</span>' +
-							'<span class="table-th">'+ data[i].slideName +'</span>' +
-							'<span class="table-th">'+ data[i].slideArea +'</span>' +
-							'<span class="table-th">'+ data[i].slideFirthNum +'</span>' +
-							'<span class="table-th">'+ logName +'</span>' +
-							'<span class="table-th">'+ logSeo +'</span>' +
-							'<span class="table-th">'+ (data[i].slideIfinto ? 'YES' : 'NO') +'</span>' +
-							'<span class="table-th">'+ (data[i].slideWapimgurl ?
-									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slideWapimgurl) +'" /></div>'
-									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
-							'</span>' +
-							'<span class="table-th"><a class="badge '+ (data[i].slideWapstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slideWapstatus ? 'enable' : 'disable') + '</a></span>' +
-							'<span class="table-th">'+ (data[i].slidePcimgurl ?
-									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].slidePcimgurl) +'" /></div>'
-									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
-							'</span>' +
-							'<span class="table-th"><a class="badge '+ (data[i].slidePcstatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].slidePcstatus ? 'enable' : 'disable') + '</a></span>' +
-						'</label>' +
-					'</div></div>';
-			}
-			$('#editModal .modal-body-body').html(htmlStr);
-			$('#editModal .spinner').hide();
-		}
-		// get all activity-product data
 		function getAllActivityProductData(callback) {
 			$.ajax({
 				url: "${APP_PATH }/MlbackActShowPro/getMlbackActShowProDownlist",
@@ -604,8 +561,73 @@
 				}
 			});
 		}
-		// add to dom for edit-modal eg: activity-product 
+		// add to dom for edit-modal eg: display-area
 		function renderActivityProductData(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				var actshowproId = data[i].actshowproId;
+				var actshowproName = data[i].actshowproName;
+				var logName = '', logSeo = '';
+				if (data[i].actshowproIfproorcate == 0) {
+					logName = '<b>product</b> ' + data[i].actshowproProid;
+					logSeo = data[i].actshowproSeoname;
+				} else if (data[i].actshowproIfproorcate == 1) {
+					logName = '<b>collection</b> ' + data[i].actshowproCateid;
+					logSeo = data[i].actshowproCateseoname;
+				} else if (data[i].actshowproIfproorcate == 2) {
+					logName = '<b>subject</b> ' + data[i].actshowproPageseoname;
+					logSeo = data[i].actshowproPageseoname;
+				}
+				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
+						'<input class="form-check-input" id="'+ actshowproId +'" type="checkbox"'+ (selectedId.indexOf('' + actshowproId) > -1 ? ' checked' : '') +' value="" data-id="'+ actshowproId +'" data-name="'+ actshowproName +'">' +
+						'<label class="form-check-label" for="'+ actshowproId +'">'+
+							'<span class="table-th">'+ actshowproId +'</span>' +
+							'<span class="table-th">'+ actshowproName +'</span>' +
+							'<span class="table-th">'+ data[i].actshowproActnum +'</span>' +
+							'<span class="table-th">'+ data[i].actshowproOrderth +'</span>' +
+							'<span class="table-th">'+ logName +'</span>' +
+							'<span class="table-th">'+ logSeo +'</span>' +
+							'<span class="table-th">'+ (data[i].slideIfinto ? 'YES' : 'NO') +'</span>' +
+							'<span class="table-th">'+ (data[i].actshowproImgwapurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].actshowproImgwapurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th">'+ (data[i].actshowproImgpcurl ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(data[i].actshowproImgpcurl) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].actshowproStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].actshowproStatus ? 'enable' : 'disable') + '</a></span>' +
+						'</label>' +
+					'</div></div>';
+			}
+			$('#editModal .modal-body-body').html(htmlStr);
+			$('#editModal .spinner').hide();
+		}
+		// get all activity-product data
+		function getAllDisplayAreaData(callback) {
+			$.ajax({
+				url: "${APP_PATH }/MlbackActShowPro/getMlbackActShowProDownlist",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend.mlbackActShowProList);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// add to dom for edit-modal eg: activity-product 
+		function renderDisplayAreaData(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var carouselId = data[i].slideId;
@@ -677,7 +699,7 @@
 			$('#pageareaType').val('-1');
 			$('#pageareaTypedetailIdstr').val('');
 			$('#pageareaTypedetail').val('');
-			$('#pageAreaDetailList').html('');
+			$('#pageAreaDetailList').val('');
 
 			$('#pageareaAscription').val('');
 
