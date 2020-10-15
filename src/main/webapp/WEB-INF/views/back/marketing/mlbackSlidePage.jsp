@@ -100,6 +100,7 @@
 												<option value="5">5HeaderTopImg</option>
 												<option value="6">6ProDetailCouponDesc</option>
 												<option value="7">7cheakoutCouponDesc</option>
+												<option value="10">首页PageArea</option>
 											</select>
 										</div>
 									</div>
