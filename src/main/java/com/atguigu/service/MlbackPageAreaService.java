@@ -64,4 +64,9 @@ public class MlbackPageAreaService {
 		return MlbackPageAreaList;
 	}
 
+	public List<MlbackPageArea> selectHomepageByIfMobile(MlbackPageArea mlbackPageAreaReq) {
+		List<MlbackPageArea>  MlbackPageAreaList = mlbackPageAreaMapper.selectHomepageByIfMobile(mlbackPageAreaReq);
+		return MlbackPageAreaList;
+	}
+
 }

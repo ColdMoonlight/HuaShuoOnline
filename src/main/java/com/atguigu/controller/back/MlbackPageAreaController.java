@@ -22,6 +22,7 @@ import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackPageAreaService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.IfMobileUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -141,6 +142,34 @@ public class MlbackPageAreaController {
 					.add("mlbackPageAreaOne", mlbackPageAreaOne);
 	}
 	
+	/**3.0	20200703
+	 * MlbackActShowPro	initializaActShowPro
+	 * @param MlbackActShowPro
+	 * @return
+	 */
+	@RequestMapping(value="/portalSelectPageArea",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg portalSelectPageArea(HttpServletResponse rep,HttpServletRequest res){
+		
+		MlbackPageArea mlbackPageAreaReq = new MlbackPageArea();
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		mlbackPageAreaReq.setPageareaCreatetime(nowTime);
+		String ifMobile = IfMobileUtils.isMobileOrPc(rep, res);
+		if(ifMobile.equals("1")){
+			//手机
+			mlbackPageAreaReq.setPageareaStatus(1);
+			mlbackPageAreaReq.setPageareaPcstatus(null);
+		}else{
+			//pc
+			mlbackPageAreaReq.setPageareaPcstatus(1);
+			mlbackPageAreaReq.setPageareaStatus(null);
+		}
+		List<MlbackPageArea> mlbackPageAreaList = mlbackPageAreaService.selectHomepageByIfMobile(mlbackPageAreaReq);
+		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackPageAreaList", mlbackPageAreaList);
+	}
+		
+	
 //	/**3.0	20200703
 //	 * MlbackActShowPro	initializaActShowPro
 //	 * @param MlbackActShowPro
@@ -161,4 +190,5 @@ public class MlbackPageAreaController {
 //		System.out.println("插入后"+mlbackActShowPro.toString());
 //		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackActShowPro", mlbackActShowPro);
 //	}
+	
 }
