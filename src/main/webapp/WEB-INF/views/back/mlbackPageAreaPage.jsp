@@ -43,7 +43,7 @@
 										<tr>
 											<th>id</th>
 											<th>name</th>
-											<th>seo</th>、
+											<th>seo</th>
 											<th>type</th>
 											<th>wap-status</th>
 											<th>wap-sort</th>
@@ -679,7 +679,6 @@
 		// handle formData
 		function generatePageAreaDetails(ids, names) {
 			var htmlStr = '';
-			console.log(ids, names)
 			if (ids.length && names.length) {
 				ids.forEach(function(id, index) {
 					htmlStr += '* ' + id + ' —— ' + names[index] + '\n';
@@ -737,7 +736,7 @@
 			$('#pageareaSeo').val(data.pageareaSeo);
 			$('#pageareaStatus').prop('checked', data.pageareaStatus);
 			$('#pageareaSort').val(data.pageareaSort ? data.pageareaSort : '-1');
-			$('#pageareaPcstatus').prop(data.pageareaPcstatus);
+			$('#pageareaPcstatus').prop('checked', data.pageareaPcstatus);
 			$('#pageareaPcsort').val(data.pageareaPcsort ? data.pageareaPcsort : '-1');
 
 			$('#pageareaType').val(data.pageareaType);
