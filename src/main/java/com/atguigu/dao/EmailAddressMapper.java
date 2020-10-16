@@ -16,7 +16,7 @@ public interface EmailAddressMapper {
 
     int updateByPrimaryKey(EmailAddress record);
 
-	List<EmailAddress> selectALl();
+	List<EmailAddress> selectALl(EmailAddress record);
 
 	List<com.atguigu.bean.EmailAddress> selectByEmail(EmailAddress emailAddress);
 }

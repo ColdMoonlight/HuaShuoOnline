@@ -16,7 +16,7 @@ public interface EmailUserMapper {
 
     int updateByPrimaryKey(EmailUser record);
 
-	List<EmailUser> selectALl();
+	List<EmailUser> selectALl(EmailUser record);
 
 	List<com.atguigu.bean.EmailUser> selectByEmail(EmailUser emailUser);
 }

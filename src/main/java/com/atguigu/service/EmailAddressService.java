@@ -50,8 +50,8 @@ public class EmailAddressService {
 	 * @param 
 	 * @exception 查看全部用户信息
 	 * */
-	public List<EmailAddress> selectALl() {
-		List<EmailAddress>  EmailAddressList = emailAddressMapper.selectALl();
+	public List<EmailAddress> selectALl(EmailAddress EmailAddress) {
+		List<EmailAddress>  EmailAddressList = emailAddressMapper.selectALl(EmailAddress);
 		return EmailAddressList;
 	}
 	

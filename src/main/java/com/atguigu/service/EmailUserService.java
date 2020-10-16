@@ -50,8 +50,8 @@ public class EmailUserService {
 	 * @param 
 	 * @exception 查看全部用户信息
 	 * */
-	public List<EmailUser> selectALl() {
-		List<EmailUser>  EmailUserList = emailUserMapper.selectALl();
+	public List<EmailUser> selectALl(EmailUser EmailUser) {
+		List<EmailUser>  EmailUserList = emailUserMapper.selectALl(EmailUser);
 		return EmailUserList;
 	}
 	
