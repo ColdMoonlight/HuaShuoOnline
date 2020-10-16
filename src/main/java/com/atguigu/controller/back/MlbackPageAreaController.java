@@ -266,7 +266,7 @@ public class MlbackPageAreaController {
 							String productidStr ="";
 							Integer productidInt =0;
 							List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
-							//
+							//查询单独的信息
 							MlbackProduct mlbackProductResOne = new MlbackProduct();
 							for(int x=0;x<productidsStrArr.length;x++){
 								productidStr = productidsStrArr[x];
