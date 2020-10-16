@@ -2,7 +2,7 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <%-- <jsp:include page="intercept.jsp" flush="true"></jsp:include> --%>
 <!-- common css -->
-<link href="${APP_PATH}/static/pc/css/main.min.css" rel="stylesheet">
+<link href="${APP_PATH}/static/pc/css/main.css" rel="stylesheet">
 <script src="${APP_PATH}/static/common/jquery.min.js"></script>
 <script src="${APP_PATH}/static/pc/js/lazyload/lazyload.min.js"></script>
 <!-- custom scripts -->

@@ -186,7 +186,7 @@
 												<option value="-1">Please page area type...</option>
 												<option value="0">轮播</option>
 												<option value="1">活动</option>
-												<option value="2">展区</option>
+												<option value="2">产品类</option>
 											</select>
 										</div>
 									</div>
