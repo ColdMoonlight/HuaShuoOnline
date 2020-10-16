@@ -85,6 +85,8 @@
 		-->
 		<!--	tb_paypal
 		<table tableName="tb_email_paysuccess" domainObjectName="EmailPaySuccess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_email_payRetuensuccess" domainObjectName="EmailPayPalRetuenSuccess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
+		
 	</context>
 </generatorConfiguration>
