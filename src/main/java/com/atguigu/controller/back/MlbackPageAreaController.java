@@ -240,6 +240,8 @@ public class MlbackPageAreaController {
 			}else if(type==1){
 				//type==1活动品
 				
+				
+				
 			}else{
 				//type==2类目
 				for(int i=0;i<idstrArr.length;i++){
