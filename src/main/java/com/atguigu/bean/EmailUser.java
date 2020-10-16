@@ -20,4 +20,20 @@ public class EmailUser {
     public void setUseremailEmail(String useremailEmail) {
         this.useremailEmail = useremailEmail == null ? null : useremailEmail.trim();
     }
+
+	public EmailUser() {
+		super();
+	}
+
+	public EmailUser(Integer useremailId, String useremailEmail) {
+		super();
+		this.useremailId = useremailId;
+		this.useremailEmail = useremailEmail;
+	}
+
+	@Override
+	public String toString() {
+		return "EmailUser [useremailId=" + useremailId + ", useremailEmail=" + useremailEmail + "]";
+	}
+    
 }

@@ -18,12 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.atguigu.bean.EmailAddress;
 import com.atguigu.bean.EmailPayPalRetuenSuccess;
 import com.atguigu.bean.EmailPaySuccess;
+import com.atguigu.bean.EmailUser;
 import com.atguigu.bean.MlfrontReview;
 import com.atguigu.service.DownPayCheckDateService;
+import com.atguigu.service.EmailAddressService;
 import com.atguigu.service.EmailPayPalRetuenSuccessService;
 import com.atguigu.service.EmailPaySuccessService;
+import com.atguigu.service.EmailUserService;
 import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontReviewService;
 import com.atguigu.utils.DateUtil;
@@ -46,6 +51,12 @@ public class ExcleImportController {
 	
 	@Autowired
 	EmailPayPalRetuenSuccessService emailPayPalRetuenSuccessService;
+	
+	@Autowired
+	EmailAddressService emailAddressService;
+	
+	@Autowired
+	EmailUserService emailUserService;
 	
 	/**
 	 * zsh 200730
@@ -326,7 +337,7 @@ public class ExcleImportController {
 			String nowTime = DateUtil.strTime14();
 			if(is!=null){
 				HSSFWorkbook wb = new HSSFWorkbook(is);
-				List<EmailPayPalRetuenSuccess> emailPayPalRetuenSuccessList = new ArrayList<EmailPayPalRetuenSuccess>();
+				List<EmailAddress> emailAddressList = new ArrayList<EmailAddress>();
 				int rowCount = 0;
 				try {
 					HSSFSheet st = wb.getSheetAt(0);
@@ -335,19 +346,19 @@ public class ExcleImportController {
 					for(int r=1;r<=rowNum;r++){//读取每一行,第一行为标题,从第二行开始
 						rowCount = r;
 						HSSFRow row = st.getRow(r);
-						EmailPayPalRetuenSuccess emailPayPalRetuenSuccessOne = new EmailPayPalRetuenSuccess();
+						EmailAddress emailAddressOne = new EmailAddress();
 						HSSFCell getCell = null;
 						getCell = row.getCell(0);
 						if (getCell != null) {
 		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    emailPayPalRetuenSuccessOne.setPayretuensuccessEmail(getCell.getStringCellValue());
+		                    emailAddressOne.setAddressemailEmail(getCell.getStringCellValue());
 		                }
-						emailPayPalRetuenSuccessList.add(emailPayPalRetuenSuccessOne);
+						emailAddressList.add(emailAddressOne);
 					}
 					is.close();
-					for(EmailPayPalRetuenSuccess emailPayPalRetuenOne:emailPayPalRetuenSuccessList){
-						emailPayPalRetuenSuccessService.insertSelective(emailPayPalRetuenOne);
-						System.out.println("emailPaySuccessOne.getId():"+emailPayPalRetuenOne.getPayretuensuccessId());
+					for(EmailAddress emailAddressOne:emailAddressList){
+						emailAddressService.insertSelective(emailAddressOne);
+						System.out.println("emailAddressOne.getId():"+emailAddressOne.getAddressemailId());
 					}
 				}catch (Exception e) {
 					System.out.println("第行出错");
@@ -372,7 +383,7 @@ public class ExcleImportController {
 			String nowTime = DateUtil.strTime14();
 			if(is!=null){
 				HSSFWorkbook wb = new HSSFWorkbook(is);
-				List<EmailPayPalRetuenSuccess> emailPayPalRetuenSuccessList = new ArrayList<EmailPayPalRetuenSuccess>();
+				List<EmailUser> emailUserList = new ArrayList<EmailUser>();
 				int rowCount = 0;
 				try {
 					HSSFSheet st = wb.getSheetAt(0);
@@ -381,19 +392,19 @@ public class ExcleImportController {
 					for(int r=1;r<=rowNum;r++){//读取每一行,第一行为标题,从第二行开始
 						rowCount = r;
 						HSSFRow row = st.getRow(r);
-						EmailPayPalRetuenSuccess emailPayPalRetuenSuccessOne = new EmailPayPalRetuenSuccess();
+						EmailUser emailUserOne = new EmailUser();
 						HSSFCell getCell = null;
 						getCell = row.getCell(0);
 						if (getCell != null) {
 		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    emailPayPalRetuenSuccessOne.setPayretuensuccessEmail(getCell.getStringCellValue());
+		                    emailUserOne.setUseremailEmail(getCell.getStringCellValue());
 		                }
-						emailPayPalRetuenSuccessList.add(emailPayPalRetuenSuccessOne);
+						emailUserList.add(emailUserOne);
 					}
 					is.close();
-					for(EmailPayPalRetuenSuccess emailPayPalRetuenOne:emailPayPalRetuenSuccessList){
-						emailPayPalRetuenSuccessService.insertSelective(emailPayPalRetuenOne);
-						System.out.println("emailPaySuccessOne.getId():"+emailPayPalRetuenOne.getPayretuensuccessId());
+					for(EmailUser emailUserOne:emailUserList){
+						emailUserService.insertSelective(emailUserOne);
+						System.out.println("emailUserOne.getId():"+emailUserOne.getUseremailId());
 					}
 				}catch (Exception e) {
 					System.out.println("第行出错");
