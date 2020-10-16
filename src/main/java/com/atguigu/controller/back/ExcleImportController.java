@@ -18,8 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.atguigu.bean.EmailPayPalRetuenSuccess;
+import com.atguigu.bean.EmailPaySuccess;
 import com.atguigu.bean.MlfrontReview;
 import com.atguigu.service.DownPayCheckDateService;
+import com.atguigu.service.EmailPayPalRetuenSuccessService;
+import com.atguigu.service.EmailPaySuccessService;
 import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontReviewService;
 import com.atguigu.utils.DateUtil;
@@ -37,6 +42,12 @@ public class ExcleImportController {
 	@Autowired
 	MlfrontReviewService mlfrontReviewService;
 	
+	@Autowired
+	EmailPaySuccessService emailPaySuccessService;
+	
+	@Autowired
+	EmailPayPalRetuenSuccessService emailPayPalRetuenSuccessService;
+	
 	/**
 	 * zsh 200730
 	 * 中控台首页
@@ -45,6 +56,16 @@ public class ExcleImportController {
 	public String reviewsImportPage(HttpSession session){
 		
 		return "back/product/excleintoPage";
+	}
+	
+	/**
+	 * zsh 200730
+	 * 中控台首页
+	 * */
+	@RequestMapping("/paysuccessPage")
+	public String paysuccessPage(HttpSession session){
+		
+		return "back/email/emailSuccess";
 	}
 	
 	/**
@@ -187,6 +208,100 @@ public class ExcleImportController {
 					for(MlfrontReview mlfrontReview:reviewList){
 						mlfrontReviewService.insertSelective(mlfrontReview);
 						System.out.println("mlfrontReview.getReviewId():"+mlfrontReview.getReviewId());
+					}
+				}catch (Exception e) {
+					System.out.println("第行出错");
+					e.printStackTrace();
+				}
+			}
+		}catch (Exception e) {
+			System.out.println("第行出错");
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+     * inportPaySuccessEmail
+     * @param request
+     * @param response
+     */
+	@RequestMapping(value="/inportPaySuccessEmail",method=RequestMethod.POST)
+	public void inportPaySuccessEmail(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,
+			HttpServletResponse response,HttpSession session){
+		try {
+			InputStream is = multipartFile.getInputStream();
+			String nowTime = DateUtil.strTime14();
+			if(is!=null){
+				HSSFWorkbook wb = new HSSFWorkbook(is);
+				List<EmailPaySuccess> emailPaySuccessList = new ArrayList<EmailPaySuccess>();
+				int rowCount = 0;
+				try {
+					HSSFSheet st = wb.getSheetAt(0);
+					int rowNum = st.getLastRowNum(); //获取Excel最后一行索引，从零开始，所以获取到的是表中最后一行行数减一
+					int colNum = st.getRow(0).getLastCellNum();//获取Excel列数
+					for(int r=1;r<=rowNum;r++){//读取每一行，第一行为标题，从第二行开始
+						rowCount = r;
+						HSSFRow row = st.getRow(r);
+						EmailPaySuccess emailPaySuccessOne = new EmailPaySuccess();
+						HSSFCell getCell = null;
+						getCell = row.getCell(0);
+						if (getCell != null) {
+		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		                    emailPaySuccessOne.setPaysuccessEmail(getCell.getStringCellValue());
+		                }
+						emailPaySuccessList.add(emailPaySuccessOne);
+					}
+					is.close();
+					for(EmailPaySuccess emailPaySuccessOne:emailPaySuccessList){
+						emailPaySuccessService.insertSelective(emailPaySuccessOne);
+						System.out.println("emailPaySuccessOne.getId():"+emailPaySuccessOne.getPaysuccessId());
+					}
+				}catch (Exception e) {
+					System.out.println("第行出错");
+					e.printStackTrace();
+				}
+			}
+		}catch (Exception e) {
+			System.out.println("第行出错");
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+     * inportPayPalReturnSuccessEmail
+     * @param request
+     * @param response
+     */
+	@RequestMapping(value="/inportPayPalReturnSuccessEmail",method=RequestMethod.POST)
+	public void inportPayPalReturnSuccessEmail(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,
+			HttpServletResponse response,HttpSession session){
+		try {
+			InputStream is = multipartFile.getInputStream();
+			String nowTime = DateUtil.strTime14();
+			if(is!=null){
+				HSSFWorkbook wb = new HSSFWorkbook(is);
+				List<EmailPayPalRetuenSuccess> emailPayPalRetuenSuccessList = new ArrayList<EmailPayPalRetuenSuccess>();
+				int rowCount = 0;
+				try {
+					HSSFSheet st = wb.getSheetAt(0);
+					int rowNum = st.getLastRowNum(); //获取Excel最后一行索引,从零开始，所以获取到的是表中最后一行行数减一
+					int colNum = st.getRow(0).getLastCellNum();//获取Excel列数
+					for(int r=1;r<=rowNum;r++){//读取每一行，第一行为标题，从第二行开始
+						rowCount = r;
+						HSSFRow row = st.getRow(r);
+						EmailPayPalRetuenSuccess emailPayPalRetuenSuccessOne = new EmailPayPalRetuenSuccess();
+						HSSFCell getCell = null;
+						getCell = row.getCell(0);
+						if (getCell != null) {
+		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		                    emailPayPalRetuenSuccessOne.setPayretuensuccessEmail(getCell.getStringCellValue());
+		                }
+						emailPayPalRetuenSuccessList.add(emailPayPalRetuenSuccessOne);
+					}
+					is.close();
+					for(EmailPayPalRetuenSuccess emailPayPalRetuenOne:emailPayPalRetuenSuccessList){
+						emailPayPalRetuenSuccessService.insertSelective(emailPayPalRetuenOne);
+						System.out.println("emailPaySuccessOne.getId():"+emailPayPalRetuenOne.getPayretuensuccessId());
 					}
 				}catch (Exception e) {
 					System.out.println("第行出错");

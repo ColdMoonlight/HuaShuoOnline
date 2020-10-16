@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.EmailPayPalRetuenSuccessMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.EmailPayPalRetuenSuccess">
+    <id column="payRetuensuccess_id" jdbcType="INTEGER" property="payretuensuccessId" />
+    <result column="payRetuensuccess_email" jdbcType="VARCHAR" property="payretuensuccessEmail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    payRetuensuccess_id, payRetuensuccess_email
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_email_payretuensuccess
+    where payRetuensuccess_id = #{payretuensuccessId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_email_payretuensuccess
+    where payRetuensuccess_id = #{payretuensuccessId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.EmailPayPalRetuenSuccess">
+    insert into tb_email_payretuensuccess (payRetuensuccess_id, payRetuensuccess_email
+      )
+    values (#{payretuensuccessId,jdbcType=INTEGER}, #{payretuensuccessEmail,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="payretuensuccessId" parameterType="com.atguigu.bean.EmailPayPalRetuenSuccess">
+    insert into tb_email_payretuensuccess
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="payretuensuccessId != null">
+        payRetuensuccess_id,
+      </if>
+      <if test="payretuensuccessEmail != null">
+        payRetuensuccess_email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="payretuensuccessId != null">
+        #{payretuensuccessId,jdbcType=INTEGER},
+      </if>
+      <if test="payretuensuccessEmail != null">
+        #{payretuensuccessEmail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.EmailPayPalRetuenSuccess">
+    update tb_email_payretuensuccess
+    <set>
+      <if test="payretuensuccessEmail != null">
+        payRetuensuccess_email = #{payretuensuccessEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where payRetuensuccess_id = #{payretuensuccessId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.EmailPayPalRetuenSuccess">
+    update tb_email_payretuensuccess
+    set payRetuensuccess_email = #{payretuensuccessEmail,jdbcType=VARCHAR}
+    where payRetuensuccess_id = #{payretuensuccessId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- selectByEmail -->
+  <select id="selectByEmail" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * 
+    from tb_email_payretuensuccess
+    where payRetuensuccess_email = #{payretuensuccessEmail,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- selectALl -->
+  <select id="selectALl" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * 
+    from tb_email_payretuensuccess order by payRetuensuccess_id
+  </select>
+</mapper>
