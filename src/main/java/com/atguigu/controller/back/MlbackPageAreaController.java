@@ -266,7 +266,7 @@ public class MlbackPageAreaController {
 							String productidStr ="";
 							Integer productidInt =0;
 							List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
-							
+							//
 							MlbackProduct mlbackProductResOne = new MlbackProduct();
 							for(int x=0;x<productidsStrArr.length;x++){
 								productidStr = productidsStrArr[x];
@@ -287,8 +287,8 @@ public class MlbackPageAreaController {
 						pageAreaDetailOne.setMlbackProduct(mlbackProductOne);
 						pageAreaDetailOne.setPageAreaDetailIfinto(1);
 						pageAreaDetailOne.setPageAreaDetailType(2);
+						pageAreaDetailFollrList.add(pageAreaDetailOne);
 					}
-					pageAreaDetailFollrList.add(pageAreaDetailOne);
 				}
 			}
 			pageAreaDetailAllList.add(pageAreaDetailFollrList);
