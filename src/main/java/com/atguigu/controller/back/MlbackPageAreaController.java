@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlbackCatalog;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackPageArea;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
+import com.atguigu.service.MlbackActShowProService;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackPageAreaService;
 import com.atguigu.service.MlbackProductService;
@@ -52,6 +53,9 @@ public class MlbackPageAreaController {
 	
 	@Autowired
 	MlbackProductService mlbackProductService;
+	
+	@Autowired
+	MlbackActShowProService mlbackActShowProService;
 	
 	/**
 	 * zsh 201014
@@ -239,7 +243,40 @@ public class MlbackPageAreaController {
 				}
 			}else if(type==1){
 				//type==1活动品
-				
+				for(int i=0;i<idstrArr.length;i++){
+					//第一个
+					PageAreaDetail pageAreaDetailOne = new PageAreaDetail();
+					
+					String actshowproIdStr=idstrArr[i];
+					Integer actshowproIdInt = Integer.parseInt(actshowproIdStr);
+					
+					MlbackActShowPro mlbackActShowProReq = new MlbackActShowPro();
+					mlbackActShowProReq.setActshowproId(actshowproIdInt);
+					
+					MlbackActShowPro mlbackActShowProRes= mlbackActShowProService.selectMlbackActShowProById(mlbackActShowProReq);
+					if(mlbackActShowProRes!=null){
+						Integer ifproORcateORpage = mlbackActShowProRes.getActshowproIfproorcate();
+						pageAreaDetailOne.setPageAreaDetailType(0);//这个轮播
+						if(ifMobile.equals("1")){
+							pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackActShowProRes.getActshowproImgwapurl());
+						}else{
+							pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackActShowProRes.getActshowproImgpcurl());
+						}
+						pageAreaDetailOne.setPageAreaDetailIfinto(1);//1默认能点进去
+						
+						if(ifproORcateORpage==0){
+							//0pro
+							pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackActShowProRes.getActshowproSeoname()+".html");
+						}else if(ifproORcateORpage==1){
+							//1cate
+							pageAreaDetailOne.setPageAreaDetaiLinklUrl("search/"+mlbackActShowProRes.getActshowproCateseoname()+".html");
+						}else{
+							//2page
+							pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackActShowProRes.getActshowproPageseoname()+".html");
+						}
+					}
+					pageAreaDetailFollrList.add(pageAreaDetailOne);
+				}
 				
 			}else{
 				//type==2类目
