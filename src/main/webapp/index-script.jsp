@@ -75,7 +75,9 @@
 		var htmlStr = '';
 		var $reviewList = $('<div class="showaera-review-container" />')
 		data.mlfrontReviewList.forEach(function(item, idx) {
-			htmlStr += '<div class="showarea-review-item shadow-radius lazyload" data-src="'+ (data.mlfrontReviewImgList[idx][0] && data.mlfrontReviewImgList[idx][0].reviewimgUrl) +'" data-id="'+ item.reviewPid +'"></div>'
+			htmlStr += '<div class="showarea-review-item shadow-radius lazyload" data-src="'+ (data.mlfrontReviewImgList[idx][0] && data.mlfrontReviewImgList[idx][0].reviewimgUrl) +'" data-id="'+ item.reviewPid +'">' +
+				'<div class="showarea-review-mask"><div class="shop-it">SHOP IT</div></div>' +
+			'</div>';
 		});
 		$reviewList.html(htmlStr);
 		$el.append($reviewList);
