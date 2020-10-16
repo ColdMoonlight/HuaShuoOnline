@@ -147,7 +147,7 @@
 	
 		/***download_fk*******************/
 		$('#download_fk').on('click', function() {
-			window.location.href = "${APP_PATH}/excleImport/exportReviewsImportDemo";
+			window.location.href = "${APP_PATH}/excleImport/exportPaySuccess";
 		});
 		
 		/***download_dz*******************/

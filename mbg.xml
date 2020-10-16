@@ -90,9 +90,10 @@
 		<table tableName="tb_email_user" domainObjectName="EmailUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		
 		-->
-		<!-- 
+		<!-- 	
 		<table tableName="tb_email_payAllsuccess" domainObjectName="EmailPayAllsuccess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_email_checkUnPay" domainObjectName="EmailCheckUnPay" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_email_payAndCheck" domainObjectName="EmailPayAndCheck" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		 -->
-		
 	</context>
 </generatorConfiguration>
