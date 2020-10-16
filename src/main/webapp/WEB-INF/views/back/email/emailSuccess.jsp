@@ -84,6 +84,57 @@
 											</div>
 										</div>
 									</div>
+									<div class="col-md-2">
+										<h3 style="font-size: 16px;">上传文档</h3>
+										<div class="c-upload-img" style="width: 4rem; height: 4rem;padding: 1rem;">
+											<svg class="c-icon" style="width: 2rem; height: 2rem;">
+												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-uploadwd"></use>
+											</svg>
+											<div class="c-backshow"></div>	
+												<!-- <input type="file" id="file" name="myfile" style="display: none" />
+												<input type="text" id="filename" style="display:none"></span>
+												<input type="button" onclick="upload()" value="选择文件上传" /> -->
+											<input id="excleImport" type="file" name="file" />										
+											<!-- spinner -->
+											<div class="spinner">
+												<div class="spinner-border" role="status" aria-hidden="true"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<h3 style="font-size: 16px;">上传文档</h3>
+										<div class="c-upload-img" style="width: 4rem; height: 4rem;padding: 1rem;">
+											<svg class="c-icon" style="width: 2rem; height: 2rem;">
+												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-uploadwd"></use>
+											</svg>
+											<div class="c-backshow"></div>	
+												<!-- <input type="file" id="file" name="myfile" style="display: none" />
+												<input type="text" id="filename" style="display:none"></span>
+												<input type="button" onclick="upload()" value="选择文件上传" /> -->
+											<input id="excleImport" type="file" name="file" />										
+											<!-- spinner -->
+											<div class="spinner">
+												<div class="spinner-border" role="status" aria-hidden="true"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<h3 style="font-size: 16px;">上传文档</h3>
+										<div class="c-upload-img" style="width: 4rem; height: 4rem;padding: 1rem;">
+											<svg class="c-icon" style="width: 2rem; height: 2rem;">
+												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-uploadwd"></use>
+											</svg>
+											<div class="c-backshow"></div>	
+												<!-- <input type="file" id="file" name="myfile" style="display: none" />
+												<input type="text" id="filename" style="display:none"></span>
+												<input type="button" onclick="upload()" value="选择文件上传" /> -->
+											<input id="excleImport" type="file" name="file" />										
+											<!-- spinner -->
+											<div class="spinner">
+												<div class="spinner-border" role="status" aria-hidden="true"></div>
+											</div>
+										</div>
+									</div>
 								</div>
 								
 							</div>
