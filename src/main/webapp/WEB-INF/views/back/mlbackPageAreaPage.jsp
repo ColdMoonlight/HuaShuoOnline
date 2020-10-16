@@ -484,6 +484,7 @@
 		$('#pageareaType').on('change', function(e) {
 			$('#pageareaTypedetailIdstr').val('');
 			$('#pageareaTypedetail').val('');
+			$('#pagearea-category').val('-1');
 			if ($(this).val() == 2) {
 				$('.ml-category').removeClass('hide');
 				$('#pageAreaDetailEdit').addClass('hide');
@@ -727,6 +728,7 @@
 
 			$('#pageareaType').val('-1');
 			$('.ml-category').addClass('hide');
+			$('#pagearea-category').val('-1');
 			$('#pageAreaDetailEdit').removeClass('hide');
 			
 			$('#pageareaTypedetailIdstr').val('');
@@ -771,17 +773,19 @@
 			$('#pageareaPcstatus').prop('checked', data.pageareaPcstatus);
 			$('#pageareaPcsort').val(data.pageareaPcsort ? data.pageareaPcsort : '-1');
 
-			$('#pageareaType').val(data.pageareaType);
-			if (data.pageareaType == 2) {
-				$('.ml-category').removeClass('hide');
+			var pageareaType = data.pageareaType;			
+			var pageAreaDetailsIdStr = data.pageareaTypedetailIdstr;
+			var pageAreaDetails = data.pageareaTypedetail;
+
+			if (pageareaType == 2) {
+				$('.ml-category').removeClass('hide')
+				$('#pagearea-category').val(pageAreaDetailsIdStr);
 				$('#pageAreaDetailEdit').addClass('hide');
 			} else {
 				$('.ml-category').addClass('hide');
 				$('#pageAreaDetailEdit').removeClass('hide');
 			}
-			
-			var pageAreaDetailsIdStr = data.pageareaTypedetailIdstr;
-			var pageAreaDetails = data.pageareaTypedetail;
+			$('#pageareaType').val(data.pageareaType);
 			$('#pageareaTypedetailIdstr').val(pageAreaDetailsIdStr);
 			$('#pageareaTypedetail').val(pageAreaDetails);
 			$('#pageAreaDetailList').val(pageAreaDetails && pageAreaDetails && generatePageAreaDetails(pageAreaDetailsIdStr.split(','), pageAreaDetails.split(',')));
