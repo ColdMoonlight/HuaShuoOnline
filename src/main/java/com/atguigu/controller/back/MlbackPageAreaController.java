@@ -240,6 +240,7 @@ public class MlbackPageAreaController {
 			}else if(type==1){
 				//type==1活动品
 				
+				
 			}else{
 				//type==2类目
 				for(int i=0;i<idstrArr.length;i++){
@@ -266,7 +267,7 @@ public class MlbackPageAreaController {
 							String productidStr ="";
 							Integer productidInt =0;
 							List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
-							//
+							//查询单独的信息
 							MlbackProduct mlbackProductResOne = new MlbackProduct();
 							for(int x=0;x<productidsStrArr.length;x++){
 								productidStr = productidsStrArr[x];

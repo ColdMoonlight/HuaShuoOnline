@@ -19,12 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.atguigu.bean.EmailAddress;
 import com.atguigu.bean.EmailPayPalRetuenSuccess;
 import com.atguigu.bean.EmailPaySuccess;
+import com.atguigu.bean.EmailUser;
 import com.atguigu.bean.MlfrontReview;
 import com.atguigu.service.DownPayCheckDateService;
+import com.atguigu.service.EmailAddressService;
 import com.atguigu.service.EmailPayPalRetuenSuccessService;
 import com.atguigu.service.EmailPaySuccessService;
+import com.atguigu.service.EmailUserService;
 import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontReviewService;
 import com.atguigu.utils.DateUtil;
@@ -47,6 +51,12 @@ public class ExcleImportController {
 	
 	@Autowired
 	EmailPayPalRetuenSuccessService emailPayPalRetuenSuccessService;
+	
+	@Autowired
+	EmailAddressService emailAddressService;
+	
+	@Autowired
+	EmailUserService emailUserService;
 	
 	/**
 	 * zsh 200730
@@ -220,7 +230,7 @@ public class ExcleImportController {
 		}
 	}
 	
-	/**
+	/**1.1.1导入pay关联的emial表中
      * inportPaySuccessEmail
      * @param request
      * @param response
@@ -267,7 +277,7 @@ public class ExcleImportController {
 		}
 	}
 	
-	/**
+	/**1.1.2导入payReturn的BillingEmial表中
      * inportPayPalReturnSuccessEmail
      * @param request
      * @param response
@@ -302,6 +312,99 @@ public class ExcleImportController {
 					for(EmailPayPalRetuenSuccess emailPayPalRetuenOne:emailPayPalRetuenSuccessList){
 						emailPayPalRetuenSuccessService.insertSelective(emailPayPalRetuenOne);
 						System.out.println("emailPaySuccessOne.getId():"+emailPayPalRetuenOne.getPayretuensuccessId());
+					}
+				}catch (Exception e) {
+					System.out.println("第行出错");
+					e.printStackTrace();
+				}
+			}
+		}catch (Exception e) {
+			System.out.println("第行出错");
+			e.printStackTrace();
+		}
+	}
+	
+	/**1.1.3地址Email
+     * inportPayPalReturnSuccessEmail
+     * @param request
+     * @param response
+     */
+	@RequestMapping(value="/inportPayAddressEmail",method=RequestMethod.POST)
+	public void inportPayAddressEmail(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,
+			HttpServletResponse response,HttpSession session){
+		try {
+			InputStream is = multipartFile.getInputStream();
+			String nowTime = DateUtil.strTime14();
+			if(is!=null){
+				HSSFWorkbook wb = new HSSFWorkbook(is);
+				List<EmailAddress> emailAddressList = new ArrayList<EmailAddress>();
+				int rowCount = 0;
+				try {
+					HSSFSheet st = wb.getSheetAt(0);
+					int rowNum = st.getLastRowNum(); //获取Excel最后一行索引,从零开始，所以获取到的是表中最后一行行数减一
+					int colNum = st.getRow(0).getLastCellNum();//获取Excel列数
+					for(int r=1;r<=rowNum;r++){//读取每一行,第一行为标题,从第二行开始
+						rowCount = r;
+						HSSFRow row = st.getRow(r);
+						EmailAddress emailAddressOne = new EmailAddress();
+						HSSFCell getCell = null;
+						getCell = row.getCell(0);
+						if (getCell != null) {
+		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		                    emailAddressOne.setAddressemailEmail(getCell.getStringCellValue());
+		                }
+						emailAddressList.add(emailAddressOne);
+					}
+					is.close();
+					for(EmailAddress emailAddressOne:emailAddressList){
+						emailAddressService.insertSelective(emailAddressOne);
+						System.out.println("emailAddressOne.getId():"+emailAddressOne.getAddressemailId());
+					}
+				}catch (Exception e) {
+					System.out.println("第行出错");
+					e.printStackTrace();
+				}
+			}
+		}catch (Exception e) {
+			System.out.println("第行出错");
+			e.printStackTrace();
+		}
+	}
+	/**1.1.4导入UserEmail
+     * inportPayPalReturnSuccessEmail
+     * @param request
+     * @param response
+     */
+	@RequestMapping(value="/inportPayUserEmail",method=RequestMethod.POST)
+	public void inportPayUserEmail(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,
+			HttpServletResponse response,HttpSession session){
+		try {
+			InputStream is = multipartFile.getInputStream();
+			String nowTime = DateUtil.strTime14();
+			if(is!=null){
+				HSSFWorkbook wb = new HSSFWorkbook(is);
+				List<EmailUser> emailUserList = new ArrayList<EmailUser>();
+				int rowCount = 0;
+				try {
+					HSSFSheet st = wb.getSheetAt(0);
+					int rowNum = st.getLastRowNum(); //获取Excel最后一行索引,从零开始，所以获取到的是表中最后一行行数减一
+					int colNum = st.getRow(0).getLastCellNum();//获取Excel列数
+					for(int r=1;r<=rowNum;r++){//读取每一行,第一行为标题,从第二行开始
+						rowCount = r;
+						HSSFRow row = st.getRow(r);
+						EmailUser emailUserOne = new EmailUser();
+						HSSFCell getCell = null;
+						getCell = row.getCell(0);
+						if (getCell != null) {
+		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		                    emailUserOne.setUseremailEmail(getCell.getStringCellValue());
+		                }
+						emailUserList.add(emailUserOne);
+					}
+					is.close();
+					for(EmailUser emailUserOne:emailUserList){
+						emailUserService.insertSelective(emailUserOne);
+						System.out.println("emailUserOne.getId():"+emailUserOne.getUseremailId());
 					}
 				}catch (Exception e) {
 					System.out.println("第行出错");

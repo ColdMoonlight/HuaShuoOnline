@@ -51,8 +51,8 @@ public class EmailPayPalRetuenSuccessService {
 	 * @param 
 	 * @exception 查看全部用户信息
 	 * */
-	public List<EmailPayPalRetuenSuccess> selectALl() {
-		List<EmailPayPalRetuenSuccess>  EmailPayPalRetuenSuccessList = emailPayPalRetuenSuccessMapper.selectALl();
+	public List<EmailPayPalRetuenSuccess> selectALl(EmailPayPalRetuenSuccess EmailPayPalRetuenSuccess) {
+		List<EmailPayPalRetuenSuccess>  EmailPayPalRetuenSuccessList = emailPayPalRetuenSuccessMapper.selectALl(EmailPayPalRetuenSuccess);
 		return EmailPayPalRetuenSuccessList;
 	}
 	

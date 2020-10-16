@@ -17,7 +17,7 @@ public interface EmailPayPalRetuenSuccessMapper {
 
     int updateByPrimaryKey(EmailPayPalRetuenSuccess record);
 
-	List<EmailPayPalRetuenSuccess> selectALl();
+	List<EmailPayPalRetuenSuccess> selectALl(EmailPayPalRetuenSuccess record);
 
 	List<EmailPayPalRetuenSuccess> selectByEmail(EmailPayPalRetuenSuccess EmailPayPalRetuenSuccess);
 }
