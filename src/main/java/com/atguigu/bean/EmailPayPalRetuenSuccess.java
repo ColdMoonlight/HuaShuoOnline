@@ -20,4 +20,21 @@ public class EmailPayPalRetuenSuccess {
     public void setPayretuensuccessEmail(String payretuensuccessEmail) {
         this.payretuensuccessEmail = payretuensuccessEmail == null ? null : payretuensuccessEmail.trim();
     }
+
+	public EmailPayPalRetuenSuccess() {
+		super();
+	}
+
+	public EmailPayPalRetuenSuccess(Integer payretuensuccessId, String payretuensuccessEmail) {
+		super();
+		this.payretuensuccessId = payretuensuccessId;
+		this.payretuensuccessEmail = payretuensuccessEmail;
+	}
+
+	@Override
+	public String toString() {
+		return "EmailPayPalRetuenSuccess [payretuensuccessId=" + payretuensuccessId + ", payretuensuccessEmail="
+				+ payretuensuccessEmail + "]";
+	}
+    
 }

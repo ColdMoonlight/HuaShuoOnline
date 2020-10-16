@@ -1,5 +1,7 @@
 package com.atguigu.dao;
 
+import java.util.List;
+
 import com.atguigu.bean.EmailPayPalRetuenSuccess;
 
 public interface EmailPayPalRetuenSuccessMapper {
@@ -14,4 +16,8 @@ public interface EmailPayPalRetuenSuccessMapper {
     int updateByPrimaryKeySelective(EmailPayPalRetuenSuccess record);
 
     int updateByPrimaryKey(EmailPayPalRetuenSuccess record);
+
+	List<EmailPayPalRetuenSuccess> selectALl();
+
+	List<EmailPayPalRetuenSuccess> selectByEmail(EmailPayPalRetuenSuccess EmailPayPalRetuenSuccess);
 }
