@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.EmailAddressMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.EmailAddress">
+    <id column="addressEmail_id" jdbcType="INTEGER" property="addressemailId" />
+    <result column="addressEmail_email" jdbcType="VARCHAR" property="addressemailEmail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    addressEmail_id, addressEmail_email
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_email_address
+    where addressEmail_id = #{addressemailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_email_address
+    where addressEmail_id = #{addressemailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.EmailAddress">
+    insert into tb_email_address (addressEmail_id, addressEmail_email
+      )
+    values (#{addressemailId,jdbcType=INTEGER}, #{addressemailEmail,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.bean.EmailAddress">
+    insert into tb_email_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="addressemailId != null">
+        addressEmail_id,
+      </if>
+      <if test="addressemailEmail != null">
+        addressEmail_email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="addressemailId != null">
+        #{addressemailId,jdbcType=INTEGER},
+      </if>
+      <if test="addressemailEmail != null">
+        #{addressemailEmail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.EmailAddress">
+    update tb_email_address
+    <set>
+      <if test="addressemailEmail != null">
+        addressEmail_email = #{addressemailEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where addressEmail_id = #{addressemailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.EmailAddress">
+    update tb_email_address
+    set addressEmail_email = #{addressemailEmail,jdbcType=VARCHAR}
+    where addressEmail_id = #{addressemailId,jdbcType=INTEGER}
+  </update>
+</mapper>

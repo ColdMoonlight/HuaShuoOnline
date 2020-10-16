@@ -220,7 +220,7 @@ public class ExcleImportController {
 		}
 	}
 	
-	/**
+	/**1.1.1导入pay关联的emial表中
      * inportPaySuccessEmail
      * @param request
      * @param response
@@ -267,13 +267,106 @@ public class ExcleImportController {
 		}
 	}
 	
-	/**
+	/**1.1.2导入payReturn的BillingEmial表中
      * inportPayPalReturnSuccessEmail
      * @param request
      * @param response
      */
 	@RequestMapping(value="/inportPayPalReturnSuccessEmail",method=RequestMethod.POST)
 	public void inportPayPalReturnSuccessEmail(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,
+			HttpServletResponse response,HttpSession session){
+		try {
+			InputStream is = multipartFile.getInputStream();
+			String nowTime = DateUtil.strTime14();
+			if(is!=null){
+				HSSFWorkbook wb = new HSSFWorkbook(is);
+				List<EmailPayPalRetuenSuccess> emailPayPalRetuenSuccessList = new ArrayList<EmailPayPalRetuenSuccess>();
+				int rowCount = 0;
+				try {
+					HSSFSheet st = wb.getSheetAt(0);
+					int rowNum = st.getLastRowNum(); //获取Excel最后一行索引,从零开始，所以获取到的是表中最后一行行数减一
+					int colNum = st.getRow(0).getLastCellNum();//获取Excel列数
+					for(int r=1;r<=rowNum;r++){//读取每一行,第一行为标题,从第二行开始
+						rowCount = r;
+						HSSFRow row = st.getRow(r);
+						EmailPayPalRetuenSuccess emailPayPalRetuenSuccessOne = new EmailPayPalRetuenSuccess();
+						HSSFCell getCell = null;
+						getCell = row.getCell(0);
+						if (getCell != null) {
+		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		                    emailPayPalRetuenSuccessOne.setPayretuensuccessEmail(getCell.getStringCellValue());
+		                }
+						emailPayPalRetuenSuccessList.add(emailPayPalRetuenSuccessOne);
+					}
+					is.close();
+					for(EmailPayPalRetuenSuccess emailPayPalRetuenOne:emailPayPalRetuenSuccessList){
+						emailPayPalRetuenSuccessService.insertSelective(emailPayPalRetuenOne);
+						System.out.println("emailPaySuccessOne.getId():"+emailPayPalRetuenOne.getPayretuensuccessId());
+					}
+				}catch (Exception e) {
+					System.out.println("第行出错");
+					e.printStackTrace();
+				}
+			}
+		}catch (Exception e) {
+			System.out.println("第行出错");
+			e.printStackTrace();
+		}
+	}
+	
+	/**1.1.3地址Email
+     * inportPayPalReturnSuccessEmail
+     * @param request
+     * @param response
+     */
+	@RequestMapping(value="/inportPayAddressEmail",method=RequestMethod.POST)
+	public void inportPayAddressEmail(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,
+			HttpServletResponse response,HttpSession session){
+		try {
+			InputStream is = multipartFile.getInputStream();
+			String nowTime = DateUtil.strTime14();
+			if(is!=null){
+				HSSFWorkbook wb = new HSSFWorkbook(is);
+				List<EmailPayPalRetuenSuccess> emailPayPalRetuenSuccessList = new ArrayList<EmailPayPalRetuenSuccess>();
+				int rowCount = 0;
+				try {
+					HSSFSheet st = wb.getSheetAt(0);
+					int rowNum = st.getLastRowNum(); //获取Excel最后一行索引,从零开始，所以获取到的是表中最后一行行数减一
+					int colNum = st.getRow(0).getLastCellNum();//获取Excel列数
+					for(int r=1;r<=rowNum;r++){//读取每一行,第一行为标题,从第二行开始
+						rowCount = r;
+						HSSFRow row = st.getRow(r);
+						EmailPayPalRetuenSuccess emailPayPalRetuenSuccessOne = new EmailPayPalRetuenSuccess();
+						HSSFCell getCell = null;
+						getCell = row.getCell(0);
+						if (getCell != null) {
+		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		                    emailPayPalRetuenSuccessOne.setPayretuensuccessEmail(getCell.getStringCellValue());
+		                }
+						emailPayPalRetuenSuccessList.add(emailPayPalRetuenSuccessOne);
+					}
+					is.close();
+					for(EmailPayPalRetuenSuccess emailPayPalRetuenOne:emailPayPalRetuenSuccessList){
+						emailPayPalRetuenSuccessService.insertSelective(emailPayPalRetuenOne);
+						System.out.println("emailPaySuccessOne.getId():"+emailPayPalRetuenOne.getPayretuensuccessId());
+					}
+				}catch (Exception e) {
+					System.out.println("第行出错");
+					e.printStackTrace();
+				}
+			}
+		}catch (Exception e) {
+			System.out.println("第行出错");
+			e.printStackTrace();
+		}
+	}
+	/**1.1.4导入UserEmail
+     * inportPayPalReturnSuccessEmail
+     * @param request
+     * @param response
+     */
+	@RequestMapping(value="/inportPayUserEmail",method=RequestMethod.POST)
+	public void inportPayUserEmail(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,
 			HttpServletResponse response,HttpSession session){
 		try {
 			InputStream is = multipartFile.getInputStream();
