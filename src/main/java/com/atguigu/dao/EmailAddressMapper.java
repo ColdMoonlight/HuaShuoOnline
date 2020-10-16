@@ -18,5 +18,5 @@ public interface EmailAddressMapper {
 
 	List<EmailAddress> selectALl(EmailAddress record);
 
-	List<com.atguigu.bean.EmailAddress> selectByEmail(EmailAddress emailAddress);
+	List<EmailAddress> selectByEmail(EmailAddress emailAddress);
 }
