@@ -24,7 +24,7 @@
     values (#{addressemailId,jdbcType=INTEGER}, #{addressemailEmail,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.EmailAddress">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="addressemailId" parameterType="com.atguigu.bean.EmailAddress">
     insert into tb_email_address
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="addressemailId != null">
@@ -57,4 +57,17 @@
     set addressEmail_email = #{addressemailEmail,jdbcType=VARCHAR}
     where addressEmail_id = #{addressemailId,jdbcType=INTEGER}
   </update>
+  
+  <!-- selectByEmail -->
+  <select id="selectByEmail" parameterType="com.atguigu.bean.EmailAddress" resultMap="BaseResultMap">
+    select * 
+    from tb_email_address
+    where addressEmail_email = #{addressemailEmail,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- selectALl -->
+  <select id="selectALl" parameterType="com.atguigu.bean.EmailAddress" resultMap="BaseResultMap">
+    select * 
+    from tb_email_address order by addressEmail_id
+  </select>
 </mapper>

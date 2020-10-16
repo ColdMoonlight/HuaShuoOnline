@@ -1,5 +1,6 @@
 package com.atguigu.dao;
 
+import java.util.List;
 import com.atguigu.bean.EmailUser;
 
 public interface EmailUserMapper {
@@ -14,4 +15,8 @@ public interface EmailUserMapper {
     int updateByPrimaryKeySelective(EmailUser record);
 
     int updateByPrimaryKey(EmailUser record);
+
+	List<EmailUser> selectALl(EmailUser record);
+
+	List<com.atguigu.bean.EmailUser> selectByEmail(EmailUser emailUser);
 }

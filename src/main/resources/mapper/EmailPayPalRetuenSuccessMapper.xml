@@ -59,14 +59,14 @@
   </update>
   
   <!-- selectByEmail -->
-  <select id="selectByEmail" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByEmail" parameterType="com.atguigu.bean.EmailPayPalRetuenSuccess" resultMap="BaseResultMap">
     select * 
     from tb_email_payretuensuccess
     where payRetuensuccess_email = #{payretuensuccessEmail,jdbcType=VARCHAR}
   </select>
   
   <!-- selectALl -->
-  <select id="selectALl" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectALl" parameterType="com.atguigu.bean.EmailPayPalRetuenSuccess" resultMap="BaseResultMap">
     select * 
     from tb_email_payretuensuccess order by payRetuensuccess_id
   </select>
