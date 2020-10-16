@@ -190,6 +190,12 @@
 											</select>
 										</div>
 									</div>
+									<div class="form-group ml-category hide">
+											<label class="col-form-label" for="pagearea-category">Category</label>
+											<div class="controls">
+												<select class="form-control collection-list" id="pagearea-category" /></select>
+											</div>
+										</div>
 									<div class="form-group">
 										<label class="col-form-label" for="pageAreaDetailList">Details(集合详情)</label>
 										<input type="hidden" id="pageareaTypedetailIdstr" />
@@ -237,6 +243,7 @@
 	<!-- custom script -->
 	<script>
 		var hasSuperCateList = false;
+		var hasCollectionList = false;
 		var isCreate = false;
 		var storageName = 'pagearea';
 		var selectedName = [];
@@ -412,7 +419,7 @@
 			
 			selectedId = [];
 			selectedName = [];
-			$selectResult.text('');				
+			$selectResult.text('');	
 
 			if (defaultId) {
 				selectedId = defaultId.split(',');
@@ -467,10 +474,31 @@
 				$('#pageareaStatus, #pageareaPcstatus').prop('checked', false);
 			}
 		});
+		// supercate cahnge
 		$('#pageareaSupercateid').on('change', function() {
 			if ($(this).val() == '-1') {
 				$('#pageareaStatus, #pageareaPcstatus').prop('checked', false);
 			}
+		});
+		// pagearea type change
+		$('#pageareaType').on('change', function(e) {
+			$('#pageareaTypedetailIdstr').val('');
+			$('#pageareaTypedetail').val('');
+			if ($(this).val() == 2) {
+				$('.ml-category').removeClass('hide');
+				$('#pageAreaDetailEdit').addClass('hide');
+			} else {
+				$('.ml-category').addClass('hide');
+				$('#pageAreaDetailEdit').removeClass('hide');
+			}
+		});
+		// pagearea-category change
+		$('#pagearea-category').on('change', function(e) {
+			var cagtegoryId = $(this).val();
+			var cagegoryName = $(this).find('option:checked').data('name');
+			$('#pageareaTypedetailIdstr').val(cagtegoryId);
+			$('#pageareaTypedetail').val(cagegoryName);
+			$('#pageAreaDetailList').val('* ' + cagtegoryId + ' —— ' + cagegoryName + '\n');
 		});
 		// edit get all carousel data
 		function getAllCarouselsData(callback) {
@@ -671,6 +699,7 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
+			if (!hasCollectionList) getAllCollectionData(renderAllCollection);
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
@@ -697,6 +726,9 @@
 			$('#pageareaPcsort').val('-1');
 
 			$('#pageareaType').val('-1');
+			$('.ml-category').addClass('hide');
+			$('#pageAreaDetailEdit').removeClass('hide');
+			
 			$('#pageareaTypedetailIdstr').val('');
 			$('#pageareaTypedetail').val('');
 			$('#pageAreaDetailList').val('');
@@ -740,6 +772,14 @@
 			$('#pageareaPcsort').val(data.pageareaPcsort ? data.pageareaPcsort : '-1');
 
 			$('#pageareaType').val(data.pageareaType);
+			if (data.pageareaType == 2) {
+				$('.ml-category').removeClass('hide');
+				$('#pageAreaDetailEdit').addClass('hide');
+			} else {
+				$('.ml-category').addClass('hide');
+				$('#pageAreaDetailEdit').removeClass('hide');
+			}
+			
 			var pageAreaDetailsIdStr = data.pageareaTypedetailIdstr;
 			var pageAreaDetails = data.pageareaTypedetail;
 			$('#pageareaTypedetailIdstr').val(pageAreaDetailsIdStr);

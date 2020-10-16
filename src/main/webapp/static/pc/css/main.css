@@ -3587,7 +3587,25 @@ footer li {
 }
 /* customer voice */
 .showarea-review-item {
+	position: relative;
+	overflow: hidden;
 	cursor: pointer;
+}
+.showarea-review-mask {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.showarea-review-mask .shop-it {
+	padding: .5rem .75rem;
+	font-size: .75rem;
+	background-color: #000;
+	color: #fff;
 }
 .customer-voice-img {
 	padding-top: 100%;
@@ -3661,6 +3679,13 @@ footer li {
 		width: 70%;
 		padding: 1rem 3rem;
 		margin: 0 auto;
+	}
+	.showarea-review-mask {
+		display: none;	
+		background-color: rgba(0, 0, 0, .35);
+	}
+	.showarea-review-item:hover .showarea-review-mask {
+		display: flex;
 	}
 }
 .introduce-product-title {
