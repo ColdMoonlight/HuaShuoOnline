@@ -3565,7 +3565,6 @@ footer li {
 .main-body .swiper-container,
 .main-body-item {
 	display: block;
-	min-height: 10rem;
 }
 .main-body-item .lazyload {
 	width: 100%;
@@ -3622,10 +3621,9 @@ footer li {
 	justify-content: center;
 }
 .showarea-review-mask .shop-it {
-	padding: .5rem .75rem;
-	font-size: .75rem;
 	background-color: #000;
 	color: #fff;
+	border-radius: .1rem;
 }
 .customer-voice-img {
 	padding-top: 100%;
@@ -3661,6 +3659,10 @@ footer li {
 	margin-top: 1rem;
 }
 @media only screen and (max-width: 575px) {
+	.main-body .swiper-container,
+	.main-body-item {
+		min-height: 13rem;
+	}
 	.ml-product-slide {
 		padding-top: 3rem;
 		padding-bottom: 4rem;
@@ -3692,11 +3694,19 @@ footer li {
 		margin-bottom: 1%;
 		margin-left: 1%;
 	}
+	.showarea-review-mask .shop-it {
+		padding: .5rem .75rem;
+		font-size: .75rem;
+	}
 	.customer-voice {
 		padding: 0 2rem;
 	}
 }
 @media only screen and (min-width: 576px) and (max-width: 1023px) {
+	.main-body .swiper-container,
+	.main-body-item {
+		min-height: 20rem;
+	}
 	.showarea-review-item {
 		width: 24%;
 		padding-top: 24%;
@@ -3754,6 +3764,10 @@ footer li {
 	.showarea-review-mask {
 		display: none;	
 		background-color: rgba(0, 0, 0, .35);
+	}
+	.showarea-review-mask .shop-it {
+		padding: .75rem 1.25rem;
+		font-size: .875rem;
 	}
 	.showarea-review-item:hover .showarea-review-mask {
 		display: flex;
