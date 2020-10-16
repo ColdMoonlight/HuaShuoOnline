@@ -55,4 +55,17 @@
     set paysuccess_email = #{paysuccessEmail,jdbcType=VARCHAR}
     where paysuccess_id = #{paysuccessId,jdbcType=INTEGER}
   </update>
+  
+  <!-- selectByEmail -->
+  <select id="selectByEmail" parameterType="com.atguigu.bean.EmailPaySuccess" resultMap="BaseResultMap">
+    select * 
+    from tb_email_paysuccess
+    where paysuccess_email = #{paysuccessEmail,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- selectALl -->
+  <select id="selectALl" parameterType="com.atguigu.bean.EmailPaySuccess" resultMap="BaseResultMap">
+    select * 
+    from tb_email_paysuccess order by paysuccess_id
+  </select>
 </mapper>
