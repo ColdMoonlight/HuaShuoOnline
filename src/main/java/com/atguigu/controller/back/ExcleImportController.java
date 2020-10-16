@@ -302,11 +302,11 @@ public class ExcleImportController {
 			}
 		}
 		
-		//----------------------------
+		//--------------------
 		
 		cell.setCellValue("num");
 	    cell = row.createCell(1);
-		cell.setCellValue("billingEmail");
+		cell.setCellValue("添加支付信息未付款的Email");
 	    cell = row.createCell(2);
 	    
 	    EmailCheckUnPay emailCheckUnPayOne = new EmailCheckUnPay();
