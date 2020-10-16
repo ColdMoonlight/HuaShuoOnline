@@ -14,20 +14,7 @@
 	<body>
 		<jsp:include page="WEB-INF/views/portal/layout/header.jsp" flush="true"></jsp:include>
 		<!-- main start -->
-			<div class="ml-index-carousel swiper-container">
-				<div class="swiper-wrapper"></div>
-		   		<div class="swiper-pagination"></div>
-			    <div class="swiper-btn swiper-button-next"></div>
-	            <div class="swiper-btn swiper-button-prev"></div>
-			</div>
-			<div id="hot-five" class="hot-five"></div>
-			<div id="countdown-area"></div>
-			<div id="hot-two" class="hot-two"></div>
-			<div id="hot-coupon" class="hot-coupon"></div>
-			<div id="activity-product" class="activity-product"></div>
-			<div id="hot-collection" class="hot-collection"></div>
-			<div id="showAreaOne" class="showarea showAreaOne"></div>
-			<div id="showAreaTwo" class="showarea showAreaTwo"></div>
+			<div id="main-body" class="main-body"></div>
 			<div id="showAreaThree" class="showarea showAreaThree"></div>
 		<!-- main end -->
 		<!-- common script -->

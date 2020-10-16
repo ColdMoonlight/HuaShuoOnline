@@ -3543,6 +3543,7 @@ footer li {
 }
 
 /* lazyload */
+.main-body-item,
 .lazyload {
 	background-image: url('../img/loading.gif');
 	background-size: contain;
@@ -3554,22 +3555,22 @@ footer li {
 	padding-top: 100%;
 }
 
-/* index carousel */
-.ml-index-carousel .lazyload,
+/* index page */
 .ml-ad .lazyload {
 	display: block;
 }
-.hot-five,
-.showarea-banner,
-.hot-two-item,
-.hot-coupon-item,
-.activity-product-item,
-.hot-collection-item {
-	display: none;
-	visibility: hidden;
-	opacity: 0;
+.main-body {
+	min-height: 50vh;
 }
-.activity-product,
+.main-body .swiper-container,
+.main-body-item {
+	display: block;
+	min-height: 10rem;
+}
+.main-body-item .lazyload {
+	width: 100%;
+	height: auto;
+}
 .showaera-review-container,
 .video-collection-body,
 .video-areaitem-content,
@@ -3580,64 +3581,10 @@ footer li {
 	flex-wrap: wrap;
 	margin-left: -1%;
 }
-.showarea-banner.loaded {	
-	background-color: #fff;
-}
-.showarea .swiper-slide .lazyload {
-	display: block;
-	padding-top: 100%;
-}
 .video-areaitem-content {
 	justify-content: space-between;
 	align-items: center;
 }
-.hot-five {
-	position: relative;
-	overflow: hidden;
-	padding: 1rem;
-	align-items: center;
-	overflow-x: scroll;
-}
-.hot-five-item {
-	flex-shrink: 0;
-	display: inline-block;
-	vertical-align: top;
-	width: 30%;
-	padding-top: 39%;
-}
-.hot-five-item+.hot-five-item {
-	margin-left: 5%;
-}
-.hot-five-item.loaded {
-	background-size: 100% 100%;
-	background-color: #fff;
-}
-/* .hot-five-item:nth-of-type(1),
-.hot-five-item:nth-of-type(5) {
-	width: 32%;
-	padding-top: 40%;
-}
-.hot-five-item:nth-of-type(2) {
-	width: 36%;
-	padding-top: 20%;
-}
-.hot-five-item:nth-of-type(3),
-.hot-five-item:nth-of-type(4) {
-	position: absolute;
-	bottom: 0;
-	width: 18%;
-	padding-top: 20%;
-}
-.hot-five-item.loaded:nth-of-type(3),
-.hot-five-item.loaded:nth-of-type(4) {
-	bottom: -4px;
-}
-.hot-five-item:nth-of-type(3) {
-	left: 32%;
-}
-.hot-five-item:nth-of-type(4) {
-	right: 32%;
-} */
 /* customer voice */
 .showarea-review-item {
 	cursor: pointer;
@@ -3676,61 +3623,8 @@ footer li {
 	margin-top: 1rem;
 }
 @media only screen and (max-width: 575px) {
-	/* .hot-two,
-	.hot-five, */
-	.hot-coupon,
-	.activity-product-item,
-	.showarea,
-	.showaera-container.swiper-container,
 	.showaera-review-container {
 		margin-top: .5rem;
-	}
-	.ml-index-carousel .lazyload {
-		padding-top: 53.33333%;
-	}
-	.ml-index-carousel .swiper-btn {
-		display: none;
-		opacity: 0;
-		visibility: hidden;
-	}
-	.hot-two,
-	.hot-collection {
-		display: flex;
-		justify-content: space-between;
-	}
-	.hot-five,
-	.showarea-banner.wap,
-	.hot-two-item.wap,
-	.hot-coupon-item.wap,
-	.activity-product-item.wap,
-	.hot-collection-item.wap {
-		display: block;
-		visibility: visible;
-		opacity: 1;		
-	}
-	.hot-five {
-		display: flex !important;
-		background-color: #fff;
-	}
-	.showarea-banner.wap {
-		padding-top: 19.97%;
-	}
-	.hot-two-item.wap {
-		width: 49%;
-		padding-top: 69.125%;
-	}
-	.hot-coupon-item.wap {
-		padding-top: 104.4%;
-	}
-	.activity-product-item {
-		width: 49%;
-		padding-top: 69.125%;
-		margin-left: 1%;
-	}
-	.hot-collection-item {
-		width: 49%;
-		padding-top: 13.133333%;
-		margin-top: 1%;
 	}
 	.showarea-review-item {
 		width: 49%;
@@ -3759,64 +3653,8 @@ footer li {
 	}
 }
 @media only screen and (min-width: 576px) {
-	.hot-two,
-	.hot-five,
-	.hot-coupon,
-	.activity-product,
-	.hot-collection,
-	.showarea,
-	.showaera-container.swiper-container,
 	.showaera-review-container {
 		margin-top: 1rem;
-	}
-	.ml-index-carousel .swiper-button-next,
-	.showaera-container .swiper-button-next,
-	.introduce-product .swiper-button-next {
-		right: 3.6rem;
-	}
-	.ml-index-carousel .swiper-button-prev,
-	.showaera-container .swiper-button-prev,
-	.introduce-product .swiper-button-prev {
-		left: 3.6rem;
-	}
-	.ml-index-carousel .lazyload {
-		padding-top: 31.25%;
-	}
-	.hot-two,
-	.hot-collection {
-		display: flex;
-		justify-content: space-around;
-	}
-	.showarea-banner.pc,
-	.hot-two-item.pc,
-	.hot-coupon-item.pc,
-	.activity-product-item.pc,
-	.hot-collection-item.pc  {
-		display: block;
-		visibility: visible;
-		opacity: 1;
-	}
-	.showarea-banner.pc {
-		padding-top: 100px;
-	}
-	.hot-two-item.pc {
-		width: 48%;
-		padding-top: 35.7456%;
-	}
-	.hot-coupon-item.pc {
-		max-height: 450px;
-		padding-top: 37.5%;
-	}
-	.activity-product-item {
-		width: 24%;
-		padding-top: 33.925%;
-		margin-left: 1%;
-	}
-	.hot-collection-item {
-		width: 48%;
-		padding-top: 11.111111%;
-	}
-	.showaera-review-container {
 		margin-left: -1rem;
 	}
 	.customer-voice {
