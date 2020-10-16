@@ -287,8 +287,8 @@ public class MlbackPageAreaController {
 						pageAreaDetailOne.setMlbackProduct(mlbackProductOne);
 						pageAreaDetailOne.setPageAreaDetailIfinto(1);
 						pageAreaDetailOne.setPageAreaDetailType(2);
+						pageAreaDetailFollrList.add(pageAreaDetailOne);
 					}
-					pageAreaDetailFollrList.add(pageAreaDetailOne);
 				}
 			}
 			pageAreaDetailAllList.add(pageAreaDetailFollrList);
