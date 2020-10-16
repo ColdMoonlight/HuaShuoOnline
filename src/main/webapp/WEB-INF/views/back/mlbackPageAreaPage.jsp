@@ -977,7 +977,7 @@
 						break;
 					}
 					case 2: {
-						res = '展区';
+						res = '产品类';
 						break;
 					}
 					default: {
