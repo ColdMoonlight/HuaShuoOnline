@@ -3713,6 +3713,12 @@ footer li {
 	}
 }
 @media only screen and (min-width: 576px) {
+	.main-body-item .swiper-button-next {
+		right: 5%;
+	}
+	.main-body-item .swiper-button-prev {
+		left: 5%;
+	}
 	.ml-product-slide {
 		padding: 3rem 2.5rem 1rem 2.5rem;
 	}
