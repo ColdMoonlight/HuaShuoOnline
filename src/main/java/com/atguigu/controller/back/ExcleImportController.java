@@ -21,12 +21,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.atguigu.bean.DownPayCheckDate;
 import com.atguigu.bean.EmailAddress;
+import com.atguigu.bean.EmailCheckUnPay;
+import com.atguigu.bean.EmailPayAllsuccess;
+import com.atguigu.bean.EmailPayAndCheck;
 import com.atguigu.bean.EmailPayPalRetuenSuccess;
 import com.atguigu.bean.EmailPaySuccess;
 import com.atguigu.bean.EmailUser;
 import com.atguigu.bean.MlfrontReview;
 import com.atguigu.service.DownPayCheckDateService;
 import com.atguigu.service.EmailAddressService;
+import com.atguigu.service.EmailPayAllsuccessService;
 import com.atguigu.service.EmailPayPalRetuenSuccessService;
 import com.atguigu.service.EmailPaySuccessService;
 import com.atguigu.service.EmailUserService;
@@ -58,6 +62,9 @@ public class ExcleImportController {
 	
 	@Autowired
 	EmailUserService emailUserService;
+	
+	@Autowired
+	EmailPayAllsuccessService emailPayAllsuccessService;
 	
 	/**
 	 * zsh 200730
@@ -248,18 +255,24 @@ public class ExcleImportController {
 			List<EmailPayPalRetuenSuccess> emailPayPalRetuenSuccessCheckList = emailPayPalRetuenSuccessService.selectByEmail(emailPayPalRetuenSuccessCheckReq);
 			if(emailPayPalRetuenSuccessCheckList.size()>0){
 				//存在-跳过
-				System.out.println("已经有了.不走插入,直接跳过");
+				//System.out.println("已经有了.不走插入,直接跳过");
 			}else{
 				//不存在-add进billingList
 				EmailPayPalRetuenSuccess NewOneEmailPayPalRetuenSuccess = new EmailPayPalRetuenSuccess();
 				NewOneEmailPayPalRetuenSuccess.setPayretuensuccessEmail(email);
 				billingEmailList.add(NewOneEmailPayPalRetuenSuccess);
-				System.out.println("Email:"+email);
+				//System.out.println("Email:"+email);
 			}
 		}
-		//此时billingEmailList是全部付款客户
+		//----------------------------此时billingEmailList是全部付款客户-----------------------------------
 		//把这个插入EmailPayAllsuccess表中
-		
+		for(EmailPayPalRetuenSuccess emailOne:billingEmailList){
+			
+			EmailPayAllsuccess emailPayAllsuccessReq = new EmailPayAllsuccess();
+			emailPayAllsuccessReq.setPayallsuccessEmail(emailOne.getPayretuensuccessEmail());
+			emailPayAllsuccessService.insertSelective(emailPayAllsuccessReq);
+			//遍历完毕入库了
+		}
 		
 		//查询结算地址里的Email
 		EmailAddress emailAddressReq = new EmailAddress();
@@ -267,21 +280,41 @@ public class ExcleImportController {
 		System.out.println("emailAddressList.size():"+emailAddressList.size());
 		
 		
+		List<EmailCheckUnPay> emailCheckUnPayList= new ArrayList<EmailCheckUnPay>();
+		//遍历结算地址-去billing中查询,如果查到-跳过.没查到-add进billingList中;
+		for(EmailAddress emailAddressOne:emailAddressList){
+			
+			//挨个去PayInfo的表中去查询如果存在-跳过,不存在-add进billingList
+			String email = emailAddressOne.getAddressemailEmail();
+			EmailPayAllsuccess emailPayAllsuccessReq = new EmailPayAllsuccess();
+			emailPayAllsuccessReq.setPayallsuccessEmail(email);
+			//去查询
+			List<EmailPayAllsuccess> emailPayAllsuccessList = emailPayAllsuccessService.selectByEmail(emailPayAllsuccessReq);
+			if(emailPayAllsuccessList.size()>0){
+				//存在-跳过
+				//System.out.println("已经有了.不走插入,直接跳过");
+			}else{
+				//不存在-add进billingList
+				EmailCheckUnPay emailCheckUnPayOne = new EmailCheckUnPay();
+				emailCheckUnPayOne.setCheckunpayEmail(email);
+				emailCheckUnPayList.add(emailCheckUnPayOne);
+				//System.out.println("Email:"+email);
+			}
+		}
 		
-		
-		
+		//----------------------------
 		
 		cell.setCellValue("num");
 	    cell = row.createCell(1);
 		cell.setCellValue("billingEmail");
 	    cell = row.createCell(2);
 	    
-	    EmailPayPalRetuenSuccess billOne = new EmailPayPalRetuenSuccess();
-	    for (int i = 0; i < billingEmailList.size(); i++) {
-	    	billOne = billingEmailList.get(i);
+	    EmailCheckUnPay emailCheckUnPayOne = new EmailCheckUnPay();
+	    for (int i = 0; i < emailCheckUnPayList.size(); i++) {
+	    	emailCheckUnPayOne = emailCheckUnPayList.get(i);
 	        row = sheet.createRow(i+1);
 	        row.createCell(0).setCellValue(i+1);
-	        row.createCell(1).setCellValue(billOne.getPayretuensuccessEmail()+"");
+	        row.createCell(1).setCellValue(emailCheckUnPayOne.getCheckunpayEmail()+"");
 	    }
 		try {
 			OutputStream out =rep.getOutputStream();
