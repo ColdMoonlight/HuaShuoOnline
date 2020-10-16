@@ -256,7 +256,7 @@ public class MlbackPageAreaController {
 					MlbackActShowPro mlbackActShowProRes= mlbackActShowProService.selectMlbackActShowProById(mlbackActShowProReq);
 					if(mlbackActShowProRes!=null){
 						Integer ifproORcateORpage = mlbackActShowProRes.getActshowproIfproorcate();
-						pageAreaDetailOne.setPageAreaDetailType(0);//这个轮播
+						pageAreaDetailOne.setPageAreaDetailType(1);//这个活动品集合
 						if(ifMobile.equals("1")){
 							pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackActShowProRes.getActshowproImgwapurl());
 						}else{
