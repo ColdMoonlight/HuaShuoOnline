@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.atguigu.bean.EmailAddress;
-import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.dao.EmailAddressMapper;
 
 @Service
