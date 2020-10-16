@@ -53,7 +53,6 @@
 						</div>
 					</div>
 				</div>
-				
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
@@ -78,7 +77,6 @@
 											</label>
 										</div>
 									</div>
-									
 									<div class="form-group">
 										<label class="col-form-label" for="couponName">Coupon Name</label>
 										<div class="controls">
