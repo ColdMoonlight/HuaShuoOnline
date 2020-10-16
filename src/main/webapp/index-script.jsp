@@ -54,6 +54,75 @@
 			});
 		}
 	}
+	// render product slide
+	function renderProductSlide($el, typeCls, data, seo) {
+		/* var moreLink = seo ? '${APP_PATH}/search/' + seo + '.html' : 'javascript:;';
+		var $productMore = $('<div class="swiper-slide product-item product-more-img lazyload" data-src="${APP_PATH}/static/pc/img/product-more.jpg">' +
+				'<a href="'+ moreLink +'"><div class="product-img"></div><div class="product-more-desc"></div></a>' +
+			'</div>');
+		var productSlide = generateSwiperSlideProduct(data).addClass('showaera-container');
+		productSlide.find('.swiper-wrapper').append((seo && $productMore));
+		$el.append(productSlide)
+		new Swiper(('.' + typeCls + ' .swiper-container'), {
+			slidesPerView: 'auto',
+			spaceBetween: 5,
+			freeMode: true,
+			navigation: {
+				nextEl: '.' + typeCls + ' .swiper-button-next',
+				prevEl: '.' + typeCls + ' .swiper-button-prev',
+			}
+		}); */
+	}
+	function renderCarouselOrProduct($el, data, idx) {
+		var htmlStr = '';
+		var len = data.length;
+		if (len) {
+			htmlStr += '<div class="ml-product-slide banner-'+ idx +'">' +
+				'<div class="swiper-btn swiper-button-black swiper-button-next"></div>' +
+				'<div class="swiper-btn swiper-button-black swiper-button-prev"></div>' +
+				'<div class="swiper-pagination"></div>' +
+				'<div class="swiper-container"><div class="swiper-wrapper">';
+					data.forEach(function(data) {
+						var item = data.mlbackProduct;
+						var productLink = item.productSeo ? '${APP_PATH}/' + item.productSeo + '.html' : 'javascript:;';
+						htmlStr += '<div class="swiper-slide product-item" data-productid="'+ item.productId +'">' +
+						    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
+							'<div class="product-img">' +
+								'<a href="'+ productLink +'">' +
+									'<img class="lazyload" data-src="'+ item.productMainimgurl +'" />' +
+								'</a>' +
+							'</div>' +
+							'<div class="product-desc">' +
+								'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
+								'<div class="product-data">' +
+									'<span class="product-pay-num">'+ (item.productHavesalenum || 0) +' Order(s)</span>' +
+									'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
+								'</div>' +
+								'<div class="product-price">' +
+									'<span class="product-define-price">$'+ (item.productOriginalprice || 0).toFixed(2) +'</span>' +
+									'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? accuracyCal(item.productOriginalprice, item.productActoffoff) : 0.00) +'</span>' +
+								'</div>' +
+							'</div>' +
+						'</div>';
+					});
+			htmlStr += '</div></div></div>';			
+			$el.append($(htmlStr));
+
+			new Swiper(('.banner-'+ idx +' .swiper-container'), {
+				slidesPerView: 'auto',
+				spaceBetween: 5,
+				freeMode: true,
+				pagination: {
+					el: '.banner-'+ idx +' .swiper-pagination',
+					clickable: true
+				},
+				navigation: {
+					nextEl: '.banner-'+ idx +' .swiper-button-next',
+					prevEl: '.banner-'+ idx +' .swiper-button-prev',
+				}
+			});
+		}
+	}
 
 	// get review data
 	function getIntroduceReviewData(callback) {
@@ -82,62 +151,6 @@
 		$reviewList.html(htmlStr);
 		$el.append($reviewList);
 	}
-	// render product slide
-	function renderProductSlide($el, typeCls, data, seo) {
-		/* var moreLink = seo ? '${APP_PATH}/search/' + seo + '.html' : 'javascript:;';
-		var $productMore = $('<div class="swiper-slide product-item product-more-img lazyload" data-src="${APP_PATH}/static/pc/img/product-more.jpg">' +
-				'<a href="'+ moreLink +'"><div class="product-img"></div><div class="product-more-desc"></div></a>' +
-			'</div>');
-		var productSlide = generateSwiperSlideProduct(data).addClass('showaera-container');
-		productSlide.find('.swiper-wrapper').append((seo && $productMore));
-		$el.append(productSlide)
-		new Swiper(('.' + typeCls + ' .swiper-container'), {
-			slidesPerView: 'auto',
-			spaceBetween: 5,
-			freeMode: true,
-			navigation: {
-				nextEl: '.' + typeCls + ' .swiper-button-next',
-				prevEl: '.' + typeCls + ' .swiper-button-prev',
-			}
-		}); */
-		function renderCarouselOrBanner($el, data, idx) {
-			var htmlStr = '';
-			var len = data.length;
-			if (len) {
-				if (len == 1) {
-					htmlStr = '<a class="main-body-item" href="'+ (data[0].pageAreaDetailIfinto ? '${APP_PATH}/' + data[0].pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
-						'<img class="lazyload" data-src="'+ data[0].pageAreaDetaiImglUrl +'" />' +
-					'</a>';
-				} else {
-					htmlStr += '<div class="main-body-item banner-'+ idx +'">' +
-						'<div class="swiper-btn swiper-button-next"></div>' +
-						'<div class="swiper-btn swiper-button-prev"></div>' +
-						'<div class="swiper-pagination"></div>' +
-						'<div class="swiper-container"><div class="swiper-wrapper">';
-							data.forEach(function(item) {
-								htmlStr += '<div class="swiper-slide">' +
-										'<a href="'+ (item.pageAreaDetailIfinto ? '${APP_PATH}/' + item.pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
-											'<img class="lazyload" data-src="'+ item.pageAreaDetaiImglUrl +'" />' +										
-										'</a>' +
-									'</div>';
-							});
-					htmlStr += '</div></div></div>';
-				}			
-				$el.append($(htmlStr));
-				len > 1 && new Swiper(('.banner-'+ idx +' .swiper-container'), {
-					freeMode: true,
-					pagination: {
-						el: '.banner-'+ idx +' .swiper-pagination',
-						clickable: true
-					},
-					navigation: {
-						nextEl: '.banner-'+ idx +' .swiper-button-next',
-						prevEl: '.banner-'+ idx +' .swiper-button-prev',
-					}
-				});
-			}
-		}
-	}
 	
 	getMainBodyData(function(data) {
 		var $el = $('#main-body');
@@ -146,9 +159,13 @@
 				if (String(item[0].pageAreaDetailType) == '0') {
 					renderCarouselOrBanner($el, item, idx);
 				}
+
+				if (String(item[0].pageAreaDetailType) == '2') {
+					renderCarouselOrProduct($el, item, idx)
+				}
 			});
 		}
-		
+
 		new LazyLoad($el.find('.lazyload'), {
 			root: null,
 			rootMargin: "10px",
