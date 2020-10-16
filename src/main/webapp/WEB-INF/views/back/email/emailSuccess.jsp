@@ -152,7 +152,7 @@
 		
 		/***download_dz*******************/
 		$('#download_dz').on('click', function() {
-			window.location.href = "${APP_PATH}/excleImport/exportReviewsImportDemo";
+			window.location.href = "${APP_PATH}/excleImport/exportAddressEmail";
 		});
 		
 		/***download_xyh*******************/
