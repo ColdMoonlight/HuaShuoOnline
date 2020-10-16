@@ -49,8 +49,8 @@
 										  </svg>
 										</div>
 									</div>
-									
-									
+								</div>	
+								<div class="form-group col-md-12">
 									<div class="col-md-2">
 										<h3 style="font-size: 16px;">1上传文档</h3>
 										<div class="c-upload-img" style="width: 4rem; height: 4rem;padding: 1rem;">
