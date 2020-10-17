@@ -95,7 +95,7 @@
 												<option value="-1">Please select the location of the Carousel</option>
 												<option value="1">首页轮播</option>
 												<option value="2">2优惠券位置</option>
-												<option value="3">3关联产品</option>
+												<option value="3">3You MIGHT ALSO Like</option>
 												<option value="4">4首页广告</option>
 												<option value="5">5HeaderTopImg</option>
 												<option value="6">6ProDetailCouponDesc</option>
