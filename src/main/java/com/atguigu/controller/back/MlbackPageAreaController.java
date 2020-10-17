@@ -206,6 +206,7 @@ public class MlbackPageAreaController {
 			
 			List<PageAreaDetail> pageAreaDetailFollrList = new ArrayList<PageAreaDetail>();
 			if(type==0){
+				
 				//type==0
 				for(int i=0;i<idstrArr.length;i++){
 					//第一个
@@ -218,27 +219,27 @@ public class MlbackPageAreaController {
 					mlbackSlideReq.setSlideId(slideIdInt);
 					
 					MlbackSlide mlbackSlideRes= mlbackSlideService.selectMlbackSlideById(mlbackSlideReq);
-					if(mlbackSlideRes!=null){
-						Integer ifproORcateORpage = mlbackSlideRes.getSlideIfproorcateorpage();
-						pageAreaDetailOne.setPageAreaDetailType(0);//这个轮播
-						if(ifMobile.equals("1")){
-							pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlideWapimgurl());
-						}else{
-							pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlidePcimgurl());
-						}
-						pageAreaDetailOne.setPageAreaDetailIfinto(mlbackSlideRes.getSlideIfinto());
-						
-						if(ifproORcateORpage==0){
-							//0pro
-							pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlideSeoname()+".html");
-						}else if(ifproORcateORpage==1){
-							//1cate
-							pageAreaDetailOne.setPageAreaDetaiLinklUrl("search/"+mlbackSlideRes.getSlideCateseoname()+".html");
-						}else{
-							//2page
-							pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlidePageseoname()+".html");
-						}
-					}
+							if(mlbackSlideRes!=null){
+								Integer ifproORcateORpage = mlbackSlideRes.getSlideIfproorcateorpage();
+								pageAreaDetailOne.setPageAreaDetailType(0);//这个轮播
+								if(ifMobile.equals("1")){
+									pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlideWapimgurl());
+								}else{
+									pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlidePcimgurl());
+								}
+								pageAreaDetailOne.setPageAreaDetailIfinto(mlbackSlideRes.getSlideIfinto());
+								
+								if(ifproORcateORpage==0){
+									//0pro
+									pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlideSeoname()+".html");
+								}else if(ifproORcateORpage==1){
+									//1cate
+									pageAreaDetailOne.setPageAreaDetaiLinklUrl("search/"+mlbackSlideRes.getSlideCateseoname()+".html");
+								}else{
+									//2page
+									pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlidePageseoname()+".html");
+								}
+							}
 					pageAreaDetailFollrList.add(pageAreaDetailOne);
 				}
 			}else if(type==1){
