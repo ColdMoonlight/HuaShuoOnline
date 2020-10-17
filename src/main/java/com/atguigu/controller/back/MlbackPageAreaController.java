@@ -206,6 +206,7 @@ public class MlbackPageAreaController {
 			
 			List<PageAreaDetail> pageAreaDetailFollrList = new ArrayList<PageAreaDetail>();
 			if(type==0){
+				
 				//type==0
 				for(int i=0;i<idstrArr.length;i++){
 					//第一个
