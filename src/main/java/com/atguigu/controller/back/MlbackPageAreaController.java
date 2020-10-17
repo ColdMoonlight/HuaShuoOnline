@@ -206,40 +206,37 @@ public class MlbackPageAreaController {
 			
 			List<PageAreaDetail> pageAreaDetailFollrList = new ArrayList<PageAreaDetail>();
 			if(type==0){
-				
-				//type==0
+				//type==0-slide
 				for(int i=0;i<idstrArr.length;i++){
 					//第一个
 					PageAreaDetail pageAreaDetailOne = new PageAreaDetail();
 					
 					String slideIdStr=idstrArr[i];
 					Integer slideIdInt = Integer.parseInt(slideIdStr);
-					
 					MlbackSlide mlbackSlideReq = new MlbackSlide();
 					mlbackSlideReq.setSlideId(slideIdInt);
-					
 					MlbackSlide mlbackSlideRes= mlbackSlideService.selectMlbackSlideById(mlbackSlideReq);
-							if(mlbackSlideRes!=null){
-								Integer ifproORcateORpage = mlbackSlideRes.getSlideIfproorcateorpage();
-								pageAreaDetailOne.setPageAreaDetailType(0);//这个轮播
-								if(ifMobile.equals("1")){
-									pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlideWapimgurl());
-								}else{
-									pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlidePcimgurl());
-								}
-								pageAreaDetailOne.setPageAreaDetailIfinto(mlbackSlideRes.getSlideIfinto());
-								
-								if(ifproORcateORpage==0){
-									//0pro
-									pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlideSeoname()+".html");
-								}else if(ifproORcateORpage==1){
-									//1cate
-									pageAreaDetailOne.setPageAreaDetaiLinklUrl("search/"+mlbackSlideRes.getSlideCateseoname()+".html");
-								}else{
-									//2page
-									pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlidePageseoname()+".html");
-								}
+						if(mlbackSlideRes!=null){
+							Integer ifproORcateORpage = mlbackSlideRes.getSlideIfproorcateorpage();
+							pageAreaDetailOne.setPageAreaDetailType(0);//这个轮播
+							if(ifMobile.equals("1")){
+								pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlideWapimgurl());
+							}else{
+								pageAreaDetailOne.setPageAreaDetaiImglUrl(mlbackSlideRes.getSlidePcimgurl());
 							}
+							pageAreaDetailOne.setPageAreaDetailIfinto(mlbackSlideRes.getSlideIfinto());
+							//判断是0产品-1类-2页面
+							if(ifproORcateORpage==0){
+								//0pro
+								pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlideSeoname()+".html");
+							}else if(ifproORcateORpage==1){
+								//1cate
+								pageAreaDetailOne.setPageAreaDetaiLinklUrl("search/"+mlbackSlideRes.getSlideCateseoname()+".html");
+							}else{
+								//2page
+								pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackSlideRes.getSlidePageseoname()+".html");
+							}
+						}
 					pageAreaDetailFollrList.add(pageAreaDetailOne);
 				}
 			}else if(type==1){
@@ -250,10 +247,8 @@ public class MlbackPageAreaController {
 					
 					String actshowproIdStr=idstrArr[i];
 					Integer actshowproIdInt = Integer.parseInt(actshowproIdStr);
-					
 					MlbackActShowPro mlbackActShowProReq = new MlbackActShowPro();
 					mlbackActShowProReq.setActshowproId(actshowproIdInt);
-					
 					MlbackActShowPro mlbackActShowProRes= mlbackActShowProService.selectMlbackActShowProById(mlbackActShowProReq);
 					if(mlbackActShowProRes!=null){
 						Integer ifproORcateORpage = mlbackActShowProRes.getActshowproIfproorcate();
@@ -278,83 +273,61 @@ public class MlbackPageAreaController {
 					}
 					pageAreaDetailFollrList.add(pageAreaDetailOne);
 				}
-				
 			}else{
 				//type==2类目
-				for(int i=0;i<idstrArr.length;i++){
-					//第一个
-					PageAreaDetail pageAreaDetailOne = new PageAreaDetail();
-					
-					String cateIdStr=idstrArr[i];
-					Integer cateIdInt = Integer.parseInt(cateIdStr);
-					
-					MlbackCategory mlbackCategoryReq = new MlbackCategory();
-					mlbackCategoryReq.setCategoryId(cateIdInt);
-					
-					MlbackCategory mlbackCategoryRes= mlbackCategoryService.selectMlbackCategoryById(mlbackCategoryReq);
-					List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
-					if(mlbackCategoryRes!=null){
-						String pidsStr = mlbackCategoryRes.getCategoryProductIds();
-						if(pidsStr==null){
-							continue;
-						}
-						if("".equals(pidsStr)){
-							continue;
+				String cateIdStr=idstrArr[0];//因为如果是类,只能绑定一个,
+				Integer cateIdInt = Integer.parseInt(cateIdStr);
+				MlbackCategory mlbackCategoryReq = new MlbackCategory();
+				mlbackCategoryReq.setCategoryId(cateIdInt);
+				MlbackCategory mlbackCategoryRes= mlbackCategoryService.selectMlbackCategoryById(mlbackCategoryReq);
+				if(mlbackCategoryRes!=null){
+					String pidsStr = mlbackCategoryRes.getCategoryProductIds();
+					if((pidsStr==null)||("".equals(pidsStr))){
+						continue;
+					}else{
+						String productidsStrArr [] = pidsStr.split(",");
+						String productidStr ="";
+						Integer productidInt =0;
+						List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
+						//查询单独的信息
+						MlbackProduct mlbackProductResOne = new MlbackProduct();
+						List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
+						int len = 0;
+						if(productidsStrArr.length>8){
+							len = 8;
 						}else{
-							String productidsStrArr [] = pidsStr.split(",");
-							String productidStr ="";
-							Integer productidInt =0;
-							List<MlbackProduct> mlbackProductReqList = new ArrayList<MlbackProduct>();
-							//查询单独的信息
-							MlbackProduct mlbackProductResOne = new MlbackProduct();
-							for(int x=0;x<productidsStrArr.length;x++){
-								productidStr = productidsStrArr[x];
-								productidInt = Integer.parseInt(productidStr);
-								//查询白pid的产品详情
-								MlbackProduct mlbackProductReq = new MlbackProduct();
-								mlbackProductReq.setProductId(productidInt);
-								//查回来的直接就是仅上架的产品
-								mlbackProductReqList =mlbackProductService.selectMlbackProductbyPid(mlbackProductReq);
-								if(mlbackProductReqList.size()>0){
-									mlbackProductResOne = mlbackProductReqList.get(0);
-									mlbackProductResList.add(mlbackProductResOne);
-								}
+							len = productidsStrArr.length;
+						}
+						for(int x=0;x<len;x++){
+							productidStr = productidsStrArr[x];
+							productidInt = Integer.parseInt(productidStr);
+							//查询白pid的产品详情
+							MlbackProduct mlbackProductReq = new MlbackProduct();
+							mlbackProductReq.setProductId(productidInt);
+							//查回来的直接就是仅上架的产品
+							mlbackProductReqList =mlbackProductService.selectMlbackProductbyPid(mlbackProductReq);
+							if(mlbackProductReqList.size()>0){
+								mlbackProductResOne = mlbackProductReqList.get(0);
+								mlbackProductResList.add(mlbackProductResOne);
 							}
 						}
-					}//cateResList结束
-					for(MlbackProduct mlbackProductOne :mlbackProductResList){
-						pageAreaDetailOne.setMlbackProduct(mlbackProductOne);
-						pageAreaDetailOne.setPageAreaDetailIfinto(1);
-						pageAreaDetailOne.setPageAreaDetailType(2);
-						pageAreaDetailFollrList.add(pageAreaDetailOne);
+						for(MlbackProduct mlbackProductReqOne:mlbackProductResList){
+							
+							PageAreaDetail pageAreaDetailReturn = new PageAreaDetail();
+							//System.out.println("ProductId:"+mlbackProductReqOne.getProductId()+",ProductSeo:"+mlbackProductReqOne.getProductSeo());
+							pageAreaDetailReturn.setMlbackProduct(mlbackProductReqOne);
+							pageAreaDetailReturn.setPageAreaDetailIfinto(1);
+							pageAreaDetailReturn.setPageAreaDetailType(2);
+							pageAreaDetailFollrList.add(pageAreaDetailReturn);
+						}
 					}
+				}else{
+					//cateId查询的proList结束
+					pageAreaDetailFollrList.add(null);//本层什么也没有
 				}
 			}
 			pageAreaDetailAllList.add(pageAreaDetailFollrList);
 		}
 		return pageAreaDetailAllList;
-		
 	}
-	
-//	/**3.0	20200703
-//	 * MlbackActShowPro	initializaActShowPro
-//	 * @param MlbackActShowPro
-//	 * @return
-//	 */
-//	@RequestMapping(value="/initializaActShowPro",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg initializaActShowPro(HttpServletResponse rep,HttpServletRequest res){
-//		
-//		MlbackActShowPro mlbackActShowPro = new MlbackActShowPro();
-//		//取出id
-//		String nowTime = DateUtil.strTime14s();
-//		mlbackActShowPro.setActshowproCreatetime(nowTime);
-//		mlbackActShowPro.setActshowproStatus(0);//0未上架1上架中
-//		//无id，insert
-//		System.out.println("插入前"+mlbackActShowPro.toString());
-//		mlbackActShowProService.insertSelective(mlbackActShowPro);
-//		System.out.println("插入后"+mlbackActShowPro.toString());
-//		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackActShowPro", mlbackActShowPro);
-//	}
-	
 }
