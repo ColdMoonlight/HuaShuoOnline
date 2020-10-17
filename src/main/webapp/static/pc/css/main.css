@@ -3641,6 +3641,9 @@ footer li {
 	width: 100%;
 	height: auto;
 }
+.main-body-item.customer-introduce {
+	min-height: 5rem !important;
+}
 /* other */
 .showaera-review-container {
 	margin-top: .5rem;
