@@ -322,7 +322,7 @@ public class MlbackPageAreaController {
 						}
 					}
 				}else{
-					//cateResList结束
+					//cateId查询的proList结束
 					pageAreaDetailFollrList.add(null);//本层什么也没有
 				}
 			}
