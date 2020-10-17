@@ -5,7 +5,7 @@
 	<div class="modal-dialog modal-dialog-center modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Custom imgs order</h4>
+				<h4 class="modal-title">Custom order</h4>
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
