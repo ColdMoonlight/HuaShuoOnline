@@ -17,12 +17,12 @@
 		});
 	}
 	// render banner product
-	function renderCarouselOrBanner($el, data, idx) {
+	function renderCarouselOrBanner($el, data, idx, cls) {
 		var htmlStr = '';
 		var len = data.length;
 		if (len) {
 			if (len == 1) {
-				htmlStr = '<a class="main-body-item banner" href="'+ (data[0].pageAreaDetailIfinto ? '${APP_PATH}/' + data[0].pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
+				htmlStr = '<a class="main-body-item banner'+ ( cls ? ' ' + cls : '') +'" href="'+ (data[0].pageAreaDetailIfinto ? '${APP_PATH}/' + data[0].pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
 					'<img class="lazyload" data-src="'+ data[0].pageAreaDetaiImglUrl +'" />' +
 				'</a>';
 			} else {
@@ -155,18 +155,22 @@
 	function renderMainBody() {
 		getMainBodyData(function(data) {
 			var $el = $('#main-body');
-			if (data.length) {
+			var len = data.length;
+			if (len) {
 				data.forEach(function(item, idx) {
-					if (String(item[0].pageAreaDetailType) == '0') {
-						renderCarouselOrBanner($el, item, idx + 1);
-					}
-					
-					if (String(item[0].pageAreaDetailType) == '1') {
-						renderActivityProduct($el, item, idx + 1)
-					}
-
-					if (String(item[0].pageAreaDetailType) == '2') {
-						renderCarouselOrProduct($el, item, idx + 1)
+					var index = idx + 1;
+					if (item[0]) {
+						if (String(item[0].pageAreaDetailType) == '0') {
+							renderCarouselOrBanner($el, item, index, index == len ? 'customer-introduce' : '');
+						}
+						
+						if (String(item[0].pageAreaDetailType) == '1') {
+							renderActivityProduct($el, item, index)
+						}
+	
+						if (String(item[0].pageAreaDetailType) == '2') {
+							renderCarouselOrProduct($el, item, index)
+						}						
 					}
 				});
 			}
@@ -178,7 +182,7 @@
 			});
 		});
 	}
-	
+	var hasChange = false;
 	renderMainBody();
 
 	getCoundownTimeData(1, rednerCountDownAreaOne);
@@ -218,5 +222,11 @@
 			});
 		});
 	});
-	
+	$(window).on('resize', function () {
+		!hasChange && window.innerWidth > 875 && debounce(function() {
+			hasChange = true;
+			$('#main-body').html('');
+			renderMainBody();
+		});
+	});
 </script>
