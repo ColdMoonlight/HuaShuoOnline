@@ -22,11 +22,11 @@
 		var len = data.length;
 		if (len) {
 			if (len == 1) {
-				htmlStr = '<a class="main-body-item" href="'+ (data[0].pageAreaDetailIfinto ? '${APP_PATH}/' + data[0].pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
+				htmlStr = '<a class="main-body-item banner" href="'+ (data[0].pageAreaDetailIfinto ? '${APP_PATH}/' + data[0].pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
 					'<img class="lazyload" data-src="'+ data[0].pageAreaDetaiImglUrl +'" />' +
 				'</a>';
 			} else {
-				htmlStr += '<div class="main-body-item banner-'+ idx +'"><div class="swiper-container">' +
+				htmlStr += '<div class="main-body-item slide-'+ idx +'"><div class="swiper-container">' +
 					'<div class="swiper-btn swiper-button-next"></div>' +
 					'<div class="swiper-btn swiper-button-prev"></div>' +
 					'<div class="swiper-pagination"></div>' +
@@ -41,17 +41,21 @@
 				htmlStr += '</div></div></div>';
 			}			
 			$el.append($(htmlStr));
-			len > 1 && new Swiper(('.banner-'+ idx +' .swiper-container'), {
-				freeMode: true,
-				pagination: {
-					el: '.banner-'+ idx +' .swiper-pagination',
-					clickable: true
-				},
-				navigation: {
-					nextEl: '.banner-'+ idx +' .swiper-button-next',
-					prevEl: '.banner-'+ idx +' .swiper-button-prev',
-				}
-			});
+			if (len > 1) {
+				setTimeout(function() {
+					new Swiper(('.slide-'+ idx +' .swiper-container'), {
+						freeMode: true,
+						pagination: {
+							el: '.slide-'+ idx +' .swiper-pagination',
+							clickable: true
+						},
+						navigation: {
+							nextEl: '.slide-'+ idx +' .swiper-button-next',
+							prevEl: '.slide-'+ idx +' .swiper-button-prev',
+						}
+					});					
+				}, 1000);
+			}
 		}
 	}
 	// render activity product
@@ -59,9 +63,9 @@
 		var htmlStr = '';
 		if (data.length) {
 			htmlStr += '<div class="ml-ap ap-'+ idx +'">';
-			data.forEach(function(item) {
-				htmlStr += '<a class="ml-ap-item" href="'+ (data[0].pageAreaDetailIfinto ? '${APP_PATH}/' + data[0].pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
-					'<img class="lazyload" data-src="'+ data[0].pageAreaDetaiImglUrl +'" />' +
+			data.forEach(function(item, index) {
+				htmlStr += '<a class="ml-ap-item" href="'+ (data[0].pageAreaDetailIfinto ? '${APP_PATH}/' + data[index].pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
+					'<img class="lazyload" data-src="'+ data[index].pageAreaDetaiImglUrl +'" />' +
 				'</a>';
 			});
 			htmlStr += '</div>';
@@ -73,7 +77,7 @@
 		var htmlStr = '';
 		var len = data.length;
 		if (len) {
-			htmlStr += '<div class="ml-product-slide banner-'+ idx +'">' +
+			htmlStr += '<div class="ml-product-slide slide-'+ idx +'">' +
 				'<div class="swiper-btn swiper-button-black swiper-button-next"></div>' +
 				'<div class="swiper-btn swiper-button-black swiper-button-prev"></div>' +
 				'<div class="swiper-pagination"></div>' +
@@ -103,20 +107,21 @@
 					});
 			htmlStr += '</div></div></div>';			
 			$el.append($(htmlStr));
-
-			new Swiper(('.banner-'+ idx +' .swiper-container'), {
-				slidesPerView: 'auto',
-				spaceBetween: 5,
-				freeMode: true,
-				pagination: {
-					el: '.banner-'+ idx +' .swiper-pagination',
-					clickable: true
-				},
-				navigation: {
-					nextEl: '.banner-'+ idx +' .swiper-button-next',
-					prevEl: '.banner-'+ idx +' .swiper-button-prev',
-				}
-			});
+			setTimeout(function() {
+				new Swiper(('.slide-'+ idx +' .swiper-container'), {
+					slidesPerView: 'auto',
+					spaceBetween: 5,
+					freeMode: true,
+					pagination: {
+						el: '.slide-'+ idx +' .swiper-pagination',
+						clickable: true
+					},
+					navigation: {
+						nextEl: '.slide-'+ idx +' .swiper-button-next',
+						prevEl: '.slide-'+ idx +' .swiper-button-prev',
+					}
+				});				
+			}, 1000);
 		}
 	}
 	// get review data
@@ -146,22 +151,22 @@
 		$reviewList.html(htmlStr);
 		$el.append($reviewList);
 	}
-	
+	// render main-body
 	function renderMainBody() {
 		getMainBodyData(function(data) {
 			var $el = $('#main-body');
 			if (data.length) {
 				data.forEach(function(item, idx) {
 					if (String(item[0].pageAreaDetailType) == '0') {
-						renderCarouselOrBanner($el, item, idx);
+						renderCarouselOrBanner($el, item, idx + 1);
 					}
 					
 					if (String(item[0].pageAreaDetailType) == '1') {
-						renderActivityProduct($el, item, idx)
+						renderActivityProduct($el, item, idx + 1)
 					}
 
 					if (String(item[0].pageAreaDetailType) == '2') {
-						renderCarouselOrProduct($el, item, idx)
+						renderCarouselOrProduct($el, item, idx + 1)
 					}
 				});
 			}
@@ -213,10 +218,5 @@
 			});
 		});
 	});
-	$(window).on('resize', function () {
-		window.innerWidth < 575 && debounce(function() {
-			$('#main-body').html('');
-			renderMainBody();
-		});
-	});
+	
 </script>
