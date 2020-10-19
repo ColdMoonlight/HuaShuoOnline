@@ -421,6 +421,7 @@
 }
 #imgModal .left-panel,
 #imgModal .right-panel {
+	overflow: auto;
 	width: 45%;
 	padding: .5rem;
 	border: 1px solid #ddd;

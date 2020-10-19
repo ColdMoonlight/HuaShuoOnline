@@ -371,6 +371,7 @@
 			isCreate && pageareaId && deletePageAreaData({
 				pageareaId: pageareaId,
 			});
+			$('#editModal .select-result').addClass('hide');
 		});
 		// save page area
 		$('.c-create .btn-save').on('click', function () {
@@ -410,7 +411,7 @@
 			var defaultName = $('#pageareaTypedetail').val();
 			var type = $('#pageareaType').val();
 
-			
+			$('#editModal .select-result').removeClass('hide');
 			if ($('#pageareaType').val() == '-1') {
 				toastr.error('Please select page-area type firstly!!!');
 				$('#pageareaType').focus();
@@ -462,7 +463,6 @@
 				} else {
 					console.log('数据错误！！！');
 				}
-				
 				$('#editModal').modal('hide');
 			});
 		});

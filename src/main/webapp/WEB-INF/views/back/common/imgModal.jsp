@@ -14,7 +14,8 @@
 				<div class="left-panel"></div>
 				<div class="right-panel"></div>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-footer" style="position: relative;">
+				<button class="btn btn-info hide" id="img-all-handle" style="position: absolute; left: 1rem;">Move All</button>
 				<button class="btn btn-secondary btn-cancel" type="button" data-dismiss="modal">Cancel</button>
 				<button class="btn btn-danger btn-save" type="button">Save</button>
 			</div>
