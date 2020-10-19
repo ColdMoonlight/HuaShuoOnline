@@ -473,6 +473,11 @@
 				$('#pageareaSupercateid').focus();
 				$('#pageareaStatus, #pageareaPcstatus').prop('checked', false);
 			}
+			if ($('#pageareaType').val() == '-1') {
+				toastr.info('Please Select page-area type!');
+				$('#pageareaType').focus();
+				$('#pageareaStatus, #pageareaPcstatus').prop('checked', false);
+			}
 		});
 		// supercate cahnge
 		$('#pageareaSupercateid').on('change', function() {
@@ -485,7 +490,9 @@
 			$('#pageareaTypedetailIdstr').val('');
 			$('#pageareaTypedetail').val('');
 			$('#pagearea-category').val('-1');
-			if ($(this).val() == 2) {
+			if ($(this).val() == -1) {
+				$('#pageareaStatus, #pageareaPcstatus').prop('checked', false);
+			} else if ($(this).val() == 2) {
 				$('.ml-category').removeClass('hide');
 				$('#pageAreaDetailEdit').addClass('hide');
 			} else {
