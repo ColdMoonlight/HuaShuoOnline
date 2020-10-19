@@ -89,6 +89,7 @@
 												<option value="7">第7-首adv_four</option>
 												<option value="8">第8-首页分类导航下边2个图</option>
 												<option value="9">第9-首页banner下边分类导航5个图</option>
+												<option value="10">第10-自由配置总归属</option>
 											</select>
 										</div>
 									</div>
