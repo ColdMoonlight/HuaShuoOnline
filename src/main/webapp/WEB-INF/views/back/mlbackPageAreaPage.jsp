@@ -32,7 +32,7 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="searchCatalog" type="text" placeholder="Search Page Area by seo..." />						
+									<input id="searchPagearea" type="text" placeholder="Search Page Area by seo..." />						
 									<select class="supercate-list" id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
@@ -319,7 +319,7 @@
 				$('#searchPagearea').val(dataVal.pagearea || '');
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
-				getSearchMarkegingsData();
+				getSearchPageareaData();
 			} else {
 				$('#searchSupercate').val('-1');
 				$('#searchPagearea').val('');
@@ -889,16 +889,16 @@
 			});
 		}
 		// callback get search data
-		function getSearchMarkegingsData(data) {
+		function getSearchPageareaData(data) {
 			$('.c-mask').show();
 
 			var formData = new FormData();
-			formData.append('pageareaName', $('#searchCatalog').val());
+			formData.append('pageareaName', $('#searchPagearea').val());
 			formData.append('pageareaSupercateid', ($('#searchSupercate').attr('data-val') || '-1'));
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH}/MlbackCatalog/backSearchByCatalog",
+				url: "${APP_PATH}/MlbackPageArea/backSearchByPageArea",
 				type: "post",
 				processData: false,
 				contentType: false,
