@@ -20,6 +20,7 @@ import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackActShowProService;
+import com.atguigu.service.MlbackCatalogService;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackPageAreaService;
 import com.atguigu.service.MlbackProductService;
@@ -56,6 +57,9 @@ public class MlbackPageAreaController {
 	
 	@Autowired
 	MlbackActShowProService mlbackActShowProService;
+	
+	@Autowired
+	MlbackCatalogService mlbackCatalogService;
 	
 	/**
 	 * zsh 201014
@@ -330,5 +334,34 @@ public class MlbackPageAreaController {
 			pageAreaDetailAllList.add(pageAreaDetailFollrList);
 		}
 		return pageAreaDetailAllList;
+	}
+	
+	
+	/**
+	 * 8.0	20201019
+	 * 后端获取类下PageAreaList页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping(value="/backSearchByPageArea",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg backSearchByPageArea(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "pageareaName") String pageareaName,
+			@RequestParam(value = "pageareaSupercateid", defaultValue = "1") Integer pageareaSupercateid) throws Exception{
+		
+		//接收传递进来的参数
+		int PagNum = 30;
+		PageHelper.startPage(pn, PagNum);
+		
+		MlbackPageArea mlbackPageAreaReq = new MlbackPageArea();
+		mlbackPageAreaReq.setPageareaId(pageareaSupercateid);
+		mlbackPageAreaReq.setPageareaName(pageareaName);
+		List<MlbackPageArea> mlbackPageAreaResList = mlbackPageAreaService.selectMlbackPageAreaBackSearch(mlbackPageAreaReq);
+		
+		PageInfo page = new PageInfo(mlbackPageAreaResList, PagNum);
+		
+		return Msg.success().add("pageInfo", page);
+			
 	}
 }
