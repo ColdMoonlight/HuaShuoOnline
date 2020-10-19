@@ -234,8 +234,9 @@
 									<input type="hidden" id="categoryProductNames" />
 									<div class="form-group">
 										<label class="col-form-label" for="categoryProductList">Products Under Category</label>
-										<div class="controls">
+										<div class="controls" style="display: flex;">
 											<textarea class="form-control" rows="5" id="categoryProductList"></textarea>
+											<button class="btn btn-info" id="custom-product-order" style="margin-left: .5rem">Custom sort</button>
 										</div>
 									</div>
 								</div>
@@ -279,6 +280,7 @@
 
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/imgModal.jsp" flush="true"></jsp:include>
 
 	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
@@ -461,6 +463,46 @@
 			if (parseInt($(this).val()) < 0) {
 				$('#categoryStatus').prop('checked', false);
 			}
+		});
+		// custom order
+		$('#custom-product-order').on('click', function() {
+			var imgsHtml = '';
+			var productIds = $('#categoryProductIds').val() && $('#categoryProductIds').val().split(',');
+			var productNames = $('#categoryProductNames').val() && $('#categoryProductNames').val().split(',');
+			if (productIds.length) {
+				productIds.forEach(function(id, idx) {
+					imgsHtml += '<div class="product-imgs-sort-item" data-id="'+ id +'" data-name="'+ productNames[idx] +'">'+ productNames[idx] +'</div>';
+				});
+				$('#imgModal').data('len', productIds.length).find('.left-panel').html(imgsHtml).end().find('.right-panel').html('').end().modal('show');					
+			} else {
+				toastr.warning('没有产品可进行排序！！！');
+			}
+		});
+		$(document.body).on('click', '#imgModal .left-panel .product-imgs-sort-item', function() {
+			$('#imgModal .right-panel').append($(this));
+		});
+		$(document.body).on('click', '#imgModal .right-panel .product-imgs-sort-item', function() {
+			$('#imgModal .left-panel').append($(this));
+		});
+		$('#imgModal .btn-save').on('click', function() {
+			var productIdArr = [];
+			var productNameArr = [];
+			var productImgsItem = $('#imgModal .right-panel .product-imgs-sort-item');
+			if (productImgsItem.length < $('#imgModal').data('len')) {
+				toastr.error('未完成排序，请继续操作');
+				return ;
+			}
+			productImgsItem.each(function(idx, item) {
+				productIdArr.push($(item).data('id'));
+				productNameArr.push($(item).data('name'));
+			});
+			
+			$('#categoryProductIds').val(productIdArr.join(','));
+			$('#categoryProductNames').val(productNameArr.join(','));
+			
+			$('#categoryProductList').val(' * ' + productNameArr.join(',').replace(/\,/g, '\n * ')).attr('data-val', productNameArr.join(','));
+			
+			$('#imgModal').modal('hide');
 		});
 		// upload img
 		$('#categoryImgurl').on('change', function(e) {
