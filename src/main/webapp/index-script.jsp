@@ -17,12 +17,12 @@
 		});
 	}
 	// render banner product
-	function renderCarouselOrBanner($el, data, idx, cls) {
+	function renderCarouselOrBanner($el, data, idx) {
 		var htmlStr = '';
 		var len = data.length;
 		if (len) {
 			if (len == 1) {
-				htmlStr = '<a class="main-body-item banner'+ ( cls ? ' ' + cls : '') +'" href="'+ (data[0].pageAreaDetailIfinto ? '${APP_PATH}/' + data[0].pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
+				htmlStr = '<a class="main-body-item banner" href="'+ (data[0].pageAreaDetailIfinto ? '${APP_PATH}/' + data[0].pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
 					'<img class="lazyload" data-src="'+ data[0].pageAreaDetaiImglUrl +'" />' +
 				'</a>';
 			} else {
@@ -181,7 +181,7 @@
 					var index = idx + 1;
 					if (item[0]) {
 						if (String(item[0].pageAreaDetailType) == '0') {
-							renderCarouselOrBanner($el, item, index, index == len ? 'customer-introduce' : '');
+							renderCarouselOrBanner($el, item, index);
 						}
 						
 						if (String(item[0].pageAreaDetailType) == '1') {
@@ -191,6 +191,10 @@
 						if (String(item[0].pageAreaDetailType) == '2') {
 							renderCarouselOrProduct($el, item, index)
 						}
+					}
+					if (index == 1) {
+						$('#main-body').append($('<div id="countdown-area" style="margin: .5rem;"></div>'));
+						getCoundownTimeData(1, rednerCountDownAreaOne);						
 					}
 				});
 			}
