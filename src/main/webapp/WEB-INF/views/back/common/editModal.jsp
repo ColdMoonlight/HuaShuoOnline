@@ -18,7 +18,7 @@
 				<div class="modal-body-body"></div>
 			</div>
 			<div class="modal-footer">
-				<div class="select-result">
+				<div class="select-result hide">
 					<span class="name">selected: </span>
 					<span class="value"></span>
 				</div>
