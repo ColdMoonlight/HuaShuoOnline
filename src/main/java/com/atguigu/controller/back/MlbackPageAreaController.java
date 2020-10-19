@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlbackCatalog;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackPageArea;
 import com.atguigu.bean.MlbackProduct;
