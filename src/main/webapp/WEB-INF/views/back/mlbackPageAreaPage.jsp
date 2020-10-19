@@ -410,7 +410,7 @@
 			var defaultName = $('#pageareaTypedetail').val();
 			var type = $('#pageareaType').val();
 
-			
+			$('#editModal .select-result').removeClass('hide');
 			if ($('#pageareaType').val() == '-1') {
 				toastr.error('Please select page-area type firstly!!!');
 				$('#pageareaType').focus();
@@ -462,7 +462,7 @@
 				} else {
 					console.log('数据错误！！！');
 				}
-				
+				$('#editModal .select-result').addClass('hide');
 				$('#editModal').modal('hide');
 			});
 		});
