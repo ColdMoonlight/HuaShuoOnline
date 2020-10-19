@@ -490,7 +490,6 @@
 			$('#imgModal .right-panel').append($($('#imgModal .left-panel').html()));
 			$('#imgModal .left-panel').html('');
 		});
-		$('#editModal .select-result').addClass('hide');
 		$('#imgModal .btn-save').on('click', function() {
 			var productIdArr = [];
 			var productNameArr = [];
@@ -503,7 +502,7 @@
 				productIdArr.push($(item).data('id'));
 				productNameArr.push($(item).data('name'));
 			});
-			
+
 			$('#categoryProductIds').val(productIdArr.join(','));
 			$('#categoryProductNames').val(productNameArr.join(','));
 			
