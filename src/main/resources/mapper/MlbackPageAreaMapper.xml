@@ -250,4 +250,18 @@
     </if>
     order by pagearea_pcsort
   </select>
+  <!-- 使用中selectMlbackPageAreaBackSearch -->
+  <select id="selectMlbackPageAreaBackSearch" parameterType="com.atguigu.bean.MlbackPageArea" resultMap="BaseResultMap">
+  	select
+  	pagearea_id, pagearea_seo, pagearea_name, pagearea_ascription, pagearea_superCateId, 
+    pagearea_superCateName, pagearea_status, pagearea_sort, pagearea_pcstatus, pagearea_pcsort, 
+    pagearea_type, pagearea_typeDetail
+  	from tb_mlblack_pagearea 
+    where pagearea_name like concat(concat("%",#{pageareaName}),"%")
+     <if test="pageareaSupercateid != null">
+     	and pagearea_superCateId = #{pageareaSupercateid,jdbcType=INTEGER}
+     </if>
+    order by pagearea_id desc
+  </select>
+  
 </mapper>
