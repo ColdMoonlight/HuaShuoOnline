@@ -74,4 +74,9 @@ public class MlbackPageAreaService {
 		return MlbackPageAreaList;
 	}
 
+	public List<MlbackPageArea> selectMlbackPageAreaBackSearch(MlbackPageArea mlbackPageAreaReq) {
+		List<MlbackPageArea>  MlbackPageAreaList = mlbackPageAreaMapper.selectMlbackPageAreaBackSearch(mlbackPageAreaReq);
+		return MlbackPageAreaList;
+	}
+
 }
