@@ -3779,9 +3779,7 @@ footer li {
 	}
 	.ml-ap-item {
 		width: 50%;
-		padding: .5rem 0;
-		border-left-width: .5rem;
-		border-right-width: .5rem;
+		border-width: .5rem;
 	}
 	.showaera-review-container {
 		margin-top: .5rem;
@@ -3810,9 +3808,7 @@ footer li {
 	}
 	.ml-ap-item {
 		width: 33.333333333%;
-		padding: .75rem 0;
-		border-left-width: .75rem;
-		border-right-width: .75rem;
+		border-width: .75rem;
 	}
 	.showarea-review-item {
 		width: 24%;
@@ -3836,9 +3832,7 @@ footer li {
 	}
 	.ml-ap-item {
 		width: 25%;
-		padding: .75rem 0;
-		border-left-width: .75rem;
-		border-right-width: .75rem;
+		border-width: .75rem;
 	}
 	.showarea-review-item {
 		width: 19%;
