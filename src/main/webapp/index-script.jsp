@@ -170,7 +170,12 @@
 	
 						if (String(item[0].pageAreaDetailType) == '2') {
 							renderCarouselOrProduct($el, item, index)
-						}						
+						}
+					}
+					
+					if (index == 1) {
+						$('#main-body').append($('<div id="countdown-area"></div>'));
+						getCoundownTimeData(1, rednerCountDownAreaOne);						
 					}
 				});
 			}
@@ -184,8 +189,6 @@
 	}
 	var hasChange = false;
 	renderMainBody();
-
-	getCoundownTimeData(1, rednerCountDownAreaOne);
 
 	// customer reviews
 	getIntroduceReviewData(function(data) {
