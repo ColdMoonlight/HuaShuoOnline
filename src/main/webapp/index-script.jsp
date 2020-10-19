@@ -124,6 +124,26 @@
 			}, 1000);
 		}
 	}
+	// get display area data
+	function getDisplayAreaData(num, callback) {
+		$.ajax({
+			url: '${APP_PATH}/MlbackShowArea/getMlbackShowAreaOne',
+			data: JSON.stringify({"showareaNumth": num}),
+			type: "post",
+			dataType: "json",
+			contentType: 'application/json',
+			success: function (data) {
+				if (data.code == 100) {
+					callback && callback(data.extend.mlbackShowAreaOne);
+				}
+			}
+		});
+	}
+	// render showArea
+	function renderShowArea($el, data) {
+		$el.append($('<div class="showarea-banner lazyload wap" data-src="'+ data.showareaImgurl +'"></div>' +
+				'<div class="showarea-banner lazyload pc" data-src="'+ data.showareaImgpcurl +'">'));
+	}
 	// get review data
 	function getIntroduceReviewData(callback) {
 		$.ajax({
@@ -172,11 +192,6 @@
 							renderCarouselOrProduct($el, item, index)
 						}
 					}
-					
-					if (index == 1) {
-						$('#main-body').append($('<div id="countdown-area" style="margin: .5rem;"></div>'));
-						getCoundownTimeData(1, rednerCountDownAreaOne);						
-					}
 				});
 			}
 
@@ -191,13 +206,16 @@
 	renderMainBody();
 
 	// customer reviews
-	getIntroduceReviewData(function(data) {
+	getDisplayAreaData(3, function(data) {
 		var $el = $('#showAreaThree');
-		data.mlfrontReviewList.length && renderIntroduceReview($el, data);
-		new LazyLoad($el.find('.lazyload'), {
-			root: null,
-			rootMargin: "10px",
-			threshold: 0
+		data && renderShowArea($el, data);
+		getIntroduceReviewData(function(data) {
+			data.mlfrontReviewList.length && renderIntroduceReview($el, data);
+			new LazyLoad($el.find('.lazyload'), {
+				root: null,
+				rootMargin: "10px",
+				threshold: 0
+			});
 		});
 	});
 	$(document.body).on('click', '.showarea-review-item', function(e) {
