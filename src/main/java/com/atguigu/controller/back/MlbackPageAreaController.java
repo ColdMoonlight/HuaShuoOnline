@@ -311,10 +311,11 @@ public class MlbackPageAreaController {
 								mlbackProductResList.add(mlbackProductResOne);
 							}
 						}
+						
 						for(MlbackProduct mlbackProductReqOne:mlbackProductResList){
 							
 							PageAreaDetail pageAreaDetailReturn = new PageAreaDetail();
-							//System.out.println("ProductId:"+mlbackProductReqOne.getProductId()+",ProductSeo:"+mlbackProductReqOne.getProductSeo());
+							//System.out.println("ProductId:"+mlbackProductReqOne.getProductId()+" ,ProductSeo:"+mlbackProductReqOne.getProductSeo());
 							pageAreaDetailReturn.setMlbackProduct(mlbackProductReqOne);
 							pageAreaDetailReturn.setPageAreaDetailIfinto(1);
 							pageAreaDetailReturn.setPageAreaDetailType(2);
