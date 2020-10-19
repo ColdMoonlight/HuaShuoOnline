@@ -707,7 +707,7 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
-			if (!hasCollectionList) getAllCollectionData(renderAllCollection);
+			if (!hasCollectionList) getAllCollectionData(renderAllValidCollection);
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
