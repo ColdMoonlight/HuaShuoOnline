@@ -311,6 +311,7 @@ public class MlbackPageAreaController {
 								mlbackProductResList.add(mlbackProductResOne);
 							}
 						}
+						
 						for(MlbackProduct mlbackProductReqOne:mlbackProductResList){
 							
 							PageAreaDetail pageAreaDetailReturn = new PageAreaDetail();
