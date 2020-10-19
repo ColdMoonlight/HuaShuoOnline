@@ -336,7 +336,6 @@ public class MlbackPageAreaController {
 		return pageAreaDetailAllList;
 	}
 	
-	
 	/**
 	 * 8.0	20201019
 	 * 后端获取类下PageAreaList页面
