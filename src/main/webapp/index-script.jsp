@@ -174,7 +174,7 @@
 					}
 					
 					if (index == 1) {
-						$('#main-body').append($('<div id="countdown-area"></div>'));
+						$('#main-body').append($('<div id="countdown-area" style="margin: .5rem;"></div>'));
 						getCoundownTimeData(1, rednerCountDownAreaOne);						
 					}
 				});
