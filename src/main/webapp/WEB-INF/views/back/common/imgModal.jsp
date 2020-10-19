@@ -22,8 +22,3 @@
 		</div>
 	</div>
 </div>
-<script>
-	$('#imgModal .btn-cancel').on('click', function () {
-		$('#imgModal .btn-save').off('click');
-	});
-</script>
