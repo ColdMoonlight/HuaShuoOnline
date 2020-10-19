@@ -354,6 +354,17 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 		hasCollectionList = true;
 	}
 
+	function renderAllValidCollection(data) {
+		var htmlStr = '<option value="-1">Please Select collection</option>';
+		for (var i = 0; i < data.length; i += 1) {
+			if (data[i].categoryStatus) {
+				htmlStr += '<option value="' + data[i].categoryId + '" data-seo="'+ data[i].categorySeo +'" data-name="'+ data[i].categoryName + '">' + data[i].categoryId + ' * '+ data[i].categoryDesc + '</option>';
+			}
+		}
+		$('.collection-list').html(htmlStr);
+		hasCollectionList = true;
+	}
+
 	/* table tab list for storage */
 	function renderTabItems() {
 		var products = getStorageList(),
