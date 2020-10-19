@@ -3644,10 +3644,20 @@ footer li {
 	width: 100%;
 	height: auto;
 }
-.main-body-item.customer-introduce {
-	min-height: 5rem !important;
+.showarea-banner {
+	min-height: 5rem;
+	margin-top: .5rem;
+}
+.showarea-banner.loaded {
+	background-color: #fff;
 }
 /* other */
+.showarea-banner.wap,
+.showarea-banner.pc {
+    display: none;
+    visibility: hidden;
+    opacity: 0
+}
 .showaera-review-container {
 	margin-top: .5rem;
 }
@@ -3726,6 +3736,11 @@ footer li {
 	margin-top: 1rem;
 }
 @media only screen and (max-width: 575px) {
+	.showarea-banner.wap {
+		display: block;
+		visibility: visible;
+		opacity: 1;
+	}
 	.main-body .swiper-container,
 	.main-body-item {
 		min-height: 12rem;
@@ -3807,6 +3822,11 @@ footer li {
 	}
 }
 @media only screen and (min-width: 1024px) {
+	.showarea-banner.pc {
+		display: block;
+        visibility: visible;
+        opacity: 1
+    }
 	.main-body .swiper-container,
 	.main-body-item {
 		min-height: 20rem;

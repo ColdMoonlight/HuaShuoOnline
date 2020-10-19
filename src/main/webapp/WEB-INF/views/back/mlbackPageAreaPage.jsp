@@ -32,7 +32,7 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="searchPagearea" type="text" placeholder="Search Page Area by seo..." />						
+									<input id="searchPagearea" type="text" placeholder="Search Page Area by name..." />						
 									<select class="supercate-list" id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
