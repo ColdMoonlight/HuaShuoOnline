@@ -3593,6 +3593,9 @@ footer li {
 .ml-product-slide .swiper-container {
 	height: auto;
 }
+.ml-product-slide .swiper-pagination {
+	z-index: 1;
+}
 .ml-product-slide .swiper-pagination-bullet {
 	position: relative;
 	width: 1.8rem;
