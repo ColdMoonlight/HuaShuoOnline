@@ -371,6 +371,7 @@
 			isCreate && pageareaId && deletePageAreaData({
 				pageareaId: pageareaId,
 			});
+			$('#editModal .select-result').addClass('hide');
 		});
 		// save page area
 		$('.c-create .btn-save').on('click', function () {
@@ -462,7 +463,6 @@
 				} else {
 					console.log('数据错误！！！');
 				}
-				$('#editModal .select-result').addClass('hide');
 				$('#editModal').modal('hide');
 			});
 		});
