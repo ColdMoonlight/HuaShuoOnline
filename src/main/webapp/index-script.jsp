@@ -77,6 +77,7 @@
 		var htmlStr = '';
 		var len = data.length;
 		if (len) {
+			var moreLink = data[0].pageAreaDetaiLinklUrl ? ('${APP_PATH}/' + data[0].pageAreaDetaiLinklUrl) : 'javascript:;';
 			htmlStr += '<div class="ml-product-slide slide-'+ idx +'">' +
 				'<div class="swiper-btn swiper-button-black swiper-button-next"></div>' +
 				'<div class="swiper-btn swiper-button-black swiper-button-prev"></div>' +
@@ -105,6 +106,11 @@
 							'</div>' +
 						'</div>';
 					});
+
+					htmlStr += '<div class="swiper-slide product-item product-more-img lazyload" data-src="${APP_PATH}/static/pc/img/product-more.jpg">' +
+							'<a href="'+ moreLink +'"><div class="product-img"></div><div class="product-more-desc"></div></a>' +
+						'</div>';
+
 			htmlStr += '</div></div></div>';			
 			$el.append($(htmlStr));
 			setTimeout(function() {
