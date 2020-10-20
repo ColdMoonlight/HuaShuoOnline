@@ -3859,7 +3859,9 @@ footer li {
 		left: 5%;
 	}
 	.ml-product-slide {
-		padding: 3.6rem 2.5rem 1.5rem 2.5rem;
+		padding: 3.6rem 3.5rem 1.5rem 3.5rem;
+	    border-left: 1.5rem solid #fff;
+	    border-right: 1.5rem solid #fff;
 	}
 	.ml-product-slide .swiper-btn {
 		z-index: 1;
