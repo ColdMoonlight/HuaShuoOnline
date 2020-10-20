@@ -603,7 +603,7 @@ public class MlfrontCartController {
 			String[] aa = cartitemIdStr.split(",");
 			for(int i=0;i<aa.length;i++){
 				String CartItemId = aa[i];
-				Integer CartItemIdInt =Integer.parseInt(CartItemId);
+				Integer CartItemIdInt =Integer.parseInt(CartItemId);//这一行报错For input string: ""
 				MlfrontCartItem mlfrontCartItemFor = new MlfrontCartItem();
 				mlfrontCartItemFor.setCartitemId(CartItemIdInt);
 				//查看该id+该pid时候已经有了

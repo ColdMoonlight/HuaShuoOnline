@@ -265,13 +265,13 @@ public class MlbackPageAreaController {
 						pageAreaDetailOne.setPageAreaDetailIfinto(1);//1默认能点进去
 						
 						if(ifproORcateORpage==0){
-							//0pro
+							//0-pro
 							pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackActShowProRes.getActshowproSeoname()+".html");
 						}else if(ifproORcateORpage==1){
-							//1cate
+							//1-cate
 							pageAreaDetailOne.setPageAreaDetaiLinklUrl("search/"+mlbackActShowProRes.getActshowproCateseoname()+".html");
 						}else{
-							//2page
+							//2-page
 							pageAreaDetailOne.setPageAreaDetaiLinklUrl(mlbackActShowProRes.getActshowproPageseoname()+".html");
 						}
 					}
@@ -286,6 +286,7 @@ public class MlbackPageAreaController {
 				MlbackCategory mlbackCategoryRes= mlbackCategoryService.selectMlbackCategoryById(mlbackCategoryReq);
 				if(mlbackCategoryRes!=null){
 					String pidsStr = mlbackCategoryRes.getCategoryProductIds();
+					String cateSeo = mlbackCategoryRes.getCategorySeo();
 					if((pidsStr==null)||("".equals(pidsStr))){
 						continue;
 					}else{
@@ -313,19 +314,19 @@ public class MlbackPageAreaController {
 							for(int k=0;k<8;k++){
 								MlbackProduct mlbackProductReqOne = mlbackProductResList.get(k);
 								PageAreaDetail pageAreaDetailReturn = new PageAreaDetail();
-								//System.out.println("ProductId:"+mlbackProductReqOne.getProductId()+",ProductSeo:"+mlbackProductReqOne.getProductSeo());
 								pageAreaDetailReturn.setMlbackProduct(mlbackProductReqOne);
 								pageAreaDetailReturn.setPageAreaDetailIfinto(1);
 								pageAreaDetailReturn.setPageAreaDetailType(2);
+								pageAreaDetailReturn.setPageAreaDetaiLinklUrl("search/"+cateSeo+".html");
 								pageAreaDetailFollrList.add(pageAreaDetailReturn);
 							}
 						}else{
 							for(MlbackProduct mlbackProductReqOne:mlbackProductResList){
 								PageAreaDetail pageAreaDetailReturn = new PageAreaDetail();
-								//System.out.println("ProductId:"+mlbackProductReqOne.getProductId()+",ProductSeo:"+mlbackProductReqOne.getProductSeo());
 								pageAreaDetailReturn.setMlbackProduct(mlbackProductReqOne);
 								pageAreaDetailReturn.setPageAreaDetailIfinto(1);
 								pageAreaDetailReturn.setPageAreaDetailType(2);
+								pageAreaDetailReturn.setPageAreaDetaiLinklUrl("search/"+cateSeo+".html");
 								pageAreaDetailFollrList.add(pageAreaDetailReturn);
 							}
 						}

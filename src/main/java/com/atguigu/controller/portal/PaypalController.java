@@ -260,7 +260,7 @@ public class PaypalController {
     	mlfrontOrderReq.setOrderId(orderId);
     	List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderReq);
     	//这一行报错了,没查到值
-    	MlfrontOrder mlfrontOrderRes = mlfrontOrderList.get(0);
+    	MlfrontOrder mlfrontOrderRes = mlfrontOrderList.get(0);//这一行报错
     	//这一行报错了,没查到值
     	String orderitemidstr = mlfrontOrderRes.getOrderOrderitemidstr();
     	String orderitemidArr[] = orderitemidstr.split(",");
