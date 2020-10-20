@@ -314,7 +314,6 @@ public class MlbackPageAreaController {
 							for(int k=0;k<8;k++){
 								MlbackProduct mlbackProductReqOne = mlbackProductResList.get(k);
 								PageAreaDetail pageAreaDetailReturn = new PageAreaDetail();
-								//System.out.println("ProductId:"+mlbackProductReqOne.getProductId()+",ProductSeo:"+mlbackProductReqOne.getProductSeo());
 								pageAreaDetailReturn.setMlbackProduct(mlbackProductReqOne);
 								pageAreaDetailReturn.setPageAreaDetailIfinto(1);
 								pageAreaDetailReturn.setPageAreaDetailType(2);
@@ -324,7 +323,6 @@ public class MlbackPageAreaController {
 						}else{
 							for(MlbackProduct mlbackProductReqOne:mlbackProductResList){
 								PageAreaDetail pageAreaDetailReturn = new PageAreaDetail();
-								//System.out.println("ProductId:"+mlbackProductReqOne.getProductId()+",ProductSeo:"+mlbackProductReqOne.getProductSeo());
 								pageAreaDetailReturn.setMlbackProduct(mlbackProductReqOne);
 								pageAreaDetailReturn.setPageAreaDetailIfinto(1);
 								pageAreaDetailReturn.setPageAreaDetailType(2);
