@@ -4991,7 +4991,7 @@ footer li {
 	position: absolute;
 	top: -.875rem;
 	left: 0;
-	display: inline-block;
+	display: none;
 	padding: .375rem .75rem;
 	font-size: .75rem;
 	font-style: italic;
