@@ -294,7 +294,6 @@ public class MlbackCategoryController {
 		 }
 		 
 		 MlbackCategory mlbackCategoryres = mlbackCategoryList.get(0);
-
 	 
 		 String CategoryProductIdsStr = mlbackCategoryres.getCategoryProductIds();
 		 
