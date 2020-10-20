@@ -132,7 +132,7 @@ public class MlbackPageAreaController {
 	
 	/**5.0	20201014
 	 * mlbackPageArea	delete
-	 * @param id
+	 * @param MlbackPageArea
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	@ResponseBody
@@ -296,13 +296,7 @@ public class MlbackPageAreaController {
 						//查询单独的信息
 						MlbackProduct mlbackProductResOne = new MlbackProduct();
 						List<MlbackProduct> mlbackProductResList = new ArrayList<MlbackProduct>();
-						int len = 0;
-						if(productidsStrArr.length>8){
-							len = 8;
-						}else{
-							len = productidsStrArr.length;
-						}
-						for(int x=0;x<len;x++){
+						for(int x=0;x<productidsStrArr.length;x++){
 							productidStr = productidsStrArr[x];
 							productidInt = Integer.parseInt(productidStr);
 							//查询白pid的产品详情
@@ -315,15 +309,25 @@ public class MlbackPageAreaController {
 								mlbackProductResList.add(mlbackProductResOne);
 							}
 						}
-						
-						for(MlbackProduct mlbackProductReqOne:mlbackProductResList){
-							
-							PageAreaDetail pageAreaDetailReturn = new PageAreaDetail();
-							//System.out.println("ProductId:"+mlbackProductReqOne.getProductId()+",ProductSeo:"+mlbackProductReqOne.getProductSeo());
-							pageAreaDetailReturn.setMlbackProduct(mlbackProductReqOne);
-							pageAreaDetailReturn.setPageAreaDetailIfinto(1);
-							pageAreaDetailReturn.setPageAreaDetailType(2);
-							pageAreaDetailFollrList.add(pageAreaDetailReturn);
+						if(mlbackProductResList.size()>8){
+							for(int k=0;k<8;k++){
+								MlbackProduct mlbackProductReqOne = mlbackProductResList.get(k);
+								PageAreaDetail pageAreaDetailReturn = new PageAreaDetail();
+								//System.out.println("ProductId:"+mlbackProductReqOne.getProductId()+",ProductSeo:"+mlbackProductReqOne.getProductSeo());
+								pageAreaDetailReturn.setMlbackProduct(mlbackProductReqOne);
+								pageAreaDetailReturn.setPageAreaDetailIfinto(1);
+								pageAreaDetailReturn.setPageAreaDetailType(2);
+								pageAreaDetailFollrList.add(pageAreaDetailReturn);
+							}
+						}else{
+							for(MlbackProduct mlbackProductReqOne:mlbackProductResList){
+								PageAreaDetail pageAreaDetailReturn = new PageAreaDetail();
+								//System.out.println("ProductId:"+mlbackProductReqOne.getProductId()+",ProductSeo:"+mlbackProductReqOne.getProductSeo());
+								pageAreaDetailReturn.setMlbackProduct(mlbackProductReqOne);
+								pageAreaDetailReturn.setPageAreaDetailIfinto(1);
+								pageAreaDetailReturn.setPageAreaDetailType(2);
+								pageAreaDetailFollrList.add(pageAreaDetailReturn);
+							}
 						}
 					}
 				}else{
