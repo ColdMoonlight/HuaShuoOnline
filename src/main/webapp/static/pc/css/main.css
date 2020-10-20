@@ -1573,6 +1573,7 @@ footer li {
 .product-item {
 	position: relative;
 	padding: .25rem;
+	margin: .1rem 0;
 	background-color: #fff;
 	border-radius: .25rem;
 	border: 1px solid #eee;
@@ -3768,7 +3769,7 @@ footer li {
 		right: 3rem;
 	}
 	.ml-product-slide .swiper-pagination-bullets {
-		bottom: .5rem;
+		bottom: .75rem;
 	}
 	.ml-product-slide .swiper-pagination-bullet-active::before {
 		width: .75rem;
@@ -3803,6 +3804,9 @@ footer li {
 	.main-body-item {
 		min-height: 15rem;
 	}
+	.ml-product-slide .swiper-slide+.swiper-slide {
+		margin-left: .5rem;
+	}
 	.ml-ap {
 		padding: .75rem;
 	}
@@ -3826,6 +3830,9 @@ footer li {
 	.main-body .swiper-container,
 	.main-body-item {
 		min-height: 20rem;
+	}
+	.ml-product-slide .swiper-slide+.swiper-slide {
+		margin-left: .75rem;
 	}
 	.ml-ap {
 		padding: .75rem;
