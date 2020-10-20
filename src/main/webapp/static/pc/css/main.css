@@ -1613,7 +1613,7 @@ footer li {
   height: 100%;
 }
 .product-more-img.loaded {
-	background-size: cover !important;
+	background-size: 100% 100% !important;
 }
 .product-more-img .product-img {
 	padding-top: 100%;
@@ -1696,7 +1696,7 @@ footer li {
 		font-size: .875rem;
 	}
 	.product-more-desc {
-		height: 6rem;
+		height: 7.4rem;
 	}
 }
 @media only screen and (min-width: 576px) {
@@ -1741,7 +1741,7 @@ footer li {
 		font-size: 1rem;
 	}
 	.product-more-desc {
-		height: 7.5rem;
+		height: 9.3rem;
 	}
 }
 @media only screen and (min-width: 1024px) and (max-width: 1499px) {
@@ -1794,7 +1794,7 @@ footer li {
 		font-size: 1.25rem;
 	}
 	.product-more-desc {
-		height: 9.625rem;
+		height: 9.925rem;
 	}
 }
 /* product header */
