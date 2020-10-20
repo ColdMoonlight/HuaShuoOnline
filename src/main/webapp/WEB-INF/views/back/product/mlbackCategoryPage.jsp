@@ -470,6 +470,7 @@
 			var imgsHtml = '';
 			var productIds = $('#categoryProductIds').val() && $('#categoryProductIds').val().split(',');
 			var productNames = $('#categoryProductNames').val() && $('#categoryProductNames').val().split(',');
+
 			if (productIds.length) {
 				productIds.forEach(function(id, idx) {
 					imgsHtml += '<div class="product-imgs-sort-item" data-id="'+ id +'" data-name="'+ productNames[idx] +'">'+ productNames[idx] +'</div>';
@@ -478,7 +479,21 @@
 				$('#imgModal').data('len', productIds.length).find('.left-panel').html(imgsHtml).end().find('.right-panel').html('').end().modal('show');					
 			} else {
 				toastr.warning('没有产品可进行排序！！！');
-			}
+			}				
+			getAllProductData(function(data) {
+				var $items = $('.product-imgs-sort-item');
+				data.forEach(function(prod) {
+					if (!prod.productStatus && productIds.indexOf(String(prod.productId)) > -1) {
+						for (var i = 0, len = $items.length; i < len; i += 1) {
+							var $item = $items.eq(i);
+							if ($item.data('id') == prod.productId) {
+								$item.css('border-color', 'red');
+								break;
+							}
+						}
+					}
+				})
+			});
 		});
 		$(document.body).on('click', '#imgModal .left-panel .product-imgs-sort-item', function() {
 			$('#imgModal .right-panel').append($(this));
