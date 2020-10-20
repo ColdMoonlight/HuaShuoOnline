@@ -62,6 +62,7 @@
 							<button class="btn btn-primary btn-save">Save Coupon</button>
 						</div>
 					</div>
+					
 					<div class="c-form row">
 						<input id="couponId" hidden>
 						<!-- left panel -->
