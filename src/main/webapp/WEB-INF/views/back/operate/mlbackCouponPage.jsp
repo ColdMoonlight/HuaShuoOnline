@@ -62,6 +62,7 @@
 							<button class="btn btn-primary btn-save">Save Coupon</button>
 						</div>
 					</div>
+					
 					<div class="c-form row">
 						<input id="couponId" hidden>
 						<!-- left panel -->
@@ -98,7 +99,6 @@
 											</select>
 										</div>
 									</div>
-									
 									<div class="form-group open_0">
 										<label class="col-form-label" for="couponPrice">Preferential strength</label>
 										<div class="controls">
