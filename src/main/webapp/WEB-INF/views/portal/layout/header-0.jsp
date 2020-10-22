@@ -559,7 +559,7 @@
 	// refresh page or not
 	function refreshPage() {
 		var currentUrl = window.location.href;
-		(currentUrl == '${APP_PATH}/MlbackCart/toCheakOut') && (window.location.href = currentUrl);
+		(currentUrl == '${APP_PATH}/MlbackCart/toCheakOutPayCard') && (window.location.href = currentUrl);
 	}
 	// iphone share
 	function initIphoneShare() {
