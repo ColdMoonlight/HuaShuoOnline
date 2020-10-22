@@ -259,7 +259,7 @@ public class MlfrontPayInfoController {
 			mlbackCaclPayReq.setTbMlbackCaclpayMotifytime(nowtime);
 			mlbackCaclPayReq.setTbMlbackCaclpayOrderid(poid);
 			mlbackCaclPayService.insertSelective(mlbackCaclPayReq);
-			System.out.println("mlbackCaclPayReq:"+mlbackCaclPayReq.toString());
+			//System.out.println("mlbackCaclPayReq:"+mlbackCaclPayReq.toString());
 			return 0;//本条已经在数据库中,未被计算过
 		}
 	}
