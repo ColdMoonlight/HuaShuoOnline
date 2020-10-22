@@ -79,6 +79,18 @@ public class MlfrontCartController {
 	}
 	
 	/**
+	 * 2.0	zsh200729
+	 * 前台移动端解算页面mfront/cheakOut
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/toCheakOutPayCard")
+	public String toCheakOutPayCard(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
+		
+		return "portal/CartOrderPay/checkOutPayCard";
+	}
+	
+	/**
 	 * 3.0	200612
 	 * getMlfrontCartByDate控制面板根据时间统计数据所需
 	 * @param mlfrontCart
