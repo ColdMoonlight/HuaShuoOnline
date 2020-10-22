@@ -235,8 +235,8 @@
 			spaceBetween: 5,
 			freeMode: true,
 			navigation: {
-				nextEl: '.swiper-button-next',
-				prevEl: '.swiper-button-prev',
+				nextEl: '.product-thumb-slide .swiper-button-next',
+				prevEl: '.product-thumb-slide .swiper-button-prev',
 			},
 			on: {
 				slideChangeTransitionStart: function() {
@@ -246,12 +246,12 @@
 		});
 		var swiperMain = new Swiper('.product-slide', {
 			pagination: {
-				el: '.swiper-pagination',
+				el: '.product-slide .swiper-pagination',
 				clickable: true
 			},
 			navigation: {
-				nextEl: '.swiper-button-next',
-				prevEl: '.swiper-button-prev',
+				nextEl: '.product-slide .swiper-button-next',
+				prevEl: '.product-slide .swiper-button-prev',
 			},
 			on: {
 				slideChangeTransitionStart: function() {
