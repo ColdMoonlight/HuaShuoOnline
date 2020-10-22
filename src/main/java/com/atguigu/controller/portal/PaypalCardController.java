@@ -125,7 +125,7 @@ public class PaypalCardController {
             for(Links links : payment.getLinks()){
                 if(links.getRel().equals("approval_url")){
                 	System.out.println("links.getHref:"+links.getHref());
-                    return "redirect:" + links.getHref();
+                    return links.getHref();
                 }
             }
         } catch (PayPalRESTException e) {
