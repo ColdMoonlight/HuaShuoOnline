@@ -107,7 +107,7 @@
 	<!-- main end -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<!-- checkout script -->
-	<jsp:include page="./checkout-script.min.jsp" flush="true"></jsp:include>
+	<jsp:include page="./checkout-sdk-script.jsp" flush="true"></jsp:include>
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
