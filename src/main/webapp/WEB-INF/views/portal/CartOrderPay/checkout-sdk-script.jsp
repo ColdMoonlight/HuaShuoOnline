@@ -535,7 +535,8 @@
 	function paypalCardPayment() {
 		paypal.Buttons({
 			style:{
-			 width: '100%',
+                size: "responsive",
+				width: '100%'
 			},
 			commit:true,
 			createOrder: function () {
@@ -552,13 +553,13 @@
 							currency: 'USD'
 						});
 					});
-					orderPay(getOrderPayInfo())
-				}
-				return fetch('paypalCard/mpay', {
+					return false;
+					/* orderPay(getOrderPayInfo());
+					return fetch('${APP_PATH}/paypalCard/mpay', {
 						method: 'post',
-						body: JSON.stringify({ }),
 						headers: { 'content-type': 'application/json' }
 					}).then(function (res) {
+						console.log(res)
 						return res.json();
 					}).then(function (data) {
 						console.log(data);
@@ -569,7 +570,10 @@
 							}
 						}
 						return token;
-					});
+					});	 */
+				} else {
+					return false;				
+				}
 			},
 			onApprove: function (data) {
 				return fetch('successUrl.php', {
