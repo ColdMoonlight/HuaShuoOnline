@@ -132,7 +132,7 @@ public class PaypalCardController {
                     //return links.getHref();
                 }
             }
-            return Msg.success().add("resMsg", "初始化验证是否登录").add("payment", payment);
+            return Msg.success().add("resMsg", "初始化验证是否登录").add("payment", payment.toJSON());
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
             System.out.println("----------/paypal/mpay/Exception----------");
