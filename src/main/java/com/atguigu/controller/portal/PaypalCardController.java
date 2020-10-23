@@ -80,7 +80,7 @@ public class PaypalCardController {
      * */
     @RequestMapping(method = RequestMethod.POST, value = "mpay")
     @ResponseBody
-    public Payment pay(HttpServletRequest request,HttpSession session){
+    public Msg pay(HttpServletRequest request,HttpSession session){
     	System.out.println("into**********/paypal/mpay**********");
     	//1.1,准备支付前,从session中读取getPayInfo参数
     	ToPaypalInfo toPaypalInfo = getPayInfo(session);
@@ -132,7 +132,7 @@ public class PaypalCardController {
                     //return links.getHref();
                 }
             }
-            return payment;
+            return Msg.success().add("resMsg", "初始化验证是否登录").add("payment", payment);
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
             System.out.println("----------/paypal/mpay/Exception----------");
@@ -154,7 +154,7 @@ public class PaypalCardController {
             System.out.println("---------e.getDetails()------end------");
         }
         //return "redirect:/MlbackCart/toCheakOut";
-        return payment;
+        return Msg.success().add("resMsg", "初始化验证是否登录").add("errorUrl", "/MlbackCart/toCheakOut");
     }
     
     /**2.0
