@@ -161,8 +161,9 @@ public class PaypalCardController {
      * wap端返回成功页面
      * mfront/paySuccess
      * */
-    @RequestMapping(method = RequestMethod.GET, value = PAYPAL_SUCCESS_M_URLIn)
-    public String successPay(HttpSession session,@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId){
+    @RequestMapping(method = RequestMethod.POST, value = PAYPAL_SUCCESS_M_URLIn)
+    @ResponseBody
+    public String successPay(HttpSession session,@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, @RequestParam("OrderID") String OrderID){
 
     	try {
     		PaypalService paypalService = new PaypalService();
