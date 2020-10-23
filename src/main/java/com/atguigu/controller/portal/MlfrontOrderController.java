@@ -300,6 +300,9 @@ public class MlfrontOrderController {
 		MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
 		mlfrontPayInfoNew.setPayinfoOid(originalOrderId);
 		mlfrontPayInfoNew.setPayinfoStatus(0);//0未支付1已支付
+		if(orderPayPlateInt==null){
+			orderPayPlateInt = 0;
+		}
 		if(orderPayPlateInt==0){
 			mlfrontPayInfoNew.setPayinfoPlatform("paypal");
 		}else{
