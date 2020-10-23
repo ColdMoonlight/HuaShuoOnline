@@ -19,6 +19,7 @@ import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.portal.ToPaypalInfo;
+import com.atguigu.common.Msg;
 import com.atguigu.enumC.PaypalPaymentIntent;
 import com.atguigu.enumC.PaypalPaymentMethod;
 import com.atguigu.service.MlPaypalShipAddressService;
@@ -75,8 +76,8 @@ public class PaypalCardController {
      * 组装参数,WAP端发起真实的支付
      * paypal/mpay
      * */
-    @RequestMapping(method = RequestMethod.GET, value = "mpay")
-    public String pay(HttpServletRequest request,HttpSession session){
+    @RequestMapping(method = RequestMethod.POST, value = "mpay")
+    public Msg pay(HttpServletRequest request,HttpSession session){
     	System.out.println("into**********/paypal/mpay**********");
     	//1.1,准备支付前,从session中读取getPayInfo参数
     	ToPaypalInfo toPaypalInfo = getPayInfo(session);
@@ -125,9 +126,10 @@ public class PaypalCardController {
             for(Links links : payment.getLinks()){
                 if(links.getRel().equals("approval_url")){
                 	System.out.println("links.getHref:"+links.getHref());
-                    return links.getHref();
+                    //return links.getHref();
                 }
             }
+            return Msg.success().add("resMsg", "更新成功").add("payment", payment);
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
             System.out.println("----------/paypal/mpay/Exception----------");
@@ -148,7 +150,8 @@ public class PaypalCardController {
             session.setAttribute("PaypalError", regularName);
             System.out.println("---------e.getDetails()------end------");
         }
-        return "redirect:/MlbackCart/toCheakOut";
+        //return "redirect:/MlbackCart/toCheakOut";
+        return Msg.success().add("resMsg", "更新成功").add("errorUrl", "MlbackCart/toCheakOut");
     }
     
     /**2.0
