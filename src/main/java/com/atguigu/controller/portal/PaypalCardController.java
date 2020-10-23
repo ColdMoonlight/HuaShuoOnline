@@ -181,9 +181,9 @@ public class PaypalCardController {
             System.out.println(payment.toJSON());
             
             if(payment.getState().equals("approved")){
-            	return Msg.success().add("resMsg", "初始化验证是否登录").add("isSuccess", "1");
+            	return Msg.success().add("resMsg", "成功").add("isSuccess", "1");
             }else{
-            	return Msg.success().add("resMsg", "初始化验证是否登录").add("isSuccess", "2");
+            	return Msg.success().add("resMsg", "失败").add("isSuccess", "0");
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
@@ -191,7 +191,7 @@ public class PaypalCardController {
             System.out.println(e.getMessage());
             System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----end------");
         }
-    	return Msg.success().add("resMsg", "初始化验证是否登录").add("isSuccess", "2");
+    	return Msg.success().add("resMsg", "失败").add("isSuccess", "0");
     }
 
     /**
