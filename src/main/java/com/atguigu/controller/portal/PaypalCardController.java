@@ -129,7 +129,7 @@ public class PaypalCardController {
             for(Links links : payment.getLinks()){
                 if(links.getRel().equals("approval_url")){
                 	System.out.println("links.getHref:"+links.getHref());
-                    //return links.getHref();
+                    //return links.getHref();;
                 }
             }
             return Msg.success().add("resMsg", "初始化验证是否登录").add("payment", payment.toJSON());
