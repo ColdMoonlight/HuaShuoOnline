@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.atguigu.bean.MlPaypalShipAddress;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
@@ -77,7 +79,8 @@ public class PaypalCardController {
      * paypal/mpay
      * */
     @RequestMapping(method = RequestMethod.POST, value = "mpay")
-    public Msg pay(HttpServletRequest request,HttpSession session){
+    @ResponseBody
+    public Payment pay(HttpServletRequest request,HttpSession session){
     	System.out.println("into**********/paypal/mpay**********");
     	//1.1,准备支付前,从session中读取getPayInfo参数
     	ToPaypalInfo toPaypalInfo = getPayInfo(session);
@@ -129,7 +132,7 @@ public class PaypalCardController {
                     //return links.getHref();
                 }
             }
-            return Msg.success().add("resMsg", "更新成功").add("payment", payment);
+            return payment;
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
             System.out.println("----------/paypal/mpay/Exception----------");
@@ -151,7 +154,7 @@ public class PaypalCardController {
             System.out.println("---------e.getDetails()------end------");
         }
         //return "redirect:/MlbackCart/toCheakOut";
-        return Msg.success().add("resMsg", "更新成功").add("errorUrl", "MlbackCart/toCheakOut");
+        return payment;
     }
     
     /**2.0
