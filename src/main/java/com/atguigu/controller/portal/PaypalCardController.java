@@ -163,7 +163,7 @@ public class PaypalCardController {
      * */
     @RequestMapping(method = RequestMethod.POST, value = PAYPAL_SUCCESS_M_URLIn)
     @ResponseBody
-    public String successPay(HttpSession session,@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, @RequestParam("OrderID") String OrderID){
+    public Msg successPay(HttpSession session,@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, @RequestParam("OrderID") String OrderID){
 
     	try {
     		PaypalService paypalService = new PaypalService();
@@ -181,9 +181,9 @@ public class PaypalCardController {
             System.out.println(payment.toJSON());
             
             if(payment.getState().equals("approved")){
-            	return "redirect:/Success.html";
+            	return Msg.success().add("resMsg", "初始化验证是否登录").add("isSuccess", "1");
             }else{
-            	return "portal/CartOrderPay/payFail";
+            	return Msg.success().add("resMsg", "初始化验证是否登录").add("isSuccess", "2");
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
@@ -191,7 +191,7 @@ public class PaypalCardController {
             System.out.println(e.getMessage());
             System.out.println("----wap端返回成功接口的Exception-----e.getMessage()-----end------");
         }
-    	return "redirect:/MlbackCart/toCheakOut";
+    	return Msg.success().add("resMsg", "初始化验证是否登录").add("isSuccess", "2");
     }
 
     /**
