@@ -19,7 +19,7 @@ import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
 
 /**
- * homePage
+ * HomePage
  * @author
  */
 @Controller
