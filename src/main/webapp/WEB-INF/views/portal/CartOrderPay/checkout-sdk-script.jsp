@@ -553,8 +553,7 @@
 							currency: 'USD'
 						});
 					});
-					return false;
-					/* orderPay(getOrderPayInfo());
+					orderPay(getOrderPayInfo());
 					return fetch('${APP_PATH}/paypalCard/mpay', {
 						method: 'post',
 						headers: { 'content-type': 'application/json' }
@@ -570,7 +569,7 @@
 							}
 						}
 						return token;
-					});	 */
+					});
 				} else {
 					return false;				
 				}
