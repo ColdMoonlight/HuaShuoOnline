@@ -79,8 +79,8 @@ public class MlfrontCartController {
 	}
 	
 	/**
-	 * 2.0	zsh200729
-	 * 前台移动端解算页面mfront/cheakOut
+	 * 2.1	zsh200729
+	 * paypalCard信用卡结算页面
 	 * @param jsp
 	 * @return 
 	 * */
