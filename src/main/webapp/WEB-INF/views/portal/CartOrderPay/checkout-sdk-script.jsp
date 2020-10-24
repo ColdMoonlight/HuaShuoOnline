@@ -545,6 +545,16 @@
 						$('#addressId').val(data.addressId);
 					});
 
+					var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
+					var orderMoney = $('.order-cal-subtotal').data('price');
+
+					fbq('track', 'AddPaymentInfo', {
+						content_ids: productIdArr,
+						content_type: 'product',
+						value: orderMoney,
+						currency: 'USD'
+					});
+
 					orderPay(getOrderPayInfo());
 
 					return fetch('${APP_PATH}/paypalCard/mpay', {
@@ -567,6 +577,7 @@
 				}
 			},
 			onApprove: function (data) {
+				payLoading();
 				return fetch('${APP_PATH}/paypalCard/msuccess?paymentId='+ data.paymentID + '&OrderID=' + data.orderID + '&PayerID=' + data.payerID, {
 					method: 'post',
 					headers: { 'content-type': 'application/json' },
@@ -574,16 +585,6 @@
 					return res.json();
 				}).then(function(data) {
 					if (data.code == 100 && ('' + data.extend.isSuccess == '1')) {
-						var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
-						var orderMoney = $('.order-cal-subtotal').data('price');
-
-						fbq('track', 'AddPaymentInfo', {
-							content_ids: productIdArr,
-							content_type: 'product',
-							value: orderMoney,
-							currency: 'USD'
-						});
-
 						window.location.href = '${APP_PATH}/Success.html';
 					} else {
 						mlModalTip("Payment failed, please repay !");
