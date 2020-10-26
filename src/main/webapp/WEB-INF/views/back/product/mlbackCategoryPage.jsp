@@ -481,18 +481,29 @@
 				toastr.warning('没有产品可进行排序！！！');
 			}				
 			getAllProductData(function(data) {
+				var existProducts = [];
 				var $items = $('.product-imgs-sort-item');
 				data.forEach(function(prod) {
-					if (!prod.productStatus && productIds.indexOf(String(prod.productId)) > -1) {
-						for (var i = 0, len = $items.length; i < len; i += 1) {
-							var $item = $items.eq(i);
-							if ($item.data('id') == prod.productId) {
-								$item.css('border-color', 'red');
-								break;
-							}
+					var pId = '' + prod.productId;
+					if (productIds.indexOf(pId) > -1) {
+						existProducts.push(pId);
+						if (!prod.productStatus) {
+							for (var i = 0, len = $items.length; i < len; i += 1) {
+								var $item = $items.eq(i);
+								if (('' + $item.data('id')) == pId) {
+									$item.css('border-color', 'red');
+									break;
+								}
+							}							
 						}
 					}
-				})
+				});
+				$items.each(function(idx, item) {
+					var $item = $(item);
+					if (existProducts.indexOf('' + $item.data('id')) < 0) {
+						$item.css('border-color', 'blue');
+					}
+				});
 			});
 		});
 		$(document.body).on('click', '#imgModal .left-panel .product-imgs-sort-item', function() {
