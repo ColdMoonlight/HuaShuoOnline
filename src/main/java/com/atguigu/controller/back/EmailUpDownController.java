@@ -49,7 +49,7 @@ public class EmailUpDownController {
 	MlfrontReviewService mlfrontReviewService;
 	
 	@Autowired
-	EmailPaySuccessService emailPaySuccessService;
+	EmailPaySuccessService emailPaySuccessService;//
 	
 	@Autowired
 	EmailPayPalRetuenSuccessService emailPayPalRetuenSuccessService;
@@ -63,15 +63,15 @@ public class EmailUpDownController {
 	@Autowired
 	EmailPayAllsuccessService emailPayAllsuccessService;
 	
-	/**
-	 * zsh 200730
-	 * 中控台首页
-	 * */
-	@RequestMapping("emailAllTypePage")
-	public String paysuccessPage(HttpSession session){
-		
-		return "back/email/emailSuccess";
-	}
+//	/**
+//	 * zsh 200730
+//	 * 中控台首页
+//	 * */
+//	@RequestMapping("emailAllTypePage")
+//	public String paysuccessPage(HttpSession session){
+//		
+//		return "back/email/emailSuccess";
+//	}
 	
 	/**
 	 * 下载付款成功的Email
@@ -101,7 +101,7 @@ public class EmailUpDownController {
 		List<EmailPaySuccess> paySuccessEmailList= emailPaySuccessService.selectALl(emailPayPalSuccessReq);
 		System.out.println("paySuccessEmailList.size():"+paySuccessEmailList.size());
 		
-		//遍历结算付款的,去billing中查询,如果查到-跳过.没查到-add进billingList中；
+		//遍历结算付款的,去billing中查询,如果查到-跳过.没查到-add进billingList中;
 		for(EmailPaySuccess emailPaySuccessOne:paySuccessEmailList){
 			
 			//挨个去PayInfo的表中去查询如果存在-跳过,不存在-add进billingList
