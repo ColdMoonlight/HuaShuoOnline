@@ -591,6 +591,9 @@
 					}
 				});
 			},
+			onError: function() {
+				console.log('can not pay!');
+			},
 			onCancel: function() {
 				console.log('cancel pay...');
 			}
