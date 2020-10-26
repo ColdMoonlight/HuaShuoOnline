@@ -38,6 +38,54 @@
 						</div>
 					</div>
 				</div>
+				<div class="c-init">
+					<div class="c-table">
+						<div class="c-table-header">
+							<div class="row">
+								
+								<div class="form-group col-md-12">
+									<div class="col-md-2">
+										<h3 style="font-size: 16px;">下载付款邮箱</h3>
+										<div class="c-upload-img" id="download_fk" style="width: 4rem; height: 4rem; padding: 1rem;">
+										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
+										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
+										  </svg>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<h3 style="font-size: 16px;">下载地址邮箱</h3>
+										<div class="c-upload-img" id="download_dz" style="width: 4rem; height: 4rem; padding: 1rem;">
+										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
+										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
+										  </svg>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<h3 style="font-size: 16px;">下载新用户邮箱</h3>
+										<div class="c-upload-img" id="download_xyh" style="width: 4rem; height: 4rem; padding: 1rem;">
+										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
+										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
+										  </svg>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<h3 style="font-size: 16px;">下载新用户邮箱</h3>
+										<div class="c-upload-img" id="download_xyh" style="width: 4rem; height: 4rem; padding: 1rem;">
+										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
+										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
+										  </svg>
+										</div>
+									</div>
+								</div>	
+								
+							</div>
+							
+						</div>
+						
+					</div>
+					
+				</div>
+				
 			</div>
 		</div>
 		<jsp:include page="../layout/backfooter.jsp" flush="true"></jsp:include>
@@ -50,6 +98,22 @@
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	<!-- custom script -->
 	<script>
+		/***download_fk*******************/
+		$('#download_fk').on('click', function() {
+			window.location.href = "${APP_PATH}/excleImport/exportPaySuccess";
+		});
+		
+		/***download_dz*******************/
+		$('#download_dz').on('click', function() {
+			window.location.href = "${APP_PATH}/excleImport/exportAddressEmail";
+		});
+		
+		/***download_xyh*******************/
+		$('#download_xyh').on('click', function() {
+			window.location.href = "${APP_PATH}/excleImport/exportReviewsImportDemo";
+		});
+		
+		
 		var date = new Date();
 		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
 		
