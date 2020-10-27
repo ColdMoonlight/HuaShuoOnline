@@ -263,45 +263,43 @@ public class EmailUpDownController {
 		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"payinfoIf.xls");
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
-		
 		HSSFSheet sheet = wb.createSheet("sheet0");
-		
 		HSSFRow row = sheet.createRow(0);
-		
 		HSSFCell cell = row.createCell(0);
 		
 		//----------------------------------------------------------------------------
 		List<String> successList = new ArrayList<String>();
 		List<String> successNowList = new ArrayList<String>();
-		//billingEmail
+		List<String> successNowNowList = new ArrayList<String>();
+		//1获取billingEmail-信息
 		EmailPayPalRetuenSuccess emailPayPalRetuenSuccessReq = new EmailPayPalRetuenSuccess();
 		List<EmailPayPalRetuenSuccess> billingEmailList= emailPayPalRetuenSuccessService.selectALl(emailPayPalRetuenSuccessReq);
 		
 		for(EmailPayPalRetuenSuccess billEmailOne :billingEmailList){
 			successList.add(billEmailOne.getPayretuensuccessEmail());
 			successNowList.add(billEmailOne.getPayretuensuccessEmail());
+			successNowNowList.add(billEmailOne.getPayretuensuccessEmail());
 		}
-		
-		//付款成功的Email
+		//2获取-付款成功的Email-信息
 		EmailPaySuccess emailPayPalSuccessReq = new EmailPaySuccess();
 		List<EmailPaySuccess> paySuccessEmailList= emailPaySuccessService.selectALl(emailPayPalSuccessReq);
 		System.out.println("paySuccessEmailList.size():"+paySuccessEmailList.size());
-		
-		//遍历结算付款的,去billing中查询,如果查到-跳过.没查到-add进billingList中;
+		//3遍历结算付款的,去billing中查询,如果查到-跳过.没查到-add进successList和临时的下一列中;
 		for(EmailPaySuccess emailPaySuccessOne:paySuccessEmailList){
 			Integer ifHave = 0;
 			String email = emailPaySuccessOne.getPaysuccessEmail();
 			ifHave = getIfIntoEmail(email,successNowList);
 			if(ifHave>0){
 				//包含了
-				System.out.println("这个邮箱已经包含了"+email+"....");
+				//System.out.println("这个邮箱已经包含了"+email+"....");
 			}else{
 				successList.add(email);
+				successNowNowList.add(email);
 			}
 		}
-		//successList这是//billingEmail+paySuccessEmail
+		//4-successList这是//billingEmail+paySuccessEmail
 		List<String> nowAddressList = new ArrayList<String>();
-		//查询结算地址里的Email
+		//5-查询结算地址里的Email
 		EmailAddress emailAddressReq = new EmailAddress();
 		List<EmailAddress> emailAddressList= emailAddressService.selectALl(emailAddressReq);
 		//System.out.println("emailAddressList.size():"+emailAddressList.size());
@@ -309,64 +307,92 @@ public class EmailUpDownController {
 		List<EmailAddress> emailAddressNoRubbish1List = new ArrayList<EmailAddress>();
 		List<EmailAddress> emailAddressNoRubbish2List = new ArrayList<EmailAddress>();
 		
-		//清理到垃圾
+		//5.1-清理包含@的到垃圾
 		for(EmailAddress emailAddressOne:emailAddressList){
-			
 			String oneEmail = emailAddressOne.getAddressemailEmail();
 			if(oneEmail.contains("@")){
-				System.out.println("这是正确的邮箱格式");
+				//System.out.println("这是正确的邮箱格式");
 				emailAddressNoRubbish1List.add(emailAddressOne);
 			}
-			
 		}
+		//5.2-清理包含qq的到垃圾
 		for(EmailAddress emailAddressOne:emailAddressNoRubbish1List){
-			
 			String oneEmail = emailAddressOne.getAddressemailEmail();
 			if(oneEmail.contains("qq.")){
-				System.out.println("这是谁的qq邮箱");
+				//System.out.println("这是谁的qq邮箱");
 			}else{
 				emailAddressNoRubbish2List.add(emailAddressOne);
 			}
 		}
-		
-		//遍历结算地址-去billing中查询,如果查到-跳过.没查到-add进billingList中;
+		//6遍历清除垃圾后的地址信息emailList,去成功的里面比较,如果查到了,跳过.没查到-add进successList和付款返回+结算成功+结算未成功的集合
 		for(EmailAddress emailAddressOne:emailAddressNoRubbish2List){
 			Integer ifHave = 0;
 			String email = emailAddressOne.getAddressemailEmail();
 			ifHave = getIfIntoEmail(email,successList);
 			if(ifHave>0){
 				//包含了
-				System.out.println("这个邮箱已经包含了"+email+"....");
+				//System.out.println("这个邮箱已经包含了"+email+"....");
 			}else{
 				//不包含的话,插入
-				System.out.println("这个邮箱未付过款"+email+"....");
+				//System.out.println("这个邮箱未付过款"+email+"....");
 				nowAddressList.add(email);
+				successNowNowList.add(email);
 			}
 		}
-		
 		//------------------------------------------------------------------------------
-		
 		//所有付款邮箱successList
-		
 		//所有结算地址邮箱邮箱nowAddressList
-		
-		//-------------------------------------------------------------------------------
-		
+		//7查询user-Email
 		EmailUser emailUserReq = new EmailUser();
 		List<EmailUser> emailUserList= emailUserService.selectALl(emailUserReq);
-		System.out.println("emailUserList.size():"+emailUserList.size());
+		System.out.println("筛选前的emailUserList.size():"+emailUserList.size());
 		
+		List<String> emailUser1List = new ArrayList<String>();
+		List<String> emailUser2List = new ArrayList<String>();
+		
+		//7.1-筛选出包含@的到email
+		for(EmailUser emailUserOne:emailUserList){
+			String oneEmail = emailUserOne.getUseremailEmail();
+			if(oneEmail.contains("@")){
+				//System.out.println("这是正确的邮箱格式");
+				emailUser1List.add(oneEmail);
+			}
+		}
+		//7.2-清理掉包含qq的到垃圾
+		for(String emailOneString:emailUser1List){
+			if(emailOneString.contains("qq.")){
+				//System.out.println("这是谁的qq邮箱");
+			}else{
+				emailUser2List.add(emailOneString);
+			}
+		}
+		List<String> userList = new ArrayList<String>();
+		//8拿着user去付款返回+结算成功+结算未成功的集合successNowNowList中去比较
+		for(String emailOneStr:emailUser2List){
+			
+			//String emailNow = emailUserOne.getUseremailEmail();
+			Integer ifHave = 0;
+			ifHave = getIfIntoEmail(emailOneStr,successNowNowList);
+			if(ifHave>0){
+				//包含了
+				//System.out.println("这个邮箱已经包含了"+emailOneStr+"....");
+			}else{
+				//不包含的话,插入
+				//System.out.println("这个邮箱未付过款"+emailOneStr+"....");
+				userList.add(emailOneStr);
+			}
+		}
+		//-------------------------------------------------------------------------------
 		cell.setCellValue("num");
 	    cell = row.createCell(1);
-		cell.setCellValue("billingEmail");
+		cell.setCellValue("仅注册-未加购-未购买");
 	    cell = row.createCell(2);
-	    
-	    EmailPayPalRetuenSuccess billOne = new EmailPayPalRetuenSuccess();
-	    for (int i = 0; i < billingEmailList.size(); i++) {
-	    	billOne = billingEmailList.get(i);
+	    System.out.println("筛选出的userEmail的数量"+userList.size());
+	    for (int i = 0; i < userList.size(); i++) {
+	    	String userEmail = userList.get(i);
 	        row = sheet.createRow(i+1);
 	        row.createCell(0).setCellValue(i+1);
-	        row.createCell(1).setCellValue(billOne.getPayretuensuccessEmail()+"");
+	        row.createCell(1).setCellValue(userEmail+"");
 	    }
 		try {
 			OutputStream out =rep.getOutputStream();
@@ -378,8 +404,5 @@ public class EmailUpDownController {
 		}
 		
 	}
-	
-	
-	
 
 }
