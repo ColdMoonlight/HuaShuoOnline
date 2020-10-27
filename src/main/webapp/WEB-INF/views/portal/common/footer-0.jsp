@@ -454,7 +454,7 @@ function goToIndex() {
 	window.location.href = '${APP_PATH}/';
 }
 function goToCheckout() {
-	window.location.href = '${APP_PATH}/MlbackCart/toCheakOutPayCard';
+	window.location.href = '${APP_PATH}/MlbackCart/toCheakOut';
 }
 function goToCartList() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCartList';
