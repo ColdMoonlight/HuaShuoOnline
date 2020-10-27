@@ -102,7 +102,7 @@
 		
 		/***download_xyh*******************/
 		$('#download_xyh').on('click', function() {
-			window.location.href = "${APP_PATH}/EmailUpDown/exportReviewsImportDemo";
+			window.location.href = "${APP_PATH}/EmailUpDown/exportUserEmail";
 		});
 		
 		var date = new Date();

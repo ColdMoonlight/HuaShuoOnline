@@ -88,7 +88,6 @@
 		<table tableName="tb_email_payRetuensuccess" domainObjectName="EmailPayPalRetuenSuccess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_email_address" domainObjectName="EmailAddress" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_email_user" domainObjectName="EmailUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		
 		-->
 		
 	</context>
