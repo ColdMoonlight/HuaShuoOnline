@@ -68,14 +68,6 @@
 										  </svg>
 										</div>
 									</div>
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">下载新用户邮箱</h3>
-										<div class="c-upload-img" id="download_xyh" style="width: 4rem; height: 4rem; padding: 1rem;">
-										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
-										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
-										  </svg>
-										</div>
-									</div>
 								</div>	
 								
 							</div>
