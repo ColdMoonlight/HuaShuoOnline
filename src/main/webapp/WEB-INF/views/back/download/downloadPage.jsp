@@ -92,19 +92,18 @@
 	<script>
 		/***download_fk*******************/
 		$('#download_fk').on('click', function() {
-			window.location.href = "${APP_PATH}/excleImport/exportPaySuccess";
+			window.location.href = "${APP_PATH}/EmailUpDown/exportPaySuccess";
 		});
 		
 		/***download_dz*******************/
 		$('#download_dz').on('click', function() {
-			window.location.href = "${APP_PATH}/excleImport/exportAddressEmail";
+			window.location.href = "${APP_PATH}/EmailUpDown/exportAddressEmail";
 		});
 		
 		/***download_xyh*******************/
 		$('#download_xyh').on('click', function() {
-			window.location.href = "${APP_PATH}/excleImport/exportReviewsImportDemo";
+			window.location.href = "${APP_PATH}/EmailUpDown/exportReviewsImportDemo";
 		});
-		
 		
 		var date = new Date();
 		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());

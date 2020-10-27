@@ -48,16 +48,16 @@ public class EmailUpDownController {
 	MlfrontReviewService mlfrontReviewService;
 	
 	@Autowired
-	EmailPaySuccessService emailPaySuccessService;//
+	EmailPaySuccessService emailPaySuccessService;//PayInfoSuccessAddressEmail
 	
 	@Autowired
-	EmailPayPalRetuenSuccessService emailPayPalRetuenSuccessService;
+	EmailPayPalRetuenSuccessService emailPayPalRetuenSuccessService;//billingEmail
 	
 	@Autowired
-	EmailAddressService emailAddressService;
+	EmailAddressService emailAddressService;//PayInfo非SuccessAddressEmail
 	
 	@Autowired
-	EmailUserService emailUserService;
+	EmailUserService emailUserService;//全部注册
 	
 	@Autowired
 	EmailPayAllsuccessService emailPayAllsuccessService;
@@ -81,33 +81,33 @@ public class EmailUpDownController {
 		
 		HSSFCell cell = row.createCell(0);
 		
+		List<String> successList = new ArrayList<String>();
+		List<String> successNowList = new ArrayList<String>();
+		
 		//billingEmail
 		EmailPayPalRetuenSuccess emailPayPalRetuenSuccessReq = new EmailPayPalRetuenSuccess();
 		List<EmailPayPalRetuenSuccess> billingEmailList= emailPayPalRetuenSuccessService.selectALl(emailPayPalRetuenSuccessReq);
 		
-		//付款Email
+		for(EmailPayPalRetuenSuccess billEmailOne :billingEmailList){
+			successList.add(billEmailOne.getPayretuensuccessEmail());
+			successNowList.add(billEmailOne.getPayretuensuccessEmail());
+		}
+		
+		//付款成功的Email
 		EmailPaySuccess emailPayPalSuccessReq = new EmailPaySuccess();
 		List<EmailPaySuccess> paySuccessEmailList= emailPaySuccessService.selectALl(emailPayPalSuccessReq);
 		System.out.println("paySuccessEmailList.size():"+paySuccessEmailList.size());
 		
 		//遍历结算付款的,去billing中查询,如果查到-跳过.没查到-add进billingList中;
 		for(EmailPaySuccess emailPaySuccessOne:paySuccessEmailList){
-			
-			//挨个去PayInfo的表中去查询如果存在-跳过,不存在-add进billingList
+			Integer ifHave = 0;
 			String email = emailPaySuccessOne.getPaysuccessEmail();
-			EmailPayPalRetuenSuccess emailPayPalRetuenSuccessCheckReq = new EmailPayPalRetuenSuccess();
-			emailPayPalRetuenSuccessCheckReq.setPayretuensuccessEmail(email);
-			//去查询
-			List<EmailPayPalRetuenSuccess> emailPayPalRetuenSuccessCheckList = emailPayPalRetuenSuccessService.selectByEmail(emailPayPalRetuenSuccessCheckReq);
-			if(emailPayPalRetuenSuccessCheckList.size()>0){
-				//存在-跳过
-				System.out.println("已经有了.不走插入,直接跳过");
+			ifHave = getIfIntoEmail(email,successNowList);
+			if(ifHave>0){
+				//包含了
+				System.out.println("这个邮箱已经包含了");
 			}else{
-				//不存在-add进billingList
-				EmailPayPalRetuenSuccess NewOneEmailPayPalRetuenSuccess = new EmailPayPalRetuenSuccess();
-				NewOneEmailPayPalRetuenSuccess.setPayretuensuccessEmail(email);
-				billingEmailList.add(NewOneEmailPayPalRetuenSuccess);
-				System.out.println("Email:"+email);
+				successList.add(email);
 			}
 		}
 		
@@ -116,12 +116,11 @@ public class EmailUpDownController {
 		cell.setCellValue("billingEmail");
 	    cell = row.createCell(2);
 	    
-	    EmailPayPalRetuenSuccess billOne = new EmailPayPalRetuenSuccess();
-	    for (int i = 0; i < billingEmailList.size(); i++) {
-	    	billOne = billingEmailList.get(i);
+	    for (int i = 0; i < successList.size(); i++) {
+	    	String successEmail = successList.get(i);
 	        row = sheet.createRow(i+1);
 	        row.createCell(0).setCellValue(i+1);
-	        row.createCell(1).setCellValue(billOne.getPayretuensuccessEmail()+"");
+	        row.createCell(1).setCellValue(successEmail+"");
 	    }
 		try {
 			OutputStream out =rep.getOutputStream();
@@ -134,6 +133,23 @@ public class EmailUpDownController {
 		
 	}
 	
+	private Integer getIfIntoEmail(String email, List<String> successList) {
+		
+		Integer ifHave = 0;
+		for(String billingEmail:successList){
+			//如果查到有相同的
+			if(billingEmail.equals(email)){
+				ifHave++;
+				break;
+			}
+		}
+		if(ifHave>0){
+			return 1;
+		}else{
+			return 0; 
+		}
+	}
+
 	/**
 	 * 下载付款结算的Email
 	 * */
@@ -142,96 +158,97 @@ public class EmailUpDownController {
 		
 		rep.setContentType("application/octet-stream");
 		String nowTime = DateUtil.strTime14();
-		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"tryToPay.xls");
+		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"addressEmailunPay.xls");
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
-		
 		HSSFSheet sheet = wb.createSheet("sheet0");
-		
 		HSSFRow row = sheet.createRow(0);
-		
 		HSSFCell cell = row.createCell(0);
+		
+		List<String> successList = new ArrayList<String>();
+		List<String> successNowList = new ArrayList<String>();
 		
 		//billingEmail
 		EmailPayPalRetuenSuccess emailPayPalRetuenSuccessReq = new EmailPayPalRetuenSuccess();
 		List<EmailPayPalRetuenSuccess> billingEmailList= emailPayPalRetuenSuccessService.selectALl(emailPayPalRetuenSuccessReq);
 		
-		//付款Email
+		for(EmailPayPalRetuenSuccess billEmailOne :billingEmailList){
+			successList.add(billEmailOne.getPayretuensuccessEmail());
+			successNowList.add(billEmailOne.getPayretuensuccessEmail());
+		}
+		
+		//付款成功的Email
 		EmailPaySuccess emailPayPalSuccessReq = new EmailPaySuccess();
 		List<EmailPaySuccess> paySuccessEmailList= emailPaySuccessService.selectALl(emailPayPalSuccessReq);
 		System.out.println("paySuccessEmailList.size():"+paySuccessEmailList.size());
 		
 		//遍历结算付款的,去billing中查询,如果查到-跳过.没查到-add进billingList中;
 		for(EmailPaySuccess emailPaySuccessOne:paySuccessEmailList){
-			
-			//挨个去PayInfo的表中去查询如果存在-跳过,不存在-add进billingList
+			Integer ifHave = 0;
 			String email = emailPaySuccessOne.getPaysuccessEmail();
-			EmailPayPalRetuenSuccess emailPayPalRetuenSuccessCheckReq = new EmailPayPalRetuenSuccess();
-			emailPayPalRetuenSuccessCheckReq.setPayretuensuccessEmail(email);
-			//去查询
-			List<EmailPayPalRetuenSuccess> emailPayPalRetuenSuccessCheckList = emailPayPalRetuenSuccessService.selectByEmail(emailPayPalRetuenSuccessCheckReq);
-			if(emailPayPalRetuenSuccessCheckList.size()>0){
-				//存在-跳过
-				//System.out.println("已经有了.不走插入,直接跳过");
+			ifHave = getIfIntoEmail(email,successNowList);
+			if(ifHave>0){
+				//包含了
+				System.out.println("这个邮箱已经包含了"+email+"....");
 			}else{
-				//不存在-add进billingList
-				EmailPayPalRetuenSuccess NewOneEmailPayPalRetuenSuccess = new EmailPayPalRetuenSuccess();
-				NewOneEmailPayPalRetuenSuccess.setPayretuensuccessEmail(email);
-				billingEmailList.add(NewOneEmailPayPalRetuenSuccess);
-				//System.out.println("Email:"+email);
+				successList.add(email);
 			}
 		}
-		//----------------------------此时billingEmailList是全部付款客户-----------------------------------
-		//把这个插入EmailPayAllsuccess表中
-		for(EmailPayPalRetuenSuccess emailOne:billingEmailList){
-			
-			EmailPayAllsuccess emailPayAllsuccessReq = new EmailPayAllsuccess();
-			emailPayAllsuccessReq.setPayallsuccessEmail(emailOne.getPayretuensuccessEmail());
-			emailPayAllsuccessService.insertSelective(emailPayAllsuccessReq);
-			//遍历完毕入库了
-		}
-		
+		//successList这是//billingEmail+paySuccessEmail
+		List<String> nowAddressList = new ArrayList<String>();
 		//查询结算地址里的Email
 		EmailAddress emailAddressReq = new EmailAddress();
 		List<EmailAddress> emailAddressList= emailAddressService.selectALl(emailAddressReq);
-		System.out.println("emailAddressList.size():"+emailAddressList.size());
+		//System.out.println("emailAddressList.size():"+emailAddressList.size());
 		
+		List<EmailAddress> emailAddressNoRubbish1List = new ArrayList<EmailAddress>();
+		List<EmailAddress> emailAddressNoRubbish2List = new ArrayList<EmailAddress>();
 		
-		List<EmailCheckUnPay> emailCheckUnPayList= new ArrayList<EmailCheckUnPay>();
-		//遍历结算地址-去billing中查询,如果查到-跳过.没查到-add进billingList中;
+		//清理到垃圾
 		for(EmailAddress emailAddressOne:emailAddressList){
 			
-			//挨个去PayInfo的表中去查询如果存在-跳过,不存在-add进billingList
-			String email = emailAddressOne.getAddressemailEmail();
-			EmailPayAllsuccess emailPayAllsuccessReq = new EmailPayAllsuccess();
-			emailPayAllsuccessReq.setPayallsuccessEmail(email);
-			//去查询
-			List<EmailPayAllsuccess> emailPayAllsuccessList = emailPayAllsuccessService.selectByEmail(emailPayAllsuccessReq);
-			if(emailPayAllsuccessList.size()>0){
-				//存在-跳过
-				//System.out.println("已经有了.不走插入,直接跳过");
+			String oneEmail = emailAddressOne.getAddressemailEmail();
+			if(oneEmail.contains("@")){
+				System.out.println("这是正确的邮箱格式");
+				emailAddressNoRubbish1List.add(emailAddressOne);
+			}
+			
+		}
+		for(EmailAddress emailAddressOne:emailAddressNoRubbish1List){
+			
+			String oneEmail = emailAddressOne.getAddressemailEmail();
+			if(oneEmail.contains("qq.")){
+				System.out.println("这是谁的qq邮箱");
 			}else{
-				//不存在-add进billingList
-				EmailCheckUnPay emailCheckUnPayOne = new EmailCheckUnPay();
-				emailCheckUnPayOne.setCheckunpayEmail(email);
-				emailCheckUnPayList.add(emailCheckUnPayOne);
-				//System.out.println("Email:"+email);
+				emailAddressNoRubbish2List.add(emailAddressOne);
 			}
 		}
 		
-		//--------------------
+		//遍历结算地址-去billing中查询,如果查到-跳过.没查到-add进billingList中;
+		for(EmailAddress emailAddressOne:emailAddressNoRubbish2List){
+			Integer ifHave = 0;
+			String email = emailAddressOne.getAddressemailEmail();
+			ifHave = getIfIntoEmail(email,successList);
+			if(ifHave>0){
+				//包含了
+				System.out.println("这个邮箱已经包含了"+email+"....");
+			}else{
+				//不包含的话,插入
+				System.out.println("这个邮箱未付过款"+email+"....");
+				nowAddressList.add(email);
+			}
+		}
 		
 		cell.setCellValue("num");
 	    cell = row.createCell(1);
 		cell.setCellValue("添加支付信息未付款的Email");
 	    cell = row.createCell(2);
 	    
-	    EmailCheckUnPay emailCheckUnPayOne = new EmailCheckUnPay();
-	    for (int i = 0; i < emailCheckUnPayList.size(); i++) {
-	    	emailCheckUnPayOne = emailCheckUnPayList.get(i);
+	    for (int i = 0; i < nowAddressList.size(); i++) {
+	    	String addressEmail = nowAddressList.get(i);
 	        row = sheet.createRow(i+1);
 	        row.createCell(0).setCellValue(i+1);
-	        row.createCell(1).setCellValue(emailCheckUnPayOne.getCheckunpayEmail()+"");
+	        row.createCell(1).setCellValue(addressEmail+"");
 	    }
 		try {
 			OutputStream out =rep.getOutputStream();
@@ -241,7 +258,6 @@ public class EmailUpDownController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	/**
