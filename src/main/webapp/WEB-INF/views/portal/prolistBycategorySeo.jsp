@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Product List</title>
+<c:choose>
+<c:when test="${sessionScope.categorySeo==null}"><title>Product List</title></c:when>
+<c:otherwise><title>${ sessionScope.categorySeo }</title></c:otherwise>
+</c:choose>
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
+    <meta name="keyword" content="${sessionScope.categoryMetaKeyWords}">
+    <meta name="description" content="${sessionScope.categoryMetaDesc}">
 	<script>
 		var categorySeo = '${sessionScope.categorySeo}';
-		var seoDescription = '${sessionScope.categoryMetaDesc}';
-		var seoKeywords = '${sessionScope.categoryMetaKeyWords}';
-		document.title = categorySeo;
-		addMeta('keyword', seoKeywords);
-		addMeta('description', seoDescription);
 	</script>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
