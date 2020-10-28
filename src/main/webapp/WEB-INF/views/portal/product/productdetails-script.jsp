@@ -199,12 +199,9 @@
 		function stopVideo () {
 			$('#ml-video')[0] && $('#ml-video')[0].pause();
 		}
-		var htmlStr = '';
+		var htmlStr = $('.product-slide .swiper-wrapper').html();
 		var htmlVideoThumb = '';
 		var htmlVideo = '';
-		data.imgs && data.imgs.forEach(function(item, idx) {
-			htmlStr += '<div class="swiper-slide"><div class="lazyload img" data-src="' + item.productimgUrl + '" rel="' + item.productimgUrl + '"></div></div>';
-		});
 		if (data.video) {
 			htmlVideoThumb = '<div class="swiper-slide"><div class=" lazyload" data-src="' + data.video.posterUrl + '"></div></div>';
 			
@@ -275,21 +272,6 @@
 		$('.product-name').text(data.productName);
 		$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
 		$('.product-tab-container[data-name="desc"]').html(data.productDesc);
-	}
-	/* product imgs */
-	function getProductImgs(callback) {
-		$.ajax({
-			url: '${APP_PATH}/MlbackProductImg/getMlbackProductImgListByProductId',
-			data: JSON.stringify({ "productId": productId }),
-			dataType: 'json',
-			contentType: 'application/json',
-			type: "post",
-			success: function (data) {
-				if (data.code == 100) {
-					callback(data.extend.mbackProductImgResList);
-				}
-			}
-		});			
 	}
 	/* create review swiper */
 	function createReviewSwiper(imgs, activeNum) {
@@ -603,10 +585,7 @@
 				isVideo: true
 			};
 		}
-		getProductImgs(function(data) {
-			mediaData.imgs = data;
-			renderProductMedia(mediaData);
-		});
+		renderProductMedia(mediaData);
 		// details
 		productSeo = data.productSeo;
 		productName = data.proudctName;
