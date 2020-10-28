@@ -68,7 +68,7 @@ public class MlfrontCartController {
 	
 	/**
 	 * 2.0	zsh200729
-	 * 前台移动端解算页面mfront/cheakOut
+	 * 前台移动端解算页面front/cheakOut
 	 * @param jsp
 	 * @return 
 	 * */
