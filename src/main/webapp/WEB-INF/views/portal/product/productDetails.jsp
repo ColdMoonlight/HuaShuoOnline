@@ -25,6 +25,7 @@
 			main { margin: 0 }
 			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
 		}
+		.product-media .lazyload.img { display: block; width: 100% !important; height: 100% !important; padding-top: unset; }
 	</style>
 </head>
 <body>
@@ -35,7 +36,7 @@
 				<div class="product-media">
 					<div class="swiper-container product-slide product-zoom">
 						<div class="swiper-wrapper">
-							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><div class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }"></div></div></c:forEach>
+							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><img class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }" /></div></c:forEach>
 						</div>
 			   			<div class="swiper-pagination"></div>
 					    <div class="swiper-btn swiper-button-next"></div>
