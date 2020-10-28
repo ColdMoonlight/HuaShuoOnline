@@ -1873,7 +1873,6 @@ footer li {
 	display: flex;
 	align-items: center;
 }
-.swiper-slide>img,
 .swiper-slide>video {
 	outline: none;
 	border: none;
