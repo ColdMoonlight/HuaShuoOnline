@@ -330,12 +330,8 @@ public class MlbackProductController {
 			mlbackProductResList = mlbackProductService.selectMlbackProductGetAll();
 			mlbackProductOne = mlbackProductResList.get(0);
 		}
-		Integer productResId = mlbackProductOne.getProductId();
-		//接受信息
-		List<MlbackProductImg> mbackProductImgResList =mlbackProductImgService.selectMlbackProductImgByProductId(productResId);
-		
-		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("mlbackProductOne", mlbackProductOne)
-				.add("mbackProductImgResList", mbackProductImgResList);
+		//System.out.println("操作说明：查询-mlbackProductOne:"+mlbackProductOne);
+		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("mlbackProductOne", mlbackProductOne);
 	}
 	
 	/**
