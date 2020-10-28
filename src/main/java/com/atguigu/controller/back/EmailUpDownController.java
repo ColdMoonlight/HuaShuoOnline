@@ -125,7 +125,6 @@ public class EmailUpDownController {
 	}
 	
 	private Integer getIfIntoEmail(String email, List<String> successList) {
-		
 		Integer ifHave = 0;
 		for(String billingEmail:successList){
 			//如果查到有相同的
