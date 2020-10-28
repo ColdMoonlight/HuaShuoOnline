@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
+import com.atguigu.bean.MlbackProductImg;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCategoryService;
+import com.atguigu.service.MlbackProductImgService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackSuperCateService;
 import com.atguigu.utils.DateUtil;
@@ -40,6 +42,9 @@ public class MlbackProductController {
 	
 	@Autowired
 	MlbackAdminService mlbackAdminService;
+	
+	@Autowired
+	MlbackProductImgService mlbackProductImgService;
 	
 	/**
 	 * 1.0	20200608
@@ -323,8 +328,12 @@ public class MlbackProductController {
 			mlbackProductResList = mlbackProductService.selectMlbackProductGetAll();
 			mlbackProductOne = mlbackProductResList.get(0);
 		}
-		//System.out.println("操作说明：查询-mlbackProductOne:"+mlbackProductOne);
-		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("mlbackProductOne", mlbackProductOne);
+		Integer productResId = mlbackProductOne.getProductId();
+		//接受信息
+		List<MlbackProductImg> mbackProductImgResList =mlbackProductImgService.selectMlbackProductImgByProductId(productResId);
+		
+		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("mlbackProductOne", mlbackProductOne)
+				.add("mbackProductImgResList", mbackProductImgResList);
 	}
 	
 	/**
