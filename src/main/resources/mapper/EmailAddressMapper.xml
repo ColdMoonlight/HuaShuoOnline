@@ -68,6 +68,7 @@
   <!-- selectALl -->
   <select id="selectALl" parameterType="com.atguigu.bean.EmailAddress" resultMap="BaseResultMap">
     select * 
-    from tb_email_address order by addressEmail_id
+    from tb_email_address GROUP BY addressEmail_email
   </select>
+  
 </mapper>
