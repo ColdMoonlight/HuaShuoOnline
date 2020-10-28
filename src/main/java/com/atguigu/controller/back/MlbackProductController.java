@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
@@ -367,18 +369,24 @@ public class MlbackProductController {
 	 * @return 
 	 * */
 	@RequestMapping(value="/tofbProductDetailPageByhtml",method=RequestMethod.GET)
-	 public String tomfbProductDetailPageByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "productSeo") String productSeo) throws Exception{
-		
+//	 public String tomfbProductDetailPageByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "productSeo") String productSeo) throws Exception{
+	 public ModelAndView tomfbProductDetailPageByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "productSeo") String productSeo) throws Exception{
+	
 		//准备封装参数
 		MlbackProduct mlbackProductrepBySeo = new MlbackProduct();
 		mlbackProductrepBySeo.setProductSeo(productSeo);
 		String nowTime = DateUtil.strTime14s();
 		System.out.println("nowTime:"+nowTime+"客户点击ProSeo链接进入: "+productSeo);
 	
+		ModelAndView modelAndView = new ModelAndView();
+		
 		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductByParam(mlbackProductrepBySeo);
 	  
 		if(!(mlbackProductResList.size()>0)){
-			return "redirect:/";
+			//return "redirect:/";
+			modelAndView.setViewName("redirect:/");
+			
+			return modelAndView;
 		}else{
 			MlbackProduct mlbackProductRes = mlbackProductResList.get(0);
 			
@@ -386,6 +394,10 @@ public class MlbackProductController {
 			if(proStatus==1){
 				
 				Integer productIdReq = mlbackProductRes.getProductId();
+				
+				//接受信息
+				List<MlbackProductImg> mbackProductImgResList =mlbackProductImgService.selectMlbackProductImgByProductId(productIdReq);
+				modelAndView.addObject("mbackProductImgResList", mbackProductImgResList);
 				//放回响应域中
 				res.setAttribute("productId", productIdReq);
 				//放回session域中
@@ -394,10 +406,14 @@ public class MlbackProductController {
 				session.setAttribute("mlbackProductMetaKeywords", mlbackProductRes.getProductMetaKeywords());
 				session.setAttribute("mlbackProductMeteDesc", mlbackProductRes.getProductMetaDesc());
 				//返回视图
-				return "portal/product/productDetails";
+				//return "portal/product/productDetails";
+				modelAndView.setViewName("portal/product/productDetails");
+				return modelAndView;
 			}else{
 				System.out.println("通过链接点进来的productSeo:"+productSeo+",但是此产品已下架,跳回首页");
-				return "redirect:/";
+				//return "redirect:/";
+				modelAndView.setViewName("redirect:/");
+				return modelAndView;
 			}
 		}
 	 }
