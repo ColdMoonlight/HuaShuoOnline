@@ -68,6 +68,6 @@
   <!-- selectALl -->
   <select id="selectALl" parameterType="com.atguigu.bean.EmailPayPalRetuenSuccess" resultMap="BaseResultMap">
     select * 
-    from tb_email_payretuensuccess order by payRetuensuccess_id
+    from tb_email_payretuensuccess GROUP by payRetuensuccess_email
   </select>
 </mapper>

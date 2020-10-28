@@ -62,10 +62,10 @@
     from tb_email_paysuccess
     where paysuccess_email = #{paysuccessEmail,jdbcType=VARCHAR}
   </select>
-  
+
   <!-- selectALl -->
   <select id="selectALl" parameterType="com.atguigu.bean.EmailPaySuccess" resultMap="BaseResultMap">
     select * 
-    from tb_email_paysuccess order by paysuccess_id
+    from tb_email_paysuccess GROUP BY paysuccess_email
   </select>
 </mapper>
