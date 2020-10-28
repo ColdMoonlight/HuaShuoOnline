@@ -56,7 +56,7 @@ public class MlfrontCartController {
 	
 	/**
 	 * 1.0	zsh200729
-	 * 前台购物车列表页面CartPage
+	 * 前台购物车列表页面toCartList
 	 * @param jsp
 	 * @return 
 	 * */
