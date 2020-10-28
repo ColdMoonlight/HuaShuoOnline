@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,9 @@
 			<div class="product-header">
 				<div class="product-media">
 					<div class="swiper-container product-slide product-zoom">
-						<div class="swiper-wrapper"></div>
+						<div class="swiper-wrapper">
+							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><div class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }"></div></div></c:forEach>
+						</div>
 			   			<div class="swiper-pagination"></div>
 					    <div class="swiper-btn swiper-button-next"></div>
 			            <div class="swiper-btn swiper-button-prev"></div>
@@ -130,7 +133,7 @@
 	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
 	<!-- productdetails script -->
-	<jsp:include page="./productdetails-script.min.jsp" flush="true"></jsp:include>	
+	<jsp:include page="./productdetails-script.min.jsp" flush="true"></jsp:include>
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
