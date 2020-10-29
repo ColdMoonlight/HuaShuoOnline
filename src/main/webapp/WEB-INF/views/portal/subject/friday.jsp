@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Customer Voice</title>
+    <title>Friday</title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>
