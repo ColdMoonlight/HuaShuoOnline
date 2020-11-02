@@ -46,12 +46,11 @@ public class PortalHomeController {
 	}
 	
 	/**
-	 * 	onuse	20200103	检查
+	 * 	zsh	20201102
 	 * */
 	@RequestMapping("/WholesalePage")
 	public String WholesalePage(HttpSession session) throws Exception{
 		
-
 		return "portal/subject/wholesalePage";
 
 	}
