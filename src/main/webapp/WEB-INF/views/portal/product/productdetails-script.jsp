@@ -219,11 +219,11 @@
 		});
 
 		// lazyload
-		/* new LazyLoad($('.product-media .lazyload'), {
+		new LazyLoad($('.product-media .lazyload'), {
 			root: null,
 			rootMargin: "10px",
 			threshold: 0
-		}); */
+		});
 		// media video
 			// media imgs
 		var swiperThumb = new Swiper('.product-thumb-slide', {
