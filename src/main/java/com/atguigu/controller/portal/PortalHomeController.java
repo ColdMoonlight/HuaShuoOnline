@@ -17,7 +17,6 @@ public class PortalHomeController {
 	 * */
 	@RequestMapping("/videoPage")
 	public String videoPage(HttpSession session) throws Exception{
-		
 
 		return "portal/subject/video";
 
@@ -38,7 +37,6 @@ public class PortalHomeController {
 	 * */
 	@RequestMapping("/FridayPage")
 	public String FridayPage(HttpSession session) throws Exception{
-		
 
 		return "portal/subject/friday";
 
