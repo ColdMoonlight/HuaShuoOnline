@@ -76,6 +76,7 @@ public class CustomerWholesaleController {
 			//无id,insert
 			customerWholesale.setWholesaleCreatetime(nowTime);
 			customerWholesaleService.insertSelective(customerWholesale);
+			System.out.println("customerWholesale--insertSuccess--:"+customerWholesale);
 			return Msg.success().add("resMsg", "插入成功");
 		}else{
 			//有id,update
