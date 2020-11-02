@@ -29,7 +29,6 @@ public class PortalHomeController {
 	@RequestMapping("/InsShowPage")
 	public String InsShowPage(HttpSession session) throws Exception{
 		
-
 		return "portal/subject/InsShowPage";
 
 	}
