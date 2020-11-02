@@ -17,7 +17,6 @@ public class PortalHomeController {
 	 * */
 	@RequestMapping("/videoPage")
 	public String videoPage(HttpSession session) throws Exception{
-		
 
 		return "portal/subject/video";
 
@@ -29,7 +28,6 @@ public class PortalHomeController {
 	@RequestMapping("/InsShowPage")
 	public String InsShowPage(HttpSession session) throws Exception{
 		
-
 		return "portal/subject/InsShowPage";
 
 	}
@@ -39,19 +37,17 @@ public class PortalHomeController {
 	 * */
 	@RequestMapping("/FridayPage")
 	public String FridayPage(HttpSession session) throws Exception{
-		
 
 		return "portal/subject/friday";
 
 	}
 	
 	/**
-	 * 	onuse	20200103	检查
+	 * 	zsh	20201102
 	 * */
 	@RequestMapping("/WholesalePage")
 	public String WholesalePage(HttpSession session) throws Exception{
 		
-
 		return "portal/subject/wholesalePage";
 
 	}
