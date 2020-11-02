@@ -4,18 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Product Details</title>
+<c:choose>
+<c:when test="${sessionScope.mlbackProductMetaTitle==null}"><title>Product Details</title></c:when>
+<c:otherwise><title>${ sessionScope.mlbackProductMetaTitle }</title></c:otherwise>
+</c:choose>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
+    <meta name="keyword" content="${sessionScope.mlbackProductMetaKeyWords}">
+    <meta name="description" content="${sessionScope.mlbackProductMeteDesc}">
 	<script>
 		var productId = '${sessionScope.productDetailId}';
 		var productSeo;
 		var productName;
-		var seoTitle = '${sessionScope.mlbackProductMetaTitle}';
-		var seoDescription = '${sessionScope.mlbackProductMeteDesc}';
-		var seoKeywords = '${sessionScope.mlbackProductMetaKeyWords}';
-		document.title = seoTitle;
-		addMeta('keyword', seoKeywords);
-		addMeta('description', seoDescription);
 	</script>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
@@ -36,7 +35,7 @@
 				<div class="product-media">
 					<div class="swiper-container product-slide product-zoom">
 						<div class="swiper-wrapper">
-							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><img class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }" /></div></c:forEach>
+							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><img class="lazyload img" src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }" /></div></c:forEach>
 						</div>
 			   			<div class="swiper-pagination"></div>
 					    <div class="swiper-btn swiper-button-next"></div>
