@@ -53,6 +53,6 @@
     </rule>
     <rule>
         <from>^/BuyMore.html</from>
-        <to>/PortalHome/FridayPage</to>
+        <to>/PortalHome/WholesalePage</to>
     </rule>
 </urlrewrite>
