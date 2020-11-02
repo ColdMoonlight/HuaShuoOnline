@@ -51,4 +51,8 @@
         <from>^/index.html</from>
         <to>/</to>
     </rule>
+    <rule>
+        <from>^/BuyMore.html</from>
+        <to>/PortalHome/FridayPage</to>
+    </rule>
 </urlrewrite>
