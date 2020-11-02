@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.CustomerWholesaleMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.CustomerWholesale">
+    <id column="wholesale_id" jdbcType="INTEGER" property="wholesaleId" />
+    <result column="wholesale_customer_name" jdbcType="VARCHAR" property="wholesaleCustomerName" />
+    <result column="wholesale_customer_email" jdbcType="VARCHAR" property="wholesaleCustomerEmail" />
+    <result column="wholesale_customer_country" jdbcType="VARCHAR" property="wholesaleCustomerCountry" />
+    <result column="wholesale_customer_watsapp" jdbcType="VARCHAR" property="wholesaleCustomerWatsapp" />
+    <result column="wholesale_customer_message" jdbcType="VARCHAR" property="wholesaleCustomerMessage" />
+    <result column="wholesale_createTime" jdbcType="VARCHAR" property="wholesaleCreatetime" />
+    <result column="wholesale_motifyTime" jdbcType="VARCHAR" property="wholesaleMotifytime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_country, 
+    wholesale_customer_watsapp, wholesale_customer_message, wholesale_createTime, wholesale_motifyTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_customer_wholesale
+    where wholesale_id = #{wholesaleId,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insert" parameterType="com.atguigu.bean.CustomerWholesale">
+    insert into tb_customer_wholesale (wholesale_id, wholesale_customer_name, 
+      wholesale_customer_email, wholesale_customer_country, 
+      wholesale_customer_watsapp, wholesale_customer_message, 
+      wholesale_createTime, wholesale_motifyTime
+      )
+    values (#{wholesaleId,jdbcType=INTEGER}, #{wholesaleCustomerName,jdbcType=VARCHAR}, 
+      #{wholesaleCustomerEmail,jdbcType=VARCHAR}, #{wholesaleCustomerCountry,jdbcType=VARCHAR}, 
+      #{wholesaleCustomerWatsapp,jdbcType=VARCHAR}, #{wholesaleCustomerMessage,jdbcType=VARCHAR}, 
+      #{wholesaleCreatetime,jdbcType=VARCHAR}, #{wholesaleMotifytime,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CustomerWholesale">
+    update tb_customer_wholesale
+    set wholesale_customer_name = #{wholesaleCustomerName,jdbcType=VARCHAR},
+      wholesale_customer_email = #{wholesaleCustomerEmail,jdbcType=VARCHAR},
+      wholesale_customer_country = #{wholesaleCustomerCountry,jdbcType=VARCHAR},
+      wholesale_customer_watsapp = #{wholesaleCustomerWatsapp,jdbcType=VARCHAR},
+      wholesale_customer_message = #{wholesaleCustomerMessage,jdbcType=VARCHAR},
+      wholesale_createTime = #{wholesaleCreatetime,jdbcType=VARCHAR},
+      wholesale_motifyTime = #{wholesaleMotifytime,jdbcType=VARCHAR}
+    where wholesale_id = #{wholesaleId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="wholesaleId" parameterType="com.atguigu.bean.CustomerWholesale">
+    insert into tb_customer_wholesale
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wholesaleId != null">
+        wholesale_id,
+      </if>
+      <if test="wholesaleCustomerName != null">
+        wholesale_customer_name,
+      </if>
+      <if test="wholesaleCustomerEmail != null">
+        wholesale_customer_email,
+      </if>
+      <if test="wholesaleCustomerCountry != null">
+        wholesale_customer_country,
+      </if>
+      <if test="wholesaleCustomerWatsapp != null">
+        wholesale_customer_watsapp,
+      </if>
+      <if test="wholesaleCustomerMessage != null">
+        wholesale_customer_message,
+      </if>
+      <if test="wholesaleCreatetime != null">
+        wholesale_createTime,
+      </if>
+      <if test="wholesaleMotifytime != null">
+        wholesale_motifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wholesaleId != null">
+        #{wholesaleId,jdbcType=INTEGER},
+      </if>
+      <if test="wholesaleCustomerName != null">
+        #{wholesaleCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCustomerEmail != null">
+        #{wholesaleCustomerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCustomerCountry != null">
+        #{wholesaleCustomerCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCustomerWatsapp != null">
+        #{wholesaleCustomerWatsapp,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCustomerMessage != null">
+        #{wholesaleCustomerMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCreatetime != null">
+        #{wholesaleCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleMotifytime != null">
+        #{wholesaleMotifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- updateByPrimaryKeySelective -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CustomerWholesale">
+    update tb_customer_wholesale
+    <set>
+      <if test="wholesaleCustomerName != null">
+        wholesale_customer_name = #{wholesaleCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCustomerEmail != null">
+        wholesale_customer_email = #{wholesaleCustomerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCustomerCountry != null">
+        wholesale_customer_country = #{wholesaleCustomerCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCustomerWatsapp != null">
+        wholesale_customer_watsapp = #{wholesaleCustomerWatsapp,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCustomerMessage != null">
+        wholesale_customer_message = #{wholesaleCustomerMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCreatetime != null">
+        wholesale_createTime = #{wholesaleCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleMotifytime != null">
+        wholesale_motifyTime = #{wholesaleMotifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where wholesale_id = #{wholesaleId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- updateByPrimaryKeySelective -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_customer_wholesale
+    where wholesale_id = #{wholesaleId,jdbcType=INTEGER}
+  </delete>
+  <!-- selectCustomerWholesaleGetAll -->
+  <select id="selectCustomerWholesaleGetAll" parameterType="com.atguigu.bean.CustomerWholesale" resultMap="BaseResultMap">
+    select
+    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_country, 
+    wholesale_customer_watsapp, wholesale_customer_message, wholesale_createTime, wholesale_motifyTime
+    from tb_customer_wholesale order by wholesale_id desc
+  </select>
+  <!-- selectCustomerWholesaleById -->
+  <select id="selectCustomerWholesaleById" parameterType="com.atguigu.bean.CustomerWholesale" resultMap="BaseResultMap">
+    select
+    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_country, 
+    wholesale_customer_watsapp, wholesale_customer_message, wholesale_createTime, wholesale_motifyTime
+    from tb_customer_wholesale
+  </select>
+</mapper>

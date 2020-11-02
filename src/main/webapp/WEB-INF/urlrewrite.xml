@@ -52,7 +52,7 @@
         <to>/</to>
     </rule>
     <rule>
-        <from>^/BuyMore.html</from>
+        <from>^/Customer/Wholesale.html</from>
         <to>/PortalHome/WholesalePage</to>
     </rule>
 </urlrewrite>

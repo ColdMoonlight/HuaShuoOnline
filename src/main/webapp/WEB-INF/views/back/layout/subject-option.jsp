@@ -5,6 +5,7 @@
 <option value="MlbackVideoShowArea/toVideoListPage">Customer Videos</option>
 <option value="PortalHome/InsShowPage">Ins Show Page</option>
 <option value="Friday.html">Black Friday</option>
+<option value="Customer/Wholesale.html">Wholesale Page</option>
 <!-- <option value="Activty">Activty</option>
 <option value="MlfrontReview/toReviewInsPage">Ins Show</option>
 <option value="PortalHome/videoPage">videoPage</option> -->
