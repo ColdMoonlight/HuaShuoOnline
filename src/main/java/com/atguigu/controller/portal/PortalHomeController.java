@@ -44,5 +44,16 @@ public class PortalHomeController {
 		return "portal/subject/friday";
 
 	}
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping("/WholesalePage")
+	public String WholesalePage(HttpSession session) throws Exception{
+		
+
+		return "portal/subject/wholesalePage";
+
+	}
 
 }
