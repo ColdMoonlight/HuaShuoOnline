@@ -33,5 +33,27 @@ public class PortalHomeController {
 		return "portal/subject/InsShowPage";
 
 	}
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping("/FridayPage")
+	public String FridayPage(HttpSession session) throws Exception{
+		
+
+		return "portal/subject/friday";
+
+	}
+	
+	/**
+	 * 	onuse	20200103	检查
+	 * */
+	@RequestMapping("/WholesalePage")
+	public String WholesalePage(HttpSession session) throws Exception{
+		
+
+		return "portal/subject/wholesalePage";
+
+	}
 
 }
