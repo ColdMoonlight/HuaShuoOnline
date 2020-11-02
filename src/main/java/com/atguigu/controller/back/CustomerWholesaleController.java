@@ -41,7 +41,6 @@ public class CustomerWholesaleController {
 			return "back/order/customerWholesalePage";
 	}
 	
-	
 	/**2.0	20200703
 	 * 后台MlbackCatalog列表分页list数据
 	 * @param pn
@@ -83,7 +82,7 @@ public class CustomerWholesaleController {
 			customerWholesaleService.updateByPrimaryKeySelective(customerWholesale);
 			return Msg.success().add("resMsg", "更新成功");
 			
-		}		
+		}
 	}
 	
 	/**4.0	20200703
