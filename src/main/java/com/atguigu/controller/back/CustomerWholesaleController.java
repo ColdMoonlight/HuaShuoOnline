@@ -41,7 +41,6 @@ public class CustomerWholesaleController {
 			return "back/order/customerWholesalePage";
 	}
 	
-	
 	/**2.0	20200703
 	 * 后台MlbackCatalog列表分页list数据
 	 * @param pn
@@ -76,13 +75,14 @@ public class CustomerWholesaleController {
 			//无id,insert
 			customerWholesale.setWholesaleCreatetime(nowTime);
 			customerWholesaleService.insertSelective(customerWholesale);
+			System.out.println("customerWholesale--insertSuccess--:"+customerWholesale);
 			return Msg.success().add("resMsg", "插入成功");
 		}else{
 			//有id,update
 			customerWholesaleService.updateByPrimaryKeySelective(customerWholesale);
 			return Msg.success().add("resMsg", "更新成功");
 			
-		}		
+		}
 	}
 	
 	/**4.0	20200703
