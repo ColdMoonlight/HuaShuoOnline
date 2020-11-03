@@ -158,6 +158,7 @@
 		$('.btn-back').on('click', function () {
 			$('.c-view c-option-title').text('Whole-sale List');
 			showInitBlock();
+			resetFormData();
 		});
 		// tab-item click
 		$(document.body).on('click', '.c-table-tab-item', function (e) {
@@ -226,6 +227,15 @@
 			});
 		});
 		// handle formData
+		// reset data
+		function resetFormData() {
+			$('#wholesaleId').val('');
+			$('#wholesaleCustomerName').val('');
+			$('#wholesaleCustomerEmail').val('');
+			$('#wholesaleCustomerCountry').val('');
+			$('#wholesaleCustomerTelephone').val('');
+			$('#wholesaleCustomerMessage').val('');
+		}
 		// initFormData
 		function initFormData(data) {
 			$('#wholesaleId').val(data.wholesaleId);
