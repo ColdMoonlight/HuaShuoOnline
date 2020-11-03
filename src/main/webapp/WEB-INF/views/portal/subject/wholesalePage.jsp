@@ -221,11 +221,13 @@
 	  		success: function (data) {
 				if (data.code == 100) {
 					callback && callback(data.extend);
-					mlModalTip("Submitted Successfully!");
-					setTimeout(function(){
+					var wholsaleModal = createModal({
+						body: {
+							html: "<p style='color:red'>Thanks again for your inquiry,our staff will contact you soon!</p>",
+						}
+					}, function() {
 						window.location.reload();
-					},2500)
-					$('html').animate({scrollTop:0},'slow');
+					});
 				} else {
 					sysModalTip();
 				}  
@@ -245,13 +247,6 @@
 			rootMargin: "10px",
 			threshold: 0
 		});
-		
-		$(document.body).on('click', '.wholesale-chat ul li.live', function() {
-			console.log("1111")
-			 $("#button-body").trigger('click');
-		});
-		
-	
 		
 		
 	</script>
