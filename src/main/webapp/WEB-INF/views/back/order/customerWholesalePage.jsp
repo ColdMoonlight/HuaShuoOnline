@@ -69,231 +69,48 @@
 				<!-- edit or create -->
 				<div class="c-view hide view-order">
 					<div class="c-option">
-						<span class="c-option-title">View Order</span>
+						<span class="c-option-title">View Whole-sale</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-back">Back</button>
 						</div>
 					</div>
 					<div class="c-form row">
+						<input id="wholesaleId" hidden>
 						<!-- left panel -->
-						<div class="left-panel col-lg-8 col-md-12">
+						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Order Info</div>
-								</div>
 								<div class="card-body">
-									<div class="order-list">
-										<p>no product for order...</p>
-									</div>
-									<div class="pay-list">
-										<div class="pay-item">
-											<div class="pay-item-title">Product Total</div>
-											<div class="pay-prototal">
-												<div class="name"></div>
-												<div class="value">$0.00</div>
-											</div>
+									<div class="form-group">
+										<label class="col-form-label" for="wholesaleCustomerName">Customer Name</label>
+										<div class="controls">
+											<input class="form-control" id="wholesaleCustomerName" type="text" disabled />
 										</div>
-										<div class="pay-item">
-											<div class="pay-item-title">Discount</div>
-											<div class="pay-discount">
-												<div class="name"></div>
-												<div class="value">-$0.00</div>
-											</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="wholesaleCustomerEmail">E-mail</label>
+										<div class="controls">
+											<input class="form-control" id="wholesaleCustomerEmail" type="text" disabled />
 										</div>
-										<div class="pay-item">
-											<div class="pay-item-title">Shipping</div>
-											<div class="pay-shipping">
-												<div class="name"></div>
-												<div class="value">$0.00</div>
-											</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="wholesaleCustomerCountry">Country</label>
+										<div class="controls">
+											<input class="form-control" id="wholesaleCustomerCountry" type="text" disabled />
 										</div>
-										<div class="pay-item">
-											<div class="pay-item-title">Total</div>
-											<div class="pay-total">
-												<div class="name"></div>
-												<div class="value">$0.00</div>
-											</div>
-										</div>									
 									</div>
-									<div class="pay-final sum-item">
-										<div class="name">Paid by customer</div>
-										<div class="value">$0.00</div>
-									</div>
-									<div class="customer-note">
-										<div class="name">Customer Note</div>
-										<div class="value" style="color: #f00;">No notes from customer...</div>
-									</div>
-									<div class="payinfo-group">
-										<button class="btn btn-warning hide btn-audit" id="ecpp-verify">Aduited</button>
-										<!-- <button class="btn btn-danger hide btn-abandon-purchase">Abandon Purchase</button> -->
-										<button class="btn btn-primary hide btn-refund">Refund</button>
-										<button class="btn btn-dark hide btn-close">Close</button>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="card">
-										<div class="card-title">
-											<div class="card-title-name">Shipping Address</div>
+									<div class="form-group">
+										<label class="col-form-label" for="wholesaleCustomerWatsapp">Whats app</label>
+										<div class="controls">
+											<input class="form-control" id="wholesaleCustomerWatsapp" type="text" disabled />
 										</div>
-										<div class="card-body shipping-list">
-											<div class="shipping-item firstname">
-												<div class="name">First Name</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item lastname">
-												<div class="name">Last Name</div>
-												<div class="value"></div>
-											</div>									
-											<div class="shipping-item address">
-												<div class="name">Address Details</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item city">
-												<div class="name">city</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item province">
-												<div class="name">Province/State</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item postcode">
-												<div class="name">Post Code</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item country">
-												<div class="name">Country</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item phone">
-												<div class="name">Phone</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item email">
-												<div class="name">E-mail</div>
-												<div class="value"></div>
-											</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="wholesaleCustomerMessage">Message</label>
+										<div class="controls">
+											<textarea  rows="5" class="form-control" id="wholesaleCustomerMessage" disabled></textarea>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<div class="card">
-										<div class="card-title">
-											<div class="card-title-name">Billing Address</div>
-										</div>
-										<div class="card-body billing-list">
-											<div class="billing-item paymentid">
-												<div class="name">Payment ID</div>
-												<div class="value"></div>
-											</div>
-											<div class="billing-item username">
-												<div class="name">User Name</div>
-												<div class="value"></div>
-											</div>
-											<div class="billing-item email">
-												<div class="name">E-mail</div>
-												<div class="value"></div>
-											</div>
-											<div class="billing-item country">
-												<div class="name">Country Code</div>
-												<div class="value"></div>
-											</div>
-											<div class="billing-item province">
-												<div class="name">Province/State</div>
-												<div class="value"></div>
-											</div>
-											<div class="billing-item city">
-												<div class="name">city</div>
-												<div class="value"></div>
-											</div>
-											<div class="billing-item postcode">
-												<div class="name">Post Code</div>
-												<div class="value"></div>
-											</div>
-											<div class="billing-item line1">
-												<div class="name">line 1</div>
-												<div class="value"></div>
-											</div>
-											<div class="billing-item line2">
-												<div class="name">line 2</div>
-												<div class="value"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- right panel -->
-						<div class="right-panel col-lg-4 col-md-12">
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">
-										<span>Tracking</span>
-										<button class="btn btn-info hide" id="btn-manual-delivery">manual delivery</button>
-									</div>
-								</div>
-								<div class="card-body">
-									<div class="track-number track-item">
-										<div class="name">Tracking Number</div>
-										<div class="value"></div>
-									</div>
-									<div class="ecpp-number track-item">
-										<div class="name">ECPP Number</div>
-										<div class="value"></div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Pay Info</div>
-								</div>
-								<div class="card-body">
-									<div class="pay-status sum-item">
-										<div class="name">Pay Status</div>
-										<div class="value">Unpaid</div>
-									</div>
-									<div class="pay-number sum-item">
-										<div class="name">Pay Number</div>
-										<div class="value">MLxxxxxxx</div>
-									</div>
-									<div class="pay-method sum-item">
-										<div class="name">Pay Method</div>
-										<div class="value">Other</div>
-									</div>
-									<div class="pay-paypal-id pay-paypal sum-item">
-										<div class="name"><span class="pay-pay-method">...</span> ID</div>
-										<div class="value"></div>
-									</div>
-									<div class="pay-paypal-status pay-paypal sum-item">
-										<div class="name"><span class="pay-pay-method">...</span> Status</div>
-										<div class="value"></div>
-									</div>
-									<div class="pay-paypal-number pay-paypal sum-item">
-										<div class="name"><span class="pay-pay-method">...</span> number</div>
-										<div class="value"></div>
-									</div>
-									<div class="pay-purchase-time sum-item">
-										<div class="name">Purchase Time</div>
-										<div class="value"></div>
-									</div>
-									<div class="pay-create-time sum-item">
-										<div class="name">Pay Create Time</div>
-										<div class="value"></div>
-									</div>
-									<div class="pay-end-time sum-item">
-										<div class="name">Pay End Time</div>
-										<div class="value"></div>
-									</div>									
-								</div>	
-							</div>
-							
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Customer Info</div>
-								</div>
-								<div class="card-body customer-info">Non-registered user!</div>
 							</div>
 						</div>
 					</div>
@@ -342,17 +159,6 @@
 			$('.c-view c-option-title').text('Order List');
 			showInitBlock();
 		});
-		// View  Order
-		$(document.body).on('click', '.btn-view, .c-table-table tbody tr', function (e) {
-			var wholesaleId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
-			getOneOrderData({
-				wholesaleId: wholesaleId
-			}, function(resData) {
-				$('.c-view c-option-title').text('View Whole-sale');
-				renderOrderDetails(resData);
-				showViewBlock();
-			});
-		});
 		// tab-item click
 		$(document.body).on('click', '.c-table-tab-item', function (e) {
 			$('.c-table-tab-item').removeClass('active');
@@ -395,6 +201,40 @@
 				updateSearchData();
 			}, distanceTime);
 		});
+		// View  whole-sale
+		$(document.body).on('click', '.btn-view', function (e) {
+			var wholesaleId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
+			getOneOrderData({
+				wholesaleId: wholesaleId
+			}, function(resData) {
+				$('.c-view c-option-title').text('View Whole-sale');
+				initFormData(resData);;
+				showViewBlock();
+			});
+		});
+		// delete whole-sale
+		$(document.body).on('click', '.btn-delete', function (e) {
+			var wholeSaleId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('Delete whole-sale!');
+			$('#deleteModal').modal('show');
+			$('#deleteModal .btn-ok').one('click', function () {
+				deleteWholeSaleData({
+					wholesaleId: wholeSaleId,
+				}, function() {
+					updateSearchData();
+				});
+			});
+		});
+		// handle formData
+		// initFormData
+		function initFormData(data) {
+			$('#wholesaleId').val(data.wholesaleId);
+			$('#wholesaleCustomerName').val(data.wholesaleCustomerName);
+			$('#wholesaleCustomerEmail').val(data.wholesaleCustomerEmail);
+			$('#wholesaleCustomerCountry').val(data.wholesaleCustomerCountry);
+			$('#wholesaleCustomerWatsapp').val(data.wholesaleCustomerWatsapp);
+			$('#wholesaleCustomerMessage').val(data.wholesaleCustomerMessage);
+		}
 		// search status change
 		function updateSearchData() {
 			var searchOrderVal = {
@@ -434,11 +274,6 @@
 				initActiveItemNum();
 				getOrdersData();
 			}
-		}
-		
-		function renderOrderDetails(data) {
-			// order list
-			
 		}
 		// callback order list
 		function renderOrderList(data) {
@@ -542,7 +377,7 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend);
+						callback(data.extend.customerWholesaleOne);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -550,6 +385,33 @@
 				},
 				error: function (err) {
 					toastr.error('Failed to get Super-Categeory, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback delete
+		function deleteWholeSaleData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/CustomerWholesale/delete",
+				type: "post",
+				cache: false,
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						$('#deleteModal').modal('hide');
+						callback && callback();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
 				},
 				complete: function () {
 					$('.c-mask').hide();
