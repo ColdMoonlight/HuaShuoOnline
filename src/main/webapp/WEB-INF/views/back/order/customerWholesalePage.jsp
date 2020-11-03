@@ -54,7 +54,7 @@
 											<th>customer-name</th>
 											<th>email</th>
 											<th>country</th>
-											<th>whats-app</th>
+											<th>telephone</th>
 											<th>message</th>
 											<th>operate</th>
 										</tr>
@@ -99,9 +99,9 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerWatsapp">Whats app</label>
+										<label class="col-form-label" for="wholesaleCustomerTelephone">Telephone</label>
 										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerWatsapp" type="text" disabled />
+											<input class="form-control" id="wholesaleCustomerTelephone" type="text" disabled />
 										</div>
 									</div>
 									<div class="form-group">
@@ -158,6 +158,7 @@
 		$('.btn-back').on('click', function () {
 			$('.c-view c-option-title').text('Whole-sale List');
 			showInitBlock();
+			resetFormData();
 		});
 		// tab-item click
 		$(document.body).on('click', '.c-table-tab-item', function (e) {
@@ -226,13 +227,22 @@
 			});
 		});
 		// handle formData
+		// reset data
+		function resetFormData() {
+			$('#wholesaleId').val('');
+			$('#wholesaleCustomerName').val('');
+			$('#wholesaleCustomerEmail').val('');
+			$('#wholesaleCustomerCountry').val('');
+			$('#wholesaleCustomerTelephone').val('');
+			$('#wholesaleCustomerMessage').val('');
+		}
 		// initFormData
 		function initFormData(data) {
 			$('#wholesaleId').val(data.wholesaleId);
 			$('#wholesaleCustomerName').val(data.wholesaleCustomerName);
 			$('#wholesaleCustomerEmail').val(data.wholesaleCustomerEmail);
 			$('#wholesaleCustomerCountry').val(data.wholesaleCustomerCountry);
-			$('#wholesaleCustomerWatsapp').val(data.wholesaleCustomerWatsapp);
+			$('#wholesaleCustomerTelephone').val(data.wholesaleCustomerTelephone);
 			$('#wholesaleCustomerMessage').val(data.wholesaleCustomerMessage);
 		}
 		// search status change
@@ -392,7 +402,7 @@
 					'<td>' + data[i].wholesaleCustomerName + '</td>' +
 					'<td>' + data[i].wholesaleCustomerEmail + '</td>' +
 					'<td>' + data[i].wholesaleCustomerCountry + '</td>' +
-					'<td>' + data[i].wholesaleCustomerWatsapp + '</td>' +
+					'<td>' + data[i].wholesaleCustomerTelephone + '</td>' +
 					'<td>' + data[i].wholesaleCustomerMessage + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-view" data-id="' + data[i].wholesaleId + '">' +
