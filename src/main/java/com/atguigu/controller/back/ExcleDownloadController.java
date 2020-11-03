@@ -38,7 +38,7 @@ public class ExcleDownloadController {
 	
 	/**
 	 * zsh 200730
-	 * 中控台首页
+	 * 中控台DownloadPage
 	 * */
 	@RequestMapping("/DownloadPage")
 	public String DownloadPage(HttpSession session) throws Exception{
