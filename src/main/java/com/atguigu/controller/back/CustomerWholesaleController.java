@@ -87,7 +87,7 @@ public class CustomerWholesaleController {
 	
 	/**4.0	20200703
 	 * CustomerWholesale	delete
-	 * @param CustomerWholesale-CatalogId
+	 * @param CustomerWholesale-wholesaleId
 	 * @return 
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
