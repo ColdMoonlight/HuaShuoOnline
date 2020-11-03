@@ -94,9 +94,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="wholesaleCustomerWatsapp" class="form-label">Telephone<i>*</i></label>
+						<label for="wholesaleCustomerTelephone" class="form-label">Telephone<i>*</i></label>
 						<div class="form-input">
-							<input type="text" name="wholesaleCustomerWatsapp" id="wholesaleCustomerWatsapp" class="form-control">
+							<input type="text" name="wholesaleCustomerTelephone" id="wholesaleCustomerTelephone" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
@@ -214,8 +214,9 @@
 	  	data.wholesaleCustomerName = $('#wholesaleCustomerName').val();
 	  	data.wholesaleCustomerEmail = $('#wholesaleCustomerEmail').val();
 	  	data.wholesaleCustomerCountry = $('#wholesaleCustomerCountry').val();
-	  	data.wholesaleCustomerWatsapp = $('#wholesaleCustomerWatsapp').val();
+		data.wholesaleCustomerTelephone = $('#wholesaleCustomerTelephone').val();
 	  	data.wholesaleCustomerMessage = $('#wholesaleCustomerMessage').val();
+		
 	  	return data;
 	  }
 	  
@@ -230,7 +231,7 @@
 	  		success: function (data) {
 				if (data.code == 100) {
 					callback && callback(data.extend);
-					mlModalTip("refer success!")
+					mlModalTip("Submitted Successfully!")
 				} else {
 					sysModalTip();
 				}  
