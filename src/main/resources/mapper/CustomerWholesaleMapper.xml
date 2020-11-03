@@ -155,7 +155,7 @@
   </select>
   <!-- selectCustomerWholesaleById -->
   <select id="selectCustomerWholesaleById" parameterType="com.atguigu.bean.CustomerWholesale" resultMap="BaseResultMap">
-    select * 
+    select *  
     from tb_customer_wholesale where wholesale_id = #{wholesaleId,jdbcType=INTEGER}
   </select>
 </mapper>
