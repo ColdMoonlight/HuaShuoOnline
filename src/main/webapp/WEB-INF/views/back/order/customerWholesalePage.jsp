@@ -17,14 +17,14 @@
 				<div class="c-init">
 					<div class="c-option">
 						<span class="c-option-title">Whole-sale list</span>
-						<!-- <button class="btn btn-primary btn-create">Create Order</button> -->
+						<!-- <button class="btn btn-primary btn-create">Create Whole-sale</button> -->
 					</div>
 					<div class="ecpp-sync row">
 						<div class="form-group col-md-4">
 							<div class="controls">
-								<input hidden id="order-create-time" />
-								<input hidden id="order-confirm-time" />
-								<input class="form-control daterangetimepicker" id="order-time" type="text" />
+								<input hidden id="wholesale-create-time" />
+								<input hidden id="wholesale-confirm-time" />
+								<input class="form-control daterangetimepicker" id="wholesale-time" type="text" />
 							</div>
 						</div>
 						
@@ -67,7 +67,7 @@
 					</div>
 				</div>
 				<!-- edit or create -->
-				<div class="c-view hide view-order">
+				<div class="c-view hide">
 					<div class="c-option">
 						<span class="c-option-title">View Whole-sale</span>
 						<div class="group">
@@ -135,11 +135,11 @@
 		// init
 		var date = new Date();
 		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-		$('#order-create-time').val(ymd + ' 00:00:00');
-		$('#order-confirm-time').val(ymd + ' 23:59:59');
+		$('#wholesale-create-time').val(ymd + ' 00:00:00');
+		$('#wholesale-confirm-time').val(ymd + ' 23:59:59');
 		bindDateRangeEvent(function(startTime, endTime, self) {
-			$('#order-create-time').val(startTime);
-			$('#order-confirm-time').val(endTime);		
+			$('#wholesale-create-time').val(startTime);
+			$('#wholesale-confirm-time').val(endTime);		
 		});
 		renderTabItems();
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
@@ -148,15 +148,15 @@
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
 		});
-		// create order
+		// create wholesale
 		$('.btn-create').on('click', function () {
-			$('.c-view c-option-title').text('Create Order');
+			$('.c-view c-option-title').text('Create Whole-sale');
 			showViewBlock();
-			getOrderId();
+			getWholesaleId();
 			isCreate = true;
 		});
 		$('.btn-back').on('click', function () {
-			$('.c-view c-option-title').text('Order List');
+			$('.c-view c-option-title').text('Whole-sale List');
 			showInitBlock();
 		});
 		// tab-item click
@@ -172,19 +172,19 @@
 		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
 		// save search
 		/* $('.btn-save-search').on('click', function () {
-			var searchOrderVal = {
+			var searchWholesaleVal = {
 				supercateName: $('#searchSupercate').find('option:selected').text(),
 				supercateId: $('#searchSupercate').val(),
 				customername: $('#customer-name').val()
 			};
 			// cancel repeat add save-search
-			if (checkNewItem(searchOrderVal)) return;
-			if (parseInt(searchOrderVal.supercateId) < 0) searchOrderVal.supercateName = "";
-			if (searchOrderVal.supercateId || searchOrderVal.customername) {
-				addStorageItem(searchOrderVal);
+			if (checkNewItem(searchWholesaleVal)) return;
+			if (parseInt(searchWholesaleVal.supercateId) < 0) searchWholesaleVal.supercateName = "";
+			if (searchWholesaleVal.supercateId || searchWholesaleVal.customername) {
+				addStorageItem(searchWholesaleVal);
 				$('.c-table-tab-tempory').html('');
-				createTableTabItem(searchOrderVal);
-				addTableTabItem(searchOrderVal, $('.c-table-tab-item').length);
+				createTableTabItem(searchWholesaleVal);
+				addTableTabItem(searchWholesaleVal, $('.c-table-tab-item').length);
 			}
 		}); */
 		// search it
@@ -204,7 +204,7 @@
 		// View  whole-sale
 		$(document.body).on('click', '.btn-view', function (e) {
 			var wholesaleId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
-			getOneOrderData({
+			getOneWholesaleData({
 				wholesaleId: wholesaleId
 			}, function(resData) {
 				$('.c-view c-option-title').text('View Whole-sale');
@@ -237,18 +237,18 @@
 		}
 		// search status change
 		function updateSearchData() {
-			var searchOrderVal = {
+			var searchWholesaleVal = {
 				supercateName: $('#searchSupercate').find('option:selected').text(),
 				supercateId: $('#searchSupercate').val(),
 				customername: $('#customer-name').val()
 			};
 			// inital pagination num
 			setPageNum(1);
-			// check searchOrder
-			if (parseInt(searchOrderVal.supercateId) < 0) searchOrderVal.supercateName = "";
+			// check search whole-sale
+			if (parseInt(searchWholesaleVal.supercateId) < 0) searchWholesaleVal.supercateName = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
-			$('.c-table-tab-tempory').html(createTableTabItem(searchOrderVal).addClass('active'));
+			$('.c-table-tab-tempory').html(createTableTabItem(searchWholesaleVal).addClass('active'));
 			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
 		}
 		// tab view/init
@@ -267,50 +267,16 @@
 				$('#customer-name').val(dataVal.customername || '');
 				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
 				$('#searchSupercate').val(dataVal.supercateId || '-1');
-				getSearchOrdersData();
+				getSearchWholesalesData();
 			} else {
 				$('#customer-name').val('');
 				$('#searchSupercate').val('999');
 				initActiveItemNum();
-				getOrdersData();
+				getWholesalesData();
 			}
-		}
-		// callback order list
-		function renderOrderList(data) {
-			var htmlStr = '';
-			function genSkus(item) {
-				var skuHtml = '';
-				var optionNameArr = item.orderitemPskuIdnamestr.split(',');
-				var optionValueArr = item.orderitemPskuName.split(',');
-				optionNameArr.forEach(function(item, idx) {
-					skuHtml += '<div class="order-poption-item">' +
-							'<div class="name">'+ item +': </div>' +
-							'<div class="value">'+ optionValueArr[idx] +'</div>' +
-						'</div>';
-				});
-				return skuHtml;
-			}
-			data.forEach(function(item, idx) {
-				var singlePrice = accuracyCal(parseFloat(item.orderitemProductOriginalprice) + parseFloat(item.orderitemPskuMoneystr), parseFloat(item.orderitemProductAccoff));
-				htmlStr += '<div class="order-item">' +
-						'<img src="'+ item.orderitemProductMainimgurl +'">' +
-						'<div class="order-product-base">' +
-							'<a class="order-product-link" href="${APP_PATH}/'+ item.orderitemPseo +'.html">'+ item.orderitemPname +'</a>' +
-							'<div class="order-product-option">'+ genSkus(item) +'</div>' +
-							'<div class="order-product-sku">SKU: '+ item.orderitemPskuCode +'</div>' +
-						'</div>' +
-						'<div class="order-product-cal">' +
-							'<div class="order-product-money">$'+ singlePrice +'</div>' +
-							'<div class="order-product-divider">x</div>' +
-							'<div class="order-product-num">'+ item.orderitemPskuNumber +'</div>' +
-							'<div class="order-product-total">$'+ (item.orderitemPskuNumber * parseFloat(singlePrice)).toFixed(2) +'</div>' +
-						'</div>' +
-					'</div>';
-			});
-			$('.order-list').html(htmlStr || 'no product for order...');
 		}
 		//  callback get all
-		function getOrdersData(val) {
+		function getWholesalesData(val) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/CustomerWholesale/getCustomerWholesaleByPage",
@@ -334,7 +300,7 @@
 			});
 		}
 		// callback get search data
-		function getSearchOrdersData(data) {
+		function getSearchWholesalesData(data) {
 			$('.c-mask').show();
 
 			var formData = new FormData();
@@ -359,15 +325,15 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Orders, please refresh the page to get again！');
+					toastr.error('Failed to get Whole-sales, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
 				}
 			});
 		}
-		// callback get one order data
-		function getOneOrderData(reqData, callback) {
+		// callback get one whole-sale data
+		function getOneWholesaleData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/CustomerWholesale/getOneMlbackCatalogDetail",
