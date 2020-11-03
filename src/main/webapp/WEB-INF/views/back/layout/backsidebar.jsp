@@ -27,6 +27,12 @@
 						<span class="c-text">orders</span>
 					</a>
 				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/CustomerWholesale/toCustomerWholesalePage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">wholesalePage</span>
+					</a>
+				</li>
 			</ul>
 		</li>
 		<!-- product -->

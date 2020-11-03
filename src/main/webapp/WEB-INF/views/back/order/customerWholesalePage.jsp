@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Order List</title>
+	<title>Whole Sale</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
 </head>
@@ -16,7 +16,7 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Order list</span>
+						<span class="c-option-title">Whole-sale list</span>
 						<!-- <button class="btn btn-primary btn-create">Create Order</button> -->
 					</div>
 					<div class="ecpp-sync row">
@@ -27,17 +27,7 @@
 								<input class="form-control daterangetimepicker" id="order-time" type="text" />
 							</div>
 						</div>
-						<div class="order-btn-group col-md-8">
-							<button class="btn btn-secondary download-audit" id="download-audit">
-								<svg class="c-icon">
-									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-export"></use>
-								</svg>
-								<span>Export</span>
-							</button>						
-							<!-- <button class="btn btn-primary download-ecpp" id="download-ecpp">Download Ecpp Data</button> -->			
-							<button class="btn btn-info ecpp-verify-sync">checkEcppIfVerify</button>						
-							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
-						</div>
+						
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -51,39 +41,21 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="payinfoPlateNum" type="text" placeholder="Search Ordders">						
-									<select id="payinfoStatus">
-										<option value="999">Please select order-status</option>
-										<option value="0">unpaid</option>
-										<option value="1">paid</option>
-										<option value="2">audited</option>
-										<option value="3">delivered</option>
-										<option value="4">refunded</option>
-										<option value="5">abandon-purchase</option>
-										<option value="6">closed</option>
-									</select>
+									<input id="customer-name" type="text" placeholder="Search Whole-sale" disabled>						
+									<select class="supercate-list" id="searchSupercate" disabled></select>
 								</div>
-								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
+								<a class="btn btn-primary input-group-addon btn-save-search" disabled>Save search</a>
 							</div>
 							<div class="c-table-table table-responsive-sm">
 								<table class="table">
 									<thead>
 										<tr>
-											<th>payId</th>
-											<th>orderid</th>
-											<th>plate-num</th>
-											<!--<th>payinfoCreatetime</th>-->
-											<th>pay-time</th>
-											<th>pay-status</th>
-											<th>price</th>
-											<th>customer</th>
-											<!-- <th>customer-email</th> -->
-											<th>pay-method</th>
-											<th>pay-num</th>
-											<th>money-status</th>
-											<th>ecpp-num</th>
-											<th>ecpp-status</th>
-											<th>tracking-num</th>
+											<th>id</th>
+											<th>customer-name</th>
+											<th>email</th>
+											<th>country</th>
+											<th>whats-app</th>
+											<th>message</th>
 											<th>operate</th>
 										</tr>
 									</thead>
@@ -341,7 +313,8 @@
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	<!-- custom script -->
 	<script>
-		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "orders";
+		var hasSuperCateList = false;
+		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "whole-sale";
 		// init
 		var date = new Date();
 		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
@@ -352,6 +325,8 @@
 			$('#order-confirm-time').val(endTime);		
 		});
 		renderTabItems();
+		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
+	 	$('#searchSupercate').val($('#searchSupercate').data('val') || -1);
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
@@ -367,99 +342,13 @@
 			$('.c-view c-option-title').text('Order List');
 			showInitBlock();
 		});
-		// checkEcppIfSend
-		$('.ecpp-data-sync').on('click', function() {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlfrontPayInfo/checkEcppIfSend",
-				type: "post",
-				data: JSON.stringify({
-					"payinfoCreatetime": $('#order-create-time').val(),
-				    "payinfoMotifytime": $('#order-confirm-time').val()
-				}),
-				dataType: "json",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						updateSearchData();
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error('Failed to refresh ecpp-sync-data, please refresh the page to get again!');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		});
-		//checkEcppIfVerify
-		$('.ecpp-verify-sync').on('click', function() {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlfrontPayInfo/checkEcppIfVerify",
-				type: "post",
-				data: JSON.stringify({
-					"payinfoCreatetime": $('#order-create-time').val(),
-				    "payinfoMotifytime": $('#order-confirm-time').val()
-				}),
-				dataType: "json",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						updateSearchData();
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error('Failed to refresh ecpp-verify-data, please refresh the page to get again!');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		});
-		// single order ecpp verify
-		$('#ecpp-verify').on('click', function() {
-			var ecppData = $(this).data('ecpp');
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlfrontPayInfo/checkEcppOneIfVerify",
-				type: "post",
-				data: JSON.stringify(ecppData),
-				dataType: "json",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						getOneOrderData({
-							payinfoId: ecppData.payinfoId
-						}, function(resData) {
-							renderOrderDetails(resData);
-						});
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error('Failed to refresh ecpp-verify-data, please refresh the page to get again!');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		});
 		// View  Order
 		$(document.body).on('click', '.btn-view, .c-table-table tbody tr', function (e) {
-			var payinfoId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
+			var wholesaleId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
 			getOneOrderData({
-				payinfoId: payinfoId
+				wholesaleId: wholesaleId
 			}, function(resData) {
-				$('.c-view c-option-title').text('View Order');
+				$('.c-view c-option-title').text('View Whole-sale');
 				renderOrderDetails(resData);
 				showViewBlock();
 			});
@@ -476,28 +365,28 @@
 		// tab delete
 		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
 		// save search
-		$('.btn-save-search').on('click', function () {
+		/* $('.btn-save-search').on('click', function () {
 			var searchOrderVal = {
-				payinfostatusval: $('#payinfoStatus').find('option:selected').text(),
-				payinfostatus: $('#payinfoStatus').val(),
-				payinfonum: $('#payinfoPlateNum').val()
+				supercateName: $('#searchSupercate').find('option:selected').text(),
+				supercateId: $('#searchSupercate').val(),
+				customername: $('#customer-name').val()
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchOrderVal)) return;
-			if (parseInt(searchOrderVal.payinfostatus) == 999) searchOrderVal.payinfostatusval = "";
-			if (searchOrderVal.payinfostatus || searchOrderVal.payinfonum) {
+			if (parseInt(searchOrderVal.supercateId) < 0) searchOrderVal.supercateName = "";
+			if (searchOrderVal.supercateId || searchOrderVal.customername) {
 				addStorageItem(searchOrderVal);
 				$('.c-table-tab-tempory').html('');
 				createTableTabItem(searchOrderVal);
 				addTableTabItem(searchOrderVal, $('.c-table-tab-item').length);
 			}
-		});
+		}); */
 		// search it
-		$('#payinfoStatus').on('change', function() {
+		$('#searchSupercate').on('change', function() {
 			$(this).attr('data-val', $(this).val());
 			updateSearchData();
 		});
-		$('#payinfoPlateNum').on('keyup', function() {
+		$('#customer-name').on('keyup', function() {
 			var distanceTime = 1000,
 				newTime =  (new Date()).getTime();
 			if (newTime - oldTime < 1000) clearTimeout(timer);
@@ -506,127 +395,17 @@
 				updateSearchData();
 			}, distanceTime);
 		});
-		// order data
-		$('#download-audit').on('click', function() {
-			var payinfoStatus =$("#payinfoStatus").val();
-			var payinfoCreatetime =$('#order-create-time').val()
-			var payinfoMotifytime  = $('#order-confirm-time').val()
-			console.log("payinfoStatus:"+payinfoStatus+"payinfoCreatetime:"+payinfoCreatetime+"payinfoMotifytime"+payinfoMotifytime);
-			window.location.href = "${APP_PATH}/ExcleDownload/exportPayInfoIF?payinfoStatus="+payinfoStatus+"&payinfoCreatetime="+payinfoCreatetime+"&payinfoMotifytime="+payinfoMotifytime;
-		});
-		$('#download-ecpp').on('click', function() {
-			
-		});
-		// order operate
-		$('.btn-audit').on('click', function() {
-			
-		});
-		$('.btn-abandon-purchase').on('click', function() {
-			
-		});
-		$('.btn-refund').on('click', function() {
-			var refundData = $(this).data('refundm');
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlfrontPayStatus/refundPayOrder",
-				type: "post",
-				data: JSON.stringify(refundData),
-				dataType: "json",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						getOneOrderData({
-							payinfoId: refundData.payinfoId
-						}, function(resData) {
-							renderOrderDetails(resData);
-						});
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error('');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-			
-		});
-		$('#btn-manual-delivery').on('click', function() {
-			var deliveryData = $(this).data('delivery');
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlfrontPayInfo/manualUpdateSendSucceed",
-				type: "post",
-				data: JSON.stringify(deliveryData),
-				dataType: "json",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.extend.resMsg);
-						getOneOrderData({
-							payinfoId: deliveryData.payinfoId
-						}, function(resData) {
-							renderOrderDetails(resData);
-						});
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error('');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-			
-		});
-		$('.btn-close').on('click', function() {
-			var closeData = $(this).data('colsem');
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlfrontPayStatus/closePayOrder",
-				type: "post",
-				data: JSON.stringify(closeData),
-				dataType: "json",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-					  console.log(data)
-						toastr.success(data.extend.resMsg);
-						getOneOrderData({
-							payinfoId: closeData.payinfoId
-						}, function(resData) {
-							renderOrderDetails(resData);
-						});
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error('');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-			
-			
-		});
 		// search status change
 		function updateSearchData() {
 			var searchOrderVal = {
-				payinfostatusval: $('#payinfoStatus').find('option:selected').text(),
-				payinfostatus: $('#payinfoStatus').val(),
-				payinfonum: $('#payinfoPlateNum').val()
+				supercateName: $('#searchSupercate').find('option:selected').text(),
+				supercateId: $('#searchSupercate').val(),
+				customername: $('#customer-name').val()
 			};
 			// inital pagination num
 			setPageNum(1);
 			// check searchOrder
-			if (parseInt(searchOrderVal.payinfostatus) == 999) searchOrderVal.payinfostatusval = "";
+			if (parseInt(searchOrderVal.supercateId) < 0) searchOrderVal.supercateName = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
 			$('.c-table-tab-tempory').html(createTableTabItem(searchOrderVal).addClass('active'));
@@ -644,135 +423,22 @@
 		// get Data for table
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
-			if (dataVal && (dataVal.payinfostatusval || dataVal.payinfonum)) {
-				$('#payinfoPlateNum').val(dataVal.payinfonum || '');
-				$('#payinfoStatus').attr('data-val', dataVal.payinfostatus || '-1');
-				$('#payinfoStatus').val(dataVal.payinfostatus || '-1');
+			if (dataVal && (dataVal.supercateName || dataVal.customername)) {
+				$('#customer-name').val(dataVal.customername || '');
+				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
+				$('#searchSupercate').val(dataVal.supercateId || '-1');
 				getSearchOrdersData();
 			} else {
-				$('#payinfoPlateNum').val('');
-				$('#payinfoStatus').val('999');
+				$('#customer-name').val('');
+				$('#searchSupercate').val('999');
 				initActiveItemNum();
 				getOrdersData();
 			}
 		}
-		// callback init order details
-		function getNewPayinfoSendNum (str){
-			var nStr = '';
-			if (str) {
-				if (str.endsWith('intofail')) {
-					nStr = str.replace('intofail', '<i style="color: red; font-weight: bold">intofail</i>');
-					$('#btn-manual-delivery').removeClass('hide');
-				} else if (str.endsWith('succeed')) {
-					nStr = str.replace('succeed', '<i style="color: green; font-weight: bold">succeed</i>');
-					$('#btn-manual-delivery').addClass('hide');
-				} else {
-					nStr = str;
-				}
-			}
-			return nStr;
-		}
 		
 		function renderOrderDetails(data) {
 			// order list
-			renderOrderList(data.mlfrontOrderItemList);
-			// sum info
-			$('.pay-status .value').html(getPayStatus(data.mlfrontPayInfoOne.payinfoStatus));
-			$('.pay-number .value').html(data.mlfrontPayInfoOne.payinfoPlatenum || '');
-			$('.pay-method .value').html(data.mlfrontPayInfoOne.payinfoPlatform || '');
-			var payStatus = '<a class="badge '+ ((data.mlfrontPayInfoOne.payinfoTransStatus == 'completed' || data.mlfrontPayInfoOne.payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data.mlfrontPayInfoOne.payinfoTransStatus || '') +'</a>';
-
-			$('.pay-paypal-id .value').html(data.mlfrontPayInfoOne.payinfoTransidnum || '');
-			$('.pay-paypal-number .value').html(data.mlfrontPayInfoOne.payinfoPlatformserialcode || '');
-			$('.pay-paypal-status .value').html(payStatus);
-		
-			if (/pm\_/.test(data.mlfrontPayInfoOne.payinfoTransidnum)) {
-				$('.pay-pay-method').text('Stripe ');
-				$('.pay-paypal-number').addClass('hide');
-			} else {
-				$('.pay-pay-method').text('Paypal ');
-				$('.pay-paypal-number').removeClass('hide');
-			}
 			
-			$('.pay-purchase-time .value').html(data.mlfrontOrderPayOneRes.orderCreatetime || '');
-			$('.pay-create-time .value').html(data.mlfrontPayInfoOne.payinfoCreatetime || '');
-			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoReturntime || '');
-			
-			/* order operate */
-			$('.payinfo-group .btn').addClass('hide');
-			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
-				$('.btn-abandon-purchase,.btn-close').removeClass('hide');
-			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
-				$('.btn-audit,.btn-refund').removeClass('hide');
-			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 || data.mlfrontPayInfoOne.payinfoStatus == 3) {
-				$('.btn-refund').removeClass('hide');
-			}
-
-			$('.pay-prototal .value').html('$' + (((data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney)) || 0).toFixed(2));
-			$('.pay-discount .name').html(data.mlfrontOrderPayOneRes.orderCouponCode || '');
-			$('.pay-discount .value').html('-$' + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0).toFixed(2));
-			$('.pay-shipping .value').html('$' + (data.areafreightMoney || 0).toFixed(2));
-			$('.pay-total .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || 0).toFixed(2));
-			$('.pay-final .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || 0).toFixed(2));
-			
-			// customer note
-			$('.customer-note .value').html(data.mlfrontOrderPayOneRes.orderBuyMess || 'No notes from customer...');
-			// track
-			
-			$('.track-number .value').html('('+ (data.mlfrontOrderPayOneRes.orderLogisticsname || '') +')' + (getNewPayinfoSendNum(data.mlfrontPayInfoOne.payinfoSendnum)));
-			$('.ecpp-number .value').html(data.mlfrontPayInfoOne.payinfoEcpphsnum || '');
-			// shipping
-			$('.shipping-item.firstname .value').html(data.mlfrontAddressOne.addressUserfirstname || '');
-			$('.shipping-item.lastname .value').html(data.mlfrontAddressOne.addressUserlastname || '');
-			$('.shipping-item.email .value').html(data.mlfrontAddressOne.addressEmail || '');
-			$('.shipping-item.phone .value').html(data.mlfrontAddressOne.addressTelephone || '');
-			$('.shipping-item.country .value').html(data.mlfrontAddressOne.addressCountry + ' ('+ data.mlfrontAddressOne.addressCountryCode +')');
-			$('.shipping-item.province .value').html(data.mlfrontAddressOne.addressProvince + ' ('+ data.mlfrontAddressOne.addressProvincecode +')');
-			$('.shipping-item.city .value').html(data.mlfrontAddressOne.addressCity || '');
-			$('.shipping-item.postcode .value').html(data.mlfrontAddressOne.addressPost || '');
-			$('.shipping-item.address .value').html(data.mlfrontAddressOne.addressDetail || '');
-			// billing
-			$('.billing-item.paymentid .value').html(data.mlPaypalShipAddressOne.shippingaddressPaymentid || '');
-			$('.billing-item.username .value').html(data.mlPaypalShipAddressOne.shippingaddressRecipientName || '');
-			$('.billing-item.email .value').html(data.mlPaypalShipAddressOne.shippingaddressEmail || '');
-			$('.billing-item.country .value').html(data.mlPaypalShipAddressOne.shippingaddressCountryCode || '');
-			$('.billing-item.city .value').html(data.mlPaypalShipAddressOne.shippingaddressCity || '');
-			$('.billing-item.province .value').html(data.mlPaypalShipAddressOne.shippingaddressState || '');
-			$('.billing-item.postcode .value').html(data.mlPaypalShipAddressOne.shippingaddressPostalCode || '');
-			$('.billing-item.line1 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine1 || '');
-			$('.billing-item.line2 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine2 || '');
-			// customer info
-			if (data.mlfrontUserOne) {
-				var html = '<div class="customer-item"><div class="name">E-mail:</div><div class="value">'+ data.mlfrontUserOne.userEmail +'</div></div>' +
-					'<div class="customer-item"><div class="name">Customer Name:</div><div class="value">'+ (data.userLastname && (data.userLastname + ' ' + data.mlfrontUserOne.userFirstname) || '') +'</div></div>' +
-					'<div class="customer-item"><div class="name">Telephone Number:</div><div class="value">'+ (data.mlfrontUserOne.userTelephone || '') +'</div></div>' +
-					'<div class="customer-item"><div class="name">Purchase times:</div><div class="value">'+ data.mlfrontUserOne.userTimes +'</div></div>';
-				$('.customer-info').html(html);
-			} else {
-				$('.customer-info').html('Non-registered user!');
-			}
-			// ecpp-verfiy prop data
-			$('#ecpp-verify').data('ecpp', {
-				"payinfoId": data.mlfrontPayInfoOne.payinfoId,
-			    "payinfoOid": data.mlfrontPayInfoOne.payinfoOid,
-			    "payinfoPlatenum": data.mlfrontPayInfoOne.payinfoPlatenum,
-			    "payinfoUemail": (data.mlfrontAddressOne.addressEmail || data.mlPaypalShipAddressOne.shippingaddressEmail),
-			    "payinfoEcpphsnum": data.mlfrontPayInfoOne.payinfoEcpphsnum
-			});
-			
-			
-			$('.btn-refund').data('refundm',{
-				"payinfoId": data.mlfrontPayInfoOne.payinfoId,
-				"payinfoOid": data.mlfrontPayInfoOne.payinfoOid,
-			});
-			$('.btn-close').data('colsem',{
-				"payinfoId": data.mlfrontPayInfoOne.payinfoId,
-				"payinfoOid": data.mlfrontPayInfoOne.payinfoOid,
-			});
-			$('#btn-manual-delivery').data('delivery',{
-				"payinfoId": data.mlfrontPayInfoOne.payinfoId,
-				"payinfoSendnum": data.mlfrontPayInfoOne.payinfoSendnum,
-			});
 		}
 		// callback order list
 		function renderOrderList(data) {
@@ -812,7 +478,7 @@
 		function getOrdersData(val) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlfrontPayInfo/getMlfrontPayInfoByPage",
+				url: "${APP_PATH}/CustomerWholesale/getCustomerWholesaleByPage",
 				type: "post",
 				data: "pn=" + getPageNum(),
 				success: function (data) {
@@ -825,7 +491,7 @@
 					}
 				},
 				error: function (err) {
-					toastr.error('Failed to get Super-Categeory, please refresh the page to get again！');
+					toastr.error('Failed to get Whole-sales, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -837,8 +503,8 @@
 			$('.c-mask').show();
 
 			var formData = new FormData();
-			formData.append('payinfoPlateNum', $('#payinfoPlateNum').val());
-			formData.append('payinfoStatus', ($('#payinfoStatus').attr('data-val') || '999'));
+			formData.append('customer-name', $('#customer-name').val());
+			formData.append('supercateId', ($('#searchSupercate').attr('data-val') || '999'));
 			formData.append('pn', getPageNum());
 
 			$.ajax({
@@ -869,7 +535,7 @@
 		function getOneOrderData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlfrontPayInfo/backGetOnePayInfoDetail",
+				url: "${APP_PATH}/CustomerWholesale/getOneMlbackCatalogDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: "json",
@@ -890,65 +556,27 @@
 				}
 			});
 		}
-		function getPayStatus(num) {
-			var statusText;
-			switch(num) {
-				case 0:
-					statusText = '<a class="badge badge-danger">unpaid</a>'; // 未支付 red
-				    break;
-				case 1:
-					statusText = '<a class="badge badge-warning">paid</a>'; // 已支付  yellow
-					break;
-				case 2:
-					statusText = '<a class="badge badge-success">audited</a>'; // 已审核  green
-					break;
-				case 3:
-					statusText = '<a class="badge badge-info">delivered</a>'; // 已发货  purple
-				    break;
-				case 4:
-					statusText = '<a class="badge badge-primary">refunded</a>'; // 已退款  blue
-					break;
-				case 5:
-					statusText = '<a class="badge badge-light">abandon-purchase</a>'; // 已通知弃购  light
-					break;
-				case 6:
-					statusText = '<a class="badge badge-dark">closed</a>'; // 已关闭  dark
-					break;
-				default:
-					statusText = '<a class="badge badge-danger">unpaid</a>'; // 未支付 red
-			}
-			return statusText;
-		}
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<tr><td>' + data[i].payinfoId + '</td>' +
-					'<td>' + (data[i].payinfoOid || '') + '</td>' +
-					'<td>' + (data[i].payinfoPlatenum || '') + '</td>' +
-					/*'<td>' + data[i].payinfoCreatetime + '</td>' +*/
-					'<td>' + data[i].payinfoReturntime + '</td>' +
-					'<td>' + getPayStatus(data[i].payinfoStatus) + '</td>' +
-					'<td>' + (data[i].payinfoMoney || 0).toFixed(2) + '</td>' +
-					'<td>' + (data[i].payinfoUname || '') + '</td>' +
-					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
-					'<td><img style="width: 60px;" src="${APP_PATH}/static/pc/img/' + ((data[i].payinfoPlatform).toLowerCase() == 'bank_card' ? 'paypal-2.png' : 'paypal-1.png') + '"/></td>' +
-					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
-					'<td><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
-					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
-					'<td>' + (data[i].payinfoEcpphsnumStatus || '') + '</td>' +
-					'<td>' + (getNewPayinfoSendNum(data[i].payinfoSendnum)) + '</td>' +
+				htmlStr += '<tr><td>' + data[i].wholesaleId + '</td>' +
+					'<td>' + data[i].wholesaleCustomerName + '</td>' +
+					'<td>' + data[i].wholesaleCustomerEmail + '</td>' +
+					'<td>' + data[i].wholesaleCustomerCountry + '</td>' +
+					'<td>' + data[i].wholesaleCustomerWatsapp + '</td>' +
+					'<td>' + data[i].wholesaleCustomerMessage + '</td>' +
 					'<td>' +
-						'<button class="btn btn-primary btn-view" data-id="' + data[i].payinfoId + '">' +
+						'<button class="btn btn-primary btn-view" data-id="' + data[i].wholesaleId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-eye"></use>' +
 							'</svg>' +
 						'</button>' +
-						/* '<button class="btn btn-danger btn-delete" data-id="' + data[i].payinfoId + '">' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].wholesaleId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
 							'</svg>' +
-						'</button>' + */
+						'</button>' +
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
