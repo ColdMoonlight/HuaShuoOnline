@@ -59,11 +59,7 @@
 		.wholesale-large_left{width: 100% ; padding: 0 5%; margin: 0;}
 		.wholesale-large_right{width:100%;margin:0 0 20px;}
 		}
-		
-		
-		
 	</style>
-	
 </head>
 <body>
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
@@ -119,8 +115,6 @@
 				</div>
 				
 		   	  </div>
-			  
-			  
 			  <div class="wholesale-chat">
 				  <h2> 24-Hours Online Service Waiting For You! </h2>
 				  <p class="a-center">
@@ -186,9 +180,7 @@
 					   <div class="wholesale-large_right clearfix"><img src="${APP_PATH }/static/pc/img/wh/yc.jpg" /></div>
 		           </div>
 		           <p><img src="${APP_PATH }/static/pc/img/wh/db.jpg" /></p>
-		       </div>
-		   
-				
+		       </div>	
 		</div>
 	<!-- main end -->
 	<!-- common script -->
@@ -216,10 +208,8 @@
 	  	data.wholesaleCustomerCountry = $('#wholesaleCustomerCountry').val();
 		data.wholesaleCustomerTelephone = $('#wholesaleCustomerTelephone').val();
 	  	data.wholesaleCustomerMessage = $('#wholesaleCustomerMessage').val();
-		
 	  	return data;
 	  }
-	  
 	  // save user info
 	  function orderSaveAddress(reqData, callback) {
 	  	$.ajax({
@@ -241,19 +231,16 @@
 	  		}
 	  	});
 	  }
-	  
 	  $(document.body).on('click', '#Submit', function() {
 	  	if (checkInputAdressInfo()) {
 	  		orderSaveAddress(getFormData());
 	  	}
 	  });
-
 		new LazyLoad($('main').find('.lazyload'), {
 			root: null,
 			rootMargin: "10px",
 			threshold: 0
 		});
-
 	</script>
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
