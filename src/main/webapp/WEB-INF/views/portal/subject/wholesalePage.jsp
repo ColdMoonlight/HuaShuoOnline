@@ -12,7 +12,6 @@
 		@media only screen and (min-width: 576px){
 			.ins-banner .pc { padding-top: 38.333333%; }
 		}
-		/**************/
 		/*wholesale*/
 		.title_tips{width: 100%;margin: 0 auto; background: #f5f5f5;}
 		.title_tips h3{padding: 0; margin: 0; color: #ff1671;font-size: 14px; font-weight:600;width: 100%; line-height: 55px; text-align: center;}
