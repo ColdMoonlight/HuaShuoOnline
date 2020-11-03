@@ -35,7 +35,7 @@
 				<div class="product-media">
 					<div class="swiper-container product-slide product-zoom">
 						<div class="swiper-wrapper">
-							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><img class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }" /></div><noscript><img src="${ pro.productimgUrl }" /></noscript></c:forEach>
+							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><img class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }" /></div><noscript><img src="${ pro.productimgUrl }" alt="${ sessionScope.mlbackProductMetaTitle }" /></noscript></c:forEach>
 						</div>
 			   			<div class="swiper-pagination"></div>
 					    <div class="swiper-btn swiper-button-next"></div>
