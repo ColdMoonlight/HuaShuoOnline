@@ -11,6 +11,8 @@
 <link rel="apple-touch-icon" sizes="120x120" href="${APP_PATH }/static/apple/micon1.png">
 <link rel="apple-touch-icon" sizes="180x180" href="${APP_PATH }/static/apple/micon2.png">
 <script>
+//tidio widget
+function addTidio(){var script=document.createElement("script");script.async=!0,script.src=ml.tidio,document.body.appendChild(script)}
 /* varient */
 var timer = null, timeStart = Date.now(), mapSet = {}, mapItems = {}, optionObj = {}, optionIdArr = [], emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 var storage = window.localStorage;
