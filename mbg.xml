@@ -70,7 +70,6 @@
 		<table tableName="tb_mlblack_pagearea" domainObjectName="MlbackPageArea" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_search" domainObjectName="MlbackSearch" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
-		
 		<!--	tb_mlfront
 		<table tableName="tb_mlfront_cart" domainObjectName="MlfrontCart" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlfront_cartitem" domainObjectName="MlfrontCartItem" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
@@ -85,14 +84,7 @@
 		<table tableName="tb_paypal_stateprovince" domainObjectName="MlPaypalStateprovince" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_paypal_shippingaddress" domainObjectName="MlPaypalShipAddress" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
-		<!--	tb_email
-		<table tableName="tb_email_paysuccess" domainObjectName="EmailPaySuccess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<table tableName="tb_email_payRetuensuccess" domainObjectName="EmailPayPalRetuenSuccess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<table tableName="tb_email_address" domainObjectName="EmailAddress" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<table tableName="tb_email_user" domainObjectName="EmailUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		-->
-		
-		<!--	tb_email
+		<!--	tb_customer
 		<table tableName="tb_customer_wholesale" domainObjectName="CustomerWholesale" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 		
