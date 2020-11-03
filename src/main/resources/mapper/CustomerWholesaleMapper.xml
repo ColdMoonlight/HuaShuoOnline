@@ -5,6 +5,7 @@
     <id column="wholesale_id" jdbcType="INTEGER" property="wholesaleId" />
     <result column="wholesale_customer_name" jdbcType="VARCHAR" property="wholesaleCustomerName" />
     <result column="wholesale_customer_email" jdbcType="VARCHAR" property="wholesaleCustomerEmail" />
+    <result column="wholesale_customer_telephone" jdbcType="VARCHAR" property="wholesaleCustomerTelephone" /> 
     <result column="wholesale_customer_country" jdbcType="VARCHAR" property="wholesaleCustomerCountry" />
     <result column="wholesale_customer_watsapp" jdbcType="VARCHAR" property="wholesaleCustomerWatsapp" />
     <result column="wholesale_customer_message" jdbcType="VARCHAR" property="wholesaleCustomerMessage" />
@@ -12,7 +13,7 @@
     <result column="wholesale_motifyTime" jdbcType="VARCHAR" property="wholesaleMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_country, 
+    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_telephone, wholesale_customer_country, 
     wholesale_customer_watsapp, wholesale_customer_message, wholesale_createTime, wholesale_motifyTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -24,12 +25,12 @@
 
   <insert id="insert" parameterType="com.atguigu.bean.CustomerWholesale">
     insert into tb_customer_wholesale (wholesale_id, wholesale_customer_name, 
-      wholesale_customer_email, wholesale_customer_country, 
+      wholesale_customer_email, wholesale_customer_telephone, wholesale_customer_country, 
       wholesale_customer_watsapp, wholesale_customer_message, 
       wholesale_createTime, wholesale_motifyTime
       )
     values (#{wholesaleId,jdbcType=INTEGER}, #{wholesaleCustomerName,jdbcType=VARCHAR}, 
-      #{wholesaleCustomerEmail,jdbcType=VARCHAR}, #{wholesaleCustomerCountry,jdbcType=VARCHAR}, 
+      #{wholesaleCustomerEmail,jdbcType=VARCHAR}, #{wholesaleCustomerTelephone,jdbcType=VARCHAR}, #{wholesaleCustomerCountry,jdbcType=VARCHAR}, 
       #{wholesaleCustomerWatsapp,jdbcType=VARCHAR}, #{wholesaleCustomerMessage,jdbcType=VARCHAR}, 
       #{wholesaleCreatetime,jdbcType=VARCHAR}, #{wholesaleMotifytime,jdbcType=VARCHAR}
       )
@@ -39,6 +40,7 @@
     update tb_customer_wholesale
     set wholesale_customer_name = #{wholesaleCustomerName,jdbcType=VARCHAR},
       wholesale_customer_email = #{wholesaleCustomerEmail,jdbcType=VARCHAR},
+      wholesale_customer_telephone = #{wholesaleCustomerTelephone,jdbcType=VARCHAR},
       wholesale_customer_country = #{wholesaleCustomerCountry,jdbcType=VARCHAR},
       wholesale_customer_watsapp = #{wholesaleCustomerWatsapp,jdbcType=VARCHAR},
       wholesale_customer_message = #{wholesaleCustomerMessage,jdbcType=VARCHAR},
@@ -46,7 +48,6 @@
       wholesale_motifyTime = #{wholesaleMotifytime,jdbcType=VARCHAR}
     where wholesale_id = #{wholesaleId,jdbcType=INTEGER}
   </update>
-  
   <!-- insertSelective -->
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="wholesaleId" parameterType="com.atguigu.bean.CustomerWholesale">
     insert into tb_customer_wholesale
@@ -59,6 +60,9 @@
       </if>
       <if test="wholesaleCustomerEmail != null">
         wholesale_customer_email,
+      </if>
+      <if test="wholesaleCustomerTelephone != null">
+        wholesale_customer_telephone,
       </if>
       <if test="wholesaleCustomerCountry != null">
         wholesale_customer_country,
@@ -85,6 +89,9 @@
       </if>
       <if test="wholesaleCustomerEmail != null">
         #{wholesaleCustomerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="wholesaleCustomerTelephone != null">
+        #{wholesaleCustomerTelephone,jdbcType=VARCHAR},
       </if>
       <if test="wholesaleCustomerCountry != null">
         #{wholesaleCustomerCountry,jdbcType=VARCHAR},
@@ -114,6 +121,9 @@
       <if test="wholesaleCustomerEmail != null">
         wholesale_customer_email = #{wholesaleCustomerEmail,jdbcType=VARCHAR},
       </if>
+      <if test="wholesaleCustomerTelephone != null">
+        wholesale_customer_telephone = #{wholesaleCustomerTelephone,jdbcType=VARCHAR},
+      </if>
       <if test="wholesaleCustomerCountry != null">
         wholesale_customer_country = #{wholesaleCustomerCountry,jdbcType=VARCHAR},
       </if>
@@ -141,14 +151,14 @@
   <!-- selectCustomerWholesaleGetAll -->
   <select id="selectCustomerWholesaleGetAll" parameterType="com.atguigu.bean.CustomerWholesale" resultMap="BaseResultMap">
     select
-    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_country, 
+    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_telephone, wholesale_customer_country, 
     wholesale_customer_watsapp, wholesale_customer_message, wholesale_createTime, wholesale_motifyTime
     from tb_customer_wholesale order by wholesale_id desc
   </select>
   <!-- selectCustomerWholesaleById -->
   <select id="selectCustomerWholesaleById" parameterType="com.atguigu.bean.CustomerWholesale" resultMap="BaseResultMap">
     select
-    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_country, 
+    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_telephone, wholesale_customer_country, 
     wholesale_customer_watsapp, wholesale_customer_message, wholesale_createTime, wholesale_motifyTime
     from tb_customer_wholesale
   </select>
