@@ -7,8 +7,8 @@
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>
-		@media only screen and (max-width: 1023px) { main { margin: -1rem 0 0 0; } }
-		@media only screen and (max-width: 1078px) and (min-width: 576px) { main { margin: -1rem 0 0 0; } }
+		@media only screen and (max-width: 1023px) { main { margin: 0; } }
+		@media only screen and (max-width: 1078px) and (min-width: 576px) { main { margin: 0; } }
 		@media only screen and (min-width: 576px){
 			.ins-banner .pc { padding-top: 38.333333%; }
 		}
@@ -126,7 +126,7 @@
 					  </li>
 					  <li class="whatsapp">
 						  <span></span>
-						  <p> Whatsapp: +  <a href="tel:0086 18903740682">0086 18903740682</a> <br />  <a href="0086 15038903005">0086 15038903005</a>  <a href="0086 15539762631">0086 15539762631</a> </p>
+						  <p> Whatsapp: +  <a href="tel:86 18903740682">86 18903740682</a> <br /> +  <a href="tel:86 15038903005">86 15038903005</a> + <a href="tel:86 15539762631">86 15539762631</a> </p>
 					  </li>
 					  <li class="email">
 						  <span></span>
@@ -221,7 +221,11 @@
 	  		success: function (data) {
 				if (data.code == 100) {
 					callback && callback(data.extend);
-					mlModalTip("Submitted Successfully!")
+					mlModalTip("Submitted Successfully!");
+					setTimeout(function(){
+						window.location.reload();
+					},2500)
+					$('html').animate({scrollTop:0},'slow');
 				} else {
 					sysModalTip();
 				}  
@@ -241,6 +245,15 @@
 			rootMargin: "10px",
 			threshold: 0
 		});
+		
+		$(document.body).on('click', '.wholesale-chat ul li.live', function() {
+			console.log("1111")
+			 $("#button-body").trigger('click');
+		});
+		
+	
+		
+		
 	</script>
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
