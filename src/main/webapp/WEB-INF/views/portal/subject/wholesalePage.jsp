@@ -128,7 +128,7 @@
 				  </p>
 				  <ul>
 					  <li class="live">
-						  <span></span><a href="javascript:void($zopim.livechat.window.show())">Live chat----</a>
+						  <span></span><a href="javascript:;">Live chat----</a>
 					  </li>
 					  <li class="whatsapp">
 						  <span></span>
@@ -150,17 +150,17 @@
 		               <img src="${APP_PATH }/static/pc/img/wh/ab_11.jpg">
 		           </h3>
 		           <div class="clearfix wholesale-type">
-		               <a class="wholesale-type_link" href="https://www.unice.com/human-hair.html">
-		                   <img src="${APP_PATH }/static/pc/img/wh/ab_14.jpg">
+		               <a class="wholesale-type_link" href="${APP_PATH }/search/4x4-Closure-Wig.html">
+		                   <img src="${APP_PATH }/static/pc/img/wh/a01.jpg">
 		               </a>
-		               <a class="wholesale-type_link" href="https://www.unice.com/human-hair.html">
-		                   <img src="${APP_PATH }/static/pc/img/wh/ab_16.jpg">
+		               <a class="wholesale-type_link" href="${APP_PATH }/search/13x4-Lace-Frontal-Wig.html">
+		                   <img src="${APP_PATH }/static/pc/img/wh/a02.jpg">
 		               </a>
-					   <a class="wholesale-type_link" href="https://www.unice.com/human-hair.html">
-					       <img src="${APP_PATH }/static/pc/img/wh/ab_18.jpg">
+					   <a class="wholesale-type_link" href="${APP_PATH }/search/360-Lace-Frontal-Wig.html">
+					       <img src="${APP_PATH }/static/pc/img/wh/a03.jpg">
 					   </a>
-					   <a class="wholesale-type_link" href="https://www.unice.com/human-hair.html">
-					       <img src="${APP_PATH }/static/pc/img/wh/ab_20.jpg">
+					   <a class="wholesale-type_link" href="${APP_PATH }/search/HAIR-WEAVE-CLOSURE.html">
+					       <img src="${APP_PATH }/static/pc/img/wh/a04.jpg">
 					   </a>
 		           </div>
 		           <h3>
