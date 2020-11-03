@@ -7,6 +7,8 @@ public class CustomerWholesale {
     private String wholesaleCustomerName;
 
     private String wholesaleCustomerEmail;
+    
+    private String wholesaleCustomerTelephone;//tel
 
     private String wholesaleCustomerCountry;
 
@@ -42,7 +44,15 @@ public class CustomerWholesale {
         this.wholesaleCustomerEmail = wholesaleCustomerEmail == null ? null : wholesaleCustomerEmail.trim();
     }
 
-    public String getWholesaleCustomerCountry() {
+    public String getWholesaleCustomerTelephone() {
+		return wholesaleCustomerTelephone;
+	}
+
+	public void setWholesaleCustomerTelephone(String wholesaleCustomerTelephone) {
+		this.wholesaleCustomerTelephone = wholesaleCustomerTelephone == null ? null : wholesaleCustomerTelephone.trim();
+	}
+
+	public String getWholesaleCustomerCountry() {
         return wholesaleCustomerCountry;
     }
 
@@ -87,12 +97,13 @@ public class CustomerWholesale {
 	}
 
 	public CustomerWholesale(Integer wholesaleId, String wholesaleCustomerName, String wholesaleCustomerEmail,
-			String wholesaleCustomerCountry, String wholesaleCustomerWatsapp, String wholesaleCustomerMessage,
-			String wholesaleCreatetime, String wholesaleMotifytime) {
+			String wholesaleCustomerTelephone, String wholesaleCustomerCountry, String wholesaleCustomerWatsapp,
+			String wholesaleCustomerMessage, String wholesaleCreatetime, String wholesaleMotifytime) {
 		super();
 		this.wholesaleId = wholesaleId;
 		this.wholesaleCustomerName = wholesaleCustomerName;
 		this.wholesaleCustomerEmail = wholesaleCustomerEmail;
+		this.wholesaleCustomerTelephone = wholesaleCustomerTelephone;
 		this.wholesaleCustomerCountry = wholesaleCustomerCountry;
 		this.wholesaleCustomerWatsapp = wholesaleCustomerWatsapp;
 		this.wholesaleCustomerMessage = wholesaleCustomerMessage;
@@ -103,10 +114,11 @@ public class CustomerWholesale {
 	@Override
 	public String toString() {
 		return "CustomerWholesale [wholesaleId=" + wholesaleId + ", wholesaleCustomerName=" + wholesaleCustomerName
-				+ ", wholesaleCustomerEmail=" + wholesaleCustomerEmail + ", wholesaleCustomerCountry="
-				+ wholesaleCustomerCountry + ", wholesaleCustomerWatsapp=" + wholesaleCustomerWatsapp
-				+ ", wholesaleCustomerMessage=" + wholesaleCustomerMessage + ", wholesaleCreatetime="
-				+ wholesaleCreatetime + ", wholesaleMotifytime=" + wholesaleMotifytime + "]";
+				+ ", wholesaleCustomerEmail=" + wholesaleCustomerEmail + ", wholesaleCustomerTelephone="
+				+ wholesaleCustomerTelephone + ", wholesaleCustomerCountry=" + wholesaleCustomerCountry
+				+ ", wholesaleCustomerWatsapp=" + wholesaleCustomerWatsapp + ", wholesaleCustomerMessage="
+				+ wholesaleCustomerMessage + ", wholesaleCreatetime=" + wholesaleCreatetime + ", wholesaleMotifytime="
+				+ wholesaleMotifytime + "]";
 	}
-    
+
 }
