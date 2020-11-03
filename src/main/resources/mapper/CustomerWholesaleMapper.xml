@@ -150,16 +150,12 @@
   </delete>
   <!-- selectCustomerWholesaleGetAll -->
   <select id="selectCustomerWholesaleGetAll" parameterType="com.atguigu.bean.CustomerWholesale" resultMap="BaseResultMap">
-    select
-    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_telephone, wholesale_customer_country, 
-    wholesale_customer_watsapp, wholesale_customer_message, wholesale_createTime, wholesale_motifyTime
+    select * 
     from tb_customer_wholesale order by wholesale_id desc
   </select>
   <!-- selectCustomerWholesaleById -->
   <select id="selectCustomerWholesaleById" parameterType="com.atguigu.bean.CustomerWholesale" resultMap="BaseResultMap">
-    select
-    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_telephone, wholesale_customer_country, 
-    wholesale_customer_watsapp, wholesale_customer_message, wholesale_createTime, wholesale_motifyTime
-    from tb_customer_wholesale
+    select *  
+    from tb_customer_wholesale where wholesale_id = #{wholesaleId,jdbcType=INTEGER}
   </select>
 </mapper>
