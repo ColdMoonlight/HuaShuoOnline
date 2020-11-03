@@ -12,6 +12,55 @@
 		@media only screen and (min-width: 576px){
 			.ins-banner .pc { padding-top: 38.333333%; }
 		}
+		/*wholesale*/
+		.title_tips{width: 100%;margin: 0 auto; background: #f5f5f5;}
+		.title_tips h3{padding: 0; margin: 0; color: #ff1671;font-size: 14px; font-weight:600;width: 100%; line-height: 55px; text-align: center;}
+		.Wholesale-body{margin: 15px 0 0;}
+		.wholesale-form h2,.wholesale-chat h2{background: #f4f4f4;margin: 20px 0;font-family: calibri;font-size: 20px;padding: 10px 10px 15px;border-radius: 10px;border-left: 1px solid #f92d96;text-transform: unset;  border-right: 1px solid #f92d96; border-bottom: 5px solid #f92d96;	text-align: center;}
+		.wholesale-form .form-group{margin:20px 0 0;}
+		.wholesale-form .form-group input{border-color: #a9a9a9;}
+		.wholesale-form .form-group label{font-weight: bold; display: block; margin: 0 0 10px;}
+		.wholesale-form .form-group textarea {width: 100%; height: 100px;border-color: #a9a9a9;}
+		.wholesale-form .form-group i{color:#ff6f5e;}
+		.wholesale-form .form-group #Submit{background: #f82d98; border:none; color: #fff; line-height: 30px;}
+		.wholesale-form{width: 50%;}
+		.wholesale-chat{width:50%; margin: 0 0 0 5%;}
+		.a-center{text-align: center;}
+		.wholesale-chat ul{width: 100%; margin: 30px auto; text-align: left; list-style:none; padding: 0;}
+		.wholesale-chat ul li{position: relative; line-height: 50px;font-size: 18px;  padding: 0 0 0 40px; border-bottom: 1px dashed #262626;}
+		.wholesale-chat ul li span{ width: 40px; height: 40px; position: absolute; top:50%; margin: -20px 0 0; left: 0;background: url("${APP_PATH }/static/pc/img/wh/ab_07.jpg") no-repeat;}
+		.wholesale-chat ul li a{ text-decoration: none; color: #000;}
+		.wholesale-chat ul li.live span{background-position: 0 5px;}
+		.wholesale-chat ul li.email span{background-position: 0 -66px; }
+		.wholesale-chat ul li.whatsapp{ line-height: 25px;}
+		.wholesale-chat ul li.whatsapp span{background-position: 0 -32px;top:25px;}
+		.wholesale-chat ul li.tel span{background-position: 0 -105px;}
+		.wholesale-chat ul li p,.wholesale-chat ul li p a{color: #bd0000;font-weight: bold;}
+		.wholesale-container{width: 100%;}
+		.wholesale-large{width: 100%;}
+		.wholesale-large_left{width: 60%; float: left;}
+		.wholesale-large_right{width: 35%; margin: 0 0 0 5%; float: left;}
+		.wholesale-large_right img{display:block; margin: 0 auto;}
+		.wholesale-large_left span{display:block;line-height:20px;margin-bottom:5px}
+		.wholesale-container img{max-width: 100%;}
+		.wholesale-type{width: 100%;}
+		.wholesale-type_link{text-align: center;}	
+		@media only screen and (min-width: 1024px){
+		.container1300{max-width: 1300px;}
+		.Wholesale-body{display: flex;align-items: flex-start;margin:15px 0 0;}
+		.Wholesale_cont{width: 100%; display: flex; align-items: flex-start;}
+		.title_tips h3{ font-weight: 700;font-size: 22px;}
+		.title_tips {width: 80%; margin: 0 10%;}
+		}
+		@media only screen and (max-width:1300px) {	
+		.wholesale-form{width: 100%; padding: 0 2%;}
+		.wholesale-chat{width:100%; padding: 0 2%;margin: 0;}
+		.wholesale-type a{width: 48%; margin: 0 1%; display: block; float: left;}
+		.wholesale-large_left{width: 100% ; padding: 0 5%; margin: 0;}
+		.wholesale-large_right{width:100%;margin:0 0 20px;}
+		}
+		
+		
 		
 	</style>
 	
