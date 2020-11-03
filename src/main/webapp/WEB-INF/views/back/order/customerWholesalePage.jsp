@@ -83,31 +83,31 @@
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerName">Customer Name</label>
 										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerName" type="text" />
+											<input class="form-control" id="wholesaleCustomerName" type="text" disabled />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerEmail">E-mail</label>
 										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerEmail" type="text" />
+											<input class="form-control" id="wholesaleCustomerEmail" type="text" disabled />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerCountry">Country</label>
 										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerCountry" type="text" />
+											<input class="form-control" id="wholesaleCustomerCountry" type="text" disabled />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerWatsapp">Whats app</label>
 										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerWatsapp" type="text" />
+											<input class="form-control" id="wholesaleCustomerWatsapp" type="text" disabled />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerMessage">Message</label>
 										<div class="controls">
-											<textarea class="form-control" id="wholesaleCustomerMessage" disabled></textarea>
+											<textarea  rows="5" class="form-control" id="wholesaleCustomerMessage" disabled></textarea>
 										</div>
 									</div>
 								</div>
