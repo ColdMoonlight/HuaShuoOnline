@@ -185,7 +185,7 @@
 	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
-      // check user input info
+      // //check user input info
       function checkInputAdressInfo() {
       	var flag = true;
       	for(var idx = 0, len = $('.info_box .form-group').length; idx < len; idx += 1) {
