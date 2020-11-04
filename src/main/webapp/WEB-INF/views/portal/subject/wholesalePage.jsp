@@ -7,8 +7,8 @@
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>
-		@media only screen and (max-width: 1023px) { main { margin: -1rem 0 0 0; } }
-		@media only screen and (max-width: 1078px) and (min-width: 576px) { main { margin: -1rem 0 0 0; } }
+		@media only screen and (max-width: 1023px) { main { margin: 0; } }
+		@media only screen and (max-width: 1078px) and (min-width: 576px) { main { margin: 0; } }
 		@media only screen and (min-width: 576px){
 			.ins-banner .pc { padding-top: 38.333333%; }
 		}
@@ -113,7 +113,6 @@
 						<input type="button" value="Submit" id="Submit" />
 					</div>
 				</div>
-				
 		   	  </div>
 			  <div class="wholesale-chat">
 				  <h2> 24-Hours Online Service Waiting For You! </h2>
@@ -126,7 +125,7 @@
 					  </li>
 					  <li class="whatsapp">
 						  <span></span>
-						  <p> Whatsapp: +  <a href="tel:0086 18903740682">0086 18903740682</a> <br />  <a href="0086 15038903005">0086 15038903005</a>  <a href="0086 15539762631">0086 15539762631</a> </p>
+						  <p> Whatsapp: +  <a href="tel:86 18903740682">86 18903740682</a> <br /> +  <a href="tel:86 15038903005">86 15038903005</a> + <a href="tel:86 15539762631">86 15539762631</a> </p>
 					  </li>
 					  <li class="email">
 						  <span></span>
@@ -221,7 +220,13 @@
 	  		success: function (data) {
 				if (data.code == 100) {
 					callback && callback(data.extend);
-					mlModalTip("Submitted Successfully!")
+					var wholsaleModal = createModal({
+						body: {
+							html: "<p style='color:red'>Thanks again for your inquiry,our staff will contact you soon!</p>",
+						}
+					}, function() {
+						window.location.reload();
+					});
 				} else {
 					sysModalTip();
 				}  
