@@ -113,7 +113,6 @@
 						<input type="button" value="Submit" id="Submit" />
 					</div>
 				</div>
-				
 		   	  </div>
 			  <div class="wholesale-chat">
 				  <h2> 24-Hours Online Service Waiting For You! </h2>
@@ -247,8 +246,6 @@
 			rootMargin: "10px",
 			threshold: 0
 		});
-		
-		
 	</script>
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>
