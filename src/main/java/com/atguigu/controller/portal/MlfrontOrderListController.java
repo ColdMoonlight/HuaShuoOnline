@@ -152,9 +152,9 @@ public class MlfrontOrderListController {
 			Integer payinfoStatus = mlfrontPayInfoOne.getPayinfoStatus();
 			
 			if(payinfoStatus==1){
-				return Msg.fail().add("resMsg", "订单正在处理中...");
+				return Msg.fail().add("resMsg", "The order is being processing...");
 			}else if(payinfoStatus==2){
-				return Msg.fail().add("resMsg", "订单正在处理中...");
+				return Msg.fail().add("resMsg", "The order is being processing...");
 			}else if(payinfoStatus==3){
 				MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
 				mlfrontOrderReq.setOrderId(orderId);
@@ -166,15 +166,15 @@ public class MlfrontOrderListController {
 					Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
 					return Msg.success().add("trackingRes", trackingRes);
 				}else if(payinfoStatus==4){
-					return Msg.fail().add("resMsg", "该订单已退款,请核实...");
+					return Msg.fail().add("resMsg", "The order has been refunded, please check...");
 				}else{
-					return Msg.fail().add("resMsg", "请核查您的平台交易号");
+					return Msg.fail().add("resMsg", "Please check your platform transaction number");
 				}
 			}else{
-				return Msg.fail().add("resMsg", "请核查您的平台交易号");
+				return Msg.fail().add("resMsg", "Please check your platform transaction number");
 			}
 		}else{
-			return Msg.fail().add("resMsg", "请核查您的平台交易号");
+			return Msg.fail().add("resMsg", "Please check your platform transaction number");
 		}
 	}
 	
@@ -202,7 +202,7 @@ public class MlfrontOrderListController {
 			Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(Logisticsnumber,Slug);
 			return Msg.success().add("trackingRes", trackingRes);
 		}else{
-			return Msg.fail().add("resMsg", "请核查您的平台交易号");
+			return Msg.fail().add("resMsg", "Please check your shipping order number");
 		}
 	}
 	
