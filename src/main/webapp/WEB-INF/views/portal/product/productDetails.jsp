@@ -10,7 +10,7 @@
 </c:choose>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
     <meta name="keyword" content="${sessionScope.mlbackProductMetaKeyWords}">
-    <meta name="description" content="${sessionScope.mlbackProductMeteDesc}">
+    <meta id="ml-des" name="description" content="${sessionScope.mlbackProductMeteDesc}">
 	<script>
 		var productId = '${sessionScope.productDetailId}';
 		var productSeo;
@@ -23,7 +23,7 @@
 		@media only screen and (max-width: 575px) {
 			main { margin: 0 }
 			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
-		}
+		} 
 		.product-media .lazyload.img { display: block; width: 100% !important; height: 100% !important; padding-top: unset; }
 	</style>
 </head>
