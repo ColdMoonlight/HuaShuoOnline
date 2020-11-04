@@ -317,7 +317,7 @@ function mergeOpts (opts1, opts2) {
 
     return res;
 }
-function createModal(option) {
+function createModal(option, closeFn) {
 	var opt = mergeOpts({
 		header: {
 			html: '',
@@ -381,10 +381,12 @@ function createModal(option) {
 	    modal.on('click', function (e) {
 	        if (e.target == this) {
 	        	removeModal($(this));
+	        	closeFn && closeFn();
 	        }
 	    });
 	    modal.find('.modal-close, .modal-no').on('click', function (e) {
 	        removeModal(modal);
+	        closeFn && closeFn();
 	    });
     }
     
