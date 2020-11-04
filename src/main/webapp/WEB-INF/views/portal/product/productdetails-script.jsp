@@ -632,7 +632,6 @@
 	}
 	// product share
 	$('.share-item').on('click', function() {
-		if ($(this)[0].title == 'share on pinterest') window.open($(this).data('url') + encodeURIComponent($('.product-slide').find('img').eq(0).data('src')));
 		window.open($(this).data('url') + encodeURIComponent(window.location.href));
 	});
 	// add product
