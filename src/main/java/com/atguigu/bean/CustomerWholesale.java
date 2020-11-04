@@ -10,7 +10,7 @@ public class CustomerWholesale {
     
     private String wholesaleCustomerTelephone;//telephone
 
-    private String wholesaleCustomerCountry;
+    private String wholesaleCustomerCountry;//Country
 
     private String wholesaleCustomerWatsapp;
 
