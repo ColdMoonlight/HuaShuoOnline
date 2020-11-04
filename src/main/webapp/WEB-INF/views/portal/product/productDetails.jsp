@@ -10,7 +10,7 @@
 </c:choose>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
     <meta name="keyword" content="${sessionScope.mlbackProductMetaKeyWords}">
-    <meta name="description" content="${sessionScope.mlbackProductMeteDesc}">
+    <meta id="ml-des" name="description" content="${sessionScope.mlbackProductMeteDesc}">
 	<script>
 		var productId = '${sessionScope.productDetailId}';
 		var productSeo;
