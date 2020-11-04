@@ -12,12 +12,11 @@
 					<div style="margin-top:6px;">My New Look </div>
 				</div>
 				<ul class="follow-us-list">
-					<li class="follow-icon facebook" title="megalook facebook"><a href="https://www.facebook.com/MegalookHairCompany/"></a></li>
-					<li class="follow-icon instagram" title="megalook instagram"><a href="https://www.instagram.com/megalookhair/"></a></li>
-					<li class="follow-icon pinterest" title="megalook pinterest"><a href="https://www.pinterest.com/amegalook/"></a>
-					</li>
-					<li class="follow-icon snapchat" title="megalook snapchat"><a href="https://www.snapchat.com/add/megalook-hair"></a></li>
+					<li class="follow-icon instagram" title="megalook instagram"><a href="https://www.instagram.com/megalookhair1/"></a></li>
 					<li class="follow-icon youtube" title="megablook youtube"><a href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber"></a></li>
+					<li class="follow-icon facebook" title="megalook facebook"><a href="https://www.facebook.com/MegalookHairCompany/"></a></li>
+					<li class="follow-icon pinterest" title="megalook pinterest"><a href="https://www.pinterest.com/amegalook/"></a></li>
+					<li class="follow-icon snapchat" title="megalook snapchat"><a href="https://www.snapchat.com/add/megalook-hair"></a></li>
 				</ul>
 			</div>
 			<div class="footer-nav pc-footer"></div>
