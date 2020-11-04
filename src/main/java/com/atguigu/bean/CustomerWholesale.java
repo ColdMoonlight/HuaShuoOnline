@@ -8,7 +8,7 @@ public class CustomerWholesale {
 
     private String wholesaleCustomerEmail;
     
-    private String wholesaleCustomerTelephone;//tel
+    private String wholesaleCustomerTelephone;//telephone
 
     private String wholesaleCustomerCountry;
 

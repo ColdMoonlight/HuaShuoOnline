@@ -67,10 +67,14 @@ public class CustomerWholesaleController {
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody CustomerWholesale customerWholesale){
 		//接受参数信息
 		System.out.println("customerWholesale:"+customerWholesale);
+		String wholesaleMessage = customerWholesale.getWholesaleCustomerMessage();
+		System.out.println("wholesaleMessage:"+wholesaleMessage);
+		String afterMessage = wholesaleMessage.replaceAll("[^\\u0000-\\uFFFF]", "");
 		//取出id
 		Integer wholesaleId = customerWholesale.getWholesaleId();
 		String nowTime = DateUtil.strTime14s();
 		customerWholesale.setWholesaleMotifytime(nowTime);
+		customerWholesale.setWholesaleCustomerMessage(afterMessage);
 		if(wholesaleId==null){
 			//无id,insert
 			customerWholesale.setWholesaleCreatetime(nowTime);
