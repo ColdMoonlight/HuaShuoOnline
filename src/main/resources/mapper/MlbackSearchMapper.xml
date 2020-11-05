@@ -85,4 +85,12 @@
     </set>
     where search_id = #{searchId,jdbcType=INTEGER}
   </update>
+  
+  <!-- selectSearchListByTime -->
+  <select id="selectSearchListByTime" parameterType="com.atguigu.bean.MlbackSearch" resultMap="BaseResultMap">
+    select search_id, search_content 
+    from tb_mlback_search
+    where search_createTime between #{searchCreatetime,jdbcType=VARCHAR} and #{searchMotifytime,jdbcType=VARCHAR} 
+  </select>
+  
 </mapper>

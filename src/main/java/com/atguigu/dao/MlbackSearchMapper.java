@@ -1,5 +1,6 @@
 package com.atguigu.dao;
 
+import java.util.List;
 import com.atguigu.bean.MlbackSearch;
 
 public interface MlbackSearchMapper {
@@ -14,4 +15,6 @@ public interface MlbackSearchMapper {
     int updateByPrimaryKeySelective(MlbackSearch record);
 
     int updateByPrimaryKey(MlbackSearch record);
+
+	List<MlbackSearch> selectSearchListByTime(MlbackSearch mlbackSearch);
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.atguigu.bean.MlbackAddCheakoutViewDetail;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.UrlCount;
@@ -43,6 +45,25 @@ public class MlbackSearchController {
 	}
 	
 	/**2.0	zsh201104
+	 * 计数MlbackAddCheakoutViewDetailByTime
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/getSearchListByTime",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getSearchListByTime(HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
+		
+		String starttime = mlbackSearch.getSearchCreatetime();
+		String endtime = mlbackSearch.getSearchMotifytime();
+		MlbackSearch mlbackSearchreq = new MlbackSearch();
+		mlbackSearchreq.setSearchCreatetime(starttime);
+		mlbackSearchreq.setSearchMotifytime(endtime);
+		List<MlbackSearch> mlbackSearchList = mlbackSearchService.selectSearchListByTime(mlbackSearchreq);
+		Integer toDayNum = mlbackSearchList.size();
+		return Msg.success().add("toDayNum", toDayNum);
+	}
+	
+	/**3.0	zsh201104
 	 * 分类MlbackSearch列表list数据
 	 * @param	MlbackSearch
 	 * @return
