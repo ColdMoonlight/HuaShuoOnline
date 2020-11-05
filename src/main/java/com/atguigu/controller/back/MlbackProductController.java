@@ -18,6 +18,7 @@ import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackProductImg;
+import com.atguigu.bean.MlbackSearch;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
@@ -26,6 +27,7 @@ import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackProductImgService;
 import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlbackSearchService;
 import com.atguigu.service.MlbackSuperCateService;
 import com.atguigu.utils.DateUtil;
 
@@ -47,6 +49,9 @@ public class MlbackProductController {
 	
 	@Autowired
 	MlbackProductImgService mlbackProductImgService;
+	
+	@Autowired
+	MlbackSearchService mlbackSearchService;
 	
 	/**
 	 * 1.0	20200608
@@ -486,6 +491,12 @@ public class MlbackProductController {
 	 @ResponseBody
 	 public Msg searchProductLike(@RequestParam(value = "productName") String productName){
 	  //接受信息
+	  //客户搜索记录
+	  MlbackSearch mlbackSearchReq = new MlbackSearch();
+	  mlbackSearchReq.setSearchContent(productName);
+	  mlbackSearchService.insertSelective(mlbackSearchReq);
+	  System.out.println("客户搜索的内容,mlbackSearchReq:"+mlbackSearchReq.toString());
+	  //执行搜索
 	  MlbackProduct mlbackProductReq = new MlbackProduct();
 	  mlbackProductReq.setProductName(productName);
 	  //System.out.println("操作说明:客户搜索的产品名字productName:"+productName);
