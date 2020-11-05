@@ -44,7 +44,7 @@
   </update>
   
   <!-- insertSelective -->
-  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="showareaId" parameterType="com.atguigu.bean.MlbackShowArea">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="showareaId" parameterType="com.atguigu.bean.MlbackShowArea">
     insert into tb_mlback_showarea
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="showareaId != null">

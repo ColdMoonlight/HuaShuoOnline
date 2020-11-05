@@ -24,4 +24,12 @@
 	GROUP BY addcheakoutviewDetail_proseo ORDER BY COUNT(addcheakoutviewDetail_proseo) DESC
   </select>
   
+  <!-- selectSearchUrlCountByTime使用中 -->
+  <select id="selectSearchUrlCountByTime" parameterType="com.atguigu.bean.UrlCount" resultMap="UrlCountResultMap">
+	SELECT search_content as url_string , COUNT(search_content) as url_string_num
+	from tb_mlback_search 
+	WHERE search_createTime BETWEEN #{searchStartTime,jdbcType=VARCHAR} and #{searchEndTime,jdbcType=VARCHAR} 
+	GROUP BY search_content ORDER BY COUNT(search_content) DESC
+  </select>
+  
 </mapper>
