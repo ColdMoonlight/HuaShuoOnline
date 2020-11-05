@@ -462,7 +462,6 @@ public class MlbackProductController {
 		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("mlbackProductOne", mlbackProductOne);
 	}
 	
-	
 	/**
 	 * 10	zsh200721
 	 * 前台移动端获取详情页面mfront/productDetails
@@ -494,6 +493,9 @@ public class MlbackProductController {
 	  //客户搜索记录
 	  MlbackSearch mlbackSearchReq = new MlbackSearch();
 	  mlbackSearchReq.setSearchContent(productName);
+	  String nowTime = DateUtil.strTime14s();
+	  mlbackSearchReq.setSearchCreatetime(nowTime);
+	  mlbackSearchReq.setSearchMotifytime(nowTime);
 	  mlbackSearchService.insertSelective(mlbackSearchReq);
 	  System.out.println("客户搜索的内容,mlbackSearchReq:"+mlbackSearchReq.toString());
 	  //执行搜索
