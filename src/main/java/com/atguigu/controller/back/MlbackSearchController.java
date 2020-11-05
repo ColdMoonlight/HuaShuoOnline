@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.atguigu.bean.MlbackAddCartViewDetail;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.UrlCount;
 import com.atguigu.common.Msg;
-import com.atguigu.service.MlbackAddCartViewDetailService;
+import com.atguigu.service.MlbackSearchService;
 import com.atguigu.service.UrlCountService;
 
 @Controller
@@ -20,65 +20,44 @@ import com.atguigu.service.UrlCountService;
 public class MlbackSearchController {
 	
 	@Autowired
-	MlbackAddCartViewDetailService mlbackAddCartViewDetailService;
+	MlbackSearchService mlbackSearchService;
 	
 	@Autowired
 	UrlCountService urlCountService;
 		
 	/**
-	 * 1.0	zsh200804
-	 * toMlbackActShowPro列表页面
+	 * 1.0	zsh201104
+	 * toMlbackSearch列表页面
 	 * @return jsp
 	 * */
-	@RequestMapping("/toMlbackAddCartViewDetailPage")
-	public String tologin(HttpSession session) throws Exception{
+	@RequestMapping("/toMlbackSearchDetailPage")
+	public String toMlbackSearchDetailPage(HttpSession session) throws Exception{
 	
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		if(mlbackAdmin==null){
 			//mlbackAdmin对象为空
 			return "back/mlbackAdminLogin";
 		}else{
-			return "back/report/mlbackAddCartViewDetailPage";
+			return "back/report/mlbackSearchDetailPage";
 		}
 	}
 	
-	/**3.0	zsh200804
-	 * 分类MlbackActShowPro列表分页list数据
-	 * @param pn
+	/**2.0	zsh201104
+	 * 分类MlbackSearch列表list数据
+	 * @param	MlbackSearch
 	 * @return
 	 */
-	@RequestMapping(value="/getAddCartViewDetailNumByTimeAndActnum",method=RequestMethod.POST)
+	@RequestMapping(value="/getSearchUrlCountList",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getAddCartViewDetailNum(HttpSession session,@RequestBody MlbackAddCartViewDetail mlbackAddCartViewDetail) {
+	public Msg getSearchUrlCountList(HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
 		
-		String starttime = mlbackAddCartViewDetail.getAddcartviewdetailCreatetime();
-		String endtime = mlbackAddCartViewDetail.getAddcartviewdetailMotifytime();
-		Integer cartviewdetailActnum = mlbackAddCartViewDetail.getAddcartviewdetailActnum();
-		MlbackAddCartViewDetail mlbackAddCartViewDetailreq = new MlbackAddCartViewDetail();
-		mlbackAddCartViewDetailreq.setAddcartviewdetailCreatetime(starttime);
-		mlbackAddCartViewDetailreq.setAddcartviewdetailMotifytime(endtime);
-		mlbackAddCartViewDetailreq.setAddcartviewdetailActnum(cartviewdetailActnum);
-		List<MlbackAddCartViewDetail> mlbackAddCartViewDetailList = mlbackAddCartViewDetailService.selectMlbackAddCartViewDetailByTimeAndActnum(mlbackAddCartViewDetailreq);
-		Integer toDayNum = mlbackAddCartViewDetailList.size();
-		return Msg.success().add("toDayNum", toDayNum);
-	}
-	
-	/**4.0	zsh200804
-	 * 分类getAddCartViewDetailList列表list数据
-	 * @paramMlbackAddCartViewDetail
-	 * @return
-	 */
-	@RequestMapping(value="/getAddCartViewUrlCountList",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg getAddCartViewUrlCountList(HttpSession session,@RequestBody MlbackAddCartViewDetail mlbackAddCartViewDetail) {
-		
-		String starttime = mlbackAddCartViewDetail.getAddcartviewdetailCreatetime();
-		String endtime = mlbackAddCartViewDetail.getAddcartviewdetailMotifytime();
+		String starttime = mlbackSearch.getSearchCreatetime();
+		String endtime = mlbackSearch.getSearchMotifytime();
 		UrlCount urlCountReq = new UrlCount();
 		urlCountReq.setSearchStartTime(starttime);
 		urlCountReq.setSearchEndTime(endtime);
 		
-		List<UrlCount> urlCountList = urlCountService.selectCartUrlCountByTime(urlCountReq);
+		List<UrlCount> urlCountList = urlCountService.selectSearchUrlCountByTime(urlCountReq);
 		
 		return Msg.success().add("urlCountList", urlCountList);
 	}
