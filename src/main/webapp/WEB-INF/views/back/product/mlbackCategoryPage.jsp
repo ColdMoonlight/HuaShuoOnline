@@ -120,7 +120,7 @@
 											</label>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group hide">
 										<label class="col-form-label" for="categoryLable">Label</label>
 										<div class="controls">
 											<select class="form-control" id="categoryLable" />

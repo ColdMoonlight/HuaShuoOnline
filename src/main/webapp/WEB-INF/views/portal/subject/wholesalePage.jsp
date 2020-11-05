@@ -246,6 +246,7 @@
 			rootMargin: "10px",
 			threshold: 0
 		});
+		
 	</script>
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer.jsp" flush="true"></jsp:include>

@@ -129,6 +129,30 @@
 		<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 		<script type="text/javascript" src="${APP_PATH}/static/back/lib/echarts/echarts.min.js"></script>
 		<script>
+			/* get Search data */
+			function getSearchUserData(callback) {
+				$.ajax({
+					url: "${APP_PATH}/MlbackSearch/getSearchListByTime",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify({
+						'searchCreatetime': $('#search-create-time').val(),
+						'searchMotifytime': $('#search-confirm-time').val()
+					}),
+					async: false,
+					success: function (data) {
+						if (data.code == 100) {
+							callback && callback(data.extend.toDayNum);
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function () {
+						toastr.error('Failed to get Search-data, please refresh the page to get again！');
+					}
+				});
+			}
 			/* get statics data */
 			function getStaticsUserData(callback) {
 				$.ajax({
@@ -548,12 +572,16 @@
 				var checkoutNum = 0;
 				var checkoutNum2 = 0;
 				var coversionRate = 0;
+				var search =  0 ;	
 				var mapRate = {
 						'add-to-cart': 0.00,
 						'buy-now': 0.00,
 						'checkout': 0.00,
 						'checkout2': 0.00
 					};
+				getSearchUserData (function(data){
+					search = data;
+				})	
 				getStaticsOrderConversionData(0, function(data) {
 					addToCartNum = data;
 				});
@@ -620,6 +648,12 @@
 						'<span class="name">conversion Rate</span>' +
 						'<span class="num">'+ totalPayinfoNum +' sessions</span>' +
 						'<span class="rate">'+ coversionRate +'%</span>' +
+					'</div>' +
+					'<div class="order-conversion-item">'+
+						'<span class="name">Search</span>' +
+						'<span class="num">'+ search +' sessions</span>' +
+						// '<span class="rate">'+ (mapRate["checkout"] + mapRate["checkout2"]).toFixed(2) +'%</span>' +
+						'<a class="view-report" href="${APP_PATH}/MlbackSearch/toMlbackSearchDetailPage">View Report</a>' +
 					'</div>';
 				$('#order-conversion').html(htmlStr).parents('.card').find('.card-mask').hide();
 				$('.order-conversion-rate').text(coversionRate + '%');
