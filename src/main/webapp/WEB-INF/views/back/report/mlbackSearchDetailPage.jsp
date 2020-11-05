@@ -79,11 +79,11 @@
 			var startTime = $('#search-cart-create-time').val() || (ymd + ' 00:00:00');
 			var endTime = $('#search-cart-confirm-time').val() || (ymd + ' 23:59:59');
 			$.ajax({
-				url: "${APP_PATH}/MlbackAddCartViewDetail/getAddCartViewUrlCountList",
+				url: "${APP_PATH}/MlbackSearch/getSearchUrlCountList",
 				type: "post",
 				data: JSON.stringify({
-					'addcartviewdetailCreatetime': startTime,
-					'addcartviewdetailMotifytime': endTime
+					'searchCreatetime': startTime,
+					'searchMotifytime': endTime
 				}),
 				dataType: "json",
 				contentType: 'application/json',
@@ -96,7 +96,7 @@
 					}
 				},
 				error: function (err) {
-					toastr.error('Failed to get add-to-cart data, please refresh the page to get again！');
+					toastr.error('Failed to get  search data, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
