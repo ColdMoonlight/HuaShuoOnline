@@ -6,6 +6,8 @@
 <meta name="msvalidate.01" content="5490B8CBC84E3C9D7F95D2FE93A263BC" /> -->
 <!-- google-site-verification 徐验证所需 声明网站
 <meta name="google-site-verification" content="SAL4KVmok7Gucsll1buOMRYO2RQVPPNdF163maxOVSU" /> -->
+<!-- pinterest 认证
+<meta name="p:domain_verify" content="3e915d33b453f7bbe46ef399876e0406"/> -->
 <!-- icon -->
 <link rel="icon" sizes="120x120" href="${APP_PATH }/static/apple/micon1.png">
 <link rel="apple-touch-icon" sizes="120x120" href="${APP_PATH }/static/apple/micon1.png">
