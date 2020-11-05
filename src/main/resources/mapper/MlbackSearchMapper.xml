@@ -16,17 +16,24 @@
     from tb_mlback_search
     where search_id = #{searchId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_mlback_search
-    where search_id = #{searchId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.atguigu.bean.MlbackSearch">
     insert into tb_mlback_search (search_id, search_content, search_createTime, 
       search_motifyTime)
     values (#{searchId,jdbcType=INTEGER}, #{searchContent,jdbcType=VARCHAR}, #{searchCreatetime,jdbcType=VARCHAR}, 
       #{searchMotifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlbackSearch">
+  
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackSearch">
+    update tb_mlback_search
+    set search_content = #{searchContent,jdbcType=VARCHAR},
+      search_createTime = #{searchCreatetime,jdbcType=VARCHAR},
+      search_motifyTime = #{searchMotifytime,jdbcType=VARCHAR}
+    where search_id = #{searchId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="searchId" parameterType="com.atguigu.bean.MlbackSearch">
     insert into tb_mlback_search
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="searchId != null">
@@ -57,6 +64,12 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->
+ <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlback_search
+    where search_id = #{searchId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackSearch">
     update tb_mlback_search
     <set>
@@ -70,13 +83,6 @@
         search_motifyTime = #{searchMotifytime,jdbcType=VARCHAR},
       </if>
     </set>
-    where search_id = #{searchId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackSearch">
-    update tb_mlback_search
-    set search_content = #{searchContent,jdbcType=VARCHAR},
-      search_createTime = #{searchCreatetime,jdbcType=VARCHAR},
-      search_motifyTime = #{searchMotifytime,jdbcType=VARCHAR}
     where search_id = #{searchId,jdbcType=INTEGER}
   </update>
 </mapper>

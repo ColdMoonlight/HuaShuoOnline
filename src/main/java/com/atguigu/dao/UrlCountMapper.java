@@ -8,5 +8,7 @@ public interface UrlCountMapper {
 	List<UrlCount> selectCartUrlCountByTime(UrlCount urlCountReq);
 
 	List<UrlCount> selectCheckoutUrlCountByTime(UrlCount urlCountReq);
+
+	List<UrlCount> selectSearchUrlCountByTime(UrlCount urlCountReq);
     
 }
