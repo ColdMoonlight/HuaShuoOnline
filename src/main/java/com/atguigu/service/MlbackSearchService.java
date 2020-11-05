@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.atguigu.bean.MlbackShowArea;
-import com.atguigu.dao.MlbackShowAreaMapper;
+import com.atguigu.bean.MlbackAddCheakoutViewDetail;
+import com.atguigu.bean.MlbackSearch;
+import com.atguigu.dao.MlbackSearchMapper;
 
 
 @Service
@@ -14,16 +15,16 @@ public class MlbackSearchService {
 	
 	
 	@Autowired
-	MlbackShowAreaMapper mlbackShowAreaMapper;
+	MlbackSearchMapper mlbackSearchMapper;
 
 	/**1
 	 * @author Shinelon
-	 * @param MlbackShowArea
+	 * @param MlbackSearch
 	 * @exception 查看全部的地址信息
 	 * 
 	 * */
-	public int insertSelective(MlbackShowArea mlbackShowArea) {
-		int intReslut = mlbackShowAreaMapper.insertSelective(mlbackShowArea);
+	public int insertSelective(MlbackSearch MlbackSearch) {
+		int intReslut = mlbackSearchMapper.insertSelective(MlbackSearch);
 		return intReslut;
 	}
 	
@@ -34,7 +35,7 @@ public class MlbackSearchService {
 	 * 
 	 * */
 	public int deleteByPrimaryKey(int showareaId) {
-		int  intReslut = mlbackShowAreaMapper.deleteByPrimaryKey(showareaId);
+		int  intReslut = mlbackSearchMapper.deleteByPrimaryKey(showareaId);
 		return intReslut;
 	}
 	
@@ -44,41 +45,19 @@ public class MlbackSearchService {
 	 * @param 
 	 * @exception 查看全部用户信息
 	 * */
-	public int updateByPrimaryKeySelective(MlbackShowArea mlbackShowArea) {
-		int  intReslut = mlbackShowAreaMapper.updateByPrimaryKeySelective(mlbackShowArea);
+	public int updateByPrimaryKeySelective(MlbackSearch MlbackSearch) {
+		int  intReslut = mlbackSearchMapper.updateByPrimaryKeySelective(MlbackSearch);
 		return intReslut;
 	}
 	
-	/**4
-	 * @author Shinelon
-	 * @param MlbackProduct
-	 * @exception add方法用户信息是否存在
-	 * */
-	public List<MlbackShowArea> selectMlbackShowAreaAll() {
-		List<MlbackShowArea>  mlbackShowAreaList = mlbackShowAreaMapper.selectMlbackShowAreaGetAll();
-		return mlbackShowAreaList;
-	}
-	
-	/**5
+	/**
 	 * @author Shinelon
 	 * @param 
-	 * @exception 查看全部用户信息
-	 * 
+	 * @exception 查看MlbackSearch信息
 	 * */
-	public List<MlbackShowArea> selectMlbackShowAreaById(MlbackShowArea mlbackShowArea) {
-		List<MlbackShowArea>  mlbackShowAreaList = mlbackShowAreaMapper.selectMlbackShowAreaById(mlbackShowArea);
-		return mlbackShowAreaList;
+	public List<MlbackSearch> selectSearchListByTime(MlbackSearch MlbackSearch) {
+		List<MlbackSearch>  mlbackSearchList = mlbackSearchMapper.selectSearchListByTime(MlbackSearch);
+		return mlbackSearchList;
 	}
-	/**5
-	 * @author Shinelon
-	 * @param 
-	 * @exception 查看全部用户信息
-	 * 
-	 * */
 
-	public List<MlbackShowArea> selectMlbackShowAreaByNumthAndStatus(MlbackShowArea mlbackShowArea) {
-		List<MlbackShowArea>  mlbackShowAreaList = mlbackShowAreaMapper.selectMlbackShowAreaByNumthAndStatus(mlbackShowArea);
-		return mlbackShowAreaList;
-	}
-	
 }
