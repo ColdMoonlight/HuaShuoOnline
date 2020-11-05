@@ -40,4 +40,23 @@ public class MlbackSearch {
     public void setSearchMotifytime(String searchMotifytime) {
         this.searchMotifytime = searchMotifytime == null ? null : searchMotifytime.trim();
     }
+    
+	public MlbackSearch() {
+		super();
+	}
+
+	public MlbackSearch(Integer searchId, String searchContent, String searchCreatetime, String searchMotifytime) {
+		super();
+		this.searchId = searchId;
+		this.searchContent = searchContent;
+		this.searchCreatetime = searchCreatetime;
+		this.searchMotifytime = searchMotifytime;
+	}
+
+	@Override
+	public String toString() {
+		return "MlbackSearch [searchId=" + searchId + ", searchContent=" + searchContent + ", searchCreatetime="
+				+ searchCreatetime + ", searchMotifytime=" + searchMotifytime + "]";
+	}
+    
 }
