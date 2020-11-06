@@ -56,6 +56,7 @@
 											<th>country</th>
 											<th>telephone</th>
 											<th>message</th>
+											<th>time</th>
 											<th>operate</th>
 										</tr>
 									</thead>
@@ -398,12 +399,14 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
+				var msg = data[i].wholesaleCustomerMessage;
 				htmlStr += '<tr><td>' + data[i].wholesaleId + '</td>' +
 					'<td>' + data[i].wholesaleCustomerName + '</td>' +
 					'<td>' + data[i].wholesaleCustomerEmail + '</td>' +
 					'<td>' + data[i].wholesaleCustomerCountry + '</td>' +
 					'<td>' + data[i].wholesaleCustomerTelephone + '</td>' +
-					'<td>' + data[i].wholesaleCustomerMessage + '</td>' +
+					'<td>' + (msg.length > 10 ? msg.substring(0, 10) + '...' : msg) + '</td>' +
+					'<td>' + data[i].wholesaleCreatetime + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-view" data-id="' + data[i].wholesaleId + '">' +
 							'<svg class="c-icon">' +
