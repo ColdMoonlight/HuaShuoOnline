@@ -83,12 +83,6 @@
 						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
 								<div class="card-body">
-									<!-- <div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerStatus">Customer Status</label>
-										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerStatus" type="text" />
-										</div>
-									</div> -->
 									<div class="form-group row">
 										<label class="col-md-3 col-form-label" for="wholesaleCustomerStatus">Status</label>
 										<div class="controls col-md-3">
@@ -97,8 +91,7 @@
 												<span class="c-switch-slider"></span>
 											</label>
 										</div>
-									</div>
-									
+									</div>									
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerName">Customer Name</label>
 										<div class="controls">
@@ -232,6 +225,16 @@
 				showViewBlock();
 			});
 		});
+		// save whole-sale
+		$('.c-view .btn-save').on('click', function () {
+			var reqData = getFormData();
+			saveWholeSaleData(reqData, function() {
+				showInitBlock();
+				updateSearchData();
+				console.log('xx')
+				$('#wholesaleId').val('');
+			});
+		});
 		// delete whole-sale
 		$(document.body).on('click', '.btn-delete', function (e) {
 			var wholeSaleId = parseInt($(this).data('id'));
@@ -254,6 +257,19 @@
 			$('#wholesaleCustomerCountry').val('');
 			$('#wholesaleCustomerTelephone').val('');
 			$('#wholesaleCustomerMessage').val('');
+			$('#wholesaleCustomerStatus').prop('checked', false);
+		}
+		// getFormdData
+		function getFormData() {
+			var data = {};
+			data.wholesaleId = parseInt($('#wholesaleId').val());
+			data.wholesaleCustomerName = $('#wholesaleCustomerName').val();
+			data.wholesaleCustomerEmail = $('#wholesaleCustomerEmail').val();
+			data.wholesaleCustomerCountry = $('#wholesaleCustomerCountry').val();
+			data.wholesaleCustomerTelephone = $('#wholesaleCustomerTelephone').val();
+			data.wholesaleCustomerMessage = $('#wholesaleCustomerMessage').val();
+			data.wholesaleCustomerStatus = $('#wholesaleCustomerStatus').prop('checked') ? 1 : 0;
+			return data;
 		}
 		// initFormData
 		function initFormData(data) {
@@ -263,7 +279,7 @@
 			$('#wholesaleCustomerCountry').val(data.wholesaleCustomerCountry);
 			$('#wholesaleCustomerTelephone').val(data.wholesaleCustomerTelephone);
 			$('#wholesaleCustomerMessage').val(data.wholesaleCustomerMessage);
-			$('#wholesaleCustomerStatus').val(data.wholesaleCustomerStatus);
+			$('#wholesaleCustomerStatus').prop('checked', (''+data.wholesaleCustomerStatus == '0' ? false : true));
 		}
 		// search status change
 		function updateSearchData() {
@@ -362,6 +378,31 @@
 				}
 			});
 		}
+		// callback save
+		function saveWholeSaleData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+		  		url: '${APP_PATH}/CustomerWholesale/save',
+		  		type: 'post',
+		  		dataType: 'json',
+		  		data: JSON.stringify(reqData),
+		  		contentType: 'application/json',
+		  		success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						callback && callback();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+		  		},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
 		// callback get one whole-sale data
 		function getOneWholesaleData(reqData, callback) {
 			$('.c-mask').show();
@@ -426,8 +467,7 @@
 					'<td>' + data[i].wholesaleCustomerTelephone + '</td>' +
 					'<td>' + (msg.length > 10 ? msg.substring(0, 10) + '...' : msg) + '</td>' +
 					'<td>' + data[i].wholesaleCreatetime + '</td>' +
-					// '<td>' + (data[i].wholesaleCustomerStatus ? 'Uncontacted' : 'Contacted') + '</td>' +,
-					'<td><a class="badge '+ (data[i].wholesaleCustomerStatus ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + (data[i].wholesaleCustomerStatus ? 'Uncontacted' : 'Contacted') + '</a></td>' +
+					'<td><a class="badge '+ ('' + data[i].wholesaleCustomerStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].wholesaleCustomerStatus == '0' ? 'Uncontacted' : 'Contacted') + '</a></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-view" data-id="' + data[i].wholesaleId + '">' +
 							'<svg class="c-icon">' +
