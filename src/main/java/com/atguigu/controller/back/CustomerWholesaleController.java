@@ -50,7 +50,8 @@ public class CustomerWholesaleController {
 	@ResponseBody
 	public Msg getCustomerWholesaleByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
 
-		int PagNum = Const.PAGE_NUM_CATEGORY;
+		//int PagNum = Const.PAGE_NUM_CATEGORY;
+		int PagNum = 5;
 		PageHelper.startPage(pn, PagNum);
 		List<CustomerWholesale> customerWholesaleList = customerWholesaleService.selectMenuCustomerWholesaleGetAll();
 		PageInfo page = new PageInfo(customerWholesaleList, PagNum);
