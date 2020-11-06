@@ -20,7 +20,6 @@ import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackAreafreightService;
 import com.atguigu.utils.DateUtil;
 
-
 @Controller
 @RequestMapping("/MlbackAreafreight")
 public class MlbackAreafreightController {
@@ -45,7 +44,7 @@ public class MlbackAreafreightController {
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";
 		}else{
-			return "back/mlbackAreafreightPage";
+			return "back/operate/mlbackAreafreightPage";
 		}
 	}
 	
