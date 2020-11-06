@@ -15,6 +15,8 @@ public class CustomerWholesale {
     private String wholesaleCustomerWatsapp;
 
     private String wholesaleCustomerMessage;
+    
+    private String wholesaleCustomerStatus;
 
     private String wholesaleCreatetime;
 
@@ -91,6 +93,14 @@ public class CustomerWholesale {
     public void setWholesaleMotifytime(String wholesaleMotifytime) {
         this.wholesaleMotifytime = wholesaleMotifytime == null ? null : wholesaleMotifytime.trim();
     }
+    
+	public String getWholesaleCustomerStatus() {
+		return wholesaleCustomerStatus;
+	}
+
+	public void setWholesaleCustomerStatus(String wholesaleCustomerStatus) {
+		this.wholesaleCustomerStatus = wholesaleCustomerStatus == null ? null : wholesaleCustomerStatus.trim();
+	}
 
 	public CustomerWholesale() {
 		super();
@@ -98,7 +108,8 @@ public class CustomerWholesale {
 
 	public CustomerWholesale(Integer wholesaleId, String wholesaleCustomerName, String wholesaleCustomerEmail,
 			String wholesaleCustomerTelephone, String wholesaleCustomerCountry, String wholesaleCustomerWatsapp,
-			String wholesaleCustomerMessage, String wholesaleCreatetime, String wholesaleMotifytime) {
+			String wholesaleCustomerMessage, String wholesaleCustomerStatus, String wholesaleCreatetime,
+			String wholesaleMotifytime) {
 		super();
 		this.wholesaleId = wholesaleId;
 		this.wholesaleCustomerName = wholesaleCustomerName;
@@ -107,6 +118,7 @@ public class CustomerWholesale {
 		this.wholesaleCustomerCountry = wholesaleCustomerCountry;
 		this.wholesaleCustomerWatsapp = wholesaleCustomerWatsapp;
 		this.wholesaleCustomerMessage = wholesaleCustomerMessage;
+		this.wholesaleCustomerStatus = wholesaleCustomerStatus;
 		this.wholesaleCreatetime = wholesaleCreatetime;
 		this.wholesaleMotifytime = wholesaleMotifytime;
 	}
@@ -117,8 +129,8 @@ public class CustomerWholesale {
 				+ ", wholesaleCustomerEmail=" + wholesaleCustomerEmail + ", wholesaleCustomerTelephone="
 				+ wholesaleCustomerTelephone + ", wholesaleCustomerCountry=" + wholesaleCustomerCountry
 				+ ", wholesaleCustomerWatsapp=" + wholesaleCustomerWatsapp + ", wholesaleCustomerMessage="
-				+ wholesaleCustomerMessage + ", wholesaleCreatetime=" + wholesaleCreatetime + ", wholesaleMotifytime="
-				+ wholesaleMotifytime + "]";
+				+ wholesaleCustomerMessage + ", wholesaleCustomerStatus=" + wholesaleCustomerStatus
+				+ ", wholesaleCreatetime=" + wholesaleCreatetime + ", wholesaleMotifytime=" + wholesaleMotifytime + "]";
 	}
 
 }
