@@ -57,6 +57,7 @@
 											<th>telephone</th>
 											<th>message</th>
 											<th>time</th>
+											<th>customerStatus</th>
 											<th>operate</th>
 										</tr>
 									</thead>
@@ -73,6 +74,7 @@
 						<span class="c-option-title">View Whole-sale</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-back">Back</button>
+							<button class="btn btn-primary btn-save">Save</button>
 						</div>
 					</div>
 					<div class="c-form row">
@@ -81,6 +83,22 @@
 						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
 								<div class="card-body">
+									<!-- <div class="form-group">
+										<label class="col-form-label" for="wholesaleCustomerStatus">Customer Status</label>
+										<div class="controls">
+											<input class="form-control" id="wholesaleCustomerStatus" type="text" />
+										</div>
+									</div> -->
+									<div class="form-group row">
+										<label class="col-md-3 col-form-label" for="wholesaleCustomerStatus">Status</label>
+										<div class="controls col-md-3">
+											<label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="wholesaleCustomerStatus" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
+										</div>
+									</div>
+									
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerName">Customer Name</label>
 										<div class="controls">
@@ -245,6 +263,7 @@
 			$('#wholesaleCustomerCountry').val(data.wholesaleCustomerCountry);
 			$('#wholesaleCustomerTelephone').val(data.wholesaleCustomerTelephone);
 			$('#wholesaleCustomerMessage').val(data.wholesaleCustomerMessage);
+			$('#wholesaleCustomerStatus').val(data.wholesaleCustomerStatus);
 		}
 		// search status change
 		function updateSearchData() {
@@ -407,6 +426,8 @@
 					'<td>' + data[i].wholesaleCustomerTelephone + '</td>' +
 					'<td>' + (msg.length > 10 ? msg.substring(0, 10) + '...' : msg) + '</td>' +
 					'<td>' + data[i].wholesaleCreatetime + '</td>' +
+					// '<td>' + (data[i].wholesaleCustomerStatus ? 'Uncontacted' : 'Contacted') + '</td>' +,
+					'<td><a class="badge '+ (data[i].wholesaleCustomerStatus ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + (data[i].wholesaleCustomerStatus ? 'Uncontacted' : 'Contacted') + '</a></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-view" data-id="' + data[i].wholesaleId + '">' +
 							'<svg class="c-icon">' +
