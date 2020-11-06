@@ -20,7 +20,6 @@ import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackAreafreightService;
 import com.atguigu.utils.DateUtil;
 
-
 @Controller
 @RequestMapping("/MlbackAreafreight")
 public class MlbackAreafreightController {
@@ -42,14 +41,14 @@ public class MlbackAreafreightController {
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		if(mlbackAdmin==null){
-			//SysUsers对象为空
+			//MlbackAdmin对象为空
 			return "back/mlbackAdminLogin";
 		}else{
-			return "back/mlbackAreafreightPage";
+			return "back/operate/mlbackAreafreightPage";
 		}
 	}
 	
-	/**2.0	onuse	20191225	检查
+	/**2.0	zsh20191225
 	 * 分类MlbackAreafreight列表分页list数据
 	 * @param pn
 	 * @return
@@ -63,7 +62,7 @@ public class MlbackAreafreightController {
 //			//SysUsers对象为空
 //			return Msg.fail().add("resMsg", "session中adminuser对象为空");
 //		}else{
-			int PagNum = 20;
+			int PagNum = 50;
 			PageHelper.startPage(pn, PagNum);
 			List<MlbackAreafreight> mlbackAreafreightList = mlbackAreafreightService.selectMlbackAreafreightAll();
 			PageInfo page = new PageInfo(mlbackAreafreightList, PagNum);

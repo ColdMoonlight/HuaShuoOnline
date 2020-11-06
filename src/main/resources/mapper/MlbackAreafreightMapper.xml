@@ -99,7 +99,7 @@
     </set>
     where areafreight_id = #{areafreightId,jdbcType=INTEGER}
   </update>
-  <!-- selectMlbackCouponByConditionS使用中 -->
+  <!-- selectMlbackAreafreightByParam使用中 -->
   <select id="selectMlbackAreafreightByParam" parameterType="com.atguigu.bean.MlbackAreafreight" resultMap="BaseResultMap">
     select *
     from tb_mlback_areafreight where areafreight_status>=0 
@@ -115,5 +115,11 @@
       <if test="areafreightId != null">
         and areafreight_id = #{areafreightId,jdbcType=INTEGER}
       </if>
+  </select>
+  <!-- selectMlbackAreafreightGetAll使用中 -->
+  <select id="selectMlbackAreafreightGetAll" parameterType="com.atguigu.bean.MlbackAreafreight" resultMap="BaseResultMap">
+    select 
+    areafreight_id, areafreight_country_code,areafreight_country, areafreight_price, areafreight_status 
+    from tb_mlback_areafreight order by areafreight_country
   </select>
 </mapper>
