@@ -48,7 +48,7 @@ public class MlbackAreafreightController {
 		}
 	}
 	
-	/**2.0	onuse	20191225	检查
+	/**2.0	zsh20191225
 	 * 分类MlbackAreafreight列表分页list数据
 	 * @param pn
 	 * @return
