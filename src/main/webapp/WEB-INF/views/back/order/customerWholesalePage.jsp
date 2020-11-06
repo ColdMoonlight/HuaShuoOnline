@@ -231,7 +231,6 @@
 			saveWholeSaleData(reqData, function() {
 				showInitBlock();
 				updateSearchData();
-				console.log('xx')
 				$('#wholesaleId').val('');
 			});
 		});
