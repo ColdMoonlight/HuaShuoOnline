@@ -16,7 +16,7 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Add To Cart</span>
+						<span class="c-option-title">Search - List</span>
 						<div class="group">
 							<a href="${APP_PATH}/BackHome/BackHomePage" class="btn btn-secondary btn-back">Back</a>
 						</div>
@@ -29,8 +29,8 @@
 								</svg>
 							</label>
 							<div class="controls">
-								<input hidden id="search-checkout-create-time" />
-								<input hidden id="search-checkout-confirm-time" />
+								<input hidden id="search-create-time" />
+								<input hidden id="search-confirm-time" />
 								<input class="form-control daterangetimepicker" id="search-checkout-time" type="text" />
 							</div>
 						</div>
@@ -66,9 +66,10 @@
 	<script>
 		// init 
 		bindDateRangeEvent(function(startTime, endTime) {
-			$('#search-cart-create-time').val(startTime);
-			$('#search-cart-confirm-time').val(endTime);
+			$('#search-create-time').val(startTime);
+			$('#search-confirm-time').val(endTime);
 			getCartsData(renderTable);
+			
 		});
 		getCartsData(renderTable);
 		//  callback get all
@@ -76,8 +77,8 @@
 			$('.c-mask').show();
 			var date = new Date();
 			var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-			var startTime = $('#search-cart-create-time').val() || (ymd + ' 00:00:00');
-			var endTime = $('#search-cart-confirm-time').val() || (ymd + ' 23:59:59');
+			var startTime = $('#search-create-time').val() || (ymd + ' 00:00:00');
+			var endTime = $('#search-confirm-time').val() || (ymd + ' 23:59:59');
 			$.ajax({
 				url: "${APP_PATH}/MlbackSearch/getSearchUrlCountList",
 				type: "post",
