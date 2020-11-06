@@ -41,7 +41,7 @@ public class MlbackAreafreightController {
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		if(mlbackAdmin==null){
-			//SysUsers对象为空
+			//MlbackAdmin对象为空
 			return "back/mlbackAdminLogin";
 		}else{
 			return "back/operate/mlbackAreafreightPage";
