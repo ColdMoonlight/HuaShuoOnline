@@ -176,9 +176,9 @@
 					   Fans around the world shared their love of Megalook hair through YouTube, Facebook, Instagram and many other social media platforms.  We are so grateful for our fans! <br /><br /><br />
 					   To service our customer base to the highest quality possible, we Update our hair many times,Megalook, My New Look!<br /><br />
 					   </div>
-					   <div class="wholesale-large_right clearfix"><img src="${APP_PATH }/static/pc/img/wh/yc.jpg" /></div>
+					   <div class="wholesale-large_right clearfix"><img src="${APP_PATH }/static/pc/img/wh/rttp.jpg" /></div>
 		           </div>
-		           <p><img src="${APP_PATH }/static/pc/img/wh/db.jpg" /></p>
+		           <p><img src="${APP_PATH }/static/pc/img/wh/dbtp.jpg" /></p>
 		       </div>	
 		</div>
 	<!-- main end -->
