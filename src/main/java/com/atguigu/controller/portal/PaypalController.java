@@ -109,12 +109,6 @@ public class PaypalController {
         
         String PaypalErrorName="";
         List<ErrorDetails> paypalErrorList= null;
-//        PaypalErrorName = (String) session.getAttribute("PaypalErrorName");
-//        if(("").equals(PaypalErrorName)){
-//        	System.out.println("这是初始化的PaypalErrorName ： "+PaypalErrorName+" .");
-//        }else{
-//        	session.removeAttribute("PaypalErrorName");
-//        }
         try {
             payment = paypalService.createPayment(
             		moneyDouble,// 888.00, 
@@ -143,7 +137,6 @@ public class PaypalController {
             System.out.println("---------e.getMessage()------end-------");
             System.out.println("---------e.getDetails()-----begin------");
             System.out.println(e.getDetails());
-            //PaypalErrorUtil.getPaypalError(e.getDetails());
             if(e.getDetails()==null){
             	PaypalErrorName = "retry fails..  check log for more information";
             }else{
@@ -154,17 +147,17 @@ public class PaypalController {
             		PaypalErrorName = e.getDetails().getName()+" city,state,zip 不匹配";
             	}else{
             		//看看是什么
-            		PaypalErrorName = paypalErrorList.get(0).getField()+" 不匹配";
+            		String errStr = paypalErrorList.get(0).getField();
+            		String errStrArr [] = errStr.split(".");
+            		Integer errLen = errStrArr.length;
+            		String lastStr = PaypalErrorName = errStrArr[errLen-1];
+            		
+            		PaypalErrorName = lastStr+" 不匹配";
             	}
             }
-//            session.setAttribute("PaypalErrorName", PaypalErrorName);
-//            String regularName ="";
-//            regularName+= " is not match";
-//            session.setAttribute("PaypalError", regularName);
             System.out.println("---------e.getDetails()------end------");
             return Msg.success().add("ifPaypalCheckSuccess", 2).add("errorDetail", PaypalErrorName);
         }
-        //return "redirect:/MlbackCart/toCheakOut";
         return Msg.success().add("ifPaypalCheckSuccess", 0).add("redirectUrl", "MlbackCart/toCheakOut");
     }
     
