@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.atguigu.bean.MlPaypalShipAddress;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
@@ -76,7 +78,8 @@ public class PaypalController {
      * 组装参数,WAP端发起真实的支付
      * paypal/mpay
      * */
-    @RequestMapping(method = RequestMethod.GET, value = "mpay")
+    @RequestMapping(method = RequestMethod.POST, value = "mpay")
+    @ResponseBody
     public Msg pay(HttpServletRequest request,HttpSession session){
     	
     	System.out.println("into**********/paypal/mpay**********");
