@@ -147,7 +147,12 @@ public class PaypalController {
             		PaypalErrorName = e.getDetails().getName()+" city,state,zip 不匹配";
             	}else{
             		//看看是什么
-            		PaypalErrorName = paypalErrorList.get(0).getField()+" 不匹配";
+            		String errStr = paypalErrorList.get(0).getField();
+            		String errStrArr [] = errStr.split(".");
+            		Integer errLen = errStrArr.length;
+            		String lastStr = PaypalErrorName = errStrArr[errLen-1];
+            		
+            		PaypalErrorName = lastStr+" 不匹配";
             	}
             }
             System.out.println("---------e.getDetails()------end------");
