@@ -4,9 +4,9 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>coupon list</title>
+	<title>Postage Set</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
+	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
 </head>
 <body class="c-app">
 	<jsp:include page="../layout/backheader.jsp" flush="true"></jsp:include>
@@ -16,8 +16,18 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Coupon list</span>
-						<button class="btn btn-primary btn-create">Create Coupon</button>
+						<span class="c-option-title">Postage list</span>
+						<!-- <button class="btn btn-primary btn-create">Create Whole-sale</button> -->
+					</div>
+					<div class="ecpp-sync row">
+						<div class="form-group col-md-4">
+							<div class="controls">
+								<input hidden id="wholesale-create-time" />
+								<input hidden id="wholesale-confirm-time" />
+								<input class="form-control daterangetimepicker" id="wholesale-time" type="text" />
+							</div>
+						</div>
+						
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -26,24 +36,25 @@
 							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
+							<div class="input-group c-search">
+								<svg class="c-icon">
+									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
+								</svg>
+								<div class="form-control">
+									<input id="customer-name" type="text" placeholder="Search Country" disabled>						
+									<select class="supercate-list" id="searchSupercate" disabled></select>
+								</div>
+								<a class="btn btn-primary input-group-addon btn-save-search" disabled>Save search</a>
+							</div>
 							<div class="c-table-table table-responsive-sm">
 								<table class="table">
 									<thead>
 										<tr>
-											<th>id</th>
-											<th>Name</th>
-											<th>couponCode</th>
-											<th>scope</th>
-											<th>couponType</th>
-											<th>couponPrice</th>
-											<th>couponPriceoff</th>
-											<th>Draw or no</th>
-											<th>Draw Image</th>
-											<th>Draw Weight</th>
-											<th>Product or no</th>
-											<th>product id/seo</th>
-											<th>state</th>
-											<th>operate</th>
+											<th>ID</th>
+											<th>Country-Code</th>
+											<th>Country- Name</th>
+											<th>Price</th>
+											<th>Operate</th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -53,182 +64,41 @@
 						</div>
 					</div>
 				</div>
-				
 				<!-- edit or create -->
-				<div class="c-create hide">
+				<div class="c-view hide">
 					<div class="c-option">
-						<span class="c-option-title">Edit Coupon</span>
+						<span class="c-option-title">View Country Price</span>
 						<div class="group">
-							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save Coupon</button>
+							<button class="btn btn-secondary btn-back">Back</button>
+							<button class="btn btn-primary btn-save">Save</button>
 						</div>
 					</div>
-					
 					<div class="c-form row">
-						<input id="couponId" hidden>
+						<input id="areafreightId" hidden>
 						<!-- left panel -->
 						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
 								<div class="card-body">
-									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="couponStatus">Status</label>
-										<div class="controls col-md-3">
-											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="couponStatus" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
+									<div class="form-group">
+										<label class="col-form-label" for="areafreightPrice">Price</label>
+										<div class="controls">
+											<input class="form-control" id="areafreightPrice" type="text" />
+										</div>
+									</div>							
+									<div class="form-group">
+										<label class="col-form-label" for="areafreightCountryCode">Country Code</label>
+										<div class="controls">
+											<input class="form-control" id="areafreightCountryCode" type="text" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="couponName">Coupon Name</label>
+										<label class="col-form-label" for="areafreightCountry">Country</label>
 										<div class="controls">
-											<input class="form-control" id="couponName" type="text" />
+											<input class="form-control" id="areafreightCountry" type="text"  />
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="couponPriceBaseline">Scope of application</label>
-										<div class="controls">
-											<input class="form-control" id="couponPriceBaseline" type="number" min="0" value="0" />
-										</div>
-									</div>
-									<div class="form-group choose_coup">
-										<label class="col-form-label" for="couponType">Coupon type</label>
-										<div class="controls">
-											<select class="form-control" id="couponType" />
-												<option value="0" selected="selected">0-Full decrement</option>
-												<option value="1">1-Discount volume</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group open_0">
-										<label class="col-form-label" for="couponPrice">Preferential strength</label>
-										<div class="controls">
-											<input class="form-control" id="couponPrice" type="number" min="0" value="0" />
-										</div>
-									</div>
-									<div class="form-group open_1">
-										<label class="col-form-label" for="couponPriceoff">Preferential percentage</label>
-										<div class="controls">
-											<select id="couponPriceoff" name="couponPriceOff" class="form-control">
-											   <option value="5" selected="selected">5%</option>
-											   <option value="6">6%</option>
-											   <option value="7">7%</option>
-											   <option value="8">8%</option>
-											   <option value="9">9%</option>
-											   <option value="10">10%</option>
-											   <option value="11">11%</option>
-											   <option value="12">12%</option>
-											   <option value="13">13%</option>
-											   <option value="14">14%</option>
-											   <option value="15">15%</option>
-											   <option value="16">16%</option>
-											   <option value="17">17%</option>
-											   <option value="18">18%</option>
-											   <option value="19">19%</option>
-											   <option value="20">20%</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="couponCode">Discount code:</label>
-										<div class="controls">
-											<input class="form-control" id="couponCode" type="text" />
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- lottery -->
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Lottery</div>
-								</div>
-								<div class="card-body">
-									<div class="form-group choose_draw">
-										<label class="col-form-label" for="couponLuckdrawType">Lottery draw</label>
-										<div class="controls">
-											<select class="form-control" id="couponLuckdrawType" />
-												<option value="0" selected="selected">0-Lottery not supported</option>
-												<option value="1">1-Support lottery</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group open_draw">
-										<label class="col-form-label" for="couponLuckdrawWeight">Draw weight ratio:</label>
-										<div class="controls">
-											<select name="couponLuckdrawWeight" id="couponLuckdrawWeight" class="form-control">
-											   <option value="0">0%</option>
-											   <option value="5">5%</option>
-											   <option value="10">10%</option>
-											   <option value="15">15%</option>
-											   <option value="20">20%</option>
-											   <option value="25">25%</option>
-											   <option value="30">30%</option>
-											   <option value="35">35%</option>
-											   <option value="40">40%</option>
-											   <option value="45">45%</option>
-											   <option value="50">50%</option>
-											   <option value="55">55%</option>
-											   <option value="60">60%</option>
-											   <option value="65">65%</option>
-											   <option value="70">70%</option>
-											   <option value="75">75%</option>
-											   <option value="80">80%</option>
-											   <option value="85">85%</option>
-											   <option value="90">90%</option>
-											   <option value="95">95%</option>
-											   <option value="100">100%</option>
-											</select>
-										</div>
-									</div>
-									<!-- image -->
-									<div>
-										<h4>Image</h4>
-										<div class="c-upload-img">
-											<svg class="c-icon">
-												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
-											</svg>
-											<div class="c-backshow"></div>						
-											<input id="couponImgUrl" type="file" accept="image/png, image/jpeg, image/gif" />										
-											<!-- spinner -->
-											<div class="spinner">
-												<div class="spinner-border" role="status" aria-hidden="true"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- right panel -->
-						<div class="right-panel col-lg-5 col-md-12">
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">Bind product or not</div>
-								</div>
-								<div class="card-body">
-									<div class="form-group choose_product">
-										<label class="col-form-label" for="couponProductonlyType">Bind product or not</label>
-										<div class="controls">
-											<select class="form-control" id="couponProductonlyType" />
-											<option value="0" selected="selected">no</option>
-											<option value="1">yes</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group open_product" style="display:none">
-										<label class="col-form-label" for="couponProductonlyPidstr">Product list </label>
-										<div class="controls">
-											<select class="form-control product-list" id="couponProductonlyPidstr" />
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<input id="couponStarttime" hidden type="text" />
-										<input id="couponEndtime" hidden type="text" />
-										<label for="couponTime" class="control-label">Range Time:</label>
-										<div class="controls">
-											<input type="text" class="form-control daterangetimepicker" id="couponTime" placeholder="example: 2020-08-01 00:00:00 - 2020-08-01 23:59:59">
-										</div>
-									</div>
+									
+									
 								</div>
 							</div>
 						</div>
@@ -244,291 +114,187 @@
 	</div>
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
+	
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
-	
 	<!-- custom script -->
 	<script>
-		var hasProductList = false;
-		var isCreate = false;
+		var hasSuperCateList = false;
+		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "whole-sale";
 		// init
-		getCollectionsData();
-		bindDateRangeEvent(function(startTime, endTime) {
-			$('#couponStarttime').val(startTime);
-			$('#couponEndtime').val(endTime);
+		var date = new Date();
+		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
+		// getPostageData();
+		$('#wholesale-create-time').val(ymd + ' 00:00:00');
+		$('#wholesale-confirm-time').val(ymd + ' 23:59:59');
+		bindDateRangeEvent(function(startTime, endTime, self) {
+			$('#wholesale-create-time').val(startTime);
+			$('#wholesale-confirm-time').val(endTime);		
 		});
+		renderTabItems();
+		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
+	 	$('#searchSupercate').val($('#searchSupercate').data('val') || -1);
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
-			getCollectionsData();
+			getTabSearchData($('.c-table-tab-item.active'));
+			// getPostageData();
 		});
-		// create collection
+		// create wholesale
 		$('.btn-create').on('click', function () {
-			$('.c-create c-option-title').text('Create Collection');
-			$(".open_product").hide();
-			$(".open_draw").hide();
-			$(".open_1").hide();
-			showCreateBlock();
-			resetFormData();
-			getCollectionId();
+			$('.c-view c-option-title').text('Create Whole-sale');
+			showViewBlock();
+			getareafreightId();
 			isCreate = true;
 		});
-		// edit collection
-		$(document.body).on('click', '.btn-edit', function (e) {
-			var couponId = parseInt($(this).data('id'));
-			getOneCollectionData({
-				couponId: couponId
+		$('.btn-back').on('click', function () {
+			$('.c-view c-option-title').text('Whole-sale List');
+			showInitBlock();
+			resetFormData();
+		});
+		// tab-item click
+		$(document.body).on('click', '.c-table-tab-item', function (e) {
+			$('.c-table-tab-item').removeClass('active');
+			$(this).addClass('active');
+			// inital pagination num
+			setPageNum(1);
+			setActiveItemNum($(this).data('idx'));
+			getTabSearchData($(this));
+		});
+		// tab delete
+		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
+		// save search
+		/* $('.btn-save-search').on('click', function () {
+			var searchWholesaleVal = {
+				supercateName: $('#searchSupercate').find('option:selected').text(),
+				areafreightId: $('#searchSupercate').val(),
+				customername: $('#customer-name').val()
+			};
+			// cancel repeat add save-search
+			if (checkNewItem(searchWholesaleVal)) return;
+			if (parseInt(searchWholesaleVal.areafreightId) < 0) searchWholesaleVal.supercateName = "";
+			if (searchWholesaleVal.areafreightId || searchWholesaleVal.customername) {
+				addStorageItem(searchWholesaleVal);
+				$('.c-table-tab-tempory').html('');
+				createTableTabItem(searchWholesaleVal);
+				addTableTabItem(searchWholesaleVal, $('.c-table-tab-item').length);
+			}
+		}); */
+		// search it
+		$('#searchSupercate').on('change', function() {
+			$(this).attr('data-val', $(this).val());
+			updateSearchData();
+		});
+		$('#customer-name').on('keyup', function() {
+			var distanceTime = 1000,
+				newTime =  (new Date()).getTime();
+			if (newTime - oldTime < 1000) clearTimeout(timer);
+			oldTime = newTime;
+			timer = setTimeout(function() {
+				updateSearchData();
+			}, distanceTime);
+		});
+		// View  whole-sale
+		$(document.body).on('click', '.btn-view', function (e) {
+			var areafreightId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
+			getOnePostageData({
+				areafreightId: areafreightId
 			}, function(resData) {
-				$('.c-create c-option-title').text('Edit Collection');
-				showCreateBlock();
-				initFormData(resData);
+				$('.c-view c-option-title').text('View Country Price');
+				initFormData(resData);;
+				showViewBlock();
 			});
 		});
-		// delete collection
+		// save whole-sale
+		$('.c-view .btn-save').on('click', function () {
+			var reqData = getFormData();
+			savePostageData(reqData, function() {
+				showInitBlock();
+				updateSearchData();
+				$('#areafreightId').val('');
+			});
+		});
+		// delete whole-sale
 		$(document.body).on('click', '.btn-delete', function (e) {
-			var couponId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete SuperCategory!');
+			var areafreightId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('Delete whole-sale!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteCollectionData({
-					couponId: couponId,
+				deleteWholeSaleData({
+					areafreightId: areafreightId,
 				}, function() {
-					getCollectionsData();
+					updateSearchData();
 				});
 			});
 		});
-		
-		$(window).on('beforeunload', function() {
-			var couponId = $('#couponId').val();
-			isCreate && couponId && deleteCollectionData({
-				couponId: couponId,
-			});
-		});
-		// save collection
-		$('.c-create .btn-save').on('click', function () {
-			var reqData = getFormData();
-			if (reqData.couponStarttime > couponEndtime) {
-				toastr.error('The start time must be less than the end time !');
-				$('#couponTime').focus();
-				return false;
-			}
-			saveCollectionData(reqData, function() {
-				showInitBlock();
-				getCollectionsData();
-				isCreate = false;
-				$('#couponId').val('');
-			});
-		});
-		// cancel collection save
-		$('.c-create .btn-cancel').on('click', function () {
-			if (isCreate) {
-				deleteCollectionData({
-					couponId: $('#couponId').val(),
-				}, function() {
-					showInitBlock();
-					isCreate = false;					
-				});
-			}
-			showInitBlock();
-		});// upload img
-		$('#couponImgUrl').on('change', function(e) {
-			var $this = $(this);
-			var file = $this[0].files[0];
-			var formData = new FormData();
-
-			if (!file) return false;
-
-			$this.parent().find('.spinner').show();
-			$this.val('');
-
-			formData.append('type', 'coupon');
-			formData.append('image', file);
-			formData.append('couponId', parseInt($('#couponId').val()));
-			$this.val('');
-
-			$.ajax({
-				url: "${APP_PATH}/ImageUpload/uploadCouponImg",
-				type: "post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				cache: false,
-				dataType: 'json',
-				success: function (data) {
-					if (data.code == 100) {
-						addPicture($this, {
-							imageUrl: data.extend.sqlimageUrl,
-							thumImageUrl: data.extend.sqlimageUrl
-						});
-					} else {
-						toastr.error('网络错误， 请稍后重试！');	
-					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-upload-img .spinner').hide();
-				}
-			});
-		});
-		function addPicture(el, data) {
-			var parentEl = el.parent();
-			el.attr('data-val', JSON.stringify(data));
-			parentEl.addClass('active');
-			parentEl.find('.c-backshow').html('<img src="'+ encodeUrl(data.thumImageUrl) + '" />');
-		}
-		function resetPicture(el) {
-			var parentEl = el.parent();
-			el.attr('data-val', '');
-			parentEl.removeClass('active');
-			parentEl.find('.c-backshow').html('');
-		}
-		// tab create/init
-		function showCreateBlock() {
-			$('.c-init').addClass('hide');
-			$('.c-create').removeClass('hide');
-			if (!hasProductList) getAllProductData(renderAllProduct);
-		}
-		function showInitBlock() {
-			$('.c-init').removeClass('hide');
-			$('.c-create').addClass('hide');
-		}
 		// handle formData
 		// reset data
 		function resetFormData() {
-			$('#couponId').val('');
-			$('#couponName').val('');
-			$('#couponPrice').val('');
-			$('#couponStatus').prop('checked', false);
-			$('#couponPriceBaseline').val('');
-			$('#couponCode').val('');
-			$('#couponPriceoff').val('5');
-			$('#couponType').val('0');
-			$('#couponLuckdrawType').val('0');
-			$('#couponLuckdrawWeight').val('0');
-
-			resetPicture($('#couponImgUrl'));
-
-			$('#couponProductonlyType').val('0');
-			$('#couponProductonlyPidstr').val('-1');
-
-			var initTime = initDate();
-			$('#couponStarttime').val(initTime);
-			$('#couponEndtime').val(initTime);
-			$('.daterangetimepicker').data('daterangepicker').setStartDate(initTime);
-			$('.daterangetimepicker').data('daterangepicker').setEndDate(initTime);
+			$('#areafreightId').val('');
+			$('#areafreightCountryCode').val('');
+			$('#areafreightCountry').val('');
+			$('#areafreightPrice').val('');
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
-			data.couponId = parseInt($('#couponId').val());
-			data.couponName = $('#couponName').val();
-			data.couponStatus = $('#couponStatus').prop('checked') ? 1 : 0;
-			data.couponPriceBaseline = $('#couponPriceBaseline').val();
-			data.couponCode = $('#couponCode').val();
-			var couponType = $('#couponType').val();
-			data.couponType = couponType;
-			if (couponType) {
-				data.couponPrice = 0;
-				data.couponPriceoff = $('#couponPriceoff').val();
-			} else {
-				data.couponPrice = $('#couponPrice').val();
-				data.couponPriceoff = 0;
-			}
-			data.couponPrice = $('#couponPrice').val();
-			data.couponPriceoff = $('#couponPriceoff').val();
-			data.couponLuckdrawType = $('#couponLuckdrawType').val();
-            data.couponLuckdrawWeight = $('#couponLuckdrawWeight').val();
-			
-            var imageData = $('#couponImgUrl').attr('data-val') && JSON.parse($('#couponImgUrl').attr('data-val'));
-			data.couponImgUrl = imageData.imageUrl;
-
-			data.couponProductonlyType = $('#couponProductonlyType').val();
-			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').val();
-			// data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
-			data.couponProductonlyPidstr = $('#couponProductonlyPidstr').find('option:selected').val();
-			data.couponProductseonamesstronlyPid = $('#couponProductonlyPidstr').find('option:selected').data("seo");
-			data.couponProductpronamesstronlyPid = $('#couponProductonlyPidstr').find('option:selected').data("name");
-			data.couponStarttime = $('#couponStarttime').val();
-			data.couponEndtime = $('#couponEndtime').val();
+			data.areafreightId = parseInt($('#areafreightId').val());
+			data.areafreightCountryCode = $('#areafreightCountryCode').val();
+			data.areafreightCountry = $('#areafreightCountry').val();
+			data.areafreightPrice = $('#areafreightPrice').val();
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
-			$('#couponId').val(data.couponId);
-			$('#couponName').val(data.couponName);
-			$('#couponStatus').prop('checked', data.couponStatus);
-			$('#couponPrice').val(data.couponPrice);
-			$('#couponPriceoff').val(data.couponPriceoff);
-			$('#couponPriceBaseline').val(data.couponPriceBaseline);
-			$('#couponCode').val(data.couponCode);
-			$('#couponType').val(data.couponType);
-			var coupontypezt = data.couponType;
-			if(coupontypezt==0){
-				$(".open_0").show();
-				$(".open_1").hide();
-			}else if(coupontypezt==1){
-				$(".open_1").show();
-				$(".open_0").hide();
-			}
-			$('#couponLuckdrawType').val(data.couponLuckdrawType);
-			$('#couponLuckdrawWeight').val(data.couponLuckdrawWeight);
-
-			if (data.couponImgUrl) {
-				addPicture($('#couponImgUrl'), {
-					imageUrl: data.couponImgUrl,
-					thumImageUrl: data.couponImgUrl
-				});
-			} else {
-				resetPicture($('#couponImgUrl'));
-			}
-
-			$('#couponProductonlyType').val(data.couponProductonlyType);
-			var showproduct = data.couponProductonlyType;
-			if(showproduct==0){
-				$(".open_product").hide();
-			}else if(showproduct==1){
-				$(".open_product").show();
-			}
-			$('#couponProductonlyPidstr').val(data.couponProductonlyPidstr || '-1');
-			$('#couponProductonlyPidstr').attr('data-val', data.couponProductonlyPidstr || '-1');
-			var startTime = data.couponStarttime || initDate();
-			var endTime = data.couponEndtime || initDate();
-			$("#couponStarttime").val(startTime);
-			$("#couponEndtime").val(endTime);
-			$('.daterangetimepicker').data('daterangepicker').setStartDate(startTime);
-			$('.daterangetimepicker').data('daterangepicker').setEndDate(endTime);
+			$('#areafreightId').val(data.areafreightId);
+			$('#areafreightCountryCode').val(data.areafreightCountryCode);
+			$('#areafreightCountry').val(data.areafreightCountry);
+			$('#areafreightPrice').val(data.areafreightPrice);
 		}
-		// callback id
-		function getCollectionId() {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH }/MlbackCoupon/initializaCoupon",
-				type: "post",
-				dataType: "json",
-				contentType: 'application/json',
-				async: false,
-				success: function (data) {
-					if (data.code == 100) {
-						$('#couponId').val(data.extend.mlbackCoupon.couponId);
-						toastr.success(data.extend.resMsg);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error('initial superCate fail：' + err);
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
+		// search status change
+		function updateSearchData() {
+			var searchWholesaleVal = {
+				supercateName: $('#searchSupercate').find('option:selected').text(),
+				areafreightId: $('#searchSupercate').val(),
+				customername: $('#customer-name').val()
+			};
+			// inital pagination num
+			setPageNum(1);
+			// check search whole-sale
+			if (parseInt(searchWholesaleVal.areafreightId) < 0) searchWholesaleVal.supercateName = "";
+
+			$('.c-table-tab-item.active').removeClass('active');
+			$('.c-table-tab-tempory').html(createTableTabItem(searchWholesaleVal).addClass('active'));
+			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
+		}
+		// tab view/init
+		function showViewBlock() {
+			$('.c-init').addClass('hide');
+			$('.c-view').removeClass('hide');
+		}
+		function showInitBlock() {
+			$('.c-init').removeClass('hide');
+			$('.c-view').addClass('hide');
+		}
+		// get Data for table
+		function getTabSearchData($this) {
+			var dataVal = $this.data('val');
+			if (dataVal && (dataVal.supercateName || dataVal.customername)) {
+				$('#customer-name').val(dataVal.customername || '');
+				$('#searchSupercate').attr('data-val', dataVal.areafreightId || '-1');
+				$('#searchSupercate').val(dataVal.areafreightId || '-1');
+				getSearchPostageData();
+			} else {
+				$('#customer-name').val('');
+				$('#searchSupercate').val('999');
+				initActiveItemNum();
+				getPostageData();
+			}
 		}
 		//  callback get all
-		function getCollectionsData(val) {
+		function getPostageData(val) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/getMlbackCouponByPage",
+				url: "${APP_PATH}/MlbackAreafreight/getMlbackAreafreightByPage",
 				type: "post",
 				data: "pn=" + getPageNum(),
 				success: function (data) {
@@ -541,54 +307,62 @@
 					}
 				},
 				error: function (err) {
-					toastr.error('Failed to get Super-Categeory, please refresh the page to get again！');
+					toastr.error('Failed to get Whole-sales, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
 				}
 			});
 		}
-		
-		function getOneCollectionData(reqData, callback) {
+		// callback get search data
+		function getSearchPostageData(data) {
 			$('.c-mask').show();
+			var formData = new FormData();
+			formData.append('customer-name', $('#customer-name').val());
+			formData.append('areafreightId', ($('#searchSupercate').attr('data-val') || '999'));
+			formData.append('pn', getPageNum());
+
 			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/getOneMlbackCouponDetailById",
+				url: "${APP_PATH}/MlfrontPayInfo/selectHighPayInfoListBySearch",
 				type: "post",
-				data: reqData,
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.mlbackCouponOne);
+						renderTable(data.extend.pageInfo.list);
+						renderTablePagination(data.extend.pageInfo);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
 				},
-				error: function (err) {
-					toastr.error('Failed to get Super-Categeory, please refresh the page to get again！');
+				error: function () {
+					toastr.error('Failed to get Whole-sales, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
 				}
 			});
 		}
-		/**************/
 		// callback save
-		function saveCollectionData(reqData, callback) {
+		function savePostageData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/save",
-				data: JSON.stringify(reqData),
-				dataType: "json",
-				contentType: 'application/json',
-				type: "post",
-				success: function (data) {
+		  		url: '${APP_PATH}/MlbackAreafreight/save',
+		  		type: 'post',
+		  		dataType: 'json',
+		  		data: JSON.stringify(reqData),
+		  		contentType: 'application/json',
+		  		success: function (data) {
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
-						callback();
+						callback && callback();
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
-				},
+		  		},
 				error: function (err) {
 					toastr.error(err);
 				},
@@ -597,11 +371,33 @@
 				}
 			});
 		}
-		// callback delete
-		function deleteCollectionData(reqData, callback) {
+		// callback get one whole-sale data
+		function getOnePostageData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/delete",
+				url: "${APP_PATH}/MlbackAreafreight/getOneMlbackAreafreightDetail?areafreightId=" + reqData.areafreightId,
+				type: "post",
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend.mlbackAreafreightOne);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('Failed to get Super-Categeory, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback delete
+		function deleteWholeSaleData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/CustomerWholesale/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -611,7 +407,7 @@
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg);
 						$('#deleteModal').modal('hide');
-						callback();
+						callback && callback();
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
@@ -628,89 +424,24 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				var coupontype =data[i].couponType;
-			    var couponLuckdrawtype = data[i].couponLuckdrawType;
-			   	var couponProductonlytype = data[i].couponProductonlyType;
-				htmlStr += '<tr><td>' + data[i].couponId + '</td>' +
-					'<td>' + data[i].couponName + '</td>' +
-					'<td>' + data[i].couponCode + '</td>' +
-					'<td>' + data[i].couponPriceBaseline + '</td>' +
-					'<td>'+(coupontype == 1 ? 'Discount' : 'Full')+'</td>' +
-					'<td>' +(coupontype == 0 ? parseFloat(data[i].couponPrice) : '')+ '</td>' +
-					'<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff) + '%' : '')+ '</td>' +
-					'<td>'+(couponLuckdrawtype == 1 ? 'yes' : 'no')+'</td>' +
+				htmlStr += '<tr><td>' + data[i].areafreightId + '</td>' +
+					'<td>' + data[i].areafreightCountryCode + '</td>' +
+					'<td>' + data[i].areafreightCountry + '</td>' +
+					'<td>' + data[i].areafreightPrice + '</td>' +
 					'<td>' +
-						(data[i].couponImgUrl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].couponImgUrl) +'" /></div>'
-							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
-					'</td>' +
-					'<td>' + data[i].couponLuckdrawWeight + '%</td>' +
-					'<td>'+(couponProductonlytype == 1 ? 'yes' : 'no')+'</td>' +
-					'<td>'+(couponProductonlytype == 1 ? (data[i].couponProductonlyPidstr +' * '+ data[i].couponProductseonamesstronlyPid) : 'All Product')+'</td>' +
-					'<td><a class="badge '+ (data[i].couponStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].couponStatus ? 'enable' : 'disable') + '</a></td>' +
-					'<td>' +
-						'<button class="btn btn-primary btn-edit" data-id="' + data[i].couponId + '">' +
+						'<button class="btn btn-primary btn-view" data-id="' + data[i].areafreightId + '">' +
 							'<svg class="c-icon">' +
-								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-eye"></use>' +
 							'</svg>' +
 						'</button>' +
-						'<button class="btn btn-danger btn-delete" data-id="' + data[i].couponId + '">' +
-							'<svg class="c-icon">' +
-								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
-							'</svg>' +
-						'</button>' +
+						// '<button class="btn btn-danger btn-delete" data-id="' + data[i].areafreightId + '">' +
+						// 	'<svg class="c-icon">' +
+						// 		'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
+						// 	'</svg>' +
+						// '</button>' +
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
-		}
-		/************************************************************************************/
-		$(".choose_coup select").change(function () {
-			if ($(this).val() == 0) {
-				$(".open_1").hide();
-				$(".open_0").show();
-			} else if ($(this).val() == 1) {
-				$(".open_1").show();
-				$(".open_0").hide();
-			}
-		});
-		$(".choose_product select").change(function () {
-			if ($(this).val() == 0) {
-				$(".open_product").hide();
-			} else if ($(this).val() == 1) {
-				$(".open_product").show();
-			}
-		});
-		/********************************/
-		// callback get search data
-		function getSearchCollectionsData(data) {
-			$('.c-mask').show();
-		
-			var formData = new FormData();
-			formData.append('couponName', $('#searchCollection').val());
-			formData.append('pn', getPageNum());
-			$.ajax({
-				url: "${APP_PATH }/MlbackCoupon/backSearchByCoupon",
-				type: "post",
-				processData: false,
-				contentType: false,
-				cache: false,
-				data: formData,
-				success: function (data) {
-					if (data.code == 100) {
-						renderTable(data.extend.pageInfo.list);
-						renderTablePagination(data.extend.pageInfo);
-						toastr.success(data.extend.resMsg);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function () {
-					toastr.error('Failed to get Categeory, please refresh the page to get again！');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
 		}
 	</script>
 </body>
