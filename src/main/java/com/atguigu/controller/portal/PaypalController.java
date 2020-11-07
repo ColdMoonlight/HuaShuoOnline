@@ -19,6 +19,7 @@ import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.portal.ToPaypalInfo;
+import com.atguigu.common.Msg;
 import com.atguigu.enumC.PaypalPaymentIntent;
 import com.atguigu.enumC.PaypalPaymentMethod;
 import com.atguigu.service.MlPaypalShipAddressService;
@@ -34,8 +35,8 @@ import com.atguigu.utils.URLUtils;
 import com.atguigu.utils.EcppIntoUtil;
 import com.atguigu.utils.EmailUtilshtml;
 import com.atguigu.utils.EmailUtilshtmlCustomer;
-//import com.atguigu.utils.PaypalErrorUtil;
 import com.atguigu.vo.order;
+import com.paypal.api.payments.ErrorDetails;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
@@ -76,7 +77,8 @@ public class PaypalController {
      * paypal/mpay
      * */
     @RequestMapping(method = RequestMethod.GET, value = "mpay")
-    public String pay(HttpServletRequest request,HttpSession session){
+    public Msg pay(HttpServletRequest request,HttpSession session){
+    	
     	System.out.println("into**********/paypal/mpay**********");
     	//1.1,准备支付前,从session中读取getPayInfo参数
     	ToPaypalInfo toPaypalInfo = getPayInfo(session);
@@ -103,12 +105,13 @@ public class PaypalController {
         PaypalService paypalService = new PaypalService();
         
         String PaypalErrorName="";
-        PaypalErrorName = (String) session.getAttribute("PaypalErrorName");
-        if(("").equals(PaypalErrorName)){
-        	System.out.println("这是初始化的PaypalErrorName ： "+PaypalErrorName+" .");
-        }else{
-        	session.removeAttribute("PaypalErrorName");
-        }
+        List<ErrorDetails> paypalErrorList= null;
+//        PaypalErrorName = (String) session.getAttribute("PaypalErrorName");
+//        if(("").equals(PaypalErrorName)){
+//        	System.out.println("这是初始化的PaypalErrorName ： "+PaypalErrorName+" .");
+//        }else{
+//        	session.removeAttribute("PaypalErrorName");
+//        }
         try {
             payment = paypalService.createPayment(
             		moneyDouble,// 888.00, 
@@ -125,7 +128,8 @@ public class PaypalController {
             for(Links links : payment.getLinks()){
                 if(links.getRel().equals("approval_url")){
                 	System.out.println("links.getHref:"+links.getHref());
-                    return "redirect:" + links.getHref();
+                    //return "redirect:" + links.getHref();
+                	return Msg.success().add("ifPaypalCheckSuccess", 1).add("redirect", links.getHref());
                 }
             }
         } catch (PayPalRESTException e) {
@@ -141,15 +145,105 @@ public class PaypalController {
             	PaypalErrorName = "retry fails..  check log for more information";
             }else{
             	PaypalErrorName = e.getDetails().getName();
+            	paypalErrorList = e.getDetails().getDetails();
+            	if(paypalErrorList.size()>1){
+            		//city,state,zip不匹配
+            		PaypalErrorName = e.getDetails().getName()+" city,state,zip 不匹配";
+            	}else{
+            		//看看是什么
+            		PaypalErrorName = paypalErrorList.get(0).getField()+" 不匹配";
+            	}
             }
-            session.setAttribute("PaypalErrorName", PaypalErrorName);
-            String regularName ="";
-            regularName+= " is not match";
-            session.setAttribute("PaypalError", regularName);
+//            session.setAttribute("PaypalErrorName", PaypalErrorName);
+//            String regularName ="";
+//            regularName+= " is not match";
+//            session.setAttribute("PaypalError", regularName);
             System.out.println("---------e.getDetails()------end------");
+            return Msg.success().add("ifPaypalCheckSuccess", 2).add("errorName", PaypalErrorName);
         }
-        return "redirect:/MlbackCart/toCheakOut";
+        //return "redirect:/MlbackCart/toCheakOut";
+        return Msg.success().add("ifPaypalCheckSuccess", 0).add("redirect", "MlbackCart/toCheakOut");
     }
+    
+//    /**1.0
+//     * 组装参数,WAP端发起真实的支付
+//     * paypal/mpay
+//     * */
+//    @RequestMapping(method = RequestMethod.GET, value = "mpay")
+//    public String pay(HttpServletRequest request,HttpSession session){
+//    	System.out.println("into**********/paypal/mpay**********");
+//    	//1.1,准备支付前,从session中读取getPayInfo参数
+//    	ToPaypalInfo toPaypalInfo = getPayInfo(session);
+//    	//1.2,准备支付前,从session中获取优惠券减去额度
+//    	String Shopdiscount = getCouponMoney(session);
+//    	//1.3,准备支付前,从session中获取地址运费
+//    	String addressMoney = getAddressMoney(session);
+//    	//1.4,准备支付前,从session中获取地址信息
+//    	MlfrontAddress mlfrontAddress = getMlfrontAddress(session);
+//    	//1.5,准备支付前,从session中获取orderList详情
+//    	List<MlfrontOrderItem> mlfrontOrderItemList = getMlfrontOrderItemList(session);
+//    	
+//    	BigDecimal money = toPaypalInfo.getMoneyNum();
+//    	String moneyStr = money.toString();
+//    	Double moneyDouble = Double.parseDouble(moneyStr);
+//    	String moneyTypeStr = toPaypalInfo.getMoneyType();
+//    	String payDes = toPaypalInfo.getPaymentDescription();
+//
+//    	//封装paypal所需
+//        String cancelUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_CANCEL_M_URL;
+//        String successUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_SUCCESS_M_URL;
+//        
+//        Payment payment = new Payment();
+//        PaypalService paypalService = new PaypalService();
+//        
+//        String PaypalErrorName="";
+//        PaypalErrorName = (String) session.getAttribute("PaypalErrorName");
+//        if(("").equals(PaypalErrorName)){
+//        	System.out.println("这是初始化的PaypalErrorName ： "+PaypalErrorName+" .");
+//        }else{
+//        	session.removeAttribute("PaypalErrorName");
+//        }
+//        try {
+//            payment = paypalService.createPayment(
+//            		moneyDouble,// 888.00, 
+//            		moneyTypeStr, //"USD",  
+//            		mlfrontAddress,//mlfrontAddress
+//            		mlfrontOrderItemList,
+//                    PaypalPaymentMethod.paypal, //paypal
+//                    PaypalPaymentIntent.sale,//paypal
+//                    payDes,//"payment description", 
+//                    Shopdiscount,//"CouponMoney", 
+//                    addressMoney,//shopping
+//                    cancelUrl, 
+//                    successUrl);
+//            for(Links links : payment.getLinks()){
+//                if(links.getRel().equals("approval_url")){
+//                	System.out.println("links.getHref:"+links.getHref());
+//                    return "redirect:" + links.getHref();
+//                }
+//            }
+//        } catch (PayPalRESTException e) {
+//            log.error(e.getMessage());
+//            System.out.println("----------/paypal/mpay/Exception----------");
+//            System.out.println("---------e.getMessage()-----begin------");
+//            System.out.println(e.getMessage());
+//            System.out.println("---------e.getMessage()------end-------");
+//            System.out.println("---------e.getDetails()-----begin------");
+//            System.out.println(e.getDetails());
+//            //PaypalErrorUtil.getPaypalError(e.getDetails());
+//            if(e.getDetails()==null){
+//            	PaypalErrorName = "retry fails..  check log for more information";
+//            }else{
+//            	PaypalErrorName = e.getDetails().getName();
+//            }
+//            session.setAttribute("PaypalErrorName", PaypalErrorName);
+//            String regularName ="";
+//            regularName+= " is not match";
+//            session.setAttribute("PaypalError", regularName);
+//            System.out.println("---------e.getDetails()------end------");
+//        }
+//        return "redirect:/MlbackCart/toCheakOut";
+//    }
     
     /**2.0
      * wap端返回成功页面
