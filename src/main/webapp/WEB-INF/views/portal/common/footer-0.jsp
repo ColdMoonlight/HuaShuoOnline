@@ -461,9 +461,6 @@ function goToCheckout() {
 function goToCartList() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCartList';
 }
-function goToPay() {
-	window.location.href = '${APP_PATH}/paypal/mpay';
-}
 function goTopayInstance() {
 	window.location.href = '${APP_PATH}/paypalProDetailExpress/mpay';
 }
@@ -716,5 +713,36 @@ function rednerCountDownAreaOne(data) {
 			$('#countdown-area').addClass('hide');
 		}		
 	}
+}
+</script>
+<script>
+function goToPay() {	
+	$.ajax({
+		url: '${APP_PATH}/paypal/mpay',
+		type: 'post',
+		dataType: 'json',
+		contentType: 'application/json',
+		success: function (data) {
+			if (data.code == 100) {
+				if ('' + data.extend.ifPaypalCheckSuccess == '0') {
+					window.location.reload();
+				}
+				
+				if ('' + data.extend.ifPaypalCheckSuccess == '1') {
+					window.location.href = data.extend.redirectUrl;
+				}
+				
+				if ('' + data.extend.ifPaypalCheckSuccess == '2') {
+					hidePayLoading();
+					mlModalTip(data.extend.errorDetail);
+				}
+			} else {
+				sysModalTip();
+			}
+		},
+		error: function () {
+			sysModalTip();
+		}
+    });
 }
 </script>
