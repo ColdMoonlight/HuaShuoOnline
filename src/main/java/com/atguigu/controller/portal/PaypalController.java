@@ -132,7 +132,7 @@ public class PaypalController {
                 if(links.getRel().equals("approval_url")){
                 	System.out.println("links.getHref:"+links.getHref());
                     //return "redirect:" + links.getHref();
-                	return Msg.success().add("ifPaypalCheckSuccess", 1).add("redirect", links.getHref());
+                	return Msg.success().add("ifPaypalCheckSuccess", 1).add("redirectUrl", links.getHref());
                 }
             }
         } catch (PayPalRESTException e) {
@@ -162,10 +162,10 @@ public class PaypalController {
 //            regularName+= " is not match";
 //            session.setAttribute("PaypalError", regularName);
             System.out.println("---------e.getDetails()------end------");
-            return Msg.success().add("ifPaypalCheckSuccess", 2).add("errorName", PaypalErrorName);
+            return Msg.success().add("ifPaypalCheckSuccess", 2).add("errorDetail", PaypalErrorName);
         }
         //return "redirect:/MlbackCart/toCheakOut";
-        return Msg.success().add("ifPaypalCheckSuccess", 0).add("redirect", "MlbackCart/toCheakOut");
+        return Msg.success().add("ifPaypalCheckSuccess", 0).add("redirectUrl", "MlbackCart/toCheakOut");
     }
     
 //    /**1.0
