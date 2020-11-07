@@ -257,8 +257,6 @@
 				areafreightId: $('#searchSupercate').val(),
 				customername: $('#customer-name').val()
 			};
-			console.log(searchWholesaleVal)
-			
 			// inital pagination num
 			setPageNum(1);
 			// check search whole-sale
