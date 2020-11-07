@@ -97,6 +97,15 @@
 						<span class="c-text">Coupon Area Details</span>
 					</a>
 				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackAreafreight/toMlbackAreafreightPage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">Postage</span>
+					</a>
+				</li>
+				
+				
+				
 			</ul>
 		</li>
 		<!-- marketing -->
