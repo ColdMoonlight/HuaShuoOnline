@@ -67,7 +67,7 @@
 				<!-- edit or create -->
 				<div class="c-view hide">
 					<div class="c-option">
-						<span class="c-option-title">View Whole-sale</span>
+						<span class="c-option-title">View Country Price</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-back">Back</button>
 							<button class="btn btn-primary btn-save">Save</button>
