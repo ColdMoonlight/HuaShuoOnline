@@ -695,9 +695,17 @@
 					currency: 'USD'
 				});
 				pintrk('track', 'addtocart', {
-					value: reqData.cartitemProductOriginalprice,
+					value: reqData.cartitemProductOriginalprice * $('.product-qty .product-num').val(),
 					order_quantity: $('.product-qty .product-num').val(),
-					currency: 'USD'
+					currency: 'USD',
+					line_items: [
+						{
+							product_name: $('.product-name').html(),
+							product_id: reqData.cartitemProductId,
+							product_price: reqData.cartitemProductOriginalprice,
+							product_quantity: $('.product-qty .product-num').val()
+						}
+					]
 				});
 			}
 		}, 300);
@@ -711,9 +719,17 @@
 			value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)), reqData.cartitemProductActoff),
 			currency: "USD"
 		}), pintrk('track', 'checkout', {
-			value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)), reqData.cartitemProductActoff),
+			value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)), reqData.cartitemProductActoff) * $('.product-qty .product-num').val(),
 			order_quantity: $('.product-qty .product-num').val(),
-			currency: 'USD'
+			currency: 'USD',			
+			line_items: [
+				{
+					product_name: $('.product-name').html(),
+					product_id: reqData.cartitemProductId,
+					product_price: reqData.cartitemProductOriginalprice,
+					product_quantity: $('.product-qty .product-num').val()
+				}
+			]
 		}), toBuyNow(reqData, goToCheckout));
 	});
 	/* $('.paypal-button.paypal-now').on('click', function() {
