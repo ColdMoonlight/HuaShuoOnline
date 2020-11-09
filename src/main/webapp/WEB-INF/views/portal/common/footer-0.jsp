@@ -718,7 +718,7 @@ function rednerCountDownAreaOne(data) {
 <script>
 function goToPay() {	
 	$.ajax({
-		url: '${APP_PATH}/paypal/mpay',
+		url: '${APP_PATH}/paypal/mpay?paypalPlatFrom=' + $('input[name="payment"]:checked').val(),
 		type: 'post',
 		dataType: 'json',
 		contentType: 'application/json',
