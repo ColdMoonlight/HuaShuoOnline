@@ -282,7 +282,7 @@ function isCorrectProduct() {
 	for (var i = 0; i < len; i += 1) {
 		var $optionItem = $(optionItems[i]);
 		if (!$optionItem.find('.radio.active').length) {
-			mlModalTip('Please select a product specifications and options: '+ $optionItem.data('type'));
+			mlModalTip('Please select a product specifications and options: <i style="font-weight: blold; color: red;">'+ $optionItem.data('type') + '</i>');
     		flag = false;
     		break;
 		}
