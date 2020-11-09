@@ -144,15 +144,16 @@ public class PaypalController {
             	paypalErrorList = e.getDetails().getDetails();
             	if(paypalErrorList.size()>1){
             		//city,state,zip不匹配
-            		PaypalErrorName = e.getDetails().getName()+" city,state,zip 不匹配";
+            		PaypalErrorName = e.getDetails().getDetails()+" city,state,zip 不匹配";
             	}else{
             		//看看是什么
             		String errStr = paypalErrorList.get(0).getField();
-            		String errStrArr [] = errStr.split(".");
-            		Integer errLen = errStrArr.length;
-            		String lastStr = PaypalErrorName = errStrArr[errLen-1];
+//            		String errStrll = errStr.replace(".", ",");
+//            		System.out.println("errStrll:"+errStrll);
+//            		Integer errLen = errStrll.length();
+//            		String lastStr = errStrll;
             		
-            		PaypalErrorName = lastStr+" 不匹配";
+            		PaypalErrorName = errStr+" 不匹配";
             	}
             }
             System.out.println("---------e.getDetails()------end------");
