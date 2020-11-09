@@ -734,11 +734,14 @@ function goToPay() {
 				
 				if ('' + data.extend.ifPaypalCheckSuccess == '2') {
 					hidePayLoading();
-					var payModalTip = createModal({
-						body: {
-							html: '<p>'+ data.extend.errorDetail +'</p>'
-						}
-					});
+					$('html').animate({scrollTop: 0}, 500);
+					setTimeout(function(msg) {
+						var payModalTip = createModal({
+							body: {
+								html: '<p>'+ msg +'</p>',
+							}
+						});
+					}, 600, data.extend.errorDetail);
 				}
 			} else {
 				sysModalTip();
