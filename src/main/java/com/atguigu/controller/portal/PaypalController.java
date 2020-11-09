@@ -80,8 +80,8 @@ public class PaypalController {
      * */
     @RequestMapping(method = RequestMethod.POST, value = "mpay")
     @ResponseBody
-    public Msg pay(HttpServletRequest request,HttpSession session){
-    	
+    public Msg pay(HttpServletRequest request,HttpSession session,@RequestParam(value = "paypalPlatFrom", defaultValue = "0") String paypalPlatFrom){
+    	    	
     	System.out.println("into**********/paypal/mpay**********");
     	//1.1,准备支付前,从session中读取getPayInfo参数
     	ToPaypalInfo toPaypalInfo = getPayInfo(session);
@@ -126,7 +126,20 @@ public class PaypalController {
                 if(links.getRel().equals("approval_url")){
                 	System.out.println("links.getHref:"+links.getHref());
                     //return "redirect:" + links.getHref();
-                	return Msg.success().add("ifPaypalCheckSuccess", 1).add("redirectUrl", links.getHref());
+                	if(("0").equals(paypalPlatFrom)){
+                		//0paypal
+                		return Msg.success().add("ifPaypalCheckSuccess", 1).add("redirectUrl", links.getHref());
+                	}else{
+                		String str = links.getHref();
+                        String str1=str.substring(0, str.indexOf("token="));
+                        System.out.println("str:"+str);
+                        System.out.println("str1:"+str1);
+                        String str2=str.substring(str1.length(), str.length());
+                        System.out.println("str2:"+str2);
+                        //1信用卡
+                        String payCartUrl = "https://www.paypal.com/checkoutweb/signup?"+str2;
+                		return Msg.success().add("ifPaypalCheckSuccess", 1).add("redirectUrl", payCartUrl);
+                	}
                 }
             }
         } catch (PayPalRESTException e) {
