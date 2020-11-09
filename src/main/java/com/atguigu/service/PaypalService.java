@@ -2,10 +2,8 @@ package com.atguigu.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.enumC.PaypalPaymentIntent;
@@ -23,15 +21,13 @@ import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-
 @Service
 public class PaypalService {
 	
-	
 	//开发环境-shaohua
-//	String clientId = "AQyXf-N2nNr8QwJsFt7IudPRL-CMGYEXCCzgqOHIA037JLhSFOEchb2kGa_z_BqzKY4CmUPFiGqG_uNj";
-//	String clientSecret = "EO5N6EtaEiIQXF18UWWZJGGeB8VL4qMxC-jR4tvHoXJD0RBdZGzcCguUBuRgWNBR8Lk-ge8XRK379NCl";
-//	String mode="sandbox";
+	String clientId = "AQyXf-N2nNr8QwJsFt7IudPRL-CMGYEXCCzgqOHIA037JLhSFOEchb2kGa_z_BqzKY4CmUPFiGqG_uNj";
+	String clientSecret = "EO5N6EtaEiIQXF18UWWZJGGeB8VL4qMxC-jR4tvHoXJD0RBdZGzcCguUBuRgWNBR8Lk-ge8XRK379NCl";
+	String mode="sandbox";
 	
 	//开发环境-boss
 //	String clientId = "AZTtkPd6LowZG2KewtB3TAHIu3WeqcM6VCgp2xB4ShixmnAgOxskEgwdWEM9Qv0fc3Ln2DLVy6xPLPFN";
@@ -44,9 +40,9 @@ public class PaypalService {
 //    String mode="live";
     
 	//陈鹏账户
-    String clientId="AbYhYseSfoEHsp02nyg6O3A1NowoKN00tWYvwAYErFKy0T7FDUkHENMMP7TTDqn0bP9LKISVJILgx3G5";
-    String clientSecret="EFOnl1UovBwjAUsbw8EzqGZd8rPdw7S0CAvy-2SxtQWbz2dl9FYF69sLptxxbcG2_8YjOIGZZwrCqlqN";
-    String mode="live";
+//    String clientId="AbYhYseSfoEHsp02nyg6O3A1NowoKN00tWYvwAYErFKy0T7FDUkHENMMP7TTDqn0bP9LKISVJILgx3G5";
+//    String clientSecret="EFOnl1UovBwjAUsbw8EzqGZd8rPdw7S0CAvy-2SxtQWbz2dl9FYF69sLptxxbcG2_8YjOIGZZwrCqlqN";
+//    String mode="live";
 	
 	@Autowired
 	MlfrontOrderService mlfrontOrderService;
