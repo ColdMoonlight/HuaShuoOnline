@@ -21,7 +21,11 @@ function goToPay() {
 				
 				if ('' + data.extend.ifPaypalCheckSuccess == '2') {
 					hidePayLoading();
-					mlModalTip(data.extend.errorDetail);
+					var payModalTip = createModal({
+						body: {
+							html: '<p>'+ data.extend.errorDetail +'</p>'
+						}
+					});
 				}
 			} else {
 				sysModalTip();
