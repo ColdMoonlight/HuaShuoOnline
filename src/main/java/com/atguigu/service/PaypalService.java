@@ -51,7 +51,6 @@ public class PaypalService {
 //	@Autowired
 //	private APIContext apiContext;
 	APIContext apiContext = new APIContext(clientId, clientSecret, mode);
-
 	
 	//创建payMent参数
 	public Payment createPayment(
