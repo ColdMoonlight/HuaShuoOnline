@@ -138,24 +138,34 @@ public class PaypalController {
             System.out.println("---------e.getDetails()-----begin------");
             System.out.println(e.getDetails());
             if(e.getDetails()==null){
-            	PaypalErrorName = "retry fails..  check log for more information";
+            	//PaypalErrorName = "retry fails..  check log for more information";
+            	PaypalErrorName = "network error,"+"pls try once again";
+            	//return Msg.success().add("ifPaypalCheckSuccess", 2).add("errorDetail", PaypalErrorName);
             }else{
             	PaypalErrorName = e.getDetails().getName();
             	paypalErrorList = e.getDetails().getDetails();
             	if(paypalErrorList.size()>1){
             		//city,state,zip不匹配
-            		PaypalErrorName = e.getDetails().getDetails()+" city,state,zip 不匹配";
+            		PaypalErrorName = " city,state,zip 不匹配";
             	}else{
             		//看看是什么
             		String errStr = paypalErrorList.get(0).getField();
-//            		String errStrll = errStr.replace(".", ",");
-//            		System.out.println("errStrll:"+errStrll);
-//            		Integer errLen = errStrll.length();
-//            		String lastStr = errStrll;
+            		String errStrll = errStr.replace(".", ",");
+            		System.out.println("errStrll:"+errStrll);
             		
-            		PaypalErrorName = errStr+" 不匹配";
+            		String errStrArr[] = errStrll.split(",");
+            		Integer errLen = errStrArr.length;
+            		System.out.println("errLen:"+errLen);
+            		String lastStr = errStrArr[errLen-1];
+            		
+            		if(lastStr.equals("phone")){
+            			PaypalErrorName = "Pls fill right phone number with Digital 0-9,which shouldn't included Any Alphabet and Symbol .";
+            		}else{
+            			PaypalErrorName ="Please check the format of your"+lastStr+" .";
+            		}
             	}
             }
+            System.out.println("后台转换后的错误提示PaypalErrorName:"+PaypalErrorName);
             System.out.println("---------e.getDetails()------end------");
             return Msg.success().add("ifPaypalCheckSuccess", 2).add("errorDetail", PaypalErrorName);
         }
