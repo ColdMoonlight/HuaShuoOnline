@@ -28,7 +28,7 @@ var ml = {
 	pinterest_email: 'lvzhenbang@outlook.com',
 	pinterest_hash_email: 'a6243724a31979a66daa0edc9aa348e44146a59cbe981e0c1139f990d12cd64d',
 	// stripe test
-	stripe_key: 'AQyXf-N2nNr8QwJsFt7IudPRL-CMGYEXCCzgqOHIA037JLhSFOEchb2kGa_z_BqzKY4CmUPFiGqG_uNj',
+	//stripe_key: 'AQyXf-N2nNr8QwJsFt7IudPRL-CMGYEXCCzgqOHIA037JLhSFOEchb2kGa_z_BqzKY4CmUPFiGqG_uNj',
 	
 	//www.megalook.com的fbid googleid tidio
 	//facebook_id: '667403967094866', // megalook
