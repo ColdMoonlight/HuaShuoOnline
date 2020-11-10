@@ -23,7 +23,10 @@
 		@media only screen and (max-width: 575px) {
 			main { margin: 0 }
 			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
+			.product-share .instagram {width:2rem;height:2rem;background-position: 0 -2rem;}
 		}
+		@media only screen and (min-width: 576px) and (max-width: 1023px) { .product-share .instagram {width:2.5rem;height:2.5rem;background-position: 0 -2.5rem;} }		
+		@media only screen and (min-width: 1023px) { .product-share .instagram {width:3rem;height:3rem;background-position: 0 -3rem;} }
 	</style>
 </head>
 <body>
@@ -46,7 +49,7 @@
 			            <div class="swiper-button-prev"></div>
 					</div>
 					<div class="product-share">
-						<a style="display: inline-block;width:2.5rem;height:2.5rem;margin: 0 .25rem;background-image: url('${APP_PATH}/static/pc/img/follow-us.png');background-repeat: no-repeat;background-size: 100% auto;background-position: 0 -2.5rem;" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
+						<a class="instagram" style="display: inline-block;background-image: url('${APP_PATH}/static/pc/img/follow-us.png');background-repeat: no-repeat;background-size: 100% auto;" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
 						<div class="share-item" data-url="https://plus.google.com/share?url=" title="share on google+"></div>
 						<div class="share-item" data-url="https://twitter.com/intent/tweet?url=" title="share on twitter"></div>
 						<div class="share-item" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>
