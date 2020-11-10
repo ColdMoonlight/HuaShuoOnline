@@ -633,7 +633,7 @@
 	// product share
 	$('.share-item').on('click', function() {
 		if ($(this)[0].title == 'share on pinterest') {
-			window.open($(this).data('url') + encodeURIComponent(window.location.href) + '&channel=pinterest&media=' + encodeURIComponent($('.product-slide').find('img').eq(0).data('src')) + '&description=' + $('#ml-des').attr('content'));
+			window.open($(this).data('url') + encodeURIComponent(window.location.href) + '&channel=pinterest&media=' + encodeURIComponent($('.product-slide').find('.img').eq(0).data('src')) + '&description=' + $('#ml-des').attr('content'));
 		} else
 			window.open($(this).data('url') + encodeURIComponent(window.location.href));
 	});
