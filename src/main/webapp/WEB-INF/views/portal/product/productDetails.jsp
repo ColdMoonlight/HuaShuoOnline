@@ -46,6 +46,7 @@
 			            <div class="swiper-button-prev"></div>
 					</div>
 					<div class="product-share">
+						<a style="display: inline-block;width:2.5rem;height:2.5rem;margin: 0 .25rem;background-image: url('${APP_PATH}/static/pc/img/follow-us.png');background-repeat: no-repeat;background-size: 100% auto;background-position: 0 -2.5rem;" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
 						<div class="share-item" data-url="https://plus.google.com/share?url=" title="share on google+"></div>
 						<div class="share-item" data-url="https://twitter.com/intent/tweet?url=" title="share on twitter"></div>
 						<div class="share-item" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>
