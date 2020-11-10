@@ -178,7 +178,7 @@ public class PaypalController {
             		if(lastStr.equals("phone")){
             			PaypalErrorName = "Pls fill right phone number with Digital 0-9,which shouldn't included Any Alphabet and Symbol .";
             		}else{
-            			PaypalErrorName ="Please check the format of your "+lastStr+" .";
+            			PaypalErrorName ="Please check the format of your "+lastStr+" . and try once again";
             		}
             	}
             }
