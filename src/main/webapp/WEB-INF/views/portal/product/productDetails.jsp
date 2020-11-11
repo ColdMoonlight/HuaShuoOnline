@@ -50,7 +50,7 @@
 					</div>
 					<div class="product-share">
 						<a class="instagram" style="display: inline-block;background-image: url('${APP_PATH}/static/pc/img/follow-us.png');background-repeat: no-repeat;background-size: 100% auto;" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
-						<div class="share-item" data-url="https://plus.google.com/share?url=" title="share on google+"></div>
+						<div class="share-item hide" data-url="https://plus.google.com/share?url=" title="share on google+"></div>
 						<div class="share-item" data-url="https://twitter.com/intent/tweet?url=" title="share on twitter"></div>
 						<div class="share-item" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>
 						<div class="share-item" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest"></div>
