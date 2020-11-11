@@ -116,7 +116,7 @@
 
 	<jsp:include page="common/backfooter.jsp"></jsp:include>
 	<!-- custom script -->
-	<script>
+	<script> 
 		$('#back-login').on('click', function(e) {
 			var self = this;
 			showSpinner(self);
