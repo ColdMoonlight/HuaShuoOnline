@@ -23,8 +23,10 @@
 		@media only screen and (max-width: 575px) {
 			main { margin: 0 }
 			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
-		} 
-		.product-media .lazyload.img { display: block; width: 100% !important; height: 100% !important; padding-top: unset; }
+			.product-share .instagram {width:2rem;height:2rem;background-position: 0 -2rem;}
+		}
+		@media only screen and (min-width: 576px) and (max-width: 1023px) { .product-share .instagram {width:2.5rem;height:2.5rem;background-position: 0 -2.5rem;} }		
+		@media only screen and (min-width: 1023px) { .product-share .instagram {width:3rem;height:3rem;background-position: 0 -3rem;} }
 	</style>
 </head>
 <body>
@@ -35,7 +37,7 @@
 				<div class="product-media">
 					<div class="swiper-container product-slide product-zoom">
 						<div class="swiper-wrapper">
-							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><img class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }" /></div><noscript><img src="${ pro.productimgUrl }" alt="${ sessionScope.mlbackProductMetaTitle }" /></noscript></c:forEach>
+							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><div class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }"></div><noscript><img src="${ pro.productimgUrl }" alt="${ sessionScope.mlbackProductMetaTitle }" /></noscript></div></c:forEach>
 						</div>
 			   			<div class="swiper-pagination"></div>
 					    <div class="swiper-btn swiper-button-next"></div>
@@ -47,6 +49,7 @@
 			            <div class="swiper-button-prev"></div>
 					</div>
 					<div class="product-share">
+						<a class="instagram" style="display: inline-block;background-image: url('${APP_PATH}/static/pc/img/follow-us.png');background-repeat: no-repeat;background-size: 100% auto;" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
 						<div class="share-item" data-url="https://plus.google.com/share?url=" title="share on google+"></div>
 						<div class="share-item" data-url="https://twitter.com/intent/tweet?url=" title="share on twitter"></div>
 						<div class="share-item" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>
