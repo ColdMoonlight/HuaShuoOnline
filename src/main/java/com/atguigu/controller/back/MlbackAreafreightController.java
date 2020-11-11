@@ -81,7 +81,7 @@ public class MlbackAreafreightController {
 		System.out.println("mlbackAreafreight:"+mlbackAreafreight);
 		//取出id
 		Integer areafreightId = mlbackAreafreight.getAreafreightId();
-		String nowTime = DateUtil.strTime14s();
+		//String nowTime = DateUtil.strTime14s();
 		if(areafreightId==null){
 			//无id，insert
 			mlbackAreafreightService.insertSelective(mlbackAreafreight);
