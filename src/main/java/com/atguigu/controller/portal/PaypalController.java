@@ -163,7 +163,7 @@ public class PaypalController {
             	paypalErrorList = e.getDetails().getDetails();
             	if(paypalErrorList.size()>1){
             		//city,state,zip不匹配
-            		PaypalErrorName = " city,state,zip 不匹配";
+            		PaypalErrorName = "pls check your information, make sure that city,state,zip code  is  match your address";
             	}else{
             		//看看是什么
             		String errStr = paypalErrorList.get(0).getField();
@@ -178,7 +178,7 @@ public class PaypalController {
             		if(lastStr.equals("phone")){
             			PaypalErrorName = "Pls fill right phone number with Digital 0-9,which shouldn't included Any Alphabet and Symbol .";
             		}else{
-            			PaypalErrorName ="Please check the format of your "+lastStr+" . and try once again";
+            			PaypalErrorName ="Please check the "+lastStr+" . and Pls try again";
             		}
             	}
             }
