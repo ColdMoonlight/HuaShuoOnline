@@ -66,20 +66,25 @@
     <jsp:include page="../layout/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
 		<div class="black-banner"><div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/friday/sjhw_01.jpg"></div><div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_01.jpg"></div></div>
-		<div class="bg_tp banner_top2"><div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/friday/sjhw_02.jpg"></div><div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_02.jpg"></div></div>
-		<div class="bg_tp banner_top3"><div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/friday/sjhw_03.jpg"></div><div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_04.jpg"></div></div>
-		<div class="bg_tp banner_top4"><div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/friday/sjhw_04.jpg"></div><div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_05.jpg"></div></div>
-		<div class="bg_tp banner_top5"><div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/friday/sjhw_05.jpg"></div><div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_06.jpg"></div></div>
-		<div class="bg_tp banner_top6"><div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/friday/sjhw_06.jpg"></div><div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_07.jpg"></div></div>
-		<div class="bg_tp banner_top7"><div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/friday/sjhw_07.jpg"></div><div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_08.jpg"></div></div>
+		<div class="bg_tp banner_top2"><a class="wap lazyload" href="javascript:;" data-src="${APP_PATH }/static/pc/img/friday/sjhw_02.jpg"></a><a class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_02.jpg"></a></div>
+		<div class="bg_tp banner_top3"><a class="wap lazyload" href="javascript:;"  data-src="${APP_PATH }/static/pc/img/friday/sjhw_03.jpg"></a><a class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_04.jpg"></a></div>
+		
+		<div class="bg_tp banner_top4"><a class="wap lazyload" href="${APP_PATH }/B-13x4-Straight-Transparent-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_04.jpg"></a><a class="pc lazyload" href="${APP_PATH }/B-13x4-Straight-Transparent-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/hw_05.jpg"></a></div>
+		<div class="bg_tp banner_top5"><a class="wap lazyload" href="${APP_PATH }/B-13x4-Straight-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_05.jpg"></a><a class="pc lazyload" href="${APP_PATH }/B-13x4-Straight-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/hw_06.jpg"></a></div>
+		<div class="bg_tp banner_top6"><a class="wap lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_06.jpg"></a><a class="pc lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/hw_07.jpg"></a></div>
+		<div class="bg_tp banner_top7">
+			
+			
+			
+		</div>
 		<div class="banner_top8">
 			<div class="product_list_box product_list_box_1">
 				<div class="top_bg"></div>
 				<ul>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp01.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp02.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp01.jpg" href="${APP_PATH }/B-13x4-Full-Wave-Lace-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp02.jpg" href="${APP_PATH }/B-13x4-613-Straight-Body-Wave-Wig.html"></a></li>
 					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp03.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp04.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp04.jpg" href="${APP_PATH }/B-4x4-Body-Wave-Wig.html"></a></li>
 				</ul>
 				<div class="bot_bg"></div>
 			</div>
@@ -89,26 +94,26 @@
 			<div class="product_list_box product_list_box_1">
 				<div class="top_bg"></div>
 				<ul>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp05.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp06.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp07.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp08.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp05.jpg" href="${APP_PATH }/Headband-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp06.jpg" href="${APP_PATH }/Body-Wave-Headband-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp07.jpg" href="${APP_PATH }/Water-Wave-Headband-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp08.jpg" href="${APP_PATH }/Jerry-Curly-Headband-Wig.html"></a></li>
 				</ul>
 				<div class="bot_bg"></div>
 			</div>
 		</div>
 		<div class="banner_top9">
-			<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/friday/sjhw_12.jpg"></div>
-			<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw12.jpg"></div>
+			<a class="wap lazyload" href="${APP_PATH }/search/top-selling.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_12.jpg"></a>
+			<a class="pc lazyload" href="${APP_PATH }/search/top-selling.html" data-src="${APP_PATH }/static/pc/img/friday/hw12.jpg"></a>
 		</div>
 		<div class="banner_top8 banner_pd10">
 			<div class="product_list_box product_list_box_1">
 				<div class="top_bg"></div>
 				<ul>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp10.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp11.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp12.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp13.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp10.jpg" href="${APP_PATH }/B-13x4-Full-Texture-Transparent-Lace-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp11.jpg" href="${APP_PATH }/B-360-Straight-Wave-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp12.jpg" href="${APP_PATH }/2x6-Straight-Wave-Bob-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp13.jpg" href="${APP_PATH }/All-Color-4x4-Bob-Wig.html"></a></li>
 				</ul>
 				<div class="bot_bg"></div>
 			</div>
@@ -118,14 +123,14 @@
 			<div class="product_list_box product_list_box_1">
 				<div class="top_bg"></div>
 				<ul>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp14.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp15.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp16.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp17.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot18.png" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot19.png" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot20.png" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot21.png" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp14.jpg" href="${APP_PATH }/B-3-Bundles-with-4x4-Closure-Straight-Wave.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp15.jpg" href="${APP_PATH }/B-3-Bundles-with-4x4-Closure-Body-Wave.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp16.jpg" href="${APP_PATH }/M-3-Bundles-Body-Wave-Hair-Weave.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp17.jpg" href="${APP_PATH }/M-3-Bundles-Straight-Wave-Hair-Weave.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot18.png" href="${APP_PATH }/search/13x4-Lace-Frontal-Wig.html.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot19.png" href="${APP_PATH }/search/4x4-Closure-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot20.png" href="${APP_PATH }/search/360-Lace-Frontal-Wig.html"></a></li>
+					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot21.png" href="${APP_PATH }/search/Transparent-Lace-Wig.html"></a></li>
 				</ul>
 				<div class="bot_bg"></div>
 			</div>
