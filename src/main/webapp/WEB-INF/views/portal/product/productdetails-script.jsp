@@ -619,6 +619,20 @@
 			value: fbprice,
 			currency: 'USD'
 		});
+
+		pintrk('track', 'pagevisit', {
+			value: fbprice * $('.product-qty .product-num').val(),
+			order_quantity: $('.product-qty .product-num').val(),
+			currency: 'USD',
+			line_items: [
+				{
+					product_name: $('.product-name').html(),
+					product_id: fbpid,
+					product_price: fbprice,
+					product_quantity: $('.product-qty .product-num').val()
+				}
+			]
+		});
 	});
 	// event
 	$(window).on('resize', imageZoomEvent);
