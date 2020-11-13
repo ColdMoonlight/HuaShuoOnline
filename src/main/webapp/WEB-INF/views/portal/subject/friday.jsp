@@ -15,10 +15,12 @@
 		.product_list_box{width:1224px; margin: 0 auto;}
 		.product_list_box ul{width: 100%; padding: 0 2%; display: flex;flex-wrap: wrap; background: url(${APP_PATH }/static/pc/img/friday/bg_05.png) no-repeat; background-size:100% 100%;}
 		.product_list_box ul li{width:23%;margin: 0 1% 2%; background: ;}
-		.product_list_box ul li .lazyload{background-color: transparent;}
+		.product_list_box ul li .lazyload{background-color: transparent; background-size:cover;}
+		.pro_cont .lazyload{background-color: transparent;background-size:cover;}
+		.bg_tp .lazyload{background-size:cover;}
 		.product_list_box ul li a{display: block;width: 100%; padding-top:151%;}
 		.product_list_box ul li img{max-width: 100%; height: auto;}
-		.banner_top8{width: 100%; height:auto; padding: 0 0 30px; margin:0;background: url(${APP_PATH }/static/pc/img/friday/hg_02.jpg) no-repeat top center; background-size:100% 100%;}
+		.banner_top8{width: 100%; height:auto; padding: 0 0 30px; margin:0;background: url(${APP_PATH }/static/pc/img/friday/hg_02.jpg) no-repeat top center; background-size:cover;}
         .top_bg{width: 100%; height: 36px; background: url(${APP_PATH }/static/pc/img/friday/bg_03.png) no-repeat; background-size:100% 100%;}
 		.bot_bg{width: 100%; height: 36px;background: url(${APP_PATH }/static/pc/img/friday/bg_06.png) no-repeat; background-size:100% 100%;}
         .box_img{width: 100%; height: auto; margin: 0 auto; text-align: center; padding: 30px 0 0;}
@@ -26,39 +28,43 @@
         .banner_pd10{padding: 20px 0 0;}
 		.banner_pd10 img{padding: 0 0 20px;}
 		.bg_tp{width: 100%;clear: both;}
+		.banner_top7{width:100%; height:auto; padding: 0 0 20px; background: url(${APP_PATH }/static/pc/img/friday/dbg.jpg) no-repeat top center; background-size:100% 100%;}
+		.banner_top7cont{width:1040px;display: flex;align-items: flex-start;margin: 0 auto;}
+		.pro_cont{width: 50%; position:relative;}
 		@media only screen and (max-width: 1366px) { 
 			.product_list_box{width: 100%;padding: 0 5%;}
 		}
+		@media only screen and (max-width:1200px) {
+			.banner_top7cont{width:100%;padding: 0 5%;}
+		}
 		@media only screen and (max-width: 780px) {
 			.product_list_box ul li{width:48%;; margin: 0 1% 2%;}
-			.top_bg{width: 100%; height: 16px; background: url(${APP_PATH }/static/pc/img/friday/bg_03.png) no-repeat; background-size:100% 16px;}
-			.bot_bg{width: 100%; height: 16px;background: url(${APP_PATH }/static/pc/img/friday/bg_06.png) no-repeat; background-size:100% 16px;}
+			.top_bg{width: 100%; height: 16px; background: url(${APP_PATH }/static/pc/img/friday/bg_03.png) no-repeat; background-size:100% 100%;}
+			.bot_bg{width: 100%; height: 16px;background: url(${APP_PATH }/static/pc/img/friday/bg_06.png) no-repeat;background-size:100% 100%;}
 		}
 		@media only screen and (max-width: 575px) {
-			.black-banner .wap{display: block;opacity: 1;visibility: visible;padding-top: 58%;} 
-			.banner_top2 .wap{display: block;opacity: 1;visibility: visible;padding-top: 49.3%;}
-			.banner_top3 .wap{display: block;opacity: 1;visibility: visible;padding-top: 52%;}
-			.banner_top4 .wap{display: block;opacity: 1;visibility: visible;padding-top: 39.4%;}
-			.banner_top5 .wap{display: block;opacity: 1;visibility: visible;padding-top: 39.4%;}
-			.banner_top6 .wap{display: block;opacity: 1;visibility: visible;padding-top: 40.9%;}
-			.banner_top7 .wap{display: block;opacity: 1;visibility: visible;padding-top: 66%;}
-			.banner_top9 .wap{display: block;opacity: 1;visibility: visible;padding-top: 58.00%;}
+			.bg_tp .wap{display: block;opacity: 1;visibility: visible; position:relative;}
+			.black-banner .wap{padding-top: 58%;} 
+			.banner_top2 .wap{padding-top: 49.3%;}
+			.banner_top3 .wap{padding-top: 52%;}
+			.banner_top4 .wap{padding-top: 39.4%;}
+			.banner_top5 .wap{padding-top: 39.4%;}
+			.banner_top6 .wap{padding-top: 40.9%;}
+			.banner_top9 .wap{padding-top: 58.00%;}
+			.pro_cont .wap{padding-top: 117.272%;}
 			.box_img .pc{display:none}
-			/* .banner_top8 .wap{display: block;opacity: 1;visibility: visible;padding-top: 11.866%;} */
 		}
 		@media only screen and (min-width: 576px) {
-			.black-banner .pc{;display: block;opacity: 1;visibility: visible;padding-top: 36.458%}
-			.banner_top2 .pc{display: block;opacity: 1;visibility: visible;padding-top: 27.5%;}
-			.banner_top3 .pc{display: block;opacity: 1;visibility: visible;padding-top:30.156%;}
-			.banner_top4 .pc{display: block;opacity: 1;visibility: visible;padding-top:24.322%;}
-			.banner_top5 .pc{display: block;opacity: 1;visibility: visible;padding-top:24.322%;}
-			.banner_top6 .pc{display: block;opacity: 1;visibility: visible;padding-top:24.635%;}
-			.banner_top7 .pc{display: block;opacity: 1;visibility: visible;padding-top:37.083%;}
-			.banner_top9 .pc{display: block;opacity: 1;visibility: visible;padding-top:32.8%;}
+			.bg_tp .pc{display: block;opacity: 1;visibility: visible;}
+			.black-banner .pc{padding-top: 36.458%}
+			.banner_top2 .pc{padding-top: 27.5%;}
+			.banner_top3 .pc{padding-top:30.156%;}
+			.banner_top4 .pc{padding-top:24.322%;}
+			.banner_top5 .pc{padding-top:24.322%;}
+			.banner_top6 .pc{padding-top:24.635%;}
+			.banner_top9 .pc{padding-top:32.8%;}
+			.pro_cont .pc{padding-top:104.6153%;}
 			.box_img .wap{display:none}
-			
-			
-			/* .banner_top8 .pc{display: block;opacity: 1;visibility: visible;padding-top:6.979%;} */
 		}
 	</style>
 </head>
@@ -73,9 +79,16 @@
 		<div class="bg_tp banner_top5"><a class="wap lazyload" href="${APP_PATH }/B-13x4-Straight-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_05.jpg"></a><a class="pc lazyload" href="${APP_PATH }/B-13x4-Straight-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/hw_06.jpg"></a></div>
 		<div class="bg_tp banner_top6"><a class="wap lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_06.jpg"></a><a class="pc lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/hw_07.jpg"></a></div>
 		<div class="bg_tp banner_top7">
-			
-			
-			
+			<div class="banner_top7cont">
+				<div class="pro_cont left_pro">
+					<a class="wap lazyload" href="${APP_PATH }/B-44-Piano-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/twl.png"></a>
+					<a class="pc lazyload" href="${APP_PATH }/B-44-Piano-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/tw_03.png"></a>
+				</div>
+				<div class="pro_cont right_pro">
+					<a class="wap lazyload" href="${APP_PATH }/Natural-Color-13x4-Bob-Straight-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/twr.png"></a>
+					<a class="pc lazyload" href="${APP_PATH }/Natural-Color-13x4-Bob-Straight-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/tw_04.png"></a>
+				</div>
+			</div>
 		</div>
 		<div class="banner_top8">
 			<div class="product_list_box product_list_box_1">
@@ -102,7 +115,7 @@
 				<div class="bot_bg"></div>
 			</div>
 		</div>
-		<div class="banner_top9">
+		<div class="bg_tp banner_top9">
 			<a class="wap lazyload" href="${APP_PATH }/search/top-selling.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_12.jpg"></a>
 			<a class="pc lazyload" href="${APP_PATH }/search/top-selling.html" data-src="${APP_PATH }/static/pc/img/friday/hw12.jpg"></a>
 		</div>
@@ -139,10 +152,6 @@
 	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
-		
-		
-		
-		
 		
 		new LazyLoad($('main').find('.lazyload'), {
 			root: null,
