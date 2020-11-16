@@ -15,6 +15,8 @@ public class MlbackProductSku {
     private Integer productskuStock;	//库存
 
     private Integer productskuPid;	//归属产品Id
+    
+    private String productskuOneImg;
 
     private Integer productskuStatus;	//sku状态:0不生效,1生效
 
@@ -77,8 +79,16 @@ public class MlbackProductSku {
     public void setProductskuPid(Integer productskuPid) {
         this.productskuPid = productskuPid;
     }
+    
+    public String getProductskuOneImg() {
+		return productskuOneImg;
+	}
 
-    public Integer getProductskuStatus() {
+	public void setProductskuOneImg(String productskuOneImg) {
+		this.productskuOneImg = productskuOneImg == null ? null : productskuOneImg.trim();
+	}
+
+	public Integer getProductskuStatus() {
         return productskuStatus;
     }
 
@@ -108,7 +118,8 @@ public class MlbackProductSku {
 
 	public MlbackProductSku(Integer productskuId, String productskuName, String productskuCode,
 			String productskuPSeoname, String productskuMoney, Integer productskuStock, Integer productskuPid,
-			Integer productskuStatus, String productskuCreatetime, String productskuMotifytime) {
+			String productskuOneImg, Integer productskuStatus, String productskuCreatetime,
+			String productskuMotifytime) {
 		super();
 		this.productskuId = productskuId;
 		this.productskuName = productskuName;
@@ -117,6 +128,7 @@ public class MlbackProductSku {
 		this.productskuMoney = productskuMoney;
 		this.productskuStock = productskuStock;
 		this.productskuPid = productskuPid;
+		this.productskuOneImg = productskuOneImg;
 		this.productskuStatus = productskuStatus;
 		this.productskuCreatetime = productskuCreatetime;
 		this.productskuMotifytime = productskuMotifytime;
@@ -127,7 +139,9 @@ public class MlbackProductSku {
 		return "MlbackProductSku [productskuId=" + productskuId + ", productskuName=" + productskuName
 				+ ", productskuCode=" + productskuCode + ", productskuPSeoname=" + productskuPSeoname
 				+ ", productskuMoney=" + productskuMoney + ", productskuStock=" + productskuStock + ", productskuPid="
-				+ productskuPid + ", productskuStatus=" + productskuStatus + ", productskuCreatetime="
-				+ productskuCreatetime + ", productskuMotifytime=" + productskuMotifytime + "]";
+				+ productskuPid + ", productskuOneImg=" + productskuOneImg + ", productskuStatus=" + productskuStatus
+				+ ", productskuCreatetime=" + productskuCreatetime + ", productskuMotifytime=" + productskuMotifytime
+				+ "]";
 	}
+
 }
