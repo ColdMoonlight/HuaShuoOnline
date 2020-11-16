@@ -621,9 +621,11 @@
 		});
 
 		pintrk('track', 'pagevisit', {
+			em: ml.pinterest_email,
 			value: fbprice * $('.product-qty .product-num').val(),
 			order_quantity: $('.product-qty .product-num').val(),
 			currency: 'USD',
+			product_ids: ["" + fbpid],
 			line_items: [
 				{
 					product_name: $('.product-name').html(),
@@ -709,9 +711,11 @@
 					currency: 'USD'
 				});
 				pintrk('track', 'addtocart', {
+					em: ml.pinterest_email,
 					value: reqData.cartitemProductOriginalprice * $('.product-qty .product-num').val(),
 					order_quantity: $('.product-qty .product-num').val(),
 					currency: 'USD',
+					product_ids: ["" + reqData.cartitemProductId],
 					line_items: [
 						{
 							product_name: $('.product-name').html(),
@@ -733,9 +737,11 @@
 			value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)), reqData.cartitemProductActoff),
 			currency: "USD"
 		}), pintrk('track', 'checkout', {
+			em: ml.pinterest_email,
 			value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)), reqData.cartitemProductActoff) * $('.product-qty .product-num').val(),
 			order_quantity: $('.product-qty .product-num').val(),
-			currency: 'USD',			
+			currency: 'USD',
+			product_ids: ["" + reqData.cartitemProductId],
 			line_items: [
 				{
 					product_name: $('.product-name').html(),
