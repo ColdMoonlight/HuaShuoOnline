@@ -292,7 +292,8 @@
 		pintrk('track', 'checkout', {
 			value: orderMoney,
 			order_quantity: $('.cart-cal-total').text(),
-			currency: 'USD'
+			currency: 'USD',
+			product_ids: cartitemProductIdArr
 		});
 	}
 	// check reqData
