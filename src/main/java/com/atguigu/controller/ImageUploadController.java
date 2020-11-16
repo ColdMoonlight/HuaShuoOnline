@@ -17,6 +17,7 @@ import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.bean.MlbackCouponDescTitle;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackProductImg;
+import com.atguigu.bean.MlbackProductSku;
 import com.atguigu.bean.MlbackReviewImg;
 import com.atguigu.bean.MlbackShowArea;
 import com.atguigu.bean.MlbackSlide;
@@ -27,6 +28,7 @@ import com.atguigu.service.MlbackCouponDescTitleService;
 import com.atguigu.service.MlbackCouponService;
 import com.atguigu.service.MlbackProductImgService;
 import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlbackProductSkuService;
 import com.atguigu.service.MlbackReviewImgService;
 import com.atguigu.service.MlbackShowAreaService;
 import com.atguigu.service.MlbackSlideService;
@@ -76,6 +78,9 @@ public class ImageUploadController {
 	
 	@Autowired
 	MlbackCouponService mlbackCouponService;
+	
+	@Autowired
+	MlbackProductSkuService mlbackProductSkuService;
 	
 	/**
 	 * 	zsh	20201010
@@ -307,7 +312,7 @@ public class ImageUploadController {
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl).add("mlbackProductImg", mlbackProductImg);
 	}
 	/**
-	 * 	onuse	20200103	检查
+	 * 	zsh	20200103	检查
 	 * */
 	@RequestMapping(value="/productDiscount",method=RequestMethod.POST)
 	@ResponseBody
@@ -829,6 +834,50 @@ public class ImageUploadController {
 		mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);
 		
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+	}
+	
+	/**
+	 * 	zsh 200727
+	 * */
+	@RequestMapping(value="/uploadProSkuImg",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg uploadProSkuImg(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("productskuId")Integer productskuId,
+			@RequestParam("productskuPid")Integer productskuPid,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//couponDescTitle
+		
+		String productskuPidStr = productskuPid+"";
+		
+		String proIdStr = productskuId+"";
+		
+		String imgName = ImageNameUtil.getfilenamePsku(typeName,productskuPidStr,proIdStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String uploadPath = "static/upload/img/Prosku";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+				
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MlbackProductSku mlbackProductSku = new MlbackProductSku();
+		mlbackProductSku.setProductskuId(productskuId);
+		mlbackProductSku.setProductskuOneImg(sqlimageUrl);
+		mlbackProductSkuService.updateByPrimaryKeySelective(mlbackProductSku);
+		
+		return Msg.success().add("resMsg", "上传成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
 	}
 
 }
