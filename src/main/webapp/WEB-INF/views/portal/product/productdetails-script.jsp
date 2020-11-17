@@ -202,6 +202,7 @@
 		var htmlStr = $('.product-slide .swiper-wrapper').html();
 		var htmlVideoThumb = '';
 		var htmlVideo = '';
+		var htmlSkuImgs = '';
 		if (data.video) {
 			htmlVideoThumb = '<div class="swiper-slide"><div class=" lazyload" data-src="' + data.video.posterUrl + '"></div></div>';
 			
@@ -211,8 +212,11 @@
 			  	'</video>' +
 			'</div>';
 		}
-		$('.product-thumb-slide .swiper-wrapper').html(htmlVideoThumb + htmlStr);
-		$('.product-slide .swiper-wrapper').html(htmlVideo + htmlStr);
+		data.skuImgs && data.skuImgs.length && data.skuImgs.forEach(function(item) {
+			htmlSkuImgs += '<div class="swiper-slide" data-sku="'+ item.sku +'"><div class=" lazyload" data-src="' + item.url + '"></div></div>'
+		});
+		$('.product-thumb-slide .swiper-wrapper').html(htmlVideoThumb + htmlStr + htmlSkuImgs);
+		$('.product-slide .swiper-wrapper').html(htmlVideo + htmlStr + htmlSkuImgs);
 		
 		$('#ml-video').on('play', function() {
 			pintrk('track', 'watchvideo');
@@ -585,7 +589,6 @@
 				isVideo: true
 			};
 		}
-		renderProductMedia(mediaData);
 		// details
 		productSeo = data.productSeo;
 		productName = data.proudctName;
@@ -598,8 +601,40 @@
 		});
 		// skus
 		getProductSkus(function(data) {
-			data.length && buildResult(data);				
+			function getProductSkuImgs(data) {
+				var productSkuImgs = [];
+				data.forEach(function(item) {
+					item.productskuOneImg && productSkuImgs.push({
+						'sku': item.productskuName,
+						'url': item.productskuOneImg 
+					});
+				})
+				return productSkuImgs;
+			}
+			data.length && buildResult(data), mediaData.skuImgs = getProductSkuImgs(data);
 		});
+		renderProductMedia(mediaData);
+		$('.product-option-item .radio').on('click', function() {
+			function getSwiperSlideItem(sku) {
+				var swiperIdx = -1;
+				$('.product-thumb-slide .swiper-slide').each(function(idx, item) {
+					if($(item).data('sku') == sku) swiperIdx = idx;
+				});
+				return swiperIdx;
+			}
+			setTimeout(function() {
+				var $selectedRadio = $('.product-option-item .radio.active');
+				if ($selectedRadio.length && ($selectedRadio.length == $('.product-option-item').length)) {
+					var skuNameArr = [];
+					var swiperSlideIdx = null;
+					$selectedRadio.each(function(idx, item) {
+						skuNameArr.push($(item).data('text'));
+					});
+					swiperSlideIdx = getSwiperSlideItem(skuNameArr.join(','));
+					swiperSlideIdx > -1 && $('.product-slide .swiper-pagination-bullet').eq(swiperSlideIdx).click();
+				}				
+			}, 500);
+		})
 		// countdown time
 		getCoundownTimeData(2, rednerCountDownAreaOne);
 		addHeaderInfo(data);
