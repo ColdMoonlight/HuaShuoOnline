@@ -847,7 +847,7 @@ public class ImageUploadController {
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
 		//判断参数,确定信息
-		String typeName=ImageNameUtil.gettypeName(type);//proSku
+		String typeName=ImageNameUtil.gettypeName(type);//	proSku
 		
 		String productskuPidStr = productskuPid+"";
 		
