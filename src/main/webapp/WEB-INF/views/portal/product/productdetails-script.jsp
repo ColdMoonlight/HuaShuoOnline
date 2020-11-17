@@ -213,7 +213,7 @@
 			'</div>';
 		}
 		data.skuImgs && data.skuImgs.length && data.skuImgs.forEach(function(item) {
-			htmlSkuImgs += '<div class="swiper-slide" data-sku="'+ item.sku +'"><div class=" lazyload" data-src="' + item.url + '"></div></div>'
+			htmlSkuImgs += '<div class="swiper-slide" data-sku="'+ item.sku +'"><div class="lazyload img" data-src="' + item.url + '" rel="' + item.url + '"></div></div>'
 		});
 		$('.product-thumb-slide .swiper-wrapper').html(htmlVideoThumb + htmlStr + htmlSkuImgs);
 		$('.product-slide .swiper-wrapper').html(htmlVideo + htmlStr + htmlSkuImgs);
