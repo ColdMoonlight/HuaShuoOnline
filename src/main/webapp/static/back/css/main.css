@@ -619,6 +619,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 2;
 	width: 100%;
 	background-color: #fff;
 	border-bottom: 1px solid #e6e6e6;
@@ -640,10 +641,22 @@
 }
 .product-sku-head-stock,
 .product-sku-head-price,
-.product-sku-stock,
 .product-sku-price {
 	width: 100px;
 	margin-left: .5rem;
+}
+.product-sku-stock {
+	width: 60px;
+	margin-left: .5rem;
+}
+.product-sku-img.c-upload-img {
+	width: 4rem;
+	height: 4rem;
+	padding: 1rem;
+}
+.product-sku-img.c-upload-img .c-icon {
+	width: 2rem;
+	height: 2rem;
 }
 .product-sku-head-sku,
 .product-sku-sku {
