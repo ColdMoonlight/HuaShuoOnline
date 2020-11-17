@@ -15,9 +15,7 @@
 		.product_list_box{width:1224px; margin: 0 auto;}
 		.product_list_box ul{width: 100%; padding: 0 2%; display: flex;flex-wrap: wrap; background: url(${APP_PATH }/static/pc/img/friday/bg_05.png) no-repeat; background-size:100% 100%;}
 		.product_list_box ul li{width:23%;margin: 0 1% 2%;}
-		.product_list_box ul li .lazyload{background-color: transparent; background-size:cover;}
-		.pro_cont .lazyload{background-color: transparent;background-size:cover;}
-		.bg_tp .lazyload{background-size:cover;}
+		.pro_cont .lazyload{background-color: transparent;}
 		.product_list_box ul li a{display: block;width: 100%; padding-top:151%;}
 		.product_list_box ul li:nth-of-type(5) a,.product_list_box ul li:nth-of-type(6) a,.product_list_box ul li:nth-of-type(7) a,.product_list_box ul li:nth-of-type(8) a{padding-top:141%;}
 		.product_list_box ul li img{max-width: 100%; height: auto;}
