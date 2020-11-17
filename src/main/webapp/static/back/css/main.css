@@ -639,12 +639,12 @@
 	width: 150px;
 	word-break: break-word;
 }
-.product-sku-head-stock,
 .product-sku-head-price,
 .product-sku-price {
 	width: 100px;
 	margin-left: .5rem;
 }
+.product-sku-head-stock,
 .product-sku-stock {
 	width: 60px;
 	margin-left: .5rem;
