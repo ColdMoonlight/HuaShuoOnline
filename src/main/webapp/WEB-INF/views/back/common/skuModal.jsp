@@ -26,7 +26,23 @@
 						<div class="card-title-name">Others</div>
 					</div>
 					<div class="card-body">	
-						<input id="productSkuId" hidden>				
+						<input id="productSkuId" hidden>
+						<div class="form-group">
+							<label class="col-form-label" for="productSkuImg">Product Sku Picture</label>
+							<div class="controls">
+								<div class="c-upload-img">
+									<svg class="c-icon">
+										<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>
+									</svg>
+									<div class="c-backshow"></div>						
+									<input id="productSkuImg" type="file" accept="image/png, image/jpeg, image/gif" />										
+									<!-- spinner -->
+									<div class="spinner">
+										<div class="spinner-border" role="status" aria-hidden="true"></div>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-form-label" for="productSkuStock">Product Sku Stock</label>
 							<div class="controls">

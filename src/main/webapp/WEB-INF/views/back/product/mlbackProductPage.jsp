@@ -768,13 +768,13 @@
             if (data.length) {
 	            data.forEach(function(item) {
 	            	var skuName = item.productskuName ? item.productskuName.replace(/\,/g, '/') : item.join('/');
-	            	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'" data-skuname="'+ (item.productskuName || item.join(',')) +'">'+
+	            	htmlStr += '<div class="product-sku-item" data-id="'+ (item.productskuId ? item.productskuId : '') +'" data-skuname="'+ (item.productskuName || item.join(',')) +'" data-img="'+ (item.productskuOneImg ? item.productskuOneImg : '') +'">'+
 	            		'<div class="product-sku-td product-sku-name">'+ skuName +'</div>' +
-	            		'<div class="product-sku-td product-sku-img c-upload-img">' +
+	            		'<div class="product-sku-td product-sku-img c-upload-img'+ (item.productskuOneImg ? ' valid active' : '') +'">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image-plus"></use>' +
 							'</svg>' +
-							'<div class="c-backshow"></div>' +
+							'<div class="c-backshow">'+ (item.productskuOneImg ? '<img src="'+ encodeUrl(item.productskuOneImg) + '" />' : '') +'</div>' +
 							'<input type="file" />' +
 							'<div class="spinner">' +
 								'<div class="spinner-border" role="status" aria-hidden="true"></div>' +
@@ -951,6 +951,7 @@
 				'price': parentEl.find('.product-sku-price').val(),
 				'sku': parentEl.find('.product-sku-sku').val(),
 				'name': parentEl.data('skuname').split(','),
+				'img': parentEl.data('img'),
 			});
 		});
 		// initial product skus
@@ -1013,11 +1014,20 @@
 				$('#productSkuName').html(htmlStr);
 				if (data) {
 					$('#productSkuId').val(data.id || '');
+					if (data.img) {
+						addPicture($("#productSkuImg"), {
+							imageUrl: data.img,
+							thumImageUrl: data.img
+						});
+					} else {
+						resetPicture($("#productSkuImg"));
+					}
 					$('#productSkuStock').val(data.stock || 0);
 				    $('#productSkuPrice').val(data.price || 0);
 				    $('#productSkuSku').val(data.sku || '');
 				} else {
 					$('#productSkuId').val('');
+					resetPicture($("#productSkuImg"));
 					$('#productSkuStock').val(0);
 				    $('#productSkuPrice').val(0);
 				    $('#productSkuSku').val('');
@@ -1520,7 +1530,51 @@
 			formData.append('image', file);
 			formData.append('productskuPid', parseInt($('#productId').val()));
 			formData.append('productskuId', parseInt(productSkuId));
-			formData.append('productSeo', $('#productSeo').val());
+
+			$.ajax({
+				url: "${APP_PATH}/ImageUpload/uploadProSkuImg",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				dataType: 'json',
+				success: function (data) {
+					if (data.code == 100) {
+						$this.parents('.product-sku-item').data('img', data.extend.sqlimageUrl).find('.product-sku-img').addClass('active').find('.c-backshow').html('<img src="'+ encodeUrl(data.extend.sqlimageUrl) + '" />');
+					} else {
+						toastr.error('网络错误， 请稍后重试！');	
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$this.parent().find('.spinner').hide();
+				}
+			});
+		});
+		// upload sku img
+		$(document.body).on('change', '#productSkuImg', function(e) {
+			var $this = $(this);
+			var file = $this[0].files[0];
+			var formData = new FormData();
+			var productSkuId = $('#productSkuId').val();
+
+			if (!productSkuId) {
+				toastr.warning('产品sku未保存，保存后，方可上传对应的sku图。。。');
+				return false;
+			}
+
+			if (!file) return false;
+
+			$this.parent().find('.spinner').show();
+			$this.val('');
+
+			formData.append('type', 'proSku');
+			formData.append('image', file);
+			formData.append('productskuPid', parseInt($('#productId').val()));
+			formData.append('productskuId', parseInt(productSkuId));
 
 			$.ajax({
 				url: "${APP_PATH}/ImageUpload/uploadProSkuImg",
