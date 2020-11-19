@@ -17,7 +17,7 @@
 		var productName;
 	</script>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
+	<jsp:include page="../common/swiper.jsp" flush="true"></jsp:include>
 	<style>
 		main {margin-top: 1rem;}
 		@media only screen and (max-width: 575px) {
@@ -133,7 +133,6 @@
 	<!-- common script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<!-- third lib -->
-	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
 	<!-- productdetails script -->
 	<jsp:include page="./productdetails-script.min.jsp" flush="true"></jsp:include>
