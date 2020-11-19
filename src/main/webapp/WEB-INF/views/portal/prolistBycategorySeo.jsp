@@ -15,7 +15,7 @@
 		var categorySeo = '${sessionScope.categorySeo}';
 	</script>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
-	<link href="${APP_PATH}/static/common/swiper/swiper.min.css" rel="stylesheet">
+	<jsp:include page="common/swiper.jsp" flush="true"></jsp:include>
 	<style>@media only screen and (max-width: 1023px) { main { margin: 0; } main .container { margin: 1rem; } } @media only screen and (min-width: 1024px) { main .container { margin-top: 1rem; } }</style>
 </head>
 <body>
@@ -32,8 +32,6 @@
 	<!-- main end -->
 	<!-- common script -->
 	<jsp:include page="common/footer.jsp" flush="true"></jsp:include>
-	<!-- third lib -->
-	<script src="${APP_PATH}/static/common/swiper/swiper.min.js"></script>
 	<script>
 		function getProductListByCategorySeo(categorySeo, hasCategory) {
 			$.ajax({
