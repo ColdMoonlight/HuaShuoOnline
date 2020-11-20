@@ -374,7 +374,7 @@
 		}, 5000);
 	}
 	// to pay instance
-	function toPayInstance(reqData) {
+	/* function toPayInstance(reqData) {
 		$.ajax({
 			url: '${APP_PATH}/ProPay/toBuyNowPay',					
 			data: JSON.stringify(reqData),
@@ -413,7 +413,7 @@
 				sysModalTip();
 			}
 		});
-	}
+	} */
 	// get review cal data
 	function getReviewCalData(callback) {
 		$.ajax({

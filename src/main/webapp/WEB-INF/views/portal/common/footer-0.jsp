@@ -461,9 +461,9 @@ function goToCheckout() {
 function goToCartList() {
 	window.location.href = '${APP_PATH}/MlbackCart/toCartList';
 }
-function goTopayInstance() {
+/* function goTopayInstance() {
 	window.location.href = '${APP_PATH}/paypalProDetailExpress/mpay';
-}
+} */
 function goToUserCenter() {
 	 window.location.href = "${APP_PATH}/MlfrontUser/toUserCenter";
 }
