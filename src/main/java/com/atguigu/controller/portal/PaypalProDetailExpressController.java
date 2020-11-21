@@ -148,24 +148,8 @@ public class PaypalProDetailExpressController {
             	PaypalErrorName = e.getDetails().getName();
             }
             session.setAttribute("PaypalErrorName", PaypalErrorName);
-//          ListIterator<ErrorDetails> errorDetailslist = null;
-//          
-//          errorDetailslist =  e.getDetails().getDetails().listIterator();
             String regularName ="";
-//            while(errorDetailslist.hasNext()){//正序遍历     hasNext()：判断集合中是否还有下一个元素
-//            	System.out.print(errorDetailslist.next()+",");//返回值：狗娃,晶晶,亮亮,美美,铁蛋,
-//            	String regularNameOne ="";
-//            	regularNameOne = errorDetailslist.next().getField();
-//            	if(("city").equals(regularNameOne)){
-//            		regularName+=" "+regularNameOne+" ";
-//            	}
-//            	if(("state").equals(regularNameOne)){
-//            		regularName+=" "+regularNameOne+" ";
-//            	}
-//            	if(("zip").equals(regularNameOne)){
-//            		regularName+=" zip/PostalCode ";
-//            	}
-//            }
+
             regularName+= " is not match";
             session.setAttribute("PaypalError", regularName);
             
@@ -518,9 +502,6 @@ public class PaypalProDetailExpressController {
 	@RequestMapping(method = RequestMethod.GET, value = PAYPAL_CANCEL_M_URLIn)
     public String cancelPay(HttpSession session){
 		
-		//4.0.1更新失败所需修改的表
-		//toUpdatePayInfoFail(session);
-		
         return "redirect:/MlbackCart/toCheakOut";
     }
 	
@@ -531,50 +512,8 @@ public class PaypalProDetailExpressController {
 	@RequestMapping(method = RequestMethod.GET, value = PAYPAL_CANCEL_P_URLIn)
     public String pcancelPay(HttpSession session){
 		
-        //4.0.1更新失败所需修改的表
-		//toUpdatePayInfoFail(session);
-		
 		return "redirect:/MlbackCart/toCheakOut";
     }
-    
-	/**
-	 * 
-	 * 4.0.1更新失败所需修改的表
-	 * 注释原因:失败之后更新的状态，payinfo与orderinfo的信息都为0,未支付也是0,所以需要修改
-	 * */
-//    private void toUpdatePayInfoFail(HttpSession session) {
-//    	Integer payinfoId = (Integer) session.getAttribute("payinfoId");
-//    	//修改支付单状态
-//    	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
-//		mlfrontPayInfoNew.setPayinfoId(payinfoId);
-//		List<MlfrontPayInfo> MlfrontPayInfoList =mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoNew);
-//		MlfrontPayInfo mlfrontPayInfoIOne = MlfrontPayInfoList.get(0);
-//		mlfrontPayInfoIOne.setPayinfoStatus(0);//0未支付//1支付成功//2审单完毕//3发货完毕 //4已退款
-//		String nowTime = DateUtil.strTime14s();
-//		mlfrontPayInfoIOne.setPayinfoMotifytime(nowTime);
-//		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoIOne);
-//		
-//		//修改order单状态
-//		Integer orderId = mlfrontPayInfoIOne.getPayinfoOid();
-//		//封装req
-//		MlfrontOrder mlfrontOrderPayReq = new MlfrontOrder();
-//		mlfrontOrderPayReq.setOrderId(orderId);
-//		//查回结果
-//		List<MlfrontOrder> mlfrontOrderList =  mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPayReq);
-//		MlfrontOrder mlfrontOrderResOne = mlfrontOrderList.get(0);
-//		//准备更新数据
-//		mlfrontOrderResOne.setOrderStatus(0);//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款
-//		mlfrontOrderResOne.setOrderMotifytime(nowTime);
-//		mlfrontOrderResOne.setOrderPaytime(nowTime);
-//		//执行更新
-//		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderResOne);
-//		
-//	}
-    
-    
-    
-    
-    
     
     /**
 	 * 99.0.1读取getPayInfo参数
