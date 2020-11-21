@@ -136,10 +136,9 @@ public class PaypalController {
                         System.out.println("str1:"+str1);
                         String str2=str.substring(str1.length(), str.length());
                         System.out.println("str2:"+str2);
-                        //1信用卡
-                        //真是环境
+                        //1信用卡真是环境
                         //String payCartUrl = "https://www.paypal.com/checkoutweb/signup?"+str2;
-                        //沙箱环境
+                        //2信用卡沙箱环境
                         String payCartUrl = "https://www.sandbox.paypal.com/checkoutweb/signup?"+str2;
                         System.out.println("payCartUrl:  "+payCartUrl);
                 		return Msg.success().add("ifPaypalCheckSuccess", 1).add("redirectUrl", payCartUrl);
