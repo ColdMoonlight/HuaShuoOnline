@@ -52,6 +52,9 @@
 						navigation: {
 							nextEl: '.slide-'+ idx +' .swiper-button-next',
 							prevEl: '.slide-'+ idx +' .swiper-button-prev',
+						},
+						autoplay: {
+							delay:6e3
 						}
 					});					
 				}, 1000);
