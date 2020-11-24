@@ -18,7 +18,7 @@ public class CustomerWholesale {
     
     private String wholesaleCustomerStatus;
     
-    private String wholesaleOperateDeatil;
+    private String wholesaleOperateDeatil;//业务操作描述
 
     private String wholesaleCreatetime;
 
