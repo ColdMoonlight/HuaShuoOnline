@@ -58,6 +58,7 @@
 											<th>message</th>
 											<th>time</th>
 											<th>customerStatus</th>
+											<th>operate-log</th>
 											<th>operate</th>
 										</tr>
 									</thead>
@@ -91,35 +92,43 @@
 												<span class="c-switch-slider"></span>
 											</label>
 										</div>
-									</div>									
-									<div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerName">Customer Name</label>
-										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerName" type="text" disabled />
-										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerEmail">E-mail</label>
-										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerEmail" type="text" disabled />
+									<div class="row">
+										<div class="form-group col-md-6">
+											<label class="col-form-label" for="wholesaleCustomerName">Customer Name</label>
+											<div class="controls">
+												<input class="form-control" id="wholesaleCustomerName" type="text" disabled />
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerCountry">Country</label>
-										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerCountry" type="text" disabled />
+										<div class="form-group col-md-6">
+											<label class="col-form-label" for="wholesaleCustomerEmail">E-mail</label>
+											<div class="controls">
+												<input class="form-control" id="wholesaleCustomerEmail" type="text" disabled />
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerTelephone">Telephone</label>
-										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerTelephone" type="text" disabled />
+										<div class="form-group col-md-6">
+											<label class="col-form-label" for="wholesaleCustomerCountry">Country</label>
+											<div class="controls">
+												<input class="form-control" id="wholesaleCustomerCountry" type="text" disabled />
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+											<label class="col-form-label" for="wholesaleCustomerTelephone">Telephone</label>
+											<div class="controls">
+												<input class="form-control" id="wholesaleCustomerTelephone" type="text" disabled />
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerMessage">Message</label>
 										<div class="controls">
 											<textarea  rows="5" class="form-control" id="wholesaleCustomerMessage" disabled></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="wholesaleOperateDeatil">Operate-log</label>
+										<div class="controls">
+											<textarea  rows="5" class="form-control" id="wholesaleOperateDeatil" placeholder="大客户/问价的/xxx"></textarea>
 										</div>
 									</div>
 								</div>
@@ -257,6 +266,7 @@
 			$('#wholesaleCustomerTelephone').val('');
 			$('#wholesaleCustomerMessage').val('');
 			$('#wholesaleCustomerStatus').prop('checked', false);
+			$('#wholesaleOperateDeatil').val('');			
 		}
 		// getFormdData
 		function getFormData() {
@@ -268,6 +278,7 @@
 			data.wholesaleCustomerTelephone = $('#wholesaleCustomerTelephone').val();
 			data.wholesaleCustomerMessage = $('#wholesaleCustomerMessage').val();
 			data.wholesaleCustomerStatus = $('#wholesaleCustomerStatus').prop('checked') ? 1 : 0;
+			data.wholesaleOperateDeatil = $('#wholesaleOperateDeatil').val();			
 			return data;
 		}
 		// initFormData
@@ -279,6 +290,7 @@
 			$('#wholesaleCustomerTelephone').val(data.wholesaleCustomerTelephone);
 			$('#wholesaleCustomerMessage').val(data.wholesaleCustomerMessage);
 			$('#wholesaleCustomerStatus').prop('checked', (''+data.wholesaleCustomerStatus == '0' ? false : true));
+			$('#wholesaleOperateDeatil').val(data.wholesaleOperateDeatil);
 		}
 		// search status change
 		function updateSearchData() {
@@ -467,6 +479,7 @@
 					'<td>' + (msg.length > 10 ? msg.substring(0, 10) + '...' : msg) + '</td>' +
 					'<td>' + data[i].wholesaleCreatetime + '</td>' +
 					'<td><a class="badge '+ ('' + data[i].wholesaleCustomerStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].wholesaleCustomerStatus == '0' ? 'Uncontacted' : 'Contacted') + '</a></td>' +
+					'<td><p style="max-width: 4.5rem;">'+ (data[i].wholesaleOperateDeatil ?  data[i].wholesaleOperateDeatil : '') +'</p></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-view" data-id="' + data[i].wholesaleId + '">' +
 							'<svg class="c-icon">' +
