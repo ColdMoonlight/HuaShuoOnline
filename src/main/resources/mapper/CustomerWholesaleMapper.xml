@@ -10,12 +10,13 @@
     <result column="wholesale_customer_watsapp" jdbcType="VARCHAR" property="wholesaleCustomerWatsapp" />
     <result column="wholesale_customer_message" jdbcType="VARCHAR" property="wholesaleCustomerMessage" />
     <result column="wholesale_customer_status" jdbcType="INTEGER" property="wholesaleCustomerStatus" />
+    <result column="wholesale_operate_deatil" jdbcType="INTEGER" property="wholesaleOperateDeatil" />
     <result column="wholesale_createTime" jdbcType="VARCHAR" property="wholesaleCreatetime" />
     <result column="wholesale_motifyTime" jdbcType="VARCHAR" property="wholesaleMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
     wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_telephone, wholesale_customer_country, 
-    wholesale_customer_watsapp, wholesale_customer_message, wholesale_customer_status, wholesale_createTime, wholesale_motifyTime
+    wholesale_customer_watsapp, wholesale_customer_message, wholesale_customer_status, wholesale_operate_deatil, wholesale_createTime, wholesale_motifyTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -28,12 +29,12 @@
     insert into tb_customer_wholesale (wholesale_id, wholesale_customer_name, 
       wholesale_customer_email, wholesale_customer_telephone, wholesale_customer_country, 
       wholesale_customer_watsapp, wholesale_customer_message, wholesale_customer_status, 
-      wholesale_createTime, wholesale_motifyTime
+      wholesale_operate_deatil, wholesale_createTime, wholesale_motifyTime
       )
     values (#{wholesaleId,jdbcType=INTEGER}, #{wholesaleCustomerName,jdbcType=VARCHAR}, 
       #{wholesaleCustomerEmail,jdbcType=VARCHAR}, #{wholesaleCustomerTelephone,jdbcType=VARCHAR}, #{wholesaleCustomerCountry,jdbcType=VARCHAR}, 
       #{wholesaleCustomerWatsapp,jdbcType=VARCHAR}, #{wholesaleCustomerMessage,jdbcType=VARCHAR},  #{wholesaleCustomerStatus,jdbcType=INTEGER}, 
-      #{wholesaleCreatetime,jdbcType=VARCHAR}, #{wholesaleMotifytime,jdbcType=VARCHAR}
+      #{wholesaleOperateDeatil,jdbcType=VARCHAR}, #{wholesaleCreatetime,jdbcType=VARCHAR}, #{wholesaleMotifytime,jdbcType=VARCHAR}
       )
   </insert>
   
@@ -46,6 +47,7 @@
       wholesale_customer_watsapp = #{wholesaleCustomerWatsapp,jdbcType=VARCHAR},
       wholesale_customer_message = #{wholesaleCustomerMessage,jdbcType=VARCHAR},
       wholesale_customer_status = #{wholesaleCustomerStatus,jdbcType=INTEGER},
+      wholesale_operate_deatil = #{wholesaleOperateDeatil,jdbcType=VARCHAR},
       wholesale_createTime = #{wholesaleCreatetime,jdbcType=VARCHAR},
       wholesale_motifyTime = #{wholesaleMotifytime,jdbcType=VARCHAR}
     where wholesale_id = #{wholesaleId,jdbcType=INTEGER}
@@ -78,6 +80,9 @@
       <if test="wholesaleCustomerStatus != null">
         wholesale_customer_status,
       </if>
+      <if test="wholesaleOperateDeatil != null">
+        wholesale_operate_deatil,
+      </if>
       <if test="wholesaleCreatetime != null">
         wholesale_createTime,
       </if>
@@ -109,6 +114,9 @@
       </if>
       <if test="wholesaleCustomerStatus != null">
         #{wholesaleCustomerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="wholesaleOperateDeatil != null">
+        #{wholesaleOperateDeatil,jdbcType=VARCHAR},
       </if>
       <if test="wholesaleCreatetime != null">
         #{wholesaleCreatetime,jdbcType=VARCHAR},
@@ -143,6 +151,9 @@
       </if>
       <if test="wholesaleCustomerStatus != null">
         wholesale_customer_status = #{wholesaleCustomerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="wholesaleOperateDeatil != null">
+        wholesale_operate_deatil = #{wholesaleOperateDeatil,jdbcType=VARCHAR},
       </if>
       <if test="wholesaleCreatetime != null">
         wholesale_createTime = #{wholesaleCreatetime,jdbcType=VARCHAR},
