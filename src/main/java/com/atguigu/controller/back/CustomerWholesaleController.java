@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.CustomerWholesale;
+import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
@@ -109,9 +110,9 @@ public class CustomerWholesaleController {
 	 * @param CustomerWholesale-wholesaleId
 	 * @return 
 	 */
-	@RequestMapping(value="/getOneMlbackCatalogDetail",method=RequestMethod.POST)
+	@RequestMapping(value="/getOneCustomerWholesaleDetail",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneMlbackCatalogDetail(@RequestBody CustomerWholesale customerWholesale){
+	public Msg getOneCustomerWholesaleDetail(@RequestBody CustomerWholesale customerWholesale){
 		
 		//接受wholesaleId
 		Integer wholesaleId = customerWholesale.getWholesaleId();
@@ -123,4 +124,27 @@ public class CustomerWholesaleController {
 		return Msg.success().add("resMsg", "查CatalogOne完毕").add("customerWholesaleOne", customerWholesaleOne);
 	}
 	
+//	/**
+//	 * 7.0	20200608
+//	 * 后端获取backSearchByProduct产品list
+//	 * @return 
+//	 * */
+//	@RequestMapping(value="/backSearchByProduct",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Msg backSearchByProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+//			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+//			@RequestParam(value = "productName") String productName,
+//			@RequestParam(value = "productSupercateid", defaultValue = "1") Integer productSupercateid) throws Exception{
+//		
+//		//接收传递进来的参数
+//		int PagNum = 30;
+//		PageHelper.startPage(pn, PagNum);
+//		
+//		MlbackProduct mlbackProductReq = new MlbackProduct();
+//		mlbackProductReq.setProductSupercateid(productSupercateid);
+//		mlbackProductReq.setProductName(productName);
+//		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductBackSearch(mlbackProductReq);
+//		PageInfo page = new PageInfo(mlbackProductResList, PagNum);
+//		return Msg.success().add("pageInfo", page);
+//	}
 }
