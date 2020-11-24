@@ -22,5 +22,7 @@ public interface CustomerWholesaleMapper {
 	List<CustomerWholesale> selectCustomerWholesaleGetAll();
 
 	List<CustomerWholesale> selectCustomerWholesaleById(CustomerWholesale customerWholesale);
+
+	List<CustomerWholesale> selectCustomerWholesaleBackSearch(CustomerWholesale customerWholesale);
 	 
 }

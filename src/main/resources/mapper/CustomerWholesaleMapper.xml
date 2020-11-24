@@ -180,4 +180,16 @@
     select *  
     from tb_customer_wholesale where wholesale_id = #{wholesaleId,jdbcType=INTEGER}
   </select>
+  <!-- selectCustomerWholesaleBackSearch -->
+  <select id="selectCustomerWholesaleBackSearch" parameterType="com.atguigu.bean.CustomerWholesale" resultMap="BaseResultMap">
+  	select 
+    wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_telephone, wholesale_customer_country, 
+    wholesale_customer_watsapp, wholesale_customer_message, wholesale_customer_status, wholesale_operate_deatil, wholesale_createTime
+  	from tb_customer_wholesale 
+  	where wholesale_customer_name like concat(concat("%",#{wholesaleCustomerName}),"%")
+     <if test="wholesaleCustomerStatus != null">
+     	and wholesale_customer_status = #{wholesaleCustomerStatus,jdbcType=VARCHAR}
+     </if>
+    order by wholesale_id desc
+  </select>
 </mapper>
