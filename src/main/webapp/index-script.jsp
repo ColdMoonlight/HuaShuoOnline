@@ -53,9 +53,10 @@
 							nextEl: '.slide-'+ idx +' .swiper-button-next',
 							prevEl: '.slide-'+ idx +' .swiper-button-prev',
 						},
-						autoplay: {
-							delay:6e3
-						}
+						speed: 600,
+						loop: true,
+						autoplay: { delay: 5e3, },
+						parallax:true
 					});					
 				}, 1000);
 			}
