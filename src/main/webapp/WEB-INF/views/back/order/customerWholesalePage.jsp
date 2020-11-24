@@ -20,14 +20,13 @@
 						<!-- <button class="btn btn-primary btn-create">Create Whole-sale</button> -->
 					</div>
 					<div class="ecpp-sync row">
-						<div class="form-group col-md-4">
+						<!-- <div class="form-group col-md-4">
 							<div class="controls">
 								<input hidden id="wholesale-create-time" />
 								<input hidden id="wholesale-confirm-time" />
 								<input class="form-control daterangetimepicker" id="wholesale-time" type="text" />
 							</div>
-						</div>
-						
+						</div> -->						
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -41,8 +40,12 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="customer-name" type="text" placeholder="Search Whole-sale" disabled>						
-									<select class="supercate-list" id="searchSupercate" disabled></select>
+									<input id="wholesale-name" type="text" placeholder="Search customer-name">						
+									<select id="wholesale-status">
+										<option value="-1">plz select status...</option>
+										<option value="0">uncontacted</option>
+										<option value="1">contacted</option>
+									</select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search" disabled>Save search</a>
 							</div>
@@ -163,8 +166,6 @@
 			$('#wholesale-confirm-time').val(endTime);		
 		});
 		renderTabItems();
-		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
-	 	$('#searchSupercate').val($('#searchSupercate').data('val') || -1);
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
@@ -193,28 +194,28 @@
 		// tab delete
 		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
 		// save search
-		/* $('.btn-save-search').on('click', function () {
+		$('.btn-save-search').on('click', function () {
 			var searchWholesaleVal = {
-				supercateName: $('#searchSupercate').find('option:selected').text(),
-				supercateId: $('#searchSupercate').val(),
-				customername: $('#customer-name').val()
+				status: $('#wholesale-status').val(),
+				statustext: $('#wholesale-status').find('option:selected').text(),
+				customername: $('#wholesale-name').val()
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchWholesaleVal)) return;
-			if (parseInt(searchWholesaleVal.supercateId) < 0) searchWholesaleVal.supercateName = "";
-			if (searchWholesaleVal.supercateId || searchWholesaleVal.customername) {
+			if (parseInt(searchWholesaleVal.status) < 0) searchWholesaleVal.statustext = "";
+			if (searchWholesaleVal.status > -1 || searchWholesaleVal.customername) {
 				addStorageItem(searchWholesaleVal);
 				$('.c-table-tab-tempory').html('');
 				createTableTabItem(searchWholesaleVal);
 				addTableTabItem(searchWholesaleVal, $('.c-table-tab-item').length);
 			}
-		}); */
+		});
 		// search it
-		$('#searchSupercate').on('change', function() {
+		$('#wholesale-status').on('change', function() {
 			$(this).attr('data-val', $(this).val());
 			updateSearchData();
 		});
-		$('#customer-name').on('keyup', function() {
+		$('#wholesale-name').on('keyup', function() {
 			var distanceTime = 1000,
 				newTime =  (new Date()).getTime();
 			if (newTime - oldTime < 1000) clearTimeout(timer);
@@ -295,14 +296,14 @@
 		// search status change
 		function updateSearchData() {
 			var searchWholesaleVal = {
-				supercateName: $('#searchSupercate').find('option:selected').text(),
-				supercateId: $('#searchSupercate').val(),
-				customername: $('#customer-name').val()
+				status: $('#wholesale-status').val(),
+				statustext: $('#wholesale-status').find('option:selected').text(),
+				customername: $('#wholesale-name').val()
 			};
 			// inital pagination num
 			setPageNum(1);
 			// check search whole-sale
-			if (parseInt(searchWholesaleVal.supercateId) < 0) searchWholesaleVal.supercateName = "";
+			if (parseInt(searchWholesaleVal.status) < 0) searchWholesaleVal.statustext = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
 			$('.c-table-tab-tempory').html(createTableTabItem(searchWholesaleVal).addClass('active'));
@@ -320,14 +321,14 @@
 		// get Data for table
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
-			if (dataVal && (dataVal.supercateName || dataVal.customername)) {
-				$('#customer-name').val(dataVal.customername || '');
-				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
-				$('#searchSupercate').val(dataVal.supercateId || '-1');
+			if (dataVal && (dataVal.status > - 1 || dataVal.customername)) {
+				$('#wholesale-name').val(dataVal.customername || '');
+				$('#wholesale-status').val(dataVal.status || '-1');
+				console.log(dataVal)
 				getSearchWholesalesData();
 			} else {
-				$('#customer-name').val('');
-				$('#searchSupercate').val('999');
+				$('#wholesale-name').val('');
+				$('#wholesale-status').val('-1');
 				initActiveItemNum();
 				getWholesalesData();
 			}
@@ -361,12 +362,12 @@
 			$('.c-mask').show();
 
 			var formData = new FormData();
-			formData.append('customer-name', $('#customer-name').val());
-			formData.append('supercateId', ($('#searchSupercate').attr('data-val') || '999'));
+			formData.append('wholesaleCustomerName', $('#wholesale-name').val());
+			formData.append('wholesaleCustomerStatus', $('#wholesale-status').val());
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH}/MlfrontPayInfo/selectHighPayInfoListBySearch",
+				url: "${APP_PATH}/CustomerWholesale/backSearchByWholesale",
 				type: "post",
 				data: formData,
 				processData: false,
