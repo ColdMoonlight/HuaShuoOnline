@@ -180,7 +180,7 @@
     select *  
     from tb_customer_wholesale where wholesale_id = #{wholesaleId,jdbcType=INTEGER}
   </select>
-  <!-- 使用中selectCustomerWholesaleBackSearch -->
+  <!-- selectCustomerWholesaleBackSearch -->
   <select id="selectCustomerWholesaleBackSearch" parameterType="com.atguigu.bean.CustomerWholesale" resultMap="BaseResultMap">
   	select 
     wholesale_id, wholesale_customer_name, wholesale_customer_email, wholesale_customer_telephone, wholesale_customer_country, 
