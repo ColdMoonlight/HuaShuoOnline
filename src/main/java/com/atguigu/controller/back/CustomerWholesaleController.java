@@ -125,7 +125,7 @@ public class CustomerWholesaleController {
 	
 	/**
 	 * 7.0	20200608
-	 * 后端获取backSearchByProduct产品list
+	 * 后端获取backSearchByWholesale产品list
 	 * @return 
 	 * */
 	@RequestMapping(value="/backSearchByWholesale",method=RequestMethod.POST)
