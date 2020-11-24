@@ -124,27 +124,27 @@ public class CustomerWholesaleController {
 		return Msg.success().add("resMsg", "查CatalogOne完毕").add("customerWholesaleOne", customerWholesaleOne);
 	}
 	
-//	/**
-//	 * 7.0	20200608
-//	 * 后端获取backSearchByProduct产品list
-//	 * @return 
-//	 * */
-//	@RequestMapping(value="/backSearchByProduct",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg backSearchByProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
-//			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
-//			@RequestParam(value = "productName") String productName,
-//			@RequestParam(value = "productSupercateid", defaultValue = "1") Integer productSupercateid) throws Exception{
-//		
-//		//接收传递进来的参数
-//		int PagNum = 30;
-//		PageHelper.startPage(pn, PagNum);
-//		
-//		MlbackProduct mlbackProductReq = new MlbackProduct();
-//		mlbackProductReq.setProductSupercateid(productSupercateid);
-//		mlbackProductReq.setProductName(productName);
-//		List<MlbackProduct> mlbackProductResList = mlbackProductService.selectMlbackProductBackSearch(mlbackProductReq);
-//		PageInfo page = new PageInfo(mlbackProductResList, PagNum);
-//		return Msg.success().add("pageInfo", page);
-//	}
+	/**
+	 * 7.0	20200608
+	 * 后端获取backSearchByProduct产品list
+	 * @return 
+	 * */
+	@RequestMapping(value="/backSearchByWholesale",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg backSearchByProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "wholesaleCustomerName") String wholesaleCustomerName,
+			@RequestParam(value = "wholesaleCustomerStatus", defaultValue = "1") String wholesaleCustomerStatus) throws Exception{
+		
+		//接收传递进来的参数
+		int PagNum = 30;
+		PageHelper.startPage(pn, PagNum);
+		
+		CustomerWholesale customerWholesaleReq = new CustomerWholesale();
+		customerWholesaleReq.setWholesaleCustomerStatus(wholesaleCustomerStatus);
+		customerWholesaleReq.setWholesaleCustomerName(wholesaleCustomerName);
+		List<CustomerWholesale> customerWholesaleResList = customerWholesaleService.selectCustomerWholesaleBackSearch(customerWholesaleReq);
+		PageInfo page = new PageInfo(customerWholesaleResList, PagNum);
+		return Msg.success().add("pageInfo", page);
+	}
 }

@@ -62,5 +62,9 @@ public class CustomerWholesaleService {
 		return CustomerWholesaleList;
 	}
 
+	public List<CustomerWholesale> selectCustomerWholesaleBackSearch(CustomerWholesale CustomerWholesale) {
+		List<CustomerWholesale>  CustomerWholesaleList = customerWholesaleMapper.selectCustomerWholesaleBackSearch(CustomerWholesale);
+		return CustomerWholesaleList;
+	}
 
 }
