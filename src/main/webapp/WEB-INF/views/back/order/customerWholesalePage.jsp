@@ -418,7 +418,7 @@
 		function getOneWholesaleData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/CustomerWholesale/getOneMlbackCatalogDetail",
+				url: "${APP_PATH}/CustomerWholesale/getOneCustomerWholesaleDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: "json",
