@@ -20,14 +20,13 @@
 						<!-- <button class="btn btn-primary btn-create">Create Whole-sale</button> -->
 					</div>
 					<div class="ecpp-sync row">
-						<div class="form-group col-md-4">
+						<!-- <div class="form-group col-md-4">
 							<div class="controls">
 								<input hidden id="wholesale-create-time" />
 								<input hidden id="wholesale-confirm-time" />
 								<input class="form-control daterangetimepicker" id="wholesale-time" type="text" />
 							</div>
-						</div>
-						
+						</div> -->						
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -41,8 +40,12 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="customer-name" type="text" placeholder="Search Whole-sale" disabled>						
-									<select class="supercate-list" id="searchSupercate" disabled></select>
+									<input id="wholesale-name" type="text" placeholder="Search customer-name">						
+									<select id="wholesale-status">
+										<option value="-1">plz select status...</option>
+										<option value="0">uncontacted</option>
+										<option value="1">contacted</option>
+									</select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search" disabled>Save search</a>
 							</div>
@@ -58,6 +61,7 @@
 											<th>message</th>
 											<th>time</th>
 											<th>customerStatus</th>
+											<th>operate-log</th>
 											<th>operate</th>
 										</tr>
 									</thead>
@@ -91,35 +95,43 @@
 												<span class="c-switch-slider"></span>
 											</label>
 										</div>
-									</div>									
-									<div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerName">Customer Name</label>
-										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerName" type="text" disabled />
-										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerEmail">E-mail</label>
-										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerEmail" type="text" disabled />
+									<div class="row">
+										<div class="form-group col-md-6">
+											<label class="col-form-label" for="wholesaleCustomerName">Customer Name</label>
+											<div class="controls">
+												<input class="form-control" id="wholesaleCustomerName" type="text" disabled />
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerCountry">Country</label>
-										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerCountry" type="text" disabled />
+										<div class="form-group col-md-6">
+											<label class="col-form-label" for="wholesaleCustomerEmail">E-mail</label>
+											<div class="controls">
+												<input class="form-control" id="wholesaleCustomerEmail" type="text" disabled />
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerTelephone">Telephone</label>
-										<div class="controls">
-											<input class="form-control" id="wholesaleCustomerTelephone" type="text" disabled />
+										<div class="form-group col-md-6">
+											<label class="col-form-label" for="wholesaleCustomerCountry">Country</label>
+											<div class="controls">
+												<input class="form-control" id="wholesaleCustomerCountry" type="text" disabled />
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+											<label class="col-form-label" for="wholesaleCustomerTelephone">Telephone</label>
+											<div class="controls">
+												<input class="form-control" id="wholesaleCustomerTelephone" type="text" disabled />
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerMessage">Message</label>
 										<div class="controls">
 											<textarea  rows="5" class="form-control" id="wholesaleCustomerMessage" disabled></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="wholesaleOperateDeatil">Operate-log</label>
+										<div class="controls">
+											<textarea  rows="5" class="form-control" id="wholesaleOperateDeatil" placeholder="大客户/问价的/xxx"></textarea>
 										</div>
 									</div>
 								</div>
@@ -154,8 +166,6 @@
 			$('#wholesale-confirm-time').val(endTime);		
 		});
 		renderTabItems();
-		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
-	 	$('#searchSupercate').val($('#searchSupercate').data('val') || -1);
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
@@ -184,28 +194,28 @@
 		// tab delete
 		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
 		// save search
-		/* $('.btn-save-search').on('click', function () {
+		$('.btn-save-search').on('click', function () {
 			var searchWholesaleVal = {
-				supercateName: $('#searchSupercate').find('option:selected').text(),
-				supercateId: $('#searchSupercate').val(),
-				customername: $('#customer-name').val()
+				status: $('#wholesale-status').val(),
+				statustext: $('#wholesale-status').find('option:selected').text(),
+				customername: $('#wholesale-name').val()
 			};
 			// cancel repeat add save-search
 			if (checkNewItem(searchWholesaleVal)) return;
-			if (parseInt(searchWholesaleVal.supercateId) < 0) searchWholesaleVal.supercateName = "";
-			if (searchWholesaleVal.supercateId || searchWholesaleVal.customername) {
+			if (parseInt(searchWholesaleVal.status) < 0) searchWholesaleVal.statustext = "";
+			if (searchWholesaleVal.status > -1 || searchWholesaleVal.customername) {
 				addStorageItem(searchWholesaleVal);
 				$('.c-table-tab-tempory').html('');
 				createTableTabItem(searchWholesaleVal);
 				addTableTabItem(searchWholesaleVal, $('.c-table-tab-item').length);
 			}
-		}); */
+		});
 		// search it
-		$('#searchSupercate').on('change', function() {
+		$('#wholesale-status').on('change', function() {
 			$(this).attr('data-val', $(this).val());
 			updateSearchData();
 		});
-		$('#customer-name').on('keyup', function() {
+		$('#wholesale-name').on('keyup', function() {
 			var distanceTime = 1000,
 				newTime =  (new Date()).getTime();
 			if (newTime - oldTime < 1000) clearTimeout(timer);
@@ -257,6 +267,7 @@
 			$('#wholesaleCustomerTelephone').val('');
 			$('#wholesaleCustomerMessage').val('');
 			$('#wholesaleCustomerStatus').prop('checked', false);
+			$('#wholesaleOperateDeatil').val('');			
 		}
 		// getFormdData
 		function getFormData() {
@@ -268,6 +279,7 @@
 			data.wholesaleCustomerTelephone = $('#wholesaleCustomerTelephone').val();
 			data.wholesaleCustomerMessage = $('#wholesaleCustomerMessage').val();
 			data.wholesaleCustomerStatus = $('#wholesaleCustomerStatus').prop('checked') ? 1 : 0;
+			data.wholesaleOperateDeatil = $('#wholesaleOperateDeatil').val();			
 			return data;
 		}
 		// initFormData
@@ -279,18 +291,19 @@
 			$('#wholesaleCustomerTelephone').val(data.wholesaleCustomerTelephone);
 			$('#wholesaleCustomerMessage').val(data.wholesaleCustomerMessage);
 			$('#wholesaleCustomerStatus').prop('checked', (''+data.wholesaleCustomerStatus == '0' ? false : true));
+			$('#wholesaleOperateDeatil').val(data.wholesaleOperateDeatil);
 		}
 		// search status change
 		function updateSearchData() {
 			var searchWholesaleVal = {
-				supercateName: $('#searchSupercate').find('option:selected').text(),
-				supercateId: $('#searchSupercate').val(),
-				customername: $('#customer-name').val()
+				status: $('#wholesale-status').val(),
+				statustext: $('#wholesale-status').find('option:selected').text(),
+				customername: $('#wholesale-name').val()
 			};
 			// inital pagination num
 			setPageNum(1);
 			// check search whole-sale
-			if (parseInt(searchWholesaleVal.supercateId) < 0) searchWholesaleVal.supercateName = "";
+			if (parseInt(searchWholesaleVal.status) < 0) searchWholesaleVal.statustext = "";
 
 			$('.c-table-tab-item.active').removeClass('active');
 			$('.c-table-tab-tempory').html(createTableTabItem(searchWholesaleVal).addClass('active'));
@@ -308,14 +321,14 @@
 		// get Data for table
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
-			if (dataVal && (dataVal.supercateName || dataVal.customername)) {
-				$('#customer-name').val(dataVal.customername || '');
-				$('#searchSupercate').attr('data-val', dataVal.supercateId || '-1');
-				$('#searchSupercate').val(dataVal.supercateId || '-1');
+			if (dataVal && (dataVal.status > - 1 || dataVal.customername)) {
+				$('#wholesale-name').val(dataVal.customername || '');
+				$('#wholesale-status').val(dataVal.status || '-1');
+				console.log(dataVal)
 				getSearchWholesalesData();
 			} else {
-				$('#customer-name').val('');
-				$('#searchSupercate').val('999');
+				$('#wholesale-name').val('');
+				$('#wholesale-status').val('-1');
 				initActiveItemNum();
 				getWholesalesData();
 			}
@@ -349,12 +362,12 @@
 			$('.c-mask').show();
 
 			var formData = new FormData();
-			formData.append('customer-name', $('#customer-name').val());
-			formData.append('supercateId', ($('#searchSupercate').attr('data-val') || '999'));
+			formData.append('wholesaleCustomerName', $('#wholesale-name').val());
+			formData.append('wholesaleCustomerStatus', $('#wholesale-status').val());
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH}/MlfrontPayInfo/selectHighPayInfoListBySearch",
+				url: "${APP_PATH}/CustomerWholesale/backSearchByWholesale",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -406,7 +419,7 @@
 		function getOneWholesaleData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/CustomerWholesale/getOneMlbackCatalogDetail",
+				url: "${APP_PATH}/CustomerWholesale/getOneCustomerWholesaleDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: "json",
@@ -467,6 +480,7 @@
 					'<td>' + (msg.length > 10 ? msg.substring(0, 10) + '...' : msg) + '</td>' +
 					'<td>' + data[i].wholesaleCreatetime + '</td>' +
 					'<td><a class="badge '+ ('' + data[i].wholesaleCustomerStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].wholesaleCustomerStatus == '0' ? 'Uncontacted' : 'Contacted') + '</a></td>' +
+					'<td><p style="max-width: 4.5rem;">'+ (data[i].wholesaleOperateDeatil ?  data[i].wholesaleOperateDeatil : '') +'</p></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-view" data-id="' + data[i].wholesaleId + '">' +
 							'<svg class="c-icon">' +
