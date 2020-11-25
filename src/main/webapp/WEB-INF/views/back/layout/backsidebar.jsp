@@ -67,6 +67,12 @@
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">Reviews</span>
 					</a>
+				</li>				
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackProfbReview/toMlbackProfbReviewPage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">FB Reviews</span>
+					</a>
 				</li>
 			</ul>
 		</li>
