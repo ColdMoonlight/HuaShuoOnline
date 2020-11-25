@@ -30,9 +30,6 @@ public class MlbackProfbReviewController {
 	MlbackProfbreviewAreaService mlbackProfbreviewAreaService;
 	
 	@Autowired
-	MlbackProductService mlbackProductService;
-	
-	@Autowired
 	MlbackAdminService mlbackAdminService;
 	
 	/**
