@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.CustomerWholesale;
-import com.atguigu.bean.MlbackProduct;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
@@ -126,7 +125,7 @@ public class CustomerWholesaleController {
 	
 	/**
 	 * 7.0	20200608
-	 * 后端获取backSearchByProduct产品list
+	 * 后端获取backSearchByWholesale产品list
 	 * @return 
 	 * */
 	@RequestMapping(value="/backSearchByWholesale",method=RequestMethod.POST)
