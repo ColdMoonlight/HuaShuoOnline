@@ -198,7 +198,11 @@
 	profbreview_area_id, profbreview_area_pid, profbreview_area_pseo, profbreview_superCate_id, 
     profbreview_superCate_name, profbreview_area_status, profbreview_area_desc
     from tb_mlback_profbreview_area
-    where profbreview_area_pseo like concat(concat("%",#{profbreviewAreaPseo}),"%") AND profbreview_area_id>0 
+    where profbreview_area_pseo like concat(concat("%",#{profbreviewAreaPseo}),"%") 
+    AND profbreview_area_id>0 
+    <if test="profbreviewSupercateId != null">
+        and profbreview_superCate_id = #{profbreviewSupercateId,jdbcType=INTEGER}
+    </if>
     order by profbreview_area_pseo
   </select>
 </mapper>
