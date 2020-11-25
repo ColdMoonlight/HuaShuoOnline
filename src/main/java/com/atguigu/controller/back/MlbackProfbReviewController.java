@@ -18,7 +18,6 @@ import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
-import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackProfbreviewAreaService;
 import com.atguigu.utils.DateUtil;
 
@@ -40,13 +39,13 @@ public class MlbackProfbReviewController {
 	@RequestMapping("/toMlbackProfbReviewPage")
 	public String toMlbackProfbReviewPage(HttpSession session) throws Exception{
 		
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
-//		if(mlbackAdmin==null){
-//			//SysUsers对象为空
-//			return "back/mlbackAdminLogin";
-//		}else{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
 			return "back/product/mlbackProfbReviewPage";
-//		}
+		}
 	}
 	
 	/**2.0	20200608
