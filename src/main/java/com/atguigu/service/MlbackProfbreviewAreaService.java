@@ -47,13 +47,18 @@ public class MlbackProfbreviewAreaService {
 		return MlbackProfbreviewAreaList;
 	}
 	
-	public List<MlbackProfbreviewArea> selectMlbackProductGetAllSimple() {
-		List<MlbackProfbreviewArea>  MlbackProfbreviewAreaList = mlbackProfbreviewAreaMapper.selectMlbackProductGetAllSimple();
+	public List<MlbackProfbreviewArea> selectMlbackProfbreviewAreaGetAllSimple() {
+		List<MlbackProfbreviewArea>  MlbackProfbreviewAreaList = mlbackProfbreviewAreaMapper.selectMlbackProfbreviewAreaGetAllSimple();
 		return MlbackProfbreviewAreaList;
 	}
 
 	public List<MlbackProfbreviewArea> selectMlbackProfbreviewAreabyParam(MlbackProfbreviewArea mlbackProfbreviewAreaReq) {
 		List<MlbackProfbreviewArea>  MlbackProfbreviewAreaList = mlbackProfbreviewAreaMapper.selectMlbackProfbreviewAreabyParam(mlbackProfbreviewAreaReq);
+		return MlbackProfbreviewAreaList;
+	}
+
+	public List<MlbackProfbreviewArea> selectMlbackProductBackLike(MlbackProfbreviewArea mlbackProfbreviewAreaReq) {
+		List<MlbackProfbreviewArea>  MlbackProfbreviewAreaList = mlbackProfbreviewAreaMapper.selectMlbackProductBackLike(mlbackProfbreviewAreaReq);
 		return MlbackProfbreviewAreaList;
 	}
 

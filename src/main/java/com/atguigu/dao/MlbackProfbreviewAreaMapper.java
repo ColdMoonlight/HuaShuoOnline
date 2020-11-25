@@ -21,7 +21,9 @@ public interface MlbackProfbreviewAreaMapper {
 
 	List<MlbackProfbreviewArea> selectMlbackProfbreviewAreabyPid(MlbackProfbreviewArea mlbackProfbreviewAreaReq);
 
-	List<MlbackProfbreviewArea> selectMlbackProductGetAllSimple();
+	List<MlbackProfbreviewArea> selectMlbackProfbreviewAreaGetAllSimple();
 
 	List<MlbackProfbreviewArea> selectMlbackProfbreviewAreabyParam(MlbackProfbreviewArea mlbackProfbreviewAreaReq);
+
+	List<MlbackProfbreviewArea> selectMlbackProductBackLike(MlbackProfbreviewArea mlbackProfbreviewAreaReq);
 }
