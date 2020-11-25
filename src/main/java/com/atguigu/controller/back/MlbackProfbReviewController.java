@@ -59,7 +59,7 @@ public class MlbackProfbReviewController {
 
 		int PagNum = 30;
 		PageHelper.startPage(pn, PagNum);
-		List<MlbackProfbreviewArea> MlbackProfbreviewAreaList = mlbackProfbreviewAreaService.selectMlbackProductGetAllSimple();
+		List<MlbackProfbreviewArea> MlbackProfbreviewAreaList = mlbackProfbreviewAreaService.selectMlbackProfbreviewAreaGetAllSimple();
 		PageInfo page = new PageInfo(MlbackProfbreviewAreaList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
@@ -137,6 +137,34 @@ public class MlbackProfbReviewController {
 		}
 		//System.out.println("操作说明：查询-mlbackProductOne:"+mlbackProductOne);
 		return Msg.success().add("resMsg", "查看单个产品的fb评论").add("mlbackProfbreviewAreaOne", mlbackProfbreviewAreaOne);
+	}
+	
+	/**
+	 * 8.0	20200608
+	 * 后端获取类下产品list详情页面wap/pc
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping(value="/backSearchByprofbreviewArea",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg backSearchByprofbreviewArea(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "profbreviewAreaPseo") String profbreviewAreaPseo,
+			@RequestParam(value = "profbreviewSupercateId", defaultValue = "1") Integer profbreviewSupercateId) throws Exception{
+		
+		//接收传递进来的参数
+		int PagNum = 30;
+		PageHelper.startPage(pn, PagNum);
+		
+		MlbackProfbreviewArea mlbackProfbreviewAreaReq = new MlbackProfbreviewArea();
+		mlbackProfbreviewAreaReq.setProfbreviewSupercateId(profbreviewSupercateId);
+		mlbackProfbreviewAreaReq.setProfbreviewAreaPseo(profbreviewAreaPseo);
+		List<MlbackProfbreviewArea> mlbackProfbreviewAreaResList = mlbackProfbreviewAreaService.selectMlbackProductBackLike(mlbackProfbreviewAreaReq);
+		
+		PageInfo page = new PageInfo(mlbackProfbreviewAreaResList, PagNum);
+		
+		return Msg.success().add("pageInfo", page);
+			
 	}
 	
 }

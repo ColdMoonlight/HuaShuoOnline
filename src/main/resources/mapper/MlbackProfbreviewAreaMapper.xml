@@ -169,7 +169,7 @@
         and profbreview_area_status = #{profbreviewAreaStatus,jdbcType=INTEGER}
     </if>
   </select>
-  <select id="selectMlbackProductGetAllSimple" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectMlbackProfbreviewAreaGetAllSimple" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     profbreview_area_id, profbreview_area_pid, profbreview_area_pseo, profbreview_superCate_id, 
     profbreview_superCate_name, profbreview_area_status
@@ -191,5 +191,13 @@
     <if test="profbreviewAreaPid != null">
         and profbreview_area_pid = #{profbreviewAreaPid,jdbcType=INTEGER}
     </if>
+  </select>
+  
+  <select id="selectMlbackProductBackLike" parameterType="com.atguigu.bean.MlbackProfbreviewArea" resultMap="BaseResultMap">
+    select 
+	profbreview_area_id, profbreview_area_pid, profbreview_area_pseo, profbreview_superCate_id, 
+    profbreview_superCate_name, profbreview_area_status, profbreview_area_desc
+    from tb_mlback_profbreview_area
+    where profbreview_area_pseo like concat(concat("%",#{profbreviewAreaPseo}),"%") AND profbreview_area_id>0
   </select>
 </mapper>
