@@ -40,13 +40,13 @@ public class MlbackProfbReviewController {
 	@RequestMapping("/toMlbackProfbReviewPage")
 	public String toMlbackProfbReviewPage(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
-		if(mlbackAdmin==null){
-			//SysUsers对象为空
-			return "back/mlbackAdminLogin";
-		}else{
+//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+//		if(mlbackAdmin==null){
+//			//SysUsers对象为空
+//			return "back/mlbackAdminLogin";
+//		}else{
 			return "back/product/mlbackProfbReviewPage";
-		}
+//		}
 	}
 	
 	/**2.0	20200608
@@ -100,7 +100,7 @@ public class MlbackProfbReviewController {
 	
 	/**5.0	20200608
 	 * MlbackProfbreviewArea	delete
-	 * @param MlbackProfbreviewArea-categoryId
+	 * @param MlbackProfbreviewArea-profbreviewAreaId
 	 * @return 
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
