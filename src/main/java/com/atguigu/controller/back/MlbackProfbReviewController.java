@@ -167,4 +167,32 @@ public class MlbackProfbReviewController {
 			
 	}
 	
+	/**
+	 * 7.0	20200608
+	 * 查看单个产品的详情
+	 * @param productId
+	 * @return 
+	 */
+	@RequestMapping(value="/getProfbreviewAreaDetailListByPid",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getProfbreviewAreaDetailListByPid(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackProfbreviewArea mlbackProfbreviewArea){
+		//接受信息
+		Integer profbreviewAreaPid = mlbackProfbreviewArea.getProfbreviewAreaPid();
+		
+		MlbackProfbreviewArea mlbackProfbreviewAreaReq = new MlbackProfbreviewArea();
+		mlbackProfbreviewAreaReq.setProfbreviewAreaPid(profbreviewAreaPid);
+		mlbackProfbreviewAreaReq.setProfbreviewAreaStatus(1);//前面只看生效状态;
+		
+		MlbackProfbreviewArea mlbackProfbreviewAreaOne = new MlbackProfbreviewArea();
+		
+		List<MlbackProfbreviewArea> mlbackProfbreviewAreaResList =mlbackProfbreviewAreaService.selectMlbackProfbreviewAreabyPid(mlbackProfbreviewAreaReq);
+		if(mlbackProfbreviewAreaResList.size()>0){
+			//如果用这个id查到,就拿出来.
+			mlbackProfbreviewAreaOne = mlbackProfbreviewAreaResList.get(0);
+		}
+		//System.out.println("操作说明：查询-mlbackProductOne:"+mlbackProductOne);
+		return Msg.success().add("resMsg", "查看单个产品的fb评论").add("mlbackProfbreviewAreaOne", mlbackProfbreviewAreaOne);
+	}
+	
+	
 }
