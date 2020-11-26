@@ -278,7 +278,7 @@
 		});
 		$('.product-name').text(data.productName);
 		$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
-		$('.product-tab-container[data-name="desc"]').html(data.productDesc);
+		$('.product-description').html(data.productDesc);
 	}
 	/* create review swiper */
 	function createReviewSwiper(imgs, activeNum) {
@@ -968,4 +968,60 @@
 		deleteReviewId();
 		setPageNum(1);
 	});
+</script>
+<script>
+function renderFbReviews(data) {
+	var $fbReviewBox;
+	var reviewList = data && data.match(/<iframe\s*.*?><\/iframe>/g) || [];
+	var len = reviewList.length;
+	var htmlStr = '<div style="height: 36px; line-height: 36px; text-align: center;; font-size: 16px; -webkit-overflow-scrolling: touch; background-color: #558dfd; color: #fff;">Real-time Feedback on Facebook</div>';
+	if (len) {
+		htmlStr += reviewList.splice(0, 5).join('');
+		if (len > 5) {
+			$fbReviewBox = $('<div class="fb-reviews-box hide"  style="position: fixed; top: 0; left: 0; z-index: 9999999999; width: 100%; height: 100%; background-color: rgba(0, 0, 0, .5);"></div');
+			var fbReviewBoxHtml = '<div class="fb-container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 500px; background-color: #fff;">' +
+					'<div class="fb-review-head" style="text-align: center;">' +
+						'<div style="height: 36px; line-height: 36px; font-size: 16px; background-color: #558dfd; color: #fff;">Real-time Feedback on Facebook</div>' +
+						'<span class="icon close" style="position: absolute; top: 0; right: 0; width: 32px; height: 32px; color: #fff; font-size: 18px; cursor: pointer;"></span>' +
+						'<div style="height: 30px; line-height: 30px; background: #fff; color: #636363; font-size: 16px;">To see how they experience it !</div>' +
+					'</div>' +
+					'<div class="fb-review-body" style="height: 412px; overflow-y: auto">'+ reviewList.join('') +'</div>' +
+				'</div';
+			htmlStr += '<div class="fb-review-more" style="text-align: center; color: #4080ff; cursor: pointer;">More Feedbacks &gt;</span>';
+			$fbReviewBox.html(fbReviewBoxHtml);
+		}
+		$('.product-fb-reviews').html(htmlStr);
+		$(document.body).append($fbReviewBox);
+	}
+	// event-open
+	$(document.body).on('click', '.fb-review-more', function() {
+		addFixed();
+		$('.fb-reviews-box').removeClass('hide');
+	});
+	// event-close
+	$('.fb-reviews-box').on('click', function(e) {
+		if (e.target == this) removeFixed(), $('.fb-reviews-box').addClass('hide');
+	});
+	$('.fb-reviews-box .close').on('click', function(e) {
+		removeFixed();
+		$('.fb-reviews-box').addClass('hide');
+	});
+}
+
+function getfbReviewsData(callback) {
+	$.ajax({
+		url: "${APP_PATH}/MlbackProfbReview/getProfbreviewAreaDetailListByPid",
+		type: "post",
+		data: JSON.stringify({"profbreviewAreaPid": productId}),
+		dataType: "json",
+		contentType: 'application/json',
+		success: function (data) {
+			if (data.code == 100) {
+				renderFbReviews(data.extend.mlbackProfbreviewAreaOne.profbreviewAreaDesc);
+			}
+		},
+		error: function (err) {}
+	});	
+}
+getfbReviewsData(renderFbReviews);
 </script>
