@@ -27,6 +27,7 @@
 		}
 		@media only screen and (min-width: 576px) and (max-width: 1023px) { .product-share .instagram {width:2.5rem;height:2.5rem;background-position: 0 -2.5rem;} }		
 		@media only screen and (min-width: 1023px) { .product-share .instagram {width:3rem;height:3rem;background-position: 0 -3rem;} }
+		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
 	</style>
 </head>
 <body>
@@ -97,7 +98,10 @@
 					<div class="product-tab-item btn btn-black" data-name="review">Reviews</div>
 				</div>
 				<div class="product-tab-body">
-					<div class="product-tab-container active" data-name="desc"></div>
+					<div class="product-tab-container active" data-name="desc">
+						<div class="product-description"></div>
+						<div class="product-fb-reviews"></div>
+					</div>
 					<div class="product-tab-container" data-name="review">
 						<div class="product-review-title">
 							<div class="product-review-cal">
