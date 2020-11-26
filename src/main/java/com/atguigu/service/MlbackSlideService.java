@@ -86,7 +86,6 @@ public class MlbackSlideService {
 	 * @author Shinelon
 	 * @param 
 	 * @exception 查看全部用户信息
-	 * 
 	 * */
 /*	public List<MlbackSlide> selectMlbackSlideByActnum(MlbackSlide mlbackSlide) {
 		List<MlbackSlide>  MlbackSlideList = mlbackSlideMapper.selectMlbackSlideByActnum(mlbackSlide);
