@@ -34,7 +34,7 @@
 						data.forEach(function(item) {
 							htmlStr += '<div class="swiper-slide">' +
 									'<a href="'+ (item.pageAreaDetailIfinto ? '${APP_PATH}/' + item.pageAreaDetaiLinklUrl : 'javascript:;') +'">' +
-										'<img class="lazyload" data-src="'+ item.pageAreaDetaiImglUrl +'" />' +										
+										'<img class="lazyload swiper-lazy" data-src="'+ item.pageAreaDetaiImglUrl +'" />' +										
 									'</a>' +
 								'</div>';
 						});
@@ -55,8 +55,8 @@
 						},
 						speed: 600,
 						loop: true,
-						autoplay: { delay: 5e3, },
-						parallax:true
+						autoplay: { delay: 4e3, },					
+						lazy: { loadPrevNext: true, },
 					});					
 				}, 1000);
 			}
