@@ -12,26 +12,54 @@ public class ReviewRandomUtil {
      */
 	public static void main(String[] args) throws Exception {
 		
-		String kkk="2020-08-17 19:22:51";
+		//String kkk="2020-08-17 19:22:51";
 		
 		String year="2020";
 		
-		String month="2020";
+		String month="9";
+		
+		if(month.length()>1){
+			month = month+"";
+		}else{
+			month="0"+month;
+		}
 		
 		for(int i=0;i<100;i++){
 			
+			String day = getRandom30();
+			
 			String timeHHMMSSStr = getHourMinuteSecond();
-			System.out.println("timeHHMMSSStr:"+timeHHMMSSStr);
+			//System.out.println("timeHHMMSSStr:"+timeHHMMSSStr);
+			String alltimeStr = getAllTimeStr(year,month,day,timeHHMMSSStr);
+			System.out.println("alltimeStr:"+alltimeStr);
 		}
 	}
+	
+	
+	
+	
 	
 	public static String getAllTimeStr(String year,String month,String day,String timeHHMMSS){
 		
 		String allTime ="";
 		allTime = year+"-"+month+"-"+day+" "+ timeHHMMSS;
-		System.out.println("allTime:"+allTime);
+		//System.out.println("allTime:"+allTime);
 		return allTime;
 		
+	}
+	
+	
+	public static String getRandom30() {
+		int low = 1 ;
+		int high = 30;
+		String random30Str = "";
+		int n = ((int) (Math.random()*(high-low)))+low;
+		if(n>9){
+			random30Str = n+"";
+		}else{
+			random30Str = "0"+(n+"");
+		}
+		return random30Str;
 	}
 	
 	public static String getHourMinuteSecond() {
@@ -41,11 +69,8 @@ public class ReviewRandomUtil {
 		String second =getRandom60();
 		
 		String timeStr = hour+":"+minute+":"+second;
-		System.out.println("timeStr:"+timeStr);
 		return timeStr;
 	}
-
-
 
 	public static String getRandom60() {
 		int low = 0 ;
@@ -57,10 +82,8 @@ public class ReviewRandomUtil {
 		}else{
 			random60Str = "0"+(n+"");
 		}
-		//System.out.println("random60Str:"+random60Str);
 		return random60Str;
 	}
-	
 	
 	public static String getRandom24() {
 		int low = 0 ;
@@ -72,7 +95,6 @@ public class ReviewRandomUtil {
 		}else{
 			random24Str = "0"+(n+"");
 		}
-		//System.out.println("random24Str:"+random24Str);
 		return random24Str;
 	}
 	

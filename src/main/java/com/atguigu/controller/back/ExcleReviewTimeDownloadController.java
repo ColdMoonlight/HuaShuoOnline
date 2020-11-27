@@ -41,10 +41,15 @@ public class ExcleReviewTimeDownloadController {
 		cell.setCellValue("trueTime");
 	    cell = row.createCell(2);
 	    
+	    String yearStr = year+"";
+	    String monthStr = month+"" ;
+	    
 	    for (int i = 0; i < number; i++) {
 	        row = sheet.createRow(i+1);
-	        String time= ReviewRandomUtil.getHourMinuteSecond();
-	        row.createCell(0).setCellValue(time+"");//放入时间参数
+	        String timeHHMMSS= ReviewRandomUtil.getHourMinuteSecond();
+	        String dayStr = ReviewRandomUtil.getRandom30();
+	        String allTimeStr = ReviewRandomUtil.getAllTimeStr(yearStr,monthStr,dayStr,timeHHMMSS);
+	        row.createCell(0).setCellValue(allTimeStr+"");//放入时间参数
 	    }
 		try {
 			OutputStream out =rep.getOutputStream();
