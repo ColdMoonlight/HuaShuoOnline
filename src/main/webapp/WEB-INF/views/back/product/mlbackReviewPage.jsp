@@ -80,7 +80,15 @@
 									</div>
 								</div>
 								<div class="form-group col-md-5">
-									<div class="col-md-6">
+									<div class="col-md-4">
+										<h3 style="font-size: 16px;">下载时间模板</h3>
+										<div class="c-upload-img" id="download-time" style="width: 4rem; height: 4rem; padding: 1rem;">
+										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
+										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
+										  </svg>
+										</div>
+									</div>
+									<div class="col-md-4">
 										<h3 style="font-size: 16px;">下载模板</h3>
 										<div class="c-upload-img" id="download" style="width: 4rem; height: 4rem; padding: 1rem;">
 										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
@@ -88,7 +96,7 @@
 										  </svg>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<h3 style="font-size: 16px;">上传文档</h3>
 										<div class="c-upload-img" style="width: 4rem; height: 4rem;padding: 1rem;">
 											<svg class="c-icon" style="width: 2rem; height: 2rem;">
@@ -279,6 +287,7 @@
 
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/randomTimeModal.jsp" flush="true"></jsp:include>
 
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
@@ -816,6 +825,35 @@
 			if (len < 6) addUploadBlock(len);
 		}
 		/***2020-08-25新增*******************/
+		$('#download-time').on('click', function() {
+			$('#download-time-year').val('-1');
+			$('#download-time-month').val('-1');
+			$('#download-time-number').val('');
+			$('#randTimeModal').modal('show');
+		});
+		
+		$('#download-time-template').on('click', function() {
+			var year = parseInt($('#download-time-year').val(), 10);
+			var month = parseInt($('#download-time-month').val(), 10);
+			var number = parseInt($('#download-time-number').val(), 10);
+			
+			if (year < 0) {
+				toastr.error('请选择随机生成所需要的年份。。。');
+				return;
+			}
+			if (month < 0) {
+				toastr.error('请选择随机生成所需要的月份。。。');
+				return;
+			}
+			if (!number) {
+				toastr.error('请选择随机生成所需要的数目。。。');
+				return;
+			}
+			
+			window.location.href = '${APP_PATH}/ExcleReviewTimeDownload/exportRandomTime?year='+ year +'&month='+ month +'&number='+ number;
+			$('#randTimeModal').modal('hide');
+		});
+		
 		$('#download').on('click', function() {
 			window.location.href = "${APP_PATH}/excleImport/exportReviewsImportDemo";
 		});
