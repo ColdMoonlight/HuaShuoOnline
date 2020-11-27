@@ -24,8 +24,8 @@ public class ExcleReviewTimeDownloadController {
 	 * 下载注册客户email,telphone数据
 	 * */
 	@RequestMapping(value="/exportRandomTime",method=RequestMethod.GET)
-	public void exportUserEmailBydate(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "year") String year,
-			@RequestParam(value = "month") String month,@RequestParam(value = "number") Integer number,HttpSession session){
+	public void exportUserEmailBydate(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "year") Integer year,
+			@RequestParam(value = "month") Integer month,@RequestParam(value = "number") Integer number,HttpSession session){
 		
 		rep.setContentType("application/octet-stream");
 		

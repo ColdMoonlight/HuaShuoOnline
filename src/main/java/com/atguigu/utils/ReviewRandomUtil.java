@@ -12,6 +12,12 @@ public class ReviewRandomUtil {
      */
 	public static void main(String[] args) throws Exception {
 		
+		String kkk="2020-08-17 19:22:51";
+		
+		String year="2020";
+		
+		String month="2020";
+		
 		for(int i=0;i<100;i++){
 			
 			String timeHHMMSSStr = getHourMinuteSecond();
@@ -19,7 +25,14 @@ public class ReviewRandomUtil {
 		}
 	}
 	
-	
+	public static String getAllTimeStr(String year,String month,String day,String timeHHMMSS){
+		
+		String allTime ="";
+		allTime = year+"-"+month+"-"+day+" "+ timeHHMMSS;
+		System.out.println("allTime:"+allTime);
+		return allTime;
+		
+	}
 	
 	public static String getHourMinuteSecond() {
 		
