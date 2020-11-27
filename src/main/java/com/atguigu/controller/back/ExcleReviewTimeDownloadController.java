@@ -21,7 +21,7 @@ import com.atguigu.utils.ReviewRandomUtil;
 public class ExcleReviewTimeDownloadController {
 	
 	/**
-	 * 下载注册客户email,telphone数据
+	 * 下载timeRandom数据
 	 * */
 	@RequestMapping(value="/exportRandomTime",method=RequestMethod.GET)
 	public void exportUserEmailBydate(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "year") Integer year,
@@ -30,7 +30,7 @@ public class ExcleReviewTimeDownloadController {
 		rep.setContentType("application/octet-stream");
 		
 		String nowTime = DateUtil.strTime14();
-		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"userEmail.xls");
+		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"timeRandom.xls");
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("sheet0");
 		HSSFRow row = sheet.createRow(0);
@@ -49,7 +49,8 @@ public class ExcleReviewTimeDownloadController {
 	        String timeHHMMSS= ReviewRandomUtil.getHourMinuteSecond();
 	        String dayStr = ReviewRandomUtil.getRandom30();
 	        String allTimeStr = ReviewRandomUtil.getAllTimeStr(yearStr,monthStr,dayStr,timeHHMMSS);
-	        row.createCell(0).setCellValue(allTimeStr+"");//放入时间参数
+	        row.createCell(0).setCellValue(i);//num_id
+	        row.createCell(1).setCellValue(allTimeStr+"");//放入时间参数
 	    }
 		try {
 			OutputStream out =rep.getOutputStream();
