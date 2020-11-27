@@ -61,7 +61,6 @@
     where shippingAddress_id = #{shippingaddressId,jdbcType=INTEGER}
   </update>
   
-  
   <!--insertSelective-->
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="shippingaddressId" parameterType="com.atguigu.bean.MlPaypalShipAddress">
     insert into tb_paypal_shippingaddress
