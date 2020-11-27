@@ -1,0 +1,59 @@
+package com.atguigu.controller.back;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.ReviewRandomUtil;
+
+@Controller
+@RequestMapping("/ExcleReviewTimeDownload")
+public class ExcleReviewTimeDownloadController {
+	
+	/**
+	 * 下载注册客户email,telphone数据
+	 * */
+	@RequestMapping(value="/exportRandomTime",method=RequestMethod.GET)
+	public void exportUserEmailBydate(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "year") String year,
+			@RequestParam(value = "month") String month,@RequestParam(value = "number") Integer number,HttpSession session){
+		
+		rep.setContentType("application/octet-stream");
+		
+		String nowTime = DateUtil.strTime14();
+		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"userEmail.xls");
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet("sheet0");
+		HSSFRow row = sheet.createRow(0);
+		HSSFCell cell = row.createCell(0);
+		
+		cell.setCellValue("num_id");
+	    cell = row.createCell(1);
+		cell.setCellValue("trueTime");
+	    cell = row.createCell(2);
+	    
+	    for (int i = 0; i < number; i++) {
+	        row = sheet.createRow(i+1);
+	        String time= ReviewRandomUtil.getHourMinuteSecond();
+	        row.createCell(0).setCellValue(time+"");//放入时间参数
+	    }
+		try {
+			OutputStream out =rep.getOutputStream();
+			wb.write(out);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
