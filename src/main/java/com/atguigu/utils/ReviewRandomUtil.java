@@ -3,16 +3,13 @@ package com.atguigu.utils;
 public class ReviewRandomUtil {
 	
 	/**
-     * @Method: readyEmail----Fictitious
+     * @Method: getRandom60
      * @Description: 获取60以内的随机数
      * @Anthor:zsh
      * @param session
-     * @return
      * @throws Exception
      */
 	public static void main(String[] args) throws Exception {
-		
-		//String kkk="2020-08-17 19:22:51";
 		
 		String year="2020";
 		
