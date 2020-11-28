@@ -24,7 +24,6 @@ public class ReviewRandomUtil {
 		for(int i=0;i<100;i++){
 			
 			String day = getRandom30();
-			
 			String timeHHMMSSStr = getHourMinuteSecond();
 			//System.out.println("timeHHMMSSStr:"+timeHHMMSSStr);
 			String alltimeStr = getAllTimeStr(year,month,day,timeHHMMSSStr);
@@ -32,19 +31,13 @@ public class ReviewRandomUtil {
 		}
 	}
 	
-	
-	
-	
-	
 	public static String getAllTimeStr(String year,String month,String day,String timeHHMMSS){
 		
 		String allTime ="";
 		allTime = year+"-"+month+"-"+day+" "+ timeHHMMSS;
 		//System.out.println("allTime:"+allTime);
 		return allTime;
-		
 	}
-	
 	
 	public static String getRandom30() {
 		int low = 1 ;
