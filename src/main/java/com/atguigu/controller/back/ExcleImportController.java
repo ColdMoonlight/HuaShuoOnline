@@ -246,7 +246,7 @@ public class ExcleImportController {
 						if (getCell != null) {
 		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		                    reviewOne.setReviewMotifytime(getCell.getStringCellValue());
-		                    reviewOne.setReviewConfirmtime(nowTime);
+		                    reviewOne.setReviewConfirmtime(getCell.getStringCellValue());
 		                    reviewOne.setReviewSupercateidstr("1");
 		                }
 						getCell = row.getCell(4);
@@ -279,7 +279,7 @@ public class ExcleImportController {
 					is.close();
 					for(MlfrontReview mlfrontReview:reviewList){
 						mlfrontReviewService.insertSelective(mlfrontReview);
-						//System.out.println("mlfrontReview.getReviewId():"+mlfrontReview.getReviewId());
+						System.out.println("mlfrontReview.getReviewId():"+mlfrontReview.toString());
 					}
 				}catch (Exception e) {
 					System.out.println("第行出错");
