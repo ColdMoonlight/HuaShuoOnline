@@ -65,8 +65,6 @@ public class ExcleImportController {
 		
 		cell.setCellValue("ReviewUname");
 	    cell = row.createCell(1);
-//		cell.setCellValue("ReviewUimgurl");
-//	    cell = row.createCell(2);
 	    cell.setCellValue("ReviewPid");
 	    cell = row.createCell(2);
 	    cell.setCellValue("ReviewCreatetime");
@@ -86,7 +84,6 @@ public class ExcleImportController {
 	    
         row = sheet.createRow(1);
         row.createCell(0).setCellValue("MegaLookCustomer");//ReviewUname
-//        row.createCell(1).setCellValue("https://www.megalook.com/static/upload/img/ReviewUImg/M.png");//ReviewUimgurl
         row.createCell(1).setCellValue(252);//ReviewPid
         row.createCell(2).setCellValue("2019-07-02 15:23:43");//ReviewCreatetime
         row.createCell(3).setCellValue("2019-07-02 15:23:43");//ReviewMotifytime
@@ -115,7 +112,6 @@ public class ExcleImportController {
 	public void inportReviews(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,HttpServletResponse response,HttpSession session){
 		try {
 			InputStream is = multipartFile.getInputStream();
-			String nowTime = DateUtil.strTime14();
 			if(is!=null){
 				HSSFWorkbook wb = new HSSFWorkbook(is);
 				List<MlfrontReview> reviewList = new ArrayList<MlfrontReview>();
