@@ -199,7 +199,7 @@ public class ExcleImportController {
         String realPathStr = res.getSession().getServletContext().getRealPath("/");    
         System.out.println("realPathStr:"+realPathStr);
         
-        String basePathStr = URLLocationUtils.getbasePathStr(response,res);	//出来是真实的
+        String basePathStr = URLLocationUtils.getbasePathStr(response,res);	//出来是真实的服务器域名
         System.out.println("basePathStr:"+basePathStr);
 		
 		String pathBig = basePathStr;
