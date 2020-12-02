@@ -65,8 +65,6 @@ public class ExcleImportController {
 		
 		cell.setCellValue("ReviewUname");
 	    cell = row.createCell(1);
-//		cell.setCellValue("ReviewUimgurl");
-//	    cell = row.createCell(2);
 	    cell.setCellValue("ReviewPid");
 	    cell = row.createCell(2);
 	    cell.setCellValue("ReviewCreatetime");
@@ -86,7 +84,6 @@ public class ExcleImportController {
 	    
         row = sheet.createRow(1);
         row.createCell(0).setCellValue("MegaLookCustomer");//ReviewUname
-//        row.createCell(1).setCellValue("https://www.megalook.com/static/upload/img/ReviewUImg/M.png");//ReviewUimgurl
         row.createCell(1).setCellValue(252);//ReviewPid
         row.createCell(2).setCellValue("2019-07-02 15:23:43");//ReviewCreatetime
         row.createCell(3).setCellValue("2019-07-02 15:23:43");//ReviewMotifytime
@@ -111,105 +108,10 @@ public class ExcleImportController {
      * @param request
      * @param response
      */
-//	@RequestMapping(value="/inportReviews",method=RequestMethod.POST)
-//	public void inportReviews(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,HttpServletResponse response,HttpSession session){
-//		try {
-//			InputStream is = multipartFile.getInputStream();
-//			String nowTime = DateUtil.strTime14();
-//			if(is!=null){
-//				HSSFWorkbook wb = new HSSFWorkbook(is);
-//				List<MlfrontReview> reviewList = new ArrayList<MlfrontReview>();
-//				int rowCount = 0;
-//				try {
-//					HSSFSheet st = wb.getSheetAt(0);
-//					int rowNum = st.getLastRowNum(); //获取Excel最后一行索引，从零开始，所以获取到的是表中最后一行行数减一
-//					int colNum = st.getRow(0).getLastCellNum();//获取Excel列数
-//					for(int r=1;r<=rowNum;r++){//读取每一行，第一行为标题，从第二行开始
-//						rowCount = r;
-//						HSSFRow row = st.getRow(r);
-//						MlfrontReview reviewOne = new MlfrontReview();
-//						HSSFCell getCell = null;
-//						getCell = row.getCell(0);
-//						if (getCell != null) {
-//		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-//		                    reviewOne.setReviewUname(getCell.getStringCellValue());
-//		                }
-//						getCell = row.getCell(1);
-//						if (getCell != null) {
-//		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-//		                    reviewOne.setReviewUimgurl(getCell.getStringCellValue());
-//		                }
-//						getCell = row.getCell(2);
-//						if (getCell != null) {
-//		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-//		                    reviewOne.setReviewPid(Integer.parseInt(getCell.getStringCellValue()));
-//		                }
-//						getCell = row.getCell(3);
-//						if (getCell != null) {
-//		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-//		                    reviewOne.setReviewCreatetime(getCell.getStringCellValue());
-//		                }
-//						getCell = row.getCell(4);
-//						if (getCell != null) {
-//		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-//		                    reviewOne.setReviewMotifytime(getCell.getStringCellValue());
-//		                    reviewOne.setReviewConfirmtime(nowTime);
-//		                    reviewOne.setReviewSupercateidstr("1");
-//		                }
-//						getCell = row.getCell(5);
-//						if (getCell != null) {
-//		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-//		                    reviewOne.setReviewPseoname(getCell.getStringCellValue());
-//		                }
-//						getCell = row.getCell(6);
-//						if (getCell != null) {
-//		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-//		                    reviewOne.setReviewStatus(Integer.parseInt(getCell.getStringCellValue()));
-//		                }
-//						getCell = row.getCell(7);
-//						if (getCell != null) {
-//		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-//		                    reviewOne.setReviewDetailstr(getCell.getStringCellValue());
-//		                }
-//						getCell = row.getCell(8);
-//						if (getCell != null) {
-//		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-//		                    reviewOne.setReviewProstarnum(Integer.parseInt(getCell.getStringCellValue()));
-//		                }
-//						getCell = row.getCell(9);
-//						if (getCell != null) {
-//		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-//		                    reviewOne.setReviewFrom(Integer.parseInt(getCell.getStringCellValue()));
-//		                }
-//						//System.out.println("reviewOne.toString( ):"+reviewOne.toString());
-//						reviewList.add(reviewOne);
-//					}
-//					is.close();
-//					for(MlfrontReview mlfrontReview:reviewList){
-//						mlfrontReviewService.insertSelective(mlfrontReview);
-//						System.out.println("mlfrontReview.getReviewId():"+mlfrontReview.getReviewId());
-//					}
-//				}catch (Exception e) {
-//					System.out.println("第行出错");
-//					e.printStackTrace();
-//				}
-//			}
-//		}catch (Exception e) {
-//			System.out.println("第行出错");
-//			e.printStackTrace();
-//		}
-//	}
-	
-	/**
-     * inportReviews
-     * @param request
-     * @param response
-     */
 	@RequestMapping(value="/inportReviews",method=RequestMethod.POST)
 	public void inportReviews(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,HttpServletResponse response,HttpSession session){
 		try {
 			InputStream is = multipartFile.getInputStream();
-			String nowTime = DateUtil.strTime14();
 			if(is!=null){
 				HSSFWorkbook wb = new HSSFWorkbook(is);
 				List<MlfrontReview> reviewList = new ArrayList<MlfrontReview>();
@@ -246,7 +148,7 @@ public class ExcleImportController {
 						if (getCell != null) {
 		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
 		                    reviewOne.setReviewMotifytime(getCell.getStringCellValue());
-		                    reviewOne.setReviewConfirmtime(nowTime);
+		                    reviewOne.setReviewConfirmtime(getCell.getStringCellValue());
 		                    reviewOne.setReviewSupercateidstr("1");
 		                }
 						getCell = row.getCell(4);
@@ -279,7 +181,7 @@ public class ExcleImportController {
 					is.close();
 					for(MlfrontReview mlfrontReview:reviewList){
 						mlfrontReviewService.insertSelective(mlfrontReview);
-						//System.out.println("mlfrontReview.getReviewId():"+mlfrontReview.getReviewId());
+						//System.out.println("mlfrontReview.getReviewId():"+mlfrontReview.toString());
 					}
 				}catch (Exception e) {
 					System.out.println("第行出错");
