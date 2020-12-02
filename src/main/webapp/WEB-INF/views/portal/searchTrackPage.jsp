@@ -47,6 +47,7 @@
 				var payinfoPlatenum = $('#searchOrderId').val();
 				if (!payinfoPlatenum.trim()) {
 					mlModalTip('The order-id cannot be empty');
+					hidePayLoading();
 				} else {
 					$.ajax({
 						url: "${APP_PATH}/MlfrontOrderList/getTrackDetailByPayinfoPlatenum",
