@@ -64,6 +64,7 @@
 			.banner_top9 .pc{padding-top:32.8%;}
 			.pro_cont .pc{padding-top:104.6153%;}
 			.box_img .wap{display:none}
+			
 		}
 	</style>
 </head>
