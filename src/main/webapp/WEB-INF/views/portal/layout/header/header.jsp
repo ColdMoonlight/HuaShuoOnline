@@ -44,10 +44,8 @@
 			<a class="logo" href="javascript:goToIndex();">
 				<img src="${APP_PATH}/static/common/dblogo.png" alt="megalook" title="megalook">
 			</a>
-			<div id="iphone-share">
-				<span class="icon unshare"></span>
-				<span class="icon share hide"></span>
-			</div>			
+			<span class="icon iphone-unshare"></span>
+			<span class="icon share iphone-share hide" id="iphone-share"></span>
 			<a href="${APP_PATH}/MlbackCart/toCartList" class="icon cart"><span class="num">0</span></a>
 			<a href="javascript:goToSearchTrack();" class="icon shipping"></a>
 			<div class="search-box">

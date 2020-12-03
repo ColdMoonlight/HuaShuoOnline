@@ -490,7 +490,7 @@
 	// iphone share
 	function initIphoneShare() {
 		var isIOS = navigator.userAgent && navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-		isIOS ? $('#iphone-share').find('.share').removeClass('hide').end().find('.unshare').addClass('hide') : $('#iphone-share').find('.share').addClass('hide').end().find('.unshare').removeClass('hide');
+		isIOS ? ($('.iphone-share').removeClass('hide'),$('.iphone-unshare').addClass('hide')) : ($('.iphone-share').addClass('hide'),$('.iphone-unshare').removeClass('hide'));
 	}
 
 	// initial ml-ad
