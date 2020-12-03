@@ -402,7 +402,7 @@
 						'<div class="order-payment-item custom-check">'+
 							'<input type="radio" name="payment" id="payment-paypalcard" value="1">' +
 							'<label for="payment-paypalcard">' +
-								'<b style="margin-right: .2rem;">Credit card</b>' +
+								'<b style="margin-right: .2rem; white-space: nowrap;">Credit card</b>' +
 								'<img src="${APP_PATH}/static/pc/img/paypal-2-2.png">' +
 							'</label>' +
 						'</div>' +
