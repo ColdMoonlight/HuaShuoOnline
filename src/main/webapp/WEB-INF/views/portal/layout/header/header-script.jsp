@@ -490,7 +490,7 @@
 	// iphone share
 	function initIphoneShare() {
 		var isIOS = navigator.userAgent && navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-		isIOS ? $('#iphone-share').addClass('share') : $('#iphone-share').removeClass('share');
+		isIOS ? $('#iphone-share').find('.share').removeClass('hide').end().find('.unshare').addClass('hide') : $('#iphone-share').find('.share').addClass('hide').end().find('.unshare').removeClass('hide');
 	}
 
 	// initial ml-ad
@@ -584,7 +584,7 @@
 		}, 100);
 	});
 	// iphone share
-	$('#iphone-share').on('click', function() {
+	$('#iphone-share .share').on('click', function() {
 		var $iphoneAdvice = $('.iphone-advice');
 		if (!$iphoneAdvice.length) {
 			$iphoneAdvice = $('<div class="iphone-advice"><img src="${APP_PATH}/static/pc/img/iphone-advice.gif" /><span class="icon close"></span></div>');

@@ -919,7 +919,8 @@ main {
 	align-items: center;
 	padding: .625rem;
 }
-.wap-navbar>.icon {
+.wap-navbar>.icon,
+#iphone-share>.icon {
 	width: 2.4rem;
 	height: 2.4rem;
 	font-size: 1.5rem;
@@ -951,7 +952,7 @@ main {
 	border-radius: 50%;
 	background-color: #ff1671;
 }
-.wap-navbar>.share {
+#iphone-share>.share {
 	-webkit-animation: iphoneShare 0.5s ease-in-out alternate infinite;
     animation: iphoneShare 0.5s ease-in-out alternate infinite;
 }
