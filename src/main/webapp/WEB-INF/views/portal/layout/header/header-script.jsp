@@ -494,7 +494,7 @@
 	}
 
 	// initial ml-ad
-	getCarouselData(5, false, function(data) {
+	getCarouselData(5, true, function(data) {
 		var hData = data[0]
 		hData && renderHeaderAd(hData);
 	});
