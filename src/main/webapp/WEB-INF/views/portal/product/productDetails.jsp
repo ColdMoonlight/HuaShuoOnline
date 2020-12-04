@@ -23,10 +23,10 @@
 		@media only screen and (max-width: 575px) {
 			main { margin: 0 }
 			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
-			.product-share .instagram {width:2rem;height:2rem;background-position: 0 -2rem;}
+			.product-share .instagram {background-position: 0 -2rem;} .product-share .youtube {background-position: 0 -8rem;}
 		}
-		@media only screen and (min-width: 576px) and (max-width: 1023px) { .product-share .instagram {width:2.5rem;height:2.5rem;background-position: 0 -2.5rem;} }		
-		@media only screen and (min-width: 1023px) { .product-share .instagram {width:3rem;height:3rem;background-position: 0 -3rem;} }
+		@media only screen and (min-width: 576px) and (max-width: 1023px) {.product-share .instagram {background-position: 0 -2.5rem;} .product-share .youtube {background-position: 0 -10rem;} }		
+		@media only screen and (min-width: 1023px) {.product-share .instagram {background-position: 0 -3rem;} .product-share .youtube {background-position: 0 -12rem;} }
 		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
 	</style>
 </head>
@@ -50,12 +50,11 @@
 			            <div class="swiper-button-prev"></div>
 					</div>
 					<div class="product-share">
-						<a class="instagram" style="display: inline-block;background-image: url('${APP_PATH}/static/pc/img/follow-us.png');background-repeat: no-repeat;background-size: 100% auto;" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
-						<div class="share-item hide" data-url="https://plus.google.com/share?url=" title="share on google+"></div>
-						<div class="share-item" data-url="https://twitter.com/intent/tweet?url=" title="share on twitter"></div>
-						<div class="share-item" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>
-						<div class="share-item" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest"></div>
-						<div class="share-item" data-url="https://api.whatsapp.com/send?text=" title="share on whatsapp"></div>
+						<a class="share-item youtube" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber" title="megalook youtube"></a>
+						<a class="share-item instagram" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
+						<div class="share-item share-click facebook" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>
+						<div class="share-item share-click pinterest" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest"></div>
+						<div class="share-item share-click whatsapp" data-url="https://api.whatsapp.com/send?text=" title="share on whatsapp"></div>
 					</div>
 				</div>
 				<div class="product-details">
