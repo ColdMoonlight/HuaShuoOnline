@@ -951,7 +951,7 @@ main {
 	border-radius: 50%;
 	background-color: #ff1671;
 }
-.wap-navbar>.share {
+.iphone-share.share {
 	-webkit-animation: iphoneShare 0.5s ease-in-out alternate infinite;
     animation: iphoneShare 0.5s ease-in-out alternate infinite;
 }
