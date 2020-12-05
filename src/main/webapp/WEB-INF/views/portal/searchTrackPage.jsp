@@ -109,7 +109,12 @@
 				}
 				return html;
 			}
-			var trackOrderHtml = '<div class="track-result-header">' +
+			var trackOrderHtml;
+			if (data.checkpoints == null) {
+				mlModalTip('The product you purchased has been sent out and is waiting for the courier. If you have other questions, please consult customer service.');
+				return;
+			}
+			trackOrderHtml= '<div class="track-result-header">' +
 					'<div clsass="tracking-name"><span class="name">Tracking Name: </span><span class="value">'+ data.slug +'</span></div>' +
 					'<div clsass="tracking-number"><span class="name">Tracking Number: </span><span class="value">'+ data.trackingNumber +'</span></div>' +
 					'<div clsass="tracking-adress"><span class="name">Tracking Adress: </span><span class="value">'+ data.originCountryISO3 + ' → ' + data.destinationCountryISO3 +'</span></div>' +
