@@ -14,21 +14,22 @@ public class CouponAnalysisDate {
 	tb_mlfront_payinfo as tbpay,
 	tb_mlfront_order as tborder,
 	tb_paypal_shippingaddress as tbpayadd 
-	WHERE 
-	tbpay.payInfo_oid = tborder.order_id AND tbpay.payInfo_id = tbpayadd.shippingAddress_payInfoid  
-	AND (tbpay.payInfo_status !=0) AND (tborder.order_coupon_code ='M10') 
-	ORDER BY tbpay.payInfo_id DESC
+	WHERE tbpay.payInfo_createTime BETWEEN #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR} 
+	AND (tbpay.payInfo_status !=0)
+	<if test="SearchCouponCode != null">
+     AND tborder.order_coupon_code = #{SearchCouponCode,jdbcType=VARCHAR} 
+    </if>
+	 AND tbpay.payInfo_oid = tborder.order_id AND tbpay.payInfo_id = tbpayadd.shippingAddress_payInfoid 
+	 ORDER BY tbpay.payInfo_id DESC
 	 * 
 	 * */
-	
 	private Integer payinfoId;
 	private Integer payinfoOid;
 	private BigDecimal payinfoMoney;
 	private Integer payinfoStatus;
 	private String payinfoCreatetime;
 	private String payinfoMotifytime;
-	private String couponCode;
-	private MlfrontPayInfo mlfrontPayInfo;
+	private String SearchCouponCode;
 	private MlfrontOrder mlfrontOrder;
 	private MlPaypalShipAddress mlPaypalShipAddress;
 	public Integer getPayinfoId() {
@@ -67,23 +68,17 @@ public class CouponAnalysisDate {
 	public void setPayinfoMotifytime(String payinfoMotifytime) {
 		this.payinfoMotifytime = payinfoMotifytime;
 	}
-	public String getCouponCode() {
-		return couponCode;
+	public String getSearchCouponCode() {
+		return SearchCouponCode;
 	}
-	public void setCouponCode(String couponCode) {
-		this.couponCode = couponCode;
+	public void setSearchCouponCode(String searchCouponCode) {
+		SearchCouponCode = searchCouponCode;
 	}
 	public MlfrontOrder getMlfrontOrder() {
 		return mlfrontOrder;
 	}
 	public void setMlfrontOrder(MlfrontOrder mlfrontOrder) {
 		this.mlfrontOrder = mlfrontOrder;
-	}
-	public MlfrontPayInfo getMlfrontPayInfo() {
-		return mlfrontPayInfo;
-	}
-	public void setMlfrontPayInfo(MlfrontPayInfo mlfrontPayInfo) {
-		this.mlfrontPayInfo = mlfrontPayInfo;
 	}
 	public MlPaypalShipAddress getMlPaypalShipAddress() {
 		return mlPaypalShipAddress;
@@ -95,10 +90,9 @@ public class CouponAnalysisDate {
 	public CouponAnalysisDate() {
 		super();
 	}
-	
 	public CouponAnalysisDate(Integer payinfoId, Integer payinfoOid, BigDecimal payinfoMoney, Integer payinfoStatus,
-			String payinfoCreatetime, String payinfoMotifytime, String couponCode, MlfrontPayInfo mlfrontPayInfo,
-			MlfrontOrder mlfrontOrder, MlPaypalShipAddress mlPaypalShipAddress) {
+			String payinfoCreatetime, String payinfoMotifytime, String searchCouponCode, MlfrontOrder mlfrontOrder,
+			MlPaypalShipAddress mlPaypalShipAddress) {
 		super();
 		this.payinfoId = payinfoId;
 		this.payinfoOid = payinfoOid;
@@ -106,8 +100,7 @@ public class CouponAnalysisDate {
 		this.payinfoStatus = payinfoStatus;
 		this.payinfoCreatetime = payinfoCreatetime;
 		this.payinfoMotifytime = payinfoMotifytime;
-		this.couponCode = couponCode;
-		this.mlfrontPayInfo = mlfrontPayInfo;
+		SearchCouponCode = searchCouponCode;
 		this.mlfrontOrder = mlfrontOrder;
 		this.mlPaypalShipAddress = mlPaypalShipAddress;
 	}
@@ -115,9 +108,8 @@ public class CouponAnalysisDate {
 	public String toString() {
 		return "CouponAnalysisDate [payinfoId=" + payinfoId + ", payinfoOid=" + payinfoOid + ", payinfoMoney="
 				+ payinfoMoney + ", payinfoStatus=" + payinfoStatus + ", payinfoCreatetime=" + payinfoCreatetime
-				+ ", payinfoMotifytime=" + payinfoMotifytime + ", couponCode=" + couponCode + ", mlfrontPayInfo="
-				+ mlfrontPayInfo + ", mlfrontOrder=" + mlfrontOrder + ", mlPaypalShipAddress=" + mlPaypalShipAddress
-				+ "]";
+				+ ", payinfoMotifytime=" + payinfoMotifytime + ", SearchCouponCode=" + SearchCouponCode
+				+ ", mlfrontOrder=" + mlfrontOrder + ", mlPaypalShipAddress=" + mlPaypalShipAddress + "]";
 	}
 	
 }
