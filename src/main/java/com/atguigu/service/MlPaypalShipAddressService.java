@@ -58,5 +58,14 @@ public class MlPaypalShipAddressService {
 		List<MlPaypalShipAddress>  mlPaypalShipAddressRes = mlPaypalShipAddresstMapper.selectMlPaypalShipAddressByPayinfoid(mlPaypalShipAddress);
 		return mlPaypalShipAddressRes;
 	}
+	/**
+	 * @author Shinelon
+	 * @param MlPaypalShipAddress
+	 * @exception 查看用户信息是否存在
+	 * */
+	public List<MlPaypalShipAddress> selectMlPaypalShipAddressByEmail(MlPaypalShipAddress mlPaypalShipAddressifOldReq) {
+		List<MlPaypalShipAddress>  mlPaypalShipAddressRes = mlPaypalShipAddresstMapper.selectMlPaypalShipAddressByEmail(mlPaypalShipAddressifOldReq);
+		return mlPaypalShipAddressRes;
+	}
 
 }
