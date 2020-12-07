@@ -499,11 +499,9 @@ public class MlbackCouponController {
 		couponAnalysisDateReq.setPayinfoMotifytime(endtime);
 		couponAnalysisDateReq.setCouponCode(couponCode);
 		
-		
 		List<CouponAnalysisDate> CouponAnalysisDateList = couponAnalysisDateService.selectCouponAnalysisList(couponAnalysisDateReq);
 		
 		return Msg.success().add("CouponAnalysisDateList", CouponAnalysisDateList);
 	}
-	
 	
 }
