@@ -142,7 +142,6 @@
 			</div>
 		</div>
 	<!-- main end -->
-	
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer/footer.jsp" flush="true"></jsp:include>
 	<!-- common script -->

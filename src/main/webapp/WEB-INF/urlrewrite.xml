@@ -55,4 +55,8 @@
         <from>^/Customer/Wholesale.html</from>
         <to>/PortalHome/WholesalePage</to>
     </rule>
+    <rule>
+        <from>^/PortalHome/ChristmasPage.html</from>
+        <to>/PortalHome/ChristmasPage</to>
+    </rule>
 </urlrewrite>
