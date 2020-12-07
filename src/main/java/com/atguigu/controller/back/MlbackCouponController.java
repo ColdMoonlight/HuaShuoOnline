@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlbackCatalog;
 import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlfrontUser;
@@ -476,5 +475,26 @@ public class MlbackCouponController {
 		return Msg.success().add("urlCountList", urlCountList);
 	}
 	
+	/**
+	 * 13.0	20201207
+	 * 后端时间筛选下的时间内信息优惠券使用次数MlbackSearch/getSearchListByTime
+	 * @param	MlbackSearch
+	 * @return
+	 */
+//	@RequestMapping(value="/getSearchListByTime",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Msg getSearchListByTime(HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
+//		
+//		String starttime = mlbackSearch.getSearchCreatetime();
+//		String endtime = mlbackSearch.getSearchMotifytime();
+//		UrlCount urlCountReq = new UrlCount();
+//		urlCountReq.setSearchStartTime(starttime);
+//		urlCountReq.setSearchEndTime(endtime);
+//		
+//		List<UrlCount> urlCountList = urlCountService.selectSearchUrlCountByTime(urlCountReq);
+//		
+//		return Msg.success().add("urlCountList", urlCountList);
+//	}
+//	
 	
 }
