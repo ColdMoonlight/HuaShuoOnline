@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackCatalog;
 import com.atguigu.bean.MlbackCoupon;
+import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlfrontUser;
+import com.atguigu.bean.UrlCount;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCouponService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlfrontUserService;
+import com.atguigu.service.UrlCountService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.LuckDrawUtils;
 import com.atguigu.vo.LuckDrawDate;
@@ -41,6 +45,9 @@ public class MlbackCouponController {
 	
 	@Autowired
 	MlbackProductService mlbackProductService;
+	
+	@Autowired
+	UrlCountService urlCountService;
 	
 	/**
 	 * 1.0	useOn	0505
@@ -446,6 +453,27 @@ public class MlbackCouponController {
 	public String toCouponCaclPage() throws Exception{
 	
 		return "back/operate/mlbackCouponAnalysisPage";
+	}
+	
+	/**
+	 * 12.0	20201207
+	 * 后端时间筛选下的优惠券使用次数MlbackSearch/getSearchListByTime
+	 * @param	MlbackSearch
+	 * @return
+	 */
+	@RequestMapping(value="/getSearchListByTime",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getSearchListByTime(HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
+		
+		String starttime = mlbackSearch.getSearchCreatetime();
+		String endtime = mlbackSearch.getSearchMotifytime();
+		UrlCount urlCountReq = new UrlCount();
+		urlCountReq.setSearchStartTime(starttime);
+		urlCountReq.setSearchEndTime(endtime);
+		
+		List<UrlCount> urlCountList = urlCountService.selectSearchUrlCountByTime(urlCountReq);
+		
+		return Msg.success().add("urlCountList", urlCountList);
 	}
 	
 	
