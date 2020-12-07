@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.atguigu.bean.CouponAnalysisDate;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.UrlCount;
 import com.atguigu.common.Msg;
+import com.atguigu.service.CouponAnalysisDateService;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCouponService;
 import com.atguigu.service.MlbackProductService;
@@ -47,6 +50,9 @@ public class MlbackCouponController {
 	
 	@Autowired
 	UrlCountService urlCountService;
+	
+	@Autowired
+	CouponAnalysisDateService couponAnalysisDateService;
 	
 	/**
 	 * 1.0	useOn	0505
@@ -477,24 +483,27 @@ public class MlbackCouponController {
 	
 	/**
 	 * 13.0	20201207
-	 * 后端时间筛选下的时间内信息优惠券使用次数MlbackSearch/getSearchListByTime
+	 * 后端时间筛选下的时间内某一个优惠券的使用单子大概
 	 * @param	MlbackSearch
 	 * @return
 	 */
-//	@RequestMapping(value="/getSearchListByTime",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getSearchListByTime(HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
-//		
-//		String starttime = mlbackSearch.getSearchCreatetime();
-//		String endtime = mlbackSearch.getSearchMotifytime();
-//		UrlCount urlCountReq = new UrlCount();
-//		urlCountReq.setSearchStartTime(starttime);
-//		urlCountReq.setSearchEndTime(endtime);
-//		
-//		List<UrlCount> urlCountList = urlCountService.selectSearchUrlCountByTime(urlCountReq);
-//		
-//		return Msg.success().add("urlCountList", urlCountList);
-//	}
-//	
+	@RequestMapping(value="/getCouponUsedDetailListByTime",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getCouponUsedDetailListByTime(HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
+		
+		String starttime = mlbackSearch.getSearchCreatetime();
+		String endtime = mlbackSearch.getSearchMotifytime();
+		String couponCode = mlbackSearch.getSearchContent();
+		CouponAnalysisDate couponAnalysisDateReq = new CouponAnalysisDate();
+		couponAnalysisDateReq.setPayinfoCreatetime(starttime);
+		couponAnalysisDateReq.setPayinfoMotifytime(endtime);
+		couponAnalysisDateReq.setCouponCode(couponCode);
+		
+		
+		List<CouponAnalysisDate> CouponAnalysisDateList = couponAnalysisDateService.selectCouponAnalysisList(couponAnalysisDateReq);
+		
+		return Msg.success().add("CouponAnalysisDateList", CouponAnalysisDateList);
+	}
+	
 	
 }
