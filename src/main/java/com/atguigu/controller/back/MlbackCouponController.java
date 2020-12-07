@@ -436,5 +436,17 @@ public class MlbackCouponController {
 		
 	}
 	
+	/**
+	 * 11.0	useOn	0505
+	 * to分类MlbackCoupon列表页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/toCouponAnalysisPage")
+	public String toCouponCaclPage() throws Exception{
+	
+		return "back/operate/mlbackCouponAnalysisPage";
+	}
+	
 	
 }
