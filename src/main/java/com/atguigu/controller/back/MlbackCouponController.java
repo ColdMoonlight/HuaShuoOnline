@@ -75,7 +75,6 @@ public class MlbackCouponController {
 //		}
 	}
 	
-	
 	/**3.0	20200608
 	 * MlbackProduct	initializaCategory
 	 * @param MlbackProduct
@@ -435,6 +434,18 @@ public class MlbackCouponController {
 		//session中记录客户登录信息,即把客户信息放置在客户中
 		return Msg.success().add("resMsg", "获取完毕抽奖客户邮箱完毕,强制注册完成");
 		
+	}
+	
+	/**
+	 * 11.0	useOn	0505
+	 * to分类MlbackCoupon列表页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/toCouponAnalysisPage")
+	public String toCouponCaclPage() throws Exception{
+	
+		return "back/operate/mlbackCouponAnalysisPage";
 	}
 	
 	
