@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.atguigu.bean.CouponAnalysisDate;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCoupon;
@@ -482,7 +481,19 @@ public class MlbackCouponController {
 	}
 	
 	/**
-	 * 13.0	20201207
+	 * 13.1	zsh	20201207
+	 * to分类MlbackCoupon列表页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/toCouponUsedDetailListPage")
+	public String toCouponUsedDetailListPage() throws Exception{
+	
+		return "back/operate/mlbackCouponUsedDetailListPage";
+	}
+	
+	/**
+	 * 13.2	20201207
 	 * 后端时间筛选下的时间内某一个优惠券的使用单子大概qingliang
 	 * @param	getCouponUsedDetailListByTime
 	 * @return
