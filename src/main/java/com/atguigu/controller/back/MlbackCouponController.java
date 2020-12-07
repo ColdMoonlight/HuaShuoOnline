@@ -470,7 +470,7 @@ public class MlbackCouponController {
 		urlCountReq.setSearchStartTime(starttime);
 		urlCountReq.setSearchEndTime(endtime);
 		
-		List<UrlCount> urlCountList = urlCountService.selectSearchUrlCountByTime(urlCountReq);
+		List<UrlCount> urlCountList = urlCountService.selectCouponCountByTime(urlCountReq);
 		
 		return Msg.success().add("urlCountList", urlCountList);
 	}
