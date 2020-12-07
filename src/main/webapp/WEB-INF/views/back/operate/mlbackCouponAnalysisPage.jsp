@@ -139,7 +139,9 @@
 			$.ajax({
 				url: "${APP_PATH}/MlbackCoupon/getCouponUsedDetailListByTime",
 				type: "post",
-				data: reqData,
+				data: JSON.stringify(reqData),
+				dataType: "json",
+				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
 						callback(data.extend.mlbackCouponOne);
