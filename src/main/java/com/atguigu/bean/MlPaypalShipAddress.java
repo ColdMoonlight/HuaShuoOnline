@@ -27,6 +27,8 @@ public class MlPaypalShipAddress {
     private String shippingaddressCreatetime;
 
     private String shippingaddressMotifytime;
+    
+    private Integer shippingaddressIfFirstBuy;
 
     public Integer getShippingaddressId() {
         return shippingaddressId;
@@ -131,16 +133,24 @@ public class MlPaypalShipAddress {
     public void setShippingaddressMotifytime(String shippingaddressMotifytime) {
         this.shippingaddressMotifytime = shippingaddressMotifytime == null ? null : shippingaddressMotifytime.trim();
     }
+    
+	public Integer getShippingaddressIfFirstBuy() {
+		return shippingaddressIfFirstBuy;
+	}
+
+	public void setShippingaddressIfFirstBuy(Integer shippingaddressIfFirstBuy) {
+		this.shippingaddressIfFirstBuy = shippingaddressIfFirstBuy;
+	}
 
 	public MlPaypalShipAddress() {
 		super();
 	}
-
+	
 	public MlPaypalShipAddress(Integer shippingaddressId, String shippingaddressPayinfoid,
 			String shippingaddressPaymentid, String shippingaddressRecipientName, String shippingaddressCountryCode,
 			String shippingaddressCity, String shippingaddressLine1, String shippingaddressLine2,
 			String shippingaddressPostalCode, String shippingaddressEmail, String shippingaddressState,
-			String shippingaddressCreatetime, String shippingaddressMotifytime) {
+			String shippingaddressCreatetime, String shippingaddressMotifytime, Integer shippingaddressIfFirstBuy) {
 		super();
 		this.shippingaddressId = shippingaddressId;
 		this.shippingaddressPayinfoid = shippingaddressPayinfoid;
@@ -155,6 +165,7 @@ public class MlPaypalShipAddress {
 		this.shippingaddressState = shippingaddressState;
 		this.shippingaddressCreatetime = shippingaddressCreatetime;
 		this.shippingaddressMotifytime = shippingaddressMotifytime;
+		this.shippingaddressIfFirstBuy = shippingaddressIfFirstBuy;
 	}
 
 	@Override
@@ -167,7 +178,7 @@ public class MlPaypalShipAddress {
 				+ ", shippingaddressPostalCode=" + shippingaddressPostalCode + ", shippingaddressEmail="
 				+ shippingaddressEmail + ", shippingaddressState=" + shippingaddressState
 				+ ", shippingaddressCreatetime=" + shippingaddressCreatetime + ", shippingaddressMotifytime="
-				+ shippingaddressMotifytime + "]";
+				+ shippingaddressMotifytime + ", shippingaddressIfFirstBuy=" + shippingaddressIfFirstBuy + "]";
 	}
     
 }
