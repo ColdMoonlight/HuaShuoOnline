@@ -106,7 +106,6 @@
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
-				console.log(data)
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr>' +
 						'<td>' + data[i].urlString + '</td>' +
