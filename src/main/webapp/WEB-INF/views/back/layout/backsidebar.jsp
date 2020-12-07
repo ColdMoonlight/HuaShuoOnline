@@ -92,6 +92,12 @@
 					</a>
 				</li>
 				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackCoupon/toCouponAnalysisPage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">Coupon Analysis</span>
+					</a>
+				</li>
+				<li class="c-sidebar-nav-item">
 					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlbackCouponDescTitle/toMlbackCouponDescTitlePage">
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">Coupon Area Title</span>
