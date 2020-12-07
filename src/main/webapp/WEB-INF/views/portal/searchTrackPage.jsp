@@ -109,15 +109,21 @@
 				}
 				return html;
 			}
-			var trackOrderHtml = '<div class="track-result-header">' +
-					'<div clsass="tracking-name"><span class="name">Tracking Name: </span><span class="value">'+ data.slug +'</span></div>' +
-					'<div clsass="tracking-number"><span class="name">Tracking Number: </span><span class="value">'+ data.trackingNumber +'</span></div>' +
-					'<div clsass="tracking-adress"><span class="name">Tracking Adress: </span><span class="value">'+ data.originCountryISO3 + ' → ' + data.destinationCountryISO3 +'</span></div>' +
-				'</div>' +
-				'<div class="track-result-body">' +
-					'<div class="time-line">' + generateTimelineHtml(data.checkpoints) + '</div>' +
-				'</div>';
-			$('.search-track-order-result').html(trackOrderHtml);
+			var trackOrderHtml;
+			if (data.checkpoints && $.isArray(data.checkpoints) && data.checkpoints.length) {
+				trackOrderHtml= '<div class="track-result-header">' +
+						'<div clsass="tracking-name"><span class="name">Tracking Name: </span><span class="value">'+ data.slug +'</span></div>' +
+						'<div clsass="tracking-number"><span class="name">Tracking Number: </span><span class="value">'+ data.trackingNumber +'</span></div>' +
+						'<div clsass="tracking-adress"><span class="name">Tracking Adress: </span><span class="value">'+ data.originCountryISO3 + ' → ' + data.destinationCountryISO3 +'</span></div>' +
+					'</div>' +
+					'<div class="track-result-body">' +
+						'<div class="time-line">' + generateTimelineHtml(data.checkpoints) + '</div>' +
+					'</div>';
+				$('.search-track-order-result').html(trackOrderHtml);
+			} else {
+				mlModalTip('The product you purchased has been sent out and is waiting for the courier. If you have other questions, please consult customer service.');
+				return;
+			}
 		}
 		$('.search-order-type').on('change', function() {
 			$('.search-select-input').addClass('hide');
