@@ -75,7 +75,6 @@ public class MlbackCouponController {
 //		}
 	}
 	
-	
 	/**3.0	20200608
 	 * MlbackProduct	initializaCategory
 	 * @param MlbackProduct
