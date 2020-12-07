@@ -35,24 +35,23 @@
   <select id="selectCouponAnalysisList" parameterType="com.atguigu.bean.DownPayCheckDate" resultMap="DownPayCheckResultMap">
    SELECT 
 	tbpay.payInfo_id,tbpay.payInfo_oid,tbpay.payInfo_money,tbpay.payInfo_status,tbpay.payInfo_createTime, 
-	tborder.order_id ,tborder.order_orderItemIdStr,tborder.order_addressinfo_id,
-	tbaddre.address_id,tbaddre.address_email,tbaddre.address_telephone,tbaddre.address_userFirstName,tbaddre.address_userLastName,
-	tbordItem.orderItem_id,tbordItem.orderItem_pSeo,tbordItem.orderItem_pSku_name,tbordItem.orderItem_product_originalPrice, 
-	tbordItem.orderItem_pSku_moneyStr, tbordItem.orderItem_product_accoff 
+	tborder.order_id ,tborder.order_addressinfo_id,
+	tborder.order_coupon_code,
+	tbpayadd.shippingAddress_id,tbpayadd.shippingAddress_email,tbpayadd.shippingAddress_recipient_name 
 	FROM 
 	tb_mlfront_payinfo as tbpay,
 	tb_mlfront_order as tborder,
-	tb_mlfront_orderitem as tbordItem,
-	tb_mlfront_address as tbaddre 
+	tb_paypal_shippingaddress as tbpayadd 
 	WHERE tbpay.payInfo_createTime BETWEEN #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR} 
-	<if test="payinfoStatus != null">
-     AND tbpay.payInfo_status = #{payinfoStatus,jdbcType=INTEGER} 
+	AND (tbpay.payInfo_status !=0) AND (tborder.order_coupon_code ='M10') 
+	<if test="couponCode != null">
+     AND tborder.order_coupon_code = #{couponCode,jdbcType=VARCHAR} 
     </if>
-	 AND tbpay.payInfo_oid = tborder.order_id AND tborder.order_id = tbordItem.order_id AND tborder.order_addressinfo_id=tbaddre.address_id 
-	 ORDER BY tbpay.payInfo_id desc
+	 tbpay.payInfo_oid = tborder.order_id AND tbpay.payInfo_id = tbpayadd.shippingAddress_payInfoid  
+	 ORDER BY tbpay.payInfo_id DESC
   </select>
   
-  SELECT 
+<!--   SELECT 
 	tbpay.payInfo_id,tbpay.payInfo_oid,tbpay.payInfo_money,tbpay.payInfo_status,tbpay.payInfo_createTime, 
 	tborder.order_id ,tborder.order_addressinfo_id,
 	tborder.order_coupon_code,
@@ -64,6 +63,6 @@
 	WHERE 
 	tbpay.payInfo_oid = tborder.order_id AND tbpay.payInfo_id = tbpayadd.shippingAddress_payInfoid  
 	AND (tbpay.payInfo_status !=0) AND (tborder.order_coupon_code ='M10') 
-	ORDER BY tbpay.payInfo_id DESC
+	ORDER BY tbpay.payInfo_id DESC -->
   
 </mapper>
