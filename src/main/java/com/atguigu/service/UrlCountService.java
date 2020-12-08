@@ -36,5 +36,10 @@ public class UrlCountService {
 		List<UrlCount>  urlCountList = urlCountMapper.selectCouponCountByTime(urlCountReq);
 		return urlCountList;
 	}
+	
+	public List<UrlCount> selectMoreBuyCountByTime(UrlCount urlCountReq) {
+		List<UrlCount>  urlCountList = urlCountMapper.selectMoreBuyCountByTime(urlCountReq);
+		return urlCountList;
+	}
 
 }
