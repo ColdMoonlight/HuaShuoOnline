@@ -7,7 +7,7 @@
 		<title>MEGALOOK ADMIN</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
-		<style> .card-body { padding-left: 0; padding-right: 0; } </style>
+		<style> .card-body { padding-left: 0; padding-right: 0; } .chart-quantity { height:36px; line-height: 36px; } .chart-body.chart { height: 300px; } </style>
 	</head>
 
 	<body class="c-app">
@@ -31,67 +31,82 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-8">
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">Total Sales</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity payinfo-total-money"></div>
+										</div>
+										<div class="chart-body chart" id="payinfo-total-chart"></div>
+									</div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
+								</div>
+							</div>
+							<!-- /.col-->
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">Register Users</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity user-quantity"></div>
+										</div>
+										<div class="chart-body chart" id="user-chart"></div>
+									</div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
+								</div>
+							</div>
+							<!-- /.col-->
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">Average order value</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity payinfo-avg-money"></div>
+										</div>
+										<div class="chart-body chart" id="payinfo-avg-chart"></div>
+									</div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
+								</div>
+							</div>
+							<!-- /.col-->
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">Total orders</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity payinfo-order"></div>
+										</div>
+										<div class="chart-body chart" id="payinfo-order-chart"></div>
+									</div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
+								</div>
+							</div>
+							<!-- /.col-->
+						</div>
+						<div class="col-md-4">
 							<div class="card">
-								<div class="card-header">Total Sales</div>
+								<div class="card-header">Returning customer rate</div>
 								<div class="card-body">
 									<div class="chart-title">
-										<div class="chart-quantity payinfo-total-money"></div>
+										<div class="chart-quantity repurchase-rate"></div>
 									</div>
-									<div class="chart-body" id="payinfo-total-chart"></div>
+									<div class="chart-body" id="repurchase-chart"></div>
 								</div>
 								<div class="card-mask">
 									<div class="spinner-border"></div>
 								</div>
 							</div>
-						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Register Users</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity user-quantity"></div>
-									</div>
-									<div class="chart-body" id="user-chart"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Average order value</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity payinfo-avg-money"></div>
-									</div>
-									<div class="chart-body" id="payinfo-avg-chart"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Total orders</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity payinfo-order"></div>
-									</div>
-									<div class="chart-body" id="payinfo-order-chart"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
+
 							<div class="card">
 								<div class="card-header">Online store conversion rate</div>
 								<div class="card-body">
@@ -103,21 +118,8 @@
 								<div class="card-mask">
 									<div class="spinner-border"></div>
 								</div>
-							</div>
+							</div>						
 						</div>
-						<!-- /.col-->
-						<!-- <div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Returning customer rate</div>
-								<div class="card-body">
-									
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div> -->
-						<!-- /.col-->
 					</div>
 				</div>
 			</div>
@@ -164,7 +166,6 @@
 						'userCreatetime': $('#search-create-time').val(),
 						'userMotifytime': $('#search-confirm-time').val()
 					}),
-					async: false,
 					success: function (data) {
 						if (data.code == 100) {
 							callback && callback(data.extend.mlfrontUserList);
@@ -247,7 +248,29 @@
 						toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
 					}
 				});
-			}			
+			}
+			function getRepurchaseRateData(callback) {
+				$.ajax({
+					url: "${APP_PATH}/BackHome/getBackHomeMoreBuyListInfo",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify({
+						'userCreatetime': $('#search-create-time').val(),
+						'userMotifytime': $('#search-confirm-time').val(),
+					}),
+					success: function (data) {
+						if (data.code == 100) {
+							callback && callback(data.extend);
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function () {
+						toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
+					}
+				});
+			}
 			/* statics cal */			
 			// cal user data
 			function calStaticsUserData(data) {
@@ -563,6 +586,16 @@
 					generateChart($('#user-chart'), generateCoordinatesData(calUser, 'user'));
 				});
 			}
+			// generate repurchase rate
+			function getRepurchaseRate() {
+				getRepurchaseRateData(function(data) {
+					if (data.moreBuyNum) {
+						$('.repurchase-rate').parents('.card').find('.card-mask').hide();
+						$('.repurchase-rate').text(((data.moreBuyNum / totalPayinfoNum) * 100 ).toFixed(2) + '%');
+						$('#repurchase-chart').html('<p>Repurchase Num: <b>'+ data.moreBuyNum +'</b></p>');
+					}
+				});
+			}
 			// generate order conversion
 			function generateOrderConversion() {
 				var htmlStr = '';
@@ -664,8 +697,9 @@
 				$('#search-confirm-time').val(endTime);
 				generatePayinfoChart();
 				generateUserChart();
+				getRepurchaseRate();
 				generateOrderConversion();
-			}
+			}			
 			/* init */
 			var totalPayinfoNum = 0;
 			var chartInstance = []
