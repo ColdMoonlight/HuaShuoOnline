@@ -21,7 +21,6 @@ public class CouponAnalysisDate {
     </if>
 	 AND tbpay.payInfo_oid = tborder.order_id AND tbpay.payInfo_id = tbpayadd.shippingAddress_payInfoid 
 	 ORDER BY tbpay.payInfo_id DESC
-	 * 
 	 * */
 	private Integer payinfoId;
 	private Integer payinfoOid;
