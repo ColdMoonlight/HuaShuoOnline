@@ -95,4 +95,18 @@ public class BackHomeController {
 		return Msg.success().add("resMsg", "统计面板某时间内的总用户数").add("mlfrontUserList", mlfrontUserList);
 	}
 	
+	/**
+	 * zsh 200730
+	 * 中控台获取总用户数
+	 * */
+	@RequestMapping(value="/getBackHomeMoreBuyListInfo",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getBackHomeMoreBuyListInfo(HttpSession session,@RequestBody MlfrontUser mlfrontUser) throws Exception{
+		
+		Integer moreBuyNum = 10;
+		Integer orderNum = 30;
+		
+		return Msg.success().add("resMsg", "统计面板某时间内的复购率").add("moreBuyNum", moreBuyNum).add("orderNum", orderNum);
+	}
+	
 }
