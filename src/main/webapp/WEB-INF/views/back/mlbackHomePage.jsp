@@ -94,34 +94,38 @@
 							<!-- /.col-->
 						</div>
 						<div class="col-md-4">
-							<div class="card">
-								<div class="card-header">Returning customer rate</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity repurchase-rate"></div>
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">Returning customer rate</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity repurchase-rate"></div>
+										</div>
+										<div class="chart-body" id="repurchase-chart"></div>
 									</div>
-									<div class="chart-body" id="repurchase-chart"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
 								</div>
 							</div>
 
-							<div class="card">
-								<div class="card-header">Online store conversion rate</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity order-conversion-rate"></div>
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">Online store conversion rate</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity order-conversion-rate"></div>
+										</div>
+										<div class="chart-body">
+											<div id="order-conversion"></div>
+											<div style="padding: 0 1rem;" id="user-search"></div>
+										</div>
 									</div>
-									<div class="chart-body">
-										<div id="order-conversion"></div>
-										<div style="padding: 0 1rem;" id="user-search"></div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
 									</div>
 								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>						
+							</div>
 						</div>
 					</div>
 				</div>
