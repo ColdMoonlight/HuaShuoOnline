@@ -33,9 +33,9 @@
 								<table class="table">
 									<thead>
 										<tr>
-										<th>coupon-name</th>
-										<th>order-num</th>
-									</tr>
+											<th>coupon-name</th>
+											<th>order-num</th>
+										</tr>
 									</thead>
 									<tbody></tbody>
 								</table>
@@ -44,19 +44,7 @@
 						</div>
 					</div>
 				</div>				
-				<!-- edit or create -->
-				<div class="c-create hide">
-					<div class="c-option">
-						<span class="c-option-title">View order-list</span>
-						<div class="group">
-							<button class="btn btn-secondary btn-cancel">Cancel</button>
-						</div>
-					</div>
 
-					<div class="c-form row">
-						
-					</div>
-				</div>
 				<!-- mask -->
 				<div class="c-mask">
 					<div class="spinner-border"></div>
@@ -92,31 +80,8 @@
 		});
 		// pagination a-click
 		$(document.body).on('click', '.order-item', function (e) {
-			var self = this;
-			getOrdersByCoupon({
-				'searchContent': $(self).data('coupon'),
-				'searchCreatetime': $('#create-time').val(),
-				'searchMotifytime': $('#confirm-time').val(),
-			}, renderOrdersWithCoupon);
+			window.open('${APP_PATH}/MlbackCoupon/toCouponUsedDetailListPage?coupon='+ $(this).data('coupon') +'&startTime='+ $('#create-time').val() +'&endTime='+ $('#confirm-time').val());
 		});
-		// cancel
-		$('.btn-cancel').on('click', function () {
-			$('.c-view c-option-title').text('Coupon analysis');
-			showInitBlock();
-		});
-		// tab create/init
-		function showCreateBlock() {
-			$('.c-init').addClass('hide');
-			$('.c-create').removeClass('hide');
-		}
-		function showInitBlock() {
-			$('.c-init').removeClass('hide');
-			$('.c-create').addClass('hide');
-		}
-		// render orders about coupon
-		function renderOrdersWithCoupon(data) {
-			
-		}
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
@@ -132,31 +97,6 @@
 				htmlStr = '<p class="text-align;">没有任何数据记录...</p>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
-		}
-		//  callback get orders		
-		function getOrdersByCoupon(reqData, callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/getCouponUsedDetailListByTime",
-				type: "post",
-				data: JSON.stringify(reqData),
-				dataType: "json",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						callback(data.extend.mlbackCouponOne);
-						toastr.success(data.extend.resMsg);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error('Failed to get Super-Categeory, please refresh the page to get again!');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
 		}
 		// callback get search data
 		function getSearchCouponsData(time) {

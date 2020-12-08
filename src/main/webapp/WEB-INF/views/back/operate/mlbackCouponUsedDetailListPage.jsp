@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>coupon analysis</title>
+	<title>coupon - order details</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 </head>
@@ -26,6 +26,14 @@
 								<input class="form-control daterangetimepicker" id="coupon-time" type="text" />
 							</div>
 						</div>
+						<div class="form-group col-md-4">
+							<div class="controls">
+								<input class="form-control" id="coupon-name" type="text" placeholder="please enter coupon-name..." />
+							</div>
+						</div>
+						<div class="form-group col-md-4">
+							<button class="btn btn-primary" id="search-orders"> Search </button>
+						</div>
 					</div>
 					<div class="c-table">
 						<div class="c-table-content">
@@ -33,30 +41,22 @@
 								<table class="table">
 									<thead>
 										<tr>
-										<th>coupon-name</th>
-										<th>order-num</th>
-									</tr>
+											<th>payId</th>
+											<th>orderid</th>
+											<th>price</th>
+											<th>recipt-name</th>
+											<th>customer-email</th>
+											<th>status</th>
+											<th>pay-time</th>
+										</tr>
 									</thead>
 									<tbody></tbody>
 								</table>
 							</div>
-							<div id="table-pagination"></div>
 						</div>
-					</div>
-				</div>				
-				<!-- edit or create -->
-				<div class="c-create hide">
-					<div class="c-option">
-						<span class="c-option-title">View order-list</span>
-						<div class="group">
-							<button class="btn btn-secondary btn-cancel">Cancel</button>
-						</div>
-					</div>
-
-					<div class="c-form row">
-						
 					</div>
 				</div>
+
 				<!-- mask -->
 				<div class="c-mask">
 					<div class="spinner-border"></div>
@@ -74,106 +74,103 @@
 		// init
 		var date = new Date();
 		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-		$('#create-time').val(ymd + ' 00:00:00');
-		$('#confirm-time').val(ymd + ' 23:59:59');
-		bindDateRangeEvent(function(startTime, endTime, self) {
-			$('#create-time').val(startTime);
-			$('#confirm-time').val(endTime);		
-		});
-		getSearchCouponsData({
-			start: $('#create-time').val(),
-			end: $('#confirm-time').val()
-		});
-		$('#coupon-time').on('change', function() {
-			getSearchCouponsData({
-				start: $('#create-time').val(),
-				end: $('#confirm-time').val()
+		var urlScheme = new URLSearchParams(window.location.search);
+		
+		if (urlScheme.get('startTime') && urlScheme.get('endTime')) {
+			$('#create-time').val(urlScheme.get('startTime') || ymd + ' 00:00:00');
+			$('#confirm-time').val(urlScheme.get('endTime') || ymd + ' 23:59:59');
+			$('#coupon-time').val(urlScheme.get('startTime') + ' - ' + urlScheme.get('endTime'));
+			bindDateRangeEvent(function(startTime, endTime, self) {
+				$('#create-time').val(startTime);
+				$('#confirm-time').val(endTime);		
 			});
-		});
-		// pagination a-click
-		$(document.body).on('click', '.order-item', function (e) {
-			var self = this;
+		}
+
+		if (urlScheme.get('coupon')) {
+			$('#coupon-name').val(urlScheme.get('coupon'));
 			getOrdersByCoupon({
-				'searchContent': $(self).data('coupon'),
+				'searchContent': urlScheme.get('coupon'),
 				'searchCreatetime': $('#create-time').val(),
-				'searchMotifytime': $('#confirm-time').val(),
-			}, renderOrdersWithCoupon);
+				'searchMotifytime': $('#confirm-time').val()
+			});
+		} else {
+			$('.c-table-table tbody').html('<p class="text-align;">没有任何数据记录...</p>');
+		}
+		// search orders
+		$('#search-orders').on('click', function () {
+			var couponName = $('#coupon-name').val().trim();
+			if (couponName) {
+				getOrdersByCoupon({
+					'searchContent': couponName,
+					'searchCreatetime': $('#create-time').val(),
+					'searchMotifytime': $('#confirm-time').val(),
+				});				
+			} else {
+				toastr.error('优惠券名字不能为空！');
+			}
 		});
-		// cancel
-		$('.btn-cancel').on('click', function () {
-			$('.c-view c-option-title').text('Coupon analysis');
-			showInitBlock();
-		});
-		// tab create/init
-		function showCreateBlock() {
-			$('.c-init').addClass('hide');
-			$('.c-create').removeClass('hide');
-		}
-		function showInitBlock() {
-			$('.c-init').removeClass('hide');
-			$('.c-create').addClass('hide');
-		}
-		// render orders about coupon
-		function renderOrdersWithCoupon(data) {
-			
-		}
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
 			var len = data.length;
 			if (len) {
 				for (var i = 0, len = data.length; i < len; i += 1) {
-					htmlStr += '<tr style="cursor: pointer;">' +
-							'<td>' + data[i].urlString + '</td>' +
-							'<td class="order-item" data-coupon="'+ data[i].urlString +'"><b>' + (data[i].urlStringNum || '') + '</b></td>' +
-						'</tr>';
+					htmlStr += '<tr><td>' + data[i].payinfoId + '</td>' +
+					'<td>' + (data[i].payinfoOid || '') + '</td>' +
+					'<td>' + (data[i].payinfoMoney || 0).toFixed(2) + '</td>' +
+					'<td>' + (data[i].mlPaypalShipAddress && data[i].mlPaypalShipAddress.shippingaddressRecipientName || '') + '</td>' +
+					'<td>' + (data[i].mlPaypalShipAddress && data[i].mlPaypalShipAddress.shippingaddressEmail || '') + '</td>' +
+					'<td>'+ getPayStatus(data[i].payinfoStatus) +'</td>' +
+					'<td>' + data[i].payinfoCreatetime + '</td></tr>';
 				}
 			} else {
 				htmlStr = '<p class="text-align;">没有任何数据记录...</p>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
 		}
-		//  callback get orders		
-		function getOrdersByCoupon(reqData, callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/getCouponUsedDetailListByTime",
-				type: "post",
-				data: JSON.stringify(reqData),
-				dataType: "json",
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						callback(data.extend.mlbackCouponOne);
-						toastr.success(data.extend.resMsg);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function (err) {
-					toastr.error('Failed to get Super-Categeory, please refresh the page to get again!');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
+
+		function getPayStatus(num) {
+			var statusText;
+			switch(num) {
+				case 0:
+					statusText = '<a class="badge badge-danger">unpaid</a>'; // 未支付 red
+				    break;
+				case 1:
+					statusText = '<a class="badge badge-warning">paid</a>'; // 已支付  yellow
+					break;
+				case 2:
+					statusText = '<a class="badge badge-success">audited</a>'; // 已审核  green
+					break;
+				case 3:
+					statusText = '<a class="badge badge-info">delivered</a>'; // 已发货  purple
+				    break;
+				case 4:
+					statusText = '<a class="badge badge-primary">refunded</a>'; // 已退款  blue
+					break;
+				case 5:
+					statusText = '<a class="badge badge-light">abandon-purchase</a>'; // 已通知弃购  light
+					break;
+				case 6:
+					statusText = '<a class="badge badge-dark">closed</a>'; // 已关闭  dark
+					break;
+				default:
+					statusText = '<a class="badge badge-danger">unpaid</a>'; // 未支付 red
+			}
+			return statusText;
 		}
-		// callback get search data
-		function getSearchCouponsData(time) {
+		//  callback get orders
+		function getOrdersByCoupon(data) {
 			$('.c-mask').show();
 
 			$.ajax({
-				url: "${APP_PATH }/MlbackCoupon/getSearchListByTime",
+				url: "${APP_PATH }/MlbackCoupon/getCouponUsedDetailListByTime",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
-				data: JSON.stringify({
-					'searchCreatetime': time.start,
-					'searchMotifytime': time.end,
-				}),
+				data: JSON.stringify(data),
 				success: function (data) {
 					if (data.code == 100) {
-						renderTable(data.extend.urlCountList);
+						renderTable(data.extend.CouponAnalysisDateList);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
