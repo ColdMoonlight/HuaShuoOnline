@@ -273,14 +273,19 @@ public class MlfrontPayInfoController {
 			String email =mlPaypalShipAddressRes.getShippingaddressEmail();
 			Integer shippingaddressId = mlPaypalShipAddressRes.getShippingaddressId();
 			
-			MlPaypalShipAddress mlPaypalShipAddressUpdateReq = new MlPaypalShipAddress();
 			//先查一下这一单是不是非首次出现了
 			Integer ifOldCustomer = checkifOldCustomer(email);
 			
-			mlPaypalShipAddressUpdateReq.setShippingaddressId(shippingaddressId);
-			mlPaypalShipAddressUpdateReq.setShippingaddressIfFirstBuy(ifOldCustomer);
-			
-			mlPaypalShipAddressService.updateByPrimaryKeySelective(mlPaypalShipAddressUpdateReq);
+			if(ifOldCustomer>0){
+				//这一单是老客户,需要更新成1
+				MlPaypalShipAddress mlPaypalShipAddressUpdateReq = new MlPaypalShipAddress();
+				mlPaypalShipAddressUpdateReq.setShippingaddressId(shippingaddressId);
+				mlPaypalShipAddressUpdateReq.setShippingaddressIfFirstBuy(ifOldCustomer);
+				mlPaypalShipAddressService.updateByPrimaryKeySelective(mlPaypalShipAddressUpdateReq);
+			}else{
+				//这一单是新客户,跳过
+				System.out.println("payinfoId:"+payinfoId+""+"这一单是新客户,跳过");
+			}
 		}
 		//完毕回传
 		return Msg.success().add("resMsg", "查看单条mlfrontPayInfoOne的详情细节完毕").add("mlPaypalShipAddressOne", mlPaypalShipAddressRes);
