@@ -243,6 +243,71 @@ public class MlfrontPayInfoController {
 		}
 	}
 	
+	/**
+	 * 5.1	zsh201208
+	 * update 是否复购信息
+	 * @param MlfrontPayInfo payinfo_id,shippingEmail,
+	 * @return 
+	 */
+	@RequestMapping(value="/updateSuccessInfoIfMoreTimesBuy",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg updateSuccessInfoIfMoreTimesBuy(HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo){
+		
+		Integer payinfoId = mlfrontPayInfo.getPayinfoId();
+		//接受payinfoId
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		mlfrontPayInfoReq.setPayinfoId(payinfoId);
+    	
+		MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
+		String shippingaddressPayinfoid=payinfoId+"";
+		mlPaypalShipAddressReq.setShippingaddressPayinfoid(shippingaddressPayinfoid);
+		List<MlPaypalShipAddress> mlPaypalShipAddressResList =mlPaypalShipAddressService.selectMlPaypalShipAddressByPayinfoid(mlPaypalShipAddressReq);
+		//查到了本条结算的返回信息
+		MlPaypalShipAddress mlPaypalShipAddressRes = new MlPaypalShipAddress();
+		if(mlPaypalShipAddressResList.size()==0){
+			System.out.println("xx调用了getOneMlfrontPayInfoDetail接口,paypal那边返回的地址为null,没有payment的返回地址");
+		}else{
+			//返回信息
+			mlPaypalShipAddressRes = mlPaypalShipAddressResList.get(0);
+			//取出id,email准备使用
+			String email =mlPaypalShipAddressRes.getShippingaddressEmail();
+			Integer shippingaddressId = mlPaypalShipAddressRes.getShippingaddressId();
+			
+			MlPaypalShipAddress mlPaypalShipAddressUpdateReq = new MlPaypalShipAddress();
+			//先查一下这一单是不是非首次出现了
+			Integer ifOldCustomer = checkifOldCustomer(email);
+			
+			mlPaypalShipAddressUpdateReq.setShippingaddressId(shippingaddressId);
+			mlPaypalShipAddressUpdateReq.setShippingaddressIfFirstBuy(ifOldCustomer);
+			
+			mlPaypalShipAddressService.updateByPrimaryKeySelective(mlPaypalShipAddressUpdateReq);
+		}
+		//完毕回传
+		return Msg.success().add("resMsg", "查看单条mlfrontPayInfoOne的详情细节完毕").add("mlPaypalShipAddressOne", mlPaypalShipAddressRes);
+	}
+	
+	//存储数据之前,查一下
+    private Integer checkifOldCustomer(String CustomerEmail) {
+
+    	Integer ifOldCustomer = 0;
+    	
+    	MlPaypalShipAddress mlPaypalShipAddressifOldReq = new MlPaypalShipAddress();
+    	mlPaypalShipAddressifOldReq.setShippingaddressEmail(CustomerEmail);
+    	
+    	List<MlPaypalShipAddress> ifOldMlPaypalShipAddressList = mlPaypalShipAddressService.selectMlPaypalShipAddressByEmail(mlPaypalShipAddressifOldReq);
+    	
+    	if(ifOldMlPaypalShipAddressList.size()>1){
+    		//存在2条以上该邮箱订单,属于多次购买。这是老客户
+    		ifOldCustomer=1;
+    	}else{
+    		//新客户
+    		ifOldCustomer=0;
+    	}
+    	
+		return ifOldCustomer;
+	}
+	
+	
 	//前面成功页面,是否首次调用支付信息明细
 	private Integer checkPayIdIfcale(MlfrontPayInfo mlfrontPayInfoOne) {
 
