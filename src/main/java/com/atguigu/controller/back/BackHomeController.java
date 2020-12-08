@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
+import com.atguigu.bean.UrlCount;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
+import com.atguigu.service.UrlCountService;
 
 /**
  * HomePage
@@ -37,6 +39,9 @@ public class BackHomeController {
 	
 	@Autowired
 	MlfrontUserService mlfrontUserService;
+	
+	@Autowired
+	UrlCountService UrlCountService;
 	
 	/**
 	 * zsh 200730
@@ -103,10 +108,19 @@ public class BackHomeController {
 	@ResponseBody
 	public Msg getBackHomeMoreBuyListInfo(HttpSession session,@RequestBody MlfrontUser mlfrontUser) throws Exception{
 		
-		Integer moreBuyNum = 10;
-		Integer orderNum = 30;
+		String startTime = mlfrontUser.getUserCreatetime();
+		String endTime = mlfrontUser.getUserMotifytime();
 		
-		return Msg.success().add("resMsg", "统计面板某时间内的复购率").add("moreBuyNum", moreBuyNum).add("orderNum", orderNum);
+		UrlCount urlCountReq = new UrlCount();
+		
+		urlCountReq.setSearchStartTime(startTime);
+		urlCountReq.setSearchEndTime(endTime);
+		
+		List<UrlCount> urlCountList = UrlCountService.selectMoreBuyCountByTime(urlCountReq);//ifmorebuy=1只查询复购订单
+		
+		Integer moreBuyNum = urlCountList.size();
+		
+		return Msg.success().add("resMsg", "统计面板某时间内的复购率").add("moreBuyNum", moreBuyNum);
 	}
 	
 }

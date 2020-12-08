@@ -47,4 +47,16 @@
 	GROUP BY tborder.order_coupon_code ORDER BY COUNT(tborder.order_coupon_code) DESC
   </select>
   
+  <!-- selectMoreBuyCountByTime使用中 -->
+  <select id="selectMoreBuyCountByTime" parameterType="com.atguigu.bean.UrlCount" resultMap="UrlCountResultMap">
+	SELECT 
+	COUNT(tpay.payInfo_id) as url_string_num 
+	from 
+	tb_mlfront_payinfo as tpay,
+	tb_paypal_shippingaddress as tpayadd
+	WHERE tpayadd.shippingAddress_ifFirstBuy = 1
+	AND tpay.payInfo_createTime BETWEEN #{searchStartTime,jdbcType=VARCHAR} and #{searchEndTime,jdbcType=VARCHAR} AND tpay.payInfo_status !=0 
+	AND tpay.payInfo_id = tpayadd.shippingAddress_payInfoid
+  </select>
+  
 </mapper>
