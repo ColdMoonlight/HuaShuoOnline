@@ -485,6 +485,9 @@ public class PaypalController {
      * */
     private void insertMlPaypalShipAddressInfo(String paymentId, String payinfoIdStr, PayerInfo payerInfoReturn) {
     	
+    	//
+    	String email = payerInfoReturn.getEmail();
+    	
     	MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
     	mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
     	mlPaypalShipAddressReq.setShippingaddressState(payerInfoReturn.getShippingAddress().getState());
@@ -496,10 +499,35 @@ public class PaypalController {
     	mlPaypalShipAddressReq.setShippingaddressEmail(payerInfoReturn.getEmail());
     	mlPaypalShipAddressReq.setShippingaddressPayinfoid(payinfoIdStr);
     	mlPaypalShipAddressReq.setShippingaddressPaymentid(paymentId);
+    	
+    	Integer ifOldCustomer = checkifOldCustomer(email);
+    	mlPaypalShipAddressReq.setShippingaddressIfFirstBuy(ifOldCustomer);
+    	
     	mlPaypalShipAddressService.insertSelective(mlPaypalShipAddressReq);
 	}
     
-    /**
+    //存储数据之前,查一下
+    private Integer checkifOldCustomer(String CustomerEmail) {
+
+    	Integer ifOldCustomer = 0;
+    	
+    	MlPaypalShipAddress mlPaypalShipAddressifOldReq = new MlPaypalShipAddress();
+    	mlPaypalShipAddressifOldReq.setShippingaddressEmail(CustomerEmail);
+    	
+    	List<MlPaypalShipAddress> ifOldMlPaypalShipAddressList = mlPaypalShipAddressService.selectMlPaypalShipAddressByEmail(mlPaypalShipAddressifOldReq);
+    	
+    	if(ifOldMlPaypalShipAddressList.size()>0){
+    		//客户邮箱之前存在,这是老客户
+    		ifOldCustomer=1;
+    	}else{
+    		//新客户
+    		ifOldCustomer=0;
+    	}
+    	
+		return ifOldCustomer;
+	}
+
+	/**
      * 2.1.2准备调用ecpp接口,将客户的付款信息,导入ecpp中
      * */
     private void payInfoIntoEcpp(MlfrontPayInfo mlfrontPayInfoIn) {
