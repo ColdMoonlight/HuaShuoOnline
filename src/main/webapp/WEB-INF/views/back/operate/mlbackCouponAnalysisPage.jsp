@@ -35,6 +35,7 @@
 										<tr>
 											<th>coupon-name</th>
 											<th>order-num</th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -90,7 +91,8 @@
 				for (var i = 0, len = data.length; i < len; i += 1) {
 					htmlStr += '<tr style="cursor: pointer;">' +
 							'<td>' + data[i].urlString + '</td>' +
-							'<td class="order-item" data-coupon="'+ data[i].urlString +'"><b>' + (data[i].urlStringNum || '') + '</b></td>' +
+							'<td><b>' + (data[i].urlStringNum || '') + '</b></td>' +
+							'<td class="order-item" data-coupon="'+ data[i].urlString +'" style="color:#454f5b;">View Report</td>' +
 						'</tr>';
 				}
 			} else {
