@@ -7,7 +7,7 @@
 		<title>MEGALOOK ADMIN</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
-		<style> .card-body { padding-left: 0; padding-right: 0; } </style>
+		<style> .card-body { padding-left: 0; padding-right: 0; } .chart-quantity { height:36px; line-height: 36px; } .chart-body.chart { height: 300px; } </style>
 	</head>
 
 	<body class="c-app">
@@ -31,93 +31,102 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Total Sales</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity payinfo-total-money"></div>
+						<div class="col-md-8">
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">Total Sales</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity payinfo-total-money"></div>
+										</div>
+										<div class="chart-body chart" id="payinfo-total-chart"></div>
 									</div>
-									<div class="chart-body" id="payinfo-total-chart"></div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
 								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
+							</div>
+							<!-- /.col-->
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">Register Users</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity user-quantity"></div>
+										</div>
+										<div class="chart-body chart" id="user-chart"></div>
+									</div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
+								</div>
+							</div>
+							<!-- /.col-->
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">Average order value</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity payinfo-avg-money"></div>
+										</div>
+										<div class="chart-body chart" id="payinfo-avg-chart"></div>
+									</div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
+								</div>
+							</div>
+							<!-- /.col-->
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">Total orders</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity payinfo-order"></div>
+										</div>
+										<div class="chart-body chart" id="payinfo-order-chart"></div>
+									</div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
+								</div>
+							</div>
+							<!-- /.col-->
+						</div>
+						<div class="col-md-4">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">Returning customer rate</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity repurchase-rate"></div>
+										</div>
+										<div class="chart-body" id="repurchase-chart"></div>
+									</div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">Online store conversion rate</div>
+									<div class="card-body">
+										<div class="chart-title">
+											<div class="chart-quantity order-conversion-rate"></div>
+										</div>
+										<div class="chart-body">
+											<div id="order-conversion"></div>
+											<div style="padding: 0 1rem;" id="user-search"></div>
+										</div>
+									</div>
+									<div class="card-mask">
+										<div class="spinner-border"></div>
+									</div>
 								</div>
 							</div>
 						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Register Users</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity user-quantity"></div>
-									</div>
-									<div class="chart-body" id="user-chart"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Average order value</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity payinfo-avg-money"></div>
-									</div>
-									<div class="chart-body" id="payinfo-avg-chart"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Total orders</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity payinfo-order"></div>
-									</div>
-									<div class="chart-body" id="payinfo-order-chart"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /.col-->
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Online store conversion rate</div>
-								<div class="card-body">
-									<div class="chart-title">
-										<div class="chart-quantity order-conversion-rate"></div>
-									</div>
-									<div class="chart-body" id="order-conversion"></div>
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div>
-						<!-- /.col-->
-						<!-- <div class="col-md-6">
-							<div class="card">
-								<div class="card-header">Returning customer rate</div>
-								<div class="card-body">
-									
-								</div>
-								<div class="card-mask">
-									<div class="spinner-border"></div>
-								</div>
-							</div>
-						</div> -->
-						<!-- /.col-->
 					</div>
 				</div>
 			</div>
@@ -130,7 +139,7 @@
 		<script type="text/javascript" src="${APP_PATH}/static/back/lib/echarts/echarts.min.js"></script>
 		<script>
 			/* get Search data */
-			function getSearchUserData(callback) {
+			function getUserSearchData(callback) {
 				$.ajax({
 					url: "${APP_PATH}/MlbackSearch/getSearchListByTime",
 					type: "post",
@@ -140,7 +149,6 @@
 						'searchCreatetime': $('#search-create-time').val(),
 						'searchMotifytime': $('#search-confirm-time').val()
 					}),
-					async: false,
 					success: function (data) {
 						if (data.code == 100) {
 							callback && callback(data.extend.toDayNum);
@@ -164,7 +172,6 @@
 						'userCreatetime': $('#search-create-time').val(),
 						'userMotifytime': $('#search-confirm-time').val()
 					}),
-					async: false,
 					success: function (data) {
 						if (data.code == 100) {
 							callback && callback(data.extend.mlfrontUserList);
@@ -206,12 +213,12 @@
 					type: "post",
 					dataType: "json",
 					contentType: 'application/json',
+					async: false,
 					data: JSON.stringify({
 						'addcartviewdetailCreatetime': $('#search-create-time').val(),
 						'addcartviewdetailMotifytime': $('#search-confirm-time').val(),
 						'addcartviewdetailActnum': id
 					}),
-					async: false,
 					success: function (data) {
 						if (data.code == 100) {
 							callback && callback(data.extend.toDayNum);
@@ -230,12 +237,12 @@
 					type: "post",
 					dataType: "json",
 					contentType: 'application/json',
+					async: false,
 					data: JSON.stringify({
 						'addcheakoutviewdetailCreatetime': $('#search-create-time').val(),
 						'addcheakoutviewdetailMotifytime': $('#search-confirm-time').val(),
 						'addcheakoutviewdetailActnum': id
 					}),
-					async: false,
 					success: function (data) {
 						if (data.code == 100) {
 							callback && callback(data.extend.toDayNum);
@@ -247,7 +254,29 @@
 						toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
 					}
 				});
-			}			
+			}
+			function getRepurchaseRateData(callback) {
+				$.ajax({
+					url: "${APP_PATH}/BackHome/getBackHomeMoreBuyListInfo",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify({
+						'userCreatetime': $('#search-create-time').val(),
+						'userMotifytime': $('#search-confirm-time').val(),
+					}),
+					success: function (data) {
+						if (data.code == 100) {
+							callback && callback(data.extend);
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function () {
+						toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
+					}
+				});
+			}
 			/* statics cal */			
 			// cal user data
 			function calStaticsUserData(data) {
@@ -563,6 +592,27 @@
 					generateChart($('#user-chart'), generateCoordinatesData(calUser, 'user'));
 				});
 			}
+			// generate user-search
+			function generateUserSearch() {
+				getUserSearchData(function(data){
+					var htmlStr = '<div class="order-conversion-item">'+
+						'<span class="name">Search</span>' +
+						'<span class="num">'+ data +' sessions</span>' +
+						'<a class="view-report" href="${APP_PATH}/MlbackSearch/toMlbackSearchDetailPage">View Report</a>' +
+					'</div>';
+					$('#user-search').html(htmlStr);
+				});
+			}
+			// generate repurchase rate
+			function getRepurchaseRate() {
+				getRepurchaseRateData(function(data) {
+					if (data.moreBuyNum) {
+						$('.repurchase-rate').parents('.card').find('.card-mask').hide();
+						$('.repurchase-rate').text(((data.moreBuyNum / totalPayinfoNum) * 100 ).toFixed(2) + '%');
+						$('#repurchase-chart').html('<p>Repurchase Num: <b>'+ data.moreBuyNum +'</b></p>');
+					}
+				});
+			}
 			// generate order conversion
 			function generateOrderConversion() {
 				var htmlStr = '';
@@ -571,17 +621,13 @@
 				var buyNowNum = 0;
 				var checkoutNum = 0;
 				var checkoutNum2 = 0;
-				var coversionRate = 0;
-				var search =  0 ;	
+				var coversionRate = 0;	
 				var mapRate = {
 						'add-to-cart': 0.00,
 						'buy-now': 0.00,
 						'checkout': 0.00,
 						'checkout2': 0.00
 					};
-				getSearchUserData (function(data){
-					search = data;
-				})	
 				getStaticsOrderConversionData(0, function(data) {
 					addToCartNum = data;
 				});
@@ -603,35 +649,6 @@
 
 					coversionRate = (100 * totalPayinfoNum / totalNum).toFixed(2);
 				}
-				/* htmlStr = '<div class="order-conversion-item">'+
-						'<span class="name">Added to cart (default)</span>' +
-						'<span class="num">'+ addToCartNum +' sessions</span>' +
-						'<span class="rate">'+ mapRate["add-to-cart"] +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackAddCartViewDetail/toMlbackAddCartViewDetailPage#0">View Report</a>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-						'<span class="name">Added to cart (from buynow)</span>' +
-						'<span class="num">'+ buyNowNum +' sessions</span>' +
-						'<span class="rate">'+ mapRate["buy-now"] +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackAddCartViewDetail/toMlbackAddCartViewDetailPage#1">View Report</a>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-						'<span class="name">Checout (default)</span>' +
-						'<span class="num">'+ checkoutNum +' sessions</span>' +
-						'<span class="rate">'+ mapRate["checkout"] +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackAddCheakoutViewDetail/toMlbackAddCheakoutViewDetailPage#0">View Report</a>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-						'<span class="name">Checout (from buynow)</span>' +
-						'<span class="num">'+ checkoutNum2 +' sessions</span>' +
-						'<span class="rate">'+ mapRate["checkout2"] +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackAddCheakoutViewDetail/toMlbackAddCheakoutViewDetailPage#1">View Report</a>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-					'<span class="name">conversion Rate</span>' +
-					'<span class="num">'+ totalPayinfoNum +' sessions</span>' +
-					'<span class="rate">'+ coversionRate +'%</span>' +
-				'</div>'; */
 				htmlStr = '<div class="order-conversion-item">'+
 						'<span class="name">Added to cart</span>' +
 						'<span class="num">'+ (addToCartNum + buyNowNum) +' sessions</span>' +
@@ -639,7 +656,7 @@
 						'<a class="view-report" href="${APP_PATH}/MlbackAddCartViewDetail/toMlbackAddCartViewDetailPage">View Report</a>' +
 					'</div>' +
 					'<div class="order-conversion-item">'+
-						'<span class="name">Checout</span>' +
+						'<span class="name">Checkout</span>' +
 						'<span class="num">'+ (checkoutNum + checkoutNum2) +' sessions</span>' +
 						'<span class="rate">'+ (mapRate["checkout"] + mapRate["checkout2"]).toFixed(2) +'%</span>' +
 						'<a class="view-report" href="${APP_PATH}/MlbackAddCheakoutViewDetail/toMlbackAddCheakoutViewDetailPage">View Report</a>' +
@@ -648,13 +665,7 @@
 						'<span class="name">conversion Rate</span>' +
 						'<span class="num">'+ totalPayinfoNum +' sessions</span>' +
 						'<span class="rate">'+ coversionRate +'%</span>' +
-					'</div>' +
-					'<div class="order-conversion-item">'+
-						'<span class="name">Search</span>' +
-						'<span class="num">'+ search +' sessions</span>' +
-						// '<span class="rate">'+ (mapRate["checkout"] + mapRate["checkout2"]).toFixed(2) +'%</span>' +
-						'<a class="view-report" href="${APP_PATH}/MlbackSearch/toMlbackSearchDetailPage">View Report</a>' +
-					'</div>';
+					'</div>'					;
 				$('#order-conversion').html(htmlStr).parents('.card').find('.card-mask').hide();
 				$('.order-conversion-rate').text(coversionRate + '%');
 			}
@@ -664,8 +675,10 @@
 				$('#search-confirm-time').val(endTime);
 				generatePayinfoChart();
 				generateUserChart();
+				getRepurchaseRate();
 				generateOrderConversion();
-			}
+				generateUserSearch();
+			}			
 			/* init */
 			var totalPayinfoNum = 0;
 			var chartInstance = []

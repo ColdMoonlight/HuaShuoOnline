@@ -75,6 +75,18 @@
 				}
 			});
 		}
+		
+		function updatePayInfo(payId) {
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayInfo/updateSuccessInfoIfMoreTimesBuy",
+				data: JSON.stringify({'payinfoId': payId}),
+				dataType: 'json',
+				contentType: 'application/json',
+				type: "post",
+				success: function (data) {},
+				error: function(err) {}
+			});
+		}
 
 		function renerPaymentInfo(data) {
 			$('.payment-order .total-money').html('$' + data.payinfoMoney);
@@ -164,49 +176,50 @@
 			mlModalTip('Please contact customer service for abnormal orders !');
 			$('main').html('');
 			setTimeout(goToIndex, 3000);
-		}
-
-		getPayInfo({ "payinfoId": payinfoId}, function (data) {
-			var resDataPayInfoOne = data.mlfrontPayInfoOne;
-			var resDataOrderItemList = data.mlfrontOrderItemList;
-			var resDataOrderPayOne = data.mlfrontOrderPayOneRes;
-			var resDataAddressOne = data.mlfrontAddressOne;
-			var mlPaypalShipAddressOne = data.mlPaypalShipAddressOne;
-			if (data.mlfrontPayInfoOne) {
-				var isFirst = data.ifFirst;
-				var orderData = resDataOrderPayOne;
-				orderData.shipping = data.areafreightMoney;
-				orderData.list = resDataOrderItemList;
-				orderData.payinfoMoney = resDataPayInfoOne.payinfoMoney;
+		} else {			
+			getPayInfo({ "payinfoId": payinfoId}, function (data) {
+				var resDataPayInfoOne = data.mlfrontPayInfoOne;
+				var resDataOrderItemList = data.mlfrontOrderItemList;
+				var resDataOrderPayOne = data.mlfrontOrderPayOneRes;
+				var resDataAddressOne = data.mlfrontAddressOne;
+				var mlPaypalShipAddressOne = data.mlPaypalShipAddressOne;
+				if (data.mlfrontPayInfoOne) {
+					var isFirst = data.ifFirst;
+					var orderData = resDataOrderPayOne;
+					orderData.shipping = data.areafreightMoney;
+					orderData.list = resDataOrderItemList;
+					orderData.payinfoMoney = resDataPayInfoOne.payinfoMoney;
+		
+					resDataAddressOne.payinfoPlatenum = resDataPayInfoOne.payinfoPlatenum;
+		
+					renerPaymentInfo(orderData);
+					renderReceiverinfo(resDataAddressOne);
+					if (!/pm\_/.test(resDataPayInfoOne.payinfoPlatformserialcode)) {
+						renderPaypaladdress(mlPaypalShipAddressOne);					
+					}
 	
-				resDataAddressOne.payinfoPlatenum = resDataPayInfoOne.payinfoPlatenum;
+					!isFirst && fbq('track', 'Purchase', {
+						'content_ids': payinfoProductArr,
+						'content_type': 'product',
+						'value': orderData.payinfoMoney,
+						'currency': 'USD'
+					});
 	
-				renerPaymentInfo(orderData);
-				renderReceiverinfo(resDataAddressOne);
-				if (!/pm\_/.test(resDataPayInfoOne.payinfoPlatformserialcode)) {
-					renderPaypaladdress(mlPaypalShipAddressOne);					
+					setTimeout(function() {
+						!isFirst && gtag('event', 'purchase', {
+							'transaction_id': resDataPayInfoOne.payinfoPlatenum,
+							'affiliation': 'MegaLookHair',
+							'value': String(orderData.payinfoMoney),
+							'currency': 'USD',
+							'tax': 0,
+							'shipping': 0,
+							'items': payinfoOrderArr
+						});					
+					}, 0);
 				}
-
-				!isFirst && fbq('track', 'Purchase', {
-					'content_ids': payinfoProductArr,
-					'content_type': 'product',
-					'value': orderData.payinfoMoney,
-					'currency': 'USD'
-				});
-
-				setTimeout(function() {
-					!isFirst && gtag('event', 'purchase', {
-						'transaction_id': resDataPayInfoOne.payinfoPlatenum,
-						'affiliation': 'MegaLookHair',
-						'value': String(orderData.payinfoMoney),
-						'currency': 'USD',
-						'tax': 0,
-						'shipping': 0,
-						'items': payinfoOrderArr
-					});					
-				}, 0);
-			}
-		});
+			});
+			updatePayInfo(payinfoId);
+		}
 	</script>
 	<!-- footer script -->
 	<jsp:include page="../layout/footer/footer-script.min.jsp" flush="true"></jsp:include>
