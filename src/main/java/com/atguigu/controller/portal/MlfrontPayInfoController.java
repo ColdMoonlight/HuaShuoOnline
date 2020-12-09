@@ -21,6 +21,7 @@ import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
+import com.atguigu.bean.UrlCount;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
@@ -35,6 +36,7 @@ import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
+import com.atguigu.service.UrlCountService;
 import com.atguigu.ship.Classes.ConnectionAPI;
 import com.atguigu.ship.Classes.Tracking;
 import com.atguigu.utils.DateUtil;
@@ -78,6 +80,9 @@ public class MlfrontPayInfoController {
 	
 	@Autowired
 	MlbackCaclPayService mlbackCaclPayService;
+	
+	@Autowired
+	UrlCountService UrlCountService;
 	
 //	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
@@ -283,14 +288,52 @@ public class MlfrontPayInfoController {
 				mlPaypalShipAddressUpdateReq.setShippingaddressIfFirstBuy(ifPaypalShipAddOldCustomer);
 				mlPaypalShipAddressService.updateByPrimaryKeySelective(mlPaypalShipAddressUpdateReq);
 			}else{
-				//这一单是新客户,跳过
-				System.out.println("payinfoId:"+payinfoId+""+"这一单是新客户,跳过");
+				//这一单是新单，再去成交单里面查
+				Integer ifOrderAddressOldCustomer = checkifOldCustomerFromAdress(email);
+				//如果查到是多次来，是复购单，走更新，
+				if(ifOrderAddressOldCustomer>0){
+					MlPaypalShipAddress mlPaypalShipAddressUpdateReq = new MlPaypalShipAddress();
+					mlPaypalShipAddressUpdateReq.setShippingaddressId(shippingaddressId);
+					mlPaypalShipAddressUpdateReq.setShippingaddressIfFirstBuy(ifPaypalShipAddOldCustomer);
+					mlPaypalShipAddressService.updateByPrimaryKeySelective(mlPaypalShipAddressUpdateReq);
+				}else{
+					//如果不是多次来，是新单跳过
+					System.out.println("payinfoId:"+payinfoId+""+"这一单是新客户,跳过");
+				}
 			}
 		}
 		//完毕回传
 		return Msg.success().add("resMsg", "检测复购完毕");
 	}
 	
+	private Integer checkifOldCustomerFromAdress(String addressEmail) {
+		
+		Integer ifOldCustomer = 0;
+    	
+		UrlCount UrlCountifOldReq = new UrlCount();
+		UrlCountifOldReq.setUrlString(addressEmail);
+    	
+    	List<UrlCount> ifOldOrderAddressEmailList = UrlCountService.selectMoreBuyCountFromAddressByTime(UrlCountifOldReq);
+    	
+    	if(ifOldOrderAddressEmailList.size()>0){
+    		UrlCount urlCountRes = ifOldOrderAddressEmailList.get(0);
+    		String buyNumStr = urlCountRes.getUrlStringNum();
+    		//存在2条以上该邮箱订单,属于多次购买。这是老客户
+    		if("0".equals(buyNumStr)){
+        		ifOldCustomer=0;
+    		}else if("1".equals(buyNumStr)){
+        		ifOldCustomer=0;
+    		}else{
+    			ifOldCustomer=1;
+    		}
+    	}else{
+    		//新客户
+    		ifOldCustomer=0;
+    	}
+    	
+		return ifOldCustomer;
+	}
+
 	//存储数据之前,查一下
     private Integer checkifOldCustomer(String CustomerEmail) {
 
