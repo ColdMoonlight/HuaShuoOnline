@@ -315,9 +315,17 @@ public class MlfrontPayInfoController {
     	
     	List<UrlCount> ifOldOrderAddressEmailList = UrlCountService.selectMoreBuyCountFromAddressByTime(UrlCountifOldReq);
     	
-    	if(ifOldOrderAddressEmailList.size()>1){
+    	if(ifOldOrderAddressEmailList.size()>0){
+    		UrlCount urlCountRes = ifOldOrderAddressEmailList.get(0);
+    		String buyNumStr = urlCountRes.getUrlStringNum();
     		//存在2条以上该邮箱订单,属于多次购买。这是老客户
-    		ifOldCustomer=1;
+    		if("0".equals(buyNumStr)){
+        		ifOldCustomer=0;
+    		}else if("1".equals(buyNumStr)){
+        		ifOldCustomer=0;
+    		}else{
+    			ifOldCustomer=1;
+    		}
     	}else{
     		//新客户
     		ifOldCustomer=0;
