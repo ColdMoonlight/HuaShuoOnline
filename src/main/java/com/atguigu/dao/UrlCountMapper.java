@@ -14,5 +14,7 @@ public interface UrlCountMapper {
 	List<UrlCount> selectCouponCountByTime(UrlCount urlCountReq);
 	
 	List<UrlCount> selectMoreBuyCountByTime(UrlCount urlCountReq);
+
+	List<UrlCount> selectMoreBuyCountFromAddressByTime(UrlCount urlCountReq);
 	
 }
