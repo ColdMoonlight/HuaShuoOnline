@@ -77,31 +77,39 @@
 		   	  <div class="wholesale-form">
 				  <h2>Send Inquiry To Become A Megalook Vendor</h2>
 				<div class="info_box">
-					<div class="form-group">
+					<div class="form-group required">
 						<label for="wholesaleCustomerName" class="form-label">Your name<i>*</i></label>
 						<div class="form-input">
 							<input type="text" name="wholesaleCustomerName" id="wholesaleCustomerName" class="form-control">
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group required">
 						<label for="wholesaleCustomerEmail" class="form-label">Email<i>*</i></label>
 						<div class="form-input">
 							<input type="text" name="wholesaleCustomerEmail" id="wholesaleCustomerEmail" class="form-control">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="wholesaleCustomerTelephone" class="form-label">Telephone<i>*</i></label>
-						<div class="form-input">
-							<input type="text" name="wholesaleCustomerTelephone" id="wholesaleCustomerTelephone" class="form-control">
+					<div style="display: flex;">
+						<div class="form-group required" style="width: 50%;">
+							<label for="wholesaleCustomerTelephone" class="form-label">Telephone<i>*</i></label>
+							<div class="form-input">
+								<input type="text" name="wholesaleCustomerTelephone" id="wholesaleCustomerTelephone" class="form-control">
+							</div>
+						</div>
+						<div class="form-group" style="width: 50%; margin-left: 1rem;">
+							<label for="wholesaleCustomerWatsapp" class="form-label">Watsapp<i></i></label>
+							<div class="form-input">
+								<input type="text" name="wholesaleCustomerWatsapp" id="wholesaleCustomerWatsapp" class="form-control">
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group required">
 						<label for="wholesaleCustomerCountry" class="form-label">Country<i>*</i></label>
 						<div class="form-input">
 							<input type="text" name="wholesaleCustomerCountry" id="wholesaleCustomerCountry" class="form-control">
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group required">
 						<label for="wholesaleCustomerMessage" class="form-label">Messages<i>*</i></label>
 						<div class="form-input">
 							<textarea rows="2" cols="" class="form-control" id="wholesaleCustomerMessage" placeholder="Write your detailed requiry,hair types,hair quantity,hair length,hair color..."></textarea>
@@ -198,10 +206,10 @@
       // //check user input info
       function checkInputAdressInfo() {
       	var flag = true;
-      	for(var idx = 0, len = $('.info_box .form-group').length; idx < len; idx += 1) {
-      		var item = $('.info_box .form-group')[idx];
-      		if ($(item).find('.form-control').data('status')) continue;
-      		if (!$(item).find('.form-control').val() || $(item).find('.form-control').val() == 'state') {
+      	for(var idx = 0, len = $('.info_box .form-group.required').length; idx < len; idx += 1) {
+      		var item = $('.info_box .form-group.required')[idx];
+
+      		if (!$(item).find('.form-control').val().trim()) {
       			mlModalTip('Address information <i style="color: #f00">'+ $(item).find('.form-label').text() +"</i> can't be empty !");
       			$(item).find('.form-control').focus();
       			flag = false;
@@ -216,6 +224,7 @@
 	  	data.wholesaleCustomerEmail = $('#wholesaleCustomerEmail').val();
 	  	data.wholesaleCustomerCountry = $('#wholesaleCustomerCountry').val();
 		data.wholesaleCustomerTelephone = $('#wholesaleCustomerTelephone').val();
+		data.wholesaleCustomerWatsapp = $('#wholesaleCustomerWatsapp').val();
 	  	data.wholesaleCustomerMessage = $('#wholesaleCustomerMessage').val();
 	  	return data;
 	  }
