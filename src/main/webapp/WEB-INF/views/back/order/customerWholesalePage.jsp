@@ -121,6 +121,12 @@
 												<input class="form-control" id="wholesaleCustomerTelephone" type="text" disabled />
 											</div>
 										</div>
+										<div class="form-group col-md-6">
+											<label class="col-form-label" for="wholesaleCustomerWatsapp">Whatsapp</label>
+											<div class="controls">
+												<input class="form-control" id="wholesaleCustomerWatsapp" type="text" disabled />
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerMessage">Message</label>
@@ -265,6 +271,7 @@
 			$('#wholesaleCustomerEmail').val('');
 			$('#wholesaleCustomerCountry').val('');
 			$('#wholesaleCustomerTelephone').val('');
+			$('#wholesaleCustomerWatsapp').val('');
 			$('#wholesaleCustomerMessage').val('');
 			$('#wholesaleCustomerStatus').prop('checked', false);
 			$('#wholesaleOperateDeatil').val('');			
@@ -277,6 +284,7 @@
 			data.wholesaleCustomerEmail = $('#wholesaleCustomerEmail').val();
 			data.wholesaleCustomerCountry = $('#wholesaleCustomerCountry').val();
 			data.wholesaleCustomerTelephone = $('#wholesaleCustomerTelephone').val();
+			data.wholesaleCustomerWatsapp = $('#wholesaleCustomerWatsapp').val();
 			data.wholesaleCustomerMessage = $('#wholesaleCustomerMessage').val();
 			data.wholesaleCustomerStatus = $('#wholesaleCustomerStatus').prop('checked') ? 1 : 0;
 			data.wholesaleOperateDeatil = $('#wholesaleOperateDeatil').val();			
@@ -289,6 +297,7 @@
 			$('#wholesaleCustomerEmail').val(data.wholesaleCustomerEmail);
 			$('#wholesaleCustomerCountry').val(data.wholesaleCustomerCountry);
 			$('#wholesaleCustomerTelephone').val(data.wholesaleCustomerTelephone);
+			$('#wholesaleCustomerWatsapp').val(data.wholesaleCustomerWatsapp);
 			$('#wholesaleCustomerMessage').val(data.wholesaleCustomerMessage);
 			$('#wholesaleCustomerStatus').prop('checked', (''+data.wholesaleCustomerStatus == '0' ? false : true));
 			$('#wholesaleOperateDeatil').val(data.wholesaleOperateDeatil);
@@ -477,6 +486,7 @@
 					'<td>' + data[i].wholesaleCustomerEmail + '</td>' +
 					'<td>' + data[i].wholesaleCustomerCountry + '</td>' +
 					'<td>' + data[i].wholesaleCustomerTelephone + '</td>' +
+					'<td>' + data[i].wholesaleCustomerWatsapp + '</td>' +
 					'<td>' + (msg.length > 10 ? msg.substring(0, 10) + '...' : msg) + '</td>' +
 					'<td>' + data[i].wholesaleCreatetime + '</td>' +
 					'<td><a class="badge '+ ('' + data[i].wholesaleCustomerStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].wholesaleCustomerStatus == '0' ? 'Uncontacted' : 'Contacted') + '</a></td>' +
