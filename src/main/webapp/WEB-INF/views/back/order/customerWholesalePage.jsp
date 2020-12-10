@@ -58,6 +58,7 @@
 											<th>email</th>
 											<th>country</th>
 											<th>telephone</th>
+											<th>whatsapp</th>
 											<th>message</th>
 											<th>time</th>
 											<th>customerStatus</th>
@@ -486,7 +487,7 @@
 					'<td>' + data[i].wholesaleCustomerEmail + '</td>' +
 					'<td>' + data[i].wholesaleCustomerCountry + '</td>' +
 					'<td>' + data[i].wholesaleCustomerTelephone + '</td>' +
-					'<td>' + data[i].wholesaleCustomerWatsapp + '</td>' +
+					'<td>' + (data[i].wholesaleCustomerWatsapp.trim() ? data[i].wholesaleCustomerWatsapp.trim() : '') + '</td>' +
 					'<td>' + (msg.length > 10 ? msg.substring(0, 10) + '...' : msg) + '</td>' +
 					'<td>' + data[i].wholesaleCreatetime + '</td>' +
 					'<td><a class="badge '+ ('' + data[i].wholesaleCustomerStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].wholesaleCustomerStatus == '0' ? 'Uncontacted' : 'Contacted') + '</a></td>' +
