@@ -7,7 +7,40 @@
 		<title>MEGALOOK ADMIN</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
-		<style> .card-body { padding-left: 0; padding-right: 0; } .chart-quantity { height:36px; line-height: 36px; } .chart-body.chart { height: 300px; } </style>
+		<style>		
+			@media screen and (min-width: 1023px) {
+			  .dashboard-box {
+				display: flex;
+			  }
+			  .dashboard-left {
+			    width: 80%;
+			  }
+			  .dashboard-right {
+			    width: 40%;
+			    margin-left: 1rem;
+			  }
+			  .dashboard-left {
+			    display: flex;
+			    margin-left: -1rem;
+			    flex-wrap: wrap;
+			  }
+			  .dashboard-left .card-container {
+			    width: 50%;
+			    padding-left: 1rem;
+			  }
+			}
+			.dashboard-box .card-body {
+			  padding-left: 0;
+			  padding-right: 0;
+			}
+			.chart-quantity {
+			  height: 36px;
+			  line-height: 36px;
+			}
+			.chart-body.chart {
+			  height: 300px;
+			}
+		</style>
 	</head>
 
 	<body class="c-app">
@@ -30,9 +63,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-8">
-							<div class="col-md-6">
+					<div class="dashboard-box">
+						<div class="dashboard-left">
+							<div class="card-container">
 								<div class="card">
 									<div class="card-header">Total Sales</div>
 									<div class="card-body">
@@ -46,8 +79,7 @@
 									</div>
 								</div>
 							</div>
-							<!-- /.col-->
-							<div class="col-md-6">
+							<div class="card-container">
 								<div class="card">
 									<div class="card-header">Register Users</div>
 									<div class="card-body">
@@ -61,8 +93,7 @@
 									</div>
 								</div>
 							</div>
-							<!-- /.col-->
-							<div class="col-md-6">
+							<div class="card-container">
 								<div class="card">
 									<div class="card-header">Average order value</div>
 									<div class="card-body">
@@ -76,8 +107,7 @@
 									</div>
 								</div>
 							</div>
-							<!-- /.col-->
-							<div class="col-md-6">
+							<div class="card-container">
 								<div class="card">
 									<div class="card-header">Total orders</div>
 									<div class="card-body">
@@ -91,39 +121,34 @@
 									</div>
 								</div>
 							</div>
-							<!-- /.col-->
 						</div>
-						<div class="col-md-4">
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-header">Returning customer rate</div>
-									<div class="card-body">
-										<div class="chart-title">
-											<div class="chart-quantity repurchase-rate"></div>
-										</div>
-										<div class="chart-body" id="repurchase-chart"></div>
+						<div class="dashboard-right">
+							<div class="card">
+								<div class="card-header">Returning customer rate</div>
+								<div class="card-body">
+									<div class="chart-title">
+										<div class="chart-quantity repurchase-rate"></div>
 									</div>
-									<div class="card-mask">
-										<div class="spinner-border"></div>
-									</div>
+									<div class="chart-body" id="repurchase-chart"></div>
+								</div>
+								<div class="card-mask">
+									<div class="spinner-border"></div>
 								</div>
 							</div>
 
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-header">Online store conversion rate</div>
-									<div class="card-body">
-										<div class="chart-title">
-											<div class="chart-quantity order-conversion-rate"></div>
-										</div>
-										<div class="chart-body">
-											<div id="order-conversion"></div>
-											<div style="padding: 0 1rem;" id="user-search"></div>
-										</div>
+							<div class="card">
+								<div class="card-header">Online store conversion rate</div>
+								<div class="card-body">
+									<div class="chart-title">
+										<div class="chart-quantity order-conversion-rate"></div>
 									</div>
-									<div class="card-mask">
-										<div class="spinner-border"></div>
+									<div class="chart-body">
+										<div id="order-conversion"></div>
+										<div style="padding: 0 1rem;" id="user-search"></div>
 									</div>
+								</div>
+								<div class="card-mask">
+									<div class="spinner-border"></div>
 								</div>
 							</div>
 						</div>
