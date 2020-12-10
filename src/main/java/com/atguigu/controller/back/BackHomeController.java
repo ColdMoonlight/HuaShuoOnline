@@ -118,9 +118,14 @@ public class BackHomeController {
 		
 		List<UrlCount> urlCountList = UrlCountService.selectMoreBuyCountByTime(urlCountReq);//ifmorebuy=1只查询复购订单
 		
-		Integer moreBuyNum = urlCountList.size();
+		String moreBuyNumStr = "0";
 		
-		return Msg.success().add("resMsg", "统计面板某时间内的复购率").add("moreBuyNum", moreBuyNum);
+		if(urlCountList.size()>0){
+			UrlCount urlCountRes = urlCountList.get(0);
+			moreBuyNumStr = urlCountRes.getUrlStringNum();
+		}
+		
+		return Msg.success().add("resMsg", "统计面板某时间内的复购率").add("moreBuyNum", moreBuyNumStr);
 	}
 	
 }
