@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Black Friday</title>
+    <title>Christmas</title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>
@@ -12,135 +12,199 @@
 		ul{list-style:none;}
 		*{margin: 0; padding: 0;}
 		body{padding:0px;margin:0px;}
-		.product_list_box{width:1224px; margin: 0 auto;}
-		.product_list_box ul{width: 100%; padding: 0 2%; display: flex;flex-wrap: wrap; background: url(${APP_PATH }/static/pc/img/friday/bg_05.png) no-repeat; background-size:100% 100%;}
-		.product_list_box ul li{width:23%;margin: 0 1% 2%;}
-		.pro_cont .lazyload{background-color: transparent;}
-		.product_list_box ul li a{display: block;width: 100%; padding-top:151%;}
-		.product_list_box ul li:nth-of-type(5) a,.product_list_box ul li:nth-of-type(6) a,.product_list_box ul li:nth-of-type(7) a,.product_list_box ul li:nth-of-type(8) a{padding-top:141%;}
-		.product_list_box ul li img{max-width: 100%; height: auto;}
-		.banner_top8{width: 100%; height:auto; padding: 0 0 30px; margin:-.05em 0 0;background: url(${APP_PATH }/static/pc/img/friday/hg_02.jpg) no-repeat top center; background-size:cover;}
-        .top_bg{width: 100%; height: 36px; margin-bottom: -.1rem; background: url(${APP_PATH }/static/pc/img/friday/bg_03.png) no-repeat; background-size:100% 100%;}
-		.bot_bg{width: 100%; height: 36px;margin-top: -.1rem; background: url(${APP_PATH }/static/pc/img/friday/bg_06.png) no-repeat; background-size:100% 100%;}
-        .box_img{width: 100%; height: auto; margin: 0 auto; text-align: center; padding: 30px 0 0;}
-        .box_img img{max-width: 100%; display: inline-block;}
-        .banner_pd10{padding: 20px 0 0;}
-		.banner_pd10 img{padding: 0 0 20px;}
-		.bg_tp{width: 100%;clear: both;margin-top:-.03em;}
-		.banner_top7{width:100%; height:auto; padding: 0 0 20px; background: url(${APP_PATH }/static/pc/img/friday/dbg.jpg) no-repeat top center; background-size:100% 100%;}
-		.banner_top7cont{width:1040px;display: flex;align-items: flex-start;margin: 0 auto;}
-		.pro_cont{width: 50%; position:relative;}
-		@media only screen and (max-width: 1366px) { 
-			.product_list_box{width: 100%;padding: 0 5%;}
-		}
-		@media only screen and (max-width:1200px) {
-			.banner_top7cont{width:100%;padding: 0 5%;}
-		}
-		@media only screen and (max-width: 780px) {
-			.product_list_box ul li{width:48%;; margin: 0 1% 2%;}
-			.top_bg{width: 100%; height: 16px; background: url(${APP_PATH }/static/pc/img/friday/bg_03.png) no-repeat; background-size:100% 100%;}
-			.bot_bg{width: 100%; height: 16px;background: url(${APP_PATH }/static/pc/img/friday/bg_06.png) no-repeat;background-size:100% 100%;}
-		}
-		@media only screen and (max-width: 575px) {
-			.bg_tp .wap{display: block;opacity: 1;visibility: visible; position:relative;}
-			.black-banner .wap{padding-top: 58%;} 
-			.banner_top2 .wap{padding-top: 49.3%;}
-			.banner_top3 .wap{padding-top: 52%;}
-			.banner_top4 .wap{padding-top: 39.4%;}
-			.banner_top5 .wap{padding-top: 39.4%;}
-			.banner_top6 .wap{padding-top: 40.9%;}
-			.banner_top9 .wap{padding-top: 58.00%;}
-			.pro_cont .wap{padding-top: 117.272%;}
-			.box_img .pc{display:none}
-		}
-		@media only screen and (min-width: 576px) {
-			.bg_tp .pc{display: block;opacity: 1;visibility: visible;}
-			.black-banner .pc{padding-top: 36.458%}
-			.banner_top2 .pc{padding-top: 27.5%;}
-			.banner_top3 .pc{padding-top:30.156%;}
-			.banner_top4 .pc{padding-top:24.322%;}
-			.banner_top5 .pc{padding-top:24.322%;}
-			.banner_top6 .pc{padding-top:24.635%;}
-			.banner_top9 .pc{padding-top:32.8%;}
-			.pro_cont .pc{padding-top:104.6153%;}
-			.box_img .wap{display:none}
-		}
+			.box{width: 100%;}
+			.lazyloadnew{background-image:url(${APP_PATH }/static/pc/img/loading.gif); display: block; background-size:cover;background-repeat: no-repeat;background-position: center;opacity: 1;}
+			.boxbg{background: url(${APP_PATH }/static/pc/img/sdj/sd_bg.jpg) repeat-y; background-size:100%;}
+		    .box_cont{width:70%; margin: 0 15%; display: flex;align-items: flex-start;}
+			.left_box,.right_box{width:50%; position:relative;}
+			.box_img {width: 100%; text-align: center;}
+			.box_img img{display: inline-block;max-width: 100%;}
+			.no_tips{padding: 20px 0 0;}
+			.product_list_box{width:100%; margin: 0 auto;}
+			.product_list_box ul{width: 100%; display: flex;flex-wrap: wrap;}
+			.product_list_box ul li{width:23%;margin: 0 1%;}
+			.pro_cont .lazyload{background-color: transparent;}
+			.product_list_box ul li a{display: block;width: 100%; padding-top:143.75% }
+			.product_list_box ul li:nth-of-type(5) a,.product_list_box ul li:nth-of-type(6) a,.product_list_box ul li:nth-of-type(7) a,.product_list_box ul li:nth-of-type(8) a{padding-top:141%;}
+			.product_list_box ul li img{max-width: 100%; height: auto;}
+			
+			@media only screen and (max-width: 780px) {
+				.product_list_box ul li{width:48%;; margin: 0 1% 1%;}
+			}
+			@media only screen and (max-width: 575px) {
+				.box_cont{width:100%;margin: 0; display: flex;align-items: flex-start;}
+				.left_box,.right_box{width:48%;margin: 0 1%; position:relative;}
+				.top_01 .wap{padding-top:41.2%;}
+				.top_02 .wap{padding-top:40.4%;}
+				.top_03 .wap,.top_04 .wap,.top_05 .wap,.top_06 .wap{padding-top:47.94%;}
+				.top_10 .wap{padding-top:57.33%;}
+				
+				
+				.box_cont .wap{padding-top:146.66%;}
+			   .pc{display:none}
+			   .box_img .pc2{display:none}
+				.boxbg{padding: 0 1% 15px;}
+			}
+			@media only screen and (min-width: 576px) {
+				.top_01 .pc{padding-top:45.41%;}
+				.top_02 .pc{padding-top:25.25%;}
+				.top_03 .pc,.top_04 .pc,.top_05 .pc,.top_06 .pc{padding-top:40%;}
+				.top_10 .pc{padding-top:40%;}
+				.box_cont .pc{padding-top:134.61%;}
+				.wap{display:none}
+				.box_img .wap2{display:none}
+				.boxbg{padding: 0 12% 15px}
+			}
 	</style>
 </head>
 <body>
     <jsp:include page="../layout/header/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
-		<div class="black-banner"><div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/friday/sjhw_01.jpg"></div><div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_01.jpg"></div></div>
-		<div class="bg_tp banner_top2"><a class="wap lazyload" href="javascript:;" data-src="${APP_PATH }/static/pc/img/friday/sjhw_02.jpg"></a><a class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_02.jpg"></a></div>
-		<div class="bg_tp banner_top3"><a class="wap lazyload" href="javascript:;"  data-src="${APP_PATH }/static/pc/img/friday/sjhw_03.jpg"></a><a class="pc lazyload" data-src="${APP_PATH }/static/pc/img/friday/hw_04.jpg"></a></div>
-		<div class="bg_tp banner_top4"><a class="wap lazyload" href="${APP_PATH }/B-13x4-Straight-Transparent-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_04.jpg"></a><a class="pc lazyload" href="${APP_PATH }/B-13x4-Straight-Transparent-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/hw_05.jpg"></a></div>
-		<div class="bg_tp banner_top5"><a class="wap lazyload" href="${APP_PATH }/B-13x4-Straight-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_05.jpg"></a><a class="pc lazyload" href="${APP_PATH }/B-13x4-Straight-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/hw_06.jpg"></a></div>
-		<div class="bg_tp banner_top6"><a class="wap lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_06.jpg"></a><a class="pc lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/hw_07.jpg"></a></div>
-		<div class="bg_tp banner_top7">
-			<div class="banner_top7cont">
-				<div class="pro_cont left_pro">
-					<a class="wap lazyload" href="${APP_PATH }/B-44-Piano-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/twl.png"></a>
-					<a class="pc lazyload" href="${APP_PATH }/B-44-Piano-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/tw_03.png"></a>
+		<div class="box top_01">
+			<div class="pc lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc01.jpg"></div>
+			<div class="wap lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/app01.jpg"></div>
+		</div>
+		<div class="box top_02">
+			<div class="pc lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc02.jpg"></div>
+			<div class="wap lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/app02.jpg"></div>
+		</div>
+		<div class="box boxbg top_03">
+			<a class="pc lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/pc03.png"></a>
+			<a class="wap lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/app03.png"></a>
+		</div>
+		<div class="box boxbg top_04">
+			<a class="pc lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/pc04.png"></a>
+			<a class="wap lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/app04.png"></a>
+		</div>
+		<div class="box boxbg top_05">
+			<a class="pc lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/pc05.png"></a>
+			<a class="wap lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/app05.png"></a>
+		</div>
+		<div class="box boxbg top_06">
+			<a class="pc lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/pc06.png"></a>
+			<a class="wap lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/app06.png"></a>
+		</div>
+		<div class="box boxbg">
+				<div class="box_cont">
+					<div class="left_box">
+						<a class="pc lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/pc07.png"></a>
+						<a class="wap lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/pc07.png"></a>
+					</div>
+					<div class="right_box">
+						<a class="pc lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/pc08.png"></a>
+						<a class="wap lazyloadnew" href="" data-src="${APP_PATH }/static/pc/img/sdj/pc08.png"></a>
+					</div>
 				</div>
-				<div class="pro_cont right_pro">
-					<a class="wap lazyload" href="${APP_PATH }/Natural-Color-13x4-Bob-Straight-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/twr.png"></a>
-					<a class="pc lazyload" href="${APP_PATH }/Natural-Color-13x4-Bob-Straight-Wig.html" data-src="${APP_PATH }/static/pc/img/friday/tw_04.png"></a>
-				</div>
-			</div>
 		</div>
-		<div class="banner_top8">
-			<div class="product_list_box product_list_box_1">
-				<div class="top_bg"></div>
-				<ul>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp01.jpg" href="${APP_PATH }/B-13x4-Full-Wave-Lace-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp02.jpg" href="${APP_PATH }/B-13x4-613-Straight-Body-Wave-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp03.jpg" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp04.jpg" href="${APP_PATH }/B-4x4-Body-Wave-Wig.html"></a></li>
+		<div class="box boxbg">
+			<div class="box_img">
+				<img class="pc2" src="${APP_PATH }/static/pc/img/sdj/pc09.png" >
+				<img class="wap2" src="${APP_PATH }/static/pc/img/sdj/app09.png" >
+			</div>
+			<div class="product_list_box">
+				<ul class="clearfix">
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc10.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc11.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc12.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc13.png" href=""></a>
+					</li>
 				</ul>
-				<div class="bot_bg"></div>
-			</div>
-			<div class="box_img"><img class="wap" src="${APP_PATH }/static/pc/img/friday/btn_06.png" /><img class="pc" src="${APP_PATH }/static/pc/img/friday/btn_03.png" /></div>
-		</div>
-		<div class="banner_top8">
-			<div class="product_list_box product_list_box_1"><div class="top_bg"></div>
-				<ul>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp05.jpg" href="${APP_PATH }/Headband-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp06.jpg" href="${APP_PATH }/Body-Wave-Headband-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp07.jpg" href="${APP_PATH }/Water-Wave-Headband-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp08.jpg" href="${APP_PATH }/Jerry-Curly-Headband-Wig.html"></a></li>
-				</ul><div class="bot_bg"></div>
 			</div>
 		</div>
-		<div class="bg_tp banner_top9">
-			<a class="wap lazyload" href="${APP_PATH }/search/top-selling.html" data-src="${APP_PATH }/static/pc/img/friday/sjhw_12.jpg"></a>
-			<a class="pc lazyload" href="${APP_PATH }/search/top-selling.html" data-src="${APP_PATH }/static/pc/img/friday/hw12.jpg"></a>
-		</div>
-		<div class="banner_top8 banner_pd10">
-			<div class="product_list_box product_list_box_1"><div class="top_bg"></div>
-				<ul>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp10.jpg" href="${APP_PATH }/B-13x4-Full-Texture-Transparent-Lace-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp11.jpg" href="${APP_PATH }/B-360-Straight-Wave-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp12.jpg" href="${APP_PATH }/2x6-Straight-Wave-Bob-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp13.jpg" href="${APP_PATH }/All-Color-4x4-Bob-Wig.html"></a></li>
+		<div class="box boxbg">
+			<div class="box_img">
+				<img class="pc2" src="${APP_PATH }/static/pc/img/sdj/pc14.png" >
+				<img class="wap2" src="${APP_PATH }/static/pc/img/sdj/app14.png" >
+			</div>
+			<div class="product_list_box">
+				<ul class="clearfix">
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc15.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc16.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc17.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc18.png" href=""></a>
+					</li>
 				</ul>
-				<div class="bot_bg"></div>
-			</div>
-			<div class="box_img"><img class="wap" src="${APP_PATH }/static/pc/img/friday/btn_08.png" /><img class="pc" src="${APP_PATH }/static/pc/img/friday/btn_07.png" /></div>
-		</div>
-		<div class="banner_top8">
-			<div class="product_list_box product_list_box_1"><div class="top_bg"></div>
-				<ul>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp14.jpg" href="${APP_PATH }/B-3-Bundles-with-4x4-Closure-Straight-Wave.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp15.jpg" href="${APP_PATH }/B-3-Bundles-with-4x4-Closure-Body-Wave.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp16.jpg" href="${APP_PATH }/M-3-Bundles-Body-Wave-Hair-Weave.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/cp17.jpg" href="${APP_PATH }/M-3-Bundles-Straight-Wave-Hair-Weave.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot18.png" href="${APP_PATH }/search/13x4-Lace-Frontal-Wig.html.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot19.png" href="${APP_PATH }/search/4x4-Closure-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot20.png" href="${APP_PATH }/search/360-Lace-Frontal-Wig.html"></a></li>
-					<li><a class="lazyload" data-src="${APP_PATH }/static/pc/img/friday/bot21.png" href="${APP_PATH }/search/Transparent-Lace-Wig.html"></a></li>
-				</ul><div class="bot_bg"></div>
 			</div>
 		</div>
+		<div class="box top_10">
+			<div class="pc lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc19.jpg"></div>
+			<div class="wap lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/app19.jpg"></div>
+		</div>
+		<div class="box boxbg">
+			<div class="product_list_box no_tips">
+				<ul class="clearfix">
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc20.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc21.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc22.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc23.png" href=""></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="box boxbg">
+			<div class="box_img">
+				<img class="pc2" src="${APP_PATH }/static/pc/img/sdj/pc24.png" >
+				<img class="wap2" src="${APP_PATH }/static/pc/img/sdj/app24.png" >
+			</div>
+			<div class="product_list_box">
+				<ul class="clearfix">
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc25.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc26.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc27.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc28.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc29.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc30.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc31.png" href=""></a>
+					</li>
+					<li>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc32.png" href=""></a>
+					</li>
+				</ul>
+			</div>
+			<div class="box_img">
+				<a href="###"><img class="pc2" src="${APP_PATH }/static/pc/img/sdj/pc33.png" ></a>
+				<a href="###"><img class="wap2" src="${APP_PATH }/static/pc/img/sdj/app33.png" ></a>
+			</div>
+		</div>
+		
+		
+
+
 	<!-- main end -->
 	
 	<!-- footer nav -->
@@ -155,7 +219,7 @@
 	<!-- header script  -->
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
 	<script>
-		new LazyLoad($('main').find('.lazyload'), {
+		new lazyload($('main').find('.lazyloadnew'), {
 			root: null,
 			rootMargin: "10px",
 			threshold: 0
