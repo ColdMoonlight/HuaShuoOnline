@@ -2735,10 +2735,6 @@ footer li {
 	.cart-cal {	
 		padding: 1rem;
 	}
-	
-	
-	
-	
 }
 
 /* checkout */
@@ -2859,8 +2855,6 @@ footer li {
 .order-buyer-msg>textarea {
 	width: 100%;
 }
-
-.address-box,
 .order-item,
 .order-coupons,
 .order-payment,
@@ -2868,6 +2862,9 @@ footer li {
 	padding: 1rem;
 }
 @media only screen and (max-width: 575px) {
+	.address-box {
+		padding: 0 1rem;
+	}
 	.order-payment-item label>img {
 		height: 1.2rem;
 	}
@@ -2877,6 +2874,9 @@ footer li {
 }
 
 @media only screen and (min-width: 576px) {
+	.address-box {
+		padding: 1rem;
+	}
 	.order-payment-item label>img {	
 		height: 1.8rem;
 	}

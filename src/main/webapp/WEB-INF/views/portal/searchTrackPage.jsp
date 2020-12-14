@@ -72,6 +72,7 @@
 				var trackingNumber = $('#searchTrackNumber').val();
 				if (!trackingNumber.trim()) {
 					mlModalTip('The tracking number cannot be empty');
+					hidePayLoading();
 				} else {
 					$.ajax({
 						url: "${APP_PATH}/MlfrontOrderList/getTrackDetailByTrackingNumber",
