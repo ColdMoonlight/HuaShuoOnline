@@ -13,7 +13,7 @@
 		*{margin: 0; padding: 0;}
 		body{padding:0px;margin:0px;}
 			.box{width: 100%;}
-			.lazyloadnew{background-image:url(${APP_PATH }/static/pc/img/loading.gif); display: block; background-size:cover;background-repeat: no-repeat;background-position: center;opacity: 1;}
+			.lazyloadnew{background-image:url(${APP_PATH }/static/pc/img/loading.gif); display: block; background-size:contain;background-repeat: no-repeat;background-position: center;opacity: 1;}
 			.boxbg{background: url(${APP_PATH }/static/pc/img/sdj/sd_bg.jpg) repeat-y; background-size:100%;}
 		    .box_cont{width:70%; margin: 0 15%; display: flex;align-items: flex-start;}
 			.left_box,.right_box{width:50%; position:relative;}
@@ -142,8 +142,11 @@
 			</div>
 		</div>
 		<div class="box top_10">
-			<div class="pc lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc19.jpg"></div>
-			<div class="wap lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/app19.jpg"></div>
+<!-- 			<div class="pc lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc19.jpg"></div>
+			<div class="wap lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/app19.jpg"></div> -->
+			<a href="${APP_PATH }/search/5x5-Closure-Wig.html" class="pc lazyloadnew"  data-src="${APP_PATH }/static/pc/img/sdj/pc19.jpg"></a>
+			<a href="${APP_PATH }/search/5x5-Closure-Wig.html" class="wap lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/app19.jpg"></a>
+			
 		</div>
 		<div class="box boxbg">
 			<div class="product_list_box no_tips">
@@ -183,16 +186,16 @@
 						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc28.png" href="${APP_PATH }/M-3-Bundles-Straight-Wave-Hair-Weave.html"></a>
 					</li>
 					<li>
-						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc29.png" href="${APP_PATH }/Loose-Wave-Wig.html"></a>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc29.png" href="${APP_PATH }/search/Loose-Wave-Wig.html"></a>
 					</li>
 					<li>
-						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc30.png" href="${APP_PATH }/13x4-Lace-Frontal-Wig.html"></a>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc30.png" href="${APP_PATH }/search/13x4-Lace-Frontal-Wig.html"></a>
 					</li>
 					<li>
-						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc31.png" href="${APP_PATH }/360-Lace-Frontal-Wig.html"></a>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc31.png" href="${APP_PATH }/search/360-Lace-Frontal-Wig.html"></a>
 					</li>
 					<li>
-						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc32.png" href="${APP_PATH }/Transparent-Lace-Wig.html"></a>
+						<a class="lazyloadnew" data-src="${APP_PATH }/static/pc/img/sdj/pc32.png" href="${APP_PATH }/search/Transparent-Lace-Wig.html"></a>
 					</li>
 				</ul>
 			</div>
