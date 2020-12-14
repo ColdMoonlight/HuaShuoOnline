@@ -49,7 +49,7 @@
 				.top_01 .pc{padding-top:45.41%;}
 				.top_02 .pc{padding-top:25.25%;}
 				.top_03 .pc,.top_04 .pc,.top_05 .pc,.top_06 .pc{padding-top:40%;}
-				.top_10 .pc{padding-top:40%;}
+				.top_10 .pc{padding-top:39.9%;}
 				.box_cont .pc{padding-top:134.61%;}
 				.wap{display:none}
 				.box_img .wap2{display:none}
