@@ -88,14 +88,14 @@
 							</div>
 							<div class="row">
 								<div class="form-group col-md-8">
-									<div class="col-md-3">
+									<%-- <div class="col-md-3">
 										<h3 style="font-size: 16px;">下载时间模板</h3>
 										<div class="c-upload-img" id="download-time" style="width: 4rem; height: 4rem; padding: 1rem;">
 										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
 										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
 										  </svg>
 										</div>
-									</div>
+									</div> --%>
 									<div class="col-md-3">
 										<h3 style="font-size: 16px;">下载自定义时间模板</h3>
 										<div class="c-upload-img" id="custom-time" style="width: 4rem; height: 4rem; padding: 1rem;">
