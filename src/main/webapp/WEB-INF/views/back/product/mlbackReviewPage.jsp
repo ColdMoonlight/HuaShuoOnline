@@ -80,7 +80,15 @@
 									</div>
 								</div>
 								<div class="form-group col-md-5">
-									<div class="col-md-4">
+									<!-- search btn -->
+									<div class="search-review-search">
+										<button id="search-review-search" class="btn btn-primary">SEARCH</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-8">
+									<div class="col-md-3">
 										<h3 style="font-size: 16px;">下载时间模板</h3>
 										<div class="c-upload-img" id="download-time" style="width: 4rem; height: 4rem; padding: 1rem;">
 										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
@@ -88,7 +96,15 @@
 										  </svg>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
+										<h3 style="font-size: 16px;">下载自定义时间模板</h3>
+										<div class="c-upload-img" id="custom-time" style="width: 4rem; height: 4rem; padding: 1rem;">
+										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
+										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
+										  </svg>
+										</div>
+									</div>
+									<div class="col-md-3">
 										<h3 style="font-size: 16px;">下载模板</h3>
 										<div class="c-upload-img" id="download" style="width: 4rem; height: 4rem; padding: 1rem;">
 										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
@@ -96,7 +112,7 @@
 										  </svg>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
 										<h3 style="font-size: 16px;">上传文档</h3>
 										<div class="c-upload-img" style="width: 4rem; height: 4rem;padding: 1rem;">
 											<svg class="c-icon" style="width: 2rem; height: 2rem;">
@@ -114,13 +130,8 @@
 										</div>
 									</div>
 								</div>
-								<div class="form-group col-md-5">
-									<!-- search btn -->
-									<div class="search-review-search">
-										<button id="search-review-search" class="btn btn-primary">SEARCH</button>
-									</div>
-								</div>
 							</div>
+							
 							
 						</div>
 						<div class="c-table-content">
@@ -830,13 +841,28 @@
 			$('#download-time-month').val('-1');
 			$('#download-time-number').val('');
 			$('#randTimeModal').modal('show');
+			$('.startday').hide();
+			$('.endday').hide();
+			$('#download-time-custm').hide();
+			$('#download-time-template').show();
+			
+		});
+		/***2020-12-15***/
+		$('#custom-time').on('click', function() {
+			$('#download-time-year').val('-1');
+			$('#download-time-month').val('-1');
+			$('#download-time-number').val('');
+			$('#randTimeModal').modal('show');
+			$('.startday').show();
+			$('.endday').show();
+			$('#download-time-custm').show();
+			$('#download-time-template').hide();
 		});
 		
 		$('#download-time-template').on('click', function() {
 			var year = parseInt($('#download-time-year').val(), 10);
 			var month = parseInt($('#download-time-month').val(), 10);
 			var number = parseInt($('#download-time-number').val(), 10);
-			
 			if (year < 0) {
 				toastr.error('请选择随机生成所需要的年份。。。');
 				return;
@@ -853,11 +879,40 @@
 			window.location.href = '${APP_PATH}/ExcleReviewTimeDownload/exportRandomTime?year='+ year +'&month='+ month +'&number='+ number;
 			$('#randTimeModal').modal('hide');
 		});
-		
+		/*******2020-12-15*******/
+		$('#download-time-custm').on('click', function() {
+			var year = parseInt($('#download-time-year').val(), 10);
+			var month = parseInt($('#download-time-month').val(), 10);
+			var number = parseInt($('#download-time-number').val(), 10);
+			/****新增***/
+			var startday = parseInt($('#download-startday').val(), 10);
+			var endday = parseInt($('#download-endday').val(), 10);
+			if (year < 0) {
+				toastr.error('请选择随机生成所需要的年份。。。');
+				return;
+			}
+			if (month < 0) {
+				toastr.error('请选择随机生成所需要的月份。。。');
+				return;
+			}
+			if (!number) {
+				toastr.error('请选择随机生成所需要的数目。。。');
+				return;
+			}
+			if (!startday) {
+				toastr.error('请输入开始时间。。。');
+				return;
+			}
+			if (!endday) {
+				toastr.error('请输入结束时间。。。');
+				return;
+			}
+			window.location.href = '${APP_PATH}/ExcleReviewTimeDownload/exportRandomDIYTime?year='+ year +'&month='+ month +'&number='+ number+'&startday='+startday+'&endday='+endday;
+			$('#randTimeModal').modal('hide');
+		});
 		$('#download').on('click', function() {
 			window.location.href = "${APP_PATH}/excleImport/exportReviewsImportDemo";
 		});
-		
 		$('#excleImport').on('change', function(e) {
 			var $this = $(this);
 			var excleFile = $this[0].files[0];
