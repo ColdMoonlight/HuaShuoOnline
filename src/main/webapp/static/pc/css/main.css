@@ -1614,7 +1614,7 @@ footer li {
 }
 .product-more-img .lazyload {
 	display: block;
-	background-size: 100% 100% !important;
+	background-size: 100% 100%;
 }
 .product-more-img .product-img {
 	padding-top: 100%;
