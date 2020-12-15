@@ -65,7 +65,7 @@ public class ExcleReviewTimeDownloadController {
 	/**
 	 * 下载timeRandom数据
 	 * */
-	@RequestMapping(value="/exportRandomTime",method=RequestMethod.GET)
+	@RequestMapping(value="/exportRandomDIYTime",method=RequestMethod.GET)
 	public void exportUserEmailBydate(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "year") Integer year,
 			@RequestParam(value = "month") Integer month,@RequestParam(value = "number") Integer number,
 			@RequestParam(value = "startday") Integer startday,@RequestParam(value = "endday") Integer endday,HttpSession session){
