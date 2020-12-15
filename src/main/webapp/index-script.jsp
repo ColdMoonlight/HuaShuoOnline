@@ -93,9 +93,7 @@
 						htmlStr += '<div class="swiper-slide product-item" data-productid="'+ item.productId +'">' +
 						    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
 							'<div class="product-img">' +
-								'<a href="'+ productLink +'">' +
-									'<img class="lazyload" data-src="'+ item.productMainimgurl +'" />' +
-								'</a>' +
+								'<a href="'+ productLink +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
 							'</div>' +
 							'<div class="product-desc">' +
 								'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
@@ -111,8 +109,8 @@
 						'</div>';
 					});
 
-					htmlStr += '<div class="swiper-slide product-item product-more-img lazyload" data-src="${APP_PATH}/static/pc/img/product-more.jpg">' +
-							'<a href="'+ moreLink +'"><div class="product-img"></div><div class="product-more-desc"></div></a>' +
+					htmlStr += '<div class="swiper-slide product-item product-more-img">' +
+							'<a href="'+ moreLink +'" class="lazyload" data-src="${APP_PATH}/static/pc/img/product-more.jpg""><div class="product-img"></div><div class="product-more-desc"></div></a>' +
 						'</div>';
 
 			htmlStr += '</div></div></div>';			
