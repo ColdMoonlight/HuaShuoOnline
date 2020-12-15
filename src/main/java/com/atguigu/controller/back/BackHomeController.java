@@ -102,7 +102,7 @@ public class BackHomeController {
 	
 	/**
 	 * zsh 200730
-	 * 中控台获取总用户数
+	 * 中控台获取单位时间的复购数
 	 * */
 	@RequestMapping(value="/getBackHomeMoreBuyListInfo",method=RequestMethod.POST)
 	@ResponseBody

@@ -13,7 +13,7 @@ public interface UrlCountMapper {
 	
 	List<UrlCount> selectCouponCountByTime(UrlCount urlCountReq);
 	
-	List<UrlCount> selectMoreBuyCountByTime(UrlCount urlCountReq);
+	List<UrlCount> selectMoreBuyCountByTime(UrlCount urlCountReq);//复购率查询
 
 	List<UrlCount> selectMoreBuyCountFromAddressByTime(UrlCount urlCountReq);
 	
