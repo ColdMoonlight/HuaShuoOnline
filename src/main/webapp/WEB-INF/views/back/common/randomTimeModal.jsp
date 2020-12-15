@@ -46,6 +46,20 @@
 							</div>
 						</div>
 					</div>
+					<div class="row" style="display: flex;">
+						<div class="form-group startday" style="width: 50%;">
+							<label class="col-form-label" for="download-startday">startday: </label>
+							<div class="controls">
+								<input class="form-control" id="download-startday" placeholder="请输时间..." />
+							</div>
+						</div>
+						<div class="form-group endday" style="width: 50%; margin-left: 10px;">
+							<label class="col-form-label" for="download-endday">endday: </label>
+							<div class="controls">
+								<input class="form-control" id="download-endday" placeholder="请输入时间..." />
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="form-group">
 							<label class="col-form-label" for="download-time-number">review number: </label>
@@ -53,19 +67,6 @@
 								<input class="form-control" id="download-time-number" placeholder="请输入数目..." />
 							</div>
 						</div>
-						<div class="form-group startday">
-							<label class="col-form-label" for="download-startday">startday: </label>
-							<div class="controls">
-								<input class="form-control" id="download-startday" placeholder="请输时间..." />
-							</div>
-						</div>
-						<div class="form-group endday">
-							<label class="col-form-label" for="download-endday">endday: </label>
-							<div class="controls">
-								<input class="form-control" id="download-endday" placeholder="请输入时间..." />
-							</div>
-						</div>
-						
 					</div>
 				</div>
 			</div>
