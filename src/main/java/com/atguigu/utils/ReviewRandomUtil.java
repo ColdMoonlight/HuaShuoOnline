@@ -39,6 +39,19 @@ public class ReviewRandomUtil {
 		return allTime;
 	}
 	
+	public static String getRandomDiy(int lowday,int highday) {
+		int low = lowday ;
+		int high = highday;
+		String random30Str = "";
+		int n = ((int) (Math.random()*(high-low)))+low;
+		if(n>9){
+			random30Str = n+"";
+		}else{
+			random30Str = "0"+(n+"");
+		}
+		return random30Str;
+	}
+	
 	public static String getRandom30() {
 		int low = 1 ;
 		int high = 30;
