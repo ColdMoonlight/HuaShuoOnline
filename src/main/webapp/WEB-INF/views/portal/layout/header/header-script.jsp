@@ -461,7 +461,7 @@
 			adSeo = data.slidePageseoname;
 		}
 		adLink = data.slideIfinto ? '${APP_PATH}/' + adSeo + '.html' : 'javascript:;';
-		data.slideWapstatus && $('.wap-header .ml-ad').html('<a class="lazyload" href="'+ adLink +'" data-src="'+ data.slideWapimgurl +'"></a>');
+		data.slideWapstatus && $('.wap-header .ml-ad').html('<a class="lazyload" style="background-size: cover;" href="'+ adLink +'" data-src="'+ data.slideWapimgurl +'"></a>');
 		data.slidePcstatus && $('.pc-header .ml-ad').html('<a class="lazyload" href="'+ adLink +'" data-src="'+ data.slidePcimgurl +'"></a>');
 		// lazyload
 		new LazyLoad($('.ml-ad .lazyload'), {
