@@ -956,11 +956,11 @@ main {
     animation: iphoneShare 0.5s ease-in-out alternate infinite;
 }
 @-webkit-keyframes iphoneShare {
-	0% { color: #333 }
+	0% { color: #ff2b7a }
 	100% { color: #fff }
 }
 @keyframes iphoneShare {
-	0% { color: #333 }
+	0% { color: #ff2b7a }
 	100% { color: #fff }
 }
 .iphone-advice {
