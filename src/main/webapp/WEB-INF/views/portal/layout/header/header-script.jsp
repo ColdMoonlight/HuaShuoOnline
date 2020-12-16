@@ -497,6 +497,8 @@
 	getCarouselData(5, true, function(data) {
 		var hData = data[0]
 		hData && renderHeaderAd(hData);
+		// main padding-top
+		$('main').css({ 'paddingTop': $('header').height() });
 	});
 	// initial header nav
 	getNavMenuData((window.innerWidth > 1024 ? false : true), function (data) {
