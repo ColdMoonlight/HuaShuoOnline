@@ -164,7 +164,9 @@ public class ExcleImportController {
 						getCell = row.getCell(6);
 						if (getCell != null) {
 		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    reviewOne.setReviewDetailstr(getCell.getStringCellValue());
+		                    String intoReviewMessage = getCell.getStringCellValue();
+		                    String afterMessage = intoReviewMessage.replaceAll("[^\\u0000-\\uFFFF]", "");
+		                    reviewOne.setReviewDetailstr(afterMessage);
 		                }
 						getCell = row.getCell(7);
 						if (getCell != null) {

@@ -63,7 +63,7 @@ public class ExcleReviewTimeDownloadController {
 	}
 	
 	/**
-	 * 下载timeRandom数据
+	 * 下载timeRandomDIY数据-年-月-日-开始-结束-条数
 	 * */
 	@RequestMapping(value="/exportRandomDIYTime",method=RequestMethod.GET)
 	public void exportRandomDIYTime(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "year") Integer year,

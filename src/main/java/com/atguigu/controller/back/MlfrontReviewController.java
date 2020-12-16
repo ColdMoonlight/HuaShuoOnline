@@ -116,6 +116,11 @@ public class MlfrontReviewController {
 		if(ReviewConfirmtime==""){
 			mlfrontReview.setReviewConfirmtime(nowTime);
 		}
+		
+		//屏蔽
+		String intoReviewMessage = mlfrontReview.getReviewDetailstr();
+        String afterMessage = intoReviewMessage.replaceAll("[^\\u0000-\\uFFFF]", "");
+        mlfrontReview.setReviewDetailstr(afterMessage);
 		//有id,update
 		mlfrontReviewService.updateByPrimaryKeySelective(mlfrontReview);
 		return Msg.success().add("resMsg", "更新成功");
