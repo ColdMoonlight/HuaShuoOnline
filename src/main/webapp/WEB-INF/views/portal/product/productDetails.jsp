@@ -19,12 +19,7 @@
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/swiper.jsp" flush="true"></jsp:include>
 	<style>
-		main {margin-top: 1rem;}
-		@media only screen and (max-width: 575px) {
-			main { margin: 0 }
-			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
-			.product-share .instagram {background-position: 0 -2rem;} .product-share .youtube {background-position: 0 -8rem;}
-		}
+		@media only screen and (max-width: 575px) { .product-share .instagram {background-position: 0 -2rem;} .product-share .youtube {background-position: 0 -8rem;} }
 		@media only screen and (min-width: 576px) and (max-width: 1023px) {.product-share .instagram {background-position: 0 -2.5rem;} .product-share .youtube {background-position: 0 -10rem;} }		
 		@media only screen and (min-width: 1023px) {.product-share .instagram {background-position: 0 -3rem;} .product-share .youtube {background-position: 0 -12rem;} }
 		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
@@ -34,6 +29,7 @@
     <jsp:include page="../layout/header/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
 		<div class="container">
+			<div class="product-details-name product-name"></div>
 			<div class="product-header">
 				<div class="product-media">
 					<div class="swiper-container product-slide product-zoom">
@@ -58,7 +54,6 @@
 					</div>
 				</div>
 				<div class="product-details">
-					<div class="product-name"></div>
 					<div class="product-coupons hide"></div>
 					<div class="product-options"></div>
 					<div class="product-price"></div>
