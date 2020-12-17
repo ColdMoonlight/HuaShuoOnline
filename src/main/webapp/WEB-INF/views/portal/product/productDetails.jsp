@@ -67,6 +67,7 @@
 		   				<div class="btn paypal-button btn-black buy-now">Buy Now</div>
 					</div>
 					<div id="countdown-area"></div>
+					<div class="product-might-like"></div>
 				</div>
 			</div>
 			<div class="product-body">
@@ -120,7 +121,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="product-footer"></div>
 		</div>
 	<!-- main end -->
 	<!-- footer nav -->

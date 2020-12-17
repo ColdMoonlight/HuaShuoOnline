@@ -1817,7 +1817,7 @@ footer li {
 }
 .product-thumb-slide .swiper-slide-thumb-active {
 	border-color: #ff1671;
-	box-shadow: 1 1 2px 2px #ff1671;
+	box-shadow: 0 0 2px #ff1671;
 }
 .product-media .lazyload {
 	padding-top: 100%;
@@ -2281,10 +2281,6 @@ footer li {
 		opacity: 0;
 		visibility: hidden;
 	}
-	.product-thumb-slide .swiper-slide {
-		width: 60px;
-		height: 60px;
-	}
 }
 
 @media only screen and (min-width: 576px) {
@@ -2320,6 +2316,10 @@ footer li {
 	.product-slide {
 		width: 100%;
 		min-height: 375px;
+	}
+	.product-thumb-slide .swiper-slide {
+		width: 60px;
+		height: 60px;
 	}
 }
 

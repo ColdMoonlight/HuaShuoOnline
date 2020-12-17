@@ -951,7 +951,7 @@
 	});
 	// get introduct product
 	getProductSlideArea(function(data) {
-		var $el = $('.product-footer');
+		var $el = $('.product-might-like');
 		data.length && (renderIntroduceProductSlide($el, data),
 		new LazyLoad($el.find('.lazyload'), {
 			root: null,
