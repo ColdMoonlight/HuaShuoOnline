@@ -231,17 +231,13 @@
 			rootMargin: "10px",
 			threshold: 0
 		});
-		// media video
-			// media imgs
+		// media video ormedia imgs
 		var swiperThumb = new Swiper('.product-thumb-slide', {
-			direction: 'vertical',
-			slidesPerView: 6,
+			slidesPerView: 'auto',
 			spaceBetween: 5,
 			freeMode: true,
-			navigation: {
-				nextEl: '.product-thumb-slide .swiper-button-next',
-				prevEl: '.product-thumb-slide .swiper-button-prev',
-			},
+			watchSlidesVisibility: true,
+			watchSlidesProgress: true,
 			on: {
 				slideChangeTransitionStart: function() {
 					stopVideo(); // swiper slide start, stop video play
@@ -955,7 +951,7 @@
 	});
 	// get introduct product
 	getProductSlideArea(function(data) {
-		var $el = $('.product-footer');
+		var $el = $('.product-might-like');
 		data.length && (renderIntroduceProductSlide($el, data),
 		new LazyLoad($el.find('.lazyload'), {
 			root: null,

@@ -19,12 +19,7 @@
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/swiper.jsp" flush="true"></jsp:include>
 	<style>
-		main {margin-top: 1rem;}
-		@media only screen and (max-width: 575px) {
-			main { margin: 0 }
-			.product-details, .product-body, .product-footer { margin-left: 1rem; margin-right: 1rem; }
-			.product-share .instagram {background-position: 0 -2rem;} .product-share .youtube {background-position: 0 -8rem;}
-		}
+		@media only screen and (max-width: 575px) { .product-share .instagram {background-position: 0 -2rem;} .product-share .youtube {background-position: 0 -8rem;} }
 		@media only screen and (min-width: 576px) and (max-width: 1023px) {.product-share .instagram {background-position: 0 -2.5rem;} .product-share .youtube {background-position: 0 -10rem;} }		
 		@media only screen and (min-width: 1023px) {.product-share .instagram {background-position: 0 -3rem;} .product-share .youtube {background-position: 0 -12rem;} }
 		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
@@ -34,20 +29,18 @@
     <jsp:include page="../layout/header/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
 		<div class="container">
+			<div class="product-details-name product-name"></div>
 			<div class="product-header">
 				<div class="product-media">
 					<div class="swiper-container product-slide product-zoom">
 						<div class="swiper-wrapper">
 							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><div class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }"></div><noscript><img src="${ pro.productimgUrl }" alt="${ sessionScope.mlbackProductMetaTitle }" /></noscript></div></c:forEach>
 						</div>
-			   			<div class="swiper-pagination"></div>
 					    <div class="swiper-btn swiper-button-next"></div>
 			            <div class="swiper-btn swiper-button-prev"></div>
 					</div>
 					<div class="swiper-container product-thumb-slide">
 						<div class="swiper-wrapper"></div>
-					    <div class="swiper-button-next"></div>
-			            <div class="swiper-button-prev"></div>
 					</div>
 					<div class="product-share">
 						<a class="share-item youtube" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber" title="megalook youtube"></a>
@@ -58,7 +51,6 @@
 					</div>
 				</div>
 				<div class="product-details">
-					<div class="product-name"></div>
 					<div class="product-coupons hide"></div>
 					<div class="product-options"></div>
 					<div class="product-price"></div>
@@ -75,6 +67,7 @@
 		   				<div class="btn paypal-button btn-black buy-now">Buy Now</div>
 					</div>
 					<div id="countdown-area"></div>
+					<div class="product-might-like"></div>
 				</div>
 			</div>
 			<div class="product-body">
@@ -128,7 +121,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="product-footer"></div>
 		</div>
 	<!-- main end -->
 	<!-- footer nav -->
