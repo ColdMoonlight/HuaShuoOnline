@@ -26,6 +26,15 @@
 							<div class="c-table-tab-tempory"></div>
 						</div>
 						<div class="c-table-content">
+							<div class="input-group c-search">
+								<svg class="c-icon">
+									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
+								</svg>
+								<div class="form-control">
+									<input id="coupon-name" type="text" placeholder="Search coupon-name">
+								</div>
+								<a class="btn btn-primary input-group-addon btn-save-search" disabled>Save search</a>
+							</div>
 							<div class="c-table-table table-responsive-sm">
 								<table class="table">
 									<thead>
@@ -259,16 +268,51 @@
 	<!-- custom script -->
 	<script>
 		var hasProductList = false;
-		var isCreate = false;
+		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "coupons";
 		// init
-		getCollectionsData();
+		renderTabItems();
+		getCouponsData();
 		bindDateRangeEvent(function(startTime, endTime) {
 			$('#couponStarttime').val(startTime);
 			$('#couponEndtime').val(endTime);
 		});
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
-			getCollectionsData();
+			getTabSearchData($('.c-table-tab-item.active'));
+		});
+		// tab-item click
+		$(document.body).on('click', '.c-table-tab-item', function (e) {
+			$('.c-table-tab-item').removeClass('active');
+			$(this).addClass('active');
+			// inital pagination num
+			setPageNum(1);
+			setActiveItemNum($(this).data('idx'));
+			getTabSearchData($(this));
+		});
+		// tab delete
+		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);// save search
+		$('.btn-save-search').on('click', function () {
+			var searchCouponVal = {
+				coupon: $('#coupon-name').val()
+			};
+			// cancel repeat add save-search
+			if (checkNewItem(searchCouponVal)) return;
+			if (searchCouponVal.coupon) {
+				addStorageItem(searchCouponVal);
+				$('.c-table-tab-tempory').html('');
+				createTableTabItem(searchCouponVal);
+				addTableTabItem(searchCouponVal, $('.c-table-tab-item').length);
+			}
+		});
+		// search
+		$('#coupon-name').on('keyup', function() {
+			var distanceTime = 1000,
+				newTime =  (new Date()).getTime();
+			if (newTime - oldTime < 1000) clearTimeout(timer);
+			oldTime = newTime;
+			timer = setTimeout(function() {
+				updateSearchData();
+			}, distanceTime);
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
@@ -278,7 +322,7 @@
 			$(".open_1").hide();
 			showCreateBlock();
 			resetFormData();
-			getCollectionId();
+			getCouponId();
 			isCreate = true;
 		});
 		// edit collection
@@ -301,7 +345,7 @@
 				deleteCollectionData({
 					couponId: couponId,
 				}, function() {
-					getCollectionsData();
+					getCouponsData();
 				});
 			});
 		});
@@ -322,7 +366,7 @@
 			}
 			saveCollectionData(reqData, function() {
 				showInitBlock();
-				getCollectionsData();
+				getCouponsData();
 				isCreate = false;
 				$('#couponId').val('');
 			});
@@ -380,6 +424,30 @@
 				}
 			});
 		});
+		// search status change
+		function updateSearchData() {
+			var searchCouponVal = {
+				coupon: $('#coupon-name').val()
+			};
+			// inital pagination num
+			setPageNum(1);
+
+			$('.c-table-tab-item.active').removeClass('active');
+			$('.c-table-tab-tempory').html(createTableTabItem(searchCouponVal).addClass('active'));
+			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
+		}
+		// get Data for table
+		function getTabSearchData($this) {
+			var dataVal = $this.data('val');
+			if (dataVal && dataVal.coupon) {
+				$('#coupon-name').val(dataVal.coupon || '');
+				getSearchCouponsData();
+			} else {
+				$('#coupon-name').val('');
+				initActiveItemNum();
+				getCouponsData();
+			}
+		}
 		function addPicture(el, data) {
 			var parentEl = el.parent();
 			el.attr('data-val', JSON.stringify(data));
@@ -509,7 +577,7 @@
 			$('.daterangetimepicker').data('daterangepicker').setEndDate(endTime);
 		}
 		// callback id
-		function getCollectionId() {
+		function getCouponId() {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH }/MlbackCoupon/initializaCoupon",
@@ -534,7 +602,7 @@
 			});
 		}
 		//  callback get all
-		function getCollectionsData(val) {
+		function getCouponsData(val) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackCoupon/getMlbackCouponByPage",
@@ -557,7 +625,7 @@
 				}
 			});
 		}
-		
+		// callback get one
 		function getOneCollectionData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
@@ -580,7 +648,38 @@
 				}
 			});
 		}
-		/**************/
+		// callback get search data
+		function getSearchCouponsData(data) {
+			$('.c-mask').show();
+
+			var formData = new FormData();
+			formData.append('couponName', $('#coupon-name').val());
+			formData.append('pn', getPageNum());
+
+			$.ajax({
+				url: "${APP_PATH}/MlbackCoupon/backSearchByCouponCode",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				success: function (data) {
+					if (data.code == 100) {
+						renderTable(data.extend.pageInfo.list);
+						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get coupon-list, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
 		// callback save
 		function saveCollectionData(reqData, callback) {
 			$('.c-mask').show();
