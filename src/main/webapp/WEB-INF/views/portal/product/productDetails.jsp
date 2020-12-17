@@ -36,14 +36,11 @@
 						<div class="swiper-wrapper">
 							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><div class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }"></div><noscript><img src="${ pro.productimgUrl }" alt="${ sessionScope.mlbackProductMetaTitle }" /></noscript></div></c:forEach>
 						</div>
-			   			<div class="swiper-pagination"></div>
 					    <div class="swiper-btn swiper-button-next"></div>
 			            <div class="swiper-btn swiper-button-prev"></div>
 					</div>
 					<div class="swiper-container product-thumb-slide">
 						<div class="swiper-wrapper"></div>
-					    <div class="swiper-button-next"></div>
-			            <div class="swiper-button-prev"></div>
 					</div>
 					<div class="product-share">
 						<a class="share-item youtube" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber" title="megalook youtube"></a>
