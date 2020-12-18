@@ -1,5 +1,6 @@
 package com.atguigu.controller.back;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackProduct;
+import com.atguigu.bean.MlbackProductSku;
 import com.atguigu.bean.MlbackProductTogether;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
@@ -20,6 +22,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlbackProductSkuService;
 import com.atguigu.service.MlbackProductTogetherService;
 import com.atguigu.utils.DateUtil;
 
@@ -35,6 +38,9 @@ public class MlbackProductTogetherController {
 	
 	@Autowired
 	MlbackAdminService mlbackAdminService;
+	
+	@Autowired
+	MlbackProductSkuService mlbackProductSkuService;
 	
 	/**
 	 * 1.0	20201217
@@ -152,6 +158,78 @@ public class MlbackProductTogetherController {
 		return Msg.success().add("resMsg", "查CatalogOne完毕").add("mlbackProductTogetherOne", mlbackProductTogetherOne);
 	}
 	
+	/**
+	 * 6.1	20201218
+	 * 查单条mlbackProductTogether详情
+	 * @param mlbackProductTogether-wholesaleId
+	 * @return 
+	 */
+	@RequestMapping(value="/getProtalOneMlbackProductTogetherDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getProtalOneMlbackProductTogetherDetail(@RequestBody MlbackProductTogether mlbackProductTogether){
+		//有组合,查不到-走;能查到-显示;组合是,,,,,,,,
+		//接受wholesaleId
+		Integer producttogetherId = mlbackProductTogether.getProducttogetherId();
+		MlbackProductTogether mlbackProductTogetherReq = new MlbackProductTogether();
+		mlbackProductTogetherReq.setProducttogetherId(producttogetherId);
+		//查询本条
+		List<MlbackProductTogether> mlbackProductTogetherResList =mlbackProductTogetherService.selectMlbackProductTogetherById(mlbackProductTogetherReq);
+		MlbackProductTogether mlbackProductTogetherRes = null;
+		
+		if(mlbackProductTogetherResList.size()>0){
+			//取出结果
+			mlbackProductTogetherRes =mlbackProductTogetherResList.get(0);
+			//拿到值
+			String toGetHerIdsStr = mlbackProductTogetherRes.getProducttogetherProsidStr();
+			//抽出下面的几个id
+			String toGetHerIdsStrArr [] = toGetHerIdsStr.split(",");
+			//遍历ids,准备拿下面的sku属性列表
+			
+			List<MlbackProduct> mlbackProductList =new ArrayList<MlbackProduct>();
+			List<List<MlbackProductSku>> mlbackProductSkuTogetherList =new ArrayList<List<MlbackProductSku>>();
+			for(int i=0;i<toGetHerIdsStrArr.length;i++){
+				String proIdstr=toGetHerIdsStrArr[i];
+				Integer proIdInt = Integer.parseInt(proIdstr);
+				//准备封装产品id,查询该id下面的sku明细
+				MlbackProduct mlbackProductOne = getProListByPid(proIdInt);
+				mlbackProductList.add(mlbackProductOne);
+				//准备封装产品id,查询该id下面的sku明细
+				List<MlbackProductSku> mlbackProductSkuResListOne = getPSkuListByPid(proIdInt);
+				mlbackProductSkuTogetherList.add(mlbackProductSkuResListOne);
+			}
+			//组合,查到-显示;
+			return Msg.success().add("resMsg", "查CatalogOne完毕").add("mlbackProductTogetherRes", mlbackProductTogetherRes)
+					.add("mlbackProductList", mlbackProductList).add("mlbackProductSkuTogetherList", mlbackProductSkuTogetherList);
+		}else{
+			//组合,查不到-走;
+			return Msg.success().add("resMsg", "查CatalogOne完毕").add("mlbackProductTogetherRes", mlbackProductTogetherRes);
+		}
+	}
+	
+	private MlbackProduct getProListByPid(Integer proIdInt) {
+		MlbackProduct mlbackProductReq = new MlbackProduct();
+		mlbackProductReq.setProductId(proIdInt);
+		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductbyPid(mlbackProductReq);
+		MlbackProduct mlbackProductOne = new MlbackProduct();
+		if(mlbackProductResList.size()>0){
+			//如果用这个id查到,就拿出来.
+			mlbackProductOne = mlbackProductResList.get(0);
+		}
+		return mlbackProductOne;
+	}
+
+	private List<MlbackProductSku> getPSkuListByPid(Integer productskuPid) {
+		
+		MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();
+		mlbackProductSkuReq.setProductskuPid(productskuPid);
+		mlbackProductSkuReq.setProductskuStatus(1);//
+		
+		//接受信息
+		List<MlbackProductSku> mlbackProductSkuResList =mlbackProductSkuService.selectMlbackProductSkuListByPIdTogether(mlbackProductSkuReq);
+		return mlbackProductSkuResList;
+		
+	}
+
 	/**
 	 * 7.0	20200608
 	 * 后端获取backSearchByWholesale产品list
