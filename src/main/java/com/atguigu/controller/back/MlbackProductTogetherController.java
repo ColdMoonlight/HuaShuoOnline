@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackProductTogether;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
@@ -41,8 +43,14 @@ public class MlbackProductTogetherController {
 	 * */
 	@RequestMapping("/toProductTogetherPage")
 	public String toProductTogetherPage(HttpSession session) throws Exception{
-
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
 			return "back/product/productTogetherPage";
+		}
 	}
 	
 	/**2.0	20200703
@@ -144,27 +152,27 @@ public class MlbackProductTogetherController {
 		return Msg.success().add("resMsg", "查CatalogOne完毕").add("mlbackProductTogetherOne", mlbackProductTogetherOne);
 	}
 	
-//	/**
-//	 * 7.0	20200608
-//	 * 后端获取backSearchByWholesale产品list
-//	 * @return 
-//	 * */
-//	@RequestMapping(value="/backSearchByWholesale",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg backSearchByProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
-//			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
-//			@RequestParam(value = "wholesaleCustomerName") String wholesaleCustomerName,
-//			@RequestParam(value = "wholesaleCustomerStatus", defaultValue = "1") String wholesaleCustomerStatus) throws Exception{
-//		
-//		//接收传递进来的参数
-//		int PagNum = 30;
-//		PageHelper.startPage(pn, PagNum);
-//		
-//		mlbackProductTogether mlbackProductTogetherReq = new mlbackProductTogether();
-//		mlbackProductTogetherReq.setWholesaleCustomerStatus(wholesaleCustomerStatus);
-//		mlbackProductTogetherReq.setWholesaleCustomerName(wholesaleCustomerName);
-//		List<mlbackProductTogether> mlbackProductTogetherResList = mlbackProductTogetherService.selectmlbackProductTogetherBackSearch(mlbackProductTogetherReq);
-//		PageInfo page = new PageInfo(mlbackProductTogetherResList, PagNum);
-//		return Msg.success().add("pageInfo", page);
-//	}
+	/**
+	 * 7.0	20200608
+	 * 后端获取backSearchByWholesale产品list
+	 * @return 
+	 * */
+	@RequestMapping(value="/backSearchByProductTogether",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg backSearchByProductTogether(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "producttogetherName") String producttogetherName,
+			@RequestParam(value = "producttogetherSupercateId", defaultValue = "1") Integer producttogetherSupercateId) throws Exception{
+		
+		//接收传递进来的参数
+		int PagNum = 30;
+		PageHelper.startPage(pn, PagNum);
+		
+		MlbackProductTogether mlbackProductTogetherReq = new MlbackProductTogether();
+		mlbackProductTogetherReq.setProducttogetherName(producttogetherName);
+		mlbackProductTogetherReq.setProducttogetherSupercateId(producttogetherSupercateId);
+		List<MlbackProductTogether> mlbackProductTogetherResList = mlbackProductTogetherService.selectMlbackProductTogetherBackSearch(mlbackProductTogetherReq);
+		PageInfo page = new PageInfo(mlbackProductTogetherResList, PagNum);
+		return Msg.success().add("pageInfo", page);
+	}
 }
