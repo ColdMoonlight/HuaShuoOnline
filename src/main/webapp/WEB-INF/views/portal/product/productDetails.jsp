@@ -23,6 +23,7 @@
 		@media only screen and (min-width: 576px) and (max-width: 1023px) {.product-share .instagram {background-position: 0 -2.5rem;} .product-share .youtube {background-position: 0 -10rem;} }		
 		@media only screen and (min-width: 1023px) {.product-share .instagram {background-position: 0 -3rem;} .product-share .youtube {background-position: 0 -12rem;} }
 		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
+		.product-might-like { max-width: 800px; margin: 0 auto; }
 	</style>
 </head>
 <body>

@@ -2315,7 +2315,7 @@ footer li {
 	}
 	.product-slide {
 		width: 100%;
-		min-height: 375px;
+		min-height: 300px;
 	}
 	.product-thumb-slide .swiper-slide {
 		width: 60px;
