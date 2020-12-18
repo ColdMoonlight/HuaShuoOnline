@@ -27,7 +27,6 @@
 			.product_list_box ul li a{display: block;width: 100%; padding-top:143.75% }
 			.product_list_box ul li:nth-of-type(5) a,.product_list_box ul li:nth-of-type(6) a,.product_list_box ul li:nth-of-type(7) a,.product_list_box ul li:nth-of-type(8) a{padding-top:141%;}
 			.product_list_box ul li img{max-width: 100%; height: auto;}
-			
 			@media only screen and (max-width: 780px) {
 				.product_list_box ul li{width:48%;; margin: 0 1% 1%;}
 			}
