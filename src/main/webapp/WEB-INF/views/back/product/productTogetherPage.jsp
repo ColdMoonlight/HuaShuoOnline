@@ -6,7 +6,35 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Product Together</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
+	<style>
+		.product-operate {
+			text-align: right;
+		}
+		.product-list {
+			padding: 1rem;
+			margin-top: 1rem;
+			border: 1px solid #7d50af;
+		}
+		.product-item {
+			display: flex;
+			padding: .5rem;
+			border: 1px solid #ccc;
+			border-radius: .5rem;
+		}
+		.product-item+.product-item {
+			margin-top: 1rem;
+		}
+		.product-img {
+			display: block;
+			width: 100px;
+			height: 100px;
+			margin-right: 1rem;
+		}
+		.porudct-name {
+			font-size: 1.2rem;
+			color: #333;
+		}
+	</style>
 </head>
 <body class="c-app">
 	<jsp:include page="../layout/backheader.jsp" flush="true"></jsp:include>
@@ -78,11 +106,26 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="producttogetherName">ProductTogether Name</label>
+										<label class="col-form-label" for="producttogetherName">Name</label>
 										<div class="controls">
 											<input class="form-control" id="producttogetherName" type="text" />
 										</div>
 									</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">products</div>
+								</div>
+								<div class="card-body">
+									<input id="producttogetherProsidStr" hidden />
+									<input id="producttogetherProsnameStr" hidden />
+									<input id="producttogetherProsseoStr" hidden />
+									<input id="producttogetherProsimgurlStr" hidden />
+									<div class="product-operate">
+										<button class="btn btn-primary" id="product-together-edit">edit it</button>
+									</div>
+									<div class="product-list"></div>
 								</div>
 							</div>
 						</div>
@@ -90,7 +133,7 @@
 						<div class="right-panel col-lg-5 col-md-12">
 							<div class="card">
 								<div class="card-title">
-									<div class="card-title-name">Super Category & Product-list</div>
+									<div class="card-title-name">Super Category</div>
 								</div>
 								<div class="card-body">
 									<div class="form-group">
@@ -99,12 +142,6 @@
 											<select class="form-control supercate-list" id="producttogetherSupercateId" /></select>
 										</div>
 									</div>
-									<!-- <div class="form-group">
-										<label class="col-form-label" for="profbreviewAreaPid">Product list</label>
-										<div class="controls">
-											<select class="form-control product-list" id="profbreviewAreaPid" /></select>
-										</div>
-									</div> -->
 								</div>
 							</div>
 						</div>
@@ -120,13 +157,13 @@
 	</div>
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
-	
-	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
-	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
+	<jsp:include page="../common/editModal.jsp" flush="true"></jsp:include>
+
 	<!-- custom script -->
 	<script>
 		var hasSuperCateList = false;
 		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "product-together";
+		var selectedName = [], selectedId = [], selectedSeo = [], selectedImg = [];
 
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
 		$('#search-supercate').val($('#search-supercate').data('val') || -1);
@@ -140,6 +177,7 @@
 		// create wholesale
 		$('.btn-create').on('click', function () {
 			$('.c-create c-option-title').text('Create Product-Together');
+			resetFormData();
 			showViewBlock();
 			getProductTogetherId();
 			isCreate = true;
@@ -162,6 +200,7 @@
 			isCreate && producttogetherId && deleteProductTogetherData({
 				producttogetherId: producttogetherId,
 			});
+			$('#editModal .select-result').addClass('hide');
 		});
 		// tab-item click
 		$(document.body).on('click', '.c-table-tab-item', function (e) {
@@ -213,7 +252,7 @@
 			getOneProductTogetherData({
 				producttogetherId: producttogetherId
 			}, function(resData) {
-				$('.c-create c-option-title').text('View Product-Together');
+				$('.c-create c-option-title').text('Edit Product-Together');
 				initFormData(resData);;
 				showViewBlock();
 			});
@@ -240,12 +279,123 @@
 				});
 			});
 		});
+		// status combinewith supercate
+		$('#producttogetherStatus').on('click', function(e) {
+			if (parseInt($('#producttogetherSupercateId').val()) < 0) {
+				toastr.info('Please Select super-category!');
+				$('#producttogetherSupercateId').focus();
+				$('#producttogetherStatus').prop('checked', false);
+			}
+		});
+		// slelect content
+		$('#product-together-edit').on('click', function() {
+			var $selectResult = $('#editModal .select-result .value');
+
+			$('#editModal .select-result').removeClass('hide');
+
+			if (selectedId.length) {
+				$selectResult.text(selectedId.join(','));
+			} else {
+				$selectResult.text('');
+			}
+
+			getAllProductData(renderAllProduct2);
+
+			$('#editModal').find('.modal-title').text('Select product ...');
+			$('#editModal').modal('show');
+		});
+		$(document.body).on('click', '#editModal .form-check-input', function() {
+			var $this = $(this);
+			var id = '' + $this.data('id');
+			var name = $this.data('name');
+			var seo = $this.data('seo');
+			var img = $this.data('img');
+			if ($this.prop('checked')) {
+				selectedId.push(id);
+				selectedName.push(name);
+				selectedSeo.push(seo);
+				selectedImg.push(img);
+			} else {
+				var idx = selectedId.indexOf(id);
+				var namex = selectedName.indexOf(name);
+				var seox = selectedSeo.indexOf(seo);
+				var imgx = selectedImg.indexOf(img);
+				idx > -1  && selectedId.splice(idx, 1);
+				namex > -1  && selectedName.splice(namex, 1);
+				seox > -1  && selectedSeo.splice(seox, 1);
+				imgx > -1  && selectedImg.splice(imgx, 1);
+			}
+			$('#editModal .select-result .value').text(selectedId.join(', '));
+			$('#editModal .btn-ok').one('click', function() {
+				if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
+					$('#producttogetherProsidStr').val(selectedId.join(','));
+					$('#producttogetherProsnameStr').val(selectedName.join(','));
+					$('#producttogetherProsseoStr').val(selectedSeo.join(','));
+					$('#producttogetherProsimgurlStr').val(selectedImg.join(','));
+					// render product list
+					renderSelectedProduct();
+				} else {
+					console.log('数据错误！！！');
+				}
+				$('#editModal').modal('hide');
+			});
+		});
+		// render selectedProduct
+		function renderSelectedProduct() {
+			if (selectedId.length) {
+				var htmlStr = '';
+				selectedId.forEach(function(item, idx) {
+					htmlStr += '<div class="product-item">' +
+						'<img class="product-img" src="'+ selectedImg[idx] + '" />' +
+						'<div class="product-name">' + selectedName[idx] + '</div>' +
+					'</div>';
+				});
+			} else {
+				htmlStr = '<p class="text-align: center; font-style: italic;">Empty here...</p>';
+			}
+			$('.product-list').html(htmlStr);
+		}
+		// get all product
+		function renderAllProduct2(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				var productId = data[i].productId;
+				var productName = data[i].productName;
+				var productSeo = data[i].productSeo;
+				var productImg = data[i].productMainimgurl;
+				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
+						'<input class="form-check-input" id="'+ productId +'" type="checkbox"'+ (selectedId.indexOf('' + productId) > -1 ? ' checked' : '') +' value="" data-id="'+ productId +'" data-name="'+ productName +'" data-seo="'+ productSeo +'" data-img="'+ productImg +'">' +
+						'<label class="form-check-label" for="'+ productId +'">'+
+							'<span class="table-th">'+ productId +'</span>' +
+							/* '<span class="table-th">'+ (productImg ?
+									'<div class="c-table-img"><img src="'+ encodeUrl(productImg) +'" /></div>'
+									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
+							'</span>' + */
+							'<span class="table-th" style="width: auto;">'+ productName +'</span>' +
+							/* '<span class="table-th">'+ productSeo +'</span>' + */
+						'</label>' +
+					'</div></div>';
+			}
+			$('#editModal .modal-body-body').html(htmlStr);
+			$('#editModal .spinner').hide();
+		}
 		// handle formData
 		// reset data
 		function resetFormData() {
 			$('#producttogetherId').val('');
 			$('#producttogetherName').val('');
 			$('#producttogetherStatus').prop('checked', false);
+
+			$('#producttogetherProsidStr').val('');
+			$('#producttogetherProsnameStr').val('');
+			$('#producttogetherProsseoStr').val('');
+			$('#producttogetherProsimgurlStr').val('');
+
+			selectedId = [];
+			selectedName = [];
+			selectedSeo = [];
+			selectedImg = [];
+			renderSelectedProduct();
 
 			$('#producttogetherSupercateId').val('-1');
 		}
@@ -256,6 +406,11 @@
 			data.producttogetherName = $('#producttogetherName').val();
 			data.producttogetherStatus = $('#producttogetherStatus').prop('checked') ? 1 : 0;
 
+			data.producttogetherProsidStr = $('#producttogetherProsidStr').val();
+			data.producttogetherProsnameStr = $('#producttogetherProsnameStr').val();
+			data.producttogetherProsseoStr = $('#producttogetherProsseoStr').val();
+			data.producttogetherProsimgurlStr = $('#producttogetherProsimgurlStr').val();
+
 			data.producttogetherSupercateId = $('#producttogetherSupercateId').val();
 			data.producttogetherSupercateName = $('#producttogetherSupercateId').find('option:checked').text();
 			return data;
@@ -263,8 +418,22 @@
 		// initFormData
 		function initFormData(data) {
 			$('#producttogetherId').val(data.producttogetherId);
-			$('#producttogetherName').val(data.producttogetherName);
+			$('#producttogetherName').val(data.producttogetherName || '');
 			$('#producttogetherStatus').prop('checked', (''+data.producttogetherStatus == '0' ? false : true));
+
+			$('#producttogetherProsidStr').val(data.producttogetherProsidStr || '');
+			$('#producttogetherProsnameStr').val(data.producttogetherProsnameStr || '');
+			$('#producttogetherProsseoStr').val(data.producttogetherProsseoStr || '');
+			$('#producttogetherProsimgurlStr').val(data.producttogetherProsimgurlStr || '');
+
+			if (data.producttogetherProsidStr && data.producttogetherProsnameStr && data.producttogetherProsseoStr && data.producttogetherProsimgurlStr) {
+				selectedId = data.producttogetherProsidStr.split(',');
+				selectedName = data.producttogetherProsnameStr.split(',');
+				selectedSeo = data.producttogetherProsseoStr.split(',');
+				selectedImg = data.producttogetherProsimgurlStr.split(',');
+			}
+			// render product list
+			renderSelectedProduct();
 
 			$('#producttogetherSupercateId').val(data.producttogetherSupercateId || '-1');
 		}
@@ -477,7 +646,7 @@
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].producttogetherId + '</td>' +
-					'<td>' + data[i].producttogetherName + '</td>' +
+					'<td>' + (data[i].producttogetherName || '') + '</td>' +
 					'<td><a class="badge '+ ('' + data[i].producttogetherStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].producttogetherStatus == '0' ? 'unabled' : 'enabled') + '</a></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].producttogetherId + '">' +
