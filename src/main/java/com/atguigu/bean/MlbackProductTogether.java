@@ -13,7 +13,7 @@ public class MlbackProductTogether {
 
     private String producttogetherProsseoStr;
 
-    private Integer producttogetherProsimgurlStr;
+    private String producttogetherProsimgurlStr;
 
     private Integer producttogetherSupercateId;
 
@@ -71,12 +71,12 @@ public class MlbackProductTogether {
         this.producttogetherProsseoStr = producttogetherProsseoStr == null ? null : producttogetherProsseoStr.trim();
     }
 
-    public Integer getProducttogetherProsimgurlStr() {
+    public String getProducttogetherProsimgurlStr() {
         return producttogetherProsimgurlStr;
     }
 
-    public void setProducttogetherProsimgurlStr(Integer producttogetherProsimgurlStr) {
-        this.producttogetherProsimgurlStr = producttogetherProsimgurlStr;
+    public void setProducttogetherProsimgurlStr(String producttogetherProsimgurlStr) {
+        this.producttogetherProsimgurlStr = producttogetherProsimgurlStr == null ? null : producttogetherProsimgurlStr.trim();
     }
 
     public Integer getProducttogetherSupercateId() {
@@ -117,7 +117,7 @@ public class MlbackProductTogether {
 
 	public MlbackProductTogether(Integer producttogetherId, String producttogetherName, Integer producttogetherStatus,
 			String producttogetherProsidStr, String producttogetherProsnameStr, String producttogetherProsseoStr,
-			Integer producttogetherProsimgurlStr, Integer producttogetherSupercateId,
+			String producttogetherProsimgurlStr, Integer producttogetherSupercateId,
 			String producttogetherSupercateName, String producttogetherCreatetime, String producttogetherMotifytime) {
 		super();
 		this.producttogetherId = producttogetherId;
