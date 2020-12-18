@@ -54,7 +54,7 @@
 					</div>
 				</div>
 				<!-- edit or create -->
-				<div class="c-view hide">
+				<div class="c-create hide">
 					<div class="c-option">
 						<span class="c-option-title">View Product-Together</span>
 						<div class="group">
@@ -139,15 +139,29 @@
 		});
 		// create wholesale
 		$('.btn-create').on('click', function () {
-			$('.c-view c-option-title').text('Create Product-Together');
+			$('.c-create c-option-title').text('Create Product-Together');
 			showViewBlock();
 			getProductTogetherId();
 			isCreate = true;
 		});
 		$('.btn-back').on('click', function () {
-			$('.c-view c-option-title').text('Product-Together List');
+			if (isCreate) {
+				isCreate = false;
+				deleteProductTogetherData({
+					producttogetherId: $('#producttogetherId').val(),
+				}, function() {
+					console.log("cancel create product-together...");
+				});
+			}
+			$('.c-create c-option-title').text('Product-Together List');
 			showInitBlock();
 			resetFormData();
+		});
+		$(window).on('beforeunload', function() {
+			var producttogetherId = $('#producttogetherId').val();
+			isCreate && producttogetherId && deleteProductTogetherData({
+				producttogetherId: producttogetherId,
+			});
 		});
 		// tab-item click
 		$(document.body).on('click', '.c-table-tab-item', function (e) {
@@ -199,13 +213,13 @@
 			getOneProductTogetherData({
 				producttogetherId: producttogetherId
 			}, function(resData) {
-				$('.c-view c-option-title').text('View Product-Together');
+				$('.c-create c-option-title').text('View Product-Together');
 				initFormData(resData);;
 				showViewBlock();
 			});
 		});
 		// save product-together
-		$('.c-view .btn-save').on('click', function () {
+		$('.c-create .btn-save').on('click', function () {
 			var reqData = getFormData();
 			saveProductTogetherData(reqData, function() {
 				showInitBlock();
@@ -272,11 +286,11 @@
 		// tab view/init
 		function showViewBlock() {
 			$('.c-init').addClass('hide');
-			$('.c-view').removeClass('hide');
+			$('.c-create').removeClass('hide');
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
-			$('.c-view').addClass('hide');
+			$('.c-create').addClass('hide');
 		}
 		// get Data for table
 		function getTabSearchData($this) {
@@ -361,7 +375,7 @@
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						var producttogetherId = data.extend&& data.extend.mlbackProductTogether && data.extend.mlbackProductTogether.categoryId;
+						var producttogetherId = data.extend&& data.extend.mlbackProductTogether && data.extend.mlbackProductTogether.producttogetherId;
 						if (producttogetherId) {
 							$('#producttogetherId').val(data.extend.mlbackProductTogether.producttogetherId);
 							toastr.success(data.extend.resMsg);
@@ -464,7 +478,7 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].producttogetherId + '</td>' +
 					'<td>' + data[i].producttogetherName + '</td>' +
-					'<td><a class="badge '+ ('' + data[i].producttogetherStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].producttogetherStatus == '0' ? 'Uncontacted' : 'Contacted') + '</a></td>' +
+					'<td><a class="badge '+ ('' + data[i].producttogetherStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].producttogetherStatus == '0' ? 'unabled' : 'enabled') + '</a></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].producttogetherId + '">' +
 							'<svg class="c-icon">' +
