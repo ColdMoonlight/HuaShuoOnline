@@ -55,6 +55,17 @@ public class MlbackProductSkuService {
 		List<MlbackProductSku>  MlbackProductSkuList = mlbackProductSkuMapper.selectMlbackProductSkuListByPId(mlbackProductSku);
 		return MlbackProductSkuList;
 	}
+	
+	/**
+	 * @author Shinelon
+	 * @param 
+	 * @exception 查看全部MlbackProductSku信息
+	 * 
+	 * */
+	public List<MlbackProductSku> selectMlbackProductSkuListByPIdTogether(MlbackProductSku mlbackProductSku) {
+		List<MlbackProductSku>  MlbackProductSkuList = mlbackProductSkuMapper.selectMlbackProductSkuListByPIdTogether(mlbackProductSku);
+		return MlbackProductSkuList;
+	}
 //
 //	/**
 //	 * @author Shinelon

@@ -19,4 +19,6 @@ public interface MlbackProductSkuMapper {
     int updateByPrimaryKeySelective(MlbackProductSku record);
     //selectMlbackProductSkuByPId
     List<MlbackProductSku> selectMlbackProductSkuListByPId(MlbackProductSku record);
+	//selectMlbackProductSkuListByPIdTogether
+	List<MlbackProductSku> selectMlbackProductSkuListByPIdTogether(MlbackProductSku mlbackProductSku);
 }
