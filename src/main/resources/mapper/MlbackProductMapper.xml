@@ -587,7 +587,7 @@
   <!-- selectMlbackProductDownLoadByParam -->
   <select id="selectMlbackProductDownLoadByParam" parameterType="com.atguigu.bean.MlbackProduct" resultMap="BaseResultMap">
     select 
-    product_id, product_name, product_seo, product_superCateId, product_superCateName,product_status
+    product_id, product_name, product_seo, product_superCateId, product_superCateName,product_status,product_mainimgurl
     from tb_mlback_product
     where product_reviewNum >=0
       <if test="productId != null">
