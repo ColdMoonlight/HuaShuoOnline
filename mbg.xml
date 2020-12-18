@@ -70,6 +70,8 @@
 		<table tableName="tb_mlblack_pagearea" domainObjectName="MlbackPageArea" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_search" domainObjectName="MlbackSearch" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_profbreview_area" domainObjectName="MlbackProfbreviewArea" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		//产品推荐/一起买
+		<table tableName="tb_mlback_productTogether" domainObjectName="MlbackProductTogether" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 
 		<!--	tb_mlfront

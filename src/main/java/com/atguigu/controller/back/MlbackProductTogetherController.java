@@ -1,0 +1,171 @@
+package com.atguigu.controller.back;
+
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.atguigu.bean.MlbackProductTogether;
+import com.atguigu.bean.MlbackShowArea;
+import com.atguigu.common.Const;
+import com.atguigu.common.Msg;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.atguigu.service.MlbackAdminService;
+import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlbackProductTogetherService;
+import com.atguigu.utils.DateUtil;
+
+@Controller
+@RequestMapping("/productTogether")
+public class MlbackProductTogetherController {
+	
+	@Autowired
+	MlbackProductService mlbackProductService;
+	
+	@Autowired
+	MlbackProductTogetherService mlbackProductTogetherService;
+	
+	@Autowired
+	MlbackAdminService mlbackAdminService;
+	
+	/**
+	 * 1.0	20201217
+	 * to后台分类ProductTogether列表页面
+	 * @return jsp
+	 * */
+	@RequestMapping("/toProductTogetherPage")
+	public String toProductTogetherPage(HttpSession session) throws Exception{
+
+			return "back/order/productTogetherPage";
+	}
+	
+	/**2.0	20200703
+	 * 后台MlbackCatalog列表分页list数据
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/getProductTogetherByPage")
+	@ResponseBody
+	public Msg getProductTogetherByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+
+		int PagNum = Const.PAGE_NUM_CATEGORY;
+		PageHelper.startPage(pn, PagNum);
+		List<MlbackProductTogether> productTogetherList = mlbackProductTogetherService.selectMlbackProductTogetherGetAll();
+		PageInfo page = new PageInfo(productTogetherList, PagNum);
+		return Msg.success().add("pageInfo", page);
+	}
+	
+	/**3.0	20200703
+	 * MlbackProductTogether	initializaProductTogether
+	 * @param MlbackProductTogether
+	 * @return
+	 */
+	@RequestMapping(value="/initializaProductTogether",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg initializaProductTogether(HttpServletResponse rep,HttpServletRequest res){
+		
+		MlbackProductTogether mlbackProductTogether = new MlbackProductTogether();
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		mlbackProductTogether.setProducttogetherCreatetime(nowTime);
+		mlbackProductTogether.setProducttogetherStatus(0);//0未上架1上架中
+		//无id，insert
+		System.out.println("插入前"+mlbackProductTogether.toString());
+		mlbackProductTogetherService.insertSelective(mlbackProductTogether);
+		System.out.println("插入后"+mlbackProductTogether.toString());
+		return Msg.success().add("resMsg", "Catalog初始化成功").add("mlbackProductTogether", mlbackProductTogether);
+	}
+	
+	/**3.0	20200703
+	 * mlbackProductTogether	update
+	 * @param mlbackProductTogether
+	 * @return
+	 */
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackProductTogether mlbackProductTogether){
+		//接受参数信息
+		System.out.println("mlbackProductTogether:"+mlbackProductTogether);
+		//取出id
+		Integer proTogetherId = mlbackProductTogether.getProducttogetherId();
+		String nowTime = DateUtil.strTime14s();
+		mlbackProductTogether.setProducttogetherMotifytime(nowTime);
+		if(proTogetherId==null){
+			//无id,insert
+			mlbackProductTogether.setProducttogetherCreatetime(nowTime);
+			mlbackProductTogetherService.insertSelective(mlbackProductTogether);
+			System.out.println("mlbackProductTogether--insertSuccess--:"+mlbackProductTogether);
+			return Msg.success().add("resMsg", "插入成功");
+		}else{
+			//有id,update
+			mlbackProductTogetherService.updateByPrimaryKeySelective(mlbackProductTogether);
+			return Msg.success().add("resMsg", "更新成功");
+			
+		}
+	}
+	
+	/**4.0	20200703
+	 * mlbackProductTogether	delete
+	 * @param mlbackProductTogether-producttogetherId
+	 * @return 
+	 */
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg delete(@RequestBody MlbackProductTogether mlbackProductTogether){
+		//接收id信息
+		Integer producttogetherId = mlbackProductTogether.getProducttogetherId();
+		mlbackProductTogetherService.deleteByPrimaryKey(producttogetherId);
+		return Msg.success().add("resMsg", "Catalog delete  success");
+	}
+	
+	/**
+	 * 6.0	20200703
+	 * 查单条mlbackProductTogether详情
+	 * @param mlbackProductTogether-wholesaleId
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlbackProductTogetherDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlbackProductTogetherDetail(@RequestBody MlbackProductTogether mlbackProductTogether){
+		
+		//接受wholesaleId
+		Integer producttogetherId = mlbackProductTogether.getProducttogetherId();
+		MlbackProductTogether mlbackProductTogetherReq = new MlbackProductTogether();
+		mlbackProductTogetherReq.setProducttogetherId(producttogetherId);
+		//查询本条
+		List<MlbackProductTogether> mlbackProductTogetherResList =mlbackProductTogetherService.selectMlbackProductTogetherById(mlbackProductTogetherReq);
+		MlbackProductTogether mlbackProductTogetherOne =mlbackProductTogetherResList.get(0);
+		return Msg.success().add("resMsg", "查CatalogOne完毕").add("mlbackProductTogetherOne", mlbackProductTogetherOne);
+	}
+	
+//	/**
+//	 * 7.0	20200608
+//	 * 后端获取backSearchByWholesale产品list
+//	 * @return 
+//	 * */
+//	@RequestMapping(value="/backSearchByWholesale",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Msg backSearchByProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+//			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+//			@RequestParam(value = "wholesaleCustomerName") String wholesaleCustomerName,
+//			@RequestParam(value = "wholesaleCustomerStatus", defaultValue = "1") String wholesaleCustomerStatus) throws Exception{
+//		
+//		//接收传递进来的参数
+//		int PagNum = 30;
+//		PageHelper.startPage(pn, PagNum);
+//		
+//		mlbackProductTogether mlbackProductTogetherReq = new mlbackProductTogether();
+//		mlbackProductTogetherReq.setWholesaleCustomerStatus(wholesaleCustomerStatus);
+//		mlbackProductTogetherReq.setWholesaleCustomerName(wholesaleCustomerName);
+//		List<mlbackProductTogether> mlbackProductTogetherResList = mlbackProductTogetherService.selectmlbackProductTogetherBackSearch(mlbackProductTogetherReq);
+//		PageInfo page = new PageInfo(mlbackProductTogetherResList, PagNum);
+//		return Msg.success().add("pageInfo", page);
+//	}
+}
