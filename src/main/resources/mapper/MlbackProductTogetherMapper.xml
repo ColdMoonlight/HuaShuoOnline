@@ -192,7 +192,7 @@
     productTogether_prosName_str, productTogether_prosSeo_str, productTogether_prosImgUrl_str
   	from tb_mlback_producttogether 
     where productTogether_name like concat(concat("%",#{producttogetherName}),"%")
-     <if test="catalogSupercateId != null">
+     <if test="producttogetherSupercateId != null">
      	and productTogether_superCate_id = #{producttogetherSupercateId,jdbcType=INTEGER}
      </if>
     order by productTogether_id desc
