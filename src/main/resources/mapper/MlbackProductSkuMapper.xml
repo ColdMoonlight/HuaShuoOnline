@@ -183,6 +183,17 @@
       </if>
        order by productSku_id
   </select>
-  <!-- insertSelective -->
+  <!-- selectMlbackProductSkuListByPIdTogether使用中 -->
+  <select id="selectMlbackProductSkuListByPIdTogether" parameterType="com.atguigu.bean.MlbackProductSku" resultMap="BaseResultMap">
+    select 
+    productSku_id, productSku_name, productSku_Code, productSku_PSeoname,
+    productSku_money, productSku_stock, productSku_pid, productSku_status
+    from tb_mlback_product_sku
+    where productSku_stock >0 and productSku_pid = #{productskuPid,jdbcType=INTEGER} 
+      <if test="productskuStatus != null">
+       and productSku_status = #{productskuStatus,jdbcType=INTEGER}
+      </if>
+       order by productSku_name
+  </select>
   
 </mapper>
