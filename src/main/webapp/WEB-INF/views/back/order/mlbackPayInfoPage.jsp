@@ -174,32 +174,32 @@
 												<div class="name">Last Name</div>
 												<div class="value"></div>
 											</div>
-											<div class="shipping-item email">
-												<div class="name">E-mail</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item country">
-												<div class="name">Country</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item province">
-												<div class="name">Province/State</div>
+											<div class="shipping-item address">
+												<div class="name">Address Details</div>
 												<div class="value"></div>
 											</div>
 											<div class="shipping-item city">
 												<div class="name">city</div>
 												<div class="value"></div>
 											</div>
+											<div class="shipping-item province">
+												<div class="name">Province/State</div>
+												<div class="value"></div>
+											</div>
 											<div class="shipping-item postcode">
 												<div class="name">Post Code</div>
 												<div class="value"></div>
 											</div>
-											<div class="shipping-item address">
-												<div class="name">Address Details</div>
+											<div class="shipping-item country">
+												<div class="name">Country</div>
 												<div class="value"></div>
 											</div>
 											<div class="shipping-item phone">
 												<div class="name">Phone</div>
+												<div class="value"></div>
+											</div>
+											<div class="shipping-item email">
+												<div class="name">E-mail</div>
 												<div class="value"></div>
 											</div>
 										</div>
@@ -219,12 +219,12 @@
 												<div class="name">User Name</div>
 												<div class="value"></div>
 											</div>
-											<div class="billing-item email">
-												<div class="name">E-mail</div>
+											<div class="billing-item line1">
+												<div class="name">line 1</div>
 												<div class="value"></div>
 											</div>
-											<div class="billing-item country">
-												<div class="name">Country Code</div>
+											<div class="billing-item line2">
+												<div class="name">line 2</div>
 												<div class="value"></div>
 											</div>
 											<div class="billing-item province">
@@ -239,12 +239,12 @@
 												<div class="name">Post Code</div>
 												<div class="value"></div>
 											</div>
-											<div class="billing-item line1">
-												<div class="name">line 1</div>
+											<div class="billing-item country">
+												<div class="name">Country Code</div>
 												<div class="value"></div>
 											</div>
-											<div class="billing-item line2">
-												<div class="name">line 2</div>
+											<div class="billing-item email">
+												<div class="name">E-mail</div>
 												<div class="value"></div>
 											</div>
 										</div>
