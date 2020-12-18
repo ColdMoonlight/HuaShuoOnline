@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackProductTogether;
-import com.atguigu.bean.MlbackShowArea;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
@@ -43,7 +42,7 @@ public class MlbackProductTogetherController {
 	@RequestMapping("/toProductTogetherPage")
 	public String toProductTogetherPage(HttpSession session) throws Exception{
 
-			return "back/order/productTogetherPage";
+			return "back/product/productTogetherPage";
 	}
 	
 	/**2.0	20200703
@@ -106,7 +105,7 @@ public class MlbackProductTogetherController {
 		}else{
 			//有id,update
 			mlbackProductTogetherService.updateByPrimaryKeySelective(mlbackProductTogether);
-			return Msg.success().add("resMsg", "更新成功");
+			return Msg.success().add("resMsg", "更新成功").add("mlbackProductTogether", mlbackProductTogether);
 			
 		}
 	}
