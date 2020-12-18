@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Whole Sale</title>
+	<title>Product Together</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
 </head>
@@ -16,17 +16,8 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Whole-sale list</span>
-						<!-- <button class="btn btn-primary btn-create">Create Whole-sale</button> -->
-					</div>
-					<div class="ecpp-sync row">
-						<!-- <div class="form-group col-md-4">
-							<div class="controls">
-								<input hidden id="wholesale-create-time" />
-								<input hidden id="wholesale-confirm-time" />
-								<input class="form-control daterangetimepicker" id="wholesale-time" type="text" />
-							</div>
-						</div> -->						
+						<span class="c-option-title">Product-Together list</span>
+						<button class="btn btn-primary btn-create">Create Product-Together</button>
 					</div>
 					<div class="c-table">
 						<div class="c-table-tab">
@@ -40,29 +31,18 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
 								<div class="form-control">
-									<input id="wholesale-name" type="text" placeholder="Search customer-name">						
-									<select id="wholesale-status">
-										<option value="-1">plz select status...</option>
-										<option value="0">uncontacted</option>
-										<option value="1">contacted</option>
-									</select>
+									<input id="search-name" type="text" placeholder="Search proudct-together name...">						
+									<select class="supercate-list" id="search-supercate"></select>
 								</div>
-								<a class="btn btn-primary input-group-addon btn-save-search" disabled>Save search</a>
+								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
 							</div>
 							<div class="c-table-table table-responsive-sm">
 								<table class="table">
 									<thead>
 										<tr>
 											<th>id</th>
-											<th>customer-name</th>
-											<th>email</th>
-											<th>country</th>
-											<th>telephone</th>
-											<th>whatsapp</th>
-											<th>message</th>
-											<th>time</th>
-											<th>customerStatus</th>
-											<th>operate-log</th>
+											<th>name</th>
+											<th>status</th>
 											<th>operate</th>
 										</tr>
 									</thead>
@@ -76,71 +56,55 @@
 				<!-- edit or create -->
 				<div class="c-view hide">
 					<div class="c-option">
-						<span class="c-option-title">View Whole-sale</span>
+						<span class="c-option-title">View Product-Together</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-back">Back</button>
 							<button class="btn btn-primary btn-save">Save</button>
 						</div>
 					</div>
 					<div class="c-form row">
-						<input id="wholesaleId" hidden>
+						<input id="producttogetherId" hidden>
 						<!-- left panel -->
 						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
 								<div class="card-body">
 									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="wholesaleCustomerStatus">Status</label>
+										<label class="col-md-3 col-form-label" for="producttogetherStatus">Status</label>
 										<div class="controls col-md-3">
 											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="wholesaleCustomerStatus" type="checkbox">
+												<input class="c-switch-input" id="producttogetherStatus" type="checkbox">
 												<span class="c-switch-slider"></span>
 											</label>
 										</div>
 									</div>
-									<div class="row">
-										<div class="form-group col-md-6">
-											<label class="col-form-label" for="wholesaleCustomerName">Customer Name</label>
-											<div class="controls">
-												<input class="form-control" id="wholesaleCustomerName" type="text" disabled />
-											</div>
-										</div>
-										<div class="form-group col-md-6">
-											<label class="col-form-label" for="wholesaleCustomerEmail">E-mail</label>
-											<div class="controls">
-												<input class="form-control" id="wholesaleCustomerEmail" type="text" disabled />
-											</div>
-										</div>
-										<div class="form-group col-md-6">
-											<label class="col-form-label" for="wholesaleCustomerCountry">Country</label>
-											<div class="controls">
-												<input class="form-control" id="wholesaleCustomerCountry" type="text" disabled />
-											</div>
-										</div>
-										<div class="form-group col-md-6">
-											<label class="col-form-label" for="wholesaleCustomerTelephone">Telephone</label>
-											<div class="controls">
-												<input class="form-control" id="wholesaleCustomerTelephone" type="text" disabled />
-											</div>
-										</div>
-										<div class="form-group col-md-6">
-											<label class="col-form-label" for="wholesaleCustomerWatsapp">Whatsapp</label>
-											<div class="controls">
-												<input class="form-control" id="wholesaleCustomerWatsapp" type="text" disabled />
-											</div>
-										</div>
-									</div>
 									<div class="form-group">
-										<label class="col-form-label" for="wholesaleCustomerMessage">Message</label>
+										<label class="col-form-label" for="producttogetherName">ProductTogether Name</label>
 										<div class="controls">
-											<textarea  rows="5" class="form-control" id="wholesaleCustomerMessage" disabled></textarea>
+											<input class="form-control" id="producttogetherName" type="text" />
 										</div>
 									</div>
+								</div>
+							</div>
+						</div>
+						<!-- right panel  -->
+						<div class="right-panel col-lg-5 col-md-12">
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Super Category & Product-list</div>
+								</div>
+								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="wholesaleOperateDeatil">Operate-log</label>
+										<label class="col-form-label" for="producttogetherSupercateId">Super Category</label>
 										<div class="controls">
-											<textarea  rows="5" class="form-control" id="wholesaleOperateDeatil" placeholder="大客户/问价的/xxx"></textarea>
+											<select class="form-control supercate-list" id="producttogetherSupercateId" /></select>
 										</div>
 									</div>
+									<!-- <div class="form-group">
+										<label class="col-form-label" for="profbreviewAreaPid">Product list</label>
+										<div class="controls">
+											<select class="form-control product-list" id="profbreviewAreaPid" /></select>
+										</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -162,16 +126,12 @@
 	<!-- custom script -->
 	<script>
 		var hasSuperCateList = false;
-		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "whole-sale";
+		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "product-together";
+
+		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
+		$('#search-supercate').val($('#search-supercate').data('val') || -1);
+
 		// init
-		var date = new Date();
-		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
-		$('#wholesale-create-time').val(ymd + ' 00:00:00');
-		$('#wholesale-confirm-time').val(ymd + ' 23:59:59');
-		bindDateRangeEvent(function(startTime, endTime, self) {
-			$('#wholesale-create-time').val(startTime);
-			$('#wholesale-confirm-time').val(endTime);		
-		});
 		renderTabItems();
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
@@ -179,13 +139,13 @@
 		});
 		// create wholesale
 		$('.btn-create').on('click', function () {
-			$('.c-view c-option-title').text('Create Whole-sale');
+			$('.c-view c-option-title').text('Create Product-Together');
 			showViewBlock();
-			getWholesaleId();
+			getProductTogetherId();
 			isCreate = true;
 		});
 		$('.btn-back').on('click', function () {
-			$('.c-view c-option-title').text('Whole-sale List');
+			$('.c-view c-option-title').text('Product-Together List');
 			showInitBlock();
 			resetFormData();
 		});
@@ -202,27 +162,29 @@
 		$(document.body).on('click', '.delete-table-tab-item', deleteTableTabItem);
 		// save search
 		$('.btn-save-search').on('click', function () {
-			var searchWholesaleVal = {
-				status: $('#wholesale-status').val(),
-				statustext: $('#wholesale-status').find('option:selected').text(),
-				customername: $('#wholesale-name').val()
+			var searchVal = {
+				supercate: $('#search-supercate').find('option:selected').text(),
+				supercateid: $('#search-supercate').val(),
+				name: $('#search-name').val()
 			};
 			// cancel repeat add save-search
-			if (checkNewItem(searchWholesaleVal)) return;
-			if (parseInt(searchWholesaleVal.status) < 0) searchWholesaleVal.statustext = "";
-			if (searchWholesaleVal.status > -1 || searchWholesaleVal.customername) {
-				addStorageItem(searchWholesaleVal);
+			if (checkNewItem(searchVal)) return;
+
+			if (parseInt(searchVal.supercateid) < 0) searchVal.supercate = "";
+
+			if (searchVal.supercate > -1 || searchVal.name) {
+				addStorageItem(searchVal);
 				$('.c-table-tab-tempory').html('');
-				createTableTabItem(searchWholesaleVal);
-				addTableTabItem(searchWholesaleVal, $('.c-table-tab-item').length);
+				createTableTabItem(searchVal);
+				addTableTabItem(searchVal, $('.c-table-tab-item').length);
 			}
 		});
 		// search it
-		$('#wholesale-status').on('change', function() {
+		$('#search-supercate').on('change', function() {
 			$(this).attr('data-val', $(this).val());
 			updateSearchData();
 		});
-		$('#wholesale-name').on('keyup', function() {
+		$('#search-name').on('keyup', function() {
 			var distanceTime = 1000,
 				newTime =  (new Date()).getTime();
 			if (newTime - oldTime < 1000) clearTimeout(timer);
@@ -231,92 +193,80 @@
 				updateSearchData();
 			}, distanceTime);
 		});
-		// View  whole-sale
-		$(document.body).on('click', '.btn-view', function (e) {
-			var wholesaleId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
-			getOneWholesaleData({
-				wholesaleId: wholesaleId
+		// edit product-together
+		$(document.body).on('click', '.btn-edit', function (e) {
+			var producttogetherId = parseInt($(this).data('id') || $(this).find('.btn-edit').data('id'));
+			getOneProductTogetherData({
+				producttogetherId: producttogetherId
 			}, function(resData) {
-				$('.c-view c-option-title').text('View Whole-sale');
+				$('.c-view c-option-title').text('View Product-Together');
 				initFormData(resData);;
 				showViewBlock();
 			});
 		});
-		// save whole-sale
+		// save product-together
 		$('.c-view .btn-save').on('click', function () {
 			var reqData = getFormData();
-			saveWholeSaleData(reqData, function() {
+			saveProductTogetherData(reqData, function() {
 				showInitBlock();
-				updateSearchData();
-				$('#wholesaleId').val('');
+				getProductTogethersData();
+				$('#producttogetherId').val('');
 			});
 		});
-		// delete whole-sale
+		// delete product-together
 		$(document.body).on('click', '.btn-delete', function (e) {
-			var wholeSaleId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete whole-sale!');
+			var producttogetherId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('Delete product-together!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteWholeSaleData({
-					wholesaleId: wholeSaleId,
+				deleteProductTogetherData({
+					producttogetherId: producttogetherId,
 				}, function() {
-					updateSearchData();
+					getProductTogethersData();
 				});
 			});
 		});
 		// handle formData
 		// reset data
 		function resetFormData() {
-			$('#wholesaleId').val('');
-			$('#wholesaleCustomerName').val('');
-			$('#wholesaleCustomerEmail').val('');
-			$('#wholesaleCustomerCountry').val('');
-			$('#wholesaleCustomerTelephone').val('');
-			$('#wholesaleCustomerWatsapp').val('');
-			$('#wholesaleCustomerMessage').val('');
-			$('#wholesaleCustomerStatus').prop('checked', false);
-			$('#wholesaleOperateDeatil').val('');			
+			$('#producttogetherId').val('');
+			$('#producttogetherName').val('');
+			$('#producttogetherStatus').prop('checked', false);
+
+			$('#producttogetherSupercateId').val('-1');
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
-			data.wholesaleId = parseInt($('#wholesaleId').val());
-			data.wholesaleCustomerName = $('#wholesaleCustomerName').val();
-			data.wholesaleCustomerEmail = $('#wholesaleCustomerEmail').val();
-			data.wholesaleCustomerCountry = $('#wholesaleCustomerCountry').val();
-			data.wholesaleCustomerTelephone = $('#wholesaleCustomerTelephone').val();
-			data.wholesaleCustomerWatsapp = $('#wholesaleCustomerWatsapp').val();
-			data.wholesaleCustomerMessage = $('#wholesaleCustomerMessage').val();
-			data.wholesaleCustomerStatus = $('#wholesaleCustomerStatus').prop('checked') ? 1 : 0;
-			data.wholesaleOperateDeatil = $('#wholesaleOperateDeatil').val();			
+			data.producttogetherId = parseInt($('#producttogetherId').val());
+			data.producttogetherName = $('#producttogetherName').val();
+			data.producttogetherStatus = $('#producttogetherStatus').prop('checked') ? 1 : 0;
+
+			data.producttogetherSupercateId = $('#producttogetherSupercateId').val();
+			data.producttogetherSupercateName = $('#producttogetherSupercateId').find('option:checked').text();
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
-			$('#wholesaleId').val(data.wholesaleId);
-			$('#wholesaleCustomerName').val(data.wholesaleCustomerName);
-			$('#wholesaleCustomerEmail').val(data.wholesaleCustomerEmail);
-			$('#wholesaleCustomerCountry').val(data.wholesaleCustomerCountry);
-			$('#wholesaleCustomerTelephone').val(data.wholesaleCustomerTelephone);
-			$('#wholesaleCustomerWatsapp').val(data.wholesaleCustomerWatsapp);
-			$('#wholesaleCustomerMessage').val(data.wholesaleCustomerMessage);
-			$('#wholesaleCustomerStatus').prop('checked', (''+data.wholesaleCustomerStatus == '0' ? false : true));
-			$('#wholesaleOperateDeatil').val(data.wholesaleOperateDeatil);
+			$('#producttogetherId').val(data.producttogetherId);
+			$('#producttogetherName').val(data.producttogetherName);
+			$('#producttogetherStatus').prop('checked', (''+data.producttogetherStatus == '0' ? false : true));
+
+			$('#producttogetherSupercateId').val(data.producttogetherSupercateId || '-1');
 		}
 		// search status change
 		function updateSearchData() {
-			var searchWholesaleVal = {
-				status: $('#wholesale-status').val(),
-				statustext: $('#wholesale-status').find('option:selected').text(),
-				customername: $('#wholesale-name').val()
+			var searchVal = {
+				supercate: $('#search-supercate').find('option:selected').text(),
+				supercateid: $('#search-supercate').val(),
+				name: $('#search-name').val()
 			};
+			if (parseInt(searchVal.supercateid) < 0) searchVal.supercate = "";
 			// inital pagination num
 			setPageNum(1);
-			// check search whole-sale
-			if (parseInt(searchWholesaleVal.status) < 0) searchWholesaleVal.statustext = "";
-
+			// check search product-together
 			$('.c-table-tab-item.active').removeClass('active');
-			$('.c-table-tab-tempory').html(createTableTabItem(searchWholesaleVal).addClass('active'));
+			$('.c-table-tab-tempory').html(createTableTabItem(searchVal).addClass('active'));
 			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
 		}
 		// tab view/init
@@ -331,23 +281,23 @@
 		// get Data for table
 		function getTabSearchData($this) {
 			var dataVal = $this.data('val');
-			if (dataVal && (dataVal.status > - 1 || dataVal.customername)) {
-				$('#wholesale-name').val(dataVal.customername || '');
-				$('#wholesale-status').val(dataVal.status || '-1');
-				console.log(dataVal)
-				getSearchWholesalesData();
+			if (dataVal && (dataVal.supercate || dataVal.name)) {
+				$('#search-name').val(dataVal.name || '');
+				$('#search-supercate').attr('data-val', dataVal.supercateid || '-1');
+				$('#search-supercate').val(dataVal.supercateid || '-1');
+				getSearchProductTogetherData();
 			} else {
-				$('#wholesale-name').val('');
-				$('#wholesale-status').val('-1');
+				$('#search-name').val('');
+				$('#search-supercate').val('-1');
 				initActiveItemNum();
-				getWholesalesData();
+				getProductTogethersData();
 			}
 		}
 		//  callback get all
-		function getWholesalesData(val) {
+		function getProductTogethersData() {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/CustomerWholesale/getCustomerWholesaleByPage",
+				url: "${APP_PATH}/productTogether/getProductTogetherByPage",
 				type: "post",
 				data: "pn=" + getPageNum(),
 				success: function (data) {
@@ -360,7 +310,7 @@
 					}
 				},
 				error: function (err) {
-					toastr.error('Failed to get Whole-sales, please refresh the page to get again！');
+					toastr.error('Failed to get Product-Togethers, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -368,16 +318,16 @@
 			});
 		}
 		// callback get search data
-		function getSearchWholesalesData(data) {
+		function getSearchProductTogetherData(data) {
 			$('.c-mask').show();
 
 			var formData = new FormData();
-			formData.append('wholesaleCustomerName', $('#wholesale-name').val());
-			formData.append('wholesaleCustomerStatus', $('#wholesale-status').val());
+			formData.append('producttogetherName', $('#search-name').val());
+			formData.append('producttogetherSupercateId', ($('#search-supercate').attr('data-val') || '-1'));
 			formData.append('pn', getPageNum());
 
 			$.ajax({
-				url: "${APP_PATH}/CustomerWholesale/backSearchByWholesale",
+				url: "${APP_PATH}/productTogether/backSearchByProductTogether",
 				type: "post",
 				data: formData,
 				processData: false,
@@ -393,7 +343,38 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Whole-sales, please refresh the page to get again！');
+					toastr.error('Failed to get Product-Togethers data, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback initial id
+		function getProductTogetherId(callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH }/productTogether/initializaProductTogether",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						var producttogetherId = data.extend&& data.extend.mlbackProductTogether && data.extend.mlbackProductTogether.categoryId;
+						if (producttogetherId) {
+							$('#producttogetherId').val(data.extend.mlbackProductTogether.producttogetherId);
+							toastr.success(data.extend.resMsg);
+						} else {
+							toastr.error('create Product-together fail! Please try again.');
+						}
+					} else {
+						showInitBlock();
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -401,10 +382,10 @@
 			});
 		}
 		// callback save
-		function saveWholeSaleData(reqData, callback) {
+		function saveProductTogetherData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-		  		url: '${APP_PATH}/CustomerWholesale/save',
+		  		url: '${APP_PATH}/productTogether/save',
 		  		type: 'post',
 		  		dataType: 'json',
 		  		data: JSON.stringify(reqData),
@@ -425,25 +406,25 @@
 				}
 			});
 		}
-		// callback get one whole-sale data
-		function getOneWholesaleData(reqData, callback) {
+		// callback get one product-together data
+		function getOneProductTogetherData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/CustomerWholesale/getOneCustomerWholesaleDetail",
+				url: "${APP_PATH}/productTogether/getOneMlbackProductTogetherDetail",
 				type: "post",
 				data: JSON.stringify(reqData),
 				dataType: "json",
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.customerWholesaleOne);
+						callback(data.extend.mlbackProductTogetherOne);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
 				},
 				error: function (err) {
-					toastr.error('Failed to get Super-Categeory, please refresh the page to get again！');
+					toastr.error('Failed to get product-together data, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -451,10 +432,10 @@
 			});
 		}
 		// callback delete
-		function deleteWholeSaleData(reqData, callback) {
+		function deleteProductTogetherData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/CustomerWholesale/delete",
+				url: "${APP_PATH}/productTogether/delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -481,24 +462,16 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				var msg = data[i].wholesaleCustomerMessage;
-				htmlStr += '<tr><td>' + data[i].wholesaleId + '</td>' +
-					'<td>' + data[i].wholesaleCustomerName + '</td>' +
-					'<td>' + data[i].wholesaleCustomerEmail + '</td>' +
-					'<td>' + data[i].wholesaleCustomerCountry + '</td>' +
-					'<td>' + data[i].wholesaleCustomerTelephone + '</td>' +
-					'<td>' + (data[i].wholesaleCustomerWatsapp && (data[i].wholesaleCustomerWatsapp).trim()  ? (data[i].wholesaleCustomerWatsapp).trim() : '') + '</td>' +
-					'<td>' + (msg.length > 10 ? msg.substring(0, 10) + '...' : msg) + '</td>' +
-					'<td>' + data[i].wholesaleCreatetime + '</td>' +
-					'<td><a class="badge '+ ('' + data[i].wholesaleCustomerStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].wholesaleCustomerStatus == '0' ? 'Uncontacted' : 'Contacted') + '</a></td>' +
-					'<td><p style="max-width: 4.5rem;">'+ (data[i].wholesaleOperateDeatil ?  data[i].wholesaleOperateDeatil : '') +'</p></td>' +
+				htmlStr += '<tr><td>' + data[i].producttogetherId + '</td>' +
+					'<td>' + data[i].producttogetherName + '</td>' +
+					'<td><a class="badge '+ ('' + data[i].producttogetherStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].producttogetherStatus == '0' ? 'Uncontacted' : 'Contacted') + '</a></td>' +
 					'<td>' +
-						'<button class="btn btn-primary btn-view" data-id="' + data[i].wholesaleId + '">' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].producttogetherId + '">' +
 							'<svg class="c-icon">' +
-								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-eye"></use>' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
 						'</button>' +
-						'<button class="btn btn-danger btn-delete" data-id="' + data[i].wholesaleId + '">' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].producttogetherId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
 							'</svg>' +
