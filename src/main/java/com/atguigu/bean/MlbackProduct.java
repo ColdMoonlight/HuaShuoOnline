@@ -58,6 +58,8 @@ public class MlbackProduct {
     private String productVideoUrl;
     
     private String productVideoImgUrl;
+    
+    private Integer productNeedProTogetherId;//0-无推荐;999-默认组合
 
     public Integer getProductId() {
         return productId;
@@ -283,6 +285,14 @@ public class MlbackProduct {
 		this.productVideoImgUrl = productVideoImgUrl == null ? null : productVideoImgUrl.trim();
 	}
 
+	public Integer getProductNeedProTogetherId() {
+		return productNeedProTogetherId;
+	}
+
+	public void setProductNeedProTogetherId(Integer productNeedProTogetherId) {
+		this.productNeedProTogetherId = productNeedProTogetherId;
+	}
+
 	public MlbackProduct() {
 		super();
 	}
@@ -294,7 +304,7 @@ public class MlbackProduct {
 			Integer productStatus, String productCreatetime, String productMotifytime, Integer productLable,
 			Integer productFirsth, Integer productActoffoff, Integer productReviewnum, String productCategoryIdsstr,
 			String productCategoryNamesstr, String productMetaDesc, String productMetaTitle, String productMetaKeywords,
-			String productDesc, String productVideoUrl, String productVideoImgUrl) {
+			String productDesc, String productVideoUrl, String productVideoImgUrl,Integer productNeedProTogetherId) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -324,6 +334,7 @@ public class MlbackProduct {
 		this.productDesc = productDesc;
 		this.productVideoUrl = productVideoUrl;
 		this.productVideoImgUrl = productVideoImgUrl;
+		this.productNeedProTogetherId = productNeedProTogetherId;
 	}
 
 	@Override
@@ -341,7 +352,7 @@ public class MlbackProduct {
 				+ productCategoryIdsstr + ", productCategoryNamesstr=" + productCategoryNamesstr + ", productMetaDesc="
 				+ productMetaDesc + ", productMetaTitle=" + productMetaTitle + ", productMetaKeywords="
 				+ productMetaKeywords + ", productDesc=" + productDesc + ", productVideoUrl=" + productVideoUrl
-				+ ", productVideoImgUrl=" + productVideoImgUrl + "]";
+				+ ", productVideoImgUrl=" + productVideoImgUrl + ", productNeedProTogetherId=" + productNeedProTogetherId + "]";
 	}
 	
 }
