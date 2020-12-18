@@ -119,8 +119,21 @@ public class MlbackProductTogetherController {
 		}else{
 			//有id,update
 			mlbackProductTogetherService.updateByPrimaryKeySelective(mlbackProductTogether);
+			//更新产品表
+			//读出一起买里面绑定的产品id串串,遍历修改(查出该产品,修改里面的组合绑定字段)
+			String productIdsStr = mlbackProductTogether.getProducttogetherProsidStr();
+			String productIdsStrArr [] = productIdsStr.split(",");
+			String productIdStr = "";
+			Integer productIdInt = 0;
+			for(int i=0;i<productIdsStrArr.length;i++){
+				productIdStr=productIdsStrArr[i];
+				productIdInt = Integer.parseInt(productIdStr);
+				MlbackProduct mlbackProductReq = new MlbackProduct();
+				mlbackProductReq.setProductId(productIdInt);
+				mlbackProductReq.setProductNeedProTogetherId(proTogetherId);
+				mlbackProductService.updateByPrimaryKeySelective(mlbackProductReq);
+			}
 			return Msg.success().add("resMsg", "更新成功").add("mlbackProductTogether", mlbackProductTogether);
-			
 		}
 	}
 	
