@@ -84,7 +84,7 @@
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">View Product-Together</span>
+						<span class="c-option-title">Edit Product-Together</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-back">Back</button>
 							<button class="btn btn-primary btn-save">Save</button>
@@ -174,9 +174,9 @@
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
 		});
-		// create wholesale
+		// create proudct-together
 		$('.btn-create').on('click', function () {
-			$('.c-create c-option-title').text('Create Product-Together');
+			$('.c-create .c-option-title').text('Create Product-Together');
 			resetFormData();
 			showViewBlock();
 			getProductTogetherId();
@@ -191,7 +191,7 @@
 					console.log("cancel create product-together...");
 				});
 			}
-			$('.c-create c-option-title').text('Product-Together List');
+			$('.c-create .c-option-title').text('Product-Together List');
 			showInitBlock();
 			resetFormData();
 		});
@@ -252,7 +252,7 @@
 			getOneProductTogetherData({
 				producttogetherId: producttogetherId
 			}, function(resData) {
-				$('.c-create c-option-title').text('Edit Product-Together');
+				$('.c-create .c-option-title').text('Edit Product-Together');
 				initFormData(resData);;
 				showViewBlock();
 			});
