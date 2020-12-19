@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackProduct;
+import com.atguigu.bean.MlbackProductAttributeName;
 import com.atguigu.bean.MlbackProductSku;
 import com.atguigu.bean.MlbackProductTogether;
 import com.atguigu.common.Const;
@@ -21,6 +22,7 @@ import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
+import com.atguigu.service.MlbackProductAttributeNameService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlbackProductSkuService;
 import com.atguigu.service.MlbackProductTogetherService;
@@ -41,6 +43,9 @@ public class MlbackProductTogetherController {
 	
 	@Autowired
 	MlbackProductSkuService mlbackProductSkuService;
+	
+	@Autowired
+	MlbackProductAttributeNameService mlbackProductAttributeNameService;
 	
 	/**
 	 * 1.0	20201217
@@ -137,7 +142,7 @@ public class MlbackProductTogetherController {
 		}
 	}
 	
-	/**4.0	20200703
+	/**4.0	20201218
 	 * mlbackProductTogether	delete
 	 * @param mlbackProductTogether-producttogetherId
 	 * @return 
@@ -154,7 +159,7 @@ public class MlbackProductTogetherController {
 	/**
 	 * 6.0	20200703
 	 * 查单条mlbackProductTogether详情
-	 * @param mlbackProductTogether-wholesaleId
+	 * @param mlbackProductTogether-producttogetherId
 	 * @return 
 	 */
 	@RequestMapping(value="/getOneMlbackProductTogetherDetail",method=RequestMethod.POST)
@@ -174,7 +179,7 @@ public class MlbackProductTogetherController {
 	/**
 	 * 6.1	20201218
 	 * 查单条mlbackProductTogether详情
-	 * @param mlbackProductTogether-wholesaleId
+	 * @param mlbackProductTogether-producttogetherId
 	 * @return 
 	 */
 	@RequestMapping(value="/getProtalOneMlbackProductTogetherDetail",method=RequestMethod.POST)
@@ -199,20 +204,27 @@ public class MlbackProductTogetherController {
 			//遍历ids,准备拿下面的sku属性列表
 			
 			List<MlbackProduct> mlbackProductList =new ArrayList<MlbackProduct>();
+			List<List<String>> propAttributeNameListList = new ArrayList<List<String>>(); 
 			List<List<MlbackProductSku>> mlbackProductSkuTogetherList =new ArrayList<List<MlbackProductSku>>();
 			for(int i=0;i<toGetHerIdsStrArr.length;i++){
 				String proIdstr=toGetHerIdsStrArr[i];
 				Integer proIdInt = Integer.parseInt(proIdstr);
-				//准备封装产品id,查询该id下面的sku明细
+				//准备封装产品id,查询该id下面的pro明细
 				MlbackProduct mlbackProductOne = getProListByPid(proIdInt);
 				mlbackProductList.add(mlbackProductOne);
-				//准备封装产品id,查询该id下面的sku明细
+				
+				//准备封装产品id,查询该id下面的proAttr明细
+				List<String> proAttributeNameOneList = getProAttributeNameListByPid(proIdInt);
+				propAttributeNameListList.add(proAttributeNameOneList);
+				
+				//准备封装产品id,查询该id下面的prosku明细
 				List<MlbackProductSku> mlbackProductSkuResListOne = getPSkuListByPid(proIdInt);
 				mlbackProductSkuTogetherList.add(mlbackProductSkuResListOne);
 			}
 			//组合,查到-显示;
 			return Msg.success().add("resMsg", "查CatalogOne完毕").add("mlbackProductTogetherRes", mlbackProductTogetherRes)
-					.add("mlbackProductList", mlbackProductList).add("mlbackProductSkuTogetherList", mlbackProductSkuTogetherList);
+					.add("mlbackProductList", mlbackProductList).add("propAttributeNameListList", propAttributeNameListList)
+					.add("mlbackProductSkuTogetherList", mlbackProductSkuTogetherList);
 		}else{
 			//组合,查不到-走;
 			return Msg.success().add("resMsg", "查CatalogOne完毕").add("mlbackProductTogetherRes", mlbackProductTogetherRes);
@@ -229,6 +241,20 @@ public class MlbackProductTogetherController {
 			mlbackProductOne = mlbackProductResList.get(0);
 		}
 		return mlbackProductOne;
+	}
+	
+	private List<String> getProAttributeNameListByPid(Integer productId) {
+		
+		List<String> proAttributeNameList = new ArrayList<String>();
+		//接受信息
+		List<MlbackProductAttributeName> mbackProductAttributeNameResList =mlbackProductAttributeNameService.selectMlbackProductAttributeNameByProductId(productId);
+		
+		for(MlbackProductAttributeName mlbackProductAttributeName :mbackProductAttributeNameResList){
+			String proAttrName = mlbackProductAttributeName.getProductattrnameName();
+			proAttributeNameList.add(proAttrName);
+			
+		}
+		return proAttributeNameList;
 	}
 
 	private List<MlbackProductSku> getPSkuListByPid(Integer productskuPid) {
