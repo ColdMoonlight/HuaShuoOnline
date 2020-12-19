@@ -137,7 +137,7 @@ public class MlbackProductTogetherController {
 		}
 	}
 	
-	/**4.0	20200703
+	/**4.0	20201218
 	 * mlbackProductTogether	delete
 	 * @param mlbackProductTogether-producttogetherId
 	 * @return 
@@ -154,7 +154,7 @@ public class MlbackProductTogetherController {
 	/**
 	 * 6.0	20200703
 	 * 查单条mlbackProductTogether详情
-	 * @param mlbackProductTogether-wholesaleId
+	 * @param mlbackProductTogether-producttogetherId
 	 * @return 
 	 */
 	@RequestMapping(value="/getOneMlbackProductTogetherDetail",method=RequestMethod.POST)
@@ -174,7 +174,7 @@ public class MlbackProductTogetherController {
 	/**
 	 * 6.1	20201218
 	 * 查单条mlbackProductTogether详情
-	 * @param mlbackProductTogether-wholesaleId
+	 * @param mlbackProductTogether-producttogetherId
 	 * @return 
 	 */
 	@RequestMapping(value="/getProtalOneMlbackProductTogetherDetail",method=RequestMethod.POST)
