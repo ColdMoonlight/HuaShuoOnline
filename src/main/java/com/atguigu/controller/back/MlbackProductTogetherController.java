@@ -185,7 +185,7 @@ public class MlbackProductTogetherController {
 	@RequestMapping(value="/getProtalOneMlbackProductTogetherDetail",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg getProtalOneMlbackProductTogetherDetail(@RequestBody MlbackProductTogether mlbackProductTogether){
-		//有组合,查不到-走;能查到-显示;组合是,,,,,,,,
+		//有组合,查不到-走;能查到-显示;组合是,,,,,,
 		//接受wholesaleId
 		Integer producttogetherId = mlbackProductTogether.getProducttogetherId();
 		MlbackProductTogether mlbackProductTogetherReq = new MlbackProductTogether();
@@ -204,7 +204,7 @@ public class MlbackProductTogetherController {
 			//遍历ids,准备拿下面的sku属性列表
 			
 			List<MlbackProduct> mlbackProductList =new ArrayList<MlbackProduct>();
-			List<List<String>> propAttributeNameListList = new ArrayList<List<String>>(); 
+			List<List<MlbackProductAttributeName>> propAttributeNameListList = new ArrayList<List<MlbackProductAttributeName>>(); 
 			List<List<MlbackProductSku>> mlbackProductSkuTogetherList =new ArrayList<List<MlbackProductSku>>();
 			for(int i=0;i<toGetHerIdsStrArr.length;i++){
 				String proIdstr=toGetHerIdsStrArr[i];
@@ -212,11 +212,9 @@ public class MlbackProductTogetherController {
 				//准备封装产品id,查询该id下面的pro明细
 				MlbackProduct mlbackProductOne = getProListByPid(proIdInt);
 				mlbackProductList.add(mlbackProductOne);
-				
 				//准备封装产品id,查询该id下面的proAttr明细
-				List<String> proAttributeNameOneList = getProAttributeNameListByPid(proIdInt);
+				List<MlbackProductAttributeName> proAttributeNameOneList = getProAttributeNameListByPid(proIdInt);
 				propAttributeNameListList.add(proAttributeNameOneList);
-				
 				//准备封装产品id,查询该id下面的prosku明细
 				List<MlbackProductSku> mlbackProductSkuResListOne = getPSkuListByPid(proIdInt);
 				mlbackProductSkuTogetherList.add(mlbackProductSkuResListOne);
@@ -243,18 +241,10 @@ public class MlbackProductTogetherController {
 		return mlbackProductOne;
 	}
 	
-	private List<String> getProAttributeNameListByPid(Integer productId) {
+	private List<MlbackProductAttributeName> getProAttributeNameListByPid(Integer productId) {
 		
-		List<String> proAttributeNameList = new ArrayList<String>();
-		//接受信息
 		List<MlbackProductAttributeName> mbackProductAttributeNameResList =mlbackProductAttributeNameService.selectMlbackProductAttributeNameByProductId(productId);
-		
-		for(MlbackProductAttributeName mlbackProductAttributeName :mbackProductAttributeNameResList){
-			String proAttrName = mlbackProductAttributeName.getProductattrnameName();
-			proAttributeNameList.add(proAttrName);
-			
-		}
-		return proAttributeNameList;
+		return mbackProductAttributeNameResList;
 	}
 
 	private List<MlbackProductSku> getPSkuListByPid(Integer productskuPid) {
