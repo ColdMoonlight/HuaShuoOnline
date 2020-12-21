@@ -197,5 +197,16 @@
      </if>
     order by productTogether_id desc
   </select>
+  <!-- selectMlbackProTogetherDownLoadByParam -->
+  <select id="selectMlbackProTogetherDownLoadByParam" parameterType="com.atguigu.bean.MlbackProductTogether" resultMap="BaseResultMap">
+    select 
+    productTogether_id, productTogether_name, productTogether_status
+    from tb_mlback_producttogether 
+    where productTogether_id >=0
+      <if test="producttogetherStatus != null">
+        and productTogether_status = #{producttogetherStatus,jdbcType=INTEGER}
+      </if>
+    order by productTogether_id desc 
+  </select>
   
 </mapper>

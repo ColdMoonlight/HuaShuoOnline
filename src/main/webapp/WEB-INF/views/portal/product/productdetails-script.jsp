@@ -576,7 +576,7 @@
 		});
 	}
 	// varients
-	var mediaData = {}, productData = {}, mainUrl, reviewSwiper, reviewModal, reviewId, hasReivewData = false;
+	var mediaData = {}, productData = {}, mainUrl, reviewSwiper, reviewModal, reviewId, hasReivewData = false, proudctTogetherId;
 	// initial
 	getProductDetails(function(data) {
 		mainUrl = data.productMainimgurl;
@@ -591,6 +591,7 @@
 		// details
 		productSeo = data.productSeo;
 		productName = data.proudctName;
+		proudctTogetherId = data.productNeedProTogetherId;
 		renderProductDetails(data);
 		// coupon area list			
 		getCouponAreaData(renderCouponAreaData);
@@ -1020,4 +1021,242 @@ function getfbReviewsData(callback) {
 	});	
 }
 getfbReviewsData(renderFbReviews);
+</script>
+
+<script>
+function getTogetherData(callback) {
+	$.ajax({
+		url: '${APP_PATH}/productTogether/getProtalOneMlbackProductTogetherDetail',
+		data: JSON.stringify({ "producttogetherId": proudctTogetherId, "producttogetherSupercateId": productId }),
+		dataType: 'json',
+		contentType: 'application/json',
+		type: "post",
+		success: function (data) {
+			if (data.code == 100) {
+				callback && callback(data.extend);
+			}
+		}
+	});
+}
+function initialProductTogetherPrice() {
+	$('.product-together-info-item').each(function(idx, item) {
+		var $item = $(item);
+		$item.find('.product-together-oprice').text('$' + accuracyCal(parseFloat($item.data('price')) + parseFloat($item.find('.product-together-select').find('option:checked').data('price')), 100));
+		$item.find('.product-together-dprice').text('$' + accuracyCal(parseFloat($item.data('price')) + parseFloat($item.find('.product-together-select').find('option:checked').data('price')), $item.data('dis')));
+	});
+}
+function handleProductTogetherPrice() {
+	var allDprice = 0, allOprice = 0;
+	$('input[name="productTogehter"]:checked').each(function(idx, item) {
+		var $ptitem = $(this).parents('.product-together-info-item');
+		allOprice += parseFloat(accuracyCal(parseFloat($ptitem.data('price')) + parseFloat($ptitem.find('.product-together-select').find('option:checked').data('price')), 100));
+		allDprice += parseFloat(accuracyCal(parseFloat($ptitem.data('price')) + parseFloat($ptitem.find('.product-together-select').find('option:checked').data('price')), $ptitem.data('dis')));
+	});
+
+	$('.product-together-cal').find('.product-together-dprice').text('$' + accuracyCal(allDprice, 100));
+	$('.product-together-cal').find('.product-together-oprice').text('$' + accuracyCal(allOprice, 100));
+}
+function renderTogetherData(data) {
+	function renderProductTogetherSKus(data) {
+		var optionHtml = '';
+		data.forEach(function(item, idx) {
+			optionHtml += '<option data-id="'+ item.productskuId +'" data-code="'+ item.productskuCode +'" data-price="'+ item.productskuMoney +'" data-name="'+ item.productskuName +'" value="'+ item.productskuName +'">'+ item.productskuName +'</option>';
+		});
+		return optionHtml;
+	}
+	
+	function generateProudctProp(data) {
+		var propData = []
+		data.forEach(function(item, idx) {
+			var cData = {
+					'pid': [],
+					'pname': []
+				};
+			item.forEach(function(item) {
+				cData.pid.push(item.productattrnameId);
+				cData.pname.push(item.productattrnameName);
+			});
+			propData.push(cData)
+		});
+		return propData;
+	}
+	var productDatas = data.mlbackProductList,
+		productSkuDatas = data.mlbackProductSkuTogetherList,
+		productSkuProps = generateProudctProp(data.propAttributeNameListList),
+		len = productDatas.length;
+
+	if (data.mlbackProductTogetherRes && len && productSkuDatas.length && productDatas.length == productSkuDatas.length && productSkuProps.length == productSkuDatas.length) {
+		var imgsHtml = '', otherHtml = '';
+		productDatas.forEach(function(item, idx) {
+			var productLink = '${APP_PATH}/' + item.productSeo + '.html';
+			imgsHtml += '<div class="product-together-img-item show">' +
+				'<a class="lazyload" href="'+ productLink +'" data-src="'+ item.productMainimgurl +'"></a>' +
+				(len > 1 && idx < len - 1 ? '<div class="product-together-plus show">+</div>' : '') +
+			'</div>';
+
+			otherHtml += '<div class="product-together-info-item" data-dis="'+ item.productActoffoff +'" data-price="'+ item.productOriginalprice +'" data-id="'+ item.productId +'" data-seo="'+ item.productSeo +'" data-name="'+ item.productName +'" data-img="'+ item.productMainimgurl +'">' +
+				'<input class="product-together-check" data-num="'+ idx +'" name="productTogehter" type="checkbox" checked />' +
+				'<a class="proudct-together-name" href="'+ productLink +'">' + item.productName + '</a>' +
+				'<select class="product-together-select" data-pname="'+ ((productSkuProps[idx]['pname']).join(',')) +'" data-pid="'+ ((productSkuProps[idx]['pid']).join(',')) +'">' + renderProductTogetherSKus(productSkuDatas[idx]) + '</select>' +
+				'<span class="product-together-dprice"></span>' +
+				'<span class="product-together-oprice"></span>' +
+			'</div>';
+		});
+		$('.product-together-imgs').html(imgsHtml);
+		$('.product-together-other').html(otherHtml);
+		$('.product-together-box').removeClass('hide');
+
+		new LazyLoad($('.product-together-imgs').find('.lazyload'), {
+			root: null,
+			rootMargin: "10px",
+			threshold: 0
+		});
+
+		initialProductTogetherPrice();
+		handleProductTogetherPrice();
+
+		$(document.body).on('change', '.product-together-select', function() {
+			var $ptitem = $(this).parents('.product-together-info-item');
+			$ptitem.find('.product-together-oprice').text('$' + accuracyCal(parseFloat($ptitem.data('price')) + parseFloat($ptitem.find('.product-together-select').find('option:checked').data('price')), 100));
+			$ptitem.find('.product-together-dprice').text('$' + accuracyCal(parseFloat($ptitem.data('price')) + parseFloat($ptitem.find('.product-together-select').find('option:checked').data('price')), $ptitem.data('dis')));
+
+			handleProductTogetherPrice();
+		});
+
+		$('.product-together-check').on('change', function() {
+			var $el;
+			if ($(this).prop('checked')) {
+				$('.product-together-img-item').eq($(this).data('num')).removeClass('hide').addClass('show');
+			} else {
+				$('.product-together-img-item').eq($(this).data('num')).addClass('hide').removeClass('show');
+			}
+			$el = $('.product-together-img-item.show');
+			$('.product-together-plus').removeClass('hide');
+			$el.eq($el.length - 1).find('.product-together-plus').addClass('hide').removeClass('show');
+
+			handleProductTogetherPrice();
+		});
+	}
+}
+// proudctTogetherId = 4;
+if (proudctTogetherId != 999) {
+	function addProductTogetherSelectCart(reqData, callback) {
+		var len = reqData.length;
+		if (len == 1) {
+			addToCart(reqData.pop(), callback);
+		}
+
+		if (len > 1) {
+			var formData = new FormData();
+			formData.append('addMoreProToCartTeams', JSON.stringify(reqData));
+			$.ajax({
+				url: "${APP_PATH }/MlbackCart/toAddMoreProToCart",
+				type: "post",
+				processData: false,
+				contentType: false,
+				cache: false,
+				data: formData,
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback();
+					} else {
+						sysModalTip();
+					}
+				},
+				error: function (err) {
+					sysModalTip();
+				}
+			});
+		}
+		
+		if (len < 1) {
+			modalTip('At least one product needs to be selected...');
+		}
+	}
+	function getSelectProductTogether() {
+		var productTogetherCart = [];
+		$('input[name="productTogehter"]:checked').each(function(idx, item) {
+			var $item = $(this).parents('.product-together-info-item');
+			var productData = {};
+			var selectedOption;
+			
+			productData["cartitemProductId"] = $item.data('id');
+			productData["cartitemProductSeoName"] = $item.data('seo');
+			productData["cartitemProductName"] = $item.data('name');
+			productData["cartitemProductOriginalprice"] = $item.data('price');
+			productData["cartitemProductMainimgurl"] = $item.data('img');
+			productData["cartitemProductActoff"] = $item.data('dis');
+	
+			productData["cartitemProductskuIdstr"] = $item.find('.product-together-select').data('pid');
+			productData["cartitemProductskuIdnamestr"] = $item.find('.product-together-select').data('pname');
+
+			selectedOption = $item.find('.product-together-select option:selected');
+			productData["cartitemProductskuId"] = selectedOption.data('id');
+			productData["cartitemProductskuName"] = selectedOption.data('name');
+			productData["cartitemProductskuCode"] = selectedOption.data('code');
+			productData["cartitemProductskuMoneystr"] = selectedOption.data('price');
+			productData["cartitemProductNumber"] =  1;
+			
+			productTogetherCart.push(productData);
+		});
+
+		return productTogetherCart;
+	}
+	function cartListCheckout(reqData, callback) {
+		$.ajax({
+			url: '${APP_PATH}/MlbackCart/cartToOrder',
+			data: JSON.stringify(reqData),
+			dataType: 'json',
+			contentType: 'application/json',
+			type: "post",
+			async: false,
+			success: function (data) {
+				if (data.code == 100) {
+					callback && callback();
+				} else {
+					sysModalTip();
+				}
+			},
+			error: function(err) {
+				sysModalTip();
+			}
+		});
+	}
+	function productTogetherCheckout() {
+		function getCartListData(callback) {
+			$.ajax({
+				url: '${APP_PATH}/MlbackCart/getCartitemIdDetails',
+				type: 'post',
+				success: function (data) {
+					if (data.code == 100) {
+						callback && callback(data.extend.mlfrontCartItemListRes);
+					} else {
+						sysModalTip();
+					}
+				}
+			});
+		}
+
+		getCartListData(function(data) {
+			var checkoutData = [];
+			if (data && data.length) {
+				data.forEach(function(item, idx) {
+					checkoutData.push({
+						"cartitemId": item.cartitemId,
+				        "cartitemProductId": item.cartitemProductId,
+				        "cartitemProductNumber": item.cartitemProductNumber
+					});
+				});
+				cartListCheckout(checkoutData, goToCheckout);
+			} else {
+				sysModalTip();
+			}
+		});
+	}
+	getTogetherData(renderTogetherData);
+	$('#product-together-sadd').on('click', function() {
+		payLoading();
+		addProductTogetherSelectCart(getSelectProductTogether(), productTogetherCheckout);
+	});
+}
 </script>
