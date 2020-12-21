@@ -166,10 +166,11 @@
 		var hasSuperCateList = false;
 		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "product-together";
 		var selectedName = [], selectedId = [], selectedSeo = [], selectedImg = [];
+		var productTogetherNames = {};
 
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
 		$('#search-supercate').val($('#search-supercate').data('val') || -1);
-
+		getAllProductTogetherNames();
 		// init
 		renderTabItems();
 		// pagination a-click
@@ -393,6 +394,7 @@
 						break;
 					default:
 						txt = '第' + id + '组合';
+						if (Object.keys(productTogetherNames).length) txt += '——' + productTogetherNames[id];
 				}
 				return txt;
 			}
@@ -417,6 +419,24 @@
 			}
 			$('#editModal .modal-body-body').html(htmlStr);
 			$('#editModal .spinner').hide();
+		}
+		// get all product-together-name
+		function getAllProductTogetherNames() {
+			// productTogether/lownLoadProTogether
+			$.ajax({
+				url: "${APP_PATH}/productTogether/lownLoadProTogether",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						var resData = data.extend.mlbackProductTogetherResList;
+						resData && resData.forEach(function(item, idx) {
+							productTogetherNames[item.producttogetherId] = item.producttogetherName
+						});
+					} else {}
+				}
+			});
 		}
 		// handle formData
 		// reset data
