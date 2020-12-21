@@ -23,4 +23,6 @@ public interface MlbackProductTogetherMapper {
 	List<MlbackProductTogether> selectMlbackProductTogetherById(MlbackProductTogether MlbackProductTogether);
 
 	List<MlbackProductTogether> selectMlbackProductTogetherBackSearch(MlbackProductTogether MlbackProductTogether);
+
+	List<MlbackProductTogether> selectMlbackProTogetherDownLoadByParam(MlbackProductTogether mlbackProductTogetherReq);
 }
