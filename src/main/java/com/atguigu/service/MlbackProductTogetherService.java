@@ -67,4 +67,9 @@ public class MlbackProductTogetherService {
 		return MlbackProductTogetherList;
 	}
 
+	public List<MlbackProductTogether> selectMlbackProTogetherDownLoadByParam(MlbackProductTogether mlbackProductTogetherReq) {
+		List<MlbackProductTogether>  mlbackProductTogetherList = mlbackProductTogetherMapper.selectMlbackProTogetherDownLoadByParam(mlbackProductTogetherReq);
+		return mlbackProductTogetherList;
+	}
+
 }
