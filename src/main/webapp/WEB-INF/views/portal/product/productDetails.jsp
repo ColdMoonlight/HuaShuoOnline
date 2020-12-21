@@ -23,7 +23,7 @@
 		@media only screen and (min-width: 576px) and (max-width: 1023px) {.product-share .instagram {background-position: 0 -2.5rem;} .product-share .youtube {background-position: 0 -10rem;} }		
 		@media only screen and (min-width: 1023px) {.product-share .instagram {background-position: 0 -3rem;} .product-share .youtube {background-position: 0 -12rem;} }
 		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
-		.product-together-box { padding: 1rem; margin-top: 1rem; border: 1px solid #ededed; border-radius: .5rem; }
+		.product-together-box { padding: 1rem; margin-top: 1rem; border: 1px solid #ededed; border-radius: .5rem; background-color: rgb(255, 192, 203); }
 		.product-togher-title { font-size: 1.5rem; font-weight: 500; }
 		.product-together-head, .product-together-imgs { margin-bottom: 1rem; }
 		.product-together-img-item { display: flex; align-items: center; margin-top: 1rem; }
