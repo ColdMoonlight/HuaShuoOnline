@@ -205,7 +205,6 @@ public class MlbackProductTogetherController {
 			//抽出下面的几个id
 			String toGetHerIdsStrArr [] = toGetHerIdsStr.split(",");
 			//先遍历一遍,有没有当前的产品pid
-			
 			String orginalPidStr = ProId+"";
 			Integer insite = 999;
 			for(int k =0;k<toGetHerIdsStrArr.length;k++){
