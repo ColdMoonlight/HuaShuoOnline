@@ -576,7 +576,7 @@
 		});
 	}
 	// varients
-	var mediaData = {}, productData = {}, mainUrl, reviewSwiper, reviewModal, reviewId, hasReivewData = false;
+	var mediaData = {}, productData = {}, mainUrl, reviewSwiper, reviewModal, reviewId, hasReivewData = false, proudctTogetherId;
 	// initial
 	getProductDetails(function(data) {
 		mainUrl = data.productMainimgurl;
@@ -591,6 +591,7 @@
 		// details
 		productSeo = data.productSeo;
 		productName = data.proudctName;
+		proudctTogetherId = data.productNeedProTogetherId;
 		renderProductDetails(data);
 		// coupon area list			
 		getCouponAreaData(renderCouponAreaData);
