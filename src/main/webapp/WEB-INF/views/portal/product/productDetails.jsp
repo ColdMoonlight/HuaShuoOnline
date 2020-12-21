@@ -34,10 +34,11 @@
 		.product-together-info-item { margin-top: .5rem; }
 		.proudct-together-name { margin-left: .5rem; font-size: 1.2rem;  color: #333; }
 		.product-together-select { margin-left: 1rem; padding: .25rem .5rem; }
-		.product-together-oprice { margin-left: .5rem; color: #333; text-decoration: line-through; }
-		.product-together-dprice { margin-left: .5rem; color: #ff1671; }
+		.product-together-oprice { margin-left: .5rem; color: #333; text-decoration: line-through; font-weight: 500; }
+		.product-together-dprice { margin-left: .5rem; color: #ff0000; font-weight: 500; }
 		@media only screen and (max-width: 575px) {
-			.product-together-imgs { width: 100%; text-align-center; }
+			.product-together-head { text-align: center; }
+			.product-together-imgs { width: 100%; }
 			.product-together-img-item { display: inline-block; }
 			.product-together-img-item a { display: inline-block; vertical-align: middle; width: 135px; height: 135px; }
 			.product-together-plus { display: inline-block; vertical-align: middle; margin: 0 .5rem; }
