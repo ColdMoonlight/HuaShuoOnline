@@ -23,7 +23,21 @@
 		@media only screen and (min-width: 576px) and (max-width: 1023px) {.product-share .instagram {background-position: 0 -2.5rem;} .product-share .youtube {background-position: 0 -10rem;} }		
 		@media only screen and (min-width: 1023px) {.product-share .instagram {background-position: 0 -3rem;} .product-share .youtube {background-position: 0 -12rem;} }
 		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
-		.product-might-like { max-width: 800px; margin: 0 auto; }
+		.product-together-box { padding: 1rem; margin-top: 1rem; border: 1px solid #ededed; border-radius: .5rem; }
+		.product-togher-title { font-size: 1.5rem; font-weight: 500; }
+		.product-together-head, .product-together-imgs { display: flex; flex-wrap: wrap;  align-items: center; }
+		.product-together-head { margin-bottom: 1rem; }
+		.product-together-imgs { margin-right: 1rem; margin-bottom: 1rem; }
+		.product-together-img-item { display: flex; align-items: center; margin-top: 1rem; }
+		.product-together-img+.product-togehter-img-item { margin-left: 1rem; }
+		.product-together-plus { margin: 0 1rem; font-size: 2rem; }
+		.product-together-img-item a { display: block; justify-content: center; width: 150px; height: 150px; border: 1px solid #ddd; }
+		.product-together-cal { margin-bottom: 1rem; } 
+		.product-together-info-item { margin-top: .5rem; }
+		.proudct-together-name { margin-left: .5rem; font-size: 1.2rem;  color: #333; }
+		.product-together-select { margin-left: 1rem; padding: .25rem .5rem; }
+		.product-together-oprice { margin-left: .5rem; color: #333; text-decoration: line-through; }
+		.product-together-dprice { margin-left: .5rem; color: #ff1671; }
 	</style>
 </head>
 <body>
@@ -68,8 +82,22 @@
 		   				<div class="btn paypal-button btn-black buy-now">Buy Now</div>
 					</div>
 					<div id="countdown-area"></div>
-					<div class="product-might-like"></div>
 				</div>
+			</div>
+			<div class="product-together-box hide">
+				<div class="product-togher-title">Frequently Bought Together</div>
+				<div class="product-together-head">
+					<div class="product-together-imgs"></div>
+					<div class="product-together-add">
+						<div class="product-together-cal">
+							<span class="product-together-des">Total Price: </span>
+							<span class="product-together-dprice"></span>
+							<span class="product-together-oprice"></span>
+						</div>
+						<button class="btn btn-black" id="product-together-sadd">Add selected to cart</button>
+					</div>
+				</div>
+				<div class="product-together-other"></div>
 			</div>
 			<div class="product-body">
 				<div class="product-service">
@@ -122,6 +150,7 @@
 					</div>
 				</div>
 			</div>
+			<div class="product-might-like"></div>
 		</div>
 	<!-- main end -->
 	<!-- footer nav -->
