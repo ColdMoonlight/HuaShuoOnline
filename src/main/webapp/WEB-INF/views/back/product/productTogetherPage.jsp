@@ -30,9 +30,10 @@
 			height: 100px;
 			margin-right: 1rem;
 		}
-		.porudct-name {
+		.product-name {
 			font-size: 1.2rem;
 			color: #333;
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -70,6 +71,7 @@
 										<tr>
 											<th>id</th>
 											<th>name</th>
+											<th>product-seo</th>
 											<th>status</th>
 											<th>operate</th>
 										</tr>
@@ -345,9 +347,10 @@
 			if (selectedId.length) {
 				var htmlStr = '';
 				selectedId.forEach(function(item, idx) {
+					var link = '${APP_PATH}/' + selectedSeo[idx] + '.html';
 					htmlStr += '<div class="product-item">' +
-						'<img class="product-img" src="'+ selectedImg[idx] + '" />' +
-						'<div class="product-name">' + selectedName[idx] + '</div>' +
+						'<a href="'+ link +'"><img class="product-img" src="'+ selectedImg[idx] + '" /></a>' +
+						'<a class="product-name">' + selectedName[idx] + '</a>' +
 					'</div>';
 				});
 			} else {
@@ -357,6 +360,20 @@
 		}
 		// get all product
 		function renderAllProduct2(data) {
+			function getGroup(id) {
+				var txt = '';
+				switch(id) {
+					case 999:
+						txt = '--';
+						break;
+					case 0:
+						txt = '随机组合';
+						break;
+					default:
+						txt = '第' + id + '组合';
+				}
+				return txt;
+			}
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var productId = data[i].productId;
@@ -371,8 +388,8 @@
 									'<div class="c-table-img"><img src="'+ encodeUrl(productImg) +'" /></div>'
 									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 							'</span>' + */
-							'<span class="table-th" style="width: auto;">'+ productName +'</span>' +
-							/* '<span class="table-th">'+ productSeo +'</span>' + */
+							'<span class="table-th" style="width: 100%;">'+ productName +'</span>' +
+							'<span class="table-th">'+ getGroup(data[i].productNeedProTogetherId) +'</span>' +
 						'</label>' +
 					'</div></div>';
 			}
@@ -647,6 +664,7 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].producttogetherId + '</td>' +
 					'<td>' + (data[i].producttogetherName || '') + '</td>' +
+					'<td>' + (data[i].producttogetherProsseoStr.replace(/\,/g, '<br\/>')) + '</td>' +
 					'<td><a class="badge '+ ('' + data[i].producttogetherStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].producttogetherStatus == '0' ? 'unabled' : 'enabled') + '</a></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].producttogetherId + '">' +
