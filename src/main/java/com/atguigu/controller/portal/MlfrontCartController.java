@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.atguigu.bean.MlbackAddCartViewDetail;
 import com.atguigu.bean.MlbackAddCheakoutViewDetail;
 import com.atguigu.bean.MlbackProduct;
@@ -374,261 +377,273 @@ public class MlfrontCartController {
 	 * */
 	@RequestMapping(value="/toAddMoreProToCart",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg toAddMoreProToCart(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontCartItem mlfrontCartItem) throws Exception{
-		//4.1
-		insertAddCartView(mlfrontCartItem,session);
-		String sessionId = session.getId();
-		String Userip =sessionId;
-		session.setAttribute("Userip", Userip);
-		String nowTime = DateUtil.strTime14s();
-		MlfrontUser loginUser = (MlfrontUser) session.getAttribute("loginUser");
-		//判断session中是否有登录信息 ,if 有,新增进入cart中,没有新增进入
-		if(loginUser==null){
-			//获取ip信息,去cart中用ip查询,是否有该ip的购物车
-			MlfrontCart MlfrontCartReq = new MlfrontCart();
-			MlfrontCartReq.setCartIp(Userip);
-			MlfrontCartReq.setCartStatus(0);
-			List<MlfrontCart> MlfrontCartResList = mlfrontCartService.selectMlfrontCartByIp(MlfrontCartReq);
-			Integer ifHave = 1;
-			if(MlfrontCartResList.size()>0){
-				String cartitemIdstrUser = MlfrontCartResList.get(0).getCartitemIdstr();
-				if(cartitemIdstrUser.length()>0){
-					ifHave = 1;
-				}else{
-					//名下有购物车,但是为空
-					Integer cartId = MlfrontCartResList.get(0).getCartId();
-					MlfrontCart MlfrontCartdelRep = new MlfrontCart();
-					MlfrontCartdelRep.setCartId(cartId);
-					mlfrontCartService.deleteByPrimaryKey(cartId);
-					ifHave = 0;
-					//此时要删掉这个为空的购物车
-				}
-			}else{
-				//如果名下没购物车
-				ifHave = 0;
-			}
-			if(ifHave==1){
-				//如果有,获取该购物车的itemStr,
-				MlfrontCart mlfrontCartUser = MlfrontCartResList.get(0);
-				String cartitemIdstrUser = mlfrontCartUser.getCartitemIdstr();
-				Integer cartId = mlfrontCartUser.getCartId();
-				Integer cartUid = mlfrontCartUser.getCartUid();
-				//判断是否有本次添加的产品,如果没有itemStr中加入本次的productId,
-				Integer pid = mlfrontCartItem.getCartitemProductId();
-				String skuIdstr = mlfrontCartItem.getCartitemProductskuIdstr();
-				String skuIdnamestr = mlfrontCartItem.getCartitemProductskuIdnamestr();
-				Integer pskuId = mlfrontCartItem.getCartitemProductskuId();
-				String pskuName =mlfrontCartItem.getCartitemProductskuName();
-				String pskuCode = mlfrontCartItem.getCartitemProductskuCode();
-				int proNumberNew =mlfrontCartItem.getCartitemProductNumber();
-				String[] aa = cartitemIdstrUser.split(",");
-				int number = 0;
-				for(int i=0;i<aa.length;i++){
-					number++;
-					String CartItemId = aa[i];
-					Integer CartItemIdInt =Integer.parseInt(CartItemId);
-					MlfrontCartItem mlfrontCartItemFor = new MlfrontCartItem();
-					mlfrontCartItemFor.setCartitemId(CartItemIdInt);
-					mlfrontCartItemFor.setCartitemProductId(pid);
-					mlfrontCartItemFor.setCartitemProductskuIdstr(skuIdstr);
-					mlfrontCartItemFor.setCartitemProductskuIdnamestr(skuIdnamestr);
-					mlfrontCartItemFor.setCartitemProductskuId(pskuId);
-					mlfrontCartItemFor.setCartitemProductskuName(pskuName);
-					mlfrontCartItemFor.setCartitemProductskuCode(pskuCode);
-					//查看该id+该pid+skuIdstr+skuIdnamestr+skuId+skuName+skuCode时候已经有了
-					List<MlfrontCartItem> mlfrontCartItemListFor= mlfrontCartItemService.selectMlfrontCartItemOne(mlfrontCartItemFor);
-					if(mlfrontCartItemListFor.size()>0){
-						//如果存在
-						MlfrontCartItem mlfrontCartItemOne = mlfrontCartItemListFor.get(0);
-						int ProductNumber = mlfrontCartItemOne.getCartitemProductNumber();
-						//该sku的Cartitem的number+1,
-						ProductNumber= ProductNumber+proNumberNew;
-						mlfrontCartItemOne.setCartitemId(CartItemIdInt);
-						mlfrontCartItemOne.setCartitemProductNumber(ProductNumber);
-						mlfrontCartItemOne.setCartitemCreatetime(nowTime);
-						mlfrontCartItemOne.setCartitemMotifytime(nowTime);
-						//更新
-						mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemOne);
-						break;
+	public Msg toAddMoreProToCart(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam("addMoreProToCartTeams") String addMoreProToCartTeams) throws Exception{
+			
+		//1.收到productskuPid，查询该id下，所有的产品sku
+		//收到list集合,先对该产品下,所有的生效中的进行状态为0,
+		//遍历集合
+		//取出一条,查询这一条,如果存在,将状态改成1，生效中。如果有，更改属性值即可，如果没，新增本条即可。
+		
+		JSONArray jsonArray= JSON.parseArray(addMoreProToCartTeams);
+	    List<MlfrontCartItem> mlfrontCartItemList = jsonArray.toJavaList(MlfrontCartItem.class);
+	    
+	    for(MlfrontCartItem mlfrontCartItem:mlfrontCartItemList){
+	    	
+			insertAddCartView(mlfrontCartItem,session);
+			//4.1
+			String sessionId = session.getId();
+			String Userip =sessionId;
+			session.setAttribute("Userip", Userip);
+			String nowTime = DateUtil.strTime14s();
+			MlfrontUser loginUser = (MlfrontUser) session.getAttribute("loginUser");
+			//判断session中是否有登录信息 ,if 有,新增进入cart中,没有新增进入
+			if(loginUser==null){
+				//获取ip信息,去cart中用ip查询,是否有该ip的购物车
+				MlfrontCart MlfrontCartReq = new MlfrontCart();
+				MlfrontCartReq.setCartIp(Userip);
+				MlfrontCartReq.setCartStatus(0);
+				List<MlfrontCart> MlfrontCartResList = mlfrontCartService.selectMlfrontCartByIp(MlfrontCartReq);
+				Integer ifHave = 1;
+				if(MlfrontCartResList.size()>0){
+					String cartitemIdstrUser = MlfrontCartResList.get(0).getCartitemIdstr();
+					if(cartitemIdstrUser.length()>0){
+						ifHave = 1;
 					}else{
-						if(number <aa.length){
-							continue;
-						}else{
-							//没有该sku的Cartitem	新增该条Cartitem sku
-							//将该id写入cart对象的cartItemStr中
-							System.out.println("操作说明：当前客户添加购物车,此前购物车中不包含本次添加的产品"); 
-							//将本id加入原来的idstr中
-							//更新一下该user的购物车中的cartitemIdstr字段
-							mlfrontCartItem.setCartitemStatus(0);
-							mlfrontCartItem.setCartitemCreatetime(nowTime);
-							mlfrontCartItem.setCartitemMotifytime(nowTime);
-							mlfrontCartItemService.insertSelective(mlfrontCartItem);
-							Integer cartItemId = mlfrontCartItem.getCartitemId();
-							String cartItemIdStrnew = cartItemId+"";
-							cartitemIdstrUser=cartitemIdstrUser+","+cartItemIdStrnew;
-							MlfrontCart mlfrontCartAfter = new MlfrontCart();
-							mlfrontCartAfter.setCartId(cartId);
-							mlfrontCartAfter.setCartUid(cartUid);
-							mlfrontCartAfter.setCartitemIdstr(cartitemIdstrUser);
-							mlfrontCartAfter.setCartMotifytime(nowTime);
-							mlfrontCartService.updateByPrimaryKeySelective(mlfrontCartAfter);
-							//将本mlfrontCartItem插入mlfrontCartItem表中
-							//更新本条cartitem,
-							mlfrontCartItem.setCartitemId(cartItemId);
-							mlfrontCartItem.setCartitemCartId(cartId);
-							mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
+						//名下有购物车,但是为空
+						Integer cartId = MlfrontCartResList.get(0).getCartId();
+						MlfrontCart MlfrontCartdelRep = new MlfrontCart();
+						MlfrontCartdelRep.setCartId(cartId);
+						mlfrontCartService.deleteByPrimaryKey(cartId);
+						ifHave = 0;
+						//此时要删掉这个为空的购物车
+					}
+				}else{
+					//如果名下没购物车
+					ifHave = 0;
+				}
+				if(ifHave==1){
+					//如果有,获取该购物车的itemStr,
+					MlfrontCart mlfrontCartUser = MlfrontCartResList.get(0);
+					String cartitemIdstrUser = mlfrontCartUser.getCartitemIdstr();
+					Integer cartId = mlfrontCartUser.getCartId();
+					Integer cartUid = mlfrontCartUser.getCartUid();
+					//判断是否有本次添加的产品,如果没有itemStr中加入本次的productId,
+					Integer pid = mlfrontCartItem.getCartitemProductId();
+					String skuIdstr = mlfrontCartItem.getCartitemProductskuIdstr();
+					String skuIdnamestr = mlfrontCartItem.getCartitemProductskuIdnamestr();
+					Integer pskuId = mlfrontCartItem.getCartitemProductskuId();
+					String pskuName =mlfrontCartItem.getCartitemProductskuName();
+					String pskuCode = mlfrontCartItem.getCartitemProductskuCode();
+					int proNumberNew =mlfrontCartItem.getCartitemProductNumber();
+					String[] aa = cartitemIdstrUser.split(",");
+					int number = 0;
+					for(int i=0;i<aa.length;i++){
+						number++;
+						String CartItemId = aa[i];
+						Integer CartItemIdInt =Integer.parseInt(CartItemId);
+						MlfrontCartItem mlfrontCartItemFor = new MlfrontCartItem();
+						mlfrontCartItemFor.setCartitemId(CartItemIdInt);
+						mlfrontCartItemFor.setCartitemProductId(pid);
+						mlfrontCartItemFor.setCartitemProductskuIdstr(skuIdstr);
+						mlfrontCartItemFor.setCartitemProductskuIdnamestr(skuIdnamestr);
+						mlfrontCartItemFor.setCartitemProductskuId(pskuId);
+						mlfrontCartItemFor.setCartitemProductskuName(pskuName);
+						mlfrontCartItemFor.setCartitemProductskuCode(pskuCode);
+						//查看该id+该pid+skuIdstr+skuIdnamestr+skuId+skuName+skuCode时候已经有了
+						List<MlfrontCartItem> mlfrontCartItemListFor= mlfrontCartItemService.selectMlfrontCartItemOne(mlfrontCartItemFor);
+						if(mlfrontCartItemListFor.size()>0){
+							//如果存在
+							MlfrontCartItem mlfrontCartItemOne = mlfrontCartItemListFor.get(0);
+							int ProductNumber = mlfrontCartItemOne.getCartitemProductNumber();
+							//该sku的Cartitem的number+1,
+							ProductNumber= ProductNumber+proNumberNew;
+							mlfrontCartItemOne.setCartitemId(CartItemIdInt);
+							mlfrontCartItemOne.setCartitemProductNumber(ProductNumber);
+							mlfrontCartItemOne.setCartitemCreatetime(nowTime);
+							mlfrontCartItemOne.setCartitemMotifytime(nowTime);
+							//更新
+							mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemOne);
 							break;
+						}else{
+							if(number <aa.length){
+								continue;
+							}else{
+								//没有该sku的Cartitem	新增该条Cartitem sku
+								//将该id写入cart对象的cartItemStr中
+								System.out.println("操作说明：当前客户添加购物车,此前购物车中不包含本次添加的产品"); 
+								//将本id加入原来的idstr中
+								//更新一下该user的购物车中的cartitemIdstr字段
+								mlfrontCartItem.setCartitemStatus(0);
+								mlfrontCartItem.setCartitemCreatetime(nowTime);
+								mlfrontCartItem.setCartitemMotifytime(nowTime);
+								mlfrontCartItemService.insertSelective(mlfrontCartItem);
+								Integer cartItemId = mlfrontCartItem.getCartitemId();
+								String cartItemIdStrnew = cartItemId+"";
+								cartitemIdstrUser=cartitemIdstrUser+","+cartItemIdStrnew;
+								MlfrontCart mlfrontCartAfter = new MlfrontCart();
+								mlfrontCartAfter.setCartId(cartId);
+								mlfrontCartAfter.setCartUid(cartUid);
+								mlfrontCartAfter.setCartitemIdstr(cartitemIdstrUser);
+								mlfrontCartAfter.setCartMotifytime(nowTime);
+								mlfrontCartService.updateByPrimaryKeySelective(mlfrontCartAfter);
+								//将本mlfrontCartItem插入mlfrontCartItem表中
+								//更新本条cartitem,
+								mlfrontCartItem.setCartitemId(cartItemId);
+								mlfrontCartItem.setCartitemCartId(cartId);
+								mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
+								break;
+							}
 						}
 					}
-				}
-			}else{
-				//这个ip没来过,直接新增一条即可mlfrontCartItem,将主键放入cart对象中,之后在新增该对象cart
-				mlfrontCartItem.setCartitemCreatetime(nowTime);
-				mlfrontCartItem.setCartitemMotifytime(nowTime);
-				mlfrontCartItem.setCartitemStatus(0);
-				mlfrontCartItemService.insertSelective(mlfrontCartItem);
-				Integer cartItemId = mlfrontCartItem.getCartitemId();
-				//拿回来主键ID		mlfrontCartItem
-				MlfrontCart MlfrontCartItemReturn = new MlfrontCart();
-				String cartItemIdStr = cartItemId+"";
-				MlfrontCartItemReturn.setCartitemIdstr(cartItemIdStr);
-				MlfrontCartItemReturn.setCartIp(Userip);
-				MlfrontCartItemReturn.setCartStatus(0);
-				MlfrontCartItemReturn.setCartCreatetime(nowTime);
-				MlfrontCartItemReturn.setCartMotifytime(nowTime);
-				mlfrontCartService.insertSelective(MlfrontCartItemReturn);
-				
-				Integer cartAfterId = MlfrontCartItemReturn.getCartId();
-				mlfrontCartItem.setCartitemId(cartItemId);
-				mlfrontCartItem.setCartitemCartId(cartAfterId);
-				mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
-			}
-		}else{
-			//获取uid信息,去cart中用uid查询,是否有该uid的购物车
-			MlfrontCart MlfrontCartReq = new MlfrontCart();
-			Integer uid =loginUser.getUserId();
-			MlfrontCartReq.setCartUid(uid);
-			MlfrontCartReq.setCartStatus(0);
-			List<MlfrontCart> MlfrontCartResList = mlfrontCartService.selectMlfrontCartByUidAndStatus(MlfrontCartReq);
-			Integer ifHave = 1;
-			if(MlfrontCartResList.size()>0){
-				String cartitemIdstrUser = MlfrontCartResList.get(0).getCartitemIdstr();
-				if(cartitemIdstrUser.length()>0){
-					ifHave = 1;
 				}else{
-					//名下有购物车,但是为空
-					Integer cartId = MlfrontCartResList.get(0).getCartId();
-					MlfrontCart MlfrontCartdelRep = new MlfrontCart();
-					MlfrontCartdelRep.setCartId(cartId);
-					mlfrontCartService.deleteByPrimaryKey(cartId);
-					ifHave = 0;
-					//此时要删掉这个为空的购物车
+					//这个ip没来过,直接新增一条即可mlfrontCartItem,将主键放入cart对象中,之后在新增该对象cart
+					mlfrontCartItem.setCartitemCreatetime(nowTime);
+					mlfrontCartItem.setCartitemMotifytime(nowTime);
+					mlfrontCartItem.setCartitemStatus(0);
+					mlfrontCartItemService.insertSelective(mlfrontCartItem);
+					Integer cartItemId = mlfrontCartItem.getCartitemId();
+					//拿回来主键ID		mlfrontCartItem
+					MlfrontCart MlfrontCartItemReturn = new MlfrontCart();
+					String cartItemIdStr = cartItemId+"";
+					MlfrontCartItemReturn.setCartitemIdstr(cartItemIdStr);
+					MlfrontCartItemReturn.setCartIp(Userip);
+					MlfrontCartItemReturn.setCartStatus(0);
+					MlfrontCartItemReturn.setCartCreatetime(nowTime);
+					MlfrontCartItemReturn.setCartMotifytime(nowTime);
+					mlfrontCartService.insertSelective(MlfrontCartItemReturn);
+					
+					Integer cartAfterId = MlfrontCartItemReturn.getCartId();
+					mlfrontCartItem.setCartitemId(cartItemId);
+					mlfrontCartItem.setCartitemCartId(cartAfterId);
+					mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
 				}
 			}else{
-				//如果名下没购物车
-				ifHave = 0;
-			}
-			if(ifHave==1){
-				//如果有,获取该购物车的itemStr,
-				MlfrontCart mlfrontCartUser = MlfrontCartResList.get(0);
-				String cartitemIdstrUser = mlfrontCartUser.getCartitemIdstr();
-				Integer cartId = mlfrontCartUser.getCartId();
-				Integer cartUid = mlfrontCartUser.getCartUid();
-				//判断是否有本次添加的产品,如果没有itemStr中加入本次的productId,
-				Integer pid = mlfrontCartItem.getCartitemProductId();
-				String skuIdstr = mlfrontCartItem.getCartitemProductskuIdstr();
-				String skuIdnamestr = mlfrontCartItem.getCartitemProductskuIdnamestr();
-				Integer pskuId = mlfrontCartItem.getCartitemProductskuId();
-				String pskuName =mlfrontCartItem.getCartitemProductskuName();
-				String pskuCode = mlfrontCartItem.getCartitemProductskuCode();
-				int proNumberNew =mlfrontCartItem.getCartitemProductNumber();
-				String[] aa = cartitemIdstrUser.split(",");
-				int number = 0;
-				for(int i=0;i<aa.length;i++){
-					number++;
-					String CartItemId = aa[i];
-					Integer CartItemIdInt =Integer.parseInt(CartItemId);
-					MlfrontCartItem mlfrontCartItemFor = new MlfrontCartItem();
-					mlfrontCartItemFor.setCartitemId(CartItemIdInt);
-					mlfrontCartItemFor.setCartitemProductId(pid);
-					mlfrontCartItemFor.setCartitemProductskuIdstr(skuIdstr);
-					mlfrontCartItemFor.setCartitemProductskuIdnamestr(skuIdnamestr);
-					mlfrontCartItemFor.setCartitemProductskuId(pskuId);
-					mlfrontCartItemFor.setCartitemProductskuName(pskuName);
-					mlfrontCartItemFor.setCartitemProductskuCode(pskuCode);
-					//查看该id+该pid+skuIdstr+skuIdnamestr+skuNamestr时候已经有了
-					List<MlfrontCartItem> mlfrontCartItemListFor= mlfrontCartItemService.selectMlfrontCartItemOne(mlfrontCartItemFor);
-					if(mlfrontCartItemListFor.size()>0){
-						//如果存在
-						MlfrontCartItem mlfrontCartItemOne = mlfrontCartItemListFor.get(0);
-						int ProductNumber = mlfrontCartItemOne.getCartitemProductNumber();
-						//该sku的Cartitem的number+1,
-						ProductNumber= ProductNumber+proNumberNew;
-						mlfrontCartItemOne.setCartitemId(CartItemIdInt);
-						mlfrontCartItemOne.setCartitemProductNumber(ProductNumber);
-						mlfrontCartItemOne.setCartitemCreatetime(nowTime);
-						mlfrontCartItemOne.setCartitemMotifytime(nowTime);
-						//更新
-						mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemOne);
-						break;
+				//获取uid信息,去cart中用uid查询,是否有该uid的购物车
+				MlfrontCart MlfrontCartReq = new MlfrontCart();
+				Integer uid =loginUser.getUserId();
+				MlfrontCartReq.setCartUid(uid);
+				MlfrontCartReq.setCartStatus(0);
+				List<MlfrontCart> MlfrontCartResList = mlfrontCartService.selectMlfrontCartByUidAndStatus(MlfrontCartReq);
+				Integer ifHave = 1;
+				if(MlfrontCartResList.size()>0){
+					String cartitemIdstrUser = MlfrontCartResList.get(0).getCartitemIdstr();
+					if(cartitemIdstrUser.length()>0){
+						ifHave = 1;
 					}else{
-						if(number <aa.length){
-							continue;
-						}else{
-							//没有该sku的Cartitem
-							//新增该条Cartitem sku
-							//将该id写入cart对象的cartItemStr中
-							System.out.println("操作说明：当前客户添加购物车,此前购物车中不包含本次添加的产品"); 
-							//将本id加入原来的idstr中
-							//更新一下该user的购物车中的cartitemIdstr字段
-							mlfrontCartItem.setCartitemStatus(0);
-							mlfrontCartItem.setCartitemCreatetime(nowTime);
-							mlfrontCartItem.setCartitemMotifytime(nowTime);
-							mlfrontCartItemService.insertSelective(mlfrontCartItem);
-							
-							Integer cartItemId = mlfrontCartItem.getCartitemId();
-
-							String cartItemIdStrnew = cartItemId+"";
-							cartitemIdstrUser=cartitemIdstrUser+","+cartItemIdStrnew;
-							MlfrontCart mlfrontCartAfter = new MlfrontCart();
-							mlfrontCartAfter.setCartId(cartId);
-							mlfrontCartAfter.setCartUid(cartUid);
-							mlfrontCartAfter.setCartitemIdstr(cartitemIdstrUser);
-							mlfrontCartAfter.setCartMotifytime(nowTime);
-							mlfrontCartService.updateByPrimaryKeySelective(mlfrontCartAfter);
-							//将本mlfrontCartItem插入mlfrontCartItem表中
-							//更新本条cartitem,
-							mlfrontCartItem.setCartitemId(cartItemId);
-							mlfrontCartItem.setCartitemCartId(cartId);
-							mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
+						//名下有购物车,但是为空
+						Integer cartId = MlfrontCartResList.get(0).getCartId();
+						MlfrontCart MlfrontCartdelRep = new MlfrontCart();
+						MlfrontCartdelRep.setCartId(cartId);
+						mlfrontCartService.deleteByPrimaryKey(cartId);
+						ifHave = 0;
+						//此时要删掉这个为空的购物车
+					}
+				}else{
+					//如果名下没购物车
+					ifHave = 0;
+				}
+				if(ifHave==1){
+					//如果有,获取该购物车的itemStr,
+					MlfrontCart mlfrontCartUser = MlfrontCartResList.get(0);
+					String cartitemIdstrUser = mlfrontCartUser.getCartitemIdstr();
+					Integer cartId = mlfrontCartUser.getCartId();
+					Integer cartUid = mlfrontCartUser.getCartUid();
+					//判断是否有本次添加的产品,如果没有itemStr中加入本次的productId,
+					Integer pid = mlfrontCartItem.getCartitemProductId();
+					String skuIdstr = mlfrontCartItem.getCartitemProductskuIdstr();
+					String skuIdnamestr = mlfrontCartItem.getCartitemProductskuIdnamestr();
+					Integer pskuId = mlfrontCartItem.getCartitemProductskuId();
+					String pskuName =mlfrontCartItem.getCartitemProductskuName();
+					String pskuCode = mlfrontCartItem.getCartitemProductskuCode();
+					int proNumberNew =mlfrontCartItem.getCartitemProductNumber();
+					String[] aa = cartitemIdstrUser.split(",");
+					int number = 0;
+					for(int i=0;i<aa.length;i++){
+						number++;
+						String CartItemId = aa[i];
+						Integer CartItemIdInt =Integer.parseInt(CartItemId);
+						MlfrontCartItem mlfrontCartItemFor = new MlfrontCartItem();
+						mlfrontCartItemFor.setCartitemId(CartItemIdInt);
+						mlfrontCartItemFor.setCartitemProductId(pid);
+						mlfrontCartItemFor.setCartitemProductskuIdstr(skuIdstr);
+						mlfrontCartItemFor.setCartitemProductskuIdnamestr(skuIdnamestr);
+						mlfrontCartItemFor.setCartitemProductskuId(pskuId);
+						mlfrontCartItemFor.setCartitemProductskuName(pskuName);
+						mlfrontCartItemFor.setCartitemProductskuCode(pskuCode);
+						//查看该id+该pid+skuIdstr+skuIdnamestr+skuNamestr时候已经有了
+						List<MlfrontCartItem> mlfrontCartItemListFor= mlfrontCartItemService.selectMlfrontCartItemOne(mlfrontCartItemFor);
+						if(mlfrontCartItemListFor.size()>0){
+							//如果存在
+							MlfrontCartItem mlfrontCartItemOne = mlfrontCartItemListFor.get(0);
+							int ProductNumber = mlfrontCartItemOne.getCartitemProductNumber();
+							//该sku的Cartitem的number+1,
+							ProductNumber= ProductNumber+proNumberNew;
+							mlfrontCartItemOne.setCartitemId(CartItemIdInt);
+							mlfrontCartItemOne.setCartitemProductNumber(ProductNumber);
+							mlfrontCartItemOne.setCartitemCreatetime(nowTime);
+							mlfrontCartItemOne.setCartitemMotifytime(nowTime);
+							//更新
+							mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItemOne);
 							break;
+						}else{
+							if(number <aa.length){
+								continue;
+							}else{
+								//没有该sku的Cartitem
+								//新增该条Cartitem sku
+								//将该id写入cart对象的cartItemStr中
+								System.out.println("操作说明：当前客户添加购物车,此前购物车中不包含本次添加的产品"); 
+								//将本id加入原来的idstr中
+								//更新一下该user的购物车中的cartitemIdstr字段
+								mlfrontCartItem.setCartitemStatus(0);
+								mlfrontCartItem.setCartitemCreatetime(nowTime);
+								mlfrontCartItem.setCartitemMotifytime(nowTime);
+								mlfrontCartItemService.insertSelective(mlfrontCartItem);
+								
+								Integer cartItemId = mlfrontCartItem.getCartitemId();
+	
+								String cartItemIdStrnew = cartItemId+"";
+								cartitemIdstrUser=cartitemIdstrUser+","+cartItemIdStrnew;
+								MlfrontCart mlfrontCartAfter = new MlfrontCart();
+								mlfrontCartAfter.setCartId(cartId);
+								mlfrontCartAfter.setCartUid(cartUid);
+								mlfrontCartAfter.setCartitemIdstr(cartitemIdstrUser);
+								mlfrontCartAfter.setCartMotifytime(nowTime);
+								mlfrontCartService.updateByPrimaryKeySelective(mlfrontCartAfter);
+								//将本mlfrontCartItem插入mlfrontCartItem表中
+								//更新本条cartitem,
+								mlfrontCartItem.setCartitemId(cartItemId);
+								mlfrontCartItem.setCartitemCartId(cartId);
+								mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
+								break;
+							}
 						}
 					}
+				}else{
+					//这个ip没来过,直接新增一条即可mlfrontCartItem,将主键放入cart对象中,之后在新增该对象cart
+					mlfrontCartItem.setCartitemCreatetime(nowTime);
+					mlfrontCartItem.setCartitemMotifytime(nowTime);
+					mlfrontCartItem.setCartitemStatus(0);
+					mlfrontCartItemService.insertSelective(mlfrontCartItem);
+					
+					Integer cartItemId = mlfrontCartItem.getCartitemId();
+	
+					//拿回来主键ID		mlfrontCartItem
+					MlfrontCart MlfrontCartItemReturn = new MlfrontCart();
+					String cartItemIdStr = cartItemId+"";
+					MlfrontCartItemReturn.setCartitemIdstr(cartItemIdStr);
+					MlfrontCartItemReturn.setCartUid(uid);
+					MlfrontCartItemReturn.setCartStatus(0);
+					MlfrontCartItemReturn.setCartCreatetime(nowTime);
+					MlfrontCartItemReturn.setCartMotifytime(nowTime);
+					mlfrontCartService.insertSelective(MlfrontCartItemReturn);
+					
+					Integer cartAfterId = MlfrontCartItemReturn.getCartId();
+	
+					mlfrontCartItem.setCartitemId(cartItemId);
+					mlfrontCartItem.setCartitemCartId(cartAfterId);
+					mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
 				}
-			}else{
-				//这个ip没来过,直接新增一条即可mlfrontCartItem,将主键放入cart对象中,之后在新增该对象cart
-				mlfrontCartItem.setCartitemCreatetime(nowTime);
-				mlfrontCartItem.setCartitemMotifytime(nowTime);
-				mlfrontCartItem.setCartitemStatus(0);
-				mlfrontCartItemService.insertSelective(mlfrontCartItem);
-				
-				Integer cartItemId = mlfrontCartItem.getCartitemId();
-
-				//拿回来主键ID		mlfrontCartItem
-				MlfrontCart MlfrontCartItemReturn = new MlfrontCart();
-				String cartItemIdStr = cartItemId+"";
-				MlfrontCartItemReturn.setCartitemIdstr(cartItemIdStr);
-				MlfrontCartItemReturn.setCartUid(uid);
-				MlfrontCartItemReturn.setCartStatus(0);
-				MlfrontCartItemReturn.setCartCreatetime(nowTime);
-				MlfrontCartItemReturn.setCartMotifytime(nowTime);
-				mlfrontCartService.insertSelective(MlfrontCartItemReturn);
-				
-				Integer cartAfterId = MlfrontCartItemReturn.getCartId();
-
-				mlfrontCartItem.setCartitemId(cartItemId);
-				mlfrontCartItem.setCartitemCartId(cartAfterId);
-				mlfrontCartItemService.updateByPrimaryKeySelective(mlfrontCartItem);
 			}
 		}
 		return Msg.success().add("resMsg", "添加成功");
