@@ -30,9 +30,10 @@
 			height: 100px;
 			margin-right: 1rem;
 		}
-		.porudct-name {
+		.product-name {
 			font-size: 1.2rem;
 			color: #333;
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -70,6 +71,7 @@
 										<tr>
 											<th>id</th>
 											<th>name</th>
+											<th>product-seo</th>
 											<th>status</th>
 											<th>operate</th>
 										</tr>
@@ -164,10 +166,11 @@
 		var hasSuperCateList = false;
 		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "product-together";
 		var selectedName = [], selectedId = [], selectedSeo = [], selectedImg = [];
+		var productTogetherNames = {};
 
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
 		$('#search-supercate').val($('#search-supercate').data('val') || -1);
-
+		getAllProductTogetherNames();
 		// init
 		renderTabItems();
 		// pagination a-click
@@ -303,6 +306,24 @@
 
 			$('#editModal').find('.modal-title').text('Select product ...');
 			$('#editModal').modal('show');
+
+			$('#editModal .btn-ok').one('click', function() {
+				if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
+					$('#producttogetherProsidStr').val(selectedId.join(','));
+					$('#producttogetherProsnameStr').val(selectedName.join(','));
+					$('#producttogetherProsseoStr').val(selectedSeo.join(','));
+					$('#producttogetherProsimgurlStr').val(selectedImg.join(','));
+					// render product list
+					renderSelectedProduct();
+				} else {
+					selectedId = $('#producttogetherProsidStr').val() ? $('#producttogetherProsidStr').val().split(',') : [];
+					selectedName = $('#producttogetherProsnameStr').val() ? $('#producttogetherProsnameStr').val().split(',') : [];
+					selectedSeo = $('#producttogetherProsseoStr').val() ? $('#producttogetherProsseoStr').val().split(',') : [];
+					selectedImg = $('#producttogetherProsimgurlStr').val() ? $('#producttogetherProsimgurlStr').val().split(',') : [];
+					console.log('数据错误！！！');
+				}
+				$('#editModal').modal('hide');
+			});
 		});
 		$(document.body).on('click', '#editModal .form-check-input', function() {
 			var $this = $(this);
@@ -326,28 +347,33 @@
 				imgx > -1  && selectedImg.splice(imgx, 1);
 			}
 			$('#editModal .select-result .value').text(selectedId.join(', '));
-			$('#editModal .btn-ok').one('click', function() {
-				if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
-					$('#producttogetherProsidStr').val(selectedId.join(','));
-					$('#producttogetherProsnameStr').val(selectedName.join(','));
-					$('#producttogetherProsseoStr').val(selectedSeo.join(','));
-					$('#producttogetherProsimgurlStr').val(selectedImg.join(','));
-					// render product list
-					renderSelectedProduct();
-				} else {
-					console.log('数据错误！！！');
-				}
-				$('#editModal').modal('hide');
-			});
+		});
+		$('#editModal .btn-ok').on('click', function() {
+			if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
+				$('#producttogetherProsidStr').val(selectedId.join(','));
+				$('#producttogetherProsnameStr').val(selectedName.join(','));
+				$('#producttogetherProsseoStr').val(selectedSeo.join(','));
+				$('#producttogetherProsimgurlStr').val(selectedImg.join(','));
+				// render product list
+				renderSelectedProduct();
+			} else {
+				selectedId = $('#producttogetherProsidStr').val() ? $('#producttogetherProsidStr').val().split(',') : [];
+				selectedName = $('#producttogetherProsnameStr').val() ? $('#producttogetherProsnameStr').val().split(',') : [];
+				selectedSeo = $('#producttogetherProsseoStr').val() ? $('#producttogetherProsseoStr').val().split(',') : [];
+				selectedImg = $('#producttogetherProsimgurlStr').val() ? $('#producttogetherProsimgurlStr').val().split(',') : [];
+				console.log('数据错误！！！');
+			}
+			$('#editModal').modal('hide');
 		});
 		// render selectedProduct
 		function renderSelectedProduct() {
 			if (selectedId.length) {
 				var htmlStr = '';
 				selectedId.forEach(function(item, idx) {
+					var link = '${APP_PATH}/' + selectedSeo[idx] + '.html';
 					htmlStr += '<div class="product-item">' +
-						'<img class="product-img" src="'+ selectedImg[idx] + '" />' +
-						'<div class="product-name">' + selectedName[idx] + '</div>' +
+						'<a href="'+ link +'"><img class="product-img" src="'+ selectedImg[idx] + '" /></a>' +
+						'<a class="product-name">' + selectedName[idx] + '</a>' +
 					'</div>';
 				});
 			} else {
@@ -357,6 +383,21 @@
 		}
 		// get all product
 		function renderAllProduct2(data) {
+			function getGroup(id) {
+				var txt = '';
+				switch(id) {
+					case 999:
+						txt = '--';
+						break;
+					case 0:
+						txt = '随机组合';
+						break;
+					default:
+						txt = '第' + id + '组合';
+						if (Object.keys(productTogetherNames).length) txt += '——' + productTogetherNames[id];
+				}
+				return txt;
+			}
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				var productId = data[i].productId;
@@ -371,13 +412,31 @@
 									'<div class="c-table-img"><img src="'+ encodeUrl(productImg) +'" /></div>'
 									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 							'</span>' + */
-							'<span class="table-th" style="width: auto;">'+ productName +'</span>' +
-							/* '<span class="table-th">'+ productSeo +'</span>' + */
+							'<span class="table-th" style="width: 100%;">'+ productName +'</span>' +
+							'<span class="table-th">'+ getGroup(data[i].productNeedProTogetherId) +'</span>' +
 						'</label>' +
 					'</div></div>';
 			}
 			$('#editModal .modal-body-body').html(htmlStr);
 			$('#editModal .spinner').hide();
+		}
+		// get all product-together-name
+		function getAllProductTogetherNames() {
+			// productTogether/lownLoadProTogether
+			$.ajax({
+				url: "${APP_PATH}/productTogether/lownLoadProTogether",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						var resData = data.extend.mlbackProductTogetherResList;
+						resData && resData.forEach(function(item, idx) {
+							productTogetherNames[item.producttogetherId] = item.producttogetherName
+						});
+					} else {}
+				}
+			});
 		}
 		// handle formData
 		// reset data
@@ -647,6 +706,7 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].producttogetherId + '</td>' +
 					'<td>' + (data[i].producttogetherName || '') + '</td>' +
+					'<td>' + (data[i].producttogetherProsseoStr.replace(/\,/g, '<br\/>')) + '</td>' +
 					'<td><a class="badge '+ ('' + data[i].producttogetherStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].producttogetherStatus == '0' ? 'unabled' : 'enabled') + '</a></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].producttogetherId + '">' +
