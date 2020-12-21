@@ -204,7 +204,7 @@ public class MlbackProductTogetherController {
 			String toGetHerIdsStr = mlbackProductTogetherRes.getProducttogetherProsidStr();
 			//抽出下面的几个id
 			String toGetHerIdsStrArr [] = toGetHerIdsStr.split(",");
-			//先遍历一遍，有没有当前的产品pid
+			//先遍历一遍,有没有当前的产品pid
 			
 			String orginalPidStr = ProId+"";
 			Integer insite = 999;
@@ -216,10 +216,14 @@ public class MlbackProductTogetherController {
 				}
 			}
 			List<String> aaaList = new ArrayList<String>();
-			if(insite==999){
+			if(insite==999){//999是初始值,没有第任何位置的值跟pid一致
+				aaaList.add(orginalPidStr);
+				for(int k =0;k<toGetHerIdsStrArr.length;k++){
+					aaaList.add(toGetHerIdsStrArr[k]);
+				}
+			}else{//位置值,第几任何位置的值跟pid一致
 				//存在
 				aaaList.add(orginalPidStr);
-				
 				for(int k =0;k<toGetHerIdsStrArr.length;k++){
 					if(orginalPidStr.equals(toGetHerIdsStrArr[k])){
 						//查到了
@@ -227,11 +231,6 @@ public class MlbackProductTogetherController {
 					}else{
 						aaaList.add(toGetHerIdsStrArr[k]);
 					}
-				}
-			}else{
-				aaaList.add(orginalPidStr);
-				for(int k =0;k<toGetHerIdsStrArr.length;k++){
-					aaaList.add(toGetHerIdsStrArr[k]);
 				}
 			}
 			
