@@ -305,6 +305,24 @@
 
 			$('#editModal').find('.modal-title').text('Select product ...');
 			$('#editModal').modal('show');
+
+			$('#editModal .btn-ok').one('click', function() {
+				if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
+					$('#producttogetherProsidStr').val(selectedId.join(','));
+					$('#producttogetherProsnameStr').val(selectedName.join(','));
+					$('#producttogetherProsseoStr').val(selectedSeo.join(','));
+					$('#producttogetherProsimgurlStr').val(selectedImg.join(','));
+					// render product list
+					renderSelectedProduct();
+				} else {
+					selectedId = $('#producttogetherProsidStr').val() ? $('#producttogetherProsidStr').val().split(',') : [];
+					selectedName = $('#producttogetherProsnameStr').val() ? $('#producttogetherProsnameStr').val().split(',') : [];
+					selectedSeo = $('#producttogetherProsseoStr').val() ? $('#producttogetherProsseoStr').val().split(',') : [];
+					selectedImg = $('#producttogetherProsimgurlStr').val() ? $('#producttogetherProsimgurlStr').val().split(',') : [];
+					console.log('数据错误！！！');
+				}
+				$('#editModal').modal('hide');
+			});
 		});
 		$(document.body).on('click', '#editModal .form-check-input', function() {
 			var $this = $(this);
@@ -328,19 +346,23 @@
 				imgx > -1  && selectedImg.splice(imgx, 1);
 			}
 			$('#editModal .select-result .value').text(selectedId.join(', '));
-			$('#editModal .btn-ok').one('click', function() {
-				if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
-					$('#producttogetherProsidStr').val(selectedId.join(','));
-					$('#producttogetherProsnameStr').val(selectedName.join(','));
-					$('#producttogetherProsseoStr').val(selectedSeo.join(','));
-					$('#producttogetherProsimgurlStr').val(selectedImg.join(','));
-					// render product list
-					renderSelectedProduct();
-				} else {
-					console.log('数据错误！！！');
-				}
-				$('#editModal').modal('hide');
-			});
+		});
+		$('#editModal .btn-ok').on('click', function() {
+			if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
+				$('#producttogetherProsidStr').val(selectedId.join(','));
+				$('#producttogetherProsnameStr').val(selectedName.join(','));
+				$('#producttogetherProsseoStr').val(selectedSeo.join(','));
+				$('#producttogetherProsimgurlStr').val(selectedImg.join(','));
+				// render product list
+				renderSelectedProduct();
+			} else {
+				selectedId = $('#producttogetherProsidStr').val() ? $('#producttogetherProsidStr').val().split(',') : [];
+				selectedName = $('#producttogetherProsnameStr').val() ? $('#producttogetherProsnameStr').val().split(',') : [];
+				selectedSeo = $('#producttogetherProsseoStr').val() ? $('#producttogetherProsseoStr').val().split(',') : [];
+				selectedImg = $('#producttogetherProsimgurlStr').val() ? $('#producttogetherProsimgurlStr').val().split(',') : [];
+				console.log('数据错误！！！');
+			}
+			$('#editModal').modal('hide');
 		});
 		// render selectedProduct
 		function renderSelectedProduct() {
