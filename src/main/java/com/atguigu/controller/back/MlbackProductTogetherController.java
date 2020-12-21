@@ -313,4 +313,21 @@ public class MlbackProductTogetherController {
 		PageInfo page = new PageInfo(mlbackProductTogetherResList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
+	
+	/**
+	 * 8.0	onuse	200103
+	 * 前台详情页面wap/pc的productDetails
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping(value="/lownLoadProTogether",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg lownLoadProTogether(HttpServletResponse rep,HttpServletRequest res,HttpSession session) throws Exception{
+		
+		MlbackProductTogether mlbackProductTogetherReq = new MlbackProductTogether();
+		List<MlbackProductTogether> mlbackProductTogetherResList = mlbackProductTogetherService.selectMlbackProTogetherDownLoadByParam(mlbackProductTogetherReq);
+		return Msg.success().add("mlbackProductTogetherResList", mlbackProductTogetherResList);
+	}
+	
+	
 }
