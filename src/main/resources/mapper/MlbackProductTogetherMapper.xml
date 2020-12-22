@@ -14,12 +14,15 @@
     <result column="productTogether_createTime" jdbcType="VARCHAR" property="producttogetherCreatetime" />
     <result column="productTogether_motifyTime" jdbcType="VARCHAR" property="producttogetherMotifytime" />
     <result column="productTogether_belong_proIdStr" jdbcType="VARCHAR" property="producttogetherBelongProIdStr" />
+    <result column="productTogether_belong_proNameStr" jdbcType="VARCHAR" property="producttogetherBelongProNameStr" />
+    <result column="productTogether_belong_proSeoNameStr" jdbcType="VARCHAR" property="producttogetherBelongProSeoNameStr" />
   </resultMap>
   <sql id="Base_Column_List">
     productTogether_id, productTogether_name, productTogether_status, productTogether_prosId_str, 
     productTogether_prosName_str, productTogether_prosSeo_str, productTogether_prosImgUrl_str, 
     productTogether_superCate_id, productTogether_superCate_name, productTogether_createTime, 
-    productTogether_motifyTime,productTogether_belong_proIdStr
+    productTogether_motifyTime,productTogether_belong_proIdStr,productTogether_belong_proNameStr,
+    productTogether_belong_proSeoNameStr
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -34,13 +37,15 @@
       productTogether_prosName_str, productTogether_prosSeo_str, 
       productTogether_prosImgUrl_str, productTogether_superCate_id, 
       productTogether_superCate_name, productTogether_createTime, 
-      productTogether_motifyTime,productTogether_belong_proIdStr)
+      productTogether_motifyTime,productTogether_belong_proIdStr,
+      productTogether_belong_proNameStr,productTogether_belong_proSeoNameStr)
     values (#{producttogetherId,jdbcType=INTEGER}, #{producttogetherName,jdbcType=VARCHAR}, 
       #{producttogetherStatus,jdbcType=INTEGER}, #{producttogetherProsidStr,jdbcType=VARCHAR}, 
       #{producttogetherProsnameStr,jdbcType=VARCHAR}, #{producttogetherProsseoStr,jdbcType=VARCHAR}, 
       #{producttogetherProsimgurlStr,jdbcType=VARCHAR}, #{producttogetherSupercateId,jdbcType=INTEGER}, 
       #{producttogetherSupercateName,jdbcType=VARCHAR}, #{producttogetherCreatetime,jdbcType=VARCHAR}, 
-      #{producttogetherMotifytime,jdbcType=VARCHAR}, #{producttogetherBelongProIdStr,jdbcType=VARCHAR})
+      #{producttogetherMotifytime,jdbcType=VARCHAR}, #{producttogetherBelongProIdStr,jdbcType=VARCHAR}, 
+      #{producttogetherBelongProNameStr,jdbcType=VARCHAR}, #{producttogetherBelongProSeoNameStr,jdbcType=VARCHAR})
   </insert>
   
   
@@ -56,7 +61,9 @@
       productTogether_superCate_name = #{producttogetherSupercateName,jdbcType=VARCHAR},
       productTogether_createTime = #{producttogetherCreatetime,jdbcType=VARCHAR},
       productTogether_motifyTime = #{producttogetherMotifytime,jdbcType=VARCHAR},
-      productTogether_belong_proIdStr = #{producttogetherBelongProIdStr,jdbcType=VARCHAR}
+      productTogether_belong_proIdStr = #{producttogetherBelongProIdStr,jdbcType=VARCHAR},
+      productTogether_belong_proNameStr = #{producttogetherBelongProNameStr,jdbcType=VARCHAR},
+      productTogether_belong_proSeoNameStr = #{producttogetherBelongProSeoNameStr,jdbcType=VARCHAR}
     where productTogether_id = #{producttogetherId,jdbcType=INTEGER}
   </update>
   
@@ -100,6 +107,12 @@
       <if test="producttogetherBelongProIdStr != null">
         productTogether_belong_proIdStr,
       </if>
+      <if test="producttogetherBelongProNameStr != null">
+        productTogether_belong_proNameStr,
+      </if>
+      <if test="producttogetherBelongProSeoNameStr != null">
+        productTogether_belong_proSeoNameStr,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="producttogetherId != null">
@@ -137,6 +150,12 @@
       </if>
       <if test="producttogetherBelongProIdStr != null">
         #{producttogetherBelongProIdStr,jdbcType=VARCHAR},
+      </if>
+      <if test="producttogetherBelongProNameStr != null">
+        #{producttogetherBelongProNameStr,jdbcType=VARCHAR},
+      </if>
+      <if test="producttogetherBelongProSeoNameStr != null">
+        #{producttogetherBelongProSeoNameStr,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -181,6 +200,12 @@
       </if>
       <if test="producttogetherBelongProIdStr != null">
         productTogether_belong_proIdStr = #{producttogetherBelongProIdStr,jdbcType=VARCHAR},
+      </if>
+      <if test="producttogetherBelongProNameStr != null">
+        productTogether_belong_proNameStr = #{producttogetherBelongProNameStr,jdbcType=VARCHAR},
+      </if>
+      <if test="producttogetherBelongProSeoNameStr != null">
+        productTogether_belong_proSeoNameStr = #{producttogetherBelongProSeoNameStr,jdbcType=VARCHAR},
       </if>
     </set>
     where productTogether_id = #{producttogetherId,jdbcType=INTEGER}

@@ -127,16 +127,22 @@ public class MlbackProductTogetherController {
 			//更新产品表
 			//读出一起买里面绑定的产品id串串,遍历修改(查出该产品,修改里面的组合绑定字段)
 			String belongProIdsStr = mlbackProductTogether.getProducttogetherBelongProIdStr();
-			String productIdsStrArr [] = belongProIdsStr.split(",");
-			String productIdStr = "";
-			Integer productIdInt = 0;
-			for(int i=0;i<productIdsStrArr.length;i++){
-				productIdStr=productIdsStrArr[i];
-				productIdInt = Integer.parseInt(productIdStr);
-				MlbackProduct mlbackProductReq = new MlbackProduct();
-				mlbackProductReq.setProductId(productIdInt);
-				mlbackProductReq.setProductNeedProTogetherId(proTogetherId);
-				mlbackProductService.updateByPrimaryKeySelective(mlbackProductReq);
+			
+			if(belongProIdsStr==null){
+				System.out.println("并没有配置产品,belongProIdsStr字段为null");
+			}else{
+				System.out.println("配置的归属产品为,belongProIdsStr字段为:"+belongProIdsStr);
+				String productIdsStrArr [] = belongProIdsStr.split(",");
+				String productIdStr = "";
+				Integer productIdInt = 0;
+				for(int i=0;i<productIdsStrArr.length;i++){
+					productIdStr=productIdsStrArr[i];
+					productIdInt = Integer.parseInt(productIdStr);
+					MlbackProduct mlbackProductReq = new MlbackProduct();
+					mlbackProductReq.setProductId(productIdInt);
+					mlbackProductReq.setProductNeedProTogetherId(proTogetherId);
+					mlbackProductService.updateByPrimaryKeySelective(mlbackProductReq);
+				}
 			}
 			return Msg.success().add("resMsg", "更新成功").add("mlbackProductTogether", mlbackProductTogether);
 		}
