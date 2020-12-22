@@ -110,7 +110,7 @@
 						'</div>' +
 					'</div>' +
 				'</div>' +
-				'<div class="cart-sku-edit">EDIT</div>' +
+				'<div class="cart-sku-edit">Modify</div>' +
 			'</div>').data('cartitem', item));
 		});
 		var calCart = calCartList($cartList.find('.cart-item'));
