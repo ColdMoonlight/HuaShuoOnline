@@ -22,6 +22,8 @@
 		@media only screen and (max-width: 575px) { .product-share .instagram {background-position: 0 -2rem;} .product-share .youtube {background-position: 0 -8rem;} }
 		@media only screen and (min-width: 576px) and (max-width: 1023px) {.product-share .instagram {background-position: 0 -2.5rem;} .product-share .youtube {background-position: 0 -10rem;} }		
 		@media only screen and (min-width: 1023px) {.product-share .instagram {background-position: 0 -3rem;} .product-share .youtube {background-position: 0 -12rem;} }
+		#countdown-area .body { padding-top: 0; }
+		#countdown-area .desc { padding: 0; }
 		.product-slide { border: 1px solid #ededed; }
 		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
 		.product-together-box { padding: 1rem; margin-top: 1rem; border: 1px solid #ededed; border-radius: .5rem; background-color: rgb(255, 192, 203); }
@@ -34,7 +36,7 @@
 		.product-together-cal { margin-bottom: 1rem; } 
 		.product-together-info-item { margin-top: .5rem; }
 		.proudct-together-name { margin-left: .5rem; font-size: 1.2rem;  color: #333; }
-		.product-together-select { margin-left: 1rem; padding: .25rem .5rem; }
+		.product-together-select { margin-left: 1rem; padding: .25rem .5rem; background-color: #fff; }
 		.product-together-oprice { margin-left: .5rem; color: #333; text-decoration: line-through; font-weight: 500; }
 		.product-together-dprice { margin-left: .5rem; color: #ff0000; font-weight: 500; }
 		@media only screen and (max-width: 575px) {
