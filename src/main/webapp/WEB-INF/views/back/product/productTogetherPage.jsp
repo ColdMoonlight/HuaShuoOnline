@@ -72,6 +72,7 @@
 											<th>id</th>
 											<th>name</th>
 											<th>product-seo</th>
+											<th>belong-seo</th>
 											<th>status</th>
 											<th>operate</th>
 										</tr>
@@ -95,7 +96,7 @@
 					<div class="c-form row">
 						<input id="producttogetherId" hidden>
 						<!-- left panel -->
-						<div class="left-panel col-lg-7 col-md-12">
+						<div class="left-panel col-lg-6 col-md-12">
 							<div class="card">
 								<div class="card-body">
 									<div class="form-group row">
@@ -115,24 +116,9 @@
 									</div>
 								</div>
 							</div>
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">products</div>
-								</div>
-								<div class="card-body">
-									<input id="producttogetherProsidStr" hidden />
-									<input id="producttogetherProsnameStr" hidden />
-									<input id="producttogetherProsseoStr" hidden />
-									<input id="producttogetherProsimgurlStr" hidden />
-									<div class="product-operate">
-										<button class="btn btn-primary" id="product-together-edit">edit it</button>
-									</div>
-									<div class="product-list"></div>
-								</div>
-							</div>
 						</div>
 						<!-- right panel  -->
-						<div class="right-panel col-lg-5 col-md-12">
+						<div class="right-panel col-lg-6 col-md-12">
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">Super Category</div>
@@ -144,6 +130,43 @@
 											<select class="form-control supercate-list" id="producttogetherSupercateId" /></select>
 										</div>
 									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-6 col-md-12">
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Select product mix</div>
+								</div>
+								<div class="card-body">
+									<input id="producttogetherProsidStr" hidden />
+									<input id="producttogetherProsnameStr" hidden />
+									<input id="producttogetherProsseoStr" hidden />
+									<input id="producttogetherProsimgurlStr" hidden />
+									<div class="product-operate">
+										<button class="btn btn-primary" id="product-together-edit">edit it</button>
+									</div>
+									<div class="product-list product-list-1"></div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-6 col-md-12">
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Belonging products</div>
+								</div>
+								<div class="card-body">
+									<input id="producttogetherBelongProIdStr" hidden />
+									<input id="producttogetherBelongProNameStr" hidden />
+									<input id="producttogetherBelongProSeoNameStr" hidden />
+									<div class="product-operate">
+										<button class="btn btn-primary" id="product-belong-edit">edit it</button>
+									</div>
+									<div class="product-list product-list-2"></div>
 								</div>
 							</div>
 						</div>
@@ -159,14 +182,16 @@
 	</div>
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
-	<jsp:include page="../common/editModal.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/editModal2.jsp" flush="true"></jsp:include>
 
 	<!-- custom script -->
 	<script>
 		var hasSuperCateList = false;
 		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "product-together";
 		var selectedName = [], selectedId = [], selectedSeo = [], selectedImg = [];
+		var belongName = [], belongId = [], belongSeo = [], belongImg = [];
 		var productTogetherNames = {};
+		var flag;
 
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
 		$('#search-supercate').val($('#search-supercate').data('val') || -1);
@@ -294,6 +319,8 @@
 		$('#product-together-edit').on('click', function() {
 			var $selectResult = $('#editModal .select-result .value');
 
+			flag = 'mix';
+
 			$('#editModal .select-result').removeClass('hide');
 
 			if (selectedId.length) {
@@ -306,8 +333,27 @@
 
 			$('#editModal').find('.modal-title').text('Select product ...');
 			$('#editModal').modal('show');
+		});
+		$('#product-belong-edit').on('click', function() {
+			var $selectResult = $('#editModal .select-result .value');
+			
+			flag = 'belong';
+			
+			$('#editModal .select-result').removeClass('hide');
 
-			$('#editModal .btn-ok').one('click', function() {
+			if (belongId.length) {
+				$selectResult.text(belongId.join(','));
+			} else {
+				$selectResult.text('');
+			}
+
+			getAllProductData(renderAllProduct2);
+
+			$('#editModal').find('.modal-title').text('Belong product ...');
+			$('#editModal').modal('show');
+		});
+		$('#editModal .btn-ok').on('click', function() {
+			if (flag == 'mix') {
 				if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
 					$('#producttogetherProsidStr').val(selectedId.join(','));
 					$('#producttogetherProsnameStr').val(selectedName.join(','));
@@ -321,47 +367,98 @@
 					selectedSeo = $('#producttogetherProsseoStr').val() ? $('#producttogetherProsseoStr').val().split(',') : [];
 					selectedImg = $('#producttogetherProsimgurlStr').val() ? $('#producttogetherProsimgurlStr').val().split(',') : [];
 					console.log('数据错误！！！');
+				}				
+			}
+
+			if (flag == 'belong') {
+				if (belongId.length && belongName.length && (belongId.length == belongName.length)) {
+					$('#producttogetherBelongProIdStr').val(belongId.join(','));
+					$('#producttogetherBelongProNameStr').val(belongName.join(','));
+					$('#producttogetherBelongProSeoNameStr').val(belongSeo.join(','));
+					// render product list
+					renderBelongProduct();
+				} else {
+					belongId = $('#producttogetherBelongProIdStr').val() ? $('#producttogetherBelongProIdStr').val().split(',') : [];
+					belongSeo = $('#producttogetherBelongProNameStr').val() ? $('#producttogetherBelongProNameStr').val().split(',') : [];
+					belongSeo = $('#producttogetherBelongProSeoNameStr').val() ? $('#producttogetherBelongProSeoNameStr').val().split(',') : [];
+					console.log('数据错误！！！');
 				}
-				$('#editModal').modal('hide');
-			});
+			}
+
+			$('#editModal').modal('hide');
 		});
 		$(document.body).on('click', '#editModal .form-check-input', function() {
 			var $this = $(this);
 			var id = '' + $this.data('id');
 			var name = $this.data('name');
 			var seo = $this.data('seo');
-			var img = $this.data('img');
-			if ($this.prop('checked')) {
-				selectedId.push(id);
-				selectedName.push(name);
-				selectedSeo.push(seo);
-				selectedImg.push(img);
-			} else {
-				var idx = selectedId.indexOf(id);
-				var namex = selectedName.indexOf(name);
-				var seox = selectedSeo.indexOf(seo);
-				var imgx = selectedImg.indexOf(img);
-				idx > -1  && selectedId.splice(idx, 1);
-				namex > -1  && selectedName.splice(namex, 1);
-				seox > -1  && selectedSeo.splice(seox, 1);
-				imgx > -1  && selectedImg.splice(imgx, 1);
+			if (flag == 'mix') {
+				var img = $this.data('img');
+				if ($this.prop('checked')) {
+					selectedId.push(id);
+					selectedName.push(name);
+					selectedSeo.push(seo);
+					selectedImg.push(img);
+				} else {
+					var idx = selectedId.indexOf(id);
+					var namex = selectedName.indexOf(name);
+					var seox = selectedSeo.indexOf(seo);
+					var imgx = selectedImg.indexOf(img);
+					idx > -1  && selectedId.splice(idx, 1);
+					namex > -1  && selectedName.splice(namex, 1);
+					seox > -1  && selectedSeo.splice(seox, 1);
+					imgx > -1  && selectedImg.splice(imgx, 1);
+				}
+				$('#editModal .select-result .value').text(selectedId.join(', '));
 			}
-			$('#editModal .select-result .value').text(selectedId.join(', '));
+			
+			if (flag == 'belong') {
+				if ($this.prop('checked')) {
+					belongId.push(id);
+					belongName.push(name);
+					belongSeo.push(seo);
+				} else {
+					var idx = belongId.indexOf(id);
+					var namex = belongName.indexOf(name);
+					var seox = belongSeo.indexOf(seo);
+					idx > -1  && belongId.splice(idx, 1);
+					namex > -1  && belongName.splice(namex, 1);
+					seox > -1  && belongSeo.splice(seox, 1);
+				}
+				$('#editModal .select-result .value').text(belongId.join(', '));
+			}
 		});
 		$('#editModal .btn-ok').on('click', function() {
-			if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
-				$('#producttogetherProsidStr').val(selectedId.join(','));
-				$('#producttogetherProsnameStr').val(selectedName.join(','));
-				$('#producttogetherProsseoStr').val(selectedSeo.join(','));
-				$('#producttogetherProsimgurlStr').val(selectedImg.join(','));
-				// render product list
-				renderSelectedProduct();
-			} else {
-				selectedId = $('#producttogetherProsidStr').val() ? $('#producttogetherProsidStr').val().split(',') : [];
-				selectedName = $('#producttogetherProsnameStr').val() ? $('#producttogetherProsnameStr').val().split(',') : [];
-				selectedSeo = $('#producttogetherProsseoStr').val() ? $('#producttogetherProsseoStr').val().split(',') : [];
-				selectedImg = $('#producttogetherProsimgurlStr').val() ? $('#producttogetherProsimgurlStr').val().split(',') : [];
-				console.log('数据错误！！！');
+			if (flag == 'mix') {
+				if (selectedId.length && selectedName.length && (selectedId.length == selectedName.length)) {
+					$('#producttogetherProsidStr').val(selectedId.join(','));
+					$('#producttogetherProsnameStr').val(selectedName.join(','));
+					$('#producttogetherProsseoStr').val(selectedSeo.join(','));
+					$('#producttogetherProsimgurlStr').val(selectedImg.join(','));
+					// render product list
+					renderSelectedProduct();
+				} else {
+					selectedId = $('#producttogetherProsidStr').val() ? $('#producttogetherProsidStr').val().split(',') : [];
+					selectedName = $('#producttogetherProsnameStr').val() ? $('#producttogetherProsnameStr').val().split(',') : [];
+					selectedSeo = $('#producttogetherProsseoStr').val() ? $('#producttogetherProsseoStr').val().split(',') : [];
+					selectedImg = $('#producttogetherProsimgurlStr').val() ? $('#producttogetherProsimgurlStr').val().split(',') : [];
+					console.log('数据错误！！！');
+				}				
+			}
+
+			if (flag == 'belong') {
+				if (belongId.length && belongName.length && (belongId.length == belongName.length)) {
+					$('#producttogetherBelongProIdStr').val(belongId.join(','));
+					$('#producttogetherBelongProNameStr').val(belongName.join(','));
+					$('#producttogetherBelongProSeoNameStr').val(belongSeo.join(','));
+					// render product list
+					renderBelongProduct();
+				} else {
+					belongId = $('#producttogetherBelongProIdStr').val() ? $('#producttogetherBelongProIdStr').val().split(',') : [];
+					belongName = $('#producttogetherBelongProNameStr').val() ? $('#producttogetherBelongProNameStr').val().split(',') : [];
+					belongSeo = $('#producttogetherBelongProSeoNameStr').val() ? $('#producttogetherBelongProSeoNameStr').val().split(',') : [];
+					console.log('数据错误！！！');
+				}				
 			}
 			$('#editModal').modal('hide');
 		});
@@ -379,7 +476,22 @@
 			} else {
 				htmlStr = '<p class="text-align: center; font-style: italic;">Empty here...</p>';
 			}
-			$('.product-list').html(htmlStr);
+			$('.product-list-1').html(htmlStr);
+		}
+
+		function renderBelongProduct() {
+			if (belongId.length) {
+				var htmlStr = '';
+				belongId.forEach(function(item, idx) {
+					var link = '${APP_PATH}/' + belongSeo[idx] + '.html';
+					htmlStr += '<div class="product-item">' +
+						'<a class="product-name" href="'+ link +'" target="blank">' + belongName[idx] + '</a>' +
+					'</div>';
+				});
+			} else {
+				htmlStr = '<p class="text-align: center; font-style: italic;">Empty here...</p>';
+			}
+			$('.product-list-2').html(htmlStr);
 		}
 		// get all product
 		function renderAllProduct2(data) {
@@ -404,8 +516,15 @@
 				var productName = data[i].productName;
 				var productSeo = data[i].productSeo;
 				var productImg = data[i].productMainimgurl;
+				var arrId = [];
+				if (flag == 'mix') {
+					arrId = selectedId;
+				}
+				if (flag == 'belong') {
+					arrId = belongId;
+				}
 				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
-						'<input class="form-check-input" id="'+ productId +'" type="checkbox"'+ (selectedId.indexOf('' + productId) > -1 ? ' checked' : '') +' value="" data-id="'+ productId +'" data-name="'+ productName +'" data-seo="'+ productSeo +'" data-img="'+ productImg +'">' +
+						'<input class="form-check-input" id="'+ productId +'" type="checkbox"'+ (arrId.indexOf('' + productId) > -1 ? ' checked' : '') +' value="" data-id="'+ productId +'" data-name="'+ productName +'" data-seo="'+ productSeo +'" data-img="'+ productImg +'">' +
 						'<label class="form-check-label" for="'+ productId +'">'+
 							'<span class="table-th">'+ productId +'</span>' +
 							/* '<span class="table-th">'+ (productImg ?
@@ -413,7 +532,7 @@
 									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 							'</span>' + */
 							'<span class="table-th" style="width: 100%;">'+ productName +'</span>' +
-							'<span class="table-th">'+ getGroup(data[i].productNeedProTogetherId) +'</span>' +
+							(flag == 'belong' ? '<span class="table-th">'+ getGroup(data[i].productNeedProTogetherId) +'</span>' : '') +
 						'</label>' +
 					'</div></div>';
 			}
@@ -456,6 +575,15 @@
 			selectedImg = [];
 			renderSelectedProduct();
 
+			$('#producttogetherBelongProIdStr').val('');
+			$('#producttogetherBelongProNameStr').val('');
+			$('#producttogetherBelongProSeoNameStr').val('');
+
+			belongId = [];
+			belongName = [];
+			belongSeo = [];
+			renderBelongProduct();
+
 			$('#producttogetherSupercateId').val('-1');
 		}
 		// getFormdData
@@ -469,6 +597,10 @@
 			data.producttogetherProsnameStr = $('#producttogetherProsnameStr').val();
 			data.producttogetherProsseoStr = $('#producttogetherProsseoStr').val();
 			data.producttogetherProsimgurlStr = $('#producttogetherProsimgurlStr').val();
+
+			data.producttogetherBelongProIdStr = $('#producttogetherBelongProIdStr').val();
+			data.producttogetherBelongProNameStr = $('#producttogetherBelongProNameStr').val();
+			data.producttogetherBelongProSeoNameStr = $('#producttogetherBelongProSeoNameStr').val();
 
 			data.producttogetherSupercateId = $('#producttogetherSupercateId').val();
 			data.producttogetherSupercateName = $('#producttogetherSupercateId').find('option:checked').text();
@@ -493,6 +625,18 @@
 			}
 			// render product list
 			renderSelectedProduct();
+
+			$('#producttogetherBelongProIdStr').val(data.producttogetherBelongProIdStr || '');
+			$('#producttogetherBelongProNameStr').val(data.producttogetherBelongProNameStr || '');
+			$('#producttogetherBelongProSeoNameStr').val(data.producttogetherBelongProSeoNameStr || '');
+
+			if (data.producttogetherBelongProIdStr && data.producttogetherBelongProNameStr && data.producttogetherBelongProSeoNameStr) {
+				belongId = data.producttogetherBelongProIdStr.split(',');
+				belongName = data.producttogetherBelongProNameStr.split(',');
+				belongSeo = data.producttogetherBelongProSeoNameStr.split(',');
+			}
+			// render product list
+			renderBelongProduct();
 
 			$('#producttogetherSupercateId').val(data.producttogetherSupercateId || '-1');
 		}
@@ -706,7 +850,8 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].producttogetherId + '</td>' +
 					'<td>' + (data[i].producttogetherName || '') + '</td>' +
-					'<td>' + (data[i].producttogetherProsseoStr.replace(/\,/g, '<br\/>')) + '</td>' +
+					'<td>' + (data[i].producttogetherProsseoStr && data[i].producttogetherProsseoStr.replace(/\,/g, '<br\/>') || '--') + '</td>' +
+					'<td>' + (data[i].producttogetherBelongProSeoNameStr && data[i].producttogetherBelongProSeoNameStr.replace(/\,/g, '<br\/>') || '--') + '</td>' +
 					'<td><a class="badge '+ ('' + data[i].producttogetherStatus == '0' ? 'badge-danger': 'badge-success') +'" href="javascript:;">' + ('' + data[i].producttogetherStatus == '0' ? 'unabled' : 'enabled') + '</a></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].producttogetherId + '">' +
