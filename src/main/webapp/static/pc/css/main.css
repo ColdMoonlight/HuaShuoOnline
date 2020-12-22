@@ -1576,8 +1576,8 @@ footer li {
 	margin: .1rem 0;
 	background-color: #fff;
 	border-radius: .25rem;
-	border: 1px solid #eee;
-	box-shadow: 1px 1px 2px #eee;
+	/* border: 1px solid #eee;
+	box-shadow: 1px 1px 2px #eee; */
 }
 .product-discount-label {
 	position: absolute;
@@ -1626,9 +1626,9 @@ footer li {
 	color: #333333;
 	word-break: break-all;
 
-    display: -webkit-box;
+    /* display: -webkit-box;
     text-overflow: ellipsis;
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: vertical; */
 }
 .product-name>a:hover {
 	color: #000;
@@ -1673,10 +1673,10 @@ footer li {
 		width: 47%;
 	}
 	.product-name>a {
-		-webkit-line-clamp: 3;
+		/* -webkit-line-clamp: 3; */
 		font-size: .875rem;
-		line-height: 1.1rem;
-		height: 3.3rem;
+		/* line-height: 1.1rem;
+		height: 3.3rem; */
 	}
 	.product-desc {
 		padding: .5em;
@@ -1719,10 +1719,10 @@ footer li {
 		width: 32%;
 	}
 	.product-name>a {
-		-webkit-line-clamp: 3;
+		/* -webkit-line-clamp: 3; */
 		font-size: .875rem;
-		line-height: 1.3rem;
-		height: 3.9rem;
+		/* line-height: 1.3rem;
+		height: 3.9rem; */
 	}
 	.product-desc {
 		padding: .75em;
@@ -1774,10 +1774,10 @@ footer li {
 		width: 26rem;
 	}
 	.product-name>a {
-		-webkit-line-clamp: 2;
-		height: 3rem;
+		/* -webkit-line-clamp: 2;
+		height: 3rem; */
 		font-size: 1rem;
-		line-height: 1.5rem;
+		/* line-height: 1.5rem; */
 	}
 	.product-desc {
 		padding: 1em;
