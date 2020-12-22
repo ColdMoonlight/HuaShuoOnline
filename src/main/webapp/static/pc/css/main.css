@@ -2475,6 +2475,7 @@ footer li {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
+	flex-wrap: wrap;
 	margin-top: .2rem;
 }
 .cart-product-num .delete ,
