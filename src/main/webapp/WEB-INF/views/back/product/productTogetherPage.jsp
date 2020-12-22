@@ -372,8 +372,8 @@
 				selectedId.forEach(function(item, idx) {
 					var link = '${APP_PATH}/' + selectedSeo[idx] + '.html';
 					htmlStr += '<div class="product-item">' +
-						'<a href="'+ link +'"><img class="product-img" src="'+ selectedImg[idx] + '" /></a>' +
-						'<a class="product-name">' + selectedName[idx] + '</a>' +
+						'<a href="'+ link +'" target="blank"><img class="product-img" src="'+ selectedImg[idx] + '" /></a>' +
+						'<a class="product-name" href="'+ link +'" target="blank">' + selectedName[idx] + '</a>' +
 					'</div>';
 				});
 			} else {
