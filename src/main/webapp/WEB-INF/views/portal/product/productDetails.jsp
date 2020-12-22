@@ -66,6 +66,7 @@
 							<div class="swiper-wrapper">
 								<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><div class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }"></div><noscript><img src="${ pro.productimgUrl }" alt="${ sessionScope.mlbackProductMetaTitle }" /></noscript></div></c:forEach>
 							</div>
+							<div class="swiper-pagination hide"></div>
 						</div>
 					    <div class="swiper-btn swiper-button-next"></div>
 			            <div class="swiper-btn swiper-button-prev"></div>
