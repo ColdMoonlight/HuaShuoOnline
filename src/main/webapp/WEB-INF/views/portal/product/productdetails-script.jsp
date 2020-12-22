@@ -245,10 +245,10 @@
 			},
 		});
 		var swiperMain = new Swiper('.product-slide', {
-			/* pagination: {
+			pagination: {
 				el: '.product-slide-box .swiper-pagination',
 				clickable: true
-			}, */
+			},
 			navigation: {
 				nextEl: '.product-slide-box .swiper-button-next',
 				prevEl: '.product-slide-box .swiper-button-prev',
