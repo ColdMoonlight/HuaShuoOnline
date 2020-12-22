@@ -2276,7 +2276,7 @@ footer li {
 		width: 100%;
 		height: 100vw;
 	}
-	.product-slide .swiper-btn {
+	.product-slide-box .swiper-btn {
 		display: none;
 		opacity: 0;
 		visibility: hidden;
@@ -2284,14 +2284,15 @@ footer li {
 }
 
 @media only screen and (min-width: 576px) {
+	.product-slide-box { position: relative; width: 600px; }
+	.product-media {
+		width: 600px;
+		margin: 0 auto;
+	}
 	.swiper-slide>img,
 	.swiper-slide>video {
 		width: 500px;
 		height: 500px;
-	}
-	.product-media {
-		width: 500px;
-		margin: 0 auto;
 	}
 }
 
@@ -2326,13 +2327,13 @@ footer li {
 @media only screen and (min-width: 1301px) {
 	.product-details-name {
 		margin-top: 1rem;
-		padding-left: 500px;
+		padding-left: 600px;
 		margin-left: 2rem;
 		font-size: 1.25rem;
 		font-weight: 500;
 	}
 	.product-media {
-		width: 500px;
+		width: 600px;
 	}
 	.product-slide.swiper-container {
 		width: 500px;

@@ -22,6 +22,7 @@
 		@media only screen and (max-width: 575px) { .product-share .instagram {background-position: 0 -2rem;} .product-share .youtube {background-position: 0 -8rem;} }
 		@media only screen and (min-width: 576px) and (max-width: 1023px) {.product-share .instagram {background-position: 0 -2.5rem;} .product-share .youtube {background-position: 0 -10rem;} }		
 		@media only screen and (min-width: 1023px) {.product-share .instagram {background-position: 0 -3rem;} .product-share .youtube {background-position: 0 -12rem;} }
+		.product-slide { border: 1px solid #ededed; }
 		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
 		.product-together-box { padding: 1rem; margin-top: 1rem; border: 1px solid #ededed; border-radius: .5rem; background-color: rgb(255, 192, 203); }
 		.product-togher-title { font-size: 1.5rem; font-weight: 500; }
@@ -60,9 +61,11 @@
 			<div class="product-details-name product-name"></div>
 			<div class="product-header">
 				<div class="product-media">
-					<div class="swiper-container product-slide product-zoom">
-						<div class="swiper-wrapper">
-							<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><div class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }"></div><noscript><img src="${ pro.productimgUrl }" alt="${ sessionScope.mlbackProductMetaTitle }" /></noscript></div></c:forEach>
+					<div class="product-slide-box">
+						<div class="swiper-container product-slide product-zoom">
+							<div class="swiper-wrapper">
+								<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><div class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }"></div><noscript><img src="${ pro.productimgUrl }" alt="${ sessionScope.mlbackProductMetaTitle }" /></noscript></div></c:forEach>
+							</div>
 						</div>
 					    <div class="swiper-btn swiper-button-next"></div>
 			            <div class="swiper-btn swiper-button-prev"></div>
@@ -70,16 +73,8 @@
 					<div class="swiper-container product-thumb-slide">
 						<div class="swiper-wrapper"></div>
 					</div>
-					<div class="product-share">
-						<a class="share-item youtube" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber" title="megalook youtube"></a>
-						<a class="share-item instagram" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
-						<div class="share-item share-click facebook" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>
-						<div class="share-item share-click pinterest" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest"></div>
-						<div class="share-item share-click whatsapp" data-url="https://api.whatsapp.com/send?text=" title="share on whatsapp"></div>
-					</div>
 				</div>
 				<div class="product-details">
-					<div class="product-coupons hide"></div>
 					<div class="product-options"></div>
 					<div class="product-price"></div>
 					<div class="product-operate">
@@ -94,7 +89,16 @@
 						<div class="btn paypal-button btn-primary" id="add-to-cart">Add To Cart</div>
 		   				<div class="btn paypal-button btn-black buy-now">Buy Now</div>
 					</div>
-					<div id="countdown-area"></div>
+					<div id="countdown-area"></div>					
+					
+					<div class="product-coupons hide"></div>					
+					<div class="product-share">
+						<a class="share-item youtube" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber" title="megalook youtube"></a>
+						<a class="share-item instagram" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
+						<div class="share-item share-click facebook" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>
+						<div class="share-item share-click pinterest" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest"></div>
+						<div class="share-item share-click whatsapp" data-url="https://api.whatsapp.com/send?text=" title="share on whatsapp"></div>
+					</div>
 				</div>
 			</div>
 			<div class="product-together-box hide">

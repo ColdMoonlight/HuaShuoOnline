@@ -22,6 +22,12 @@ public class MlbackProductTogether {
     private String producttogetherCreatetime;
 
     private String producttogetherMotifytime;
+    
+    private String producttogetherBelongProIdStr;
+    
+    private String producttogetherBelongProNameStr;
+    
+    private String producttogetherBelongProSeoNameStr;
 
     public Integer getProducttogetherId() {
         return producttogetherId;
@@ -111,6 +117,30 @@ public class MlbackProductTogether {
         this.producttogetherMotifytime = producttogetherMotifytime == null ? null : producttogetherMotifytime.trim();
     }
 
+	public String getProducttogetherBelongProIdStr() {
+		return producttogetherBelongProIdStr;
+	}
+
+	public void setProducttogetherBelongProIdStr(String producttogetherBelongProIdStr) {
+		this.producttogetherBelongProIdStr = producttogetherBelongProIdStr == null ? null : producttogetherBelongProIdStr.trim();
+	}
+	
+	public String getProducttogetherBelongProNameStr() {
+		return producttogetherBelongProNameStr;
+	}
+
+	public void setProducttogetherBelongProNameStr(String producttogetherBelongProNameStr) {
+		this.producttogetherBelongProNameStr = producttogetherBelongProNameStr == null ? null : producttogetherBelongProNameStr.trim();
+	}
+
+	public String getProducttogetherBelongProSeoNameStr() {
+		return producttogetherBelongProSeoNameStr;
+	}
+
+	public void setProducttogetherBelongProSeoNameStr(String producttogetherBelongProSeoNameStr) {
+		this.producttogetherBelongProSeoNameStr = producttogetherBelongProSeoNameStr == null ? null : producttogetherBelongProSeoNameStr.trim();
+	}
+
 	public MlbackProductTogether() {
 		super();
 	}
@@ -118,7 +148,9 @@ public class MlbackProductTogether {
 	public MlbackProductTogether(Integer producttogetherId, String producttogetherName, Integer producttogetherStatus,
 			String producttogetherProsidStr, String producttogetherProsnameStr, String producttogetherProsseoStr,
 			String producttogetherProsimgurlStr, Integer producttogetherSupercateId,
-			String producttogetherSupercateName, String producttogetherCreatetime, String producttogetherMotifytime) {
+			String producttogetherSupercateName, String producttogetherCreatetime, String producttogetherMotifytime,
+			String producttogetherBelongProIdStr, String producttogetherBelongProNameStr,
+			String producttogetherBelongProSeoNameStr) {
 		super();
 		this.producttogetherId = producttogetherId;
 		this.producttogetherName = producttogetherName;
@@ -131,6 +163,9 @@ public class MlbackProductTogether {
 		this.producttogetherSupercateName = producttogetherSupercateName;
 		this.producttogetherCreatetime = producttogetherCreatetime;
 		this.producttogetherMotifytime = producttogetherMotifytime;
+		this.producttogetherBelongProIdStr = producttogetherBelongProIdStr;
+		this.producttogetherBelongProNameStr = producttogetherBelongProNameStr;
+		this.producttogetherBelongProSeoNameStr = producttogetherBelongProSeoNameStr;
 	}
 
 	@Override
@@ -142,7 +177,9 @@ public class MlbackProductTogether {
 				+ ", producttogetherProsimgurlStr=" + producttogetherProsimgurlStr + ", producttogetherSupercateId="
 				+ producttogetherSupercateId + ", producttogetherSupercateName=" + producttogetherSupercateName
 				+ ", producttogetherCreatetime=" + producttogetherCreatetime + ", producttogetherMotifytime="
-				+ producttogetherMotifytime + "]";
+				+ producttogetherMotifytime + ", producttogetherBelongProIdStr=" + producttogetherBelongProIdStr
+				+ ", producttogetherBelongProNameStr=" + producttogetherBelongProNameStr
+				+ ", producttogetherBelongProSeoNameStr=" + producttogetherBelongProSeoNameStr + "]";
 	}
     
 }
