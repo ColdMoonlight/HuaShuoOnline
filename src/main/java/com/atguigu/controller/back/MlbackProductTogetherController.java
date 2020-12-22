@@ -291,7 +291,7 @@ public class MlbackProductTogetherController {
 	}
 
 	/**
-	 * 7.0	20200608
+	 * 7.0	zsh	20200608
 	 * 后端获取backSearchByWholesale产品list
 	 * @return 
 	 * */
@@ -315,8 +315,8 @@ public class MlbackProductTogetherController {
 	}
 	
 	/**
-	 * 8.0	onuse	200103
-	 * 前台详情页面wap/pc的productDetails
+	 * 8.0	zsh	201222
+	 * 组合下拉列表lownLoadProTogether
 	 * @param jsp
 	 * @return 
 	 * */
