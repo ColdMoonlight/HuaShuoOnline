@@ -22,6 +22,8 @@ public class MlbackProductTogether {
     private String producttogetherCreatetime;
 
     private String producttogetherMotifytime;
+    
+    private String producttogetherBelongProIdStr;
 
     public Integer getProducttogetherId() {
         return producttogetherId;
@@ -111,14 +113,22 @@ public class MlbackProductTogether {
         this.producttogetherMotifytime = producttogetherMotifytime == null ? null : producttogetherMotifytime.trim();
     }
 
+	public String getProducttogetherBelongProIdStr() {
+		return producttogetherBelongProIdStr;
+	}
+
+	public void setProducttogetherBelongProIdStr(String producttogetherBelongProIdStr) {
+		this.producttogetherBelongProIdStr = producttogetherBelongProIdStr == null ? null : producttogetherBelongProIdStr.trim();
+	}
+
 	public MlbackProductTogether() {
 		super();
 	}
 
 	public MlbackProductTogether(Integer producttogetherId, String producttogetherName, Integer producttogetherStatus,
 			String producttogetherProsidStr, String producttogetherProsnameStr, String producttogetherProsseoStr,
-			String producttogetherProsimgurlStr, Integer producttogetherSupercateId,
-			String producttogetherSupercateName, String producttogetherCreatetime, String producttogetherMotifytime) {
+			String producttogetherProsimgurlStr, Integer producttogetherSupercateId,String producttogetherSupercateName, 
+			String producttogetherCreatetime, String producttogetherMotifytime, String producttogetherBelongProIdStr) {
 		super();
 		this.producttogetherId = producttogetherId;
 		this.producttogetherName = producttogetherName;
@@ -131,6 +141,7 @@ public class MlbackProductTogether {
 		this.producttogetherSupercateName = producttogetherSupercateName;
 		this.producttogetherCreatetime = producttogetherCreatetime;
 		this.producttogetherMotifytime = producttogetherMotifytime;
+		this.producttogetherBelongProIdStr = producttogetherBelongProIdStr;
 	}
 
 	@Override
@@ -142,7 +153,7 @@ public class MlbackProductTogether {
 				+ ", producttogetherProsimgurlStr=" + producttogetherProsimgurlStr + ", producttogetherSupercateId="
 				+ producttogetherSupercateId + ", producttogetherSupercateName=" + producttogetherSupercateName
 				+ ", producttogetherCreatetime=" + producttogetherCreatetime + ", producttogetherMotifytime="
-				+ producttogetherMotifytime + "]";
+				+ producttogetherMotifytime + ", producttogetherBelongProIdStr=" + producttogetherBelongProIdStr + "]";
 	}
     
 }
