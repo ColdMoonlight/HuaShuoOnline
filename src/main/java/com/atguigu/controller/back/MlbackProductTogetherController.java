@@ -126,8 +126,8 @@ public class MlbackProductTogetherController {
 			mlbackProductTogetherService.updateByPrimaryKeySelective(mlbackProductTogether);
 			//更新产品表
 			//读出一起买里面绑定的产品id串串,遍历修改(查出该产品,修改里面的组合绑定字段)
-			String productIdsStr = mlbackProductTogether.getProducttogetherProsidStr();
-			String productIdsStrArr [] = productIdsStr.split(",");
+			String belongProIdsStr = mlbackProductTogether.getProducttogetherBelongProIdStr();
+			String productIdsStrArr [] = belongProIdsStr.split(",");
 			String productIdStr = "";
 			Integer productIdInt = 0;
 			for(int i=0;i<productIdsStrArr.length;i++){
@@ -291,7 +291,7 @@ public class MlbackProductTogetherController {
 	}
 
 	/**
-	 * 7.0	20200608
+	 * 7.0	zsh	20200608
 	 * 后端获取backSearchByWholesale产品list
 	 * @return 
 	 * */
@@ -315,8 +315,8 @@ public class MlbackProductTogetherController {
 	}
 	
 	/**
-	 * 8.0	onuse	200103
-	 * 前台详情页面wap/pc的productDetails
+	 * 8.0	zsh	201222
+	 * 组合下拉列表lownLoadProTogether
 	 * @param jsp
 	 * @return 
 	 * */
