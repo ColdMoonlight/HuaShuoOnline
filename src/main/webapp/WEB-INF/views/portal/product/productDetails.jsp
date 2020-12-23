@@ -46,7 +46,7 @@
 			.product-together-img-item a { display: inline-block; vertical-align: middle; width: 135px; height: 135px; }
 			.product-together-plus { display: inline-block; vertical-align: middle; margin: 0 .5rem; }
 			.product-together-cal { text-align: center; }
-			#product-together-sadd { width: 310px; }
+			#product-together-sadd { width: 310px; }	
 		}
 		@media only screen and (min-width: 576px) {
 			.product-together-head, .product-together-imgs { display: flex; flex-wrap: wrap;  align-items: center; }
@@ -54,6 +54,9 @@
 			.product-together-plus { margin: 0 1rem; }
 			.product-together-img-item a { display: block; justify-content: center; width: 150px; height: 150px; }
 		}
+		.product-coupons.wap, .product-coupons.pc { display: none; opacity: 0; visibility: hidden; }
+		@media only screen and (max-width: 1023px) { .product-coupons.wap { display: flex; opacity: 1; visibility: visible; } }
+		@media only screen and (min-width: 1024px) { .product-coupons.pc { display: flex; opacity: 1; visibility: visible; } }
 	</style>
 </head>
 <body>
@@ -78,6 +81,7 @@
 					</div>
 				</div>
 				<div class="product-details">
+					<div class="product-coupons pc hide"></div>
 					<div class="product-options"></div>
 					<div class="product-price"></div>
 					<div class="product-operate">
@@ -93,8 +97,8 @@
 		   				<div class="btn paypal-button btn-black buy-now">Buy Now</div>
 					</div>
 					<div id="countdown-area"></div>					
-					
-					<div class="product-coupons hide"></div>					
+
+					<div class="product-coupons wap hide"></div>					
 					<div class="product-share">
 						<a class="share-item youtube" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber" title="megalook youtube"></a>
 						<a class="share-item instagram" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
