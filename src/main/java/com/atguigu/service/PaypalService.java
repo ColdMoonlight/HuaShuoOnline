@@ -323,9 +323,10 @@ public class PaypalService {
   			MlfrontOrderItem mlfrontOrderItem = mlfrontOrderItemList.get(0);
   			Item item = new Item();
   			String name=mlfrontOrderItem.getOrderitemPname();
+  			String orderitemPskuNameDetail=mlfrontOrderItem.getOrderitemPskuName();
 //  			if(name.length()>40){
 //  				name= name.substring(0, 40);//准备改改这里
-  				name=name+"...";
+  				name=name+"("+orderitemPskuNameDetail+")"+"...";
 //  			}
   			Integer skuNum=mlfrontOrderItem.getOrderitemPskuNumber();
   			String skuNumStr = skuNum+"";
