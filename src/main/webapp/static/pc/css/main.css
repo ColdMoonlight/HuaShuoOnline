@@ -1810,7 +1810,6 @@ footer li {
 .product-thumb-slide.swiper-container {
 	max-width: 500px;
 	width: auto;
-	margin-top: 1rem;
 }
 .product-thumb-slide .swiper-slide {
 	border: 1px solid #e5e5e5;
@@ -1901,6 +1900,9 @@ footer li {
 	margin-left: 1rem;
 }
 @media only screen and (max-width: 575px) {
+	.product-thumb-slide.swiper-container {
+		margin-top: .5rem;
+	}
 	.product-qty>input {	
 		padding: 0 .5rem;
 	}
@@ -1910,6 +1912,9 @@ footer li {
 	}
 }
 @media only screen and (min-width: 576px) {
+	.product-thumb-slide.swiper-container {
+		margin-top: 1rem;
+	}
 	.product-qty>input {	
 		padding: .25rem .5rem;
 	}

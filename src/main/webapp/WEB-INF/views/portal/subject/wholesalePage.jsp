@@ -260,8 +260,8 @@
 	  $(document.body).on('click', '#Submit', function() {
 		if (checkInputAdressInfo()) {
 			var reqData = getFormData();
-			if ((reqData.wholesaleCustomerMessage).length > 400) {
-				$('.wholesale-info').removeClass('hide').text('The maximum message length is 400 characters...');
+			if ((reqData.wholesaleCustomerMessage).length > 2000) {
+				$('.wholesale-info').removeClass('hide').text('The maximum message length is 2000 characters...');
 				return false;
 			}
 			orderSaveAddress(reqData);
