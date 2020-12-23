@@ -6,7 +6,59 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Order List</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
+	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
+	<style>
+		.pre-code-modal {
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: 9999999;
+			background-color: rgba(0, 0, 0, .6);
+		}
+		.pre-code-modal .pre-code-body {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 80%;
+			height: 80%;
+			padding: 2rem;
+			background-color: #fff;
+			border-radius: .25rem;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		}
+		.pre-code-content {
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+		}
+		.pre-code-modal .pre-code-body pre {
+			margin: 0;
+		}
+		.pre-code-head {
+			position: relative;
+			width: 80%;
+			height: 10%;
+			margin: 0 auto;
+		}
+		.pre-code-close {
+			position: absolute;
+			bottom: -1rem;
+			right: 0;
+			z-index: 1;
+			width: 2rem;
+			height: 2rem;
+			text-align: center;
+			line-height: 1.8rem;
+			font-size: 1.2rem;
+			color: #fff;
+			background-color: #000;
+			border-radius: 50%;
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body class="c-app">
 	<jsp:include page="../layout/backheader.jsp" flush="true"></jsp:include>
@@ -207,8 +259,9 @@
 								</div>
 								<div class="col-md-6">
 									<div class="card">
-										<div class="card-title">
+										<div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
 											<div class="card-title-name">Billing Address</div>
+											<button class="btn btn-info" id="pay-track">paypal track</button>
 										</div>
 										<div class="card-body billing-list">
 											<div class="billing-item paymentid">
@@ -227,12 +280,12 @@
 												<div class="name">line 2</div>
 												<div class="value"></div>
 											</div>
-											<div class="billing-item province">
-												<div class="name">Province/State</div>
-												<div class="value"></div>
-											</div>
 											<div class="billing-item city">
 												<div class="name">city</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item province">
+												<div class="name">Province/State</div>
 												<div class="value"></div>
 											</div>
 											<div class="billing-item postcode">
@@ -333,6 +386,15 @@
 			</div>
 		</div>
 		<jsp:include page="../layout/backfooter.jsp" flush="true"></jsp:include>
+	</div>
+	<!-- paypal track info -->
+	<div class="pre-code-modal hide">
+		<div class="pre-code-head">
+			<div class="pre-code-close">x</div>
+		</div>
+		<div class="pre-code-body">
+			<div class="pre-code-content"></div>
+		</div>
 	</div>
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
@@ -521,8 +583,20 @@
 		$('.btn-audit').on('click', function() {
 			
 		});
-		$('.btn-abandon-purchase').on('click', function() {
-			
+		$('#pay-track').on('click', function() {
+			$('.pre-code-modal').removeClass('hide');
+			$(document.body).css('overflow', 'hidden');
+		});
+		// pre-code modal
+		$('.pre-code-modal').on('click', function(e) {
+			if (e.target == this) {
+				$(this).addClass('hide');
+				$(document.body).css('overflow', 'auto');
+			}
+		});
+		$('.pre-code-close').on('click', function(e) {
+			$('.pre-code-modal').addClass('hide');
+			$(document.body).css('overflow', 'auto');
 		});
 		$('.btn-refund').on('click', function() {
 			var refundData = $(this).data('refundm');
@@ -741,6 +815,30 @@
 			$('.billing-item.postcode .value').html(data.mlPaypalShipAddressOne.shippingaddressPostalCode || '');
 			$('.billing-item.line1 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine1 || '');
 			$('.billing-item.line2 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine2 || '');
+			var paypaylAddressInfo = data.mlPaypalShipAddressOne.shippingaddressPaymentStr;
+			if (paypaylAddressInfo) {
+				var opaypal = JSON.parse(paypaylAddressInfo);
+				var npaypal = {};
+				var transactions = opaypal['transactions'];
+
+				if (transactions && transactions.length) {
+					transactions.forEach(function(trans) {
+						if (trans['related_resources'] && (trans['related_resources']).length) {
+							trans['related_resources'].forEach(function(item, idx) {
+								delete item.sale['links'];
+							});
+						}
+					});
+				}
+
+				npaypal['id'] = opaypal['id'];
+				npaypal['payer'] = opaypal['payer'];
+				npaypal['transactions'] = transactions;
+
+				$('.pre-code-content').html('<pre><code>'+ JSON.stringify(npaypal, null, 2) +'</code></pre>').data('flag', true);
+			} else {
+				$('.pre-code-content').data('flag', false);
+			}
 			// customer info
 			if (data.mlfrontUserOne) {
 				var html = '<div class="customer-item"><div class="name">E-mail:</div><div class="value">'+ data.mlfrontUserOne.userEmail +'</div></div>' +
