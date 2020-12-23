@@ -1624,9 +1624,9 @@ footer li {
 	overflow: hidden;
 	font-weight: 400;
 	color: #333333;
-	word-break: break-all;
+	/* word-break: break-all;
 
-    /* display: -webkit-box;
+    display: -webkit-box;
     text-overflow: ellipsis;
     -webkit-box-orient: vertical; */
 }
@@ -1679,7 +1679,7 @@ footer li {
 		height: 3.3rem; */
 	}
 	.product-desc {
-		padding: .5em;
+		padding-top: .5em;
 	}
 	.product-data {
 		height: 2rem;
@@ -1725,7 +1725,7 @@ footer li {
 		height: 3.9rem; */
 	}
 	.product-desc {
-		padding: .75em;
+		padding-top: .75em;
 	}
 	.product-data {
 		height: 2.5rem;
@@ -1780,7 +1780,7 @@ footer li {
 		/* line-height: 1.5rem; */
 	}
 	.product-desc {
-		padding: 1em;
+		padding-top: 1em;
 	}
 	.product-data {
 		margin-top: 1rem;
