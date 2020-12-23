@@ -472,7 +472,7 @@
 	}
 	// go to search product
 	function goToSearchProduct(searchName) {
-		window.location.href = '${APP_PATH}/MlbackProduct/toSearchPage?searchProductName=' + searchName;
+		window.location.href = '${APP_PATH}/MlbackProduct/toSearchPage?searchProductName=' + encodeURI(searchName);
 	}
 	// check input search value
 	function checkSearchInput(value) {
