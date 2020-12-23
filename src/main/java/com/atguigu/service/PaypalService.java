@@ -96,7 +96,7 @@ public class PaypalService {
 //  			if(name.length()>40){
 //  				name= name.substring(0, 40);
 //  				name=name+"...";
-  				name=name+"("+orderitemPskuNameDetail+")"+"...";
+  				name=name+"("+orderitemPskuNameDetail+")"+".";
 //  			}
   			Integer skuNum=mlfrontOrderItem.getOrderitemPskuNumber();
   			String skuNumStr = skuNum+"";
