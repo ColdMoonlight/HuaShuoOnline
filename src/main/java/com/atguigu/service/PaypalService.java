@@ -324,7 +324,7 @@ public class PaypalService {
   			Item item = new Item();
   			String name=mlfrontOrderItem.getOrderitemPname();
 //  			if(name.length()>40){
-//  				name= name.substring(0, 40);
+//  				name= name.substring(0, 40);//准备改改这里
   				name=name+"...";
 //  			}
   			Integer skuNum=mlfrontOrderItem.getOrderitemPskuNumber();
