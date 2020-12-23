@@ -427,7 +427,7 @@ public class PaypalController {
     	DescIdStr = DescVipIdStr.replace("VIP", "");
     	Integer payinfoId =  Integer.parseInt(DescIdStr);
     	session.setAttribute("payinfoId", payinfoId);
-    	//2.1.1paypal返回的付款地址插入数据库中
+    	//2.1.1paypal返回的付款地址插入数据库中--这个表要加个字段,用来存储payment的toString
     	insertMlPaypalShipAddressInfo(paymentId,DescIdStr,payerInfoReturn);
     	//修改支付单状态
     	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
