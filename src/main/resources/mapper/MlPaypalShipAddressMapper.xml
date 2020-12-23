@@ -16,12 +16,13 @@
     <result column="shippingAddress_createTime" jdbcType="VARCHAR" property="shippingaddressCreatetime" />
     <result column="shippingAddress_motifyTime" jdbcType="VARCHAR" property="shippingaddressMotifytime" />
     <result column="shippingAddress_ifFirstBuy" jdbcType="INTEGER" property="shippingaddressIfFirstBuy" />
+    <result column="shippingAddress_paymentStr" jdbcType="VARCHAR" property="shippingaddressPaymentStr" />
   </resultMap>
   <sql id="Base_Column_List">
     shippingAddress_id, shippingAddress_payInfoid, shippingAddress_paymentid, shippingAddress_recipient_name, 
     shippingAddress_country_code, shippingAddress_city, shippingAddress_line1, shippingAddress_line2, 
     shippingAddress_postal_code, shippingAddress_email, shippingAddress_state, shippingAddress_createTime, 
-    shippingAddress_motifyTime,shippingAddress_ifFirstBuy
+    shippingAddress_motifyTime,shippingAddress_ifFirstBuy,shippingAddress_paymentStr
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -36,14 +37,15 @@
       shippingAddress_line1, shippingAddress_line2, 
       shippingAddress_postal_code, shippingAddress_email, 
       shippingAddress_state, shippingAddress_createTime, 
-      shippingAddress_motifyTime,shippingAddress_ifFirstBuy)
+      shippingAddress_motifyTime,shippingAddress_ifFirstBuy,shippingAddress_paymentStr)
     values (#{shippingaddressId,jdbcType=INTEGER}, #{shippingaddressPayinfoid,jdbcType=VARCHAR}, 
       #{shippingaddressPaymentid,jdbcType=VARCHAR}, #{shippingaddressRecipientName,jdbcType=VARCHAR}, 
       #{shippingaddressCountryCode,jdbcType=VARCHAR}, #{shippingaddressCity,jdbcType=VARCHAR}, 
       #{shippingaddressLine1,jdbcType=VARCHAR}, #{shippingaddressLine2,jdbcType=VARCHAR}, 
       #{shippingaddressPostalCode,jdbcType=VARCHAR}, #{shippingaddressEmail,jdbcType=VARCHAR}, 
       #{shippingaddressState,jdbcType=VARCHAR}, #{shippingaddressCreatetime,jdbcType=VARCHAR}, 
-      #{shippingaddressMotifytime,jdbcType=VARCHAR}, #{shippingaddressIfFirstBuy,jdbcType=INTEGER})
+      #{shippingaddressMotifytime,jdbcType=VARCHAR}, #{shippingaddressIfFirstBuy,jdbcType=INTEGER}, 
+      #{shippingaddressPaymentStr,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlPaypalShipAddress">
     update tb_paypal_shippingaddress
@@ -59,7 +61,8 @@
       shippingAddress_state = #{shippingaddressState,jdbcType=VARCHAR},
       shippingAddress_createTime = #{shippingaddressCreatetime,jdbcType=VARCHAR},
       shippingAddress_motifyTime = #{shippingaddressMotifytime,jdbcType=VARCHAR},
-      shippingAddress_ifFirstBuy = #{shippingaddressIfFirstBuy,jdbcType=INTEGER}
+      shippingAddress_ifFirstBuy = #{shippingaddressIfFirstBuy,jdbcType=INTEGER},
+      shippingAddress_paymentStr = #{shippingaddressPaymentStr,jdbcType=VARCHAR}
     where shippingAddress_id = #{shippingaddressId,jdbcType=INTEGER}
   </update>
   
@@ -109,6 +112,9 @@
       <if test="shippingaddressIfFirstBuy != null">
         shippingAddress_ifFirstBuy ,
       </if>
+      <if test="shippingaddressPaymentStr != null">
+        shippingAddress_paymentStr ,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="shippingaddressId != null">
@@ -152,6 +158,9 @@
       </if>
       <if test="shippingaddressIfFirstBuy != null">
         #{shippingaddressIfFirstBuy,jdbcType=INTEGER},
+      </if>
+      <if test="shippingaddressPaymentStr != null">
+        #{shippingaddressPaymentStr,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -202,6 +211,9 @@
       </if>
       <if test="shippingaddressIfFirstBuy != null">
         shippingAddress_ifFirstBuy = #{shippingaddressIfFirstBuy,jdbcType=INTEGER},
+      </if>
+      <if test="shippingaddressPaymentStr != null">
+        shippingAddress_paymentStr = #{shippingaddressPaymentStr,jdbcType=VARCHAR},
       </if>
     </set>
     where shippingAddress_id = #{shippingaddressId,jdbcType=INTEGER}

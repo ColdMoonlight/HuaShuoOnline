@@ -188,86 +188,6 @@ public class PaypalController {
         return Msg.success().add("ifPaypalCheckSuccess", 0).add("redirectUrl", "MlbackCart/toCheakOut");
     }
     
-//    /**1.0
-//     * 组装参数,WAP端发起真实的支付
-//     * paypal/mpay
-//     * */
-//    @RequestMapping(method = RequestMethod.GET, value = "mpay")
-//    public String pay(HttpServletRequest request,HttpSession session){
-//    	System.out.println("into**********/paypal/mpay**********");
-//    	//1.1,准备支付前,从session中读取getPayInfo参数
-//    	ToPaypalInfo toPaypalInfo = getPayInfo(session);
-//    	//1.2,准备支付前,从session中获取优惠券减去额度
-//    	String Shopdiscount = getCouponMoney(session);
-//    	//1.3,准备支付前,从session中获取地址运费
-//    	String addressMoney = getAddressMoney(session);
-//    	//1.4,准备支付前,从session中获取地址信息
-//    	MlfrontAddress mlfrontAddress = getMlfrontAddress(session);
-//    	//1.5,准备支付前,从session中获取orderList详情
-//    	List<MlfrontOrderItem> mlfrontOrderItemList = getMlfrontOrderItemList(session);
-//    	
-//    	BigDecimal money = toPaypalInfo.getMoneyNum();
-//    	String moneyStr = money.toString();
-//    	Double moneyDouble = Double.parseDouble(moneyStr);
-//    	String moneyTypeStr = toPaypalInfo.getMoneyType();
-//    	String payDes = toPaypalInfo.getPaymentDescription();
-//
-//    	//封装paypal所需
-//        String cancelUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_CANCEL_M_URL;
-//        String successUrl = URLUtils.getBaseURl(request) + "/" + PAYPAL_SUCCESS_M_URL;
-//        
-//        Payment payment = new Payment();
-//        PaypalService paypalService = new PaypalService();
-//        
-//        String PaypalErrorName="";
-//        PaypalErrorName = (String) session.getAttribute("PaypalErrorName");
-//        if(("").equals(PaypalErrorName)){
-//        	System.out.println("这是初始化的PaypalErrorName ： "+PaypalErrorName+" .");
-//        }else{
-//        	session.removeAttribute("PaypalErrorName");
-//        }
-//        try {
-//            payment = paypalService.createPayment(
-//            		moneyDouble,// 888.00, 
-//            		moneyTypeStr, //"USD",  
-//            		mlfrontAddress,//mlfrontAddress
-//            		mlfrontOrderItemList,
-//                    PaypalPaymentMethod.paypal, //paypal
-//                    PaypalPaymentIntent.sale,//paypal
-//                    payDes,//"payment description", 
-//                    Shopdiscount,//"CouponMoney", 
-//                    addressMoney,//shopping
-//                    cancelUrl, 
-//                    successUrl);
-//            for(Links links : payment.getLinks()){
-//                if(links.getRel().equals("approval_url")){
-//                	System.out.println("links.getHref:"+links.getHref());
-//                    return "redirect:" + links.getHref();
-//                }
-//            }
-//        } catch (PayPalRESTException e) {
-//            log.error(e.getMessage());
-//            System.out.println("----------/paypal/mpay/Exception----------");
-//            System.out.println("---------e.getMessage()-----begin------");
-//            System.out.println(e.getMessage());
-//            System.out.println("---------e.getMessage()------end-------");
-//            System.out.println("---------e.getDetails()-----begin------");
-//            System.out.println(e.getDetails());
-//            //PaypalErrorUtil.getPaypalError(e.getDetails());
-//            if(e.getDetails()==null){
-//            	PaypalErrorName = "retry fails..  check log for more information";
-//            }else{
-//            	PaypalErrorName = e.getDetails().getName();
-//            }
-//            session.setAttribute("PaypalErrorName", PaypalErrorName);
-//            String regularName ="";
-//            regularName+= " is not match";
-//            session.setAttribute("PaypalError", regularName);
-//            System.out.println("---------e.getDetails()------end------");
-//        }
-//        return "redirect:/MlbackCart/toCheakOut";
-//    }
-    
     /**2.0
      * wap端返回成功页面
      * mfront/paySuccess
@@ -288,7 +208,10 @@ public class PaypalController {
         	//2.2修改order的状态
         	toUpdateOrderInfoSuccess(session,payment);
         	//输出返回payment信息
+        	System.out.println("---------------------payment.toJSON()---------------------");
             System.out.println(payment.toJSON());
+            System.out.println("---------------------payment.toJSON()---------------------");
+
             
             if(payment.getState().equals("approved")){
             	return "redirect:/Success.html";
@@ -428,7 +351,16 @@ public class PaypalController {
     	Integer payinfoId =  Integer.parseInt(DescIdStr);
     	session.setAttribute("payinfoId", payinfoId);
     	//2.1.1paypal返回的付款地址插入数据库中--这个表要加个字段,用来存储payment的toString
-    	insertMlPaypalShipAddressInfo(paymentId,DescIdStr,payerInfoReturn);
+    	
+    	
+    	//这里要存储一下paypal返回的全部证据
+        System.out.println("---------------------payment.toString()---------------------");
+        
+        String paymentStr = payment.toString();
+        System.out.println("payment.toString().length()"+paymentStr.length());
+        System.out.println(payment.toString());
+        System.out.println("---------------------payment.toString()---------------------");
+    	insertMlPaypalShipAddressInfo(paymentId,DescIdStr,payerInfoReturn,paymentStr);
     	//修改支付单状态
     	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
 		mlfrontPayInfoNew.setPayinfoId(payinfoId);
@@ -483,7 +415,7 @@ public class PaypalController {
      * 从返回中插入Paypal地址
      * @param payment 
      * */
-    private void insertMlPaypalShipAddressInfo(String paymentId, String payinfoIdStr, PayerInfo payerInfoReturn) {
+    private void insertMlPaypalShipAddressInfo(String paymentId, String payinfoIdStr, PayerInfo payerInfoReturn,String paymentStr) {
     	
     	MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
     	mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
@@ -496,6 +428,7 @@ public class PaypalController {
     	mlPaypalShipAddressReq.setShippingaddressEmail(payerInfoReturn.getEmail());
     	mlPaypalShipAddressReq.setShippingaddressPayinfoid(payinfoIdStr);
     	mlPaypalShipAddressReq.setShippingaddressPaymentid(paymentId);
+    	mlPaypalShipAddressReq.setShippingaddressPaymentStr(paymentStr);
     	mlPaypalShipAddressService.insertSelective(mlPaypalShipAddressReq);
 	}
     

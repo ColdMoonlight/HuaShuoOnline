@@ -29,6 +29,8 @@ public class MlPaypalShipAddress {
     private String shippingaddressMotifytime;
     
     private Integer shippingaddressIfFirstBuy;
+    
+    private String shippingaddressPaymentStr;
 
     public Integer getShippingaddressId() {
         return shippingaddressId;
@@ -141,6 +143,14 @@ public class MlPaypalShipAddress {
 	public void setShippingaddressIfFirstBuy(Integer shippingaddressIfFirstBuy) {
 		this.shippingaddressIfFirstBuy = shippingaddressIfFirstBuy;
 	}
+	
+	public String getShippingaddressPaymentStr() {
+		return shippingaddressPaymentStr;
+	}
+
+	public void setShippingaddressPaymentStr(String shippingaddressPaymentStr) {
+		this.shippingaddressPaymentStr = shippingaddressPaymentStr == null ? null : shippingaddressPaymentStr.trim();
+	}
 
 	public MlPaypalShipAddress() {
 		super();
@@ -150,7 +160,8 @@ public class MlPaypalShipAddress {
 			String shippingaddressPaymentid, String shippingaddressRecipientName, String shippingaddressCountryCode,
 			String shippingaddressCity, String shippingaddressLine1, String shippingaddressLine2,
 			String shippingaddressPostalCode, String shippingaddressEmail, String shippingaddressState,
-			String shippingaddressCreatetime, String shippingaddressMotifytime, Integer shippingaddressIfFirstBuy) {
+			String shippingaddressCreatetime, String shippingaddressMotifytime, Integer shippingaddressIfFirstBuy,
+			String shippingaddressPaymentStr) {
 		super();
 		this.shippingaddressId = shippingaddressId;
 		this.shippingaddressPayinfoid = shippingaddressPayinfoid;
@@ -166,6 +177,7 @@ public class MlPaypalShipAddress {
 		this.shippingaddressCreatetime = shippingaddressCreatetime;
 		this.shippingaddressMotifytime = shippingaddressMotifytime;
 		this.shippingaddressIfFirstBuy = shippingaddressIfFirstBuy;
+		this.shippingaddressPaymentStr = shippingaddressPaymentStr;
 	}
 
 	@Override
@@ -178,7 +190,8 @@ public class MlPaypalShipAddress {
 				+ ", shippingaddressPostalCode=" + shippingaddressPostalCode + ", shippingaddressEmail="
 				+ shippingaddressEmail + ", shippingaddressState=" + shippingaddressState
 				+ ", shippingaddressCreatetime=" + shippingaddressCreatetime + ", shippingaddressMotifytime="
-				+ shippingaddressMotifytime + ", shippingaddressIfFirstBuy=" + shippingaddressIfFirstBuy + "]";
+				+ shippingaddressMotifytime + ", shippingaddressIfFirstBuy=" + shippingaddressIfFirstBuy
+				+ ", shippingaddressPaymentStr=" + shippingaddressPaymentStr + "]";
 	}
-    
+
 }
