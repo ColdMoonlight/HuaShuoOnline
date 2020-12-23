@@ -227,12 +227,12 @@
 												<div class="name">line 2</div>
 												<div class="value"></div>
 											</div>
-											<div class="billing-item province">
-												<div class="name">Province/State</div>
-												<div class="value"></div>
-											</div>
 											<div class="billing-item city">
 												<div class="name">city</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item province">
+												<div class="name">Province/State</div>
 												<div class="value"></div>
 											</div>
 											<div class="billing-item postcode">
