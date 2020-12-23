@@ -59,6 +59,7 @@
 		.wholesale-large_left{width: 100% ; padding: 0 5%; margin: 0;}
 		.wholesale-large_right{width:100%;margin:0 0 20px;}
 		}
+		.wholesale-info { margin: 0; font-size: 12px; color: #ff0000; font-style: italic; }
 	</style>
 </head>
 <body>
@@ -115,6 +116,7 @@
 							<textarea rows="2" cols="" class="form-control" id="wholesaleCustomerMessage" placeholder="Write your detailed requiry,hair types,hair quantity,hair length,hair color..."></textarea>
 						</div>
 					</div>
+					<p class="wholesale-info hide"></p>
 				</div>
 				<div class="form-group">
 					<div class="form-input">
@@ -256,9 +258,19 @@
 	  	});
 	  }
 	  $(document.body).on('click', '#Submit', function() {
-	  	if (checkInputAdressInfo()) {
-	  		orderSaveAddress(getFormData());
-	  	}
+		if (checkInputAdressInfo()) {
+			var reqData = getFormData();
+			if ((reqData.wholesaleCustomerMessage).length > 400) {
+				$('.wholesale-info').removeClass('hide').text('The maximum message length is 400 characters...');
+				return false;
+			}
+			orderSaveAddress(reqData);
+		}
+	  });
+	  $(document.body).on('focus', '#wholesaleCustomerMessage', function() {
+		  if (!$('#wholesaleCustomerMessage').hasClass('hide')) {
+			  $('.wholesale-info').addClass('hide').text('');
+		  }
 	  });
 		new LazyLoad($('main').find('.lazyload'), {
 			root: null,
