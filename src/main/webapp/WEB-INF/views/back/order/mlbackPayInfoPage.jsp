@@ -584,8 +584,12 @@
 			
 		});
 		$('#pay-track').on('click', function() {
-			$('.pre-code-modal').removeClass('hide');
-			$(document.body).css('overflow', 'hidden');
+			if ($('.pre-code-content').data('flag')) {
+				$('.pre-code-modal').removeClass('hide');
+				$(document.body).css('overflow', 'hidden');
+			} else {
+				toastr.error('无法获取paypal记录，请稍后重试...');
+			}
 		});
 		// pre-code modal
 		$('.pre-code-modal').on('click', function(e) {
@@ -837,7 +841,7 @@
 
 				$('.pre-code-content').html('<pre><code>'+ JSON.stringify(npaypal, null, 2) +'</code></pre>').data('flag', true);
 			} else {
-				$('.pre-code-content').data('flag', false);
+				$('.pre-code-content').html('').data('flag', false);
 			}
 			// customer info
 			if (data.mlfrontUserOne) {
