@@ -211,8 +211,6 @@ public class PaypalController {
         	System.out.println("---------------------payment.toJSON()---------------------");
             System.out.println(payment.toJSON());
             System.out.println("---------------------payment.toJSON()---------------------");
-
-            
             if(payment.getState().equals("approved")){
             	return "redirect:/Success.html";
             }else{
@@ -351,15 +349,9 @@ public class PaypalController {
     	Integer payinfoId =  Integer.parseInt(DescIdStr);
     	session.setAttribute("payinfoId", payinfoId);
     	//2.1.1paypal返回的付款地址插入数据库中--这个表要加个字段,用来存储payment的toString
-    	
-    	
     	//这里要存储一下paypal返回的全部证据
-        System.out.println("---------------------payment.toString()---------------------");
-        
         String paymentStr = payment.toString();
         System.out.println("payment.toString().length()"+paymentStr.length());
-        System.out.println(payment.toString());
-        System.out.println("---------------------payment.toString()---------------------");
     	insertMlPaypalShipAddressInfo(paymentId,DescIdStr,payerInfoReturn,paymentStr);
     	//修改支付单状态
     	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
