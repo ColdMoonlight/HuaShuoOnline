@@ -211,8 +211,6 @@ public class PaypalController {
         	System.out.println("---------------------payment.toJSON()---------------------");
             System.out.println(payment.toJSON());
             System.out.println("---------------------payment.toJSON()---------------------");
-
-            
             if(payment.getState().equals("approved")){
             	return "redirect:/Success.html";
             }else{
