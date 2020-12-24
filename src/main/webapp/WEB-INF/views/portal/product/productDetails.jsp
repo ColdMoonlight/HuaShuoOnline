@@ -40,13 +40,12 @@
 		.product-together-oprice { margin-left: .5rem; color: #333; text-decoration: line-through; font-weight: 500; }
 		.product-together-dprice { margin-left: .5rem; color: #ff0000; font-weight: 500; }
 		@media only screen and (max-width: 575px) {
-			.product-together-head { text-align: center; }
 			.product-together-imgs { width: 100%; }
 			.product-together-img-item { display: inline-block; }
 			.product-together-img-item a { display: inline-block; vertical-align: middle; width: 135px; height: 135px; }
 			.product-together-plus { display: inline-block; vertical-align: middle; margin: 0 .5rem; }
 			.product-together-cal { text-align: center; }
-			#product-together-sadd { width: 310px; }	
+			#product-together-sadd { width: 100%; }	
 		}
 		@media only screen and (min-width: 576px) {
 			.product-together-head, .product-together-imgs { display: flex; flex-wrap: wrap;  align-items: center; }
