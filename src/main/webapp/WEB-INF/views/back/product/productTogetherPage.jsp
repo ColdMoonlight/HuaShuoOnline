@@ -527,6 +527,7 @@
 						'<input class="form-check-input" id="'+ productId +'" type="checkbox"'+ (arrId.indexOf('' + productId) > -1 ? ' checked' : '') +' value="" data-id="'+ productId +'" data-name="'+ productName +'" data-seo="'+ productSeo +'" data-img="'+ productImg +'">' +
 						'<label class="form-check-label" for="'+ productId +'">'+
 							'<span class="table-th">'+ productId +'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].productStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].productStatus ? '已上架' : '未上架') + '</a></span>' +
 							/* '<span class="table-th">'+ (productImg ?
 									'<div class="c-table-img"><img src="'+ encodeUrl(productImg) +'" /></div>'
 									: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
