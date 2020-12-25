@@ -905,6 +905,14 @@
 	margin-top: 0;
 	margin-bottom: 0;
 }
+.form-check {
+	display: flex;
+	align-items: center;
+	padding: .25rem 0;
+}
+.form-check>label {
+	padding-left: 1rem;
+}
 .form-check-label {
 	display: flex;
 	align-items: center;
