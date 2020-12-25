@@ -15,6 +15,7 @@ import com.atguigu.bean.MlbackActShowPro;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -49,13 +50,13 @@ public class MlbackActShowProController {
 	@RequestMapping("/toMlbackActShowProPage")
 	public String tologin(HttpSession session) throws Exception{
 	
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-//		if(mlbackAdmin==null){
-//			//SysUsers对象为空
-//			return "back/mlbackAdminLogin";
-//		}else{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//MlbackAdmin对象为空
+			return "back/mlbackAdminLogin";
+		}else{
 			return "back/marketing/mlbackActShowProPage";
-//		}
+		}
 	}
 	
 	/**2.0	onuse	20200103	检查
