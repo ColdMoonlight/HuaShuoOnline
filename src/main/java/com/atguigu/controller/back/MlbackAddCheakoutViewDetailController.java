@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAddCheakoutViewDetail;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.UrlCount;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAddCheakoutViewDetailService;
 import com.atguigu.service.UrlCountService;
@@ -33,8 +34,8 @@ public class MlbackAddCheakoutViewDetailController {
 	 * */
 	@RequestMapping("/toMlbackAddCheakoutViewDetailPage")
 	public String tologin(HttpSession session) throws Exception{
-	
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";

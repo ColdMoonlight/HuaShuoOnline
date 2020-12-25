@@ -18,6 +18,7 @@ import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackPageArea;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackSlide;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackActShowProService;
 import com.atguigu.service.MlbackCatalogService;
@@ -68,7 +69,7 @@ public class MlbackPageAreaController {
 	@RequestMapping("/MlbackPageAreaPage")
 	public String MlbackPageAreaPage(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUser对象为空
 			return "back/mlbackAdminLogin";

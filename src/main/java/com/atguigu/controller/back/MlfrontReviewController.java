@@ -45,9 +45,14 @@ public class MlfrontReviewController {
 	 * @return 
 	 * */
 	@RequestMapping("/toMlfrontReviewPage")
-	public String tologin() throws Exception{
-	
-		return "back/product/mlbackReviewPage";
+	public String toMlfrontReviewPage(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//MlbackAdmin对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/product/mlbackReviewPage";
+		}
 	}
 	
 	/**2.0	useOn	0505
