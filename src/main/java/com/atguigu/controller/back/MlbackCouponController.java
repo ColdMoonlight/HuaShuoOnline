@@ -18,6 +18,7 @@ import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.UrlCount;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.CouponAnalysisDateService;
 import com.atguigu.service.MlbackAdminService;
@@ -61,7 +62,7 @@ public class MlbackCouponController {
 	 * */
 	@RequestMapping("/toMlbackCouponPage")
 	public String toMlbackCouponPage(HttpSession session) throws Exception{
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";
