@@ -59,8 +59,8 @@ public class MlbackCoupon {
 
     private String couponProductpronamesstronlyCateid;//优惠码支持一组产品的时候,所绑定的产品的pronameStr集合
     
-    //是否客户专属券
-    private Integer couponCodeUniqueEmailIF;//是否客户专属券
+    /**是否客户专属券*/
+    private Integer couponCodeUniqueEmailIF;//是否客户专属券0,非专属/1专属
     
     private String couponCodeUniqueEmail;//是否客户专属券
 
