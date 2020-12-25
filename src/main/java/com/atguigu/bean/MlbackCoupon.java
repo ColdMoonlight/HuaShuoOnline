@@ -53,11 +53,11 @@ public class MlbackCoupon {
 
     private String couponProductpronamesstronlyPid;//优惠码支持单品的时候,所绑定的产品的proname
 
-    private String couponProductonlyCateidstr;//优惠码支持类组的时候,所类ids
+    private String couponApplyCateidstr;//优惠码支持类组的时候,所类CateIds串
 
-    private String couponProductseonamesstronlyCateid;//优惠码支持一组产品的时候,所绑定的产品的seoStr集合
+    private String couponApplyCateSeostr;//优惠码支持类组的时候,所类CateseoStr串
 
-    private String couponProductpronamesstronlyCateid;//优惠码支持一组产品的时候,所绑定的产品的pronameStr集合
+    private String couponProsFromApplyCateidstr;//优惠码支持类组的时候,下面的所有产品id集合
     
     /**是否客户专属券*/
     private Integer couponCodeUniqueEmailIF;//是否客户专属券0,非专属/1专属
@@ -232,28 +232,28 @@ public class MlbackCoupon {
         this.couponProductpronamesstronlyPid = couponProductpronamesstronlyPid == null ? null : couponProductpronamesstronlyPid.trim();
     }
     
-	public String getCouponProductonlyCateidstr() {
-		return couponProductonlyCateidstr;
+	public String getCouponApplyCateidstr() {
+		return couponApplyCateidstr;
 	}
 
-	public void setCouponProductonlyCateidstr(String couponProductonlyCateidstr) {
-		this.couponProductonlyCateidstr = couponProductonlyCateidstr == null ? null : couponProductonlyCateidstr.trim();
+	public void setCouponApplyCateidstr(String couponApplyCateidstr) {
+		this.couponApplyCateidstr = couponApplyCateidstr == null ? null : couponApplyCateidstr.trim();
 	}
 
-	public String getCouponProductseonamesstronlyCateid() {
-		return couponProductseonamesstronlyCateid;
+	public String getCouponApplyCateSeostr() {
+		return couponApplyCateSeostr;
 	}
 
-	public void setCouponProductseonamesstronlyCateid(String couponProductseonamesstronlyCateid) {
-		this.couponProductseonamesstronlyCateid = couponProductseonamesstronlyCateid == null ? null : couponProductseonamesstronlyCateid.trim();
+	public void setCouponApplyCateSeostr(String couponApplyCateSeostr) {
+		this.couponApplyCateSeostr = couponApplyCateSeostr == null ? null : couponApplyCateSeostr.trim();
 	}
 
-	public String getCouponProductpronamesstronlyCateid() {
-		return couponProductpronamesstronlyCateid;
+	public String getCouponProsFromApplyCateidstr() {
+		return couponProsFromApplyCateidstr;
 	}
 
-	public void setCouponProductpronamesstronlyCateid(String couponProductpronamesstronlyCateid) {
-		this.couponProductpronamesstronlyCateid = couponProductpronamesstronlyCateid == null ? null : couponProductpronamesstronlyCateid.trim();
+	public void setCouponProsFromApplyCateidstr(String couponProsFromApplyCateidstr) {
+		this.couponProsFromApplyCateidstr = couponProsFromApplyCateidstr == null ? null : couponProsFromApplyCateidstr.trim();
 	}
 	
 	public Integer getCouponCodeUniqueEmailIF() {
@@ -281,8 +281,8 @@ public class MlbackCoupon {
 			Integer couponLuckdrawType, Integer couponLuckdrawWeight, Integer couponTimes, Integer couponAlltimes,
 			String couponCreatetime, String couponMotifytime, String couponStarttime, String couponEndtime,
 			String couponImgUrl, Integer couponProductonlyType, String couponProductonlyPidstr,
-			String couponProductseonamesstronlyPid, String couponProductpronamesstronlyPid,String couponProductonlyCateidstr,
-			String couponProductseonamesstronlyCateid,String couponProductpronamesstronlyCateid,
+			String couponProductseonamesstronlyPid, String couponProductpronamesstronlyPid,String couponApplyCateidstr,
+			String couponApplyCateSeostr,String couponProsFromApplyCateidstr,
 			Integer couponCodeUniqueEmailIF,String couponCodeUniqueEmail) {
 		super();
 		this.couponId = couponId;
@@ -306,9 +306,9 @@ public class MlbackCoupon {
 		this.couponProductonlyPidstr = couponProductonlyPidstr;
 		this.couponProductseonamesstronlyPid = couponProductseonamesstronlyPid;
 		this.couponProductpronamesstronlyPid = couponProductpronamesstronlyPid;
-		this.couponProductonlyCateidstr = couponProductonlyCateidstr;
-		this.couponProductseonamesstronlyCateid = couponProductseonamesstronlyCateid;
-		this.couponProductpronamesstronlyCateid = couponProductpronamesstronlyCateid;
+		this.couponApplyCateidstr = couponApplyCateidstr;
+		this.couponApplyCateSeostr = couponApplyCateSeostr;
+		this.couponProsFromApplyCateidstr = couponProsFromApplyCateidstr;
 		this.couponCodeUniqueEmailIF = couponCodeUniqueEmailIF;
 		this.couponCodeUniqueEmail = couponCodeUniqueEmail;
 	}
@@ -325,9 +325,9 @@ public class MlbackCoupon {
 				+ ", couponProductonlyType=" + couponProductonlyType + ", couponProductonlyPidstr="
 				+ couponProductonlyPidstr + ", couponProductseonamesstronlyPid=" + couponProductseonamesstronlyPid
 				+ ", couponProductpronamesstronlyPid=" + couponProductpronamesstronlyPid
-				+ ", couponProductonlyCateidstr=" + couponProductonlyCateidstr + ", couponProductseonamesstronlyCateid="
-				+ couponProductseonamesstronlyCateid + ", couponProductpronamesstronlyCateid="
-				+ couponProductpronamesstronlyCateid + ", couponCodeUniqueEmailIF=" + couponCodeUniqueEmailIF
+				+ ", couponApplyCateidstr=" + couponApplyCateidstr + ", couponApplyCateSeostr="
+				+ couponApplyCateSeostr + ", couponProsFromApplyCateidstr="
+				+ couponProsFromApplyCateidstr + ", couponCodeUniqueEmailIF=" + couponCodeUniqueEmailIF
 				+ ", couponCodeUniqueEmail=" + couponCodeUniqueEmail + "]";
 	}
 
