@@ -54,15 +54,20 @@ public class MlbackCouponController {
 	CouponAnalysisDateService couponAnalysisDateService;
 	
 	/**
-	 * 1.0	useOn	0505
+	 * 1.0	zsh	1225
 	 * to分类MlbackCoupon列表页面
 	 * @param jsp
 	 * @return 
 	 * */
 	@RequestMapping("/toMlbackCouponPage")
-	public String tologin() throws Exception{
-	
-		return "back/operate/mlbackCouponPage";
+	public String toMlbackCouponPage(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/operate/mlbackCouponPage";
+		}
 	}
 	
 	/**2.0	useOn	0505
