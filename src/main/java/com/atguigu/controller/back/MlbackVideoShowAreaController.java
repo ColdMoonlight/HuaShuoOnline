@@ -17,6 +17,7 @@ import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackSlide;
 import com.atguigu.bean.MlbackVideo;
 import com.atguigu.bean.MlbackVideoShowArea;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -53,9 +54,14 @@ public class MlbackVideoShowAreaController {
 	 * @return 
 	 * */
 	@RequestMapping("/toMlbackVideoShowAreaPage")
-	public String tologin() throws Exception{
-	
-		return "back/marketing/mlbackVideoShowAreaPage";
+	public String toMlbackVideoShowAreaPage(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//MlbackAdmin对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/marketing/mlbackVideoShowAreaPage";
+		}
 	}
 	
 	/**2.0	onuse	200104

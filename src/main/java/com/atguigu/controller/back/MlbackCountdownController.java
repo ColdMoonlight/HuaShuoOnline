@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCountdown;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
@@ -37,9 +39,14 @@ public class MlbackCountdownController {
 	 * @return 
 	 * */
 	@RequestMapping("/toMlbackCountdownPage")
-	public String tologin() throws Exception{
-	
-		return "back/marketing/mlbackCountdownPage";
+	public String toMlbackCountdownPage(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//MlbackAdmin对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/marketing/mlbackCountdownPage";
+		}
 	}
 	
 	/**2.0	20200707

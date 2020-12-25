@@ -23,6 +23,25 @@
     <result column="coupon_productonly_pidStr" jdbcType="VARCHAR" property="couponProductonlyPidstr" />
     <result column="coupon_productseonamesStronly_pid" jdbcType="VARCHAR" property="couponProductseonamesstronlyPid" />
     <result column="coupon_productpronamesStronly_pid" jdbcType="VARCHAR" property="couponProductpronamesstronlyPid" />
+    
+    <result column="coupon_productpronamesStronly_pid" jdbcType="VARCHAR" property="couponProductpronamesstronlyPid" />
+    <result column="coupon_productpronamesStronly_pid" jdbcType="VARCHAR" property="couponProductpronamesstronlyPid" />
+    <result column="coupon_productpronamesStronly_pid" jdbcType="VARCHAR" property="couponProductpronamesstronlyPid" />
+    <result column="coupon_productpronamesStronly_pid" jdbcType="VARCHAR" property="couponProductpronamesstronlyPid" />
+    <result column="coupon_productpronamesStronly_pid" jdbcType="VARCHAR" property="couponProductpronamesstronlyPid" />
+    
+        private String couponProductonlyCateidstr;//优惠码支持类组的时候,所类ids
+
+    private String couponProductseonamesstronlyCateid;//优惠码支持一组产品的时候,所绑定的产品的seoStr集合
+
+    private String couponProductpronamesstronlyCateid;//优惠码支持一组产品的时候,所绑定的产品的pronameStr集合
+    
+    /**是否客户专属券*/
+    private Integer couponCodeUniqueEmailIF;//是否客户专属券0,非专属/1专属
+    
+    private String couponCodeUniqueEmail;//是否客户专属券
+    
+    
   </resultMap>
   <sql id="Base_Column_List">
     coupon_id, coupon_name, coupon_price, coupon_priceoff, coupon_price_baseline, coupon_status, 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCouponDescDetail;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCouponDescDetailService;
@@ -38,9 +39,14 @@ public class MlbackCouponDescDetailController {
 	 * @return 
 	 * */
 	@RequestMapping("/toMlbackCouponDescDetailPage")
-	public String toMlbackCouponDescDetailPage() throws Exception{
-	
-		return "back/operate/mlbackCouponDescDetailPage";
+	public String toMlbackCouponDescDetailPage(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//MlbackAdmin对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/operate/mlbackCouponDescDetailPage";
+		}
 	}
 	
 	/**2.0	onuse	200104

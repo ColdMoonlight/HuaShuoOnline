@@ -49,9 +49,14 @@ public class MlbackSlidesController {
 	 * @return 
 	 * */
 	@RequestMapping("/toMlbackSlidePage")
-	public String tologin() throws Exception{
-	
-		return "back/marketing/mlbackSlidePage";
+	public String toMlbackSlidePage(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//MlbackAdmin对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/marketing/mlbackSlidePage";
+		}
 	}
 	
 	/**2.0	20200707

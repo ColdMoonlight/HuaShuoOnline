@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackAreafreight;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackAreafreightService;
-import com.atguigu.utils.DateUtil;
 
 @Controller
 @RequestMapping("/MlbackAreafreight")
@@ -39,7 +39,7 @@ public class MlbackAreafreightController {
 	@RequestMapping("/toMlbackAreafreightPage")
 	public String toMlbackAreafreightPage(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//MlbackAdmin对象为空
 			return "back/mlbackAdminLogin";
