@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,7 +18,6 @@ import com.atguigu.bean.CouponAnalysisDate;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackCoupon;
-import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.UrlCount;
