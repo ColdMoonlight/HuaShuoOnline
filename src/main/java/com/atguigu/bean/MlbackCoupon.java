@@ -59,9 +59,9 @@ public class MlbackCoupon {
 
     private String couponProsFromApplyCateidstr;//优惠码支持类组的时候,下面的所有产品id集合
     
-    private String couponAllExceptPidstr;//优惠码支持单品的时候,所绑定的产品
+    private String couponAllExceptPidstr;//优惠码支持全场(例外的产品Pid集合)
 
-    private String couponAllExceptPseostr;//优惠码支持单品的时候,所绑定的产品的seo
+    private String couponAllExceptPseostr;//优惠码支持全场(例外的产品Pseo集合)
     
     /**是否客户专属券*/
     private Integer couponCodeUniqueEmailIF;//是否客户专属券0,非专属/1专属
