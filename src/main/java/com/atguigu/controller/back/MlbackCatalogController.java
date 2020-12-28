@@ -44,13 +44,13 @@ public class MlbackCatalogController {
 	@RequestMapping("/toMlbackCatalogPage")
 	public String tologin(HttpSession session) throws Exception{
 		
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
-//		if(mlbackAdmin==null){
-//			//SysUsers对象为空
-//			return "back/mlbackAdminLogin";
-//		}else{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
 			return "back/marketing/mlbackCatalogPage";
-//		}
+		}
 	}
 	
 	

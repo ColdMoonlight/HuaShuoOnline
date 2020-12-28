@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.CouponAnalysisDate;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackCoupon;
+import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.UrlCount;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.CouponAnalysisDateService;
 import com.atguigu.service.MlbackAdminService;
+import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackCouponService;
 import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlfrontUserService;
@@ -53,16 +57,24 @@ public class MlbackCouponController {
 	@Autowired
 	CouponAnalysisDateService couponAnalysisDateService;
 	
+	@Autowired
+	MlbackCategoryService mlbackCategoryService;
+	
 	/**
-	 * 1.0	useOn	0505
+	 * 1.0	zsh	1225
 	 * to分类MlbackCoupon列表页面
 	 * @param jsp
 	 * @return 
 	 * */
 	@RequestMapping("/toMlbackCouponPage")
-	public String tologin() throws Exception{
-	
-		return "back/operate/mlbackCouponPage";
+	public String toMlbackCouponPage(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/operate/mlbackCouponPage";
+		}
 	}
 	
 	/**2.0	useOn	0505
@@ -101,7 +113,7 @@ public class MlbackCouponController {
 		mlbackCoupon.setCouponCreatetime(nowTime);
 		mlbackCoupon.setCouponProductonlyType(0);
 		mlbackCoupon.setCouponProductonlyPidstr("");
-		//无id,insert
+		//无idinsert
 		System.out.println("插入前"+mlbackCoupon.toString());
 		mlbackCouponService.insertSelective(mlbackCoupon);
 		System.out.println("插入后"+mlbackCoupon.toString());
@@ -127,6 +139,85 @@ public class MlbackCouponController {
 		}
 		if(couponProductOnlyType==0){
 			mlbackCoupon.setCouponProductonlyPidstr("");
+		}
+		if(couponProductOnlyType==1){
+			System.out.println("这是单品,直接保存");
+		}
+		if(couponProductOnlyType==2){
+			//1.x取出cate的id串,准备查询适用的proid
+			String cateIdsStr = mlbackCoupon.getCouponApplyCateidstr();
+			
+			String cateIdsStrArr [] =cateIdsStr.split(",");
+			
+			String cateidStr ="";
+			Integer cateidInt =0;
+			List<MlbackCategory> mlbackProductReqList = new ArrayList<MlbackCategory>();
+			List<MlbackCategory> mlbackProductResList = new ArrayList<MlbackCategory>();
+			MlbackProduct mlbackProductResOne = new MlbackProduct();
+			
+			List<String> cateProIdStrList = new ArrayList<String>(); 
+			for(int i=0;i<cateIdsStrArr.length;i++){
+				//2.x取出遍历取出类的cateid
+				cateidStr = cateIdsStrArr[i];
+				cateidInt = Integer.parseInt(cateidStr);
+				MlbackCategory mlbackCategoryReq = new MlbackCategory();
+				mlbackCategoryReq.setCategoryId(cateidInt);
+				List<MlbackCategory> mlbackCategoryResList =mlbackCategoryService.selectMlbackCategory(mlbackCategoryReq);
+				MlbackCategory mlbackCategoryOne =mlbackCategoryResList.get(0);
+				//2.1.x取出信息单个类seo下面的prostr字段
+				String cateProidStr = mlbackCategoryOne.getCategoryProductIds();
+				cateProIdStrList.add(cateProidStr);
+			}
+			//读取每个seo字段,遍历proStr字段,再读取信息
+			List<Integer> proIdStrList = new ArrayList<Integer>(); 
+			for(int j=0;j<cateProIdStrList.size();j++){
+				String proIdsStr = cateProIdStrList.get(j);
+				String proIdsStrArr [] =proIdsStr.split(",");
+				
+				String pidStr ="";
+				Integer pidInt=0;
+				for(int k=0;k<proIdsStrArr.length;k++){
+					//2.x取出遍历取出类的cateid
+					pidStr = proIdsStrArr[k];
+					if("".equals(pidStr)){
+						//过
+					}else if(pidStr==null){
+						//过
+					}else{
+						pidInt = Integer.parseInt(cateidStr);
+						proIdStrList.add(pidInt);
+					}
+				}
+			}
+			
+			Integer[] proIdStrListArr = new Integer[proIdStrList.size()];
+
+			proIdStrList.toArray(proIdStrListArr);
+			int temp;//定义一个临时变量
+	        for(int m=0;m<proIdStrListArr.length-1;m++){//冒泡趟数
+	            for(int n=0;n<proIdStrListArr.length-m-1;n++){
+	                if(proIdStrListArr[n+1]<proIdStrListArr[n]){
+	                    temp = proIdStrListArr[n];
+	                    proIdStrListArr[n] = proIdStrListArr[n+1];
+	                    proIdStrListArr[n+1] = temp;
+	                }
+	            }
+	        }
+			
+	        for(int x=0;x<proIdStrListArr.length;x++){
+	        	System.out.println(x);
+	        	System.out.println(proIdStrListArr.toString());
+	        }
+	        
+	        mlbackCoupon.setCouponProsFromApplyCateidstr(proIdStrListArr.toString());
+			
+			//2.2.x对绑定pidstr里面的pid拿出来，进行排序，保留。
+			//2.3.x把所有的pid弄成一个list，去重，保存进字段中去
+			
+			//1判断是全场券/指定一类的券/单一产品券/
+			//2把当前要结算的产品，去1中的产品范围中匹配-保留匹配结果
+			//3判断是满减/还是折扣-对2中的匹配结果进行操作
+			//4计算结果显示
 		}
 		//有id,update
 		mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);
@@ -190,7 +281,7 @@ public class MlbackCouponController {
 	}
 	
 	/**
-	 * 6.0	useOn	0505
+	 * 6.0	zsh	201225
 	 * 通过优惠码Code-查单条Coupon详情
 	 * @param MlbackCoupon
 	 * @return 
@@ -200,45 +291,49 @@ public class MlbackCouponController {
 	public Msg getOneMlbackCouponDetailByCode(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackCoupon mlbackCoupon){
 	    
 	    String couponCode = mlbackCoupon.getCouponCode();
-	    
-	    String nowOrderListPidstr =  mlbackCoupon.getCouponCreatetime();//当前这堆产品的id
 	    //接受信息
 	    MlbackCoupon mlbackCouponReq = new MlbackCoupon();
 	    mlbackCouponReq.setCouponCode(couponCode);
-	    mlbackCouponReq.setCouponStatus(1);//进查询生效的优惠码
 	    List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCouponBYCode(mlbackCouponReq);
 	    MlbackCoupon mlbackCouponOne = null;
-	    Integer couponProductOnlyTypeifHave = 0;
+	    /**
+	     * 先判断-优惠券-不可用的状态
+	     * 		1.x不存在,直接打回
+	     *  	2.x下架状态,打回
+	     * 		3.x过期了,打回
+	     * 		4.x使用次数满了,打回
+	     * 		5.0可用
+	     * */
 	    if(mlbackCouponResList.size()>0){
-	      //1判断优惠码存在不存在
+	      //1判断优惠码存在不存在	
 	      mlbackCouponOne =mlbackCouponResList.get(0);
-	      //取出本优惠券中的绑定产品字段,如果未绑定产品0,过
-	      Integer couponProductOnlyType =  mlbackCouponOne.getCouponProductonlyType();
-	      if(couponProductOnlyType==null){
-	    	  couponProductOnlyType = 0;
+	      //2取出本优惠券的生效的状态
+	      Integer couponStatus = mlbackCouponOne.getCouponStatus();
+	      if(couponStatus==0){
+	    	  //该优惠券已经失效
+	    	  //2.x下架状态,打回,
+	    	  return Msg.success().add("resMsg", "该优惠券已经失效").add("mlbackCouponOne", null);
 	      }
-	      if(couponProductOnlyType==1){
-	        String couponPidStr = mlbackCouponOne.getCouponProductonlyPidstr();
-	        String temPidStr="";
-	        if(nowOrderListPidstr.contains(",")){
-	          String couponStrPidsStrArr [] =nowOrderListPidstr.split(",");
-	          for(int i=0;i<couponStrPidsStrArr.length;i++){
-	            temPidStr = couponStrPidsStrArr[i];
-	            if(couponPidStr.equals(temPidStr)){
-	              couponProductOnlyTypeifHave = 1;
-	              break;
-	            }
-	          }
-	        }else{
-	          temPidStr = nowOrderListPidstr;
-	          if(couponPidStr.equals(temPidStr)){
-	            couponProductOnlyTypeifHave = 1;
-	          }
-	        }
+	      //3取出本优惠券是否过期
+	      String endtime = mlbackCouponOne.getCouponEndtime();
+	      String nowtime = DateUtil.strTime14s();
+	      Integer IfUse=endtime.compareTo(nowtime);
+	      if(!(IfUse>0)){
+	    	  //3.x过期了,打回
+	    	  return Msg.success().add("resMsg", "该优惠券已经过期").add("mlbackCouponOne", null);
 	      }
+	      //4取出本优惠券的生效的状态
+	      Integer couponAlltimes = mlbackCouponOne.getCouponAlltimes();
+	      Integer couponTimes = mlbackCouponOne.getCouponTimes();
+	      if(!(couponTimes<couponAlltimes)){
+	    	  //4.x使用次数满了,打回
+	    	  return Msg.success().add("resMsg", "该优惠券使用次数已满").add("mlbackCouponOne", null);
+	      }
+	      return Msg.success().add("resMsg", "getOneMCouponDetailByCode完毕").add("mlbackCouponOne", mlbackCouponOne);
+	    }else{
+	    	//1.x不存在,直接打回
+	    	return Msg.success().add("resMsg", "该优惠券不存在,请核实").add("mlbackCouponOne", null);
 	    }
-	    return Msg.success().add("resMsg", "getOneMCouponDetailByCode完毕")
-	          .add("mlbackCouponOne", mlbackCouponOne).add("couponProductOnlyTypeifHave", couponProductOnlyTypeifHave);
 	  }
 	
 	/**
