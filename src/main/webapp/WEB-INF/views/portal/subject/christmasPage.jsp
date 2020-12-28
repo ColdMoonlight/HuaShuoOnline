@@ -37,8 +37,6 @@
 				.top_02 .wap{padding-top:40.4%;}
 				.top_03 .wap,.top_04 .wap,.top_05 .wap,.top_06 .wap{padding-top:47.94%;}
 				.top_10 .wap{padding-top:57.33%;}
-				
-				
 				.box_cont .wap{padding-top:146.66%;}
 			   .pc{display:none}
 			   .box_img .pc2{display:none}
