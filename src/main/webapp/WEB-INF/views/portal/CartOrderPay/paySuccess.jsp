@@ -76,10 +76,10 @@
 			});
 		}
 		
-		function updatePayInfo(payId) {
+		function updatePayInfo(payId, couponCode) {
 			$.ajax({
 				url: "${APP_PATH}/MlfrontPayInfo/updateSuccessInfoIfMoreTimesBuy",
-				data: JSON.stringify({'payinfoId': payId}),
+				data: JSON.stringify({'payinfoId': payId, 'payinfoReason': couponCode}),
 				dataType: 'json',
 				contentType: 'application/json',
 				type: "post",
@@ -171,6 +171,7 @@
 
 		var payinfoId = '${sessionScope.payinfoId}';
 		var payinfoProductArr = [], payinfoOrderArr = [];
+		var couponCode;
 		
 		if (!payinfoId) {
 			mlModalTip('Please contact customer service for abnormal orders !');
@@ -183,13 +184,16 @@
 				var resDataOrderPayOne = data.mlfrontOrderPayOneRes;
 				var resDataAddressOne = data.mlfrontAddressOne;
 				var mlPaypalShipAddressOne = data.mlPaypalShipAddressOne;
+
+				updatePayInfo(payinfoId, data.mlfrontOrderPayOneRes.orderCouponCode || '');
+
 				if (data.mlfrontPayInfoOne) {
 					var isFirst = data.ifFirst;
 					var orderData = resDataOrderPayOne;
 					orderData.shipping = data.areafreightMoney;
 					orderData.list = resDataOrderItemList;
 					orderData.payinfoMoney = resDataPayInfoOne.payinfoMoney;
-		
+
 					resDataAddressOne.payinfoPlatenum = resDataPayInfoOne.payinfoPlatenum;
 		
 					renerPaymentInfo(orderData);
@@ -218,7 +222,6 @@
 					}, 0);
 				}
 			});
-			updatePayInfo(payinfoId);
 		}
 	</script>
 	<!-- footer script -->
