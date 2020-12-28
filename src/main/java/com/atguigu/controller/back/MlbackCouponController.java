@@ -145,11 +145,9 @@ public class MlbackCouponController {
 			System.out.println("这是单品,直接保存");
 		}
 		if(couponProductOnlyType==2){
-			
 			String cateIdsStr = mlbackCoupon.getCouponApplyCateidstr();
 			String prosStrFromApplyCateidstr  = getProIdStr(cateIdsStr);
 	        mlbackCoupon.setCouponProsFromApplyCateidstr(prosStrFromApplyCateidstr);
-			
 		}
 		if(couponProductOnlyType==3){
 			//取出不打折的产品-直接存起来
@@ -165,7 +163,7 @@ public class MlbackCouponController {
 		//4计算结果显示
 		return Msg.success().add("resMsg", "更新成功");
 	}
-	
+	//save中的子方法
 	private String getProIdStr(String cateIdsStr) {
 		//1.x取出cate的id串,准备查询适用的proid
 		String cateIdsStrArr [] =cateIdsStr.split(",");
