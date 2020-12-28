@@ -249,6 +249,55 @@ public class MlbackCouponController {
 		return Msg.success().add("resMsg", "delete success");
 	}
 	
+//	@RequestMapping(value="/checkCode",method=RequestMethod.POST)
+//	@ResponseBody
+//	public Msg checkCode(@RequestBody MlbackCoupon mlbackCoupon){
+//		//接收id信息
+//		int couponProductOnlyType = mlbackCoupon.getCouponId();
+//		/**
+//		 * 1	普通品				pid		012		sku-012-01	2个		$231
+//		 * 2	普通品				pid		012		sku-012-02	1个		$231
+//		 * 3	特价品(满199减100)	pid		013		sku-013-01	2个		$99
+//		 * 4	特价品(满199减100)	pid		013		sku-013-02	1个		$199
+//		 * 5	特价品(不打折)		pid		014		sku-014-01	1个		$100
+//		 * 6	特价品(不打折)		pid		014		sku-014-02	1个		$10
+//		 * */
+//		Integer ifVIPUnique = mlbackCoupon.getCouponCodeUniqueEmailIF();
+//		if(ifVIPUnique==0){
+//			//不是专属券;
+//			String couponMoney = aaa(couponProductOnlyType);
+//		}else{
+//			//这是专属券,
+//			//从页面取addressEmail,如果addressEmail==''.alert此为此券仅针对特殊人群，请先填写地址邮箱，确认your身份;
+//			//					      如果addressEmail=='abcd@123456'.if()不满足身份，此券不可用，请联系客服，完毕；
+//			//															满足身份，开始计算;方法String couponMoney = aaa(couponProductOnlyType);
+//			//											
+//		}
+//		return Msg.success().add("resMsg", "delete success");
+//	}
+//	private String aaa(Integer couponProductOnlyType) {
+//		if(couponProductOnlyType==0){
+//			//全局券
+//			//所有品操作
+//		}else if((couponProductOnlyType==1)||(couponProductOnlyType==2)){
+//			//取出此优惠券打折的pid范围-单品大券/几类大券一样
+//			//从页面上拿所有产品的pid,去筛选，不在券优惠范围内，总优惠力度为0
+//			//								在券优惠范围内，取出item项，如下
+//			//														取3*对应num，4*对应num,之后总金额相加,判断优惠券的起步价,
+//			//																								能用		计算-优惠力度$100
+//			//																								不能用		计算-优惠力度$0
+//			//取上面所有项的1，2，3，4，5，6总钱数，，-$100(优惠)==应付金额
+//		}else if(couponProductOnlyType==3){
+//			//除pid14的券，其他均打折
+//			//从页面上拿所有产品的pid，，筛掉pid14,,
+//			//							取1,2,3,4*对应num,拿到可打折金额,判断优惠券的起步价,判断优惠券的起步价,
+//			//																						能用		计算-优惠力度$100/或百分比价格
+//			//																						不能用	计算-优惠力度$0
+//			//取上面所有项的1，2，3，4，5，6总钱数，，-$100(优惠)==应付金额
+//		}
+//		return "";
+//	}
+	
 	/**
 	 * 5.0	useOn	0505
 	 * 查单条Coupon详情
@@ -553,15 +602,20 @@ public class MlbackCouponController {
 	}
 	
 	/**
-	 * 11.0	useOn	0505
+	 * 11.0	zsh	201228
 	 * to分类MlbackCoupon列表页面
 	 * @param jsp
 	 * @return 
 	 * */
 	@RequestMapping("/toCouponAnalysisPage")
-	public String toCouponCaclPage() throws Exception{
-	
-		return "back/operate/mlbackCouponAnalysisPage";
+	public String toCouponCaclPage(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/operate/mlbackCouponAnalysisPage";
+		}
 	}
 	
 	/**
