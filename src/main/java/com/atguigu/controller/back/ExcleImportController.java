@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlfrontReview;
+import com.atguigu.common.Const;
 import com.atguigu.service.DownPayCheckDateService;
 import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontReviewService;
@@ -44,8 +47,13 @@ public class ExcleImportController {
 	 * */
 	@RequestMapping("/reviewsImportPage")
 	public String reviewsImportPage(HttpSession session){
-		
-		return "back/product/excleintoPage";
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//MlbackAdmin对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/product/excleintoPage";
+		}
 	}
 	
 	/**

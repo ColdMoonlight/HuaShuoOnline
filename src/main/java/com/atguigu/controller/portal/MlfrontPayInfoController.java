@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlPaypalShipAddress;
+import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackAreafreight;
 import com.atguigu.bean.MlbackCaclPay;
 import com.atguigu.bean.MlbackOrderStateEmail;
@@ -106,9 +107,14 @@ public class MlfrontPayInfoController {
 	 * @return 
 	 * */
 	@RequestMapping("/toMlbackPayInfoList")
-	public String toMlbackPayInfoList() throws Exception{
-		
-		return "back/order/mlbackPayInfoPage";
+	public String toMlbackPayInfoList(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//mlbackAdmin对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/order/mlbackPayInfoPage";
+		}
 	}
 	
 	/**3.0	useOn	0505
@@ -259,6 +265,17 @@ public class MlfrontPayInfoController {
 	public Msg updateSuccessInfoIfMoreTimesBuy(HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo){
 		
 		Integer payinfoId = mlfrontPayInfo.getPayinfoId();
+		
+		String CoupinCode = mlfrontPayInfo.getPayinfoReason();
+		if(CoupinCode.length()>0){
+			//不为空
+			System.out.println("没有用优惠券");
+			//查询CouponCoded的明细
+		}else{
+			//
+			System.out.println("没有用优惠券");
+		}
+		
 		//接受payinfoId
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
 		mlfrontPayInfoReq.setPayinfoId(payinfoId);
