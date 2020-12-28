@@ -26,6 +26,8 @@
     <result column="coupon_apply_cateidstr" jdbcType="VARCHAR" property="couponApplyCateidstr" />
     <result column="coupon_apply_cateSeostr" jdbcType="VARCHAR" property="couponApplyCateSeostr" />
     <result column="coupon_prosfromapply_cateidstr" jdbcType="VARCHAR" property="couponProsFromApplyCateidstr" />
+    <result column="coupon_allexcept_pidstr" jdbcType="VARCHAR" property="couponAllExceptPidstr" />
+    <result column="coupon_allexcept_pseostr" jdbcType="VARCHAR" property="couponAllExceptPseostr" />
     <result column="coupon_codeunique_emailif" jdbcType="INTEGER" property="couponCodeUniqueEmailIF" />
     <result column="coupon_codeunique_email" jdbcType="VARCHAR" property="couponCodeUniqueEmail" />
   </resultMap>
@@ -35,7 +37,8 @@
     coupon_alltimes, coupon_createTime, coupon_motifyTime, coupon_startTime, coupon_endtime, coupon_imgUrl,
     coupon_productonly_type, coupon_productonly_pidStr, coupon_productseonamesStronly_pid, 
     coupon_productpronamesStronly_pid,coupon_apply_cateidstr,coupon_apply_cateSeostr,
-    coupon_prosfromapply_cateidstr,coupon_codeunique_emailif,coupon_codeunique_email
+    coupon_prosfromapply_cateidstr,coupon_allexcept_pidstr,coupon_allexcept_pseostr,
+    coupon_codeunique_emailif,coupon_codeunique_email
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -52,8 +55,8 @@
       coupon_createTime, coupon_motifyTime, coupon_startTime, 
       coupon_endtime, coupon_imgUrl, coupon_productonly_type, coupon_productonly_pidStr, 
       coupon_productseonamesStronly_pid, coupon_productpronamesStronly_pid,
-      coupon_apply_cateidstr,coupon_apply_cateSeostr,
-      coupon_prosfromapply_cateidstr,coupon_codeunique_emailif,coupon_codeunique_email
+      coupon_apply_cateidstr,coupon_apply_cateSeostr,coupon_prosfromapply_cateidstr,
+      coupon_allexcept_pidstr,coupon_allexcept_pseostr,coupon_codeunique_emailif,coupon_codeunique_email
       )
     values (#{couponId,jdbcType=INTEGER}, #{couponName,jdbcType=VARCHAR}, #{couponPrice,jdbcType=DECIMAL}, 
       #{couponPriceoff,jdbcType=DECIMAL}, #{couponPriceBaseline,jdbcType=DECIMAL}, #{couponStatus,jdbcType=INTEGER}, 
@@ -62,8 +65,9 @@
       #{couponCreatetime,jdbcType=VARCHAR}, #{couponMotifytime,jdbcType=VARCHAR}, #{couponStarttime,jdbcType=VARCHAR}, 
       #{couponEndtime,jdbcType=VARCHAR}, #{couponImgUrl,jdbcType=VARCHAR}, #{couponProductonlyType,jdbcType=INTEGER}, #{couponProductonlyPidstr,jdbcType=VARCHAR}, 
       #{couponProductseonamesstronlyPid,jdbcType=VARCHAR}, #{couponProductpronamesstronlyPid,jdbcType=VARCHAR}, 
-      #{couponApplyCateidstr,jdbcType=VARCHAR}, #{couponApplyCateSeostr,jdbcType=VARCHAR},
-      #{couponProsFromApplyCateidstr,jdbcType=VARCHAR}, #{couponCodeUniqueEmailIF,jdbcType=INTEGER}, #{couponCodeUniqueEmail,jdbcType=VARCHAR}
+      #{couponApplyCateidstr,jdbcType=VARCHAR}, #{couponApplyCateSeostr,jdbcType=VARCHAR},#{couponProsFromApplyCateidstr,jdbcType=VARCHAR},
+      #{couponAllExceptPidstr,jdbcType=VARCHAR},#{couponAllExceptPseostr,jdbcType=VARCHAR},
+      #{couponCodeUniqueEmailIF,jdbcType=INTEGER}, #{couponCodeUniqueEmail,jdbcType=VARCHAR}
       )
   </insert>
   
@@ -93,6 +97,8 @@
       coupon_apply_cateidstr = #{couponApplyCateidstr,jdbcType=VARCHAR}, 
       coupon_apply_cateSeostr = #{couponApplyCateSeostr,jdbcType=VARCHAR},
       coupon_prosfromapply_cateidstr = #{couponProsFromApplyCateidstr,jdbcType=VARCHAR}, 
+      coupon_allexcept_pidstr = #{couponAllExceptPidstr,jdbcType=VARCHAR},
+      coupon_allexcept_pseostr = #{couponAllExceptPseostr,jdbcType=VARCHAR},
       coupon_codeunique_emailif = #{couponCodeUniqueEmailIF,jdbcType=INTEGER}, 
       coupon_codeunique_email = #{couponCodeUniqueEmail,jdbcType=VARCHAR}
     where coupon_id = #{couponId,jdbcType=INTEGER}
@@ -173,6 +179,12 @@
       <if test="couponProsFromApplyCateidstr != null">
         coupon_prosfromapply_cateidstr,
       </if>
+      <if test="couponAllExceptPidstr != null">
+        coupon_allexcept_pidstr,
+      </if>
+      <if test="couponAllExceptPseostr != null">
+        coupon_allexcept_pseostr,
+      </if>
       <if test="couponCodeUniqueEmailIF != null">
         coupon_codeunique_emailif,
       </if>
@@ -252,6 +264,12 @@
       </if>
       <if test="couponProsFromApplyCateidstr != null">
         #{couponProsFromApplyCateidstr,jdbcType=VARCHAR},
+      </if>
+      <if test="couponAllExceptPidstr != null">
+        #{couponAllExceptPidstr,jdbcType=VARCHAR},
+      </if>
+      <if test="couponAllExceptPseostr != null">
+        #{couponAllExceptPseostr,jdbcType=VARCHAR},
       </if>
       <if test="couponCodeUniqueEmailIF != null">
         #{couponCodeUniqueEmailIF,jdbcType=INTEGER},
@@ -338,6 +356,12 @@
       </if>
       <if test="couponProsFromApplyCateidstr != null">
         coupon_prosfromapply_cateidstr = #{couponProsFromApplyCateidstr,jdbcType=VARCHAR},
+      </if>
+      <if test="couponAllExceptPidstr != null">
+		coupon_allexcept_pidstr = #{couponAllExceptPidstr,jdbcType=VARCHAR},
+      </if>
+      <if test="couponAllExceptPseostr != null">
+		coupon_allexcept_pseostr = #{couponAllExceptPseostr,jdbcType=VARCHAR},
       </if>
       <if test="couponCodeUniqueEmailIF != null">
         coupon_codeunique_emailif = #{couponCodeUniqueEmailIF,jdbcType=INTEGER},
