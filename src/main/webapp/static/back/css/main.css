@@ -921,7 +921,9 @@
 .form-check-label .table-th {
 	width: 100px;
 }
-
+.modal .form-check {
+	padding-left: 20px;
+}
 #editModal .modal-footer {
 	position: relative;
 }
