@@ -181,9 +181,10 @@
 									<div class="form-group">
 										<div class="controls">
 											<select id="couponProductonlyType" name="couponProductonlyType" class="form-control">
-											   <option value="0">All products</option>
 											   <option value="1">Specific products</option>
 											   <option value="2">Specific collections</option>
+											   <option value="3">except products</option>
+											   <option value="0">All products</option>
 											 </select>
 										</div>
 									</div>
@@ -206,20 +207,14 @@
 											<div class="controls collection-list"></div>
 										</div>
 									</div>
-								</div>
-							</div>
-
-							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">UNAPPLIES TO</div>
-								</div>
-								<div class="card-body">
-									<input id="couponAllExceptPidstr" hidden />
-									<input id="couponAllExceptPseostr" hidden />
-									<div class="form-group">
-										<label class="col-form-label">product list</label>											
-										<button class="btn btn btn-primary" style="float: right;" id="select-un-product">Select product</button>
-										<div class="controls un-product-list"></div>
+									<div class="hide apply-box apply-3">
+										<input id="couponAllExceptPidstr" hidden />
+										<input id="couponAllExceptPseostr" hidden />
+										<div class="form-group">
+											<label class="col-form-label">product list</label>											
+											<button class="btn btn btn-primary" style="float: right;" id="select-un-product">Select product</button>
+											<div class="controls un-product-list"></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -590,7 +585,7 @@
 			$('.type-item').addClass('hide');
 			$('.type-1').removeClass('hide');
 
-			$('#couponProductonlyType').val('0');
+			$('#couponProductonlyType').val('1');
 			$('.apply-box').addClass('hide');
 			$('#couponProductonlyPidstr').val('');
 			$('#couponProductseonamesstronlyPid').val('');
@@ -605,6 +600,7 @@
 			cSeo = [];
 			suId = [];
 			suSeo = [];
+			$('.apply-1').removeClass('hide');
 
 			$('#couponCodeUniqueEmailIF').val('0');
 			$('#couponCodeUniqueEmail').val('');
@@ -728,7 +724,7 @@
 			}
 
 			var onlyType = data.couponProductonlyType;
-			$('#couponProductonlyType').val(onlyType);
+			$('#couponProductonlyType').val(onlyType || '1');
 			$('.apply-box').addClass('hide');
 			if (onlyType == "1") {
 				$(".apply-1").removeClass('hide');
@@ -1298,6 +1294,8 @@
 				$(".apply-1").removeClass('hide');
 			} else if ($(this).val() == "2") {
 				$(".apply-2").removeClass('hide');
+			} else if ($(this).val() == "3") {
+				$(".apply-3").removeClass('hide');
 			}
 		});
 		$('#couponCodeUniqueEmailIF').on('change', function() {
