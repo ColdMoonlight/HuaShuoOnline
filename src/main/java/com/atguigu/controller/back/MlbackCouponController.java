@@ -602,15 +602,20 @@ public class MlbackCouponController {
 	}
 	
 	/**
-	 * 11.0	useOn	0505
+	 * 11.0	zsh	201228
 	 * to分类MlbackCoupon列表页面
 	 * @param jsp
 	 * @return 
 	 * */
 	@RequestMapping("/toCouponAnalysisPage")
-	public String toCouponCaclPage() throws Exception{
-	
-		return "back/operate/mlbackCouponAnalysisPage";
+	public String toCouponCaclPage(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/operate/mlbackCouponAnalysisPage";
+		}
 	}
 	
 	/**
