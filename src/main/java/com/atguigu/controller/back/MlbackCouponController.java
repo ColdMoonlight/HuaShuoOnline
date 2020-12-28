@@ -202,19 +202,28 @@ public class MlbackCouponController {
 	                }
 	            }
 	        }
+	        String ProsStrFromApplyCateidstr = "";
+	        String proidStrFinal ="";
+	        for(int x = 0;x<proIdStrListArr.length;x++){
+	        	Integer proidInt = proIdStrListArr[x];
+	        	String proidStr = proidInt+",";
+	        	proidStrFinal+=proidStr;
+	        }
 	        
-	        
-	        mlbackCoupon.setCouponProsFromApplyCateidstr(proIdStrListArr.toString());
+	        if(proidStrFinal.length()>0){
+	        	proidStrFinal=proidStrFinal.substring(0,proidStrFinal.length()-1);
+			}
+	        mlbackCoupon.setCouponProsFromApplyCateidstr(proidStrFinal);
 			
-			//2.2.x对绑定pidstr里面的pid拿出来，进行排序，保留。
-			//2.3.x把所有的pid弄成一个list，去重，保存进字段中去
+			//2.2.x对绑定pidstr里面的pid拿出来,进行排序,保留。
+			//2.3.x把所有的pid弄成一个list,去重,保存进字段中去
 			
 		}
 		//有id,update
 		mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);
 		System.out.println("后台操作:CouponService.updateByPrimaryKeySelective:"+mlbackCoupon.toString());
 		//1判断是全场券/指定一类的券/单一产品券/
-		//2把当前要结算的产品，去1中的产品范围中匹配-保留匹配结果
+		//2把当前要结算的产品,去1中的产品范围中匹配-保留匹配结果
 		//3判断是满减/还是折扣-对2中的匹配结果进行操作
 		//4计算结果显示
 		return Msg.success().add("resMsg", "更新成功");
