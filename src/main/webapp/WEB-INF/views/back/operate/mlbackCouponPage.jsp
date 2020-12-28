@@ -8,7 +8,7 @@
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 	<style>
-		.collection-list, .product-list {
+		.collection-list, .product-list, .un-product-list {
 			padding: .5rem;
 			margin-top: .75rem;
 			border: 1px solid #ccc;
@@ -208,7 +208,22 @@
 									</div>
 								</div>
 							</div>
-							
+
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">UNAPPLIES TO</div>
+								</div>
+								<div class="card-body">
+									<input id="couponAllExceptPidstr" hidden />
+									<input id="couponAllExceptPseostr" hidden />
+									<div class="form-group">
+										<label class="col-form-label">product list</label>											
+										<button class="btn btn btn-primary" style="float: right;" id="select-un-product">Select product</button>
+										<div class="controls un-product-list"></div>
+									</div>
+								</div>
+							</div>
+
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">Customer eligibility</div>
@@ -365,6 +380,7 @@
 		var isCreate = false, oldTime = (new Date()).getTime(), timer = null, storageName = "coupons", flag;
 		var pId = [], pName = [], pSeo = [];
 		var cId = [], cSeo = [];
+		var suId = [], suSeo = [];
 		// init
 		renderTabItems();
 		getCouponsData();
@@ -587,6 +603,8 @@
 			pSeo = [];
 			cId = [];
 			cSeo = [];
+			suId = [];
+			suSeo = [];
 
 			$('#couponCodeUniqueEmailIF').val('0');
 			$('#couponCodeUniqueEmail').val('');
@@ -663,6 +681,15 @@
 			}
 			renderCollectionList();
 			
+
+			data.couponAllExceptPidstr = $('#couponAllExceptPidstr').val();
+			data.couponAllExceptPseostr = $('#couponAllExceptPseostr').val();
+			if (data.couponAllExceptPidstr && data.couponAllExceptPseostr) {
+				suId = data.couponAllExceptPidstr.split(',');
+				suSeo = data.couponAllExceptPseostr.split(',');
+			}			
+			renderProductList2();
+			
 			data.couponCodeUniqueEmailIF = $('#couponCodeUniqueEmailIF').val();
 			data.couponCodeUniqueEmail = $('#couponCodeUniqueEmail').val();
 
@@ -724,6 +751,14 @@
 				}
 				renderCollectionList();
 			}
+			
+			if (data.couponAllExceptPidstr && data.couponAllExceptPseostr) {
+				$('#couponAllExceptPidstr').val(data.couponAllExceptPidstr || '');
+				$('#couponAllExceptPseostr').val(data.couponAllExceptPseostr || '');
+				suId = data.couponAllExceptPidstr.split(',');
+				suSeo = data.couponAllExceptPseostr.split(',');
+			}
+			renderProductList2();
 
 			var isUniqueCustomer = data.couponCodeUniqueEmailIF;
 			$('#couponCodeUniqueEmailIF').val(isUniqueCustomer);
@@ -742,8 +777,8 @@
 				resetPicture($('#couponImgUrl'));
 			}
 
-			$('#couponTimes').val(data.couponTimes || '0');
-			$('#couponAllTimes').val(data.couponAllTimes || '0');
+			$('#couponTimes').val(parseInt(data.couponTimes || '0'));
+			$('#couponAlltimes').val(parseInt(data.couponAlltimes || '0'));
 
 			$('#couponStarttime').daterangepicker({
 				singleDatePicker: true,
@@ -804,6 +839,23 @@
 			$('#editModal').find('.modal-title').text('Select collection ...');
 			$('#editModal').modal('show');
 		});
+		$('#select-un-product').on('click', function() {
+			var $selectResult = $('#editModal .select-result .value');
+
+			flag = 'sup';
+			$('#editModal .select-result').removeClass('hide');
+
+			if (suId.length) {
+				$selectResult.text(suId.join(','));
+			} else {
+				$selectResult.text('');
+			}
+
+			getAllProductData(renderAllProduct3);
+
+			$('#editModal').find('.modal-title').text('Select collection ...');
+			$('#editModal').modal('show');
+		});
 		$('#editModal .btn-ok').on('click', function() {
 			if (flag == 'sp') {
 				if (pId.length && pName.length && (pId.length == pName.length)) {
@@ -817,7 +869,7 @@
 					pName = $('#couponProductpronamesstronlyPid').val() ? $('#couponProductpronamesstronlyPid').val().split(',') : [];
 					pSeo = $('#couponProductseonamesstronlyPid').val() ? $('#couponProductseonamesstronlyPid').val().split(',') : [];
 					console.log('数据错误！！！');
-				}				
+				}
 			}
 
 			if (flag == 'sc') {
@@ -829,6 +881,19 @@
 				} else {
 					cId = $('#couponApplyCateidstr').val() ? $('#couponApplyCateidstr').val().split(',') : [];
 					cSeo = $('#couponApplyCateSeostr').val() ? $('#couponApplyCateSeostr').val().split(',') : [];
+					console.log('数据错误！！！');
+				}
+			}
+			
+			if (flag = 'sup') {
+				if (suId.length && suSeo.length && (suId.length == suSeo.length)) {
+					$('#couponAllExceptPidstr').val(suId.join(','));
+					$('#couponAllExceptPseostr').val(suSeo.join(','));
+					// render product list
+					renderProductList2();
+				} else {
+					suId = $('#couponAllExceptPidstr').val() ? $('#couponAllExceptPidstr').val().split(',') : [];
+					suSeo = $('#couponAllExceptPseostr').val() ? $('#couponAllExceptPseostr').val().split(',') : [];
 					console.log('数据错误！！！');
 				}
 			}
@@ -867,6 +932,19 @@
 					seox > -1  && cSeo.splice(seox, 1);
 				}
 				$('#editModal .select-result .value').text(cId.join(', '));
+			}
+			
+			if (flag == 'sup') {
+				if ($this.prop('checked')) {
+					suId.push(id);
+					suSeo.push(seo);
+				} else {
+					var idx = suId.indexOf(id);
+					var seox = suSeo.indexOf(seo);
+					idx > -1  && suId.splice(idx, 1);
+					seox > -1  && suSeo.splice(seox, 1);
+				}
+				$('#editModal .select-result .value').text(suId.join(', '));
 			}
 		});
 		$('#editModal .btn-ok').on('click', function() {
@@ -911,6 +989,18 @@
 			}
 			$('.product-list').html(htmlStr);
 		}
+		// render product-list
+		function renderProductList2() {
+			var htmlStr = '';
+			if (suSeo.length) {
+				suSeo.forEach(function(item, idx) {
+					htmlStr += '<a class="product-item" href="${APP_PATH}/' + item + '.html">' + item + '</a>';
+				});
+			} else {
+				htmlStr = '<p class="text-align: center; font-style: italic;">Empty here...</p>';
+			}
+			$('.un-product-list').html(htmlStr);
+		}
 		// render collection-list
 		function renderCollectionList() {
 			var htmlStr = '';
@@ -932,6 +1022,24 @@
 				var seo = data[i].productSeo;
 				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
 						'<input class="form-check-input" id="'+ id +'" type="checkbox"'+ (pId.indexOf('' + id) > -1 ? ' checked' : '') +' value="" data-id="'+ id +'" data-name="'+ name +'" data-seo="'+ seo +'">' +
+						'<label class="form-check-label" for="'+ id +'">'+
+							'<span class="table-th">'+ id +'</span>' +
+							'<span class="table-th"><a class="badge '+ (data[i].productStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].productStatus ? '已上架' : '未上架') + '</a></span>' +
+							'<span class="table-th" style="width: 100%;">'+ name +'</span>' +
+						'</label>' +
+					'</div></div>';
+			}
+			$('#editModal .modal-body-body').html(htmlStr);
+			$('#editModal .spinner').hide();
+		}
+		function renderAllProduct3(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				var id = data[i].productId;
+				var name = data[i].productName;
+				var seo = data[i].productSeo;
+				htmlStr += '<div class="page-area-item"><div class="form-check checkbox">' +
+						'<input class="form-check-input" id="'+ id +'" type="checkbox"'+ (suId.indexOf('' + id) > -1 ? ' checked' : '') +' value="" data-id="'+ id +'" data-name="'+ name +'" data-seo="'+ seo +'">' +
 						'<label class="form-check-label" for="'+ id +'">'+
 							'<span class="table-th">'+ id +'</span>' +
 							'<span class="table-th"><a class="badge '+ (data[i].productStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].productStatus ? '已上架' : '未上架') + '</a></span>' +
