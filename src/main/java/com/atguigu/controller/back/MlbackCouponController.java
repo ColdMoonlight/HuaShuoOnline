@@ -1,7 +1,9 @@
 package com.atguigu.controller.back;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +18,6 @@ import com.atguigu.bean.CouponAnalysisDate;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackCoupon;
-import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.UrlCount;
@@ -120,7 +121,7 @@ public class MlbackCouponController {
 		return Msg.success().add("resMsg", "Coupon初始化成功").add("mlbackCoupon", mlbackCoupon);
 	}
 	
-	/**3.1	useOn	0505
+	/**3.1	zsh	201226
 	 * MlbackCoupon	insert
 	 * @param MlbackCoupon
 	 */
@@ -146,14 +147,10 @@ public class MlbackCouponController {
 		if(couponProductOnlyType==2){
 			//1.x取出cate的id串,准备查询适用的proid
 			String cateIdsStr = mlbackCoupon.getCouponApplyCateidstr();
-			
 			String cateIdsStrArr [] =cateIdsStr.split(",");
 			
 			String cateidStr ="";
 			Integer cateidInt =0;
-			List<MlbackCategory> mlbackProductReqList = new ArrayList<MlbackCategory>();
-			List<MlbackCategory> mlbackProductResList = new ArrayList<MlbackCategory>();
-			MlbackProduct mlbackProductResOne = new MlbackProduct();
 			
 			List<String> cateProIdStrList = new ArrayList<String>(); 
 			for(int i=0;i<cateIdsStrArr.length;i++){
@@ -169,7 +166,7 @@ public class MlbackCouponController {
 				cateProIdStrList.add(cateProidStr);
 			}
 			//读取每个seo字段,遍历proStr字段,再读取信息
-			List<Integer> proIdStrList = new ArrayList<Integer>(); 
+			Map<Integer, Integer> proIdStrMap = new HashMap<>();
 			for(int j=0;j<cateProIdStrList.size();j++){
 				String proIdsStr = cateProIdStrList.get(j);
 				String proIdsStrArr [] =proIdsStr.split(",");
@@ -184,14 +181,16 @@ public class MlbackCouponController {
 					}else if(pidStr==null){
 						//过
 					}else{
-						pidInt = Integer.parseInt(cateidStr);
-						proIdStrList.add(pidInt);
+						pidInt = Integer.parseInt(pidStr);
+						//此处已经去重
+						proIdStrMap.put(pidInt, pidInt);
 					}
 				}
 			}
+			List<Integer> proIdStrList = new ArrayList(proIdStrMap.values());
 			
 			Integer[] proIdStrListArr = new Integer[proIdStrList.size()];
-
+			//排序
 			proIdStrList.toArray(proIdStrListArr);
 			int temp;//定义一个临时变量
 	        for(int m=0;m<proIdStrListArr.length-1;m++){//冒泡趟数
@@ -203,25 +202,30 @@ public class MlbackCouponController {
 	                }
 	            }
 	        }
-			
-	        for(int x=0;x<proIdStrListArr.length;x++){
-	        	System.out.println(x);
-	        	System.out.println(proIdStrListArr.toString());
+	        String ProsStrFromApplyCateidstr = "";
+	        String proidStrFinal ="";
+	        for(int x = 0;x<proIdStrListArr.length;x++){
+	        	Integer proidInt = proIdStrListArr[x];
+	        	String proidStr = proidInt+",";
+	        	proidStrFinal+=proidStr;
 	        }
 	        
-	        mlbackCoupon.setCouponProsFromApplyCateidstr(proIdStrListArr.toString());
+	        if(proidStrFinal.length()>0){
+	        	proidStrFinal=proidStrFinal.substring(0,proidStrFinal.length()-1);
+			}
+	        mlbackCoupon.setCouponProsFromApplyCateidstr(proidStrFinal);
 			
-			//2.2.x对绑定pidstr里面的pid拿出来，进行排序，保留。
-			//2.3.x把所有的pid弄成一个list，去重，保存进字段中去
+			//2.2.x对绑定pidstr里面的pid拿出来,进行排序,保留。
+			//2.3.x把所有的pid弄成一个list,去重,保存进字段中去
 			
-			//1判断是全场券/指定一类的券/单一产品券/
-			//2把当前要结算的产品，去1中的产品范围中匹配-保留匹配结果
-			//3判断是满减/还是折扣-对2中的匹配结果进行操作
-			//4计算结果显示
 		}
 		//有id,update
 		mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);
 		System.out.println("后台操作:CouponService.updateByPrimaryKeySelective:"+mlbackCoupon.toString());
+		//1判断是全场券/指定一类的券/单一产品券/
+		//2把当前要结算的产品,去1中的产品范围中匹配-保留匹配结果
+		//3判断是满减/还是折扣-对2中的匹配结果进行操作
+		//4计算结果显示
 		return Msg.success().add("resMsg", "更新成功");
 	}
 	

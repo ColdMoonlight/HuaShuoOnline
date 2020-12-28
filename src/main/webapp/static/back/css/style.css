@@ -1872,9 +1872,6 @@ output {
   line-height: 1.42857143;
   color: #555555;
 }
-.form-check {
-	padding-left: 1.25rem;
-}
 .form-control {
   display: block;
   width: 100%;
