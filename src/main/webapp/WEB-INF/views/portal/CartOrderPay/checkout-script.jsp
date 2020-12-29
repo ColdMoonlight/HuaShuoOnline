@@ -276,7 +276,7 @@
 				if ('' + couponData.mlbackCouponOne.couponProductonlyType == '2') {
 					couponPidArr = couponData.mlbackCouponOne.couponProsFromApplyCateidstr && couponData.mlbackCouponOne.couponProsFromApplyCateidstr.split(',');
 					checkCouponRange('collection');
-				}			
+				}
 				// except product
 				if ('' + couponData.mlbackCouponOne.couponProductonlyType == '3') {
 					couponPidArr = couponData.mlbackCouponOne.couponAllExceptPidstr && couponData.mlbackCouponOne.couponAllExceptPidstr.split(',');
@@ -290,10 +290,11 @@
 						checkCoupon();
 					} else {
 						resData.coupon = 0;
-						$('.order-coupon-tip').html('<p>这个优惠券只适用于指定的用户 !</p>');						
+						$('.order-coupon-tip').html('<p>这个优惠券只适用于指定的用户 !</p>');
 					}
 				} else {
 					mlModalTip('这是一个专属优惠券，需要您补全地址信息。。。');
+					$('.order-coupon-tip').html('');
 					$('html').animate({scrollTop: 0}, 500);
 				}
 			} else {
