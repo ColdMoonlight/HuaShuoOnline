@@ -199,7 +199,7 @@
 										<input id="couponProductseonamesstronlyPid" hidden />
 										<input id="couponProductpronamesstronlyPid" hidden />
 										<div class="form-group">
-											<label class="col-form-label">Product list</label>											
+											<label class="col-form-label">Product list(specific)</label>
 											<button class="btn btn btn-primary" style="float: right;" id="select-product">Select Product</button>
 											<div class="controls product-list"></div>
 										</div>
@@ -208,7 +208,7 @@
 										<input id="couponApplyCateidstr" hidden />
 										<input id="couponApplyCateSeostr" hidden />
 										<div class="form-group">
-											<label class="col-form-label">Collection list</label>											
+											<label class="col-form-label">Collection list(specific)</label>
 											<button class="btn btn btn-primary" style="float: right;" id="select-collection">Select Collection</button>
 											<div class="controls collection-list"></div>
 										</div>
@@ -217,7 +217,7 @@
 										<input id="couponAllExceptPidstr" hidden />
 										<input id="couponAllExceptPseostr" hidden />
 										<div class="form-group">
-											<label class="col-form-label">product list</label>											
+											<label class="col-form-label">Product list(except)</label>
 											<button class="btn btn btn-primary" style="float: right;" id="select-un-product">Select product</button>
 											<div class="controls un-product-list"></div>
 										</div>
@@ -583,6 +583,7 @@
 
 			$('#couponProductonlyType').val('0');
 			$('.apply-box').addClass('hide');
+
 			$('#couponProductonlyPidstr').val('');
 			$('#couponProductseonamesstronlyPid').val('');
 			$('#couponProductpronamesstronlyPid').val('');
@@ -741,15 +742,16 @@
 					cSeo = data.couponApplyCateSeostr.split(',');
 				}
 				renderCollectionList();
-			}
-			
-			if (data.couponAllExceptPidstr && data.couponAllExceptPseostr) {
+			} else if (onlyType == "3") {
+				$(".apply-3").removeClass('hide');
 				$('#couponAllExceptPidstr').val(data.couponAllExceptPidstr || '');
 				$('#couponAllExceptPseostr').val(data.couponAllExceptPseostr || '');
-				suId = data.couponAllExceptPidstr.split(',');
-				suSeo = data.couponAllExceptPseostr.split(',');
+				if (data.couponAllExceptPidstr && data.couponAllExceptPseostr) {
+					suId = data.couponAllExceptPidstr.split(',');
+					suSeo = data.couponAllExceptPseostr.split(',');
+				}
+				renderProductList2();
 			}
-			renderProductList2();
 
 			var isUniqueCustomer = data.couponCodeUniqueEmailIF;
 			$('#couponCodeUniqueEmailIF').val(isUniqueCustomer);
