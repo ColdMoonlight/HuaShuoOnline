@@ -258,7 +258,7 @@
 				if (needProductPrice) {
 					checkCouponBaseline(needProductPrice) && checkCouponType(needProductPrice);
 				} else {
-					$('.order-coupon-tip').html('<p><i style="color: #f00">该优惠券不适用于当前购买的产品! </p>');
+					$('.order-coupon-tip').html('<p><i style="color: #f00">This coupon does not apply to the currently purchased product! </p>');
 				}
 			}
 
@@ -290,10 +290,10 @@
 						checkCoupon();
 					} else {
 						resData.coupon = 0;
-						$('.order-coupon-tip').html('<p>这个优惠券只适用于指定的用户 !</p>');
+						$('.order-coupon-tip').html('<p>This coupon is only applicable to designated users!</p>');
 					}
 				} else {
-					mlModalTip('这是一个专属优惠券，需要您补全地址信息。。。');
+					mlModalTip('This is an exclusive coupon, you need to complete the address information!');
 					$('.order-coupon-tip').html('');
 					$('html').animate({scrollTop: 0}, 500);
 				}
