@@ -1226,13 +1226,18 @@
 				}
 
 				if (data.couponProductonlyType == '1') {
-					return '<td>specific product</td>' +
+					return '<td>Specific product</td>' +
 					'<td>'+(data.couponProductonlyPidstr ? data.couponProductonlyPidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + ' ' + data.couponProductseonamesstronlyPid.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
 				}
 
 				if (data.couponProductonlyType == '2') {
-					return '<td>specific collection</td>' +
+					return '<td>Specific collection</td>' +
 					'<td>'+(data.couponApplyCateidstr ? data.couponApplyCateidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + ' ' + data.couponApplyCateSeostr.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
+				}
+
+				if (data.couponProductonlyType == '3') {
+					return '<td>Except product</td>' +
+					'<td>'+(data.couponAllExceptPidstr ? data.couponAllExceptPidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + ' ' + data.couponAllExceptPseostr.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
 				}
 			}
 			var htmlStr = '';
