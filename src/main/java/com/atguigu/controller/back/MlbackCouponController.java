@@ -232,7 +232,7 @@ public class MlbackCouponController {
         if(proidStrFinal.length()>0){
         	prosStrFromApplyCateidstr=proidStrFinal.substring(0,proidStrFinal.length()-1);
 		}
-		//2.2.x对绑定pidstr里面的pid拿出来,进行排序,保留。
+		//2.2.x对绑定pidstr里面的pid拿出来,进行排序,保留.
 		//2.3.x把所有的pid弄成一个list,去重,保存进字段中去
         return prosStrFromApplyCateidstr;
 	}
@@ -373,7 +373,7 @@ public class MlbackCouponController {
 	      if(couponStatus==0){
 	    	  //该优惠券已经失效
 	    	  //2.x下架状态,打回,
-	    	  return Msg.success().add("resMsg", "该优惠券已经失效").add("mlbackCouponOne", null);
+	    	  return Msg.success().add("resMsg", "The coupon has expired.").add("mlbackCouponOne", null);
 	      }
 	      //3取出本优惠券是否过期
 	      String endtime = mlbackCouponOne.getCouponEndtime();
@@ -381,19 +381,19 @@ public class MlbackCouponController {
 	      Integer IfUse=endtime.compareTo(nowtime);
 	      if(!(IfUse>0)){
 	    	  //3.x过期了,打回
-	    	  return Msg.success().add("resMsg", "该优惠券已经过期").add("mlbackCouponOne", null);
+	    	  return Msg.success().add("resMsg", "The coupon has expired.").add("mlbackCouponOne", null);
 	      }
 	      //4取出本优惠券的生效的状态
 	      Integer couponAlltimes = mlbackCouponOne.getCouponAlltimes();
 	      Integer couponTimes = mlbackCouponOne.getCouponTimes();
 	      if(!(couponTimes<couponAlltimes)){
 	    	  //4.x使用次数满了,打回
-	    	  return Msg.success().add("resMsg", "该优惠券使用次数已满").add("mlbackCouponOne", null);
+	    	  return Msg.success().add("resMsg", "The coupon has been used up.").add("mlbackCouponOne", null);
 	      }
 	      return Msg.success().add("resMsg", "getOneMCouponDetailByCode完毕").add("mlbackCouponOne", mlbackCouponOne);
 	    }else{
 	    	//1.x不存在,直接打回
-	    	return Msg.success().add("resMsg", "该优惠券不存在,请核实").add("mlbackCouponOne", null);
+	    	return Msg.success().add("resMsg", "The coupon does not exist, please check.").add("mlbackCouponOne", null);
 	    }
 	  }
 	
@@ -478,10 +478,10 @@ public class MlbackCouponController {
 	 * 初始化请求,getMlbackCouponShowByLuckDrawType,拿回8个优惠券图片和结果,
 	 * 点击按钮,弹出输入邮箱的框框.
 	 * 输入完毕,checkCouponLuckDrawResultAndUserEmail.
-	 * 点击开始抽奖。getCouponLuckDrawResultAndUserEmail.
+	 * 点击开始抽奖.getCouponLuckDrawResultAndUserEmail.
 	 * 该邮件邮箱已经抽到过次类优惠券,请登陆后可在个人中心查看.自动登陆中.
-	 * 恭喜你获得XXXXX,3s后自动登录。账号密码已发送至您的邮箱。--调接口把email+couponId传递进来。
-	 * 接口调用成功后,重定向到首页。
+	 * 恭喜你获得XXXXX,3s后自动登录.账号密码已发送至您的邮箱.--调接口把email+couponId传递进来.
+	 * 接口调用成功后,重定向到首页.
 	 * @param MlbackCoupon
 	 * @return 
 	 */
