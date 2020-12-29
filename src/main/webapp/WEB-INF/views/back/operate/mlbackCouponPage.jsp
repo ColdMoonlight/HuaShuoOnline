@@ -54,9 +54,9 @@
 									<thead>
 										<tr>
 											<th>id</th>
-											<th>Name</th>
-											<th>couponCode</th>
-											<th>scope</th>
+											<th>Des</th>
+											<th>use</th>
+											<!-- <th>scope</th>
 											<th>couponType</th>
 											<th>couponPrice</th>
 											<th>couponPriceoff</th>
@@ -66,8 +66,10 @@
 											<th>Product or no</th>
 											<th style="min-width: 120px;">id & seo</th>
 											<th>specific-customer</th>
-											<th>customer-list</th>
+											<th>customer-list</th> -->
+											<th>state</th>
 											<th>status</th>
+											<th>date</th>
 											<th>operate</th>
 										</tr>
 									</thead>
@@ -1244,13 +1246,20 @@
 			}
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				var coupontype =data[i].couponType;
+				var coupontype = data[i].couponType;
 			    var couponLuckdrawtype = data[i].couponLuckdrawType;
 			    var specificCustomer = data[i].couponCodeUniqueEmailIF;
+			    var currentTime = initDate();
+			    console.log(!data[i].couponEndtime)
 				htmlStr += '<tr><td>' + data[i].couponId + '</td>' +
-					'<td>' + data[i].couponName + '</td>' +
-					'<td>' + data[i].couponCode + '</td>' +
-					'<td>' + (data[i].couponPriceBaseline || '--') + '</td>' +
+					'<td>' +
+						'<div class="td-code" style="font-weight: bold">' + data[i].couponCode + '</div>' +
+						'<div class="td-des">' +
+							(coupontype ? data[i].couponPriceoff + '%' || '--' : '$' + data[i].couponPrice || '--') + ' off Promotion' +
+							(data[i].couponPriceBaseline ? ' • Minimum purchase of $' + data[i].couponPriceBaseline : '--') +
+						'</div>' +
+					'</td>' +
+					/* '<td>' + (data[i].couponPriceBaseline || '--') + '</td>' +
 					'<td>'+(coupontype == 1 ? 'Discount' : 'Full')+'</td>' +
 					'<td>' +(coupontype == 0 ? parseFloat(data[i].couponPrice) : '--')+ '</td>' +
 					'<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff) + '%' : '--')+ '</td>' +
@@ -1262,9 +1271,11 @@
 					'</td>' +
 					'<td>' + (couponLuckdrawtype ? data[i].couponLuckdrawWeight  + '%' : '--') +'</td>' +
 					generateCouponHtml(data[i]) +
-					'<td>' + (specificCustomer ? 'partial-customer' : 'everyone') + '</td>' + 
-					'<td>' + (specificCustomer && data[i].couponCodeUniqueEmail ? data[i].couponCodeUniqueEmail.split(',').join('<br/>') : '--') + '</td>' +
+					'<td>' + (specificCustomer ? 'partial-customer' : 'everyone') + '</td>' +  */
+					'<td>' + (data[i].couponTimes || '0' + '/' + data[i].couponAlltimes || '--') + '</td>' +
 					'<td><a class="badge '+ (data[i].couponStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].couponStatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td><a class="badge badge-gray" href="javascript:;">' + (data[i].couponEndtime && data[i].couponStarttime ? (data[i].couponEndtime >= currentTime && data[i].couponStarttime <= currentTime ? 'Active' : 'Expired') : '--')  + '</a></td>' +
+					'<td>'+ (data[i].couponStarttime || '--') + '<br>' + (data[i].couponEndtime || '--') +'</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].couponId + '">' +
 							'<svg class="c-icon">' +
