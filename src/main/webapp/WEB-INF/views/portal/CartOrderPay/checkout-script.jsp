@@ -206,7 +206,7 @@
 
 		if (couponData && couponData.mlbackCouponOne) {
 			function checkCouponBaseline(price) {
-				if (!couponData.mlbackCouponOne.couponPriceBaseline && price && price < parseFloat(couponData.mlbackCouponOne.couponPriceBaseline)) {
+				if (!couponData.mlbackCouponOne.couponPriceBaseline || (couponData.mlbackCouponOne.couponPriceBaseline && price >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline))) {
 					return true;
 				} else {
 					resData.coupon = 0;
@@ -216,12 +216,12 @@
 			}
 			function checkCouponType(needProductPrice) {
 				// 满减
-				if (couponData.mlbackCouponOne.couponType == '0') {
+				if ('' + couponData.mlbackCouponOne.couponType == '0') {
 					resData.coupon = parseFloat(couponData.mlbackCouponOne.couponPrice);
 				}
 				// 折扣
-				if (couponData.mlbackCouponOne.couponType == '1') {
-					resData.coupon = parseFloat(needProductPrice, (couponData.mlbackCouponOne.couponPriceoff || 100));
+				if ('' + couponData.mlbackCouponOne.couponType == '1') {
+					resData.coupon = parseFloat(accuracyCal(needProductPrice, (couponData.mlbackCouponOne.couponPriceoff || 100)));
 				}
 				$('.order-coupon-tip').html('<p><i style="color: #f00">'+ couponData.mlbackCouponOne.couponCode +'</i> used successful ! </p>');
 			}
@@ -235,21 +235,21 @@
 						prices += orderItemPrice;
 					}
 					if (flag == 'products') {
-						couponPidArr.indexOf($data.orderitemPid) > -1 && (prices += orderItemPrice);
+						couponPidArr.indexOf('' + $data.orderitemPid) > -1 && (prices += orderItemPrice);
 					}
-					if (flag == 'collecttion') {
-						couponPidArr.indexOf($data.orderitemPid) > -1 && (prices += orderItemPrice);
+					if (flag == 'collection') {
+						couponPidArr.indexOf('' + $data.orderitemPid) > -1 && (prices += orderItemPrice);
 					}
 					if (flag == 'except') {
-						couponPidArr.indexOf($data.orderitemPid) < 0 && (prices += orderItemPrice);
+						couponPidArr.indexOf('' + $data.orderitemPid) < 0 && (prices += orderItemPrice);
 					}
 
-					resData.prototal += orderitemPrice;
+					resData.prototal += orderItemPrice;
 				});
 				return prices;
 			}
 			function checkCouponRange(flag) {
-				var needProductPrice = getAllProductItemPrice('flag');
+				var needProductPrice = getAllProductItemPrice(flag);
 				if (needProductPrice) {
 					checkCouponBaseline(needProductPrice) && checkCouponType(needProductPrice);
 				} else {
@@ -259,36 +259,37 @@
 
 			function checkCoupon() {
 				// all product
-				if (couponData.mlbackCouponOne.couponProductonlyType == '0') {
+				if ('' + couponData.mlbackCouponOne.couponProductonlyType == '0' || !couponData.mlbackCouponOne.couponProductonlyType) {
 					checkCouponRange('all');
 				}
 				// specific product
-				if (couponData.mlbackCouponOne.couponProductonlyType == '1') {
+				if ('' + couponData.mlbackCouponOne.couponProductonlyType == '1') {
 					couponPidArr = couponData.mlbackCouponOne.couponProductonlyPidstr && couponData.mlbackCouponOne.couponProductonlyPidstr.split(',');
 					checkCouponRange('products');
 				}
 				// specific collection
-				if (couponData.mlbackCouponOne.couponProductonlyType == '2') {
-					couponPidArr = couponData.mlbackCouponOne.couponProsFromApplyCateidstr && couponData.mlbackCouponOne.couponProsFromApplyCateidstr;
+				if ('' + couponData.mlbackCouponOne.couponProductonlyType == '2') {
+					couponPidArr = couponData.mlbackCouponOne.couponProsFromApplyCateidstr && couponData.mlbackCouponOne.couponProsFromApplyCateidstr.split(',');
 					checkCouponRange('collection');
 				}			
 				// except product
-				if (couponData.mlbackCouponOne.couponProductonlyType == '2') {
-					couponPidArr = couponData.mlbackCouponOne.couponAllExceptPidstr && couponData.mlbackCouponOne.couponAllExceptPidstr;
+				if ('' + couponData.mlbackCouponOne.couponProductonlyType == '3') {
+					couponPidArr = couponData.mlbackCouponOne.couponAllExceptPidstr && couponData.mlbackCouponOne.couponAllExceptPidstr.split(',');
 					checkCouponRange('except');
 				}
 			}
 			
-			if (couponData.mlbackCouponOne.couponCodeUniqueEmailIF == '1') {
+			if ('' + couponData.mlbackCouponOne.couponCodeUniqueEmailIF == '1') {
 				if (userEmail) {
 					if (couponData.mlbackCouponOne.couponCodeUniqueEmail && couponData.mlbackCouponOne.couponCodeUniqueEmail.indexOf(userEmail) > -1) {
 						checkCoupon();
 					} else {
 						resData.coupon = 0;
-						$('.order-coupon-tip').html('<p>Code invalid !</p>');						
+						$('.order-coupon-tip').html('<p>这个优惠券只适用于指定的用户 !</p>');						
 					}
 				} else {
-					modalTip('这是一个专属优惠券，需要您补全地址信息。。。');
+					mlModalTip('这是一个专属优惠券，需要您补全地址信息。。。');
+					$('html').animate({scrollTop: 0}, 500);
 				}
 			} else {
 				checkCoupon();
