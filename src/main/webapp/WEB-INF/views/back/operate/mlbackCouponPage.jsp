@@ -1255,8 +1255,8 @@
 					'<td>' +
 						'<div class="td-code" style="font-weight: bold">' + data[i].couponCode + '</div>' +
 						'<div class="td-des">' +
-							(coupontype ? data[i].couponPriceoff + '%' || '--' : '$' + data[i].couponPrice || '--') + ' off Promotion' +
-							(data[i].couponPriceBaseline ? ' • Minimum purchase of $' + data[i].couponPriceBaseline : '--') +
+							(coupontype == '1' ? data[i].couponPriceoff + '%' || '--' : '$' + data[i].couponPrice || '--') + ' off Promotion' +
+							(data[i].couponPriceBaseline ? ' • Minimum purchase of $' + data[i].couponPriceBaseline : ' • --') +
 						'</div>' +
 					'</td>' +
 					/* '<td>' + (data[i].couponPriceBaseline || '--') + '</td>' +
@@ -1272,7 +1272,7 @@
 					'<td>' + (couponLuckdrawtype ? data[i].couponLuckdrawWeight  + '%' : '--') +'</td>' +
 					generateCouponHtml(data[i]) +
 					'<td>' + (specificCustomer ? 'partial-customer' : 'everyone') + '</td>' +  */
-					'<td>' + (data[i].couponTimes || '0' + '/' + data[i].couponAlltimes || '--') + '</td>' +
+					'<td>' + ((data[i].couponTimes || '0') + '/' + (data[i].couponAlltimes || '--')) + '</td>' +
 					'<td><a class="badge '+ (data[i].couponStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].couponStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td><a class="badge badge-gray" href="javascript:;">' + (data[i].couponEndtime && data[i].couponStarttime ? (data[i].couponEndtime >= currentTime && data[i].couponStarttime <= currentTime ? 'Active' : 'Expired') : '--')  + '</a></td>' +
 					'<td>'+ (data[i].couponStarttime || '--') + '<br>' + (data[i].couponEndtime || '--') +'</td>' +
