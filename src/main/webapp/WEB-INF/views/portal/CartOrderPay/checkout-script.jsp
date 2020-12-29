@@ -198,6 +198,13 @@
 		var productIdArr = $('.order-list').data('productidarr').split(',');
 		var couponPidArr = [];
 		var userEmail = $('#addressEmail').val().trim();
+
+		$('.order-item').each(function(idx, item) {
+			var $data = $(item).data('orderitem');
+			var orderitemPrice = parseFloat((parseFloat(accuracyCal((($data.orderitemProductOriginalprice || 0) + parseFloat($data.orderitemPskuMoneystr || 0)), ($data.orderitemProductAccoff || 100))) * $data.orderitemPskuNumber).toFixed(2));
+			resData.prototal += orderitemPrice;
+		});
+
 		// coupon code
 		if (couponData && !couponData.mlbackCouponOne) {
 			resData.coupon = 0;
@@ -243,8 +250,6 @@
 					if (flag == 'except') {
 						couponPidArr.indexOf('' + $data.orderitemPid) < 0 && (prices += orderItemPrice);
 					}
-
-					resData.prototal += orderItemPrice;
 				});
 				return prices;
 			}
@@ -278,7 +283,7 @@
 					checkCouponRange('except');
 				}
 			}
-			
+
 			if ('' + couponData.mlbackCouponOne.couponCodeUniqueEmailIF == '1') {
 				if (userEmail) {
 					if (couponData.mlbackCouponOne.couponCodeUniqueEmail && couponData.mlbackCouponOne.couponCodeUniqueEmail.indexOf(userEmail) > -1) {
@@ -650,7 +655,7 @@
 		}
 	});
 </script>
-<script>
+<!-- <script>
 	function addStripeScript() {
 		var script = document.createElement('script');
 		script.src = 'https://js.stripe.com/v3/';
@@ -867,4 +872,4 @@
 			$('#payment-form').removeClass('hide');
 		}
 	});
-</script>
+</script> -->
