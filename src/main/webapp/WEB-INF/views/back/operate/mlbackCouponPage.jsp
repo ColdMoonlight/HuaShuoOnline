@@ -64,7 +64,7 @@
 											<th>Draw Image</th>
 											<th>Draw Weight</th>
 											<th>Product or no</th>
-											<th>product id/seo</th>
+											<th style="min-width: 120px;">id & seo</th>
 											<th>specific-customer</th>
 											<th>customer-list</th>
 											<th>status</th>
@@ -170,6 +170,12 @@
 											</select>
 										</div>
 									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="couponPriceBaseline">Scope of application</label>
+										<div class="controls">
+											<input class="form-control" id="couponPriceBaseline" type="number" min="0" value="0" />
+										</div>
+									</div>
 								</div>
 							</div>
 
@@ -181,10 +187,10 @@
 									<div class="form-group">
 										<div class="controls">
 											<select id="couponProductonlyType" name="couponProductonlyType" class="form-control">
+											   <option value="0">All products</option>
 											   <option value="1">Specific products</option>
 											   <option value="2">Specific collections</option>
 											   <option value="3">except products</option>
-											   <option value="0">All products</option>
 											 </select>
 										</div>
 									</div>
@@ -241,16 +247,6 @@
 								</div>
 							</div>
 
-							<div class="card">
-								<div class="card-body">
-									<div class="form-group">
-										<label class="col-form-label" for="couponPriceBaseline">Scope of application</label>
-										<div class="controls">
-											<input class="form-control" id="couponPriceBaseline" type="number" min="0" value="0" />
-										</div>
-									</div>									
-								</div>
-							</div>
 							<!-- lottery -->
 							<div class="card">
 								<div class="card-title">
@@ -585,7 +581,7 @@
 			$('.type-item').addClass('hide');
 			$('.type-1').removeClass('hide');
 
-			$('#couponProductonlyType').val('1');
+			$('#couponProductonlyType').val('0');
 			$('.apply-box').addClass('hide');
 			$('#couponProductonlyPidstr').val('');
 			$('#couponProductseonamesstronlyPid').val('');
@@ -600,10 +596,10 @@
 			cSeo = [];
 			suId = [];
 			suSeo = [];
-			$('.apply-1').removeClass('hide');
 
 			$('#couponCodeUniqueEmailIF').val('0');
 			$('#couponCodeUniqueEmail').val('');
+			$('.customer-1').addClass('hide');
 
 			$('#couponLuckdrawType').val('0');
 			$('#couponLuckdrawWeight').val('0');
@@ -676,7 +672,6 @@
 				cSeo = data.couponApplyCateSeostr.split(',');
 			}
 			renderCollectionList();
-			
 
 			data.couponAllExceptPidstr = $('#couponAllExceptPidstr').val();
 			data.couponAllExceptPseostr = $('#couponAllExceptPseostr').val();
@@ -711,9 +706,9 @@
 			$('#couponStatus').prop('checked', data.couponStatus);
 			$('#couponPriceBaseline').val(data.couponPriceBaseline || '0');
 			$('#couponCode').val(data.couponCode);
-			
+
 			var couponType = data.couponType;
-			$('#couponType').val(couponType);
+			$('#couponType').val(couponType || '0');
 			$('.type-item').addClass('hide');
 			if (couponType == "0") {
 				$(".type-1").removeClass('hide');
@@ -724,7 +719,7 @@
 			}
 
 			var onlyType = data.couponProductonlyType;
-			$('#couponProductonlyType').val(onlyType || '1');
+			$('#couponProductonlyType').val(onlyType || '0');
 			$('.apply-box').addClass('hide');
 			if (onlyType == "1") {
 				$(".apply-1").removeClass('hide');
@@ -760,6 +755,7 @@
 			$('#couponCodeUniqueEmailIF').val(isUniqueCustomer);
 			if (isUniqueCustomer) {
 				$('#couponCodeUniqueEmail').val(data.couponCodeUniqueEmail);
+				$('.customer-1').removeClass('hide');
 			}
 
 			$('#couponLuckdrawType').val(data.couponLuckdrawType);
@@ -1224,19 +1220,24 @@
 		// init table-list
 		function renderTable(data) {
 			function generateCouponHtml(data) {
-				if (data.couponProductonlyType == '0') {
+				if (!data.couponProductonlyType || data.couponProductonlyType == '0') {
 					return '<td>All product</td>' +
 					'<td>--</td>';
 				}
-				
+
 				if (data.couponProductonlyType == '1') {
-					return '<td>specific product</td>' +
-					'<td>'+(data.couponProductonlyPidstr ? data.couponProductonlyPidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + data.couponProductseonamesstronlyPid.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
+					return '<td>Specific product</td>' +
+					'<td>'+(data.couponProductonlyPidstr ? data.couponProductonlyPidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + ' ' + data.couponProductseonamesstronlyPid.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
 				}
-				
+
 				if (data.couponProductonlyType == '2') {
-					return '<td>specific collection</td>' +
-					'<td>'+(data.couponApplyCateidstr ? data.couponApplyCateidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + data.couponApplyCateSeostr.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
+					return '<td>Specific collection</td>' +
+					'<td>'+(data.couponApplyCateidstr ? data.couponApplyCateidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + ' ' + data.couponApplyCateSeostr.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
+				}
+
+				if (data.couponProductonlyType == '3') {
+					return '<td>Except product</td>' +
+					'<td>'+(data.couponAllExceptPidstr ? data.couponAllExceptPidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + ' ' + data.couponAllExceptPseostr.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
 				}
 			}
 			var htmlStr = '';
@@ -1249,15 +1250,15 @@
 					'<td>' + data[i].couponCode + '</td>' +
 					'<td>' + (data[i].couponPriceBaseline || '--') + '</td>' +
 					'<td>'+(coupontype == 1 ? 'Discount' : 'Full')+'</td>' +
-					'<td>' +(coupontype == 0 ? parseFloat(data[i].couponPrice) : '')+ '</td>' +
-					'<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff) + '%' : '')+ '</td>' +
+					'<td>' +(coupontype == 0 ? parseFloat(data[i].couponPrice) : '--')+ '</td>' +
+					'<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff) + '%' : '--')+ '</td>' +
 					'<td>'+(couponLuckdrawtype == 1 ? 'yes' : 'no')+'</td>' +
 					'<td>' +
 						(data[i].couponImgUrl ?
 							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].couponImgUrl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
-					'<td>' + data[i].couponLuckdrawWeight + '%</td>' +
+					'<td>' + (couponLuckdrawtype ? data[i].couponLuckdrawWeight  + '%' : '--') +'</td>' +
 					generateCouponHtml(data[i]) +
 					'<td>' + (specificCustomer ? 'partial-customer' : 'everyone') + '</td>' + 
 					'<td>' + (specificCustomer && data[i].couponCodeUniqueEmail ? data[i].couponCodeUniqueEmail.split(',').join('<br/>') : '--') + '</td>' +
