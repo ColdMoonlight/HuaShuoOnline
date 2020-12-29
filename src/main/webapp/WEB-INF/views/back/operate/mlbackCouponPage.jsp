@@ -607,7 +607,7 @@
 			resetPicture($('#couponImgUrl'));
 			
 			$('#couponTimes').val('0');
-			$('#couponAlltimes').val('0');
+			$('#couponAlltimes').val('99');
 
 			$('#couponStarttime').daterangepicker({
 				singleDatePicker: true,
