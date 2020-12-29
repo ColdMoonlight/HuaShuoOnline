@@ -118,7 +118,7 @@
 	<!-- header script  -->
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
 	<!-- checkout script -->
-	<jsp:include page="./checkout-script.jsp" flush="true"></jsp:include>
+	<jsp:include page="./checkout-script.min.jsp" flush="true"></jsp:include>
 	<!-- footer script -->
 	<jsp:include page="../layout/footer/footer-script.min.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
