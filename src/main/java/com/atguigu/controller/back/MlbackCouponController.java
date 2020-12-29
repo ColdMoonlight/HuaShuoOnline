@@ -363,7 +363,7 @@ public class MlbackCouponController {
 	     *  	2.x下架状态,打回
 	     * 		3.x过期了,打回
 	     * 		4.x使用次数满了,打回
-	     * 		5.0可用
+	     * 		5.0可用-返回
 	     * */
 	    if(mlbackCouponResList.size()>0){
 	      //1判断优惠码存在不存在	
