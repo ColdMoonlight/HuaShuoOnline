@@ -181,7 +181,7 @@ public class MlfrontOrderController {
 	}
 	
 	/**4.0	useOn	200323
-	 * 更新order表中的:地址字段,优惠券字段,优惠券折扣。
+	 * 更新order表中的:地址字段,优惠券字段,优惠券折扣.
 	 * @param MlfrontOrder
 	 */
 	@RequestMapping(value="/orderToPayInfo",method=RequestMethod.POST)

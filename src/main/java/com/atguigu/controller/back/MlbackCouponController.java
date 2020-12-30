@@ -373,7 +373,7 @@ public class MlbackCouponController {
 	      if(couponStatus==0){
 	    	  //该优惠券已经失效
 	    	  //2.x下架状态,打回,
-	    	  return Msg.success().add("resMsg", "The coupon has expired.").add("mlbackCouponOne", null);
+	    	  return Msg.success().add("resMsg", "The coupon is no longer valid.").add("mlbackCouponOne", null);
 	      }
 	      //3取出本优惠券是否过期
 	      String endtime = mlbackCouponOne.getCouponEndtime();
@@ -393,7 +393,7 @@ public class MlbackCouponController {
 	      return Msg.success().add("resMsg", "getOneMCouponDetailByCode完毕").add("mlbackCouponOne", mlbackCouponOne);
 	    }else{
 	    	//1.x不存在,直接打回
-	    	return Msg.success().add("resMsg", "The coupon does not exist, please check.").add("mlbackCouponOne", null);
+	    	return Msg.success().add("resMsg", "This coupon does not exist, please check.").add("mlbackCouponOne", null);
 	    }
 	  }
 	
