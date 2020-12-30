@@ -55,20 +55,12 @@
 										<tr>
 											<th>id</th>
 											<th>Des</th>
-											<th>use</th>
-											<!-- <th>scope</th>
-											<th>couponType</th>
-											<th>couponPrice</th>
-											<th>couponPriceoff</th>
+											<th>Type</th>
 											<th>Draw or no</th>
 											<th>Draw Image</th>
-											<th>Draw Weight</th>
-											<th>Product or no</th>
-											<th style="min-width: 120px;">id & seo</th>
-											<th>specific-customer</th>
-											<th>customer-list</th> -->
-											<th>state</th>
+											<th>use</th>
 											<th>status</th>
+											<th>state</th>
 											<th>date</th>
 											<th>operate</th>
 										</tr>
@@ -1225,23 +1217,19 @@
 		function renderTable(data) {
 			function generateCouponHtml(data) {
 				if (!data.couponProductonlyType || data.couponProductonlyType == '0') {
-					return '<td>All product</td>' +
-					'<td>--</td>';
+					return '<td>0 - All product</td>';
 				}
 
 				if (data.couponProductonlyType == '1') {
-					return '<td>Specific product</td>' +
-					'<td>'+(data.couponProductonlyPidstr ? data.couponProductonlyPidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + ' ' + data.couponProductseonamesstronlyPid.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
+					return '<td>1 - Specific product</td>';
 				}
 
 				if (data.couponProductonlyType == '2') {
-					return '<td>Specific collection</td>' +
-					'<td>'+(data.couponApplyCateidstr ? data.couponApplyCateidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + ' ' + data.couponApplyCateSeostr.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
+					return '<td>2 - Specific collection</td>';
 				}
 
 				if (data.couponProductonlyType == '3') {
-					return '<td>Except product</td>' +
-					'<td>'+(data.couponAllExceptPidstr ? data.couponAllExceptPidstr.split(',').reduce(function(acc, item, idx) { return acc + ' * ' + item + ' ' + data.couponAllExceptPseostr.split(',')[idx] + '<br/>' }, '') : '--')+'</td>';
+					return '<td>3 - Except product</td>';
 				}
 			}
 			var htmlStr = '';
@@ -1259,19 +1247,16 @@
 							(data[i].couponPriceBaseline ? ' • Minimum purchase of $' + data[i].couponPriceBaseline : ' • --') +
 						'</div>' +
 					'</td>' +
-					/* '<td>' + (data[i].couponPriceBaseline || '--') + '</td>' +
-					'<td>'+(coupontype == 1 ? 'Discount' : 'Full')+'</td>' +
-					'<td>' +(coupontype == 0 ? parseFloat(data[i].couponPrice) : '--')+ '</td>' +
-					'<td>' +(coupontype == 1 ? parseFloat(data[i].couponPriceoff) + '%' : '--')+ '</td>' +
-					'<td>'+(couponLuckdrawtype == 1 ? 'yes' : 'no')+'</td>' +
+					generateCouponHtml(data[i]) +
+					'<td>'+
+						'<div>' + (couponLuckdrawtype == 1 ? 'support' : 'un-support') + '</div>' +
+						(couponLuckdrawtype ? '<div>' + data[i].couponLuckdrawWeight  + '%</div>' : '--') +
+					'</td>' +
 					'<td>' +
 						(data[i].couponImgUrl ?
 							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].couponImgUrl) +'" /></div>'
 							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
 					'</td>' +
-					'<td>' + (couponLuckdrawtype ? data[i].couponLuckdrawWeight  + '%' : '--') +'</td>' +
-					generateCouponHtml(data[i]) +
-					'<td>' + (specificCustomer ? 'partial-customer' : 'everyone') + '</td>' +  */
 					'<td>' + ((data[i].couponTimes || '0') + '/' + (data[i].couponAlltimes || '--')) + '</td>' +
 					'<td><a class="badge '+ (data[i].couponStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].couponStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td><a class="badge badge-gray" href="javascript:;">' + (data[i].couponEndtime && data[i].couponStarttime ? (data[i].couponEndtime >= currentTime && data[i].couponStarttime <= currentTime ? 'Active' : 'Expired') : '--')  + '</a></td>' +

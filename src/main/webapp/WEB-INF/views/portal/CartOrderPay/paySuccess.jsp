@@ -76,10 +76,10 @@
 			});
 		}
 		
-		function updatePayInfo(payId) {
+		function updatePayInfo(payId, couponCode) {
 			$.ajax({
 				url: "${APP_PATH}/MlfrontPayInfo/updateSuccessInfoIfMoreTimesBuy",
-				data: JSON.stringify({'payinfoId': payId}),
+				data: JSON.stringify({'payinfoId': payId, 'payinfoReason': couponCode}),
 				dataType: 'json',
 				contentType: 'application/json',
 				type: "post",
@@ -183,6 +183,8 @@
 				var resDataOrderPayOne = data.mlfrontOrderPayOneRes;
 				var resDataAddressOne = data.mlfrontAddressOne;
 				var mlPaypalShipAddressOne = data.mlPaypalShipAddressOne;
+
+				updatePayInfo(payinfoId, data.mlfrontOrderPayOneRes.orderCouponCode);
 				if (data.mlfrontPayInfoOne) {
 					var isFirst = data.ifFirst;
 					var orderData = resDataOrderPayOne;
@@ -218,7 +220,6 @@
 					}, 0);
 				}
 			});
-			updatePayInfo(payinfoId);
 		}
 	</script>
 	<!-- footer script -->
