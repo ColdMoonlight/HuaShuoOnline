@@ -547,7 +547,8 @@
 			"orderPayPlate": $('input[name="payment"]:checked').val(),
 			"orderProNumStr": $('.order-list').data('itemnumarr'),
 			"orderBuyMess": $('.order-buyer-msg textarea').val(),
-			"addressinfoId": $('#addressId').val(),	
+			"addressinfoId": $('#addressId').val(),
+			"orderCreatetime" : $('.order-list').data('productidarr'),
 		}
 	}
 	// initial order for checkout 
