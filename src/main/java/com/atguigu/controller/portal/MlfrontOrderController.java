@@ -252,7 +252,7 @@ public class MlfrontOrderController {
 			totalprice = totalprice.add(oneAllprice);//07总价字段累加该条的全部价格
 		}
 		if(pidItemAndMoneyStr.length()>0){
-			pidItemAndMoneyStr=pidItemAndMoneyStr.substring(0,pidItemAndMoneyStr.length()-1);
+			pidItemAndMoneyStr=pidItemAndMoneyStr.substring(1,pidItemAndMoneyStr.length());
 		}
 		System.out.println("pidItemAndMoneyStr:"+pidItemAndMoneyStr);
 		/*2.0
