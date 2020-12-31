@@ -79,7 +79,7 @@
 		function updatePayInfo(payId, couponCode) {
 			$.ajax({
 				url: "${APP_PATH}/MlfrontPayInfo/updateSuccessInfoIfMoreTimesBuy",
-				data: JSON.stringify({'payinfoId': payId, 'payinfoReason': couponCode}),
+				data: JSON.stringify({'payinfoId': payId}),
 				dataType: 'json',
 				contentType: 'application/json',
 				type: "post",
@@ -184,7 +184,6 @@
 				var resDataAddressOne = data.mlfrontAddressOne;
 				var mlPaypalShipAddressOne = data.mlPaypalShipAddressOne;
 
-				updatePayInfo(payinfoId, data.mlfrontOrderPayOneRes.orderCouponCode);
 				if (data.mlfrontPayInfoOne) {
 					var isFirst = data.ifFirst;
 					var orderData = resDataOrderPayOne;
@@ -221,6 +220,7 @@
 				}
 			});
 		}
+		updatePayInfo(payinfoId);
 	</script>
 	<!-- footer script -->
 	<jsp:include page="../layout/footer/footer-script.min.jsp" flush="true"></jsp:include>
