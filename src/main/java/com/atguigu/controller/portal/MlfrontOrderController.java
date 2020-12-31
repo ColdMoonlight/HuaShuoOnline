@@ -496,7 +496,7 @@ public class MlfrontOrderController {
 			UrlCount urlCountOne = pidItemAndMoneyList.get(i);
 			String orderItemPidX = urlCountOne.getUrlString();
 			
-			for(int j=0;i<couponPidArr.length;j++){
+			for(int j=0;j<couponPidArr.length;j++){
 				String couponPidX = couponPidArr[j];
 				if(couponPidX.equals(orderItemPidX)){
 					String OneItemAllMoney = urlCountOne.getUrlStringNum().trim();
