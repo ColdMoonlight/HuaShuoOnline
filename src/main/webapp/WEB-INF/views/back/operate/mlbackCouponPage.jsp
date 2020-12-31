@@ -57,7 +57,7 @@
 											<th>Des</th>
 											<th>Type</th>
 											<th>Draw or no</th>
-											<th>Draw Image</th>
+											<th>specific-customer</th>
 											<th>use</th>
 											<th>status</th>
 											<th>state</th>
@@ -1252,11 +1252,7 @@
 						'<div>' + (couponLuckdrawtype == 1 ? 'support' : 'un-support') + '</div>' +
 						(couponLuckdrawtype ? '<div>' + data[i].couponLuckdrawWeight  + '%</div>' : '--') +
 					'</td>' +
-					'<td>' +
-						(data[i].couponImgUrl ?
-							'<div class="c-table-img"><img src="'+ encodeUrl(data[i].couponImgUrl) +'" /></div>'
-							: '<div class="c-table-icon"><svg class="c-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-image1"></use></svg></div>') +
-					'</td>' +
+					'<td>' + (specificCustomer ? 'partial-customer' : 'everyone') + '</td>' +
 					'<td>' + ((data[i].couponTimes || '0') + '/' + (data[i].couponAlltimes || '--')) + '</td>' +
 					'<td><a class="badge '+ (data[i].couponStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].couponStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td><a class="badge badge-gray" href="javascript:;">' + (data[i].couponEndtime && data[i].couponStarttime ? (data[i].couponEndtime >= currentTime && data[i].couponStarttime <= currentTime ? 'Active' : 'Expired') : '--')  + '</a></td>' +
