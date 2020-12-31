@@ -410,6 +410,7 @@ public class MlfrontOrderController {
 		}
 		//
 		if(couponPidStr!=null){
+			
 			String cusTomerPidStrArr[] = cusTomerPidStr.split(",");
 			
 			String cusTomerPMoneyStrArr[] = pidItemAndMoneyStr.split(",");
@@ -423,10 +424,14 @@ public class MlfrontOrderController {
 				pidItemAndMoney.setUrlStringNum(pMoneyx);
 				pidItemAndMoneyList.add(pidItemAndMoney);
 			}
-			
-			mlbackCouponPrice = getAllProductItemPriceTwoAndThree(pidItemAndMoneyList,couponPidStr);
-			
-			realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
+			if(couponProductonlyType==3){
+				//不打折的idStr
+				mlbackCouponPrice = getAllProductItemPriceThree(pidItemAndMoneyList,couponPidStr);
+				realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
+			}else{
+				mlbackCouponPrice = getAllProductItemPriceOneAndTwo(pidItemAndMoneyList,couponPidStr);
+				realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
+			}
 			
 		}else{
 			String cusTomerPMoneyStrArr[] = pidItemAndMoneyStr.split(",");
@@ -477,7 +482,34 @@ public class MlfrontOrderController {
 		return realCouponPrice;
 	}
 
-	private BigDecimal getAllProductItemPriceTwoAndThree(List<UrlCount> pidItemAndMoneyList,String couponPidStr) {
+	private BigDecimal getAllProductItemPriceOneAndTwo(List<UrlCount> pidItemAndMoneyList,String couponPidStr) {
+		
+		BigDecimal totalprice = new BigDecimal(0);	//初始化最终价格参数
+		BigDecimal oneAllprice = new BigDecimal(0);	//初始化最终价格参数
+		
+		String couponPidArr[] = couponPidStr.split(",");
+		
+		for(int i=0;i<pidItemAndMoneyList.size();i++){
+			//去除钱数
+			UrlCount urlCountOne = pidItemAndMoneyList.get(i);
+			String orderItemPidX = urlCountOne.getUrlString();
+			
+			for(int j=0;i<couponPidArr.length;j++){
+				String couponPidX = couponPidArr[j];
+				if(couponPidX.equals(orderItemPidX)){
+					String OneItemAllMoney = urlCountOne.getUrlStringNum().trim();
+					oneAllprice = new BigDecimal(OneItemAllMoney);
+					totalprice = totalprice.add(oneAllprice);//07总价字段累加该条的全部价格
+					break;
+				}
+			}
+		}
+		System.out.println("这是满足优惠券的总钱数totalprice:"+totalprice);
+		
+		return totalprice;
+	}
+	
+	private BigDecimal getAllProductItemPriceThree(List<UrlCount> pidItemAndMoneyList,String couponPidStr) {
 		
 		BigDecimal totalprice = new BigDecimal(0);	//初始化最终价格参数
 		BigDecimal oneAllprice = new BigDecimal(0);	//初始化最终价格参数
