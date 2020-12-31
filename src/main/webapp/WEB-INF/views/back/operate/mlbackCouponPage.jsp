@@ -898,7 +898,7 @@
 					pId.push(id);
 					pName.push(name);
 					pSeo.push(seo);
-				} else {p
+				} else {
 					var idx = pId.indexOf(id);
 					var namex = pName.indexOf(name);
 					var seox = pSeo.indexOf(seo);
@@ -1050,7 +1050,7 @@
 					'<label class="form-check-label" for="'+ id +'">'+
 						'<span class="table-th">'+ id +'</span>' +
 						'<span class="table-th"><a class="badge '+ (data[i].categoryStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].categoryStatus ? '已上架' : '未上架') + '</a></span>' +
-						'<span class="table-th" style="width: 100%;">'+ name +'</span>' +
+						'<span class="table-th" style="width: 100%;">'+ data[i].categoryDesc +'</span>' +
 					'</label>' +
 				'</div></div>';
 			}
