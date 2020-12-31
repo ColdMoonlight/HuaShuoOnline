@@ -208,7 +208,7 @@
 		// coupon code
 		if (couponData && !couponData.mlbackCouponOne) {
 			resData.coupon = 0;
-			$('.order-coupon-tip').html('<p>Code invalid !</p>');
+			$('.order-coupon-tip').html('<p>'+ couponData.resMsg +'</p>');
 		}
 
 		if (couponData && couponData.mlbackCouponOne) {
