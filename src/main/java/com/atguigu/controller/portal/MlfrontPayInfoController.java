@@ -270,17 +270,6 @@ public class MlfrontPayInfoController {
 	public Msg updateSuccessInfoIfMoreTimesBuy(HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfo){
 		
 		Integer payinfoId = mlfrontPayInfo.getPayinfoId();
-		
-		String CoupinCode = mlfrontPayInfo.getPayinfoReason();
-		if(CoupinCode.length()>0){
-			//不为空
-			System.out.println("没有用优惠券");
-			//查询CouponCoded的明细
-		}else{
-			//
-			System.out.println("没有用优惠券");
-		}
-		
 		//接受payinfoId
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
 		mlfrontPayInfoReq.setPayinfoId(payinfoId);
