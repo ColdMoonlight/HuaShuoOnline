@@ -516,7 +516,17 @@ public class MlfrontOrderController {
 		BigDecimal totalprice = new BigDecimal(0);	//初始化最终价格参数
 		BigDecimal oneAllprice = new BigDecimal(0);	//初始化最终价格参数
 		
+		BigDecimal totalEndprice = new BigDecimal(0);	//初始化最终价格参数
+		BigDecimal oneAllEndprice = new BigDecimal(0);	//初始化最终价格参数
+		
 		String couponPidArr[] = couponPidStr.split(",");
+		
+		for(int i=0;i<pidItemAndMoneyList.size();i++){
+			UrlCount urlCountEndOne = pidItemAndMoneyList.get(i);
+			String OneItemAllEndMoney  = urlCountEndOne.getUrlStringNum().trim();
+			oneAllEndprice = new BigDecimal(OneItemAllEndMoney);
+			totalEndprice = totalEndprice.add(oneAllEndprice);//07总价字段累加该条的全部价格
+		}
 		
 		for(int i=0;i<pidItemAndMoneyList.size();i++){
 			//去除钱数
@@ -533,9 +543,12 @@ public class MlfrontOrderController {
 				}
 			}
 		}
-		System.out.println("这是满足优惠券的总钱数totalprice:"+totalprice);
 		
-		return totalprice;
+		totalEndprice = totalEndprice.subtract(totalprice);
+		
+		System.out.println("这是满足优惠券的总钱数totalEndprice:"+totalEndprice);
+		
+		return totalEndprice;
 	}
 
 	/**
