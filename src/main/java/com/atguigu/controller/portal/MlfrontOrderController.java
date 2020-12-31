@@ -426,6 +426,8 @@ public class MlfrontOrderController {
 			}
 			if(couponProductonlyType==3){
 				//不打折的idStr
+				
+				System.out.println("特价品不打折,此情况未完成");
 				mlbackCouponPrice = getAllProductItemPriceThree(pidItemAndMoneyList,couponPidStr);
 				realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
 			}else{
