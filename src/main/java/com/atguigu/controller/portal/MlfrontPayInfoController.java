@@ -16,6 +16,7 @@ import com.atguigu.bean.MlPaypalShipAddress;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackAreafreight;
 import com.atguigu.bean.MlbackCaclPay;
+import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.bean.MlbackOrderStateEmail;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
@@ -31,6 +32,7 @@ import com.atguigu.service.MlPaypalShipAddressService;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackAreafreightService;
 import com.atguigu.service.MlbackCaclPayService;
+import com.atguigu.service.MlbackCouponService;
 import com.atguigu.service.MlbackOrderStateEmailService;
 import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontOrderItemService;
@@ -81,6 +83,9 @@ public class MlfrontPayInfoController {
 	
 	@Autowired
 	MlbackCaclPayService mlbackCaclPayService;
+	
+	@Autowired
+	MlbackCouponService mlbackCouponService;
 	
 	@Autowired
 	UrlCountService UrlCountService;
@@ -390,6 +395,45 @@ public class MlfrontPayInfoController {
 			mlbackCaclPayReq.setTbMlbackCaclpayOrderid(poid);
 			mlbackCaclPayService.insertSelective(mlbackCaclPayReq);
 			//System.out.println("mlbackCaclPayReq:"+mlbackCaclPayReq.toString());
+			/******************计算优惠券次数************************/
+			Integer payinfoOid = mlfrontPayInfoOne.getPayinfoOid();
+			MlfrontOrder mlfrontOrderPay = new MlfrontOrder();
+			mlfrontOrderPay.setOrderId(payinfoOid);
+			List<MlfrontOrder> mlfrontOrderPayResList= mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPay);
+//		    if(mlfrontOrderPayResList.size()>0){
+//		        syso
+//		    }else{
+//		        
+//		    }
+			MlfrontOrder mlfrontOrderPayOneRes = mlfrontOrderPayResList.get(0);
+			String orderCouponCode = mlfrontOrderPayOneRes.getOrderCouponCode();
+			if(orderCouponCode==null){
+				System.out.println("往google,单号为:"+payinfoPlatenum+",此单没有用优惠券");
+			}else if("".equals(orderCouponCode)){
+				System.out.println("往google,单号为:"+payinfoPlatenum+"此单没有用优惠券");
+			}else{
+				//查询该优惠券的次数,并+1;
+				MlbackCoupon mlbackCouponReq = new MlbackCoupon();
+				mlbackCouponReq.setCouponCode(orderCouponCode);
+				List<MlbackCoupon> mlbackCouponList =  mlbackCouponService.selectMlbackCouponBYCode(mlbackCouponReq);
+				if(!(mlbackCouponList.size()>0)){
+					//优惠券不存在
+					System.out.println("往google,此优惠券不存在");
+				}else{
+					//取出次数，id,次数加一
+					MlbackCoupon mlbackCouponRes = mlbackCouponList.get(0);
+					Integer usedTimes = mlbackCouponRes.getCouponTimes();
+					usedTimes++;
+					Integer couponId = mlbackCouponRes.getCouponId();
+					
+					//更新操作结果
+					MlbackCoupon mlbackCouponEndReq = new MlbackCoupon();
+					mlbackCouponEndReq.setCouponId(couponId);
+					mlbackCouponEndReq.setCouponTimes(usedTimes);
+					mlbackCouponService.updateByPrimaryKeySelective(mlbackCouponEndReq);
+				}
+			}
+			/******************计算优惠券次数************************/
 			return 0;//本条已经在数据库中,未被计算过
 		}
 	}
