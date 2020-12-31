@@ -424,10 +424,24 @@ public class MlfrontOrderController {
 				pidItemAndMoneyList.add(pidItemAndMoney);
 			}
 			
-			mlbackCouponPrice = getAllProductItemPrice(pidItemAndMoneyList,couponPidStr);
+			mlbackCouponPrice = getAllProductItemPriceTwoAndThree(pidItemAndMoneyList,couponPidStr);
 			
 			realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
 			
+		}else{
+			String cusTomerPMoneyStrArr[] = pidItemAndMoneyStr.split(",");
+			BigDecimal totalprice = new BigDecimal(0);	//初始化最终价格参数
+			BigDecimal oneAllprice = new BigDecimal(0);	//初始化最终价格参数
+			//所有钱数加起来
+			for(int y=0;y<cusTomerPMoneyStrArr.length;y++){
+				String oneItemAllMoney = cusTomerPMoneyStrArr[y];
+				oneAllprice = new BigDecimal(oneItemAllMoney);
+				totalprice = totalprice.add(oneAllprice);//07总价字段累加该条的全部价格
+			}
+			
+			mlbackCouponPrice = totalprice;
+			
+			realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
 		}
 		return realCouponPrice;
 	}
@@ -463,7 +477,7 @@ public class MlfrontOrderController {
 		return realCouponPrice;
 	}
 
-	private BigDecimal getAllProductItemPrice(List<UrlCount> pidItemAndMoneyList,String couponPidStr) {
+	private BigDecimal getAllProductItemPriceTwoAndThree(List<UrlCount> pidItemAndMoneyList,String couponPidStr) {
 		
 		BigDecimal totalprice = new BigDecimal(0);	//初始化最终价格参数
 		BigDecimal oneAllprice = new BigDecimal(0);	//初始化最终价格参数
