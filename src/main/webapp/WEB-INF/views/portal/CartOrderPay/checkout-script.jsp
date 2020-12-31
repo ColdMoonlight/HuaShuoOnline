@@ -615,8 +615,10 @@
 	$(document.body).on('click', '.product-delete', function() {
 		deleteOrderProduct($(this).parents('.order-item'), function(id) {
 			var productIdArr = $('.order-list').data('productidarr').split(',');
-			productIdArr = productIdArr.filter(function(item) { return item != id });
+			var orderProductNumArr = $('.order-list').data('itemnumarr').split(',');
+			productIdArr = productIdArr.filter(function(item, idx) { if (item == id) orderProductNumArr.splice(idx, 1); return item != id });
 			$('.order-list').data('productidarr', productIdArr.join(','));
+			$('.order-list').data('itemnumarr', orderProductNumArr.join(','));
 			// reset order cal
 			resetOrderCal();
 		});
