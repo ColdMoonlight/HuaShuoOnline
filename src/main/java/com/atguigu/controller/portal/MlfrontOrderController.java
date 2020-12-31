@@ -22,6 +22,7 @@ import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
+import com.atguigu.bean.UrlCount;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackAreafreightService;
@@ -187,6 +188,10 @@ public class MlfrontOrderController {
 	@RequestMapping(value="/orderToPayInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg orderToPayInfo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontOrder mlfrontOrder){
+		
+		String cusTomerPidStr = mlfrontOrder.getOrderCreatetime();
+		String pidItemAndMoneyStr ="";
+		
 		//0.0接受参数信息,替换留言中的表情字符
 		String intoOrderMessage = mlfrontOrder.getOrderBuyMess();
 		System.out.println("intoOrderMessage:"+intoOrderMessage);
@@ -235,6 +240,9 @@ public class MlfrontOrderController {
 			String str = df1.format(oneAllprice);
 			//System.out.println("OrderitemPskuReamoney原始值:"+oneAllprice);
 			System.out.println("存进去的OrderitemPskuReamoney:"+str); //13.15
+			//存储每一项的Money
+			pidItemAndMoneyStr =pidItemAndMoneyStr+","+str;
+			
 			MlfrontOrderItem mlfrontOrderItemMoneyBlack = new MlfrontOrderItem();
 			mlfrontOrderItemMoneyBlack.setOrderitemId(orderItemId);
 			mlfrontOrderItemMoneyBlack.setOrderitemPskuReamoney(str);
@@ -243,6 +251,10 @@ public class MlfrontOrderController {
 			//一个字段存储总价格
 			totalprice = totalprice.add(oneAllprice);//07总价字段累加该条的全部价格
 		}
+		if(pidItemAndMoneyStr.length()>0){
+			pidItemAndMoneyStr=pidItemAndMoneyStr.substring(0,pidItemAndMoneyStr.length()-1);
+		}
+		System.out.println("pidItemAndMoneyStr:"+pidItemAndMoneyStr);
 		/*2.0
 		 * 		加		单个的	(基础价格+每个的sku价格的和)*折扣*数量,
 		 * 		减		2.0.1	优惠价格
@@ -251,7 +263,7 @@ public class MlfrontOrderController {
 		//2.0.1.1拿到优惠码Code,
 		String CouponCode = mlfrontOrder.getOrderCouponCode();
 		//2.0.1.2查询该优惠码的优惠价格
-		BigDecimal CouponCodeMoney = getCouponCodeMoney(CouponCode, totalprice);
+		BigDecimal CouponCodeMoney = getCouponCodeMoney(CouponCode, totalprice,cusTomerPidStr,pidItemAndMoneyStr);
 		String CouponCodeMoneyStr= df1.format(CouponCodeMoney);
 		session.setAttribute("CouponCodeMoney", CouponCodeMoneyStr);
 		//减去优惠券优惠的钱
@@ -366,29 +378,146 @@ public class MlfrontOrderController {
 	 * getCouponCodeMoney
 	 * @param totalprice 
 	 * */
-	private BigDecimal getCouponCodeMoney(String couponCode, BigDecimal totalprice) {
+	private BigDecimal getCouponCodeMoney(String couponCode, BigDecimal totalprice,String cusTomerPidStr,String pidItemAndMoneyStr) {
 		
 		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
 		mlbackCouponReq.setCouponCode(couponCode);
 		List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCouponBYCode(mlbackCouponReq);
-		
 		BigDecimal mlbackCouponPrice = new BigDecimal(0.00);
 		if(mlbackCouponResList.size()>0){
 			MlbackCoupon mlbackCouponOne =mlbackCouponResList.get(0);
+			mlbackCouponPrice = getCouponPrice(mlbackCouponOne,cusTomerPidStr,pidItemAndMoneyStr);
+		}
+		return mlbackCouponPrice;
+	}
+	
+	private BigDecimal getCouponPrice(MlbackCoupon mlbackCouponOne,String cusTomerPidStr,String pidItemAndMoneyStr) {
+		
+		BigDecimal mlbackCouponPrice = new BigDecimal(0.00);
+		BigDecimal realCouponPrice = new BigDecimal(0.00);
+		
+		String couponPidStr=null;
+		//判断属于哪一类别
+		Integer couponProductonlyType = mlbackCouponOne.getCouponProductonlyType();
+		if(0==couponProductonlyType){
+			couponPidStr=null;
+		}else if(1==couponProductonlyType){
+			couponPidStr = mlbackCouponOne.getCouponProductonlyPidstr();
+		}else if(2==couponProductonlyType){
+			couponPidStr = mlbackCouponOne.getCouponProsFromApplyCateidstr();
+		}else if(3==couponProductonlyType){
+			couponPidStr = mlbackCouponOne.getCouponAllExceptPidstr();
+		}
+		//
+		if(couponPidStr!=null){
+			String cusTomerPidStrArr[] = cusTomerPidStr.split(",");
+			
+			String cusTomerPMoneyStrArr[] = pidItemAndMoneyStr.split(",");
+			
+			List<UrlCount> pidItemAndMoneyList = new ArrayList<UrlCount>();
+			for(int x=0;x<cusTomerPidStrArr.length;x++){
+				UrlCount pidItemAndMoney = new UrlCount();
+				String pidx = cusTomerPidStrArr[x];
+				String pMoneyx =cusTomerPMoneyStrArr[x];
+				pidItemAndMoney.setUrlString(pidx);
+				pidItemAndMoney.setUrlStringNum(pMoneyx);
+				pidItemAndMoneyList.add(pidItemAndMoney);
+			}
+			
+			mlbackCouponPrice = getAllProductItemPrice(pidItemAndMoneyList,couponPidStr);
+			
+			realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
+			
+		}
+		return realCouponPrice;
+	}
+
+	private BigDecimal getRealCouponPrice(BigDecimal mlbackCouponPrice, MlbackCoupon mlbackCouponOne) {
+		
+		BigDecimal realCouponPrice = new BigDecimal(0);
+		
+		BigDecimal CouponPriceBaseline = mlbackCouponOne.getCouponPriceBaseline();
+		
+		if(mlbackCouponPrice.compareTo(CouponPriceBaseline) > -1){
+		    System.out.println("a大于等于b");
+		    //满足可以用
+
+			//判断是满减还是折扣
 			String couponType = mlbackCouponOne.getCouponType();
 			if("0".equals(couponType)){
 				//如果是0类满减券,直接取出;
-				mlbackCouponPrice = mlbackCouponOne.getCouponPrice();
+				//判断起步价
+				realCouponPrice = mlbackCouponOne.getCouponPrice();
 			}else{
 				//如果是1类折扣券,计算完取出取出;
 				BigDecimal mlbackCouponPriceOff = mlbackCouponOne.getCouponPriceoff();
 				BigDecimal mlbackCouponPricebaifenbi = new BigDecimal(0.01);
-				mlbackCouponPrice = totalprice.multiply(mlbackCouponPriceOff);
-				mlbackCouponPrice = mlbackCouponPrice.multiply(mlbackCouponPricebaifenbi);
+				mlbackCouponPrice = mlbackCouponPrice.multiply(mlbackCouponPriceOff);
+				realCouponPrice = mlbackCouponPrice.multiply(mlbackCouponPricebaifenbi);
+			}
+		}else{
+			//不足起步价
+			realCouponPrice= new BigDecimal(0);;
+		}
+		
+		return realCouponPrice;
+	}
+
+	private BigDecimal getAllProductItemPrice(List<UrlCount> pidItemAndMoneyList,String couponPidStr) {
+		
+		BigDecimal totalprice = new BigDecimal(0);	//初始化最终价格参数
+		BigDecimal oneAllprice = new BigDecimal(0);	//初始化最终价格参数
+		
+		String couponPidArr[] = couponPidStr.split(",");
+		
+		for(int i=0;i<pidItemAndMoneyList.size();i++){
+			//去除钱数
+			UrlCount urlCountOne = pidItemAndMoneyList.get(i);
+			String orderItemPidX = urlCountOne.getUrlString();
+			
+			for(int j=0;i<couponPidArr.length;j++){
+				String couponPidX = couponPidArr[j];
+				if(couponPidX.equals(orderItemPidX)){
+					String OneItemAllMoney = urlCountOne.getUrlStringNum().trim();
+					oneAllprice = new BigDecimal(OneItemAllMoney);
+					totalprice = totalprice.add(oneAllprice);//07总价字段累加该条的全部价格
+					break;
+				}
 			}
 		}
-		return mlbackCouponPrice;
+		System.out.println("这是满足优惠券的总钱数totalprice:"+totalprice);
+		
+		return totalprice;
 	}
+
+	/**
+	 * 3.2查询该优惠码的优惠价格
+	 * getCouponCodeMoney
+	 * @param totalprice 
+	 * */
+//	private BigDecimal getCouponCodeMoney(String couponCode, BigDecimal totalprice) {
+//		
+//		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
+//		mlbackCouponReq.setCouponCode(couponCode);
+//		List<MlbackCoupon> mlbackCouponResList =mlbackCouponService.selectMlbackCouponBYCode(mlbackCouponReq);
+//		
+//		BigDecimal mlbackCouponPrice = new BigDecimal(0.00);
+//		if(mlbackCouponResList.size()>0){
+//			MlbackCoupon mlbackCouponOne =mlbackCouponResList.get(0);
+//			String couponType = mlbackCouponOne.getCouponType();
+//			if("0".equals(couponType)){
+//				//如果是0类满减券,直接取出;
+//				mlbackCouponPrice = mlbackCouponOne.getCouponPrice();
+//			}else{
+//				//如果是1类折扣券,计算完取出取出;
+//				BigDecimal mlbackCouponPriceOff = mlbackCouponOne.getCouponPriceoff();
+//				BigDecimal mlbackCouponPricebaifenbi = new BigDecimal(0.01);
+//				mlbackCouponPrice = totalprice.multiply(mlbackCouponPriceOff);
+//				mlbackCouponPrice = mlbackCouponPrice.multiply(mlbackCouponPricebaifenbi);
+//			}
+//		}
+//		return mlbackCouponPrice;
+//	}
 	
 	/**
 	 * 3.3更新表字段
