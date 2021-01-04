@@ -677,6 +677,12 @@
 			});
 		}
 	});
+	$('#addressEmail').on('change', function() {
+		$('.order-coupons').find('input').val('');
+		$('.order-coupons').find('.order-coupon-tip').html('');
+		$('.order-coupon-group').data('coupon', '');
+		resetOrderCal();
+	});
 </script>
 <!-- <script>
 	function addStripeScript() {
