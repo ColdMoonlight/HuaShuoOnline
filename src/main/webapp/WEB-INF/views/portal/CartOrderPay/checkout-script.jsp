@@ -593,7 +593,6 @@
 				goToCartList();
 				return ;
 			}
-
 			renderOrderList(orderListData);
 			$('.order-list').data('orderid', data.orderId);
 		});
