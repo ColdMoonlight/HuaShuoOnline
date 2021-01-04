@@ -277,6 +277,7 @@
 		// edit product-together
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var producttogetherId = parseInt($(this).data('id') || $(this).find('.btn-edit').data('id'));
+			isCreate = false;
 			getOneProductTogetherData({
 				producttogetherId: producttogetherId
 			}, function(resData) {
