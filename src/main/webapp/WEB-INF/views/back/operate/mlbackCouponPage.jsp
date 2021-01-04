@@ -583,7 +583,7 @@
 			$('#couponProductpronamesstronlyPid').val('');
 			$('#couponApplyCateidstr').val('');
 			$('#couponApplyCateSeostr').val('');
-			$('.product-list, .collection-list').html('<p class="text-align: center; font-style: italic;">Empty here...</p>');
+			$('.product-list, .collection-list, .un-product-list').html('<p class="text-align: center; font-style: italic;">Empty here...</p>');
 			pId = [];
 			pName = [];
 			pSeo = [];
