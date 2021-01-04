@@ -194,6 +194,10 @@ public class EcppIntoUtil {
 		ecppOrder.setStreet2(" ");
 		ecppOrder.setCity(mlfrontAddressToPay.getAddressCity());
 		ecppOrder.setState(mlfrontAddressToPay.getAddressProvince());
+		if(mlfrontAddressToPay.getAddressProvince()==null||"".equals(mlfrontAddressToPay.getAddressProvince())){
+			//物流那边要求 省州都填， 填一样的也行
+			ecppOrder.setState(mlfrontAddressToPay.getAddressCity());
+		}
 		ecppOrder.setCountry(mlfrontAddressToPay.getAddressCountry());
 		ecppOrder.setCountryCode(mlfrontAddressToPay.getAddressCountryCode());
 		ecppOrder.setZipcode(mlfrontAddressToPay.getAddressPost());
