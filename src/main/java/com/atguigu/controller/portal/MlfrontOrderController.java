@@ -434,14 +434,15 @@ public class MlfrontOrderController {
 				mlbackCouponPrice = getAllProductItemPriceThree(pidItemAndMoneyList,couponPidStr);
 				realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
 			}else{
+				//特殊产品、特殊类
 				mlbackCouponPrice = getAllProductItemPriceOneAndTwo(pidItemAndMoneyList,couponPidStr);
 				realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
 			}
-			
 		}else{
+			//全局折扣,钱数全部累加
 			String cusTomerPMoneyStrArr[] = pidItemAndMoneyStr.split(",");
 			BigDecimal totalprice = new BigDecimal(0);	//初始化最终价格参数
-			BigDecimal oneAllprice = new BigDecimal(0);	//初始化最终价格参数
+			BigDecimal oneAllprice = new BigDecimal(0);	//初始化单item的价格参数
 			//所有钱数加起来
 			for(int y=0;y<cusTomerPMoneyStrArr.length;y++){
 				String oneItemAllMoney = cusTomerPMoneyStrArr[y];
@@ -465,7 +466,6 @@ public class MlfrontOrderController {
 		if(mlbackCouponPrice.compareTo(CouponPriceBaseline) > -1){
 		    System.out.println("a大于等于b");
 		    //满足可以用
-
 			//判断是满减还是折扣
 			String couponType = mlbackCouponOne.getCouponType();
 			if("0".equals(couponType)){
@@ -483,14 +483,14 @@ public class MlfrontOrderController {
 			//不足起步价
 			realCouponPrice= new BigDecimal(0);;
 		}
-		
 		return realCouponPrice;
 	}
 
+	//特殊产品、特殊类
 	private BigDecimal getAllProductItemPriceOneAndTwo(List<UrlCount> pidItemAndMoneyList,String couponPidStr) {
 		
 		BigDecimal totalprice = new BigDecimal(0);	//初始化最终价格参数
-		BigDecimal oneAllprice = new BigDecimal(0);	//初始化最终价格参数
+		BigDecimal oneAllprice = new BigDecimal(0);	//初始化单item的价格参数
 		
 		String couponPidArr[] = couponPidStr.split(",");
 		
@@ -510,48 +510,43 @@ public class MlfrontOrderController {
 			}
 		}
 		System.out.println("这是满足优惠券的总钱数totalprice:"+totalprice);
-		
 		return totalprice;
 	}
 	
+	//不打折的idStr--特价品不打折,此情况未完成
 	private BigDecimal getAllProductItemPriceThree(List<UrlCount> pidItemAndMoneyList,String couponPidStr) {
 		
 		BigDecimal totalprice = new BigDecimal(0);	//初始化最终价格参数
-		BigDecimal oneAllprice = new BigDecimal(0);	//初始化最终价格参数
-		
-		BigDecimal totalEndprice = new BigDecimal(0);	//初始化最终价格参数
-		BigDecimal oneAllEndprice = new BigDecimal(0);	//初始化最终价格参数
+		BigDecimal oneAllprice = new BigDecimal(0);	//初始化单item的价格参数
 		
 		String couponPidArr[] = couponPidStr.split(",");
 		
 		for(int i=0;i<pidItemAndMoneyList.size();i++){
-			UrlCount urlCountEndOne = pidItemAndMoneyList.get(i);
-			String OneItemAllEndMoney  = urlCountEndOne.getUrlStringNum().trim();
-			oneAllEndprice = new BigDecimal(OneItemAllEndMoney);
-			totalEndprice = totalEndprice.add(oneAllEndprice);//07总价字段累加该条的全部价格
-		}
-		
-		for(int i=0;i<pidItemAndMoneyList.size();i++){
-			//去除钱数
+			//统计总钱数
 			UrlCount urlCountOne = pidItemAndMoneyList.get(i);
 			String orderItemPidX = urlCountOne.getUrlString();
-			
+			int ifhave = 0;
 			for(int j=0;j<couponPidArr.length;j++){
 				String couponPidX = couponPidArr[j];
 				if(couponPidX.equals(orderItemPidX)){
-					String OneItemAllMoney = urlCountOne.getUrlStringNum().trim();
-					oneAllprice = new BigDecimal(OneItemAllMoney);
-					totalprice = totalprice.add(oneAllprice);//07总价字段累加该条的全部价格
+					//该itemPid在coupon的不打折范围内
+					ifhave=1;
 					break;
 				}
 			}
+			if(ifhave>0){
+				//该订单中的产品id,在特价品范围
+				//特价品,不进行打折计算
+			}else{
+				//该订单中的产品id,不在特价品范围
+				//非特价品,进行打折计算
+				String OneItemAllMoney  = urlCountOne.getUrlStringNum().trim();
+				oneAllprice = new BigDecimal(OneItemAllMoney);
+				totalprice = totalprice.add(oneAllprice);//07总价字段累加该条的全部价格
+			}
 		}
-		
-		totalEndprice = totalEndprice.subtract(totalprice);
-		
-		System.out.println("这是满足优惠券的总钱数totalEndprice:"+totalEndprice);
-		
-		return totalEndprice;
+		System.out.println("这是满足该特价品不打折优惠券的总钱数totalprice:"+totalprice);
+		return totalprice;
 	}
 	
 	/**
