@@ -262,7 +262,7 @@ public class MlfrontOrderController {
 		 * */
 		//2.0.1.1拿到优惠码Code,
 		String CouponCode = mlfrontOrder.getOrderCouponCode();
-		//2.0.1.2查询该优惠码的优惠价格
+		//2.0.1.2查询该优惠码的优惠价格(优惠券,总价,客户选好的产品id串,计算好的对应产品item价格串)
 		BigDecimal CouponCodeMoney = getCouponCodeMoney(CouponCode, totalprice,cusTomerPidStr,pidItemAndMoneyStr);
 		String CouponCodeMoneyStr= df1.format(CouponCodeMoney);
 		session.setAttribute("CouponCodeMoney", CouponCodeMoneyStr);
@@ -536,7 +536,7 @@ public class MlfrontOrderController {
 			UrlCount urlCountOne = pidItemAndMoneyList.get(i);
 			String orderItemPidX = urlCountOne.getUrlString();
 			
-			for(int j=0;i<couponPidArr.length;j++){
+			for(int j=0;j<couponPidArr.length;j++){
 				String couponPidX = couponPidArr[j];
 				if(couponPidX.equals(orderItemPidX)){
 					String OneItemAllMoney = urlCountOne.getUrlStringNum().trim();
