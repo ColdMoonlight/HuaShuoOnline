@@ -8,6 +8,7 @@
 			url: '${APP_PATH}/MlfrontOrder/getNowOrderDetail',
 			type: 'get',
 			async: false,
+			cache: false,
 			success: function (data) {
 				if (data.code == 100) {
 					callback && callback(data.extend);
