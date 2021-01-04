@@ -339,7 +339,7 @@ public class MlbackCouponController {
 	      Integer couponTimes = mlbackCouponOne.getCouponTimes();
 	      if(!(couponTimes<couponAlltimes)){
 	    	  //4.x使用次数满了,打回
-	    	  return Msg.success().add("resMsg", "The coupon has been used up.").add("mlbackCouponOne", null);
+	    	  return Msg.success().add("resMsg", "The number of times the coupon has been used is full.").add("mlbackCouponOne", null);
 	      }
 	      return Msg.success().add("resMsg", "getOneMCouponDetailByCode完毕").add("mlbackCouponOne", mlbackCouponOne);
 	    }else{
