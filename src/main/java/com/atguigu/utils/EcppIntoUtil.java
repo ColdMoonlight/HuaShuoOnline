@@ -194,6 +194,9 @@ public class EcppIntoUtil {
 		ecppOrder.setStreet2(" ");
 		ecppOrder.setCity(mlfrontAddressToPay.getAddressCity());
 		ecppOrder.setState(mlfrontAddressToPay.getAddressProvince());
+		if(mlfrontAddressToPay.getAddressProvince()==null||"".equals(mlfrontAddressToPay.getAddressProvince())){
+			ecppOrder.setState(mlfrontAddressToPay.getAddressCity());
+		}
 		ecppOrder.setCountry(mlfrontAddressToPay.getAddressCountry());
 		ecppOrder.setCountryCode(mlfrontAddressToPay.getAddressCountryCode());
 		ecppOrder.setZipcode(mlfrontAddressToPay.getAddressPost());
