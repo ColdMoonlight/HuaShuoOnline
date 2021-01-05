@@ -10,6 +10,9 @@
 				if (data.code == 100) {
 					callback && callback(data.extend.mlfrontCartItemListRes);
 				}
+			},
+			error: function() {
+				renderCartEmpty();
 			}
 		});
 	}

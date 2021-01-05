@@ -24,7 +24,8 @@
 		@media only screen and (min-width: 1023px) {.product-share .instagram {background-position: 0 -3rem;} .product-share .youtube {background-position: 0 -12rem;} }
 		#countdown-area .body { padding-top: 0; }
 		#countdown-area .desc { padding: 0; }
-		.product-slide { border: 1px solid #ededed; }
+		.product-slide .swiper-slide>.img { border: 1px solid #ededed; }
+		.product-slide .swiper-slide>.img.loaded { background-size: cover; }
 		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
 		.product-together-box { padding: 1rem; margin-top: 1rem; border: 1px solid #ededed; border-radius: .5rem; background-color: rgb(255, 192, 203); }
 		.product-togher-title { font-size: 1.5rem; font-weight: 500; }
