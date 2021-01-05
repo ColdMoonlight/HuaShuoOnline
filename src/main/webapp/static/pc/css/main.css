@@ -1428,8 +1428,6 @@ footer li {
 }
 .footer-page-footer .container {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
 	padding: .75rem 0;
 	font-size: .875rem;
 }
@@ -1454,16 +1452,15 @@ footer li {
 		padding: 1.25rem;
 		background-color: #fff;
 	}
-	.footer-page-footer {
-		display: none;
-		opacity: 0;
-		visibility: hidden;
-	}
 	.follow-us {
 		width: 100%;
 	}
 	.footer-nav {
 		width: 100%;
+	}
+	.footer-page-footer .container {
+		flex-wrap: wrap;
+		justify-content: center;
 	}
 	.search-result-box .close {
 		top: 1rem;
@@ -1496,6 +1493,10 @@ footer li {
 	}
 	.footer-nav {
 		flex-grow: 1;
+	}
+	.footer-page-footer .container {
+		justify-content: space-between;
+		align-items: center;
 	}
 	.search-result-box .close {
 		right: 1rem;
@@ -5068,8 +5069,3 @@ footer li {
 	  top: -.75rem;
 	}
 }
-/*********/
-
-
-
-
