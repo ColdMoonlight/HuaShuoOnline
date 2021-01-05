@@ -970,7 +970,7 @@
 			var htmlStr = '';
 			if (pName.length) {
 				pName.forEach(function(item, idx) {
-					htmlStr += '<a class="product-item" href="${APP_PATH}/' + pSeo[idx] + '.html">' + item + '</a>';
+					htmlStr += '<a class="product-item" href="${APP_PATH}/' + pSeo[idx] + '.html" target="_blank">' + item + '</a>';
 				});
 			} else {
 				htmlStr = '<p class="text-align: center; font-style: italic;">Empty here...</p>';
@@ -982,7 +982,7 @@
 			var htmlStr = '';
 			if (suSeo.length) {
 				suSeo.forEach(function(item, idx) {
-					htmlStr += '<a class="product-item" href="${APP_PATH}/' + item + '.html">' + item + '</a>';
+					htmlStr += '<a class="product-item" href="${APP_PATH}/' + item + '.html" target="_blank">' + item + '</a>';
 				});
 			} else {
 				htmlStr = '<p class="text-align: center; font-style: italic;">Empty here...</p>';
@@ -994,7 +994,7 @@
 			var htmlStr = '';
 			if (cSeo.length) {
 				cSeo.forEach(function(item, idx) {
-					htmlStr += '<a class="collection-item" href="${APP_PATH}/search/' + item + '.html">' + item + '</a>';
+					htmlStr += '<a class="collection-item" href="${APP_PATH}/search/' + item + '.html" target="_blank">' + item + '</a>';
 				});
 			} else {
 				htmlStr = '<p class="text-align: center; font-style: italic;">Empty here...</p>';
