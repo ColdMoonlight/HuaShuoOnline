@@ -343,7 +343,7 @@
 	}
 	// redner province
 	function renderProvince(data) {
-		var htmlStr = '<option value="state">State</option>',
+		var htmlStr = '<option value="state">State/Province</option>',
 			defaultValue = $('#addressProvince').data('value');
 		for (var i = 0, len = data.length; i < len; i += 1) {
 			htmlStr += '<option value="' + data[i].stateprovinceName + '"'+ (defaultValue == data[i].stateprovinceName ? "selected" : "") +'>' + data[i].stateprovinceName + '</option>';

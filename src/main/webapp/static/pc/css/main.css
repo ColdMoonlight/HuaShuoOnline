@@ -1428,8 +1428,6 @@ footer li {
 }
 .footer-page-footer .container {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
 	padding: .75rem 0;
 	font-size: .875rem;
 }
@@ -1454,16 +1452,15 @@ footer li {
 		padding: 1.25rem;
 		background-color: #fff;
 	}
-	.footer-page-footer {
-		display: none;
-		opacity: 0;
-		visibility: hidden;
-	}
 	.follow-us {
 		width: 100%;
 	}
 	.footer-nav {
 		width: 100%;
+	}
+	.footer-page-footer .container {
+		flex-wrap: wrap;
+		justify-content: center;
 	}
 	.search-result-box .close {
 		top: 1rem;
@@ -1496,6 +1493,10 @@ footer li {
 	}
 	.footer-nav {
 		flex-grow: 1;
+	}
+	.footer-page-footer .container {
+		justify-content: space-between;
+		align-items: center;
 	}
 	.search-result-box .close {
 		right: 1rem;
@@ -1687,7 +1688,7 @@ footer li {
 		font-size: .75rem;
 	}
 	.product-price {
-		margin-top: .2em;
+		margin-top: .2rem;
 	}
 	.product-define-price {
 	 	font-size: .75rem;
@@ -1733,7 +1734,7 @@ footer li {
 		font-size: .875rem;
 	}
 	.product-price {
-		margin-top: .75em;
+		margin-top: .35rem;
 	}
 	.product-define-price {
 	 	font-size: .875rem;
@@ -1787,7 +1788,7 @@ footer li {
 		font-size: 1rem;
 	}
 	.product-price {
-		margin-top: 1em;
+		margin-top: .5rem;
 	}
 	.product-define-price {
 	 	font-size: 1rem;
@@ -1866,7 +1867,6 @@ footer li {
 .product-header .product-operate,
 .product-header .product-options,
 .product-header .product-coupons,
-.product-header .product-price,
 .product-pay {
 	margin-top: 1rem;
 }
@@ -5069,8 +5069,3 @@ footer li {
 	  top: -.75rem;
 	}
 }
-/*********/
-
-
-
-
