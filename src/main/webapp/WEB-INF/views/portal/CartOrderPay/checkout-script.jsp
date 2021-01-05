@@ -338,7 +338,7 @@
 			}else{
 				htmlStr += '<option data-value="' + countryList[i].nickname + '" value="' + countryList[i].name + '">' + countryList[i].name + '</option>';
 			}
-				}
+		}
 		$('#addressCountry').html(htmlStr);
 	}
 	// redner province
