@@ -30,7 +30,6 @@ public class MlfrontOrderItemService {
 	 * 
 	 * */
 	public int deleteByPrimaryKey(int orderitemId) {
-		// TODO Auto-generated method stub
 		int  intReslut = mlfrontOrderItemMapper.deleteByPrimaryKey(orderitemId);
 		return intReslut;
 	}
@@ -42,7 +41,6 @@ public class MlfrontOrderItemService {
 	 * 
 	 * */
 	public int updateByPrimaryKeySelective(MlfrontOrderItem mlfrontOrderItem) {
-		// TODO Auto-generated method stub
 		int  intReslut = mlfrontOrderItemMapper.updateByPrimaryKeySelective(mlfrontOrderItem);
 		return intReslut;
 	}
