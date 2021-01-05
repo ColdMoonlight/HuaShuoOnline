@@ -1,7 +1,6 @@
 package com.atguigu.controller.back;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -90,7 +89,6 @@ public class MlbackCouponDescDetailController {
 		System.out.println("插入后"+mlbackCouponDescDetail.toString());
 		return Msg.success().add("resMsg", "mlbackCouponDescDetail初始化成功").add("mlbackCouponDescDetail", mlbackCouponDescDetail);
 	}
-	
 	
 	/**3.1	onuse	200104
 	 * MlbackCouponDescDetail	update

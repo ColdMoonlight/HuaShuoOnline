@@ -142,7 +142,6 @@ public class MlbackCouponDescTitleController {
 		//查询本条
 		MlbackCouponDescTitle mlbackCouponDescTitleOne =mlbackCouponDescTitleService.selectMlbackCouponDescTitleById(mlbackCouponDescTitleReq);
 		
-		
 		return Msg.success().add("resMsg", "查看单条类目的详情细节完毕")
 					.add("mlbackCouponDescTitleOne", mlbackCouponDescTitleOne);
 	}
@@ -163,7 +162,6 @@ public class MlbackCouponDescTitleController {
 		List<MlbackCouponDescTitle> mlbackCouponDescTitleList =mlbackCouponDescTitleService.selectMlbackCouponDescTitleListByStatus(mlbackCouponDescTitleReq);
 		
 		MlbackCouponDescDetail mlbackCouponDescDetailReq = new MlbackCouponDescDetail();
-		
 		mlbackCouponDescDetailReq.setCoupondescdetailStatus(1);
 		List<MlbackCouponDescDetail> mlbackCouponDescDetailList = mlbackCouponDescDetailService.selectMlbackCouponDescDetailByStatus(mlbackCouponDescDetailReq);
 		

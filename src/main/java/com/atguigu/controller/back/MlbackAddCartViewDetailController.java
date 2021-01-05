@@ -66,7 +66,7 @@ public class MlbackAddCartViewDetailController {
 	
 	/**4.0	zsh200804
 	 * 分类getAddCartViewDetailList列表list数据
-	 * @paramMlbackAddCartViewDetail
+	 * @param	MlbackAddCartViewDetail
 	 * @return
 	 */
 	@RequestMapping(value="/getAddCartViewUrlCountList",method=RequestMethod.POST)
