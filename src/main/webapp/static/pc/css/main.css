@@ -1687,7 +1687,7 @@ footer li {
 		font-size: .75rem;
 	}
 	.product-price {
-		margin-top: .2em;
+		margin-top: .2rem;
 	}
 	.product-define-price {
 	 	font-size: .75rem;
@@ -1733,7 +1733,7 @@ footer li {
 		font-size: .875rem;
 	}
 	.product-price {
-		margin-top: .75em;
+		margin-top: .35rem;
 	}
 	.product-define-price {
 	 	font-size: .875rem;
@@ -1787,7 +1787,7 @@ footer li {
 		font-size: 1rem;
 	}
 	.product-price {
-		margin-top: 1em;
+		margin-top: .5rem;
 	}
 	.product-define-price {
 	 	font-size: 1rem;
@@ -1866,7 +1866,6 @@ footer li {
 .product-header .product-operate,
 .product-header .product-options,
 .product-header .product-coupons,
-.product-header .product-price,
 .product-pay {
 	margin-top: 1rem;
 }
