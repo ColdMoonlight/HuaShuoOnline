@@ -140,6 +140,10 @@ public class ExcleImportController {
 		                    String reviewUname = reviewOne.getReviewUname();
 		                    String UimgUrl = getReviewImgUrl(request,response,reviewUname);
 		                    reviewOne.setReviewUimgurl(UimgUrl);
+		                    
+		                    //做特殊字符转移处理
+		            		String afterReviewUname = reviewUname.replaceAll("[^\\u0000-\\uFFFF]", "");
+		            		reviewOne.setReviewUname(afterReviewUname);
 		                }
 						getCell = row.getCell(1);
 						if (getCell != null) {
