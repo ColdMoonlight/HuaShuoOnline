@@ -232,7 +232,7 @@ public class MlbackCouponController {
         if(proidStrFinal.length()>0){
         	prosStrFromApplyCateidstr=proidStrFinal.substring(0,proidStrFinal.length()-1);
 		}
-		//2.2.x对绑定pidstr里面的pid拿出来,进行排序,保留.
+		//2.2.x对绑定pidstr里面的pid拿出来,进行排序,保留
 		//2.3.x把所有的pid弄成一个list,去重,保存进字段中去
         return prosStrFromApplyCateidstr;
 	}
