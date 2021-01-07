@@ -24,6 +24,7 @@
 		@media only screen and (min-width: 1023px) {.product-share .instagram {background-position: 0 -3rem;} .product-share .youtube {background-position: 0 -12rem;} }
 		#countdown-area .body { padding-top: 0; }
 		#countdown-area .desc { padding: 0; }
+		.product-slide-box .swiper-btn { z-index: 1; }
 		.product-slide .swiper-slide>.img { border: 1px solid #ededed; }
 		.product-slide .swiper-slide>.img.loaded { background-size: cover; }
 		.product-fb-reviews iframe, .fb-reviews-box iframe { width: 100% !important; }
