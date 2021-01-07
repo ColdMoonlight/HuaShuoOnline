@@ -27,7 +27,7 @@
 				<span class="category-condition-name">style</span>
 				<select class="category-select"></select>
 			</div>
-			<div class="product-list"></div>		
+			<div class="product-list"><div id="init-loading"></div></div>		
 		</div>
 	<!-- main end -->
 	<!-- footer nav -->
