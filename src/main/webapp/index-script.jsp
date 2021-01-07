@@ -185,6 +185,7 @@
 			var $el = $('#main-body');
 			var len = data.length;
 			if (len) {
+				$el.html('');
 				data.forEach(function(item, idx) {
 					var index = idx + 1;
 					if (item[0]) {
