@@ -251,6 +251,5 @@ public class MlbackFootNavController {
 		PageInfo page = new PageInfo(mlbackFootNavResList, PagNum);
 		
 		return Msg.success().add("pageInfo", page);
-			
 	}
 }
