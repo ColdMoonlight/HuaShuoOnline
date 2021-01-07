@@ -6,7 +6,8 @@
     <title>Search Track Info</title>
 </head>
 <body>
-    
+    getOneMlbackFootNavOneAllDetail
+    footnavId=6
 	222
 
 	
