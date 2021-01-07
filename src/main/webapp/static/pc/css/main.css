@@ -2816,11 +2816,11 @@ footer li {
 	color: #fff;
 	background-color: #ff1671;
 }
-.cart-box-time {
+/* .cart-box-time {
 	padding: 0 1rem;
 	font-size: .75rem;
 	text-align: right;
-}
+} */
 .cart-box .form-label::after {
 	content: '*';
 	display: inline-block;
