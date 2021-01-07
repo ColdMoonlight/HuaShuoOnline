@@ -59,4 +59,17 @@
         <from>^/PortalHome/ChristmasPage.html</from>
         <to>/PortalHome/ChristmasPage</to>
     </rule>
+    <!--  -->
+    <rule>
+        <from>^/Policy/PrivacyPolicyPage.html</from>
+        <to>/MlbackFootNav/toPrivacyPolicyPage</to>
+    </rule>
+    <rule>
+        <from>^/Policy/ReturnPolicyPage.html</from>
+        <to>/MlbackFootNav/toReturnPolicyPage</to>
+    </rule>
+    <rule>
+        <from>^/Policy/ShippingPolicyPage.html</from>
+        <to>/MlbackFootNav/toShippingPolicyPage</to>
+    </rule>
 </urlrewrite>

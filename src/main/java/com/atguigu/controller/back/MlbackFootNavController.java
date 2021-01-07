@@ -251,6 +251,44 @@ public class MlbackFootNavController {
 		PageInfo page = new PageInfo(mlbackFootNavResList, PagNum);
 		
 		return Msg.success().add("pageInfo", page);
-			
 	}
+
+	
+	/**
+	 * 1.0	zsh210107
+	 * toReturnPolicyPage列表页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/toReturnPolicyPage")
+	public String toReturnPolicyPage(HttpSession session) throws Exception{
+
+		return "portal/policy/returnPolicyPage";
+	}
+	
+	/**
+	 * 2.0	zsh210107
+	 * toShippingPolicyPage列表页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/toShippingPolicyPage")
+	public String toShippingPolicyPage(HttpSession session) throws Exception{
+		
+		return "portal/policy/shippingPolicyPage";
+	}
+	
+	
+	/**
+	 * 3.0	zsh210107
+	 * toPrivacyPolicyPage列表页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/toPrivacyPolicyPage")
+	public String toPrivacyPolicyPage(HttpSession session) throws Exception{
+
+		return "portal/policy/privacyPolicyPage";
+	}
+	
 }
