@@ -127,7 +127,7 @@
 	        	'<div title="credit" class="btn paypal-button paypal-button-credit"></div>' +
 	        '</div>' + */
 		'</div>');
-		$('main .container').append($cartHeader).append($('<div class="cart-body" />').append($cartList).append($cartCal));
+		$('main .container').html('').append($cartHeader).append($('<div class="cart-body" />').append($cartList).append($cartCal));
 
 		new LazyLoad($cartList.find('.lazyload'), {
 			root: null,

@@ -14,7 +14,7 @@
 	<!-- main start -->
 		<div class="container">
 			<div class="search-product-banner"></div>
-			<div class="product-list"></div>		
+			<div class="product-list"><div id="init-loading"></div></div>		
 		</div>
 	<!-- main end -->
 	<!-- footer nav -->

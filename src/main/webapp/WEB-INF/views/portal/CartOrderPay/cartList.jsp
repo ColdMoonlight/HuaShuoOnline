@@ -13,7 +13,7 @@
 <body>
 	<jsp:include page="../layout/header/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
-		<div class="container"></div>
+		<div class="container"><div id="init-loading"></div></div>
 	<!-- main end -->
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer/footer.jsp" flush="true"></jsp:include>

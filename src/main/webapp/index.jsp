@@ -14,7 +14,7 @@
 	<body>
 		<jsp:include page="WEB-INF/views/portal/layout/header/header.jsp" flush="true"></jsp:include>
 		<!-- main start -->
-			<div id="main-body" class="main-body"></div>
+			<div id="main-body" class="main-body"><div id="init-loading"></div></div>
 			<div id="showAreaThree" class="showarea showAreaThree"></div>
 		<!-- main end -->
 		<!-- footer nav -->
