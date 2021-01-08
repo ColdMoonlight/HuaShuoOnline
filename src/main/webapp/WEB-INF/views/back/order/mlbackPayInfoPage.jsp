@@ -58,6 +58,9 @@
 			border-radius: 50%;
 			cursor: pointer;
 		}
+		.table-view {
+			cursor: pointer;
+		}
 	</style>
 </head>
 <body class="c-app">
@@ -516,8 +519,8 @@
 			});
 		});
 		// View  Order
-		$(document.body).on('click', '.btn-view, .c-table-table tbody tr', function (e) {
-			var payinfoId = parseInt($(this).data('id') || $(this).find('.btn-view').data('id'));
+		$(document.body).on('click', '.btn-view, .c-table-table tbody .table-view', function (e) {
+			var payinfoId = parseInt($(this).data('id') || $(this).parent().find('.btn-view').data('id'));
 			getOneOrderData({
 				payinfoId: payinfoId
 			}, function(resData) {
@@ -1025,7 +1028,7 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<tr><td>' + data[i].payinfoId + '</td>' +
+				htmlStr += '<tr><td class="table-view">' + data[i].payinfoId + '</td>' +
 					'<td>' + (data[i].payinfoOid || '') + '</td>' +
 					'<td>' + (data[i].payinfoPlatenum || '') + '</td>' +
 					/*'<td>' + data[i].payinfoCreatetime + '</td>' +*/
