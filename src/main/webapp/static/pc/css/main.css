@@ -1719,7 +1719,7 @@ footer li {
 		padding-top: .5em;
 	}
 	.product-data {
-		height: 2rem;
+		/* height: 2rem; */
 		margin-top: .375rem;
 		font-size: .75rem;
 	}
@@ -1765,7 +1765,7 @@ footer li {
 		padding-top: .75em;
 	}
 	.product-data {
-		height: 2.5rem;
+		/* height: 2.5rem; */
 		margin-top: .5rem;
 		font-size: .875rem;
 	}
