@@ -681,6 +681,21 @@
 		resetOrderCal();
 	});
 </script>
+<script>
+$('.website-policy-item').on('click', function(e) {
+	var $this = $(this), policyModalHtml = '<iframe src="'+ e.target.href +'"><iframe>', policyModal;
+	e.preventDefault();
+	policyModal = createModal({
+		header: {
+			html: '<p>'+ $(this).data('title') +'</p>'
+		},
+		body: {
+			html: policyModalHtml,
+		}
+	});
+	policyModal.addClass('policy-modal');
+});
+</script>
 <!-- <script>
 	function addStripeScript() {
 		var script = document.createElement('script');
