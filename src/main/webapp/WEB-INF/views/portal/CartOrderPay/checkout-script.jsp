@@ -187,7 +187,7 @@
 		});
 	}
 	// get current time
-	function getTime() {
+	/* function getTime() {
 		var date = new Date(),
 			year = date.getFullYear(),
 			month = date.getMonth() + 1,
@@ -196,7 +196,7 @@
 			minutes = date.getMinutes(),
 			seconds = date.getSeconds();
 		return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + (seconds < 10 ? '0' + seconds : seconds);
-	}
+	} */
 	// cal orderList data
 	function calOrderList () {
 		var couponData = $('.order-coupon-group').data('coupon');
@@ -397,13 +397,11 @@
 		$orderList.data('itemidarr', orderItemIdArr.join(',')).data('productidarr', orderProductIdArr.join(',')).data('itemnumarr', orderProductNumArr.join(','))
 		var $cartReviewBox = $('<div class="cart-box">'+
 				'<div class="cart-box-title"><span class="order-sort">2</span>Checkout Review</div>'+
-				'<div class="cart-box-body">'+
-					'<div class="cart-box-time">'+ getTime() +'</div>' +
-				'</div>'+
+				'<div class="cart-box-body"></div>'+
 			'</div>');
 		$cartReviewBox.find('.cart-box-body').append($orderList);
 
-		$('main .order-left').append($cartReviewBox);
+		$('.checkout-order-list').append($cartReviewBox);
 
 		new LazyLoad($orderList.find('.lazyload'), {
 			root: null,
@@ -427,7 +425,7 @@
 					'</div>'+
 				'</div>'+
 			'</div>');
-		$('main .order-right').append($cartCouponBox);
+		$('.checkout-coupons').append($cartCouponBox);
 
 		// coupon area list			
 		getCouponAreaData(renderCouponAreaData);
@@ -464,7 +462,7 @@
 					'</div>'+
 				'</div>'+
 			'</div>');
-		$('main .order-right').append($cartPaymentBox);
+		$('.checkout-pay-method').append($cartPaymentBox);
 	}
 	// render order buyer message
 	function renderOrderBuyerMsg() {
@@ -474,7 +472,7 @@
 					'<div class="order-buyer-msg"><textarea rows="2" placeholder="Any Request,Notes Here."></textarea></div>'+
 				'</div>'+
 			'</div>');
-		$('main .order-right').append($cartBuyerMsgBox);
+		$('.checkout-buy-msg').append($cartBuyerMsgBox);
 	}
 	// render order cal
 	function rednerOrderCal() {
@@ -494,7 +492,7 @@
 					'</div>'+
 				'</div>'+
 			'</div>');
-		$('main .order-right').append($cartCalBox);
+		$('.checkout-order-cal').append($cartCalBox);
 	}
 	// check user input address info
 	function checkInputAdressInfo() {
@@ -585,7 +583,10 @@
 			/* } */
 			countryCombineWithProvince();
 		});
-		// 2
+		renderOrderPaymentMethod(); // 2
+		renderOrderBuyerMsg(); // 3
+		renderOrderCoupons(); // 4
+		// 5
 		getProductOrderList(function(data) {
 			var orderListData = data.mlfrontOrderItemList;
 			if (!orderListData.length) {
@@ -596,9 +597,6 @@
 			renderOrderList(orderListData);
 			$('.order-list').data('orderid', data.orderId);
 		});
-		renderOrderCoupons(); // 3
-		renderOrderPaymentMethod(); // 4
-		renderOrderBuyerMsg(); // 5
 		rednerOrderCal(); // 6
 	}
 	var hasProvince = true;
@@ -682,6 +680,21 @@
 		$('.order-coupon-group').data('coupon', '');
 		resetOrderCal();
 	});
+</script>
+<script>
+$('.website-policy-item').on('click', function(e) {
+	var $this = $(this), policyModalHtml = '<iframe src="'+ e.target.href +'"><iframe>', policyModal;
+	e.preventDefault();
+	policyModal = createModal({
+		header: {
+			html: '<p>'+ $(this).data('title') +'</p>'
+		},
+		body: {
+			html: policyModalHtml,
+		}
+	});
+	policyModal.addClass('policy-modal');
+});
 </script>
 <!-- <script>
 	function addStripeScript() {

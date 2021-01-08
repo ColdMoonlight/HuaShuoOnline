@@ -61,7 +61,6 @@
 						'<div class="product-desc">' +
 							'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
 							'<div class="product-data">' +
-								'<span class="product-pay-num"><i>'+ (item.productHavesalenum || 0) +'</i> Order(s)</span>' +
 								'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
 							'</div>' +
 							'<div class="product-price">' +
