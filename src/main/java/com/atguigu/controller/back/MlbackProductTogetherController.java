@@ -131,6 +131,11 @@ public class MlbackProductTogetherController {
 			if(belongProIdsStr==null){
 				System.out.println("并没有配置产品,belongProIdsStr字段为null");
 			}else{
+				
+				//先清理到组合id之前归属的茶品串串
+				//对遍历这些产品,把这些产品下面的proTogetHerId字段都回到默认值999
+				updateProductDeatilByproTogetherId(proTogetherId);
+				
 				System.out.println("配置的归属产品为,belongProIdsStr字段为:"+belongProIdsStr);
 				String productIdsStrArr [] = belongProIdsStr.split(",");
 				String productIdStr = "";
@@ -147,7 +152,30 @@ public class MlbackProductTogetherController {
 			return Msg.success().add("resMsg", "更新成功").add("mlbackProductTogether", mlbackProductTogether);
 		}
 	}
-	
+	//更新掉产品里面的proTogetHerId字段ByproTogetherId
+	private void updateProductDeatilByproTogetherId(Integer proTogetherId) {
+		MlbackProductTogether mlbackProductTogetherOld = new MlbackProductTogether();
+		mlbackProductTogetherOld.setProducttogetherId(proTogetherId);
+		List<MlbackProductTogether> mlbackProductTogetherList =mlbackProductTogetherService.selectMlbackProductTogetherById(mlbackProductTogetherOld);
+		if(mlbackProductTogetherList.size()>0){
+			mlbackProductTogetherOld = mlbackProductTogetherList.get(0);
+			String belongProIdStr = mlbackProductTogetherOld.getProducttogetherBelongProIdStr();
+			String productIdsStrArr [] = belongProIdStr.split(",");
+			String productIdStr = "";
+			Integer productIdInt = 0;
+			for(int i=0;i<productIdsStrArr.length;i++){
+				productIdStr=productIdsStrArr[i];
+				productIdInt = Integer.parseInt(productIdStr);
+				MlbackProduct mlbackProductReq = new MlbackProduct();
+				mlbackProductReq.setProductId(productIdInt);
+				mlbackProductReq.setProductNeedProTogetherId(999);//返回默认值
+				mlbackProductService.updateByPrimaryKeySelective(mlbackProductReq);
+			}
+			
+		}
+		
+	}
+
 	/**4.0	20201218
 	 * mlbackProductTogether	delete
 	 * @param mlbackProductTogether-producttogetherId
@@ -206,6 +234,11 @@ public class MlbackProductTogetherController {
 		if(mlbackProductTogetherResList.size()>0){
 			//取出结果
 			mlbackProductTogetherRes =mlbackProductTogetherResList.get(0);
+			
+			Integer producttogetherStatus = mlbackProductTogetherRes.getProducttogetherStatus();
+			if(producttogetherStatus==0){
+				return Msg.success().add("resMsg", "查CatalogOne完毕").add("mlbackProductTogetherRes", mlbackProductTogetherRes);
+			}
 			//拿到值
 			String toGetHerIdsStr = mlbackProductTogetherRes.getProducttogetherProsidStr();
 			//抽出下面的几个id
