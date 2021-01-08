@@ -12,6 +12,7 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="${APP_PATH }/static/apple/micon2.png">
 	<!-- common css -->
 	<link href="${APP_PATH}/static/pc/css/main.min.css" rel="stylesheet">
+	<style>main{margin:0;}.article-content{padding:0;}</style>
 </head>
 <body>
 	<main><div class="container"><div id="init-loading"></div></div></main>
