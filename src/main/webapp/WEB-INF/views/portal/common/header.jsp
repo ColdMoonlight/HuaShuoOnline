@@ -2,7 +2,7 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <%-- <jsp:include page="intercept.jsp" flush="true"></jsp:include> --%>
 <!-- common css -->
-<link href="${APP_PATH}/static/pc/css/main.min.css" rel="stylesheet">
+<link href="${APP_PATH}/static/pc/css/main.css" rel="stylesheet">
 <script>
 var fbNoscript, gaScript, pinNoscript;
 /* Facebook Pixel Code */

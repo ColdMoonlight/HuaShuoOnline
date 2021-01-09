@@ -442,17 +442,21 @@
 								'<img src="${APP_PATH}/static/pc/img/paypal-1.png">' +
 								'<span>Pay with PayPal account</span>' +
 							'</label>' +
+							'<div class="paypal-box">' +
+						    	'<img src="${APP_PATH}/static/pc/img/paypal-3.svg">' +
+						    	'<div class="paypal-des">After clicking “Complete order”, you will be redirected to PayPal to complete your purchase securely.</div>' +
+						    '</div>' +
 						'</div>' +
-						'<div class="paypal-box">' +
-					    	'<img src="${APP_PATH}/static/pc/img/paypal-3.svg">' +
-					    	'<div class="paypal-des">After clicking “Complete order”, you will be redirected to PayPal to complete your purchase securely.</div>' +
-					    '</div>' +
 						'<div class="order-payment-item custom-check">'+
 							'<input type="radio" name="payment" id="payment-paypalcard" value="1">' +
 							'<label for="payment-paypalcard">' +
 								'<b style="margin-right: .2rem; white-space: nowrap;">Credit card</b>' +
 								'<img src="${APP_PATH}/static/pc/img/paypal-2-2.png">' +
 							'</label>' +
+							'<div class="paypal-box hide">' +
+						    	'<img src="${APP_PATH}/static/pc/img/paypal-3.svg">' +
+						    	'<div class="paypal-des">After clicking “Complete order”, you will be redirected to PayPal to complete your purchase securely.</div>' +
+						    '</div>' +
 						'</div>' +
 						'<div class="card-element-box mask hide">' +
 					    	'<div class="spinner"></div>' +
@@ -694,6 +698,10 @@ $('.website-policy-item').on('click', function(e) {
 		}
 	});
 	policyModal.addClass('policy-modal');
+});
+$(document.body).on('change', 'input[type="radio"][name="payment"]', function() {
+	$('.paypal-box').addClass('hide');
+	$(this).parent().find('.paypal-box').removeClass('hide');
 });
 </script>
 <!-- <script>
