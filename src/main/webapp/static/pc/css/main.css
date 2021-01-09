@@ -1734,7 +1734,7 @@ footer li {
 		font-size: .875rem;
 	}
 	.product-more-desc {
-		height: 7rem;
+		height: 5rem;
 	}
 }
 @media only screen and (min-width: 576px) {
@@ -1780,7 +1780,7 @@ footer li {
 		font-size: 1rem;
 	}
 	.product-more-desc {
-		height: 9rem;
+		height: 6rem;
 	}
 }
 @media only screen and (min-width: 1024px) and (max-width: 1499px) {
@@ -1834,7 +1834,7 @@ footer li {
 		font-size: 1.25rem;
 	}
 	.product-more-desc {
-		height: 9.925rem;
+		height: 7.925rem;
 	}
 }
 /* product header */
