@@ -2942,10 +2942,12 @@ footer li {
 	color: #f00;
 	text-align: center;
 }
-.order-payment-item {
+.order-pay-inner {
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
+}
+.order-pay-inner input {
+	flex-shrink: 0;
 }
 .order-payment-item+.order-payment-item {
 	margin-top: .5rem;
@@ -2961,13 +2963,12 @@ footer li {
 }
 .paypal-box {
 	display: flex;
-	padding: 1rem;
+	align-items: center;
 	margin-top: 0.5rem;
 	text-align: center;
 	background-color: #f5f5f5;
 }
 .paypal-box .paypal-des {
-	margin-top: 1rem;
 	font-size: 0.875rem;
 	color: #545454;
 }
@@ -3001,8 +3002,11 @@ footer li {
 	.order-payment-item label>span {
 		font-size: .875rem;
 	}
+	.paypal-box {
+		padding: .5rem .5rem .5rem 0;
+	}
 	.paypal-box img {
-		width: 120px;
+		width: 80px;
 	}
 }
 
@@ -3030,6 +3034,9 @@ footer li {
 	}
 	.order-payment-item label>span {		
 		font-size: 1rem;
+	}
+	.paypal-box {
+		padding: .75rem .75rem .75rem .25rem;
 	}
 	.paypal-box img {
 		width: 140px;
