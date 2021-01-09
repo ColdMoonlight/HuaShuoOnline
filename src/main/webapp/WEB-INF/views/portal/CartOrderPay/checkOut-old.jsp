@@ -75,8 +75,8 @@
 									</div>
 								</div>
 								<!-- Zip/Postal code -->
-								<div class="form-group">
-									<div class="form-input form-no-label">
+								<div class="form-group form-no-label">
+									<div class="form-input">
 										<input type="text" name="addressPost" id="addressPost" class="form-control" placeholder="Zip/Postal code">
 									</div>
 								</div>
@@ -101,14 +101,15 @@
 					<div class="checkout-order-cal"></div>
 				</div>
 			</div>
-			<div class="website-policy" style="margin-bottom: 1rem;">
+			<div class="website-policy">
 				<a class="website-policy-item" href="${APP_PATH}/Policy/ReturnPolicyPage.html" data-title="Refund policy">Refund policy</a>
 				<a class="website-policy-item" href="${APP_PATH}/Policy/ShippingPolicyPage.html" data-title="Shipping policy">Shipping policy</a>
 				<a class="website-policy-item" href="${APP_PATH}/Policy/PrivacyPolicyPage.html" data-title="Privacy policy">Privacy policy</a>
 			</div>
 		</div>
-	</main>
 	<!-- main end -->
+	<!-- footer nav -->
+	<jsp:include page="../layout/footer/footer.jsp" flush="true"></jsp:include>
 
 	<!-- common script -->
 	<script src="${APP_PATH}/static/common/jquery.min.js"></script>
@@ -121,6 +122,8 @@
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
 	<!-- checkout script -->
 	<jsp:include page="./checkout-script.min.jsp" flush="true"></jsp:include>
+	<!-- footer script -->
+	<jsp:include page="../layout/footer/footer-script.min.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
 </body>
 </html>
