@@ -125,20 +125,6 @@
 				<div class="product-together-other"></div>
 			</div>
 			<div class="product-body">
-				<div class="product-service">
-					<div class="product-service-item">
-						<div class="icon car"></div>
-						<p>Free Shipping</p>
-					</div>
-					<div class="product-service-item">
-						<div class="icon back"></div>
-						<p>15 Days Returns</p>
-					</div>
-					<div class="product-service-item">
-						<div class="icon lock"></div>
-						<p>Secure Payment</p>
-					</div>
-				</div>
 				<div class="product-tab">
 					<div class="product-tab-item btn btn-primary" data-name="desc">Description</div>
 					<div class="product-tab-item btn btn-black" data-name="review">Reviews</div>
