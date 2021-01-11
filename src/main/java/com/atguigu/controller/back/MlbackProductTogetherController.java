@@ -94,7 +94,7 @@ public class MlbackProductTogetherController {
 		String nowTime = DateUtil.strTime14s();
 		mlbackProductTogether.setProducttogetherCreatetime(nowTime);
 		mlbackProductTogether.setProducttogetherStatus(0);//0未上架1上架中
-		//无id，insert
+		//无id,insert
 		System.out.println("插入前"+mlbackProductTogether.toString());
 		mlbackProductTogetherService.insertSelective(mlbackProductTogether);
 		System.out.println("插入后"+mlbackProductTogether.toString());
@@ -132,7 +132,7 @@ public class MlbackProductTogetherController {
 				System.out.println("并没有配置产品,belongProIdsStr字段为null");
 			}else{
 				
-				//先清理到组合id之前归属的茶品串串
+				//先清理到组合id之前归属的产品串串
 				//对遍历这些产品,把这些产品下面的proTogetHerId字段都回到默认值999
 				updateProductDeatilByproTogetherId(proTogetherId);
 				
@@ -220,7 +220,7 @@ public class MlbackProductTogetherController {
 	@ResponseBody
 	public Msg getProtalOneMlbackProductTogetherDetail(@RequestBody MlbackProductTogether mlbackProductTogether){
 		
-		//临时存储的，此字段中放置的是当前产品pid
+		//临时存储的,此字段中放置的是当前产品pid
 		Integer ProId= mlbackProductTogether.getProducttogetherSupercateId();
 		//有组合,查不到-走;能查到-显示;组合是,,,,,,
 		//接受wholesaleId
