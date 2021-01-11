@@ -2699,8 +2699,6 @@ footer li {
 		margin-left: 1.5rem;
 	}
 	.website-policy {
-		padding-left: 1rem;
-		padding-right: 1rem;
 		font-size: .75rem;
 	}
 	.policy-modal.modal {
@@ -2793,6 +2791,10 @@ footer li {
 	.cart-cal-btn .btn {
 		width: 50%;
 	}
+	.website-policy {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
 }
 @media only screen and (min-width: 1024px ) {
 	.cart-header,
@@ -2854,6 +2856,12 @@ footer li {
 	}
 }
 
+@media only screen and (max-width: 1299px) {
+	.website-policy {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+}
 /* checkout */
 .order-sort {
 	display: inline-block;
