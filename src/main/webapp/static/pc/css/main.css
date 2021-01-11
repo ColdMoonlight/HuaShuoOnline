@@ -2341,10 +2341,6 @@ footer li {
 }
 
 @media only screen and (min-width: 876px) {
-	.product-slide-box { width: 600px; }
-	.product-media {
-		width: 600px;
-	}
 	.swiper-slide>img,
 	.swiper-slide>video {
 		width: 500px;
@@ -2394,6 +2390,7 @@ footer li {
 		font-size: 1.25rem;
 		font-weight: 500;
 	}
+	.product-slide-box,
 	.product-media {
 		width: 600px;
 	}
@@ -2634,12 +2631,12 @@ footer li {
 	.order-header,
 	.payment-header {
 		border-bottom: 1px solid #e5e5e5;
-		padding-top: 7.74194%;		
+		padding-top: 7.74194%;
 	}
-	.cart-header {		
+	.cart-header {
 		background-image: url('../img/step/wap-step-1.jpg');
 	}
-	.order-header {		
+	.order-header {
 		background-image: url('../img/step/wap-step-2.jpg');
 	}
 	.payment-header {
@@ -2702,7 +2699,8 @@ footer li {
 		margin-left: 1.5rem;
 	}
 	.website-policy {
-		text-align: center;
+		padding-left: 1rem;
+		padding-right: 1rem;
 		font-size: .75rem;
 	}
 	.policy-modal.modal {
