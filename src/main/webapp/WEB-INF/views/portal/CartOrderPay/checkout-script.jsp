@@ -459,7 +459,7 @@
 							'</div>'+
 							'<div class="paypal-box hide">' +
 						    	'<img src="${APP_PATH}/static/pc/img/paypal-3.svg">' +
-						    	'<div class="paypal-des">After you click "complete order", you will be redirected to PayPal to complete your purchase safely with several credit cards supported by PayPal.</div>' +
+						    	'<div class="paypal-des">After clicking “complete order”, you will be redirected to PayPal to complete your purchase safely with several credit cards supported by PayPal.</div>' +
 						    '</div>' +
 						'</div>' +
 						'<div class="card-element-box mask hide">' +
