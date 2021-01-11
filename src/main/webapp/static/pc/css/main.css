@@ -110,12 +110,14 @@ samp {
 }
 button,
 input,
+input[disabled],
 optgroup,
 select,
 textarea {
-  color: inherit;
-  font: inherit;
   margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  color: #333;
 }
 button {
   overflow: visible;
@@ -1915,6 +1917,13 @@ footer li {
 	width: 3rem;
 	font-size: .875rem;
 	text-align: center;
+	border-radius: 0;
+}
+.product-qty>input[disabled] {
+	color: #333;
+	-webkit-text-fill-color: #333;
+	-webkit-opacity: 1;
+    opacity: 1;
 }
 .product-qty .group-addon {
 	background-color: #eee;
@@ -2935,6 +2944,7 @@ footer li {
 .order-coupon-group>input {
 	flex-grow: 1;
 	padding: .5rem 1rem;
+	border-radius: 0;
 }
 .order-coupon-group>button {
 	flex-grow: 0;
