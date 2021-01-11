@@ -132,7 +132,7 @@ public class MlbackProductTogetherController {
 				System.out.println("并没有配置产品,belongProIdsStr字段为null");
 			}else{
 				
-				//先清理到组合id之前归属的茶品串串
+				//先清理到组合id之前归属的产品串串
 				//对遍历这些产品,把这些产品下面的proTogetHerId字段都回到默认值999
 				updateProductDeatilByproTogetherId(proTogetherId);
 				
