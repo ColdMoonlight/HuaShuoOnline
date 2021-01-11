@@ -2341,10 +2341,6 @@ footer li {
 }
 
 @media only screen and (min-width: 876px) {
-	.product-slide-box { width: 600px; }
-	.product-media {
-		width: 600px;
-	}
 	.swiper-slide>img,
 	.swiper-slide>video {
 		width: 500px;
@@ -2394,6 +2390,7 @@ footer li {
 		font-size: 1.25rem;
 		font-weight: 500;
 	}
+	.product-slide-box,
 	.product-media {
 		width: 600px;
 	}
