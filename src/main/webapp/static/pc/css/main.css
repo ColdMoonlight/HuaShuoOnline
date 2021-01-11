@@ -931,7 +931,7 @@ main {
 	position: fixed;
 	top: 9rem;
 	right: 1rem;
-	z-index: 3;
+	z-index: 9999;
 
 	width: 2.4rem;
 	height: 2.4rem;
