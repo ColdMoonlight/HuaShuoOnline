@@ -22,9 +22,9 @@
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<script>
 	    $.ajax({
-			url: "${APP_PATH}/MlbackFootNav/getOneMlbackFootNavOneAllDetail",
+			url: "${APP_PATH}/MlbackFootNav/getOneMlbackFootNavOneAllDetailByFootSeo",
 			type: "post",
-			data: {"footnavId": '3'},
+			data: {"footnavSeo": 'privacyPolicy'},
 			success: function (data) {
 				if (data.code == 100) {
 					renderArticle(data.extend.MlbackFootNavOne);
