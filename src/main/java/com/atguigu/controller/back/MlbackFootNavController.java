@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackFootNav;
 import com.atguigu.common.Const;
@@ -157,6 +159,31 @@ public class MlbackFootNavController {
 	}
 	
 	/**
+	 * 5.0	20200608
+	 * 查看单条类目的详情细节
+	 * @param MlbackFootNav
+	 * @return 
+	 */
+	@RequestMapping(value="/getOneMlbackFootNavOneAllDetailByFootSeo",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOneMlbackFootNavOneAllDetailByFootSeo(@RequestParam(value = "footnavSeo") String footnavSeo){
+		
+		//接受categoryId
+		MlbackFootNav mlbackFootNavReq = new MlbackFootNav();
+		mlbackFootNavReq.setFootnavSeo(footnavSeo);
+		//查询本条
+		List<MlbackFootNav> mlbackFootNavResList =mlbackFootNavService.selectMlbackFootNavBySeo(mlbackFootNavReq);
+		MlbackFootNav MlbackFootNavOne = new MlbackFootNav();
+		if(mlbackFootNavResList.size()>0){
+			MlbackFootNavOne =mlbackFootNavResList.get(0);
+		}else{
+			MlbackFootNavOne = null;
+		}
+		return Msg.success().add("resMsg", "查看单条MlbackFootNavOne的详情细节完毕")
+					.add("MlbackFootNavOne", MlbackFootNavOne);
+	}
+	
+	/**
 	 * 6.0	20200608
 	 * toMlbackFootNav展示页面
 	 * @param jsp
@@ -178,10 +205,11 @@ public class MlbackFootNavController {
 	}
 	
 	@RequestMapping(value="/toFootNavDetailByfootSeoPage",method=RequestMethod.GET)
-	public String toFootNavDetailByfootSeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "footnavSeo") String footnavSeo) throws Exception{
+	public ModelAndView toFootNavDetailByfootSeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "footnavSeo") String footnavSeo) throws Exception{
 		//接收传递进来的参数
 		String footnavSeoReq = footnavSeo;
 		
+		ModelAndView modelAndView = new ModelAndView();
 		//放回响应域中
 		res.setAttribute("footnavSeo", footnavSeoReq);
 		//放回session域中
@@ -196,10 +224,11 @@ public class MlbackFootNavController {
 		if(mlbackFootNavResList.size()>0){
 			
 			//返回视图
-			return "portal/footNavDetailSeoPage";
+			modelAndView.setViewName("portal/footNavDetailSeoPage");
 		}else{
-			return "redirect:/";
+			modelAndView.setViewName("redirect:/");
 		}
+		return modelAndView;
 	}
 	
 	

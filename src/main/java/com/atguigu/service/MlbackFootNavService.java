@@ -85,8 +85,8 @@ public class MlbackFootNavService {
 	}
 
 	public List<MlbackFootNav> selectMlbackFootNavBySeo(MlbackFootNav mlbackFootNavReq) {
-		// TODO Auto-generated method stub
-		return null;
+		List<MlbackFootNav>  mlbackFootNavList = mlbackFootNavMapper.selectMlbackFootNavBySeo(mlbackFootNavReq);
+		return mlbackFootNavList;
 	}
 	
 }
