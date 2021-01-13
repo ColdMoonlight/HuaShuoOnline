@@ -20,8 +20,8 @@
 								<select class="form-control" id="download-time-year">
 									<option value="-1">请选择年份...</option>
 									<option value="2020">2020</option>
-									<option value="2020">2021</option>
-									<option value="2020">2022</option>
+									<option value="2021">2021</option>
+									<option value="2022">2022</option>
 								</select>
 							</div>
 						</div>
