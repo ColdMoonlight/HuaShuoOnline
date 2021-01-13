@@ -3,6 +3,8 @@ package com.atguigu.bean;
 public class MlbackFootNav {
 	
     private Integer footnavId;
+    
+    private String footnavSeo;
 
     private String footnavName;
 
@@ -32,7 +34,15 @@ public class MlbackFootNav {
         this.footnavId = footnavId;
     }
 
-    public String getFootnavName() {
+    public String getFootnavSeo() {
+		return footnavSeo;
+	}
+
+	public void setFootnavSeo(String footnavSeo) {
+		this.footnavSeo = footnavSeo;
+	}
+
+	public String getFootnavName() {
         return footnavName;
     }
 
@@ -116,11 +126,12 @@ public class MlbackFootNav {
 		super();
 	}
 
-	public MlbackFootNav(Integer footnavId, String footnavName, Integer footnavHang, Integer footnavLie,
-			String footnavCreatetime, String footnavMotifytime, Integer footnavIfincome, Integer footnavIfshow,
-			String footnavDesc, Integer footnavSuperCateId, String footnavSuperCateName) {
+	public MlbackFootNav(Integer footnavId, String footnavSeo, String footnavName, Integer footnavHang,
+			Integer footnavLie, String footnavCreatetime, String footnavMotifytime, Integer footnavIfincome,
+			Integer footnavIfshow, String footnavDesc, Integer footnavSuperCateId, String footnavSuperCateName) {
 		super();
 		this.footnavId = footnavId;
+		this.footnavSeo = footnavSeo;
 		this.footnavName = footnavName;
 		this.footnavHang = footnavHang;
 		this.footnavLie = footnavLie;
@@ -135,11 +146,11 @@ public class MlbackFootNav {
 
 	@Override
 	public String toString() {
-		return "MlbackFootNav [footnavId=" + footnavId + ", footnavName=" + footnavName + ", footnavHang=" + footnavHang
-				+ ", footnavLie=" + footnavLie + ", footnavCreatetime=" + footnavCreatetime + ", footnavMotifytime="
-				+ footnavMotifytime + ", footnavIfincome=" + footnavIfincome + ", footnavIfshow=" + footnavIfshow
-				+ ", footnavDesc=" + footnavDesc + ", footnavSuperCateId=" + footnavSuperCateId
-				+ ", footnavSuperCateName=" + footnavSuperCateName + "]";
+		return "MlbackFootNav [footnavId=" + footnavId + ", footnavSeo=" + footnavSeo + ", footnavName=" + footnavName
+				+ ", footnavHang=" + footnavHang + ", footnavLie=" + footnavLie + ", footnavCreatetime="
+				+ footnavCreatetime + ", footnavMotifytime=" + footnavMotifytime + ", footnavIfincome="
+				+ footnavIfincome + ", footnavIfshow=" + footnavIfshow + ", footnavDesc=" + footnavDesc
+				+ ", footnavSuperCateId=" + footnavSuperCateId + ", footnavSuperCateName=" + footnavSuperCateName + "]";
 	}
-    
+
 }

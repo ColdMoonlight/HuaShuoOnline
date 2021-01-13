@@ -3,6 +3,7 @@
 <mapper namespace="com.atguigu.dao.MlbackFootNavMapper">
   <resultMap id="BaseResultMap" type="com.atguigu.bean.MlbackFootNav">
     <id column="footnav_id" jdbcType="INTEGER" property="footnavId" />
+    <result column="footnav_seo" jdbcType="VARCHAR" property="footnavSeo" />
     <result column="footnav_name" jdbcType="VARCHAR" property="footnavName" />
     <result column="footnav_hang" jdbcType="INTEGER" property="footnavHang" />
     <result column="footnav_lie" jdbcType="INTEGER" property="footnavLie" />
@@ -18,7 +19,7 @@
     <result column="footnav_desc" jdbcType="LONGVARCHAR" property="footnavDesc" />
   </resultMap>
   <sql id="Base_Column_List">
-    footnav_id, footnav_name, footnav_hang, footnav_lie, footnav_superCate_id, footnav_superCate_name,
+    footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, footnav_superCate_id, footnav_superCate_name,
     footnav_createTime, footnav_motifyTime, footnav_ifIncome, footnav_ifShow
   </sql>
   <sql id="Blob_Column_List">
@@ -34,11 +35,11 @@
   </select>
 
   <insert id="insert" parameterType="com.atguigu.bean.MlbackFootNav">
-    insert into tb_mlback_footnav (footnav_id, footnav_name, footnav_hang, 
+    insert into tb_mlback_footnav (footnav_id, footnav_seo, footnav_name, footnav_hang, 
       footnav_lie, footnav_superCate_id, footnav_superCate_name, 
       footnav_createTime, footnav_motifyTime, footnav_ifIncome, 
       footnav_ifShow, footnav_desc)
-    values (#{footnavId,jdbcType=INTEGER}, #{footnavName,jdbcType=VARCHAR}, #{footnavHang,jdbcType=INTEGER}, 
+    values (#{footnavId,jdbcType=INTEGER}, #{footnavSeo,jdbcType=VARCHAR}, #{footnavName,jdbcType=VARCHAR}, #{footnavHang,jdbcType=INTEGER}, 
       #{footnavLie,jdbcType=INTEGER}, #{footnavSuperCateId,jdbcType=INTEGER}, #{footnavSuperCateName,jdbcType=VARCHAR},
       #{footnavCreatetime,jdbcType=VARCHAR}, #{footnavMotifytime,jdbcType=VARCHAR}, #{footnavIfincome,jdbcType=INTEGER}, 
       #{footnavIfshow,jdbcType=INTEGER}, #{footnavDesc,jdbcType=LONGVARCHAR})
@@ -47,6 +48,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.atguigu.bean.MlbackFootNav">
     update tb_mlback_footnav
     set footnav_name = #{footnavName,jdbcType=VARCHAR},
+      footnav_seo = #{footnavSeo,jdbcType=VARCHAR},
       footnav_hang = #{footnavHang,jdbcType=INTEGER},
       footnav_lie = #{footnavLie,jdbcType=INTEGER},
       footnav_createTime = #{footnavCreatetime,jdbcType=VARCHAR},
@@ -61,6 +63,7 @@
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackFootNav">
     update tb_mlback_footnav
     set footnav_name = #{footnavName,jdbcType=VARCHAR},
+      footnav_seo = #{footnavSeo,jdbcType=VARCHAR},
       footnav_hang = #{footnavHang,jdbcType=INTEGER},
       footnav_lie = #{footnavLie,jdbcType=INTEGER},
       footnav_createTime = #{footnavCreatetime,jdbcType=VARCHAR},
@@ -78,6 +81,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="footnavId != null">
         footnav_id,
+      </if>
+      <if test="footnavSeo != null">
+        footnav_seo,
       </if>
       <if test="footnavName != null">
         footnav_name,
@@ -113,6 +119,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="footnavId != null">
         #{footnavId,jdbcType=INTEGER},
+      </if>
+      <if test="footnavSeo != null">
+        #{footnavSeo,jdbcType=VARCHAR},
       </if>
       <if test="footnavName != null">
         #{footnavName,jdbcType=VARCHAR},
@@ -155,6 +164,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackFootNav">
     update tb_mlback_footnav
     <set>
+      <if test="footnavSeo != null">
+        footnav_seo = #{footnavSeo,jdbcType=VARCHAR},
+      </if>
       <if test="footnavName != null">
         footnav_name = #{footnavName,jdbcType=VARCHAR},
       </if>
@@ -190,25 +202,25 @@
   </update>
   <!-- selectMlbackFootNavOneAllById使用中 -->
   <select id="selectMlbackFootNavOneAllById" parameterType="com.atguigu.bean.MlbackFootNav" resultMap="BaseResultMap">
-    select footnav_id, footnav_name, footnav_hang, footnav_lie, footnav_createTime, footnav_motifyTime, 
+    select footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, footnav_createTime, footnav_motifyTime, 
     footnav_superCate_id, footnav_superCate_name, footnav_desc,footnav_ifIncome,footnav_ifshow
     from tb_mlback_footnav where footnav_id = #{footnavId,jdbcType=INTEGER}
   </select>
 <!-- selectMlbackFootNavGetAll使用中 -->
   <select id="selectMlbackFootNavGetAll" parameterType="com.atguigu.bean.MlbackFootNav" resultMap="BaseResultMap">
-    select footnav_id, footnav_name, footnav_hang, footnav_lie, 
+    select footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, 
       footnav_createTime, footnav_motifyTime, footnav_superCate_id, footnav_superCate_name, footnav_ifIncome, footnav_ifShow
     from tb_mlback_footnav order by footnav_lie desc, footnav_hang desc,footnav_id desc
   </select>
   <!-- selectMlbackFootNavAllSimpleIfShow使用中 -->
   <select id="selectMlbackFootNavAllSimpleIfShow" parameterType="com.atguigu.bean.MlbackFootNav" resultMap="BaseResultMap">
-    select footnav_id, footnav_name, footnav_hang, footnav_lie, footnav_superCate_id, footnav_superCate_name, footnav_ifIncome,footnav_ifShow
+    select footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, footnav_superCate_id, footnav_superCate_name, footnav_ifIncome,footnav_ifShow
     from tb_mlback_footnav where footnav_ifShow = #{footnavIfshow,jdbcType=INTEGER} order by footnav_lie, footnav_hang,footnav_id
   </select>
   <!-- selectMlbackFootNavBackSearch -->
   <select id="selectMlbackFootNavBackSearch" parameterType="com.atguigu.bean.MlbackFootNav" resultMap="BaseResultMap">
   	select 
-  	footnav_id, footnav_name, footnav_hang, footnav_lie, 
+  	footnav_id, footnav_seo,footnav_name, footnav_hang, footnav_lie, 
     footnav_superCate_id, footnav_superCate_name, footnav_ifIncome,footnav_ifshow
   	from tb_mlback_footnav 
   	where footnav_name like concat(concat("%",#{footnavName}),"%")
