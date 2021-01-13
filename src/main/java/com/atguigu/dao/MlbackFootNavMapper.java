@@ -28,4 +28,6 @@ public interface MlbackFootNavMapper {
 	List<MlbackFootNav> selectMlbackFootNavAllSimpleIfShow(MlbackFootNav mlbackFootNav);
 	//类目超级搜索
 	List<MlbackFootNav> selectMlbackFootNavBackSearch(MlbackFootNav mlbackFootNavReq);
+
+	List<MlbackFootNav> selectMlbackFootNavBySeo(MlbackFootNav mlbackFootNavReq);
 }
