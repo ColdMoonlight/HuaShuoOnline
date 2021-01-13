@@ -24,6 +24,10 @@
         <to type="forward">/MlbackProduct/tofbProductDetailPageByhtml?productSeo=$1</to>
     </rule>
     <rule>
+        <from>^/pages/([a-z0-9A-Z-]{6,60}).html</from>
+        <to type="forward">/MlbackFootNav/toFootNavDetailByfootSeoPage?footnavSeo=$1</to>
+    </rule>
+    <rule>
         <from>^/myCart.html</from>
         <to>/MlbackCart/toCartList</to>
     </rule>
