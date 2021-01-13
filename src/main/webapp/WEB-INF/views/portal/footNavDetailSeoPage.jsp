@@ -26,9 +26,9 @@
 	<jsp:include page="layout/header/header-script.min.jsp" flush="true"></jsp:include>
 	<script>
 		$.ajax({
-			url: "${APP_PATH}/MlbackFootNav/getOneMlbackFootNavOneAllDetail",
+			url: "${APP_PATH}/MlbackFootNav/getOneMlbackFootNavOneAllDetailByFootSeo",
 			type: "post",
-			data: {"footnavId": '${sessionScope.footnavId}'},
+			data: {"footnavSeo": '${sessionScope.footnavSeo}'},
 			success: function (data) {
 				if (data.code == 100) {
 					renderArticle(data.extend.MlbackFootNavOne);

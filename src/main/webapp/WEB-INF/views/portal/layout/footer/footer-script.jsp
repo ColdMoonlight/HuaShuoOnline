@@ -5,11 +5,11 @@
 		for (var key in footerData) {
 			var blockData = data[footerData[key]["data-key"]];
 			for (var key2 in blockData) {
-				if (blockData[key2].footnavIfincome) {
+				if (blockData[key2].footnavIfincome && blockData[key2].footnavSeo) {
 					footerData[key].children.push({
 						"name": blockData[key2].footnavName,
 						"icon": "",
-						"link": "${APP_PATH}/MlbackFootNav/toFootNavPage?footnavId=" + blockData[key2].footnavId
+						"link": ("${APP_PATH}/pages/" + blockData[key2].footnavSeo + ".html"),
 					});
 				} else {
 					footerData[key].children.push({
