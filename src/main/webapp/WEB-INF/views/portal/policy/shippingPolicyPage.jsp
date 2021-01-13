@@ -24,7 +24,7 @@
 	    $.ajax({
 			url: "${APP_PATH}/MlbackFootNav/getOneMlbackFootNavOneAllDetailByFootSeo",
 			type: "post",
-			data: {"footnavSeo": 'shippingPolicy'},
+			data: {"footnavSeo": 'Shipping-Tracking'},
 			success: function (data) {
 				if (data.code == 100) {
 					renderArticle(data.extend.MlbackFootNavOne);
