@@ -177,6 +177,32 @@ public class MlbackFootNavController {
 		
 	}
 	
+	@RequestMapping(value="/toFootNavDetailByfootSeoPage",method=RequestMethod.GET)
+	public String toFootNavDetailByfootSeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "footnavSeo") String footnavSeo) throws Exception{
+		//接收传递进来的参数
+		String footnavSeoReq = footnavSeo;
+		
+		//放回响应域中
+		res.setAttribute("footnavSeo", footnavSeoReq);
+		//放回session域中
+		session.setAttribute("footnavSeo", footnavSeoReq);
+		
+		MlbackFootNav mlbackFootNavReq = new MlbackFootNav();
+		
+		mlbackFootNavReq.setFootnavSeo(footnavSeoReq);
+		
+		List<MlbackFootNav> mlbackFootNavResList = mlbackFootNavService.selectMlbackFootNavBySeo(mlbackFootNavReq);
+		
+		if(mlbackFootNavResList.size()>0){
+			
+			//返回视图
+			return "portal/footNavDetailSeoPage";
+		}else{
+			return "redirect:/";
+		}
+	}
+	
+	
 	/**
 	 * 7.0	UseNow	0505
 	 * 前台查看list		查看foot全部的接口类目的详情细节
@@ -290,5 +316,6 @@ public class MlbackFootNavController {
 
 		return "portal/policy/privacyPolicyPage";
 	}
+
 	
 }
