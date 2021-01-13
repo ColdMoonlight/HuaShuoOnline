@@ -45,6 +45,7 @@
 										<tr>
 											<th>id</th>
 											<th>name</th>
+											<th>seo</th>
 											<th>supercate</th>
 											<th>column</th>
 											<th>row</th>
@@ -82,6 +83,12 @@
 										<label class="col-form-label" for="footnavName">FooterNav Name</label>
 										<div class="controls">
 											<input class="form-control" id="footnavName" type="text" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="footnavSeo">FooterNav SEO</label>
+										<div class="controls">
+											<input class="form-control" id="footnavSeo" type="text" />
 										</div>
 									</div>
 									<div class="form-group">
@@ -394,8 +401,8 @@
 
 			$('#footnavSuperCateId').val('-1');
 			
-			/* $('#footnavSeo').val('');
-			$('#footnavMetatitle').val('');
+			$('#footnavSeo').val('');
+			/* $('#footnavMetatitle').val('');
 			$('#footnavMetakeywords').val('');
 			$('#footnavMetadesc').val(''); */
 		}
@@ -404,6 +411,7 @@
 			var data = {};
 			data.footnavId = parseInt($('#footnavId').val());
 			data.footnavName = $('#footnavName').val();
+			data.footnavSeo = $('#footnavSeo').val();
 			data.footnavLie = $('#footnavLie').val();
 			data.footnavHang = $('#footnavHang').val();
 			data.footnavIfshow = $('#footnavIfshow').prop('checked') ? 1 : 0;
@@ -412,9 +420,7 @@
 			
 			data.footnavSuperCateId = $('#footnavSuperCateId').val();
 			data.footnavSuperCateName = $('#footnavSuperCateId').find('option:checked').text().trim();
-
-			/* data.footnavSeo = $('#footnavSeo').val();
-			data.footnavMetatitle = $('#footnavMetatitle').val();
+			/* data.footnavMetatitle = $('#footnavMetatitle').val();
 			data.footnavMetakeywords = $('#footnavMetakeywords').val();
 			data.footnavMetadesc = $('#footnavMetadesc').val(); */
 
@@ -424,6 +430,7 @@
 		function initFormData(data) {
 			$('#footnavId').val(data.footnavId);
 			$('#footnavName').val(data.footnavName);
+			$('#footnavSeo').val(data.footnavSeo);
 			$('#footnavLie').val(data.footnavLie);
 			$('#footnavHang').val(data.footnavHang);
 			$('#footnavIfshow').prop('checked', (data.footnavIfshow > 0 ? data.footnavIfshow : 0));
@@ -432,7 +439,6 @@
 			
 			$('#footnavSuperCateId').val(data.footnavSuperCateId);
 
-			$('#footnavSeo').val(data.footnavSeo);
 			$('#footnavMetatitle').val(data.footnavMetatitle);
 			$('#footnavMetakeywords').val(data.footnavMetakeywords);
 			$('#footnavMetadesc').val(data.footnavMetadesc);
@@ -607,7 +613,8 @@
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].footnavId + '</td>' +
-					'<td>' + data[i].footnavName + '</td>' +
+					'<td>' + (data[i].footnavName ? data[i].footnavName : '--') + '</td>' +
+					'<td>' + (data[i].footnavSeo ? data[i].footnavSeo : '--') + '</td>' +
 					'<td>' + data[i].footnavSuperCateName + '</td>' +
 					'<td>' + data[i].footnavLie + '</td>' +
 					'<td>' + data[i].footnavHang + '</td>' +
