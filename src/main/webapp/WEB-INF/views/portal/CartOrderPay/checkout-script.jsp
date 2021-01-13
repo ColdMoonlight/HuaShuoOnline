@@ -176,7 +176,7 @@
 
 				hasProvince = true;
 				$("#addressProvince").parents('.form-group').show();
-				$("#addressCountry").parents('.form-group').css("width", "50%");
+				$("#addressCountry").parents('.form-group').css("width", "49%");
 			} else {
 				$('#addressProvince').val('').data('status', true);
 
