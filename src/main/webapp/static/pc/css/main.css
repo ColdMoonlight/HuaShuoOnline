@@ -799,7 +799,7 @@ main {
 #init-loading:before {
 	content: '';
 	display: inline-block;
-	margin-top: 150px;
+	margin-top: 250px;
 	margin-left: -25px;
 	position: absolute;
 	width: 50px;
@@ -2734,8 +2734,10 @@ footer li {
 	}
 	.policy-modal .modal-container {
 		width: 100%;
+		max-width: 900px;
 		height: 70vh;
 		max-height: none;
+		padding: 0 1rem;
 	}
 	.policy-modal .modal-body {
 		width: 100%;

@@ -89,6 +89,7 @@ function renderProductOptions(data, selectedRadioArr) {
 		$('.product-options').append(optionItem);
 	}
 	optionObj = {};
+	$('.product-options').html('');
 	data.forEach(function(item, idx) {
 		createOption(item, selectedRadioArr && selectedRadioArr[idx]);
 	});

@@ -83,7 +83,7 @@
 				</div>
 				<div class="product-details">
 					<div class="product-coupons pc hide"></div>
-					<div class="product-options"></div>
+					<div class="product-options"><div id="init-loading"></div></div>
 					<div class="product-price"></div>
 					<div class="product-operate">
 						<div class="name">Qty:</div>

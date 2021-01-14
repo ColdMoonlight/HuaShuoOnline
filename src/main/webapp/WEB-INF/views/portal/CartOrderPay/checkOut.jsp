@@ -95,7 +95,7 @@
 				</div>
 
 				<div class="order-right">
-					<div class="checkout-coupons"></div>
+					<div class="checkout-coupons"><div id="init-loading"></div></div>
 					<div class="checkout-pay-method"></div>
 					<div class="checkout-buy-msg"></div>
 					<div class="checkout-order-cal"></div>
