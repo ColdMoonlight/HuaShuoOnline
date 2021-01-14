@@ -16,7 +16,7 @@
 			}
 		});
 	}
-	// get province data		
+	// get province data
 	function getProvinceData(reqData, callback) {
 		$.ajax({
 			url: '${APP_PATH}/MlfrontAddress/getAreafreightMoney',
@@ -425,7 +425,7 @@
 					'</div>'+
 				'</div>'+
 			'</div>');
-		$('.checkout-coupons').append($cartCouponBox);
+		$('.checkout-coupons').html('').append($cartCouponBox);
 
 		// coupon area list			
 		getCouponAreaData(renderCouponAreaData);
