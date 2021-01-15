@@ -1363,6 +1363,10 @@ footer ul {
 footer li {
 	list-style: none;
 }
+.copyright a {
+	color: #333;
+	text-decoration: none;
+}
 /* pc */
 .pc-footer li a {
 	font-size: .875rem;
