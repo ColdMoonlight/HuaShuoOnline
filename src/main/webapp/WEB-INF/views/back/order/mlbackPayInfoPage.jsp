@@ -899,7 +899,7 @@
 				htmlStr += '<div class="order-item">' +
 						'<img src="'+ item.orderitemProductMainimgurl +'">' +
 						'<div class="order-product-base">' +
-							'<a class="order-product-link" href="${APP_PATH}/'+ item.orderitemPseo +'.html">'+ item.orderitemPname +'</a>' +
+							'<a class="order-product-link" href="${APP_PATH}/'+ item.orderitemPseo +'.html" target="_blank">'+ item.orderitemPname +'</a>' +
 							'<div class="order-product-option">'+ genSkus(item) +'</div>' +
 							'<div class="order-product-sku">SKU: '+ item.orderitemPskuCode +'</div>' +
 						'</div>' +
