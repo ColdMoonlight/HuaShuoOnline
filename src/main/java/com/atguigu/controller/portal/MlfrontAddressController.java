@@ -23,7 +23,6 @@ import com.atguigu.service.MlbackAreafreightService;
 import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.utils.DateUtil;
 
-
 @Controller
 @RequestMapping("/MlfrontAddress")
 public class MlfrontAddressController {
