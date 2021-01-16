@@ -15,7 +15,15 @@
 	<jsp:include page="../layout/header/header.jsp" flush="true"></jsp:include> 
 	<!-- main start -->
 		<div class="container">
-			<div class="order-header"></div>
+			<div class="order-header">
+				<div class="ml-breadcrumb">
+					<div class="ml-breadcrumb-item">Cart</div>
+					<div class="ml-breadcrumb-item">•&nbsp;•&nbsp;•</div>
+					<div class="ml-breadcrumb-item active">Checkout</div>
+					<div class="ml-breadcrumb-item">•&nbsp;•&nbsp;•</div>
+					<div class="ml-breadcrumb-item">Payment</div>
+				</div>
+			</div>
 			<div class="order-body">
 				<div class="order-left">
 					<div class="cart-box">
@@ -54,20 +62,6 @@
 										<input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="Address">
 									</div>
 								</div>
-								<!-- country -->
-								<div class="form-group">
-									<label for="addressCountry" class="form-label">Country</label>
-									<div class="form-input">
-										<select name="addressCountry" id="addressCountry" class="form-control" value="US"></select>
-									</div>
-								</div>
-								<!-- stateprovinceName -->
-								<div class="form-group">
-									<label for="addressProvince" class="form-label">State/Province</label>
-									<div class="form-input">
-										<select name="addressProvince" id="addressProvince" class="form-control"></select>
-									</div>
-								</div>
 								<!-- city -->
 								<div class="form-group">
 									<div class="form-input form-no-label">
@@ -78,6 +72,20 @@
 								<div class="form-group">
 									<div class="form-input form-no-label">
 										<input type="text" name="addressPost" id="addressPost" class="form-control" placeholder="Zip/Postal code">
+									</div>
+								</div>
+								<!-- country -->
+								<div class="form-group">
+									<label for="addressCountry" class="form-label">Country</label>
+									<div class="form-input">
+										<select name="addressCountry" id="addressCountry" class="form-control" value="US"></select>
+									</div>
+								</div>
+								<!-- stateprovinceName -->
+								<div class="form-group address-province">
+									<label for="addressProvince" class="form-label">State/Province</label>
+									<div class="form-input">
+										<select name="addressProvince" id="addressProvince" class="form-control"></select>
 									</div>
 								</div>
 							</div>
@@ -120,7 +128,7 @@
 	<!-- header script  -->
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
 	<!-- checkout script -->
-	<jsp:include page="./checkout-script.min.jsp" flush="true"></jsp:include>
+	<jsp:include page="./checkout-script.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
 </body>
 </html>
