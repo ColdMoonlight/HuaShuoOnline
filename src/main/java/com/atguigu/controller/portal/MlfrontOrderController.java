@@ -18,6 +18,7 @@ import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontCart;
 import com.atguigu.bean.MlfrontCartItem;
+import com.atguigu.bean.MlfrontCheckoutView;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
@@ -31,6 +32,7 @@ import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontCartItemService;
 import com.atguigu.service.MlfrontCartService;
+import com.atguigu.service.MlfrontCheckoutViewService;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
@@ -69,6 +71,9 @@ public class MlfrontOrderController {
 	
 	@Autowired
 	MlfrontPayInfoService mlfrontPayInfoService;
+	
+	@Autowired
+	MlfrontCheckoutViewService mlfrontCheckoutViewService;
 	
 	/**
 	 * 1.0	onuse	20191225	检查
@@ -188,6 +193,8 @@ public class MlfrontOrderController {
 	@RequestMapping(value="/orderToPayInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg orderToPayInfo(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontOrder mlfrontOrder){
+		
+		String checkoutviewIdStr = mlfrontOrder.getOrderMotifytime();
 		
 		String cusTomerPidStr = mlfrontOrder.getOrderCreatetime();
 		String pidItemAndMoneyStr ="";
@@ -336,6 +343,21 @@ public class MlfrontOrderController {
 		mlfrontPayInfoNew.setPayinfoReturntime(nowTime);
 		mlfrontPayInfoService.insertSelective(mlfrontPayInfoNew);
 		Integer payinfoId = mlfrontPayInfoNew.getPayinfoId();
+		
+		if(checkoutviewIdStr != null && checkoutviewIdStr.length() != 0){
+			
+			String checkoutviewIdStrend = checkoutviewIdStr.trim();
+			if(checkoutviewIdStrend.length()>0){
+				Integer checkoutviewId = Integer.parseInt(checkoutviewIdStr);
+				//通过checkoutViewId,更新payinfoId
+				String checkoutViewPayinfoIdStr = payinfoId+"";
+				MlfrontCheckoutView mlfrontCheckoutViewReq = new MlfrontCheckoutView();
+				mlfrontCheckoutViewReq.setCheckoutviewId(checkoutviewId);
+				mlfrontCheckoutViewReq.setCheckoutviewPayinfoid(checkoutViewPayinfoIdStr);
+				mlfrontCheckoutViewService.updateByPrimaryKeySelective(mlfrontCheckoutViewReq);
+			}
+		}
+		
 		session.setAttribute("payinfoId", payinfoId);
 		
 		session.setAttribute("sendAddressinfoId", payAddressinfoId);
