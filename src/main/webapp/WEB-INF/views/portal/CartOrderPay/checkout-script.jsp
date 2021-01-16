@@ -566,6 +566,7 @@
 			"orderBuyMess": $('.order-buyer-msg textarea').val(),
 			"addressinfoId": $('#addressId').val(),
 			"orderCreatetime" : $('.order-list').data('productidarr'),
+			"orderMotifytime": checkoutviewId,
 		}
 	}
 	// initial order for checkout 
