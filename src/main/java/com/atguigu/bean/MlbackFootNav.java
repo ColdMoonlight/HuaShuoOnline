@@ -4,7 +4,7 @@ public class MlbackFootNav {
 	
     private Integer footnavId;
     
-    private String footnavSeo;
+    private String footnavSeo;//路经查询
 
     private String footnavName;
 

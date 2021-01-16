@@ -159,7 +159,7 @@ public class MlbackFootNavController {
 	}
 	
 	/**
-	 * 5.0	20200608
+	 * 5.1	20210113
 	 * 查看单条类目的详情细节
 	 * @param MlbackFootNav
 	 * @return 
@@ -200,7 +200,6 @@ public class MlbackFootNavController {
 		session.setAttribute("footnavId", footnavIdReq);
 
 		return "portal/footNavDetailPage";
-
 		
 	}
 	
@@ -345,6 +344,5 @@ public class MlbackFootNavController {
 
 		return "portal/policy/privacyPolicyPage";
 	}
-
 	
 }

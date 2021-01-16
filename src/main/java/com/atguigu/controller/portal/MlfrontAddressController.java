@@ -23,7 +23,6 @@ import com.atguigu.service.MlbackAreafreightService;
 import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.utils.DateUtil;
 
-
 @Controller
 @RequestMapping("/MlfrontAddress")
 public class MlfrontAddressController {
@@ -49,6 +48,13 @@ public class MlfrontAddressController {
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontAddress mlfrontAddress){
 		//接受参数信息
 		System.out.println("客户点击结算按钮的时候,接收到的mlfrontAddress:"+mlfrontAddress);
+		//处理掉不存的字符
+		String intoAddressDetail = mlfrontAddress.getAddressDetail();
+		System.out.println("intoAddressDetail:"+intoAddressDetail);
+		String afterAddressDetail = intoAddressDetail.replaceAll("[^\\u0000-\\uFFFF]", "");
+		System.out.println("afterAddressDetail:"+afterAddressDetail);
+		mlfrontAddress.setAddressDetail(afterAddressDetail);
+		
 		//拿到国家的code
 		String areafreightCountryCode = mlfrontAddress.getAddressCountryCode();
 		//封装国家code
