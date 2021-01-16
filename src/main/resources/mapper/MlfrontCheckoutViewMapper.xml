@@ -42,10 +42,7 @@
     from tb_mlfront_checkoutview
     where checkoutView_id = #{checkoutviewId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_mlfront_checkoutview
-    where checkoutView_id = #{checkoutviewId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.atguigu.bean.MlfrontCheckoutView">
     insert into tb_mlfront_checkoutview (checkoutView_id, checkoutView_uid, 
       checkoutView_ip, checkoutView_email, checkoutView_telephone, 
@@ -72,7 +69,37 @@
       #{checkoutviewOrderitempskuname,jdbcType=VARCHAR}, #{checkoutviewOrderitempskumoneystr,jdbcType=VARCHAR}, 
       #{checkoutviewPayinfoid,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MlfrontCheckoutView">
+  
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlfrontCheckoutView">
+    update tb_mlfront_checkoutview
+    set checkoutView_uid = #{checkoutviewUid,jdbcType=INTEGER},
+      checkoutView_ip = #{checkoutviewIp,jdbcType=VARCHAR},
+      checkoutView_email = #{checkoutviewEmail,jdbcType=VARCHAR},
+      checkoutView_telephone = #{checkoutviewTelephone,jdbcType=VARCHAR},
+      checkoutView_userFirstName = #{checkoutviewUserfirstname,jdbcType=VARCHAR},
+      checkoutView_userLastName = #{checkoutviewUserlastname,jdbcType=VARCHAR},
+      checkoutView_country_code = #{checkoutviewCountryCode,jdbcType=VARCHAR},
+      checkoutView_country = #{checkoutviewCountry,jdbcType=VARCHAR},
+      checkoutView_province = #{checkoutviewProvince,jdbcType=VARCHAR},
+      checkoutView_provinceCode = #{checkoutviewProvincecode,jdbcType=VARCHAR},
+      checkoutView_city = #{checkoutviewCity,jdbcType=VARCHAR},
+      checkoutView_addressDetail = #{checkoutviewAddressdetail,jdbcType=VARCHAR},
+      checkoutView_post = #{checkoutviewPost,jdbcType=VARCHAR},
+      checkoutView_createTime = #{checkoutviewCreatetime,jdbcType=VARCHAR},
+      checkoutView_motifyTime = #{checkoutviewMotifytime,jdbcType=VARCHAR},
+      checkoutView_order_id = #{checkoutviewOrderId,jdbcType=VARCHAR},
+      checkoutView_order_proNum_str = #{checkoutviewOrderPronumStr,jdbcType=VARCHAR},
+      checkoutView_order_proSeo_str = #{checkoutviewOrderProseoStr,jdbcType=VARCHAR},
+      checkoutView_order_orderitemPskuCode = #{checkoutviewOrderOrderitempskucode,jdbcType=VARCHAR},
+      checkoutView_orderitemPskuIdnamestr = #{checkoutviewOrderitempskuidnamestr,jdbcType=VARCHAR},
+      checkoutView_orderitemPskuName = #{checkoutviewOrderitempskuname,jdbcType=VARCHAR},
+      checkoutView_orderitemPskuMoneystr = #{checkoutviewOrderitempskumoneystr,jdbcType=VARCHAR},
+      checkoutView_payinfoid = #{checkoutviewPayinfoid,jdbcType=VARCHAR}
+    where checkoutView_id = #{checkoutviewId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="checkoutviewId" parameterType="com.atguigu.bean.MlfrontCheckoutView">
     insert into tb_mlfront_checkoutview
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="checkoutviewId != null">
@@ -223,6 +250,13 @@
       </if>
     </trim>
   </insert>
+  
+  <!-- delete -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_mlfront_checkoutview
+    where checkoutView_id = #{checkoutviewId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlfrontCheckoutView">
     update tb_mlfront_checkoutview
     <set>
@@ -296,33 +330,6 @@
         checkoutView_payinfoid = #{checkoutviewPayinfoid,jdbcType=VARCHAR},
       </if>
     </set>
-    where checkoutView_id = #{checkoutviewId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlfrontCheckoutView">
-    update tb_mlfront_checkoutview
-    set checkoutView_uid = #{checkoutviewUid,jdbcType=INTEGER},
-      checkoutView_ip = #{checkoutviewIp,jdbcType=VARCHAR},
-      checkoutView_email = #{checkoutviewEmail,jdbcType=VARCHAR},
-      checkoutView_telephone = #{checkoutviewTelephone,jdbcType=VARCHAR},
-      checkoutView_userFirstName = #{checkoutviewUserfirstname,jdbcType=VARCHAR},
-      checkoutView_userLastName = #{checkoutviewUserlastname,jdbcType=VARCHAR},
-      checkoutView_country_code = #{checkoutviewCountryCode,jdbcType=VARCHAR},
-      checkoutView_country = #{checkoutviewCountry,jdbcType=VARCHAR},
-      checkoutView_province = #{checkoutviewProvince,jdbcType=VARCHAR},
-      checkoutView_provinceCode = #{checkoutviewProvincecode,jdbcType=VARCHAR},
-      checkoutView_city = #{checkoutviewCity,jdbcType=VARCHAR},
-      checkoutView_addressDetail = #{checkoutviewAddressdetail,jdbcType=VARCHAR},
-      checkoutView_post = #{checkoutviewPost,jdbcType=VARCHAR},
-      checkoutView_createTime = #{checkoutviewCreatetime,jdbcType=VARCHAR},
-      checkoutView_motifyTime = #{checkoutviewMotifytime,jdbcType=VARCHAR},
-      checkoutView_order_id = #{checkoutviewOrderId,jdbcType=VARCHAR},
-      checkoutView_order_proNum_str = #{checkoutviewOrderPronumStr,jdbcType=VARCHAR},
-      checkoutView_order_proSeo_str = #{checkoutviewOrderProseoStr,jdbcType=VARCHAR},
-      checkoutView_order_orderitemPskuCode = #{checkoutviewOrderOrderitempskucode,jdbcType=VARCHAR},
-      checkoutView_orderitemPskuIdnamestr = #{checkoutviewOrderitempskuidnamestr,jdbcType=VARCHAR},
-      checkoutView_orderitemPskuName = #{checkoutviewOrderitempskuname,jdbcType=VARCHAR},
-      checkoutView_orderitemPskuMoneystr = #{checkoutviewOrderitempskumoneystr,jdbcType=VARCHAR},
-      checkoutView_payinfoid = #{checkoutviewPayinfoid,jdbcType=VARCHAR}
     where checkoutView_id = #{checkoutviewId,jdbcType=INTEGER}
   </update>
 </mapper>
