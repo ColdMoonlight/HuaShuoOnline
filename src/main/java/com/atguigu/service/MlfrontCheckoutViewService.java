@@ -32,6 +32,11 @@ public class MlfrontCheckoutViewService {
 		return intReslut;
 	}
 	
+	public int updateByPrimaryKeySelective(MlfrontCheckoutView mlfrontCheckoutView) {
+		int intReslut = mlfrontCheckoutViewMapper.updateByPrimaryKeySelective(mlfrontCheckoutView);
+		return intReslut;
+	}
+	
 	/**
 	 * @author Shinelon
 	 * @param 
