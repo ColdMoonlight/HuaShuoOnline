@@ -420,4 +420,13 @@
     </if>
     order by catalog_parent_id,catalog_firth_num
   </select>
+  <!-- selectMenuMlbackCatalogGetAllOnlyFrontUsed -->
+  <select id="selectMenuMlbackCatalogGetAllOnlyFrontUsed" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
+    select
+    catalog_id, catalog_name, catalog_parent_id, catalog_superCate_id, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifinto, catalog_ifproORcateORpage, 
+    catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
+    catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
+    from tb_mlback_catalog where catalog_status = 1 order by catalog_parent_id,catalog_firth_num
+  </select>
 </mapper>

@@ -35,4 +35,7 @@ public interface MlbackCatalogMapper {
 	List<MlbackCatalog> selectCataloglistByParam(MlbackCatalog mlbackCatalog);
 	//selectMlbackCatalogBackSearch	服务端需要用查询
 	List<MlbackCatalog> selectMlbackCatalogBackSearch(MlbackCatalog mlbackCatalogReq);
+	//selectMenuMlbackCatalogGetAllOnlyFrontUsed	前段需要的目录查询
+	List<MlbackCatalog> selectMenuMlbackCatalogGetAllOnlyFrontUsed();
+
 }
