@@ -175,13 +175,13 @@
 				$('#addressProvince').data('status', false);
 
 				hasProvince = true;
-				$("#addressProvince").parents('.form-group').show();
-				$("#addressCountry").parents('.form-group').css("width", "49%");
+				$("#addressProvince").parents('.form-group').removeClass('hide');
+				$("#addressCountry").parents('.form-group').css("width", "");
 			} else {
 				$('#addressProvince').val('').data('status', true);
 
 				hasProvince = false;
-				$("#addressProvince").parents('.form-group').hide();
+				$("#addressProvince").parents('.form-group').addClass('hide');
 				$("#addressCountry").parents('.form-group').css("width", "100%");
 			}
 		});
@@ -566,6 +566,7 @@
 			"orderBuyMess": $('.order-buyer-msg textarea').val(),
 			"addressinfoId": $('#addressId').val(),
 			"orderCreatetime" : $('.order-list').data('productidarr'),
+			"orderMotifytime": checkoutviewId,
 		}
 	}
 	// initial order for checkout 

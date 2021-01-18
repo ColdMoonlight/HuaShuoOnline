@@ -14,7 +14,15 @@
 	<jsp:include page="../layout/header/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
 		<div class="container">
-			<div class="payment-header"></div>
+			<div class="payment-header">
+				<div class="ml-breadcrumb">
+					<div class="ml-breadcrumb-item">Cart</div>
+					<div class="ml-breadcrumb-item">•&nbsp;•&nbsp;•</div>
+					<div class="ml-breadcrumb-item">Checkout</div>
+					<div class="ml-breadcrumb-item">•&nbsp;•&nbsp;•</div>
+					<div class="ml-breadcrumb-item active">Payment</div>
+				</div>
+			</div>
 			<div class="payment-box payment-order">
 				<div class="payment-box-title">
 					<span class="icon cart"></span>

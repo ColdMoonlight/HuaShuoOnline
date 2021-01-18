@@ -76,7 +76,7 @@
 	}
 	// render cart list
 	function renderCartList(data) {
-		var $cartHeader = $('<div class="cart-header" />');
+		var $cartHeader = $('<div class="cart-header"><div class="ml-breadcrumb"><div class="ml-breadcrumb-item active">Cart</div><div class="ml-breadcrumb-item">•&nbsp;•&nbsp;•</div><div class="ml-breadcrumb-item">Checkout</div><div class="ml-breadcrumb-item">•&nbsp;•&nbsp;•</div><div class="ml-breadcrumb-item">Payment</div></div></div>');
 		var $cartList = $('<div class="cart-list" />');
 		data.forEach(function(item, idx) {
 			var cartSkuList = '';

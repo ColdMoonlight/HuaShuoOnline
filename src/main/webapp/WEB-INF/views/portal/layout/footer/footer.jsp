@@ -25,7 +25,7 @@
 	</div>
 	<div class="footer-page-footer">
 		<div class="container">
-			<p class="copyright">Copyright © 2021, MegaLook, All Rights Reserved</p>
+			<p class="copyright">Copyright © 2021 <a href="${APP_PATH}/">MegaLook</a>, All Rights Reserved</p>
 			<img src="${APP_PATH }/static/pc/img/paypalcard.jpg" width="266" height="33" title="paypal card">
 		</div>
 	</div>
