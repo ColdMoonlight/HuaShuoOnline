@@ -32,7 +32,7 @@
 				productSeoArr.push(oData.orderitemPseo || '');
 				productNumArr.push(oData.orderitemPskuNumber || '');
 				skuCodeArr.push(oData.orderitemPskuCode || '');
-				skuPriceArr.push(oData.orderitemPskuReamoney || '');
+				skuPriceArr.push(oData.orderitemPskuMoneystr || '');
 				skuIdNameArr.push(oData.orderitemPskuIdnamestr || '');
 				skuNameArr.push(oData.orderitemPskuName || '');
 			} else {
