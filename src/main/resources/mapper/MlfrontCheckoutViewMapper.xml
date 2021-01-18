@@ -333,9 +333,9 @@
     where checkoutView_id = #{checkoutviewId,jdbcType=INTEGER}
   </update>
   <!-- selectMlfrontCheckoutViewByPayinfoid -->
-  <delete id="selectMlfrontCheckoutViewByPayinfoid" parameterType="com.atguigu.bean.MlfrontCheckoutView">
+  <select id="selectMlfrontCheckoutViewByPayinfoid" parameterType="com.atguigu.bean.MlfrontCheckoutView" resultMap="BaseResultMap">
     select *
     from tb_mlfront_checkoutview
     where checkoutView_payinfoid = #{checkoutviewPayinfoid,jdbcType=VARCHAR} order by checkoutView_id desc
-  </delete>
+  </select>
 </mapper>
