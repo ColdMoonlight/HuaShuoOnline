@@ -126,5 +126,15 @@ public class MlbackCatalogService {
 		List<MlbackCatalog>  mlbackCatalogList = mlbackCatalogMapper.selectMlbackCatalogBackSearch(mlbackCatalogReq);
 		return mlbackCatalogList;
 	}
+	/**
+	 * @autho	3.0
+	 * @param MlbackCatalog
+	 * @exception
+	 * 	3.0	
+	 * */
+	public List<MlbackCatalog> selectMenuMlbackCatalogGetAllOnlyFrontUsed() {
+		List<MlbackCatalog>  mlbackCatalogList = mlbackCatalogMapper.selectMenuMlbackCatalogGetAllOnlyFrontUsed();
+		return mlbackCatalogList;
+	}
 
 }
