@@ -354,6 +354,10 @@ public class MlfrontOrderController {
 				MlfrontCheckoutView mlfrontCheckoutViewReq = new MlfrontCheckoutView();
 				mlfrontCheckoutViewReq.setCheckoutviewId(checkoutviewId);
 				mlfrontCheckoutViewReq.setCheckoutviewPayinfoid(checkoutViewPayinfoIdStr);
+				//放入优惠Code
+				mlfrontCheckoutViewReq.setCheckoutviewCouponCode(CouponCode);
+				//放入优惠券的价格
+				mlfrontCheckoutViewReq.setCheckoutviewCouponPrice(CouponCodeMoneyStr);
 				mlfrontCheckoutViewService.updateByPrimaryKeySelective(mlfrontCheckoutViewReq);
 			}
 		}

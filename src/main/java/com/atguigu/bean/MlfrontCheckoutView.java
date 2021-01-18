@@ -45,9 +45,13 @@ public class MlfrontCheckoutView {
 
     private String checkoutviewOrderitempskuname;	//
 
-    private String checkoutviewOrderitempskumoneystr;	//
+    private String checkoutviewOrderitempskumoneystr;	//这个产品(基础价+sku)*折扣的综合价格
 
     private String checkoutviewPayinfoid;	//
+    
+    private String checkoutviewCouponCode;	//
+    
+    private String checkoutviewCouponPrice;	//
 
     public Integer getCheckoutviewId() {
         return checkoutviewId;
@@ -240,6 +244,22 @@ public class MlfrontCheckoutView {
     public void setCheckoutviewPayinfoid(String checkoutviewPayinfoid) {
         this.checkoutviewPayinfoid = checkoutviewPayinfoid == null ? null : checkoutviewPayinfoid.trim();
     }
+    
+	public String getCheckoutviewCouponCode() {
+		return checkoutviewCouponCode;
+	}
+
+	public void setCheckoutviewCouponCode(String checkoutviewCouponCode) {
+		this.checkoutviewCouponCode = checkoutviewCouponCode == null ? null : checkoutviewCouponCode.trim();
+	}
+
+	public String getCheckoutviewCouponPrice() {
+		return checkoutviewCouponPrice;
+	}
+
+	public void setCheckoutviewCouponPrice(String checkoutviewCouponPrice) {
+		this.checkoutviewCouponPrice = checkoutviewCouponPrice == null ? null : checkoutviewCouponPrice.trim();
+	}
 
 	public MlfrontCheckoutView() {
 		super();
@@ -253,7 +273,8 @@ public class MlfrontCheckoutView {
 			String checkoutviewMotifytime, String checkoutviewOrderId, String checkoutviewOrderPronumStr,
 			String checkoutviewOrderProseoStr, String checkoutviewOrderOrderitempskucode,
 			String checkoutviewOrderitempskuidnamestr, String checkoutviewOrderitempskuname,
-			String checkoutviewOrderitempskumoneystr, String checkoutviewPayinfoid) {
+			String checkoutviewOrderitempskumoneystr, String checkoutviewPayinfoid, String checkoutviewCouponCode,
+			String checkoutviewCouponPrice) {
 		super();
 		this.checkoutviewId = checkoutviewId;
 		this.checkoutviewUid = checkoutviewUid;
@@ -279,6 +300,8 @@ public class MlfrontCheckoutView {
 		this.checkoutviewOrderitempskuname = checkoutviewOrderitempskuname;
 		this.checkoutviewOrderitempskumoneystr = checkoutviewOrderitempskumoneystr;
 		this.checkoutviewPayinfoid = checkoutviewPayinfoid;
+		this.checkoutviewCouponCode = checkoutviewCouponCode;
+		this.checkoutviewCouponPrice = checkoutviewCouponPrice;
 	}
 
 	@Override
@@ -298,7 +321,8 @@ public class MlfrontCheckoutView {
 				+ ", checkoutviewOrderitempskuidnamestr=" + checkoutviewOrderitempskuidnamestr
 				+ ", checkoutviewOrderitempskuname=" + checkoutviewOrderitempskuname
 				+ ", checkoutviewOrderitempskumoneystr=" + checkoutviewOrderitempskumoneystr
-				+ ", checkoutviewPayinfoid=" + checkoutviewPayinfoid + "]";
+				+ ", checkoutviewPayinfoid=" + checkoutviewPayinfoid + ", checkoutviewCouponCode="
+				+ checkoutviewCouponCode + ", checkoutviewCouponPrice=" + checkoutviewCouponPrice + "]";
 	}
     
 }
