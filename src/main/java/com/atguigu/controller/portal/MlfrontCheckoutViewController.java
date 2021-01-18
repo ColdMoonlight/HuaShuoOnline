@@ -1,4 +1,4 @@
-package com.atguigu.controller.back;
+package com.atguigu.controller.portal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +25,7 @@ public class MlfrontCheckoutViewController {
 		
 	/**
 	 * 1.0	zsh200804
-	 * toMlbackActShowPro列表页面
+	 * toMlfrontCheckoutView列表页面
 	 * @return jsp
 	 * */
 	@RequestMapping("/toMlfrontCheckoutViewPage")

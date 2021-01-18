@@ -19,6 +19,7 @@ import com.atguigu.bean.MlbackCaclPay;
 import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.bean.MlbackOrderStateEmail;
 import com.atguigu.bean.MlfrontAddress;
+import com.atguigu.bean.MlfrontCheckoutView;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
@@ -35,6 +36,7 @@ import com.atguigu.service.MlbackCaclPayService;
 import com.atguigu.service.MlbackCouponService;
 import com.atguigu.service.MlbackOrderStateEmailService;
 import com.atguigu.service.MlfrontAddressService;
+import com.atguigu.service.MlfrontCheckoutViewService;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
@@ -89,6 +91,9 @@ public class MlfrontPayInfoController {
 	
 	@Autowired
 	UrlCountService UrlCountService;
+	
+	@Autowired
+	MlfrontCheckoutViewService mlfrontCheckoutViewService;
 	
 //	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
@@ -514,11 +519,22 @@ public class MlfrontPayInfoController {
 		}else{
 			mlPaypalShipAddressRes = mlPaypalShipAddressResList.get(0);
 		}
+		
+		//通过payinfoId查询CheckoutView
+		MlfrontCheckoutView mlfrontCheckoutViewReq = new MlfrontCheckoutView();
+		mlfrontCheckoutViewReq.setCheckoutviewPayinfoid(payinfoId+"");
+		List<MlfrontCheckoutView> mlfrontCheckoutViewList = mlfrontCheckoutViewService.selectMlfrontCheckoutViewByPayinfoid(mlfrontCheckoutViewReq);
+		MlfrontCheckoutView mlfrontCheckoutViewOne = new MlfrontCheckoutView();
+		if(mlfrontCheckoutViewList.size()>0){
+			mlfrontCheckoutViewOne = mlfrontCheckoutViewList.get(0);
+		}
+		
 		//完毕回传
 		return Msg.success().add("resMsg", "查看单条mlfrontPayInfoOne的详情细节完毕")
 					.add("mlfrontPayInfoOne", mlfrontPayInfoOne).add("mlfrontOrderPayOneRes", mlfrontOrderPayOneRes)
 					.add("mlfrontAddressOne", mlfrontAddressOne).add("mlfrontOrderItemList", mlfrontOrderItemList)
-					.add("mlfrontUserOne", mlfrontUserOne).add("mlPaypalShipAddressOne", mlPaypalShipAddressRes).add("areafreightMoney", areafreightMoney);
+					.add("mlfrontUserOne", mlfrontUserOne).add("mlPaypalShipAddressOne", mlPaypalShipAddressRes)
+					.add("areafreightMoney", areafreightMoney).add("mlfrontCheckoutViewOne", mlfrontCheckoutViewOne);
 	}
 	
 	/**7.0	zsh200720

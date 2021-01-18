@@ -42,9 +42,9 @@ public class MlfrontCheckoutViewService {
 	 * @param 
 	 * @exception 查看信息byTime
 	 * */
-//	public List<MlfrontCheckoutView> selectMlfrontCheckoutViewByTimeAndActnum(MlfrontCheckoutView mlfrontCheckoutView) {
-//		List<MlfrontCheckoutView>  mlbackProductViewDetailList = mlfrontCheckoutViewMapper.selectMlfrontCheckoutViewByTimeAndActnum(mlfrontCheckoutView);
-//		return mlbackProductViewDetailList;
-//	}
+	public List<MlfrontCheckoutView> selectMlfrontCheckoutViewByPayinfoid(MlfrontCheckoutView mlfrontCheckoutView) {
+		List<MlfrontCheckoutView>  mlbackProductViewDetailList = mlfrontCheckoutViewMapper.selectMlfrontCheckoutViewByPayinfoid(mlfrontCheckoutView);
+		return mlbackProductViewDetailList;
+	}
 
 }
