@@ -235,7 +235,8 @@ public class MlbackCatalogController {
 	public Msg getCatalogSuperMenu(HttpServletResponse rep,HttpServletRequest res){
 		
 		//查询全部的Catalog信息
-		List<MlbackCatalog> MlbackCatalogdownList = mlbackCatalogService.selectMenuMlbackCatalogGetAll();
+//		List<MlbackCatalog> MlbackCatalogdownList = mlbackCatalogService.selectMenuMlbackCatalogGetAll();
+		List<MlbackCatalog> MlbackCatalogdownList = mlbackCatalogService.selectMenuMlbackCatalogGetAllOnlyFrontUsed();
 		//System.out.println("操作说明:客户查询-getCatalogSuperMenu");
 		
 		List<MlbackCatalog> MlbackCatalogdownFirst =new ArrayList<MlbackCatalog>();
