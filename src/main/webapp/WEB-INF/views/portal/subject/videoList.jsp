@@ -79,11 +79,11 @@
 					</div>
 					<div class="video-topsale-style two">
 						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/13x4-Bob-Wig-1B-30-Color-Straight-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp5.jpg"></a>
+							<a class="lazyload" href="${APP_PATH }/13x4-Bob-Wig-1B-30-Color-Straight-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp6.jpg"></a>
 							<div class="video-topsale-style-name">13x4 1b/30 Bob Lace Frontal Straight Wig</div>					
 						</div>
 						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/All-Color-4x4-Bob-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp6.jpg"></a>
+							<a class="lazyload" href="${APP_PATH }/All-Color-4x4-Bob-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp5.jpg"></a>
 							<div class="video-topsale-style-name">4x4 Bob Wigs All Color Straight Hair</div>					
 						</div>
 						<div class="video-topsale-style-item">
