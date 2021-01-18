@@ -26,6 +26,8 @@
     <result column="checkoutView_orderitemPskuName" jdbcType="VARCHAR" property="checkoutviewOrderitempskuname" />
     <result column="checkoutView_orderitemPskuMoneystr" jdbcType="VARCHAR" property="checkoutviewOrderitempskumoneystr" />
     <result column="checkoutView_payinfoid" jdbcType="VARCHAR" property="checkoutviewPayinfoid" />
+    <result column="checkoutView_couponCode" jdbcType="VARCHAR" property="checkoutviewCouponCode" />
+    <result column="checkoutView_couponPrice" jdbcType="VARCHAR" property="checkoutviewCouponPrice" />
   </resultMap>
   <sql id="Base_Column_List">
     checkoutView_id, checkoutView_uid, checkoutView_ip, checkoutView_email, checkoutView_telephone, 
@@ -34,7 +36,7 @@
     checkoutView_addressDetail, checkoutView_post, checkoutView_createTime, checkoutView_motifyTime, 
     checkoutView_order_id, checkoutView_order_proNum_str, checkoutView_order_proSeo_str, 
     checkoutView_order_orderitemPskuCode, checkoutView_orderitemPskuIdnamestr, checkoutView_orderitemPskuName, 
-    checkoutView_orderitemPskuMoneystr, checkoutView_payinfoid
+    checkoutView_orderitemPskuMoneystr, checkoutView_payinfoid, checkoutView_couponCode, checkoutView_couponPrice
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -55,7 +57,7 @@
       checkoutView_order_proNum_str, checkoutView_order_proSeo_str, 
       checkoutView_order_orderitemPskuCode, checkoutView_orderitemPskuIdnamestr, 
       checkoutView_orderitemPskuName, checkoutView_orderitemPskuMoneystr, 
-      checkoutView_payinfoid)
+      checkoutView_payinfoid, checkoutView_couponCode, checkoutView_couponPrice)
     values (#{checkoutviewId,jdbcType=INTEGER}, #{checkoutviewUid,jdbcType=INTEGER}, 
       #{checkoutviewIp,jdbcType=VARCHAR}, #{checkoutviewEmail,jdbcType=VARCHAR}, #{checkoutviewTelephone,jdbcType=VARCHAR}, 
       #{checkoutviewUserfirstname,jdbcType=VARCHAR}, #{checkoutviewUserlastname,jdbcType=VARCHAR}, 
@@ -67,7 +69,7 @@
       #{checkoutviewOrderPronumStr,jdbcType=VARCHAR}, #{checkoutviewOrderProseoStr,jdbcType=VARCHAR}, 
       #{checkoutviewOrderOrderitempskucode,jdbcType=VARCHAR}, #{checkoutviewOrderitempskuidnamestr,jdbcType=VARCHAR}, 
       #{checkoutviewOrderitempskuname,jdbcType=VARCHAR}, #{checkoutviewOrderitempskumoneystr,jdbcType=VARCHAR}, 
-      #{checkoutviewPayinfoid,jdbcType=VARCHAR})
+      #{checkoutviewPayinfoid,jdbcType=VARCHAR}, #{checkoutviewCouponCode,jdbcType=VARCHAR}, #{checkoutviewCouponPrice,jdbcType=VARCHAR})
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlfrontCheckoutView">
@@ -94,7 +96,9 @@
       checkoutView_orderitemPskuIdnamestr = #{checkoutviewOrderitempskuidnamestr,jdbcType=VARCHAR},
       checkoutView_orderitemPskuName = #{checkoutviewOrderitempskuname,jdbcType=VARCHAR},
       checkoutView_orderitemPskuMoneystr = #{checkoutviewOrderitempskumoneystr,jdbcType=VARCHAR},
-      checkoutView_payinfoid = #{checkoutviewPayinfoid,jdbcType=VARCHAR}
+      checkoutView_payinfoid = #{checkoutviewPayinfoid,jdbcType=VARCHAR},
+      checkoutView_couponCode = #{checkoutviewCouponCode,jdbcType=VARCHAR}, 
+      checkoutView_couponPrice = #{checkoutviewCouponPrice,jdbcType=VARCHAR} 
     where checkoutView_id = #{checkoutviewId,jdbcType=INTEGER}
   </update>
   
@@ -174,6 +178,12 @@
       <if test="checkoutviewPayinfoid != null">
         checkoutView_payinfoid,
       </if>
+      <if test="checkoutviewCouponCode != null">
+        checkoutView_couponCode,
+      </if>
+      <if test="checkoutviewCouponPrice != null">
+        checkoutView_couponPrice,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="checkoutviewId != null">
@@ -247,6 +257,12 @@
       </if>
       <if test="checkoutviewPayinfoid != null">
         #{checkoutviewPayinfoid,jdbcType=VARCHAR},
+      </if>
+      <if test="checkoutviewCouponCode != null">
+        #{checkoutviewCouponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkoutviewCouponPrice != null">
+        #{checkoutviewCouponPrice,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -328,6 +344,12 @@
       </if>
       <if test="checkoutviewPayinfoid != null">
         checkoutView_payinfoid = #{checkoutviewPayinfoid,jdbcType=VARCHAR},
+      </if>
+      <if test="checkoutviewCouponCode != null">
+        checkoutView_couponCode = #{checkoutviewCouponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkoutviewCouponPrice != null">
+        checkoutView_couponPrice = #{checkoutviewCouponPrice,jdbcType=VARCHAR},
       </if>
     </set>
     where checkoutView_id = #{checkoutviewId,jdbcType=INTEGER}
