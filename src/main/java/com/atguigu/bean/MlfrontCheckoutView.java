@@ -52,6 +52,8 @@ public class MlfrontCheckoutView {
     private String checkoutviewCouponCode;	//
     
     private String checkoutviewCouponPrice;	//
+    
+    private String checkoutviewAddressPrice;	//
 
     public Integer getCheckoutviewId() {
         return checkoutviewId;
@@ -260,6 +262,14 @@ public class MlfrontCheckoutView {
 	public void setCheckoutviewCouponPrice(String checkoutviewCouponPrice) {
 		this.checkoutviewCouponPrice = checkoutviewCouponPrice == null ? null : checkoutviewCouponPrice.trim();
 	}
+	
+	public String getCheckoutviewAddressPrice() {
+		return checkoutviewAddressPrice;
+	}
+
+	public void setCheckoutviewAddressPrice(String checkoutviewAddressPrice) {
+		this.checkoutviewAddressPrice = checkoutviewAddressPrice == null ? null : checkoutviewAddressPrice.trim();
+	}
 
 	public MlfrontCheckoutView() {
 		super();
@@ -274,7 +284,7 @@ public class MlfrontCheckoutView {
 			String checkoutviewOrderProseoStr, String checkoutviewOrderOrderitempskucode,
 			String checkoutviewOrderitempskuidnamestr, String checkoutviewOrderitempskuname,
 			String checkoutviewOrderitempskumoneystr, String checkoutviewPayinfoid, String checkoutviewCouponCode,
-			String checkoutviewCouponPrice) {
+			String checkoutviewCouponPrice, String checkoutviewAddressPrice) {
 		super();
 		this.checkoutviewId = checkoutviewId;
 		this.checkoutviewUid = checkoutviewUid;
@@ -302,6 +312,7 @@ public class MlfrontCheckoutView {
 		this.checkoutviewPayinfoid = checkoutviewPayinfoid;
 		this.checkoutviewCouponCode = checkoutviewCouponCode;
 		this.checkoutviewCouponPrice = checkoutviewCouponPrice;
+		this.checkoutviewAddressPrice = checkoutviewAddressPrice;
 	}
 
 	@Override
@@ -322,7 +333,8 @@ public class MlfrontCheckoutView {
 				+ ", checkoutviewOrderitempskuname=" + checkoutviewOrderitempskuname
 				+ ", checkoutviewOrderitempskumoneystr=" + checkoutviewOrderitempskumoneystr
 				+ ", checkoutviewPayinfoid=" + checkoutviewPayinfoid + ", checkoutviewCouponCode="
-				+ checkoutviewCouponCode + ", checkoutviewCouponPrice=" + checkoutviewCouponPrice + "]";
+				+ checkoutviewCouponCode + ", checkoutviewCouponPrice=" + checkoutviewCouponPrice
+				+ ", checkoutviewAddressPrice=" + checkoutviewAddressPrice + "]";
 	}
-    
+
 }
