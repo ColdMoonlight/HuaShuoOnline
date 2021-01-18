@@ -358,6 +358,8 @@ public class MlfrontOrderController {
 				mlfrontCheckoutViewReq.setCheckoutviewCouponCode(CouponCode);
 				//放入优惠券的价格
 				mlfrontCheckoutViewReq.setCheckoutviewCouponPrice(CouponCodeMoneyStr);
+				//放入邮费
+				mlfrontCheckoutViewReq.setCheckoutviewAddressPrice(addressMoneyStr);
 				mlfrontCheckoutViewService.updateByPrimaryKeySelective(mlfrontCheckoutViewReq);
 			}
 		}
