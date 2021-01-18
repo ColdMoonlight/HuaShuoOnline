@@ -1,5 +1,6 @@
 package com.atguigu.dao;
 
+import java.util.List;
 import com.atguigu.bean.MlfrontCheckoutView;
 
 public interface MlfrontCheckoutViewMapper {
@@ -15,4 +16,6 @@ public interface MlfrontCheckoutViewMapper {
     int deleteByPrimaryKey(Integer checkoutviewId);
     
     int updateByPrimaryKeySelective(MlfrontCheckoutView record);
+
+	List<MlfrontCheckoutView> selectMlfrontCheckoutViewByPayinfoid(MlfrontCheckoutView mlfrontCheckoutView);
 }
