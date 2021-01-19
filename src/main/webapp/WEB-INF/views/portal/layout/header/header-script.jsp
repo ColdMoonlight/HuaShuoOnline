@@ -690,6 +690,7 @@
 			}, 2000);
 			fbq('track', 'CompleteRegistration');
 			pintrk('track', 'signup');
+			snaptr('track', 'SIGN_UP');
 		});
 	});
 	// forget password event
