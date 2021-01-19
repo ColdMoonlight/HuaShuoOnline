@@ -159,7 +159,7 @@ public class MlbackCouponController {
 		if(couponProductOnlyType==4){
 			//取出几件打折产品-直接存起来
 			//String someProductidstr = mlbackCoupon.getCouponSomeProductidstr();
-			System.out.println("这是单品,直接保存");
+			System.out.println("这是拼好的一些产品数据,直接保存");
 		}
 		//有id,update
 		mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);

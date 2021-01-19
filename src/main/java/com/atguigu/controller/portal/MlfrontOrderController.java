@@ -439,6 +439,8 @@ public class MlfrontOrderController {
 			couponPidStr = mlbackCouponOne.getCouponProsFromApplyCateidstr();
 		}else if(3==couponProductonlyType){
 			couponPidStr = mlbackCouponOne.getCouponAllExceptPidstr();
+		}else if(4==couponProductonlyType){
+			couponPidStr = mlbackCouponOne.getCouponSomeProductidstr();
 		}
 		//
 		if(couponPidStr!=null){
@@ -463,7 +465,7 @@ public class MlfrontOrderController {
 				realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
 			}else{
 				//特殊产品、特殊类
-				mlbackCouponPrice = getAllProductItemPriceOneAndTwo(pidItemAndMoneyList,couponPidStr);
+				mlbackCouponPrice = getAllProductItemPriceOneAndTwoAndFour(pidItemAndMoneyList,couponPidStr);
 				realCouponPrice = getRealCouponPrice(mlbackCouponPrice,mlbackCouponOne);
 			}
 		}else{
@@ -515,7 +517,7 @@ public class MlfrontOrderController {
 	}
 
 	//特殊产品、特殊类
-	private BigDecimal getAllProductItemPriceOneAndTwo(List<UrlCount> pidItemAndMoneyList,String couponPidStr) {
+	private BigDecimal getAllProductItemPriceOneAndTwoAndFour(List<UrlCount> pidItemAndMoneyList,String couponPidStr) {
 		
 		BigDecimal totalprice = new BigDecimal(0);	//初始化最终价格参数
 		BigDecimal oneAllprice = new BigDecimal(0);	//初始化单item的价格参数
