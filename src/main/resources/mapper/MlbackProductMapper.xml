@@ -634,8 +634,8 @@
   <select id="selectMlbackProductBeforeTime" parameterType="com.atguigu.bean.MlbackProduct" resultMap="BaseResultMap">
     select 
     product_id, product_name, product_seo, product_videourl, 
-    product_mainimgurl, product_discoutimgurl, product_discoutimgshow,
-    product_originalPrice, product_status, product_createTime, product_motifyTime, 
+    product_mainimgurl, 
+    product_originalPrice, product_status, product_motifyTime, 
     product_actoffOff, 
     product_category_namesStr, product_meta_desc, product_meta_title, product_meta_keyWords
 	product_id from tb_mlback_product
