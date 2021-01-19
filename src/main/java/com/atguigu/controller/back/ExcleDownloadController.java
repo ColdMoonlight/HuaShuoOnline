@@ -2,6 +2,8 @@ package com.atguigu.controller.back;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -253,19 +255,19 @@ public class ExcleDownloadController {
 		
 		//user_id, user_email,user_telephone, user_createTime
 		
-		cell.setCellValue("product_id");
+		cell.setCellValue("number");
 	    cell = row.createCell(1);
-		cell.setCellValue("product_name");
+		cell.setCellValue("product_id");
 	    cell = row.createCell(2);
-		cell.setCellValue("product_meta_title");
+		cell.setCellValue("product_name");
 	    cell = row.createCell(3);
-	    cell.setCellValue("product_meta_desc");
+		cell.setCellValue("product_meta_title");
 	    cell = row.createCell(4);
-	    cell.setCellValue("product_seo");
+	    cell.setCellValue("product_meta_desc");
 	    cell = row.createCell(5);
-	    cell.setCellValue("product_originalPrice");
+	    cell.setCellValue("product_seo");
 	    cell = row.createCell(6);
-	    cell.setCellValue("product_actoffOff");
+	    cell.setCellValue("product_Price");
 	    cell = row.createCell(7);
 	    cell.setCellValue("product_status");
 	    cell = row.createCell(8);
@@ -277,6 +279,8 @@ public class ExcleDownloadController {
 	    cell = row.createCell(11);
 	    
 	    MlbackProduct mlbackProductOne = new MlbackProduct();
+	    DecimalFormat df1 = new DecimalFormat("0.00");
+	    
 	    for (int i = 0; i < mlbackProductList.size(); i++) {
 	    	mlbackProductOne = mlbackProductList.get(i);
 	        row = sheet.createRow(i+1);
@@ -285,13 +289,19 @@ public class ExcleDownloadController {
 	        row.createCell(2).setCellValue(mlbackProductOne.getProductName()+"");
 	        row.createCell(3).setCellValue(mlbackProductOne.getProductMetaTitle()+"");
 	        row.createCell(4).setCellValue(mlbackProductOne.getProductMetaDesc()+"");
-	        row.createCell(5).setCellValue(mlbackProductOne.getProductSeo());
-	        row.createCell(6).setCellValue(mlbackProductOne.getProductOriginalprice()+"");
-	        row.createCell(7).setCellValue(mlbackProductOne.getProductActoffoff());
-	        row.createCell(8).setCellValue(mlbackProductOne.getProductStatus());
-	        row.createCell(9).setCellValue(mlbackProductOne.getProductMainimgurl()+"");
-	        row.createCell(10).setCellValue(mlbackProductOne.getProductCategoryNamesstr()+"");
-	        row.createCell(11).setCellValue(mlbackProductOne.getProductMotifytime()+"");
+	        row.createCell(5).setCellValue("https://www.megalook.com/"+mlbackProductOne.getProductSeo()+".html");
+	        
+	        BigDecimal oneTotalprice = new BigDecimal(0);
+	        oneTotalprice=oneTotalprice.add(mlbackProductOne.getProductOriginalprice());
+	        oneTotalprice = oneTotalprice.multiply(new BigDecimal(mlbackProductOne.getProductActoffoff()));//05乘本品的折扣
+	        oneTotalprice = oneTotalprice.multiply(new BigDecimal(0.01));//06还原本品+sku集合的最终价
+	        String oneTotalpriceStr = df1.format(oneTotalprice);
+	        
+	        row.createCell(6).setCellValue(oneTotalpriceStr+"");
+	        row.createCell(7).setCellValue(mlbackProductOne.getProductStatus());
+	        row.createCell(8).setCellValue(mlbackProductOne.getProductMainimgurl()+"");
+	        row.createCell(9).setCellValue(mlbackProductOne.getProductCategoryNamesstr()+"");
+	        row.createCell(10).setCellValue(mlbackProductOne.getProductMotifytime()+"");
 	    }
 	    /**
 	     * product_id, product_name, product_meta_title, product_meta_desc, product_seo, product_originalPrice, product_actoffOff, 
