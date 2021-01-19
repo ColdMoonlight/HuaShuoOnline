@@ -156,6 +156,13 @@ public class MlbackCouponController {
 			String allExceptPseostr = mlbackCoupon.getCouponAllExceptPseostr();
 			System.out.println("allExceptPseostr:"+allExceptPseostr.toString());
 		}
+		if(couponProductOnlyType==4){
+			//取出不打折的产品-直接存起来
+			String allExceptPidstr = mlbackCoupon.getCouponAllExceptPidstr();
+			System.out.println("allExceptPidstr:"+allExceptPidstr.toString());
+			String allExceptPseostr = mlbackCoupon.getCouponAllExceptPseostr();
+			System.out.println("allExceptPseostr:"+allExceptPseostr.toString());
+		}
 		//有id,update
 		mlbackCouponService.updateByPrimaryKeySelective(mlbackCoupon);
 		System.out.println("后台操作:CouponService.updateByPrimaryKeySelective:"+mlbackCoupon.toString());
