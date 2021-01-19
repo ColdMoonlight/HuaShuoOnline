@@ -53,4 +53,6 @@ public interface MlbackProductMapper {
 
 	List<MlbackProduct> selectMlbackProductDownLoadByParam(MlbackProduct mlbackProductReq);
 
+	List<MlbackProduct> selectMlbackProductBeforeTime(MlbackProduct mlbackProductReq);
+
 }
