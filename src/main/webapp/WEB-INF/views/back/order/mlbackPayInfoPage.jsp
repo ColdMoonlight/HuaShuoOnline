@@ -161,10 +161,11 @@
 						<!-- left panel -->
 						<div class="left-panel col-lg-8 col-md-12">
 							<div class="card">
-								<div class="card-title">
+								<div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
 									<div class="card-title-name">Order Info</div>
+									<button class="btn btn-primary hide" id="checkout-view">Checkout View</button>
 								</div>
-								<div class="card-body">
+								<div class="payinfo card-body">
 									<div class="order-list">
 										<p>no product for order...</p>
 									</div>
@@ -221,39 +222,39 @@
 											<div class="card-title-name">Shipping Address</div>
 										</div>
 										<div class="card-body shipping-list">
-											<div class="shipping-item firstname">
+											<div class="shipping-item order-shipping firstname">
 												<div class="name">First Name</div>
 												<div class="value"></div>
 											</div>
-											<div class="shipping-item lastname">
+											<div class="shipping-item order-shipping lastname">
 												<div class="name">Last Name</div>
 												<div class="value"></div>
 											</div>
-											<div class="shipping-item address">
+											<div class="shipping-item order-shipping address">
 												<div class="name">Address Details</div>
 												<div class="value"></div>
 											</div>
-											<div class="shipping-item city">
+											<div class="shipping-item order-shipping city">
 												<div class="name">city</div>
 												<div class="value"></div>
 											</div>
-											<div class="shipping-item province">
+											<div class="shipping-item order-shipping province">
 												<div class="name">Province/State</div>
 												<div class="value"></div>
 											</div>
-											<div class="shipping-item postcode">
+											<div class="shipping-item order-shipping postcode">
 												<div class="name">Post Code</div>
 												<div class="value"></div>
 											</div>
-											<div class="shipping-item country">
+											<div class="shipping-item order-shipping country">
 												<div class="name">Country</div>
 												<div class="value"></div>
 											</div>
-											<div class="shipping-item phone">
+											<div class="shipping-item order-shipping phone">
 												<div class="name">Phone</div>
 												<div class="value"></div>
 											</div>
-											<div class="shipping-item email">
+											<div class="shipping-item order-shipping email">
 												<div class="name">E-mail</div>
 												<div class="value"></div>
 											</div>
@@ -401,6 +402,7 @@
 	</div>
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/checkoutViewModal.jsp" flush="true"></jsp:include>
 	
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
@@ -579,13 +581,11 @@
 			console.log("payinfoStatus:"+payinfoStatus+"payinfoCreatetime:"+payinfoCreatetime+"payinfoMotifytime"+payinfoMotifytime);
 			window.location.href = "${APP_PATH}/ExcleDownload/exportPayInfoIF?payinfoStatus="+payinfoStatus+"&payinfoCreatetime="+payinfoCreatetime+"&payinfoMotifytime="+payinfoMotifytime;
 		});
-		$('#download-ecpp').on('click', function() {
-			
+		// checkout-view
+		$('#checkout-view').on('click', function() {
+			$('#checkoutViewModal').modal('show');
 		});
-		// order operate
-		$('.btn-audit').on('click', function() {
-			
-		});
+		// pay track log
 		$('#pay-track').on('click', function() {
 			if ($('.pre-code-content').data('flag')) {
 				$('.pre-code-modal').removeClass('hide');
@@ -780,21 +780,21 @@
 			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoReturntime || '');
 			
 			/* order operate */
-			$('.payinfo-group .btn').addClass('hide');
+			$('.payinfo-group .btn, #checkout-view').addClass('hide');
 			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
-				$('.btn-abandon-purchase,.btn-close').removeClass('hide');
+				$('.btn-abandon-purchase,.btn-close,#checkout-view').removeClass('hide');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
 				$('.btn-audit,.btn-refund').removeClass('hide');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 || data.mlfrontPayInfoOne.payinfoStatus == 3) {
 				$('.btn-refund').removeClass('hide');
 			}
 
-			$('.pay-prototal .value').html('$' + (((data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney)) || 0).toFixed(2));
-			$('.pay-discount .name').html(data.mlfrontOrderPayOneRes.orderCouponCode || '');
-			$('.pay-discount .value').html('-$' + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0).toFixed(2));
-			$('.pay-shipping .value').html('$' + (data.areafreightMoney || 0).toFixed(2));
-			$('.pay-total .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || 0).toFixed(2));
-			$('.pay-final .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || 0).toFixed(2));
+			$('.payinfo .pay-prototal .value').html('$' + (((data.mlfrontPayInfoOne.payinfoMoney + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0) - data.areafreightMoney)) || 0).toFixed(2));
+			$('.payinfo .pay-discount .name').html(data.mlfrontOrderPayOneRes.orderCouponCode || '');
+			$('.payinfo .pay-discount .value').html('-$' + (data.mlfrontOrderPayOneRes.orderCouponPrice || 0).toFixed(2));
+			$('.payinfo .pay-shipping .value').html('$' + (data.areafreightMoney || 0).toFixed(2));
+			$('.payinfo .pay-total .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || 0).toFixed(2));
+			$('.payinfo .pay-final .value').html('$' + (data.mlfrontPayInfoOne.payinfoMoney || 0).toFixed(2));
 			
 			// customer note
 			$('.customer-note .value').html(data.mlfrontOrderPayOneRes.orderBuyMess || 'No notes from customer...');
@@ -802,16 +802,16 @@
 			
 			$('.track-number .value').html('('+ (data.mlfrontOrderPayOneRes.orderLogisticsname || '') +')' + (getNewPayinfoSendNum(data.mlfrontPayInfoOne.payinfoSendnum)));
 			$('.ecpp-number .value').html(data.mlfrontPayInfoOne.payinfoEcpphsnum || '');
-			// shipping
-			$('.shipping-item.firstname .value').html(data.mlfrontAddressOne.addressUserfirstname || '');
-			$('.shipping-item.lastname .value').html(data.mlfrontAddressOne.addressUserlastname || '');
-			$('.shipping-item.email .value').html(data.mlfrontAddressOne.addressEmail || '');
-			$('.shipping-item.phone .value').html(data.mlfrontAddressOne.addressTelephone || '');
-			$('.shipping-item.country .value').html(data.mlfrontAddressOne.addressCountry + ' ('+ data.mlfrontAddressOne.addressCountryCode +')');
-			$('.shipping-item.province .value').html(data.mlfrontAddressOne.addressProvince + ' ('+ data.mlfrontAddressOne.addressProvincecode +')');
-			$('.shipping-item.city .value').html(data.mlfrontAddressOne.addressCity || '');
-			$('.shipping-item.postcode .value').html(data.mlfrontAddressOne.addressPost || '');
-			$('.shipping-item.address .value').html(data.mlfrontAddressOne.addressDetail || '');
+			// order shipping
+			$('.order-shipping.firstname .value').html(data.mlfrontAddressOne.addressUserfirstname || '');
+			$('.order-shipping.lastname .value').html(data.mlfrontAddressOne.addressUserlastname || '');
+			$('.order-shipping.email .value').html(data.mlfrontAddressOne.addressEmail || '');
+			$('.order-shipping.phone .value').html(data.mlfrontAddressOne.addressTelephone || '');
+			$('.order-shipping.country .value').html(data.mlfrontAddressOne.addressCountry + ' ('+ data.mlfrontAddressOne.addressCountryCode +')');
+			$('.order-shipping.province .value').html(data.mlfrontAddressOne.addressProvince + ' ('+ data.mlfrontAddressOne.addressProvincecode +')');
+			$('.order-shipping.city .value').html(data.mlfrontAddressOne.addressCity || '');
+			$('.order-shipping.postcode .value').html(data.mlfrontAddressOne.addressPost || '');
+			$('.order-shipping.address .value').html(data.mlfrontAddressOne.addressDetail || '');
 			// billing
 			$('.billing-item.paymentid .value').html(data.mlPaypalShipAddressOne.shippingaddressPaymentid || '');
 			$('.billing-item.username .value').html(data.mlPaypalShipAddressOne.shippingaddressRecipientName || '');
@@ -822,6 +822,10 @@
 			$('.billing-item.postcode .value').html(data.mlPaypalShipAddressOne.shippingaddressPostalCode || '');
 			$('.billing-item.line1 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine1 || '');
 			$('.billing-item.line2 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine2 || '');
+
+			// checkout view order-list
+			renderCheckoutView(data.mlfrontCheckoutViewOne);
+
 			var paypaylAddressInfo = data.mlPaypalShipAddressOne.shippingaddressPaymentStr;
 			if (paypaylAddressInfo) {
 				var opaypal = JSON.parse(paypaylAddressInfo);
@@ -911,7 +915,70 @@
 						'</div>' +
 					'</div>';
 			});
-			$('.order-list').html(htmlStr || 'no product for order...');
+			$('.payinfo .order-list').html(htmlStr || 'no product for order...');
+		}
+		// render checkout view order-list
+		function renderCheckoutView(data) {
+			var htmlStr = '';
+			var checkoutViewAllPrice = 0;
+			if (data) {
+				var productSeoArr = data.checkoutviewOrderProseoStr && data.checkoutviewOrderProseoStr.split(',') || [],
+					productNumArr = data.checkoutviewOrderPronumStr && data.checkoutviewOrderPronumStr.split(',') || [],
+					productPriceArr = data.checkoutviewOrderitempskumoneystr && data.checkoutviewOrderitempskumoneystr.split(',') || [],
+					skuCodeArr = data.checkoutviewOrderOrderitempskucode && data.checkoutviewOrderOrderitempskucode.split(',') || [],
+					skuIdNameArr = data.checkoutviewOrderitempskuidnamestr && data.checkoutviewOrderitempskuidnamestr.split('.') || [],
+					skuNameArr = data.checkoutviewOrderitempskuname && data.checkoutviewOrderitempskuname.split('.') || [];
+				function genSkus(id) {
+					var skuHtml = '';
+					var optionNameArr = skuIdNameArr[id].split(',');
+					var optionValueArr = skuNameArr[id].split(',');
+					optionNameArr.forEach(function(item, idx) {
+						skuHtml += '<div class="order-poption-item">' +
+								'<div class="name">'+ item +': </div>' +
+								'<div class="value">'+ optionValueArr[idx] +'</div>' +
+							'</div>';
+					});
+					return skuHtml;
+				}
+				productSeoArr.forEach(function(item, idx) {
+					checkoutViewAllPrice += parseInt(productNumArr[idx], 10) * parseFloat(productPriceArr[idx]);
+					htmlStr += '<div class="order-item">' +
+							'<div class="order-product-base">' +
+								'<a class="order-product-link" href="${APP_PATH}/'+ productSeoArr[idx] +'.html" target="_blank">'+ productSeoArr[idx] +'</a>' +
+								'<div class="order-product-option">'+ genSkus(idx) +'</div>' +
+								'<div class="order-product-sku">SKU: '+ skuCodeArr[idx] +'</div>' +
+							'</div>' +
+							'<div class="order-product-cal">' +
+								'<div class="order-product-money">$'+ parseFloat(productPriceArr[idx]).toFixed(2) +'</div>' +
+								'<div class="order-product-divider">x</div>' +
+								'<div class="order-product-num">'+ productNumArr[idx] +'</div>' +
+								'<div class="order-product-total">$'+ (parseInt(productNumArr[idx], 10) * parseFloat(productPriceArr[idx])).toFixed(2) +'</div>' +
+							'</div>' +
+						'</div>';
+				});
+			} else {
+				htmlStr = 'no product for order...';
+			}
+
+			$('.checkout-view-box .order-list').html(htmlStr);
+
+			// checkout view order-info
+			$('.checkout-view-box .pay-prototal .value').html('$' + (checkoutViewAllPrice).toFixed(2));
+			$('.checkout-view-box .pay-discount .name').html(data.checkoutviewCouponCode || '--');
+			$('.checkout-view-box .pay-discount .value').html('-$' + (data.checkoutviewCouponPrice || '--'));
+			$('.checkout-view-box .pay-shipping .value').html('$' + data.checkoutviewAddressPrice);
+			$('.checkout-view-box .pay-final .value, .checkout-view-box  .pay-total .value').html('$' + (checkoutViewAllPrice + parseFloat(data.checkoutviewAddressPrice || 0) - (parseFloat(data.checkoutviewCouponPrice || 0))).toFixed(2));
+
+			// checkout view shipping
+			$('.checkout-view-shipping.firstname .value').html(data.checkoutviewUserfirstname || '--');
+			$('.checkout-view-shipping.lastname .value').html(data.checkoutviewUserlastname || '--');
+			$('.checkout-view-shipping.email .value').html(data.checkoutviewEmail || '--');
+			$('.checkout-view-shipping.phone .value').html(data.checkoutviewTelephone || '--');
+			$('.checkout-view-shipping.country .value').html((data.checkoutviewCountry || '--') + ' ('+ (data.checkoutviewCountryCode || '--') +')');
+			$('.checkout-view-shipping.province .value').html((data.checkoutviewProvince || '--') + ' ('+ (data.checkoutviewProvincecode || '--') +')');
+			$('.checkout-view-shipping.city .value').html(data.checkoutviewCity || '--');
+			$('.checkout-view-shipping.postcode .value').html(data.checkoutviewPost || '--');
+			$('.checkout-view-shipping.address .value').html(data.checkoutviewAddressdetail || '--');
 		}
 		//  callback get all
 		function getOrdersData(val) {
