@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.atguigu.bean.DownPayCheckDate;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.service.DownPayCheckDateService;
+import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
@@ -35,6 +37,9 @@ public class ExcleDownloadController {
 	
 	@Autowired
 	MlfrontUserService mlfrontUserService;
+	
+	@Autowired
+	MlbackProductService mlbackProductService;
 	
 	/**
 	 * zsh 201103
@@ -210,6 +215,89 @@ public class ExcleDownloadController {
 	        row.createCell(3).setCellValue(mlfrontUserOne.getUserTelephone()+"");
 	        row.createCell(4).setCellValue(mlfrontUserOne.getUserCreatetime());
 	    }
+		try {
+			OutputStream out =rep.getOutputStream();
+			wb.write(out);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * 下载注册客户email,telphone数据
+	 * */
+	@RequestMapping(value="/exportProUpdateWithInSomeDay",method=RequestMethod.GET)
+	public void exportProUpdateWithInSomeDay(HttpServletResponse rep,HttpServletRequest res,@RequestParam(value = "productMotifytime") String productMotifytime,HttpSession session){
+		
+		rep.setContentType("application/octet-stream");
+		
+		String nowTime = DateUtil.strTime14();
+		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"ProductUpdateWithIn24Hour.xls");
+		
+		HSSFWorkbook wb = new HSSFWorkbook();
+		
+		HSSFSheet sheet = wb.createSheet("sheet0");
+		
+		HSSFRow row = sheet.createRow(0);
+		
+		HSSFCell cell = row.createCell(0);
+		
+		MlbackProduct mlbackProductReq = new MlbackProduct();
+		mlbackProductReq.setProductMotifytime(productMotifytime);
+		
+		List<MlbackProduct> mlbackProductList= mlbackProductService.selectMlbackProductBeforeTime(mlbackProductReq);
+		System.out.println("下载注册客户的邮箱mlbackProductList.size():"+mlbackProductList.size());
+		
+		//user_id, user_email,user_telephone, user_createTime
+		
+		cell.setCellValue("product_id");
+	    cell = row.createCell(1);
+		cell.setCellValue("product_name");
+	    cell = row.createCell(2);
+		cell.setCellValue("product_meta_title");
+	    cell = row.createCell(3);
+	    cell.setCellValue("product_meta_desc");
+	    cell = row.createCell(4);
+	    cell.setCellValue("product_seo");
+	    cell = row.createCell(5);
+	    cell.setCellValue("product_originalPrice");
+	    cell = row.createCell(6);
+	    cell.setCellValue("product_actoffOff");
+	    cell = row.createCell(7);
+	    cell.setCellValue("product_status");
+	    cell = row.createCell(8);
+	    cell.setCellValue("product_mainimgurl");
+	    cell = row.createCell(9);
+	    cell.setCellValue("product_category_namesStr");
+	    cell = row.createCell(10);
+	    cell.setCellValue("product_motifyTime");
+	    cell = row.createCell(11);
+	    
+	    MlbackProduct mlbackProductOne = new MlbackProduct();
+	    for (int i = 0; i < mlbackProductList.size(); i++) {
+	    	mlbackProductOne = mlbackProductList.get(i);
+	        row = sheet.createRow(i+1);
+	        row.createCell(0).setCellValue(i+1);
+	        row.createCell(1).setCellValue(mlbackProductOne.getProductId());
+	        row.createCell(2).setCellValue(mlbackProductOne.getProductName()+"");
+	        row.createCell(3).setCellValue(mlbackProductOne.getProductMetaTitle()+"");
+	        row.createCell(4).setCellValue(mlbackProductOne.getProductMetaDesc()+"");
+	        row.createCell(5).setCellValue(mlbackProductOne.getProductSeo());
+	        row.createCell(6).setCellValue(mlbackProductOne.getProductOriginalprice()+"");
+	        row.createCell(7).setCellValue(mlbackProductOne.getProductActoffoff());
+	        row.createCell(8).setCellValue(mlbackProductOne.getProductStatus());
+	        row.createCell(9).setCellValue(mlbackProductOne.getProductMainimgurl()+"");
+	        row.createCell(10).setCellValue(mlbackProductOne.getProductCategoryNamesstr()+"");
+	        row.createCell(11).setCellValue(mlbackProductOne.getProductMotifytime()+"");
+	    }
+	    /**
+	     * product_id, product_name, product_meta_title, product_meta_desc, product_seo, product_originalPrice, product_actoffOff, 
+	     * product_status, product_mainimgurl, product_category_namesStr, 
+	     * product_motifyTime, product_meta_keyWords
+	     * */
 		try {
 			OutputStream out =rep.getOutputStream();
 			wb.write(out);

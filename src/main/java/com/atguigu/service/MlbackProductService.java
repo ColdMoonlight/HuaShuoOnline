@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.dao.MlbackProductMapper;
 
-
 @Service
 public class MlbackProductService {
 	
@@ -115,6 +114,11 @@ public class MlbackProductService {
 
 	public List<MlbackProduct> selectMlbackProductDownLoadByParam(MlbackProduct mlbackProductReq) {
 		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductDownLoadByParam(mlbackProductReq);
+		return mlbackProductList;
+	}
+
+	public List<MlbackProduct> selectMlbackProductBeforeTime(MlbackProduct mlbackProductReq) {
+		List<MlbackProduct>  mlbackProductList = mlbackProductMapper.selectMlbackProductBeforeTime(mlbackProductReq);
 		return mlbackProductList;
 	}
 

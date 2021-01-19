@@ -98,6 +98,7 @@ public class MlbackProductController {
 		//取出id
 		String nowTime = DateUtil.strTime14s();
 		mlbackProduct.setProductCreatetime(nowTime);
+		mlbackProduct.setProductMotifytime(nowTime);
 		mlbackProduct.setProductReviewnum(99);
 		//无id,insert
 		//System.out.println("插入前"+mlbackProduct.toString());
@@ -118,7 +119,7 @@ public class MlbackProductController {
 		Integer productId =  mlbackProduct.getProductId();
 		String productName = mlbackProduct.getProductName();
 		String nowTime = DateUtil.strTime14s();
-		mlbackProduct.setProductCreatetime(nowTime);
+		mlbackProduct.setProductMotifytime(nowTime);
 		
 		//先对这个产品选择的一些类,进行productIdStr的清理
 		//有id,update
