@@ -87,7 +87,7 @@
 			<div class="shop-review-base">Product Reviews(659)</div>
 			<!-- ins list -->
 			<div class="ins-box">
-				<div class="ins-body"></div>
+				<div class="ins-body"><div id="init-loading"></div></div>
 			</div>
 		</div>
 	<!-- main end -->
@@ -143,7 +143,7 @@
 					'<a class="btn btn-black" href="' + itemLink + '">Shop This Look</a>' +
 					'</div>';
 			});
-			$el.html(htmlStr);
+			$el.html(htmlStr).addClass('active');
 		}
 		new LazyLoad($('main').find('.lazyload'), {
 			root: null,

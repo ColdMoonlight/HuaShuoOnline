@@ -4227,7 +4227,7 @@ footer li {
 		padding: .5rem;
 		font-size: .875rem;
 	}
-	.ins-body {
+	.ins-body.active {
 		-webkit-column-count: 2;
 		-moz-column-count: 2;
 		column-count: 2;
@@ -4317,7 +4317,7 @@ footer li {
 		width: 80%;
 		margin: 0 auto;
 	}
-	.ins-body {
+	.ins-body.active {
 		-webkit-column-gap: 1rem;
 		-moz-column-gap: 1rem;
 		column-gap: 1rem;
@@ -4351,7 +4351,7 @@ footer li {
 		width: 100%;
 		height: 360px;
 	}
-	.ins-body {
+	.ins-body.active {
 		-webkit-column-count: 3;
 		-moz-column-count: 3;
 		column-count: 3;
@@ -4386,7 +4386,7 @@ footer li {
 		width: 100%;
 		height: 500px;
 	}
-	.ins-body {
+	.ins-body.active {
 		-webkit-column-count: 4;
 		-moz-column-count: 4;
 		column-count: 4;

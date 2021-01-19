@@ -12,6 +12,7 @@
 	<link href="${APP_PATH}/static/back/lib/codemirror/monokai.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
 	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 </head>
 
 <body class="c-app">
@@ -23,7 +24,13 @@
 				<div class="c-init">
 					<div class="c-option">
 						<span class="c-option-title">Products</span>
-						<div class="right-box">						
+						<div class="right-box">
+							<button class="btn btn-secondary" id="download-google-ad">
+								<svg class="c-icon">
+									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-export"></use>
+								</svg>
+								<span>Export Google-shopping Data</span>
+							</button>
 							<button class="btn btn-primary btn-create">Create product</button>
 							<button class="btn btn-secondary btn-copy">Copy product</button>
 						</div>
@@ -385,11 +392,14 @@
 	<jsp:include page="../common/videoModal.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/skuModal.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/imgModal.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/googleAdModal.jsp" flush="true"></jsp:include>
 
 	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
 	<script src="${APP_PATH}/static/back/lib/codemirror/codemirror.js"></script>
 	<script src="${APP_PATH}/static/back/lib/codemirror/xml.min.js"></script>
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
+	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
+	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 	<!-- custom script -->
 	<script>
 		var hasSuperCateList = false;
@@ -398,6 +408,9 @@
 		var hasInitSku = false;
 		var hasSkuListStatus = false;
 		var storageName = 'products';
+
+		bindDateTimepicker();
+
 		// init summernote editor for description
 		$('#productDesc').summernote({
 			height: 300,
@@ -500,6 +513,13 @@
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
+		});
+		// download google-ad data
+		$('#download-google-ad').on('click', function() {
+			$('#googleAdModal').modal('show');
+		});
+		$('#googleAdModal .btn-ok').on('click', function() {
+			window.location.href = "${APP_PATH}/ExcleDownload/exportProUpdateWithInSomeDay?productMotifytime="+$('#google-ad-time').val();
 		});
 		// copy product
 		$('.btn-copy').on('click', function () {

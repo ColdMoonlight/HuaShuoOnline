@@ -25,7 +25,7 @@
 					<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/ins/wap-title.jpg"></div>
 					<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/ins/pc-title.jpg"></div>
 				</div>			
-				<div class="ins-body"></div>
+				<div class="ins-body"><div id="init-loading"></div></div>
 			</div>		
 		</div>
 	<!-- main end -->
@@ -73,7 +73,7 @@
 						'<a class="btn btn-black" href="'+ itemLink +'">Shop This Look</a>' +
 					'</div>';
 			});
-			$el.html(htmlStr);
+			$el.html(htmlStr).addClass('active');
 		}
 		new LazyLoad($('main').find('.lazyload'), {
 			root: null,
