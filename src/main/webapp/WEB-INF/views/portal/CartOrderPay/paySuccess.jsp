@@ -223,7 +223,12 @@
 							'tax': 0,
 							'shipping': 0,
 							'items': payinfoOrderArr
-						});					
+						});
+						snaptr('track', 'PURCHASE', {
+							'currency': 'USD',
+							'price': String(orderData.payinfoMoney),
+							'transaction_id': resDataPayInfoOne.payinfoPlatenum
+						});
 					}, 0);
 				}
 			});

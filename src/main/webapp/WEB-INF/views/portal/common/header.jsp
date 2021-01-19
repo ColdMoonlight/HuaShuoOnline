@@ -8,8 +8,8 @@ var fbNoscript, gaScript, pinNoscript;
 /* Facebook Pixel Code */
 !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; n.queue=[];t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s)}(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', ml.facebook_id);
-fbq('track', 'PageView');
-fbq('track', 'ViewContent');
+!window.productId && fbq('track', 'PageView');
+!window.productId && fbq('track', 'ViewContent');
 fbNoscript = document.createElement('noscript');
 fbNoscript.innerHTML = '<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id='+ ml.facebook_id +'&ev=PageView&noscript=1" />';
 document.head.appendChild(fbNoscript);
@@ -32,4 +32,4 @@ document.head.appendChild(pinNoscript);
 <!-- bing Tag -->
 <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"25140444"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
 <!-- snapchat -->
-<script>(function(e,t,n){if(!e.snaptr){var a=e.snaptr=function(){a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};a.queue=[];var s="script";r=t.createElement(s),r.async=!0,r.src=n;var c=t.getElementsByTagName(s)[0];c.parentNode.insertBefore(r,c)}})(window,document,"https://sc-static.net/scevent.min.js"),snaptr("init","a8cfe4e2-6e20-4c56-af5d-1d62bde45547",{user_email:"megalookhairreview@gmail.com"}),snaptr("track","PAGE_VIEW");</script>
+<script>(function(e,t,n){if(!e.snaptr){var a=e.snaptr=function(){a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};a.queue=[];var s="script";r=t.createElement(s),r.async=!0,r.src=n;var c=t.getElementsByTagName(s)[0];c.parentNode.insertBefore(r,c)}})(window,document,"https://sc-static.net/scevent.min.js"),snaptr("init","a8cfe4e2-6e20-4c56-af5d-1d62bde45547",{user_email:"megalookhairreview@gmail.com"}),snaptr("track","PAGE_VIEW");snaptr('track','VIEW_CONTENT');</script>

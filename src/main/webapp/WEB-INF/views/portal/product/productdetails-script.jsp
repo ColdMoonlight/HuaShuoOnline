@@ -767,6 +767,11 @@
 						}
 					]
 				});
+				snaptr('track', 'ADD_CART', {
+					"currency": 'USD',
+					"price": reqData.cartitemProductOriginalprice * $('.product-qty .product-num').val(),
+					"item_ids": ["" + reqData.cartitemProductId],
+				});
 			}
 		}, 300);
 	});
