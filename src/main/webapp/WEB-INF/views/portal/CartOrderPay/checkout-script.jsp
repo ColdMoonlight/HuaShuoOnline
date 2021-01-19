@@ -552,6 +552,7 @@
 			if (item.name == 'addressProvince') $(item).data('value', data[item.name]);
 			$(item).val(data[item.name]);
 		});
+		isBackFill = true;
 	}
 	// get order pay info
 	function getOrderPayInfo() {
@@ -590,7 +591,7 @@
 				addressData && initOrderAddress(addressData);
 				$('.order-address-shipping').data('shipping', data.areafreightMoney).find('.value', '$' + data.areafreightMoney);
 			/* } */
-			countryCombineWithProvince();
+			countryCombineWithProvince();			
 		});
 		renderOrderPaymentMethod(); // 2
 		renderOrderBuyerMsg(); // 3
@@ -607,6 +608,7 @@
 			$('.order-list').data('orderid', data.orderId);
 		});
 		rednerOrderCal(); // 6
+		isBackFill && collectShippingAddress && collectShippingAddress();
 	}
 	var hasProvince = true;
 	// initial
