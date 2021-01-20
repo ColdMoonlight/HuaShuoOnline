@@ -63,12 +63,6 @@ public class MlbackCoupon {
 
     private String couponAllExceptPseostr;//优惠码支持全场(例外的产品Pseo集合)
     
-    private String couponSomeProductidstr;//几个产品专属券pid集合
-    
-    private String couponSomeProductseostr;//几个产品专属券Pseo集合
-    
-    private String couponSomeProductnamestr;//几个产品专属券Pname集合
-    
     /**是否客户专属券*/
     private Integer couponCodeUniqueEmailIF;//是否客户专属券0,非专属/1专属
     
@@ -297,30 +291,6 @@ public class MlbackCoupon {
 	public void setCouponCodeUniqueEmail(String couponCodeUniqueEmail) {
 		this.couponCodeUniqueEmail = couponCodeUniqueEmail == null ? null : couponCodeUniqueEmail.trim();
 	}
-	
-	public String getCouponSomeProductidstr() {
-		return couponSomeProductidstr;
-	}
-
-	public void setCouponSomeProductidstr(String couponSomeProductidstr) {
-		this.couponSomeProductidstr = couponSomeProductidstr == null ? null : couponSomeProductidstr.trim();
-	}
-
-	public String getCouponSomeProductseostr() {
-		return couponSomeProductseostr;
-	}
-
-	public void setCouponSomeProductseostr(String couponSomeProductseostr) {
-		this.couponSomeProductseostr = couponSomeProductseostr == null ? null : couponSomeProductseostr.trim();
-	}
-
-	public String getCouponSomeProductnamestr() {
-		return couponSomeProductnamestr;
-	}
-
-	public void setCouponSomeProductnamestr(String couponSomeProductnamestr) {
-		this.couponSomeProductnamestr = couponSomeProductnamestr == null ? null : couponSomeProductnamestr.trim();
-	}
 
 	public MlbackCoupon() {
 		super();
@@ -333,26 +303,25 @@ public class MlbackCoupon {
 			String couponEndtime, Integer couponProductonlyType, String couponProductonlyPidstr,
 			String couponProductseonamesstronlyPid, String couponProductpronamesstronlyPid, String couponApplyCateidstr,
 			String couponApplyCateSeostr, String couponProsFromApplyCateidstr, String couponAllExceptPidstr,
-			String couponAllExceptPseostr, String couponSomeProductidstr, String couponSomeProductseostr,
-			String couponSomeProductnamestr, Integer couponCodeUniqueEmailIF, String couponCodeUniqueEmail) {
+			String couponAllExceptPseostr, Integer couponCodeUniqueEmailIF, String couponCodeUniqueEmail) {
 		super();
 		this.couponId = couponId;
 		this.couponName = couponName;
-		this.couponCode = couponCode;
-		this.couponStatus = couponStatus;
-		this.couponType = couponType;
 		this.couponPrice = couponPrice;
 		this.couponPriceoff = couponPriceoff;
 		this.couponPriceBaseline = couponPriceBaseline;
+		this.couponStatus = couponStatus;
+		this.couponCode = couponCode;
+		this.couponType = couponType;
 		this.couponLuckdrawType = couponLuckdrawType;
 		this.couponLuckdrawWeight = couponLuckdrawWeight;
-		this.couponImgUrl = couponImgUrl;
 		this.couponTimes = couponTimes;
 		this.couponAlltimes = couponAlltimes;
 		this.couponCreatetime = couponCreatetime;
 		this.couponMotifytime = couponMotifytime;
 		this.couponStarttime = couponStarttime;
 		this.couponEndtime = couponEndtime;
+		this.couponImgUrl = couponImgUrl;
 		this.couponProductonlyType = couponProductonlyType;
 		this.couponProductonlyPidstr = couponProductonlyPidstr;
 		this.couponProductseonamesstronlyPid = couponProductseonamesstronlyPid;
@@ -362,9 +331,6 @@ public class MlbackCoupon {
 		this.couponProsFromApplyCateidstr = couponProsFromApplyCateidstr;
 		this.couponAllExceptPidstr = couponAllExceptPidstr;
 		this.couponAllExceptPseostr = couponAllExceptPseostr;
-		this.couponSomeProductidstr = couponSomeProductidstr;
-		this.couponSomeProductseostr = couponSomeProductseostr;
-		this.couponSomeProductnamestr = couponSomeProductnamestr;
 		this.couponCodeUniqueEmailIF = couponCodeUniqueEmailIF;
 		this.couponCodeUniqueEmail = couponCodeUniqueEmail;
 	}
@@ -384,8 +350,6 @@ public class MlbackCoupon {
 				+ couponApplyCateidstr + ", couponApplyCateSeostr=" + couponApplyCateSeostr
 				+ ", couponProsFromApplyCateidstr=" + couponProsFromApplyCateidstr + ", couponAllExceptPidstr="
 				+ couponAllExceptPidstr + ", couponAllExceptPseostr=" + couponAllExceptPseostr
-				+ ", couponSomeProductidstr=" + couponSomeProductidstr + ", couponSomeProductseostr="
-				+ couponSomeProductseostr + ", couponSomeProductnamestr=" + couponSomeProductnamestr
 				+ ", couponCodeUniqueEmailIF=" + couponCodeUniqueEmailIF + ", couponCodeUniqueEmail="
 				+ couponCodeUniqueEmail + "]";
 	}
