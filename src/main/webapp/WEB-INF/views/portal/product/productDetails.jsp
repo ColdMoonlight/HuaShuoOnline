@@ -38,6 +38,7 @@
 		.product-together-cal { margin-bottom: 1rem; } 
 		.product-together-info-item { margin-top: .5rem; }
 		.proudct-together-name { margin-left: .5rem; font-size: 1.2rem;  color: #333; }
+		.product-together-check { -webkit-appearance: auto;  appearance: auto;}
 		.product-together-select { margin-left: 1rem; padding: .25rem .5rem; background-color: #fff; }
 		.product-together-oprice { margin-left: .5rem; color: #333; text-decoration: line-through; font-weight: 500; }
 		.product-together-dprice { margin-left: .5rem; color: #ff0000; font-weight: 500; }
