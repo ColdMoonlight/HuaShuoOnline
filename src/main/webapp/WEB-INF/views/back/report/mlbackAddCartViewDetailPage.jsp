@@ -29,9 +29,9 @@
 								</svg>
 							</label>
 							<div class="controls">
-								<input hidden id="search-checkout-create-time" />
-								<input hidden id="search-checkout-confirm-time" />
-								<input class="form-control daterangetimepicker" id="search-checkout-time" type="text" />
+								<input hidden id="search-cart-create-time" />
+								<input hidden id="search-cart-confirm-time" />
+								<input class="form-control daterangetimepicker" id="search-cart-time" type="text" />
 							</div>
 						</div>
 					</div>
