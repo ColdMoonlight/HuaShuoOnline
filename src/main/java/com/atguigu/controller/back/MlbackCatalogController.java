@@ -259,7 +259,8 @@ public class MlbackCatalogController {
 			MlbackCatalogSecReq.setCatalogParentId(CatalogFirstId);
 			
 			//查询该父id下的全部Catalog信息
-			List<MlbackCatalog> CatalogNowSecondList = mlbackCatalogService.selectCataloglistByParam(MlbackCatalogSecReq);
+//			List<MlbackCatalog> CatalogNowSecondList = mlbackCatalogService.selectCataloglistByParam(MlbackCatalogSecReq);
+			List<MlbackCatalog> CatalogNowSecondList = mlbackCatalogService.selectCataloglistByParamOnlyFrontUsed(MlbackCatalogSecReq);
 			//System.out.println("操作说明:客户查询-本二级的菜单完毕Catalog-菜单");
 			
 			List<List<MlbackCatalog>> MlbackCatalogfirstdownList =new ArrayList<List<MlbackCatalog>>();
@@ -271,7 +272,8 @@ public class MlbackCatalogController {
 				//准备参数，请求此二级下的三级菜单
 				MlbackCatalog MlbackCatalogReq = new MlbackCatalog();
 				MlbackCatalogReq.setCatalogParentId(CatalogId);
-				List<MlbackCatalog> MlbackCatalogReqList = mlbackCatalogService.selectCataloglistByParam(MlbackCatalogReq);
+//				List<MlbackCatalog> MlbackCatalogReqList = mlbackCatalogService.selectCataloglistByParam(MlbackCatalogReq);
+				List<MlbackCatalog> MlbackCatalogReqList = mlbackCatalogService.selectCataloglistByParamOnlyFrontUsed(MlbackCatalogReq);
 				
 				if(MlbackCatalogReqList.size()>0){
 					for(int i=0;i<MlbackCatalogReqList.size();i++){
