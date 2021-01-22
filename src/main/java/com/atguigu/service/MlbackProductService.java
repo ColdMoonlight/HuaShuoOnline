@@ -122,4 +122,9 @@ public class MlbackProductService {
 		return mlbackProductList;
 	}
 
+	public List<MlbackProduct> selectMlbackProductSimpleByParamOnlyProDateilUsed(MlbackProduct mlbackProductReq) {
+		List<MlbackProduct>  mlbackCategoryList = mlbackProductMapper.selectMlbackProductSimpleByParamOnlyProDateilUsed(mlbackProductReq);
+		return mlbackCategoryList;
+	}
+
 }

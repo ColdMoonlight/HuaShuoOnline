@@ -286,12 +286,20 @@
   </select>
   <!-- selectMlbackSlidewapListByArea -->
   <select id="selectMlbackSlidewapListByArea" parameterType="com.atguigu.bean.MlbackSlide" resultMap="BaseResultMap">
-    select *
+    select 
+    slide_id, slide_name, slide_area, slide_firth_num, slide_wapstatus, slide_pcstatus, 
+    slide_wapimgurl, slide_pcimgurl, slide_proid, slide_proname, slide_seoname, slide_cateid, 
+    slide_catename, slide_cateSeoname, slide_ifproORcateORpage, slide_pagename, slide_pageSeoname, 
+    slide_ifinto 
     from tb_mlback_slide where slide_wapstatus = #{slideWapstatus,jdbcType=INTEGER} and slide_area = #{slideArea,jdbcType=INTEGER} order by slide_firth_num
   </select>
   <!-- selectMlbackSlidepcListByArea -->
   <select id="selectMlbackSlidepcListByArea" parameterType="com.atguigu.bean.MlbackSlide" resultMap="BaseResultMap">
-    select *
+    select
+    slide_id, slide_name, slide_area, slide_firth_num, slide_wapstatus, slide_pcstatus, 
+    slide_wapimgurl, slide_pcimgurl, slide_proid, slide_proname, slide_seoname, slide_cateid, 
+    slide_catename, slide_cateSeoname, slide_ifproORcateORpage, slide_pagename, slide_pageSeoname, 
+    slide_ifinto 
     from tb_mlback_slide where slide_pcstatus = #{slidePcstatus,jdbcType=INTEGER} and slide_area = #{slideArea,jdbcType=INTEGER} order by slide_firth_num
   </select>
 </mapper>
