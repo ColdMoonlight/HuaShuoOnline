@@ -640,4 +640,42 @@
     where product_motifyTime > #{productMotifytime,jdbcType=VARCHAR}
   </select>
   
+  <!-- selectMlbackProductSimpleByParamOnlyProDateilUsed -->
+  <select id="selectMlbackProductSimpleByParamOnlyProDateilUsed" parameterType="com.atguigu.bean.MlbackProduct" resultMap="BaseResultMap">
+    select 
+    product_id, product_name, product_seo, product_superCateId, product_superCateName, product_videourl, product_videoimgurl,product_needProTogetherId,
+    product_mainimgurl, product_discoutimgurl, product_discoutimgshow,
+    product_originalPrice, product_haveSaleNum, product_status,
+    product_lable, product_firsth, product_actoffOff, product_reviewNum
+    from tb_mlback_product
+    where product_reviewNum >=0
+      <if test="productId != null">
+        and product_id = #{productId,jdbcType=INTEGER}
+      </if>
+      <if test="productName != null">
+        and product_name = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="productSeo != null">
+        and product_seo = #{productSeo,jdbcType=VARCHAR}
+      </if>
+      <if test="productSupercateid != null">
+        and product_superCateId = #{productSupercateid,jdbcType=INTEGER}
+      </if>
+      <if test="productSupercatename != null">
+        and product_superCateName = #{productSupercatename,jdbcType=VARCHAR}
+      </if>
+      <if test="productStatus != null">
+        and product_status = #{productStatus,jdbcType=INTEGER}
+      </if>
+      <if test="productLable != null">
+        and product_lable = #{productLable,jdbcType=INTEGER}
+      </if>
+      <if test="productFirsth != null">
+        and product_firsth = #{productFirsth,jdbcType=INTEGER}
+      </if>
+      <if test="productActoffoff != null">
+        and product_actoffOff = #{productActoffoff,jdbcType=INTEGER}
+      </if>
+  </select>
+  
 </mapper>

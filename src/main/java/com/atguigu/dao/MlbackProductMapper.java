@@ -55,4 +55,5 @@ public interface MlbackProductMapper {
 
 	List<MlbackProduct> selectMlbackProductBeforeTime(MlbackProduct mlbackProductReq);
 
+	List<MlbackProduct> selectMlbackProductSimpleByParamOnlyProDateilUsed(MlbackProduct mlbackProductReq);
 }

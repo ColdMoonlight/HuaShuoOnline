@@ -246,7 +246,8 @@ public class MlbackSlidesController {
 				mlbackProductOne.setProductId(proId);
 				mlbackProductOne.setProductStatus(1);
 				//List<MlbackProduct> mlbackProductList  = mlbackProductService.selectMlbackProductByParam(mlbackProductOne);
-				List<MlbackProduct> mlbackProductList  = mlbackProductService.selectMlbackProductSimpleByParam(mlbackProductOne);
+//				List<MlbackProduct> mlbackProductList  = mlbackProductService.selectMlbackProductSimpleByParam(mlbackProductOne);
+				List<MlbackProduct> mlbackProductList  = mlbackProductService.selectMlbackProductSimpleByParamOnlyProDateilUsed(mlbackProductOne);
 				if(mlbackProductList.size()>0){
 					mlbackProductResList.add(mlbackProductList.get(0));
 				}
