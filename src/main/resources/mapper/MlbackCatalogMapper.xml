@@ -429,4 +429,26 @@
     catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
     from tb_mlback_catalog where catalog_status = 1 order by catalog_parent_id,catalog_firth_num
   </select>
+  <!-- 使用中selectCataloglistByParamOnlyFrontUsed -->
+  <select id="selectCataloglistByParamOnlyFrontUsed" parameterType="com.atguigu.bean.MlbackCatalog" resultMap="BaseResultMap">
+  	select
+  	catalog_id, catalog_name, catalog_parent_id, catalog_superCate_id, 
+    catalog_superCate_name, catalog_status, catalog_lable, catalog_firth_num, catalog_ifinto, catalog_ifproORcateORpage, 
+    catalog_proid, catalog_proname, catalog_seoname, catalog_cateid, catalog_catename, 
+    catalog_cateSeoname, catalog_pagename, catalog_pageSeoname
+  	from tb_mlback_catalog where catalog_status = 1
+    <if test="catalogId != null">
+      and catalog_id = #{catalogId,jdbcType=INTEGER}
+    </if>
+    <if test="catalogName != null">
+      and catalog_name = #{catalogName,jdbcType=VARCHAR}
+    </if>
+    <if test="catalogParentId != null">
+      and catalog_parent_id = #{catalogParentId,jdbcType=INTEGER}
+    </if>
+    <if test="catalogLable != null">
+      and catalog_lable = #{catalogLable,jdbcType=INTEGER}
+    </if>
+    order by catalog_parent_id,catalog_firth_num
+  </select>
 </mapper>
