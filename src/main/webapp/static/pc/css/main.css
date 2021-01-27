@@ -2839,7 +2839,8 @@ footer li {
 		padding: 1rem;
 	}
 	.cart-img,
-	.order-img {	
+	.order-img,
+	.free-gift-img {	
 		width: 5.5rem;
 		height: 5.5rem;
 	}

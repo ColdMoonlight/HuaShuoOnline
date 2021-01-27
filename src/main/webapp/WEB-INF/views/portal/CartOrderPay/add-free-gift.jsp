@@ -20,7 +20,7 @@
 			'</div>' +
 		'</div>';
 
-		$('.cart-list, .checkout-order-list').append($(htmlStr));
+		$('.cart-list, .order-list').append($(htmlStr));
 		
 		new LazyLoad($('.free-gift-img'), {
 			root: null,
@@ -34,7 +34,6 @@
 		if (price < 100) {
 			$('.free-gift-list').find('.free-gift-item.free-2').addClass('hide');
 		} else {
-			console.log('x')
 			$('.free-gift-list').find('.free-gift-item.free-2').removeClass('hide');
 		}
 	}
