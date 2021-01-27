@@ -26,7 +26,8 @@
 	<!-- common footer script -->
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<!-- header script  -->
-	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>	
+	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
+	<jsp:include page="./add-free-gift.jsp" flush="true"></jsp:include>
 	<!-- cartlist script -->	
 	<jsp:include page="./cartlist-script.min.jsp" flush="true"></jsp:include>
 	<!-- footer script -->
