@@ -34,14 +34,14 @@
 					<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-recommend.jpg"></div>
 				</div>			
 				<div class="video-recommend-body">
-					<div class="video-recommend-item shadow-radius lazyload" data-id="157" data-video="https://www.youtube.com/embed/zD5dgYYDb08" data-src="${APP_PATH }/static/pc/img/video/pro/vd1.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="109" data-video="https://www.youtube.com/embed/qp91g1hg9nM" data-src="${APP_PATH }/static/pc/img/video/pro/vd2.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="193" data-video="https://www.youtube.com/embed/u9M_pFxuLOA" data-src="${APP_PATH }/static/pc/img/video/pro/vd3.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="84" data-video="https://www.youtube.com/embed/2cJvNAYpI6Y" data-src="${APP_PATH }/static/pc/img/video/pro/vd4.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="110" data-video="https://www.youtube.com/embed/BYgVHjc6P3k" data-src="${APP_PATH }/static/pc/img/video/pro/vd5.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="80" data-video="https://www.youtube.com/embed/TD4mGC5xNcU" data-src="${APP_PATH }/static/pc/img/video/pro/vd6.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="140" data-video="https://www.youtube.com/embed/TD4mGC5xNcU" data-src="${APP_PATH }/static/pc/img/video/pro/vd7.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="251" data-video="https://www.youtube.com/embed/zoZm8cPDLKM" data-src="${APP_PATH }/static/pc/img/video/pro/vd8.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="157" data-video="https://www.youtube.com/embed/zD5dgYYDb08?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=zD5dgYYDb08&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd1.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="109" data-video="https://www.youtube.com/embed/qp91g1hg9nM?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=qp91g1hg9nM&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd2.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="193" data-video="https://www.youtube.com/embed/u9M_pFxuLOA?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=u9M_pFxuLOA&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd3.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="84" data-video="https://www.youtube.com/embed/2cJvNAYpI6Y?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=2cJvNAYpI6Y&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd4.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="110" data-video="https://www.youtube.com/embed/BYgVHjc6P3k?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=BYgVHjc6P3k&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd5.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="80" data-video="https://www.youtube.com/embed/TD4mGC5xNcU?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=TD4mGC5xNcU&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd6.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="140" data-video="https://www.youtube.com/embed/TD4mGC5xNcU?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=TD4mGC5xNcU&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd7.jpg"></div>
+					<div class="video-recommend-item shadow-radius lazyload" data-id="251" data-video="https://www.youtube.com/embed/zoZm8cPDLKM?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=zoZm8cPDLKM&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd8.jpg"></div>
 				</div>
 			</div>
 			<!-- video collection -->
