@@ -124,7 +124,6 @@ public class BackHomeController {
 			UrlCount urlCountRes = urlCountList.get(0);
 			moreBuyNumStr = urlCountRes.getUrlStringNum();
 		}
-		
 		return Msg.success().add("resMsg", "统计面板某时间内的复购率").add("moreBuyNum", moreBuyNumStr);
 	}
 	
