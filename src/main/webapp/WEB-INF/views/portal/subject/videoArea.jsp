@@ -110,7 +110,8 @@
 			var videoLink = $(this).data('video');
 			var urlLink = $(this).data('link');
 			var urlName = $(this).data('name');
-			videoLink = videoLink && ('https://www.youtube.com/embed/' + matchYoutubeUrl(videoLink));
+			var videoId = matchYoutubeUrl(videoLink);
+			videoLink = videoLink && ('https://www.youtube.com/embed/' + videoId + '?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist='+ videoId +'&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0');
 			if (tag == 0) {
 				productId && getOneProductData({ "productId": productId }, function(data) {
 					renderVideoData(data, videoLink);
