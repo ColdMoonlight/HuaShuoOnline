@@ -129,6 +129,9 @@
 		'</div>');
 		$('main .container').html('').append($cartHeader).append($('<div class="cart-body" />').append($cartList).append($cartCal));
 
+		renderFreeGift();
+		showFreeGift(calCart.price);
+
 		new LazyLoad($cartList.find('.lazyload'), {
 			root: null,
 			rootMargin: "10px",
@@ -146,6 +149,7 @@
 			resData.count += data.cartitemProductNumber;
 			resData.price += parseFloat((parseFloat(accuracyCal(((data.cartitemProductOriginalprice || 0) + (parseFloat(data.cartitemProductskuMoneystr) || 0)), (data.cartitemProductActoff || 100))) * (data.cartitemProductNumber || 1)).toFixed(2));
 		});
+		showFreeGift(resData.price);
 		return resData;
 	}
 	// update cart cal

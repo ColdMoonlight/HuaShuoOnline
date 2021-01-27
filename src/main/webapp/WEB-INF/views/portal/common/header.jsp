@@ -29,7 +29,9 @@ pinNoscript = document.createElement('noscript');
 pinNoscript.innerHTML = '<img height="1" width="1" style="display:none;" alt="" src="https://ct.pinterest.com/v3/?event=init&tid='+ ml.pinterest_id +'&pd[em]='+ ml.pinterest_hash_email +'&noscript=1" />';
 document.head.appendChild(pinNoscript);
 </script>
-<!-- bing Tag -->
+<!-- bing Tag
 <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"25140444"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
-<!-- snapchat -->
+ -->
+<!-- snapchat
 <script>(function(e,t,n){if(!e.snaptr){var a=e.snaptr=function(){a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};a.queue=[];var s="script";r=t.createElement(s),r.async=!0,r.src=n;var c=t.getElementsByTagName(s)[0];c.parentNode.insertBefore(r,c)}})(window,document,"https://sc-static.net/scevent.min.js"),snaptr("init","a8cfe4e2-6e20-4c56-af5d-1d62bde45547",{user_email:"megalookhairreview@gmail.com"}),snaptr("track","PAGE_VIEW");snaptr('track','VIEW_CONTENT');</script>
+ -->

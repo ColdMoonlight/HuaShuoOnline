@@ -317,6 +317,8 @@
 
 		if (resData.coupon <= 0) $('.order-coupon-group').data('coupon', '');
 
+		showFreeGift(resData.prototal);
+		
 		return resData;
 	}
 	// reset order  cal
@@ -605,6 +607,7 @@
 				return ;
 			}
 			renderOrderList(orderListData);
+			renderFreeGift();
 			$('.order-list').data('orderid', data.orderId);
 		});
 		rednerOrderCal(); // 6
