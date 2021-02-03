@@ -63,6 +63,7 @@
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<!-- header script  -->
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
+	<jsp:include page="./add-free-gift.jsp" flush="true"></jsp:include>
 	<script type="text/javascript">
 		function getPayInfo(reqData, callback) {
 			$.ajax({
@@ -128,7 +129,10 @@
 					'</div>';
 			});
 			$('.payment-order .payment-product').html(paymentProductHtml);
-
+			
+			renderFreeGift();
+			showFreeGift(parseFloat(data.payinfoMoney) + parseFloat(data.orderCouponPrice) - data.shipping);
+			
 			var paymentCalHtml = '';
 			paymentCalHtml = '<div class="payment-cal-item">' +
 					'<span class="name">prototal: </span>' +

@@ -20,7 +20,7 @@
 			'</div>' +
 		'</div>';
 
-		$('.cart-list, .order-list').append($(htmlStr));
+		$('.cart-list, .order-list, .payment-order .payment-product').append($(htmlStr));
 		
 		new LazyLoad($('.free-gift-img'), {
 			root: null,
