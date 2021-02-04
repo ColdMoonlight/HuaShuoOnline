@@ -129,7 +129,7 @@
 					'</div>';
 			});
 			$('.payment-order .payment-product').html(paymentProductHtml);
-			
+
 			renderFreeGift();
 			showFreeGift(parseFloat(data.payinfoMoney) + parseFloat(data.orderCouponPrice) - data.shipping);
 			
