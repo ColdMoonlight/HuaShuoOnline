@@ -3,6 +3,7 @@
 <script>
 	function renderFreeGift() {
 		var htmlStr = '<div class="free-gift-list hide">' +
+			'<div style="text-align: center; padding: 1rem 0; border-top: 1px solid #ccc;">Buy More, get More Free Gift.</div>' +
 			'<div class="free-gift-item free-1">' +
 				'<div class="free-gift-img lazyload" data-src="${APP_PATH}/static/pc/img/free-gift/free-gift-1.png"></div>' +
 				'<div class="free-gift-name">Megalook Free Gift Silk Headband High Quality 1pc</div>' +
