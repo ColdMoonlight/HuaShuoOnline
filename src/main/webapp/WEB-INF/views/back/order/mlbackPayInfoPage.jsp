@@ -163,7 +163,15 @@
 							<div class="card">
 								<div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
 									<div class="card-title-name">Order Info</div>
-									<button class="btn btn-primary hide" id="checkout-view">Checkout View</button>
+									<div>
+										<div class="btn btn-dark hide" id="unpaid-link">
+											<svg class="c-icon" style="fill: #fff;">
+												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-copy"></use>
+											</svg>
+											<span>re-purchase link</span>
+										</div>
+										<button class="btn btn-primary hide" id="checkout-view">Checkout View</button>
+									</div>
 								</div>
 								<div class="payinfo card-body">
 									<div class="order-list">
@@ -585,6 +593,36 @@
 		$('#checkout-view').on('click', function() {
 			$('#checkoutViewModal').modal('show');
 		});
+		// copy unpaid link
+		$('#unpaid-link').on('click', function() {
+			function copyToClipboard(str) {
+				var el = document.createElement('textarea');
+				el.value = str;
+				el.setAttribute('readonly', '');
+				el.style.position = 'absolute';
+				el.style.left = '-9999px';
+				document.body.appendChild(el);
+				var selected =
+				  document.getSelection().rangeCount > 0
+				    ? document.getSelection().getRangeAt(0)
+				    : false;
+				el.select();
+				document.execCommand('copy');
+				document.body.removeChild(el);
+				if (selected) {
+					document.getSelection().removeAllRanges();
+					document.getSelection().addRange(selected);
+				}
+			};
+			var unpaidLink = $(this).data('link');
+			if (unpaidLink) {
+				copyToClipboard($(this).data('link'));
+				toastr.success('拷贝复购链接成功...');
+			} else {
+				toastr.error('拷贝复购链接失败...');
+			}
+			
+		});
 		// pay track log
 		$('#pay-track').on('click', function() {
 			if ($('.pre-code-content').data('flag')) {
@@ -780,9 +818,10 @@
 			$('.pay-end-time .value').html(data.mlfrontPayInfoOne.payinfoReturntime || '');
 			
 			/* order operate */
-			$('.payinfo-group .btn, #checkout-view').addClass('hide');
+			$('.payinfo-group .btn, #checkout-view, #unpaid-link').addClass('hide');
 			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
-				$('.btn-abandon-purchase,.btn-close,#checkout-view').removeClass('hide');
+				$('.btn-abandon-purchase,.btn-close,#checkout-view,#unpaid-link').removeClass('hide');
+				$('#unpaid-link').data('link', window.location.host + '${APP_PATH}/checkoutRecover/' + data.mlfrontOrderPayOneRes.orderId + '.html');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
 				$('.btn-audit,.btn-refund').removeClass('hide');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 || data.mlfrontPayInfoOne.payinfoStatus == 3) {
