@@ -18,8 +18,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.atguigu.bean.MlbackAddCartViewDetail;
 import com.atguigu.bean.MlbackAddCheakoutViewDetail;
 import com.atguigu.bean.MlbackProduct;
-import com.atguigu.bean.MlbackProductImg;
-import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontCart;
 import com.atguigu.bean.MlfrontCartItem;
 import com.atguigu.bean.MlfrontOrder;
@@ -100,15 +98,11 @@ public class MlfrontCartController {
 		//带着id进来了
 		MlfrontOrder mlfrontOrderInto = new MlfrontOrder();
 		mlfrontOrderInto.setOrderId(orderId);
-
 		List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderInto);
 		if(mlfrontOrderList.size()>0){
 			MlfrontOrder mlfrontOrderOne = mlfrontOrderList.get(0);
-			
 			Integer orderStatus = mlfrontOrderOne.getOrderStatus();
-			
 			Integer addressId = mlfrontOrderOne.getOrderAddressinfoId();
-			
 			if(orderStatus>0){
 				//此订单不是弃购订单
 				//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款//6发送弃购//7重复单关闭
@@ -117,23 +111,17 @@ public class MlfrontCartController {
 			}else{
 				//这是弃购订单,开始操作；
 				//要判断这一单是不是登陆客户
-				
 				if(mlfrontOrderOne.getOrderUid()==null){
 					//是游客
 					session.setAttribute("orderId", orderId);
 					session.setAttribute("addressId", addressId);
-					
 				}else{
-					
 					//取出客户id,查询账号密码
 					MlfrontUser mlfrontUserReq =new MlfrontUser();
-					
 					Integer userId = mlfrontOrderOne.getOrderUid();
-					
 					mlfrontUserReq.setUserId(userId);
 					List<MlfrontUser> mlfrontUserList = mlfrontUserService.selectMlfrontUserByConditionS(mlfrontUserReq);
 					if(mlfrontUserList.size()>0){
-						
 						MlfrontUser mlfrontUserRes = mlfrontUserList.get(0);
 						session.setAttribute("loginUser", mlfrontUserRes);
 						session.setAttribute("orderId", orderId);
@@ -145,11 +133,9 @@ public class MlfrontCartController {
 					}
 				}
 				modelAndView.setViewName("portal/CartOrderPay/checkOut");
-				return modelAndView; 
+				return modelAndView;
 			}
-			
 		}else{
-			
 			//先判断这个orderid在不在,不在直接跳转该订单已经结束;
 			modelAndView.setViewName("redirect:/");
 			return modelAndView;
