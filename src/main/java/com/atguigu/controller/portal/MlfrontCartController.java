@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -26,10 +27,12 @@ import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAddCartViewDetailService;
 import com.atguigu.service.MlbackAddCheakoutViewDetailService;
 import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontCartItemService;
 import com.atguigu.service.MlfrontCartService;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
+import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
 
 @Controller
@@ -57,6 +60,12 @@ public class MlfrontCartController {
 	@Autowired
 	MlbackAddCheakoutViewDetailService mlbackAddCheakoutViewDetailService;
 	
+	@Autowired
+	MlfrontAddressService mlfrontAddressService;
+	
+	@Autowired
+	MlfrontUserService mlfrontUserService;
+	
 	/**
 	 * 1.0	zsh200729
 	 * 前台购物车列表页面toCartList
@@ -80,6 +89,58 @@ public class MlfrontCartController {
 		
 		return "portal/CartOrderPay/checkOut";
 	}
+	
+	//这里加方法
+	@RequestMapping(value="/toCheakOutMoreBuyByhtml",method=RequestMethod.GET)
+	 public ModelAndView toCheakOutMoreBuyByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "orderId") Integer orderId) throws Exception{
+	
+		ModelAndView modelAndView = new ModelAndView();
+		//带着id进来了
+		MlfrontOrder mlfrontOrderInto = new MlfrontOrder();
+		mlfrontOrderInto.setOrderId(orderId);
+		List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderInto);
+		if(mlfrontOrderList.size()>0){
+			MlfrontOrder mlfrontOrderOne = mlfrontOrderList.get(0);
+			Integer orderStatus = mlfrontOrderOne.getOrderStatus();
+			Integer addressId = mlfrontOrderOne.getOrderAddressinfoId();
+			if(orderStatus>0){
+				//此订单不是弃购订单
+				//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款//6发送弃购//7重复单关闭
+				modelAndView.setViewName("redirect:/");
+				return modelAndView;
+			}else{
+				//这是弃购订单,开始操作；
+				//要判断这一单是不是登陆客户
+				if(mlfrontOrderOne.getOrderUid()==null){
+					//是游客
+					session.setAttribute("orderId", orderId);
+					session.setAttribute("addressId", addressId);
+				}else{
+					//取出客户id,查询账号密码
+					MlfrontUser mlfrontUserReq =new MlfrontUser();
+					Integer userId = mlfrontOrderOne.getOrderUid();
+					mlfrontUserReq.setUserId(userId);
+					List<MlfrontUser> mlfrontUserList = mlfrontUserService.selectMlfrontUserByConditionS(mlfrontUserReq);
+					if(mlfrontUserList.size()>0){
+						MlfrontUser mlfrontUserRes = mlfrontUserList.get(0);
+						session.setAttribute("loginUser", mlfrontUserRes);
+						session.setAttribute("orderId", orderId);
+						session.setAttribute("addressId", addressId);
+					}else{
+						//没查到数据,数据错误，直接回页面吧
+						modelAndView.setViewName("redirect:/");
+						return modelAndView;
+					}
+				}
+				modelAndView.setViewName("portal/CartOrderPay/checkOut");
+				return modelAndView;
+			}
+		}else{
+			//先判断这个orderid在不在,不在直接跳转该订单已经结束;
+			modelAndView.setViewName("redirect:/");
+			return modelAndView;
+		}
+	 }
 	
 	/**
 	 * 3.0	200612
