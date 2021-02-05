@@ -28,6 +28,10 @@
         <to type="forward">/MlbackFootNav/toFootNavDetailByfootSeoPage?footnavSeo=$1</to>
     </rule>
     <rule>
+        <from>^/checkoutRecover/([a-z0-9A-Z-]{5,60}).html</from>
+        <to type="forward">/MlbackCart/toCheakOutMoreBuyByhtml?orderId=$1</to>
+    </rule>
+    <rule>
         <from>^/myCart.html</from>
         <to>/MlbackCart/toCartList</to>
     </rule>
