@@ -88,7 +88,8 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-export"></use>
 								</svg>
 								<span>Export</span>
-							</button>						
+							</button>
+							<div class="btn btn-dark hide" id="send-sms"> send SMS </div>
 							<!-- <button class="btn btn-primary download-ecpp" id="download-ecpp">Download Ecpp Data</button> -->			
 							<button class="btn btn-info ecpp-verify-sync">checkEcppIfVerify</button>						
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
@@ -592,6 +593,35 @@
 			console.log("payinfoStatus:"+payinfoStatus+"payinfoCreatetime:"+payinfoCreatetime+"payinfoMotifytime"+payinfoMotifytime);
 			window.location.href = "${APP_PATH}/ExcleDownload/exportPayInfoIF?payinfoStatus="+payinfoStatus+"&payinfoCreatetime="+payinfoCreatetime+"&payinfoMotifytime="+payinfoMotifytime;
 		});
+		// send sms
+		$('#send-sms').on('click', function() {
+			var payinfoCreatetime =$('#order-create-time').val()
+			var payinfoMotifytime  = $('#order-confirm-time').val()
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontOrderList/toSendcheckoutRecoverSMS",
+				type: "post",
+				data: JSON.stringify({
+					'startTime': payinfoCreatetime,
+					'endTime': payinfoMotifytime
+				}),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('网络异常，请重新返送SMS');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		})
 		// checkout-view
 		$('#checkout-view').on('click', function() {
 			$('#checkoutViewModal').modal('show');
@@ -776,6 +806,12 @@
 				$('#payinfoStatus').val('999');
 				initActiveItemNum();
 				getOrdersData();
+			}
+			
+			if ('' + $('#payinfoStatus').val() == '0') {
+				$('#send-sms').removeClass('hide');
+			} else {
+				$('#send-sms').addClass('hide');
 			}
 		}
 		// callback init order details
