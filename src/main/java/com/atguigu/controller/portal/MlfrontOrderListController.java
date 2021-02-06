@@ -1,5 +1,7 @@
 package com.atguigu.controller.portal;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.atguigu.bean.CheckRecover;
+import com.atguigu.bean.MlbackSmstype;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
@@ -19,9 +24,11 @@ import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.atguigu.service.MlbackSmstypeService;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
+import com.atguigu.service.CheckRecoverService;
 import com.atguigu.ship.Classes.Checkpoint;
 import com.atguigu.ship.Classes.Tracking;
 import com.atguigu.utils.app.shipInformation;
@@ -38,6 +45,12 @@ public class MlfrontOrderListController {
 	
 	@Autowired
 	MlfrontPayInfoService mlfrontPayInfoService;
+	
+	@Autowired
+	MlbackSmstypeService mlbackSmstypeService;
+	
+	@Autowired
+	CheckRecoverService checkRecoverService;
 	
 //	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
@@ -203,6 +216,70 @@ public class MlfrontOrderListController {
 			return Msg.success().add("trackingRes", trackingRes);
 		}else{
 			return Msg.fail().add("resMsg", "Please check your shipping order number");
+		}
+	}
+	
+	
+	/**
+	 * 5.0	zsh200804
+	 * 点击按钮发送短信
+	 * @param String PayInfoNumStr
+	 * @return 
+	 * */
+	@RequestMapping(value="/toSendcheckoutRecoverSMS",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg toSendcheckoutRecoverSMS(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "startTime") String startTime,@RequestParam(value = "endTime") String endTime) {
+		
+		//查询接口,发送时间定时的几点,间隔几小时,发送文案
+		
+		MlbackSmstype mlbackSmstype = new MlbackSmstype();
+		
+		mlbackSmstype.setSmstypeName("sms");
+		
+		List<MlbackSmstype> mlbackSmstypeList = mlbackSmstypeService.selectMlbackSmstypeByName(mlbackSmstype);
+		
+		if(mlbackSmstypeList.size()>0){
+			
+			MlbackSmstype mlbackSmstypeOne = mlbackSmstypeList.get(0);
+			
+			Integer SmstypeStatus =  mlbackSmstypeOne.getSmstypeStatus();
+			
+			if(SmstypeStatus>0){
+				String Content = mlbackSmstypeOne.getSmstypeContent();
+				System.out.println("本短信的挽回语为:Content"+Content);
+				
+				//查询一下这个时间段的orderid没有结算的并且有结算地址的信息
+				
+				CheckRecover checkRecoverReq = new CheckRecover();
+				checkRecoverReq.setStartTime("2020-12-17 18:20:15");
+				checkRecoverReq.setEndTime("2021-02-07 18:20:15");
+				
+				List<CheckRecover> checkRecoverList = checkRecoverService.selectCheckRecoverOrderList(checkRecoverReq);
+				
+				if(checkRecoverList.size()>0){
+					
+					for(CheckRecover checkRecoverOne:checkRecoverList){
+						Integer checkRecoverOrderId = checkRecoverOne.getOrderId();
+						System.out.println("本条order以挽回checkRecoverOrderId："+checkRecoverOrderId);
+					}
+					//该状态不生效,没有生效的
+					return Msg.success().add("resMsg", "本时间段没有可以弃购挽回的订单信息");
+					
+				}else{
+					//该状态不生效,没有生效的
+					return Msg.fail().add("resMsg", "本时间段没有可以弃购挽回的订单信息");
+				}
+				
+				
+			}else{
+				//该状态不生效,没有生效的
+				return Msg.fail().add("resMsg", "没有生效的smstype命令");
+			}
+			
+		}else{
+			//没查到这个,返回
+			return Msg.fail().add("resMsg", "没配置smstypeName对象");
 		}
 	}
 	
