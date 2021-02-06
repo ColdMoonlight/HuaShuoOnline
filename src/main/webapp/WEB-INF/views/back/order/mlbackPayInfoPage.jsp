@@ -163,12 +163,15 @@
 							<div class="card">
 								<div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
 									<div class="card-title-name">Order Info</div>
-									<div>
-										<div class="btn btn-dark hide" id="unpaid-link">
-											<svg class="c-icon" style="fill: #fff;">
-												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-copy"></use>
-											</svg>
-											<span>re-purchase link</span>
+									<div style="display: flex;">
+										<div class="input-group hide" style="margin-right: 1rem;" id="unpaid-link">
+											<input class="form-control" />
+											<div class="input-group-addon btn">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-copy"></use>
+												</svg>
+												<span>copy link</span>
+											</div>										
 										</div>
 										<button class="btn btn-primary hide" id="checkout-view">Checkout View</button>
 									</div>
@@ -594,7 +597,7 @@
 			$('#checkoutViewModal').modal('show');
 		});
 		// copy unpaid link
-		$('#unpaid-link').on('click', function() {
+		$('#unpaid-link .btn').on('click', function() {
 			function copyToClipboard(str) {
 				var el = document.createElement('textarea');
 				el.value = str;
@@ -820,8 +823,9 @@
 			/* order operate */
 			$('.payinfo-group .btn, #checkout-view, #unpaid-link').addClass('hide');
 			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
+				var rePurchaseLink = window.location.host + '${APP_PATH}/checkoutRecover/' + data.mlfrontOrderPayOneRes.orderId + '.html';
 				$('.btn-abandon-purchase,.btn-close,#checkout-view,#unpaid-link').removeClass('hide');
-				$('#unpaid-link').data('link', window.location.host + '${APP_PATH}/checkoutRecover/' + data.mlfrontOrderPayOneRes.orderId + '.html');
+				$('#unpaid-link').data('link', rePurchaseLink).find('input').val(rePurchaseLink);
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
 				$('.btn-audit,.btn-refund').removeClass('hide');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 || data.mlfrontPayInfoOne.payinfoStatus == 3) {
