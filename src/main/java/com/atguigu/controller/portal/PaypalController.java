@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.bean.MlPaypalShipAddress;
+import com.atguigu.bean.MlbackOrderStateEmail;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
@@ -25,6 +26,7 @@ import com.atguigu.common.Msg;
 import com.atguigu.enumC.PaypalPaymentIntent;
 import com.atguigu.enumC.PaypalPaymentMethod;
 import com.atguigu.service.MlPaypalShipAddressService;
+import com.atguigu.service.MlbackOrderStateEmailService;
 import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
@@ -73,6 +75,9 @@ public class PaypalController {
     
 	@Autowired
 	MlfrontUserService mlfrontUserService;
+	
+	@Autowired
+	MlbackOrderStateEmailService mlbackOrderStateEmailService;
 
     /**1.0
      * 组装参数,WAP端发起真实的支付
@@ -590,14 +595,37 @@ public class PaypalController {
     		mlfrontAddressRes = mlfrontAddressResList.get(0);
     		String userEmail = mlfrontAddressRes.getAddressEmail();
     		
+    		
+    		String patSuccessEndLanguage = "";
+    		//查询
+    		MlbackOrderStateEmail mlbackOrderStateEmailReq = new MlbackOrderStateEmail();
+    		mlbackOrderStateEmailReq.setOrderstateemailName("Paysuccessed");
+    		//查询本条
+    		List<MlbackOrderStateEmail> mlbackOrderStateEmailList =mlbackOrderStateEmailService.selectMlbackOrderStateEmailByName(mlbackOrderStateEmailReq);
+    		if(mlbackOrderStateEmailList.size()>0){
+    			
+    			MlbackOrderStateEmail mlbackOrderStateEmailOne =mlbackOrderStateEmailList.get(0);
+    			
+    			patSuccessEndLanguage = getToCustomerPaySuccessEmailManage(mlbackOrderStateEmailOne);
+    		}
+    		
 			//测试方法
 			String getToEmail = userEmail;
 			String Message = "pay Success</br>,已收到您的付款,会尽快给您安排发货,注意留意发货通知.祝您购物愉快";
-			EmailUtilshtml.readyEmailPaySuccess(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney);
-			EmailUtilshtmlCustomer.readyEmailPaySuccessCustomer(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney);
+			EmailUtilshtml.readyEmailPaySuccess(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage);
+			EmailUtilshtmlCustomer.readyEmailPaySuccessCustomer(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+    
+    
+    private String getToCustomerPaySuccessEmailManage(MlbackOrderStateEmail mlbackOrderStateEmailOne) {
+		
+    	String Message ="";
+		String emailOneStr =  mlbackOrderStateEmailOne.getOrderstateemailOne();
+		Message = Message + emailOneStr;
+		return Message;
 	}
     
     /**
