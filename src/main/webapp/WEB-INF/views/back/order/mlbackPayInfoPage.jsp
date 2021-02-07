@@ -859,7 +859,7 @@
 			/* order operate */
 			$('.payinfo-group .btn, #checkout-view, #unpaid-link').addClass('hide');
 			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
-				var rePurchaseLink = window.location.host + '${APP_PATH}/checkoutRecover/' + data.mlfrontOrderPayOneRes.orderId + '.html';
+				var rePurchaseLink = window.location.origin + '${APP_PATH}/checkoutRecover/' + data.mlfrontOrderPayOneRes.orderId + '.html';
 				$('.btn-abandon-purchase,.btn-close,#checkout-view,#unpaid-link').removeClass('hide');
 				$('#unpaid-link').data('link', rePurchaseLink).find('input').val(rePurchaseLink);
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
