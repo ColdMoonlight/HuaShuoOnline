@@ -1,7 +1,5 @@
 package com.atguigu.controller.portal;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.atguigu.bean.CheckRecover;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlbackSmstype;
@@ -33,8 +30,6 @@ import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.CheckRecoverService;
 import com.atguigu.ship.Classes.Checkpoint;
 import com.atguigu.ship.Classes.Tracking;
-import com.atguigu.utils.ImageNameUtil;
-import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.utils.SMSUtilshtml;
 import com.atguigu.utils.URLLocationUtils;
 import com.atguigu.utils.app.shipInformation;

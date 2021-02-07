@@ -141,28 +141,27 @@ public class SMSUtilshtml {
       
       System.out.println("sendStr:"+sendStr);
       
-//      URL url = new URL(sendStr);
-//
-//      HttpURLConnection con = (HttpURLConnection)url.openConnection();
-//
-//      con.connect();
-//
-//      BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
-//
-//      String lines;
-//      String result = "";
-//
-//      while((lines = reader.readLine()) != null)
-//      {
-//          result = result + lines;
-//      }
-//
-//      reader.close();
-//
-//      System.out.println(result);
-//		
-//	return result;
-  	return null;
+      URL url = new URL(sendStr);
+
+      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+
+      con.connect();
+
+      BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
+
+      String lines;
+      String result = "";
+
+      while((lines = reader.readLine()) != null)
+      {
+          result = result + lines;
+      }
+
+      reader.close();
+
+      System.out.println(result);
+		
+	return result;
 	}
 	
 }
