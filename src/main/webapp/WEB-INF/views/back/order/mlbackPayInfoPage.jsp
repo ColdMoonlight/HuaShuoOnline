@@ -602,8 +602,8 @@
 				url: "${APP_PATH}/MlfrontOrderList/toSendcheckoutRecoverSMS",
 				type: "post",
 				data: JSON.stringify({
-					'startTime': payinfoCreatetime,
-					'endTime': payinfoMotifytime
+					'searchCreatetime': payinfoCreatetime,
+					'searchMotifytime': payinfoMotifytime
 				}),
 				dataType: "json",
 				contentType: 'application/json',
