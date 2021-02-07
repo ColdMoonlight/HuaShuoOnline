@@ -88,7 +88,8 @@
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-export"></use>
 								</svg>
 								<span>Export</span>
-							</button>						
+							</button>
+							<div class="btn btn-dark hide" id="send-sms"> send SMS </div>
 							<!-- <button class="btn btn-primary download-ecpp" id="download-ecpp">Download Ecpp Data</button> -->			
 							<button class="btn btn-info ecpp-verify-sync">checkEcppIfVerify</button>						
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
@@ -163,12 +164,15 @@
 							<div class="card">
 								<div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
 									<div class="card-title-name">Order Info</div>
-									<div>
-										<div class="btn btn-dark hide" id="unpaid-link">
-											<svg class="c-icon" style="fill: #fff;">
-												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-copy"></use>
-											</svg>
-											<span>re-purchase link</span>
+									<div style="display: flex;">
+										<div class="input-group hide" style="margin-right: 1rem;" id="unpaid-link">
+											<input class="form-control" />
+											<div class="input-group-addon btn">
+												<svg class="c-icon">
+													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-copy"></use>
+												</svg>
+												<span>copy link</span>
+											</div>										
 										</div>
 										<button class="btn btn-primary hide" id="checkout-view">Checkout View</button>
 									</div>
@@ -589,12 +593,41 @@
 			console.log("payinfoStatus:"+payinfoStatus+"payinfoCreatetime:"+payinfoCreatetime+"payinfoMotifytime"+payinfoMotifytime);
 			window.location.href = "${APP_PATH}/ExcleDownload/exportPayInfoIF?payinfoStatus="+payinfoStatus+"&payinfoCreatetime="+payinfoCreatetime+"&payinfoMotifytime="+payinfoMotifytime;
 		});
+		// send sms
+		$('#send-sms').on('click', function() {
+			var payinfoCreatetime =$('#order-create-time').val()
+			var payinfoMotifytime  = $('#order-confirm-time').val()
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontOrderList/toSendcheckoutRecoverSMS",
+				type: "post",
+				data: JSON.stringify({
+					'startTime': payinfoCreatetime,
+					'endTime': payinfoMotifytime
+				}),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('网络异常，请重新返送SMS');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		})
 		// checkout-view
 		$('#checkout-view').on('click', function() {
 			$('#checkoutViewModal').modal('show');
 		});
 		// copy unpaid link
-		$('#unpaid-link').on('click', function() {
+		$('#unpaid-link .btn').on('click', function() {
 			function copyToClipboard(str) {
 				var el = document.createElement('textarea');
 				el.value = str;
@@ -614,9 +647,9 @@
 					document.getSelection().addRange(selected);
 				}
 			};
-			var unpaidLink = $(this).data('link');
+			var unpaidLink = $('#unpaid-link').data('link');
 			if (unpaidLink) {
-				copyToClipboard($(this).data('link'));
+				copyToClipboard(unpaidLink);
 				toastr.success('拷贝复购链接成功...');
 			} else {
 				toastr.error('拷贝复购链接失败...');
@@ -774,6 +807,12 @@
 				initActiveItemNum();
 				getOrdersData();
 			}
+			
+			if ('' + $('#payinfoStatus').val() == '0') {
+				$('#send-sms').removeClass('hide');
+			} else {
+				$('#send-sms').addClass('hide');
+			}
 		}
 		// callback init order details
 		function getNewPayinfoSendNum (str){
@@ -820,8 +859,9 @@
 			/* order operate */
 			$('.payinfo-group .btn, #checkout-view, #unpaid-link').addClass('hide');
 			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
+				var rePurchaseLink = window.location.origin + '${APP_PATH}/checkoutRecover/' + data.mlfrontOrderPayOneRes.orderId + '.html';
 				$('.btn-abandon-purchase,.btn-close,#checkout-view,#unpaid-link').removeClass('hide');
-				$('#unpaid-link').data('link', window.location.host + '${APP_PATH}/checkoutRecover/' + data.mlfrontOrderPayOneRes.orderId + '.html');
+				$('#unpaid-link').data('link', rePurchaseLink).find('input').val(rePurchaseLink);
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
 				$('.btn-audit,.btn-refund').removeClass('hide');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 || data.mlfrontPayInfoOne.payinfoStatus == 3) {
