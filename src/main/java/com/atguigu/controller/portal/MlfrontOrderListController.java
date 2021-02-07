@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.bean.CheckRecover;
+import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlbackSmstype;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
@@ -31,6 +33,10 @@ import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.CheckRecoverService;
 import com.atguigu.ship.Classes.Checkpoint;
 import com.atguigu.ship.Classes.Tracking;
+import com.atguigu.utils.ImageNameUtil;
+import com.atguigu.utils.PropertiesUtil;
+import com.atguigu.utils.SMSUtilshtml;
+import com.atguigu.utils.URLLocationUtils;
 import com.atguigu.utils.app.shipInformation;
 
 @Controller
@@ -228,8 +234,11 @@ public class MlfrontOrderListController {
 	 * */
 	@RequestMapping(value="/toSendcheckoutRecoverSMS",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg toSendcheckoutRecoverSMS(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
-			@RequestParam(value = "startTime") String startTime,@RequestParam(value = "endTime") String endTime) {
+	public Msg toSendcheckoutRecoverSMS(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
+			
+		String startTime = mlbackSearch.getSearchCreatetime();
+		String endTime = mlbackSearch.getSearchMotifytime();
+		
 		
 		//查询接口,发送时间定时的几点,间隔几小时,发送文案
 		
@@ -252,8 +261,8 @@ public class MlfrontOrderListController {
 				//查询一下这个时间段的orderid没有结算的并且有结算地址的信息
 				
 				CheckRecover checkRecoverReq = new CheckRecover();
-				checkRecoverReq.setStartTime("2020-12-17 18:20:15");
-				checkRecoverReq.setEndTime("2021-02-07 18:20:15");
+				checkRecoverReq.setStartTime(startTime);
+				checkRecoverReq.setEndTime(endTime);
 				
 				List<CheckRecover> checkRecoverList = checkRecoverService.selectCheckRecoverOrderList(checkRecoverReq);
 				
@@ -261,7 +270,21 @@ public class MlfrontOrderListController {
 					
 					for(CheckRecover checkRecoverOne:checkRecoverList){
 						Integer checkRecoverOrderId = checkRecoverOne.getOrderId();
-						System.out.println("本条order以挽回checkRecoverOrderId："+checkRecoverOrderId);
+						String checkRecoverOrderIdStr = checkRecoverOrderId+"";
+						System.out.println("本条order以挽回checkRecoverOrderIdStr："+checkRecoverOrderIdStr);
+						
+						String websiteStr = getNowWeb(rep,res,session);
+						
+						String SendStr = Content+"."+websiteStr+"checkoutRecover/"+checkRecoverOrderIdStr+".html";
+						System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
+						
+						try {
+							String SMSreturnData = SMSUtilshtml.sendSMS(SendStr);
+							System.out.println(SendStr+",这一单发送成功功");
+						} catch (Exception e) {
+							e.printStackTrace();
+							System.out.println(SendStr+",这一单系统异常,报错了");
+						}
 					}
 					//该状态不生效,没有生效的
 					return Msg.success().add("resMsg", "本时间段没有可以弃购挽回的订单信息");
@@ -281,6 +304,14 @@ public class MlfrontOrderListController {
 			//没查到这个,返回
 			return Msg.fail().add("resMsg", "没配置smstypeName对象");
 		}
+	}
+
+	private String getNowWeb(HttpServletResponse rep, HttpServletRequest res, HttpSession session) {
+
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		return basePathStr;
 	}
 	
 }
