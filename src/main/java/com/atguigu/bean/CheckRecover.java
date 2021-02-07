@@ -4,7 +4,7 @@ public class CheckRecover {
 	
 	/**
 	 * SELECT torder.order_id,torder.order_status
-,torder.order_createTime
+,torder.order_createTime,tbcheckout.checkoutView_telephone as order_tele
 from 
 tb_mlfront_order as torder,
 tb_mlfront_checkoutview as tbcheckout 
@@ -17,7 +17,7 @@ GROUP BY torder.order_id
 	
 	private Integer orderId;
 	private Integer orderStatus;
-	private String orderCreatetime;
+	private String orderTelephone;
 	private String startTime;
 	private String endTime;
 	public Integer getOrderId() {
@@ -32,11 +32,11 @@ GROUP BY torder.order_id
 	public void setOrderStatus(Integer orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-	public String getOrderCreatetime() {
-		return orderCreatetime;
+	public String getOrderTelephone() {
+		return orderTelephone;
 	}
-	public void setOrderCreatetime(String orderCreatetime) {
-		this.orderCreatetime = orderCreatetime;
+	public void setOrderTelephone(String orderTelephone) {
+		this.orderTelephone = orderTelephone;
 	}
 	public String getStartTime() {
 		return startTime;
@@ -53,19 +53,19 @@ GROUP BY torder.order_id
 	public CheckRecover() {
 		super();
 	}
-	public CheckRecover(Integer orderId, Integer orderStatus, String orderCreatetime,
+	public CheckRecover(Integer orderId, Integer orderStatus, String orderTelephone,
 			String startTime, String endTime) {
 		super();
 		this.orderId = orderId;
 		this.orderStatus = orderStatus;
-		this.orderCreatetime = orderCreatetime;
+		this.orderTelephone = orderTelephone;
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
 	@Override
 	public String toString() {
-		return "CheckRecover [orderId=" + orderId + ", orderStatus=" + orderStatus + ", orderCreatetime="
-				+ orderCreatetime + ", startTime=" + startTime + ", endTime=" + endTime + "]";
+		return "CheckRecover [orderId=" + orderId + ", orderStatus=" + orderStatus + ", orderTelephone="
+				+ orderTelephone + ", startTime=" + startTime + ", endTime=" + endTime + "]";
 	}
 
 }

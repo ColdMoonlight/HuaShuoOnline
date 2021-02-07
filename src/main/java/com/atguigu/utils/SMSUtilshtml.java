@@ -92,7 +92,7 @@ public class SMSUtilshtml {
 	 * 随机生成id
 	 * @return
 	 */
-	public static String sendSMS(String chekoutUrl)  throws Exception{
+	public static String sendSMS(String chekoutUrl,String telephone)  throws Exception{
 
 		
 		String host = "https://api.globalsent.com/send?";
@@ -112,7 +112,7 @@ public class SMSUtilshtml {
       List<StringTwoVO> aaaList =new ArrayList<StringTwoVO>();
       
       StringTwoVO StringTwoVOa = new StringTwoVO("access_key","8a6da0fbaf92680e");
-      StringTwoVO StringTwoVOb = new StringTwoVO("mobile","8617600209637");
+      StringTwoVO StringTwoVOb = new StringTwoVO("mobile",telephone);
       StringTwoVO StringTwoVOc = new StringTwoVO("content",chekoutUrl);
       
       aaaList.add(StringTwoVOa);
