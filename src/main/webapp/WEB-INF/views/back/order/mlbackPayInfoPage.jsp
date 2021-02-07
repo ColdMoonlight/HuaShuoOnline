@@ -647,9 +647,9 @@
 					document.getSelection().addRange(selected);
 				}
 			};
-			var unpaidLink = $(this).data('link');
+			var unpaidLink = $('#unpaid-link').data('link');
 			if (unpaidLink) {
-				copyToClipboard($(this).data('link'));
+				copyToClipboard(unpaidLink);
 				toastr.success('拷贝复购链接成功...');
 			} else {
 				toastr.error('拷贝复购链接失败...');
