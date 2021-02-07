@@ -276,17 +276,17 @@ public class MlfrontAddressController {
 			mlfrontAddressReq.setAddressIp(SessionId);
 			mlfrontAddressResList =mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddressReq);
 			
-//			if(mlfrontAddressResList.size()>0){
-//				
-//			}else{
-//				//送session中获取addressid,然后查询
-//				Integer addressId =  (Integer) session.getAttribute("addressId");
-//				if(addressId!=null){
-//					MlfrontAddress mlfrontAddress =new MlfrontAddress();
-//					mlfrontAddress.setAddressId(addressId);
-//					mlfrontAddressResList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddress);
-//				}
-//			}
+			if(mlfrontAddressResList.size()>0){
+				
+			}else{
+				//送session中获取addressid,然后查询
+				Integer addressId =  (Integer) session.getAttribute("addressId");
+				if(addressId!=null){
+					MlfrontAddress mlfrontAddress =new MlfrontAddress();
+					mlfrontAddress.setAddressId(addressId);
+					mlfrontAddressResList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddress);
+				}
+			}
 		}else{
 			//登陆状态,用uid做Ip查询
 			mlfrontAddressReq.setAddressUid(uid);
