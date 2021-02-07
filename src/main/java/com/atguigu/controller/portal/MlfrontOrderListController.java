@@ -265,6 +265,7 @@ public class MlfrontOrderListController {
 					
 					for(CheckRecover checkRecoverOne:checkRecoverList){
 						Integer checkRecoverOrderId = checkRecoverOne.getOrderId();
+						String telephone=checkRecoverOne.getOrderTelephone();
 						String checkRecoverOrderIdStr = checkRecoverOrderId+"";
 						System.out.println("本条order以挽回checkRecoverOrderIdStr："+checkRecoverOrderIdStr);
 						
@@ -274,7 +275,7 @@ public class MlfrontOrderListController {
 						System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
 						
 						try {
-							String SMSreturnData = SMSUtilshtml.sendSMS(SendStr);
+							String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);
 							System.out.println(SendStr+",这一单发送成功功");
 						} catch (Exception e) {
 							e.printStackTrace();

@@ -4,11 +4,12 @@
   <resultMap id="CheckRecoverResultMap" type="com.atguigu.bean.CheckRecover">
     <id column="order_id" jdbcType="INTEGER" property="orderId" />
     <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="order_tele" jdbcType="VARCHAR" property="orderTelephone" />
   </resultMap>
-
+  
   <!-- selectCheckRecoverOrderList使用中 -->
   <select id="selectCheckRecoverOrderList" parameterType="com.atguigu.bean.CheckRecover" resultMap="CheckRecoverResultMap">
-   SELECT torder.order_id,torder.order_status,torder.order_money ,torder.order_createTime
+   SELECT torder.order_id,torder.order_status,torder.order_money ,torder.order_createTime,tbcheckout.checkoutView_telephone as order_tele
 	from 
 	tb_mlfront_order as torder,
 	tb_mlfront_checkoutview as tbcheckout 
