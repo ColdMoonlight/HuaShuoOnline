@@ -281,9 +281,11 @@ public class MlfrontAddressController {
 			}else{
 				//送session中获取addressid,然后查询
 				Integer addressId =  (Integer) session.getAttribute("addressId");
-				MlfrontAddress mlfrontAddress =new MlfrontAddress();
-				mlfrontAddress.setAddressId(addressId);
-				mlfrontAddressResList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddress);
+				if(addressId!=null){
+					MlfrontAddress mlfrontAddress =new MlfrontAddress();
+					mlfrontAddress.setAddressId(addressId);
+					mlfrontAddressResList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddress);
+				}
 			}
 		}else{
 			//登陆状态,用uid做Ip查询
