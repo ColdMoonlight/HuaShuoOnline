@@ -38,8 +38,9 @@ public class EmailUtilshtmlCustomer {
 		sendEmilRegisterCustomer(getToEmail, Message, mlfrontUserafterIn);
 	}
 	
-	public static void readyEmailPaySuccessCustomer(String getToEmail, String Message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney)  throws Exception{
-		sendEmilPayCustomer(getToEmail, Message, mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney);
+	public static void readyEmailPaySuccessCustomer(String getToEmail, String Message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne,
+			MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage)  throws Exception{
+		sendEmilPayCustomer(getToEmail, Message, mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage);
 	}
 	
 	public static void readyEmailVerifyCustomer(String getToEmail, String toCustomerVerifyInfoStr,String payinfoPlateNum) {
@@ -131,7 +132,7 @@ public class EmailUtilshtmlCustomer {
 	 * megalookweb@outlook.com
 	 * mingyueqingl@163.com
 	 * */
-	public static void sendEmilPayCustomer(String to, String message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney) {
+	public static void sendEmilPayCustomer(String to, String message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage) {
         try {
             Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
             final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
@@ -206,7 +207,8 @@ public class EmailUtilshtmlCustomer {
 	  		team+"<br>"+
 	  		"Email:"+email+"<br>"+
 	  		"Whatsapp:"+whatsapp+"<br>"+
-	  		"Telephone/SMS:"+Telephone+"<br>";
+	  		"Telephone/SMS:"+Telephone+"<br>"+
+	  		patSuccessEndLanguage+"<br><br><br>";
             
             //通过会话,得到一个邮件,用于发送
             MimeMessage msg = new MimeMessage(session);
