@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.atguigu.bean.CheckRecover;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlbackSmstype;
 import com.atguigu.bean.MlfrontAddress;
@@ -29,9 +28,9 @@ import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
-import com.atguigu.service.CheckRecoverService;
 import com.atguigu.ship.Classes.Checkpoint;
 import com.atguigu.ship.Classes.Tracking;
+import com.atguigu.utils.EncryptUtil;
 import com.atguigu.utils.SMSUtilshtml;
 import com.atguigu.utils.URLLocationUtils;
 import com.atguigu.utils.app.shipInformation;
@@ -51,9 +50,6 @@ public class MlfrontOrderListController {
 	
 	@Autowired
 	MlbackSmstypeService mlbackSmstypeService;
-	
-	@Autowired
-	CheckRecoverService checkRecoverService;
 	
 	@Autowired
 	MlfrontAddressService mlfrontAddressService;
@@ -224,88 +220,6 @@ public class MlfrontOrderListController {
 			return Msg.fail().add("resMsg", "Please check your shipping order number");
 		}
 	}
-	
-	
-	/**
-	 * 5.0	zsh200804
-	 * 点击按钮发送短信
-	 * @param String PayInfoNumStr
-	 * @return 
-	 * */
-	@RequestMapping(value="/toSendcheckoutRecoverSMS",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg toSendcheckoutRecoverSMS(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
-			
-		String startTime = mlbackSearch.getSearchCreatetime();
-		String endTime = mlbackSearch.getSearchMotifytime();
-		
-		
-		//查询接口,发送时间定时的几点,间隔几小时,发送文案
-		
-		MlbackSmstype mlbackSmstype = new MlbackSmstype();
-		
-		mlbackSmstype.setSmstypeName("sms");
-		
-		List<MlbackSmstype> mlbackSmstypeList = mlbackSmstypeService.selectMlbackSmstypeByName(mlbackSmstype);
-		
-		if(mlbackSmstypeList.size()>0){
-			
-			MlbackSmstype mlbackSmstypeOne = mlbackSmstypeList.get(0);
-			
-			Integer SmstypeStatus =  mlbackSmstypeOne.getSmstypeStatus();
-			
-			if(SmstypeStatus>0){
-				String Content = mlbackSmstypeOne.getSmstypeContent();
-				System.out.println("本短信的挽回语为:Content"+Content);
-				
-				//查询一下这个时间段的orderid没有结算的并且有结算地址的信息
-				
-				CheckRecover checkRecoverReq = new CheckRecover();
-				checkRecoverReq.setStartTime(startTime);
-				checkRecoverReq.setEndTime(endTime);
-				
-				List<CheckRecover> checkRecoverList = checkRecoverService.selectCheckRecoverOrderList(checkRecoverReq);
-				
-				if(checkRecoverList.size()>0){
-					
-					for(CheckRecover checkRecoverOne:checkRecoverList){
-						Integer checkRecoverOrderId = checkRecoverOne.getOrderId();
-						String telephone=checkRecoverOne.getOrderTelephone();
-						String checkRecoverOrderIdStr = checkRecoverOrderId+"";
-						System.out.println("本条order以挽回checkRecoverOrderIdStr："+checkRecoverOrderIdStr);
-						
-						String websiteStr = getNowWeb(rep,res,session);
-						
-						String SendStr = Content+"."+websiteStr+"checkoutRecover/"+checkRecoverOrderIdStr+".html";
-						System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
-						
-						try {
-							String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);
-							System.out.println(SendStr+",这一单发送成功功");
-						} catch (Exception e) {
-							e.printStackTrace();
-							System.out.println(SendStr+",这一单系统异常,报错了");
-						}
-					}
-					//该状态不生效,没有生效的
-					return Msg.success().add("resMsg", "本时间段没有可以弃购挽回的订单信息");
-					
-				}else{
-					//该状态不生效,没有生效的
-					return Msg.fail().add("resMsg", "本时间段没有可以弃购挽回的订单信息");
-				}
-				
-				
-			}else{
-				//该状态不生效,没有生效的
-				return Msg.fail().add("resMsg", "没有生效的smstype命令");
-			}
-			
-		}else{
-			//没查到这个,返回
-			return Msg.fail().add("resMsg", "没配置smstypeName对象");
-		}
-	}
 
 	private String getNowWeb(HttpServletResponse rep, HttpServletRequest res, HttpSession session) {
 
@@ -387,8 +301,18 @@ public class MlfrontOrderListController {
 							
 							String websiteStr = getNowWeb(rep,res,session);
 							
-							String SendStr = Content+"."+websiteStr+"checkoutRecover/"+checkRecoverOrderIdStr+".html";
+							String secretOrderIdStr = EncryptUtil.XORencode(checkRecoverOrderIdStr,"megalook");
+							System.out.println("secretOrderIdStr:"+secretOrderIdStr);
+							
+							String SendStr = Content+"."+websiteStr+"recover/"+checkRecoverOrderIdStr+".html";
+							String SendSecretStr = Content+"."+websiteStr+"recover/"+secretOrderIdStr+".html";
 							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
+							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendSecretStr:"+SendSecretStr);
+							
+							//这里要解密
+							String unSecretOrderIdStr = EncryptUtil.XORdecode(secretOrderIdStr,"megalook");
+							String SendUnSecretStr = Content+"."+websiteStr+"recover/"+unSecretOrderIdStr+".html";
+							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendUnSecretStr:"+SendUnSecretStr);
 							
 							try {
 								//这个是真实发送

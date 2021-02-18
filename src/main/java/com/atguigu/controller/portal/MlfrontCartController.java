@@ -34,6 +34,7 @@ import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.EncryptUtil;
 
 @Controller
 @RequestMapping("/MlbackCart")
@@ -92,7 +93,12 @@ public class MlfrontCartController {
 	
 	//这里加方法
 	@RequestMapping(value="/toCheakOutMoreBuyByhtml",method=RequestMethod.GET)
-	 public ModelAndView toCheakOutMoreBuyByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "orderId") Integer orderId) throws Exception{
+	public ModelAndView toCheakOutMoreBuyByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "orderIdIntoStr") String orderIdIntoStr) throws Exception{
+
+		//先解码
+		String orginalOrderIdStr = EncryptUtil.XORdecode(orderIdIntoStr,"megalook");
+		System.out.println("本条弃购链接的orderid为orderIdStr:"+orginalOrderIdStr);
+		Integer orderId = Integer.parseInt(orginalOrderIdStr);
 	
 		ModelAndView modelAndView = new ModelAndView();
 		//带着id进来了
