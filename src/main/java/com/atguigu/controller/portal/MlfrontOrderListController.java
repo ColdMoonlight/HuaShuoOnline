@@ -393,8 +393,11 @@ public class MlfrontOrderListController {
 							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
 							
 							try {
-								String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);
-								System.out.println(SendStr+",这一单发送成功功");
+								//这个是真实发送
+								//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);
+								//System.out.println(SendStr+",这一单发送成功功");
+								System.out.println(SendStr+",这一单短信通知成功--被屏蔽,仅仅打印,未实际发送,");
+								//这个是真实发送
 							} catch (Exception e) {
 								e.printStackTrace();
 								System.out.println(SendStr+",这一单系统异常,报错了");
