@@ -321,7 +321,7 @@
     payInfo_money, payInfo_status,payInfo_createTime
     from tb_mlfront_payinfo 
     where payInfo_id>0 and payInfo_status = 0
-    and payInfo_createTime between #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR} order by payInfo_id desc
+    and payInfo_createTime between #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR} order by payInfo_oid desc,payInfo_id desc
   </select> 
   
 </mapper>
