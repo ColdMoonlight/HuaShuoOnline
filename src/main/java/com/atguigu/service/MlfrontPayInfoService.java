@@ -71,5 +71,11 @@ public class MlfrontPayInfoService {
 		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoSuccessAll();
 		return mlfrontPayInfoList;
 	}
+	
+	
+	public List<MlfrontPayInfo> selectUnpayToSMSByDate(MlfrontPayInfo mlfrontPayInfoReq) {
+		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectUnpayToSMSByDate(mlfrontPayInfoReq);
+		return mlfrontPayInfoList;
+	}
 
 }
