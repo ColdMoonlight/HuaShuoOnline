@@ -348,10 +348,6 @@ public class MlfrontOrderListController {
 				
 				//查询一下这个时间段的orderid没有结算的并且有结算地址的信息
 				
-				CheckRecover checkRecoverReq = new CheckRecover();
-				checkRecoverReq.setStartTime(startTime);
-				checkRecoverReq.setEndTime(endTime);
-				
 				MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
 				mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
 				mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
@@ -360,13 +356,15 @@ public class MlfrontOrderListController {
 				
 				if(mlfrontPayInfoList.size()>0){
 					
-					Integer orderIdLastOne = 0;
+					String orderIdLastOneStr = "";
+					
 					for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
 						Integer checkRecoverOrderId = mlfrontPayInfoOne.getPayinfoOid();
 						
-						if(checkRecoverOrderId==orderIdLastOne){
+						String checkRecoverOrderIdNowStr = checkRecoverOrderId+"";
+						
+						if(checkRecoverOrderIdNowStr.equals(orderIdLastOneStr)){
 							//当前orderid=上一个orderid,逃过,循环下一个.
-							
 							//当前单子有毛病
 							continue;
 						}else{
@@ -393,15 +391,18 @@ public class MlfrontOrderListController {
 							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
 							
 							try {
-								String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);
-								System.out.println(SendStr+",这一单发送成功功");
+								//这个是真实发送
+								//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);
+								//System.out.println(SendStr+",这一单发送成功功");
+								System.out.println("payid为:"+mlfrontPayInfoOne.getPayinfoId()+","+SendStr+",这一单短信通知成功--被屏蔽,仅仅打印,未实际发送,");
+								//这个是真实发送
 							} catch (Exception e) {
 								e.printStackTrace();
 								System.out.println(SendStr+",这一单系统异常,报错了");
 							}
 							
 							//操作完毕，把当前orderid存住；
-							orderIdLastOne = checkRecoverOrderId;
+							orderIdLastOneStr = checkRecoverOrderIdNowStr;
 						}
 						
 					}
