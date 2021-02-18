@@ -28,5 +28,7 @@ public interface MlfrontPayInfoMapper {
 	List<MlfrontPayInfo> selectMlfrontPayInfoByDate(MlfrontPayInfo mlfrontPayInfoReq);
 
 	List<MlfrontPayInfo> selectMlfrontPayInfoSuccessAll();
+
+	List<MlfrontPayInfo> selectUnpayToSMSByDate(MlfrontPayInfo mlfrontPayInfoReq);
     
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.CheckRecover;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlbackSmstype;
+import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
@@ -24,6 +25,7 @@ import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackSmstypeService;
+import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
@@ -52,6 +54,9 @@ public class MlfrontOrderListController {
 	
 	@Autowired
 	CheckRecoverService checkRecoverService;
+	
+	@Autowired
+	MlfrontAddressService mlfrontAddressService;
 	
 //	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
@@ -308,6 +313,112 @@ public class MlfrontOrderListController {
 		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
         System.out.println("basePathStr:"+basePathStr);
 		return basePathStr;
+	}
+	
+	/**
+	 * 5.0	zsh200804
+	 * 点击按钮发送短信
+	 * @param String PayInfoNumStr
+	 * @return 
+	 * */
+	@RequestMapping(value="/toSendUnpaySMS",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg toSendUnpaySMS(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
+			
+		String startTime = mlbackSearch.getSearchCreatetime();
+		String endTime = mlbackSearch.getSearchMotifytime();
+		
+		//查询接口,发送时间定时的几点,间隔几小时,发送文案
+		
+		MlbackSmstype mlbackSmstype = new MlbackSmstype();
+		
+		mlbackSmstype.setSmstypeName("sms");
+		
+		List<MlbackSmstype> mlbackSmstypeList = mlbackSmstypeService.selectMlbackSmstypeByName(mlbackSmstype);
+		
+		if(mlbackSmstypeList.size()>0){
+			
+			MlbackSmstype mlbackSmstypeOne = mlbackSmstypeList.get(0);
+			
+			Integer SmstypeStatus =  mlbackSmstypeOne.getSmstypeStatus();
+			
+			if(SmstypeStatus>0){
+				String Content = mlbackSmstypeOne.getSmstypeContent();
+				System.out.println("本短信的挽回语为:Content"+Content);
+				
+				//查询一下这个时间段的orderid没有结算的并且有结算地址的信息
+				
+				CheckRecover checkRecoverReq = new CheckRecover();
+				checkRecoverReq.setStartTime(startTime);
+				checkRecoverReq.setEndTime(endTime);
+				
+				MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+				mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
+				mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
+				
+				List<MlfrontPayInfo> mlfrontPayInfoList =  mlfrontPayInfoService.selectUnpayToSMSByDate(mlfrontPayInfoReq);
+				
+				if(mlfrontPayInfoList.size()>0){
+					
+					Integer orderIdLastOne = 0;
+					for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
+						Integer checkRecoverOrderId = mlfrontPayInfoOne.getPayinfoOid();
+						
+						if(checkRecoverOrderId==orderIdLastOne){
+							//当前orderid=上一个orderid,逃过,循环下一个.
+							
+							//当前单子有毛病
+							continue;
+						}else{
+							//读出order对应的order明细;
+							//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------begin----------
+							MlfrontOrder mlfrontOrderPay = new MlfrontOrder();
+							mlfrontOrderPay.setOrderId(checkRecoverOrderId);
+							List<MlfrontOrder> mlfrontOrderPayResList= mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPay);
+							MlfrontOrder mlfrontOrderPayOneRes = mlfrontOrderPayResList.get(0);
+							//2.2从详情中拿到addressid;
+							Integer addressinfoId = mlfrontOrderPayOneRes.getOrderAddressinfoId();
+							MlfrontAddress MlfrontAddressReq = new MlfrontAddress();
+							MlfrontAddressReq.setAddressId(addressinfoId);
+							List<MlfrontAddress> MlfrontAddressList = mlfrontAddressService.selectMlfrontAddressByParam(MlfrontAddressReq);
+							MlfrontAddress mlfrontAddressOne = MlfrontAddressList.get(0);
+							String telephone = mlfrontAddressOne.getAddressTelephone();
+							//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------end--------
+							String checkRecoverOrderIdStr = checkRecoverOrderId+"";
+							System.out.println("本条order以挽回checkRecoverOrderIdStr："+checkRecoverOrderIdStr);
+							
+							String websiteStr = getNowWeb(rep,res,session);
+							
+							String SendStr = Content+"."+websiteStr+"checkoutRecover/"+checkRecoverOrderIdStr+".html";
+							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
+							
+							try {
+								String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);
+								System.out.println(SendStr+",这一单发送成功功");
+							} catch (Exception e) {
+								e.printStackTrace();
+								System.out.println(SendStr+",这一单系统异常,报错了");
+							}
+							
+							//操作完毕，把当前orderid存住；
+							orderIdLastOne = checkRecoverOrderId;
+						}
+						
+					}
+					//该状态不生效,没有生效的
+					return Msg.success().add("resMsg", "本时间段没有可以弃购挽回的订单信息");
+				}else{
+					//该状态不生效,没有生效的
+					return Msg.fail().add("resMsg", "本时间段没有可以弃购挽回的订单信息");
+				}
+			}else{
+				//该状态不生效,没有生效的
+				return Msg.fail().add("resMsg", "没有生效的smstype命令");
+			}
+		}else{
+			//没查到这个,返回
+			return Msg.fail().add("resMsg", "没配置smstypeName对象");
+		}
 	}
 	
 }

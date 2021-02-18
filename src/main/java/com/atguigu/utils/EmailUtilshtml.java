@@ -179,14 +179,14 @@ public class EmailUtilshtml {
             "Order ID :"+mlfrontPayInfoIOne.getPayinfoPlatenum()+" <br>"+
             "Date Added :"+mlfrontOrderItemList.get(0).getOrderitemMotifytime()+" <br>"+
             "Order Status : Complete <br><br>"+
+            patSuccessEndLanguage+"<br><br>"+
             "Products:<br><br> "+
             pdetail+"<br> "+
             "payment details :<br><br> "+
             "products-Total: $"+SubTotal+" <br>"+
             CouponCodeStr+
             "Free Shipping: + $"+addressMoney+"<br>"+
-            "Sub-Total: $"+mlfrontPayInfoIOne.getPayinfoMoney()+" <br>"+
-            patSuccessEndLanguage+"<br><br>";
+            "Sub-Total: $"+mlfrontPayInfoIOne.getPayinfoMoney()+" <br><br><br>";
             
             //通过会话,得到一个邮件,用于发送
             MimeMessage msg = new MimeMessage(session);

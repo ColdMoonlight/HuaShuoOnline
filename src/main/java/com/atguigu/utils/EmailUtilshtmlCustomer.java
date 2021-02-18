@@ -195,6 +195,7 @@ public class EmailUtilshtmlCustomer {
             "Order ID :"+mlfrontPayInfoIOne.getPayinfoPlatenum()+" <br>"+
             "Date Added :"+mlfrontOrderItemList.get(0).getOrderitemMotifytime()+" <br>"+
             "Order Status : Payment completed, order processing... <br><br>"+
+	  		patSuccessEndLanguage+"<br><br><br>"+
             "Products:<br><br> "+
             pdetail+"<br> "+
             "payment details :<br><br> "+
@@ -207,8 +208,7 @@ public class EmailUtilshtmlCustomer {
 	  		team+"<br>"+
 	  		"Email:"+email+"<br>"+
 	  		"Whatsapp:"+whatsapp+"<br>"+
-	  		"Telephone/SMS:"+Telephone+"<br>"+
-	  		patSuccessEndLanguage+"<br><br><br>";
+	  		"Telephone/SMS:"+Telephone+"<br>";
             
             //通过会话,得到一个邮件,用于发送
             MimeMessage msg = new MimeMessage(session);

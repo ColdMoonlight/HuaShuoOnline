@@ -599,7 +599,7 @@
 			var payinfoMotifytime  = $('#order-confirm-time').val()
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlfrontOrderList/toSendcheckoutRecoverSMS",
+				url: "${APP_PATH}/MlfrontOrderList/toSendUnpaySMS",
 				type: "post",
 				data: JSON.stringify({
 					'searchCreatetime': payinfoCreatetime,
