@@ -31,7 +31,6 @@
 	<!-- main end -->
 	<!-- footer nav -->
 	<jsp:include page="../layout/footer/footer.jsp" flush="true"></jsp:include>
-
 	<!-- common script -->
 	<script src="${APP_PATH}/static/common/jquery.min.js"></script>
 	<script>function getCarouselData(area,async,callback){$.ajax({url:"${APP_PATH}/MlbackSlides/getMlbackSlidListByArea",data:JSON.stringify({slideArea:area}),dataType:"json",contentType:"application/json",type:"post",async:async,success:function(data){100==data.code&&callback&&callback(data.extend.mlbackSlideList)}})}function debounce(callback,delay){var timeEnd;delay=delay||100,Date.now()-timeStart>delay&&clearTimeout(timer),timer=setTimeout((function(){callback&&callback()}),delay)}</script>
