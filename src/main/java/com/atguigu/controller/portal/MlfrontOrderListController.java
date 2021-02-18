@@ -270,20 +270,7 @@ public class MlfrontOrderListController {
 					
 					for(CheckRecover checkRecoverOne:checkRecoverList){
 						Integer checkRecoverOrderId = checkRecoverOne.getOrderId();
-						
-						//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------begin----------
-						MlfrontOrder mlfrontOrderPay = new MlfrontOrder();
-						mlfrontOrderPay.setOrderId(checkRecoverOrderId);
-						List<MlfrontOrder> mlfrontOrderPayResList= mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPay);
-						MlfrontOrder mlfrontOrderPayOneRes = mlfrontOrderPayResList.get(0);
-						//2.2从详情中拿到addressid;
-						Integer addressinfoId = mlfrontOrderPayOneRes.getOrderAddressinfoId();
-						MlfrontAddress MlfrontAddressReq = new MlfrontAddress();
-						MlfrontAddressReq.setAddressId(addressinfoId);
-						List<MlfrontAddress> MlfrontAddressList = mlfrontAddressService.selectMlfrontAddressByParam(MlfrontAddressReq);
-						MlfrontAddress mlfrontAddressOne = MlfrontAddressList.get(0);
-						String telephone = mlfrontAddressOne.getAddressTelephone();
-						//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------end--------
+						String telephone=checkRecoverOne.getOrderTelephone();
 						String checkRecoverOrderIdStr = checkRecoverOrderId+"";
 						System.out.println("本条order以挽回checkRecoverOrderIdStr："+checkRecoverOrderIdStr);
 						
