@@ -386,10 +386,11 @@ a.btn-black,
 }
 a.btn-gray,
 .btn-gray {
-	color: #333;
-	border: 1px solid #ccc;
-	background-color: #ccc;
+	color: #fff;
+	border: 1px solid #ff1671;
+	background-color: #ff1671;
 }
+.order-coupon-group .btn-gray{color:#fff}
 a.btn-pink,
 .btn-pink {	
 	color: #fff;

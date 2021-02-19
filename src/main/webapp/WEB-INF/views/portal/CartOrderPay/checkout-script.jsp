@@ -421,7 +421,7 @@
 						'<div class="order-coupon-list"></div>'+
 						'<div class="order-coupon-group">'+
 							'<input type="text" placeholder="Please enter code" />'+
-							'<button id="order-check-coupon" class="btn btn-gray">check it</button>'+
+							'<button id="order-check-coupon" class="btn btn-gray">APPLY</button>'+
 						'</div>'+
 						'<div class="order-coupon-tip"></div>'+
 					'</div>'+
