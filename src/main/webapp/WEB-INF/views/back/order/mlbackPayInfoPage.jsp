@@ -166,12 +166,12 @@
 									<div class="card-title-name">Order Info</div>
 									<div style="display: flex;">
 										<div class="input-group hide" style="margin-right: 1rem;" id="unpaid-link">
-											<input class="form-control" />
+											<span class="form-control">This link to recover customer cart</span>
 											<div class="input-group-addon btn">
 												<svg class="c-icon">
 													<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-copy"></use>
 												</svg>
-												<span>copy link</span>
+												<span>copy</span>
 											</div>										
 										</div>
 										<button class="btn btn-primary hide" id="checkout-view">Checkout View</button>
@@ -595,15 +595,15 @@
 		});
 		// send sms
 		$('#send-sms').on('click', function() {
-			var payinfoCreatetime =$('#order-create-time').val()
-			var payinfoMotifytime  = $('#order-confirm-time').val()
+			var payinfoCreatetime =$('#order-create-time').val();
+			var payinfoMotifytime  = $('#order-confirm-time').val();
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlfrontOrderList/toSendUnpaySMS",
 				type: "post",
 				data: JSON.stringify({
 					'searchCreatetime': payinfoCreatetime,
-					'searchMotifytime': payinfoMotifytime
+					'searchMotifytime': payinfoMotifytime,
 				}),
 				dataType: "json",
 				contentType: 'application/json',
@@ -647,13 +647,31 @@
 					document.getSelection().addRange(selected);
 				}
 			};
-			var unpaidLink = $('#unpaid-link').data('link');
-			if (unpaidLink) {
-				copyToClipboard(unpaidLink);
-				toastr.success('拷贝复购链接成功...');
-			} else {
-				toastr.error('拷贝复购链接失败...');
-			}
+
+			var searchId = $('#unpaid-link').data('id');
+			
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontOrderList/getOlderIdSecretCode",
+				type: "post",
+				data: JSON.stringify({ 'searchId': searchId }),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						copyToClipboard(data.extend.ReturnPayUrl);
+						toastr.success('拷贝复购链接成功...');
+					} else {
+						toastr.error('拷贝复购链接失败...');
+					}
+				},
+				error: function (err) {
+					toastr.error('拷贝复购链接失败...');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
 			
 		});
 		// pay track log
@@ -859,9 +877,8 @@
 			/* order operate */
 			$('.payinfo-group .btn, #checkout-view, #unpaid-link').addClass('hide');
 			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
-				var rePurchaseLink = window.location.origin + '${APP_PATH}/checkoutRecover/' + data.mlfrontOrderPayOneRes.orderId + '.html';
 				$('.btn-abandon-purchase,.btn-close,#checkout-view,#unpaid-link').removeClass('hide');
-				$('#unpaid-link').data('link', rePurchaseLink).find('input').val(rePurchaseLink);
+				$('#unpaid-link').data('id', data.mlfrontOrderPayOneRes.orderId);
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
 				$('.btn-audit,.btn-refund').removeClass('hide');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 || data.mlfrontPayInfoOne.payinfoStatus == 3) {
