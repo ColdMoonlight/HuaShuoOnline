@@ -347,6 +347,25 @@ public class MlfrontOrderListController {
 		}
 	}
 	
+	@RequestMapping(value="/getOlderIdSecretCode",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getOlderIdSecretCode(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
+		
+		Integer checkRecoverOrderId = mlbackSearch.getSearchId();
+		
+		String checkRecoverOrderIdStr = checkRecoverOrderId+"";
+		
+		String secretOrderIdStr = EncryptUtil.XORencode(checkRecoverOrderIdStr,"megalook");
+		
+		String websiteStr = getNowWeb(rep,res,session);
+		
+		String SendSecretStr = websiteStr+"recover/"+secretOrderIdStr+".html";
+		
+		System.out.println("客服人员点击,生成信息SendSecretStr:"+SendSecretStr);
+		
+		return Msg.success().add("resMsg", "成功").add("ReturnPayUrl", SendSecretStr);
+	}
+	
 	/**
 	 * 7.0	UseNow	0505
 	 * toMlbackPayInfoList列表页面
@@ -387,7 +406,7 @@ public class MlfrontOrderListController {
 		page = new PageInfo(mlfrontOrderList, PagNum);
 		mlfrontOrderList = page.getList();
 		//1查询2遍历mlfrontOrderList,3读取每个的orderItemIdStr,4切割,5再遍历产寻单条的获取orderItemId对象
-		return Msg.success().add("pageInfo", page).add("mlfrontOrderList", mlfrontOrderList);
+		return Msg.success().add("pageInfo", page);
 	}
 	
 }
