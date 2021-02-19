@@ -320,4 +320,16 @@
     and order_status!=0 and order_status!=2
     order by order_id desc
   </select>
+  
+  <!-- selectOrderListByAddressAndStatus使用中 -->
+  <select id="selectOrderListByAddressAndStatus" parameterType="com.atguigu.bean.MlfrontOrder" resultMap="BaseResultMap">
+  	select
+  	order_id,order_money, order_coupon_code, order_coupon_price, 
+  	order_addressinfo_id, order_addressinfo_uname, order_addressinfo_uemail, 
+  	order_proNum_str, order_pay_plate, order_pay_plateStr,order_status, order_createTime
+  	from tb_mlfront_order 
+  	where order_addressinfo_id>0 and order_status=0
+    order by order_id desc
+  </select>
+  
 </mapper>
