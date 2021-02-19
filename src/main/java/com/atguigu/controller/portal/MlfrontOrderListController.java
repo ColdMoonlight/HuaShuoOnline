@@ -365,48 +365,5 @@ public class MlfrontOrderListController {
 		
 		return Msg.success().add("resMsg", "成功").add("ReturnPayUrl", SendSecretStr);
 	}
-//	
-//	/**
-//	 * 7.0	UseNow	0505
-//	 * toMlbackPayInfoList列表页面
-//	 * @param jsp
-//	 * @return 
-//	 * */
-//	@RequestMapping("/toAbandonedCheckoutPage")
-//	public String toAbandonedCheckoutPage(HttpSession session) throws Exception{
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
-//		if(mlbackAdmin==null){
-//			//mlbackAdmin对象为空
-//			return "back/mlbackAdminLogin";
-//		}else{
-//			return "back/order/mlbackAbandonedCheckoutPage";
-//		}
-//	}
-//	
-//	/**
-//	 * 8.0	zsh	200720
-//	 * to	全部订单-分状态查询
-//	 * @param jsp
-//	 * @return 
-//	 * */
-//	@RequestMapping(value="/selectAbandonedCheckoutlistBySearch",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg selectAbandonedCheckoutlistBySearch(@RequestParam(value = "pn", defaultValue = "1") Integer pn,@RequestParam(value = "orderStatus") Integer orderStatus,HttpSession session) {
-//
-//		MlfrontOrder mlfrontOrder = new MlfrontOrder();
-//		List<MlfrontOrder> mlfrontOrderList = new ArrayList<MlfrontOrder>();
-//		int PagNum = Const.PAGE_NUM_FrontOrderNum;
-//		PageHelper.startPage(pn, PagNum);
-//		PageInfo page = new PageInfo();
-//		System.out.println("orderStatus状态"+orderStatus);
-//
-//		mlfrontOrder.setOrderStatus(orderStatus);//全部//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款
-//		//只保留//999全部//1支付成功//3审单完毕(待发货) //4发货完毕(运输中)//5已退款
-//		mlfrontOrderList = mlfrontOrderService.selectOrderListByAddressAndStatus(mlfrontOrder);
-//		page = new PageInfo(mlfrontOrderList, PagNum);
-//		mlfrontOrderList = page.getList();
-//		//1查询2遍历mlfrontOrderList,3读取每个的orderItemIdStr,4切割,5再遍历产寻单条的获取orderItemId对象
-//		return Msg.success().add("pageInfo", page);
-//	}
-//	
+
 }
