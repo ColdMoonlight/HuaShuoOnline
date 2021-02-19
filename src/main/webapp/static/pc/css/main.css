@@ -2953,7 +2953,7 @@ footer li {
 	flex-grow: 0;
 	width: 5rem;
 	font-weight: 500;
-	color: #111;
+	/**color: #111;**/
 }
 .order-coupon-tip {
 	font-size: .75rem;
