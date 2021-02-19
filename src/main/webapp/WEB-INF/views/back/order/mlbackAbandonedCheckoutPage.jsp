@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Order List</title>
+	<title>Abandoned-checkout List</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 	<style>
@@ -71,10 +71,10 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Order list</span>
+						<span class="c-option-title">Abandoned-order list</span>
 						<!-- <button class="btn btn-primary btn-create">Create Order</button> -->
 					</div>
-					<div class="ecpp-sync row">
+					<%-- <div class="ecpp-sync row">
 						<div class="form-group col-md-4">
 							<div class="controls">
 								<input hidden id="order-create-time" />
@@ -94,15 +94,15 @@
 							<button class="btn btn-info ecpp-verify-sync">checkEcppIfVerify</button>						
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
 						</div>
-					</div>
+					</div> --%>
 					<div class="c-table">
-						<div class="c-table-tab">
+						<!-- <div class="c-table-tab">
 							<div class="c-table-tab-item" data-idx="0">All</div>
 							<div class="c-table-tab-list"></div>
 							<div class="c-table-tab-tempory"></div>
-						</div>
+						</div> -->
 						<div class="c-table-content">
-							<div class="input-group c-search">
+							<%-- <div class="input-group c-search">
 								<svg class="c-icon">
 									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-magnifying-glass"></use>
 								</svg>
@@ -120,26 +120,15 @@
 									</select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save search</a>
-							</div>
+							</div> --%>
 							<div class="c-table-table table-responsive-sm">
 								<table class="table">
 									<thead>
 										<tr>
-											<th>payId</th>
 											<th>orderid</th>
-											<th>plate-num</th>
-											<!--<th>payinfoCreatetime</th>-->
-											<th>pay-time</th>
-											<th>pay-status</th>
-											<th>price</th>
-											<th>customer</th>
-											<!-- <th>customer-email</th> -->
+											<th>status</th>
 											<th>pay-method</th>
-											<th>pay-num</th>
-											<th>money-status</th>
-											<th>ecpp-num</th>
-											<th>ecpp-status</th>
-											<th>tracking-num</th>
+											<th>price</th>
 											<th>operate</th>
 										</tr>
 									</thead>
@@ -435,15 +424,8 @@
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getTabSearchData($('.c-table-tab-item.active'));
 		});
-		// create order
-		$('.btn-create').on('click', function () {
-			$('.c-view c-option-title').text('Create Order');
-			showViewBlock();
-			getOrderId();
-			isCreate = true;
-		});
 		$('.btn-back').on('click', function () {
-			$('.c-view c-option-title').text('Order List');
+			$('.c-view c-option-title').text('Abandoned-order List');
 			showInitBlock();
 		});
 		// checkEcppIfSend
@@ -1063,9 +1045,9 @@
 		function getOrdersData(val) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlfrontPayInfo/getMlfrontPayInfoByPage",
+				url: "${APP_PATH}/MlfrontOrderList/selectAbandonedCheckoutlistBySearch",
 				type: "post",
-				data: "pn=" + getPageNum(),
+				data: "pn=" + getPageNum() + '&orderStatus=0',
 				success: function (data) {
 					if (data.code == 100) {
 						renderTable(data.extend.pageInfo.list);
@@ -1174,23 +1156,12 @@
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<tr><td class="table-view">' + data[i].payinfoId + '</td>' +
-					'<td>' + (data[i].payinfoOid || '') + '</td>' +
-					'<td>' + (data[i].payinfoPlatenum || '') + '</td>' +
-					/*'<td>' + data[i].payinfoCreatetime + '</td>' +*/
-					'<td>' + data[i].payinfoReturntime + '</td>' +
-					'<td>' + getPayStatus(data[i].payinfoStatus) + '</td>' +
-					'<td>' + (data[i].payinfoMoney || 0).toFixed(2) + '</td>' +
-					'<td>' + (data[i].payinfoUname || '') + '</td>' +
-					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
-					'<td><img style="width: 60px;" src="${APP_PATH}/static/pc/img/' + ((data[i].payinfoPlatform).toLowerCase() == 'bank_card' ? 'paypal-2.png' : 'paypal-1.png') + '"/></td>' +
-					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
-					'<td><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
-					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
-					'<td>' + (data[i].payinfoEcpphsnumStatus || '') + '</td>' +
-					'<td>' + (getNewPayinfoSendNum(data[i].payinfoSendnum)) + '</td>' +
+				htmlStr += '<tr><td>' + (data[i].orderId || '') + '</td>' +
+					'<td>' + getPayStatus(data[i].orderStatus) + '</td>' +
+					'<td><img style="width: 60px;" src="${APP_PATH}/static/pc/img/' + ('' + data[i].orderPayPlate == '1' ? 'paypal-2.png' : 'paypal-1.png') + '"/></td>' +
+					'<td>' + (data[i].orderMoney || '') + '</td>' +
 					'<td>' +
-						'<button class="btn btn-primary btn-view" data-id="' + data[i].payinfoId + '">' +
+						'<button class="btn btn-primary btn-view" data-id="' + data[i].orderId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-eye"></use>' +
 							'</svg>' +
