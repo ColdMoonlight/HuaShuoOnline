@@ -28,6 +28,4 @@ public interface MlfrontOrderMapper {
 	List<MlfrontOrder> selectMlfrontOrderAllHundred();
 
 	List<MlfrontOrder> selectMlfrontOrderByTrackingNumber(MlfrontOrder mlfrontOrderReq);
-	
-	List<MlfrontOrder> selectOrderListByAddressAndStatus(MlfrontOrder mlfrontOrder);
 }

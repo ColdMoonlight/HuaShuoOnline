@@ -23,17 +23,13 @@
     <result column="order_logisticsId" jdbcType="INTEGER" property="orderLogisticsid" />
     <result column="order_logisticsName" jdbcType="VARCHAR" property="orderLogisticsname" />
     <result column="order_logisticsNumber" jdbcType="VARCHAR" property="orderLogisticsnumber" />
-    <result column="order_ifEmailSend" jdbcType="VARCHAR" property="orderIfEmailSend" />
-    <result column="order_ifEmailReturn" jdbcType="VARCHAR" property="orderIfEmailReturn" />
-    <result column="order_ifSMSSend" jdbcType="VARCHAR" property="orderIfSMSSend" />
-    <result column="order_ifSMSReturn" jdbcType="VARCHAR" property="orderIfSMSReturn" />
   </resultMap>
   <sql id="Base_Column_List">
     order_id, order_uid, order_ip, order_orderItemIdStr, order_money, order_coupon_id, 
     order_coupon_code, order_coupon_price, order_addressinfo_id, order_addressinfo_uname, 
     order_addressinfo_uemail, order_proNum_str, order_pay_plate, order_pay_plateStr, 
     order_buy_mess, order_status, order_createTime, order_motifyTime, order_logisticsId, 
-    order_logisticsName, order_logisticsNumber,order_ifEmailSend,order_ifEmailReturn,order_ifSMSSend,order_ifSMSReturn
+    order_logisticsName, order_logisticsNumber
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -58,8 +54,7 @@
       #{orderPronumStr,jdbcType=VARCHAR}, #{orderPayPlate,jdbcType=INTEGER}, #{orderPayPlatestr,jdbcType=VARCHAR}, 
       #{orderBuyMess,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, #{orderCreatetime,jdbcType=VARCHAR}, 
       #{orderMotifytime,jdbcType=VARCHAR}, #{orderLogisticsid,jdbcType=INTEGER}, #{orderLogisticsname,jdbcType=VARCHAR}, 
-      #{orderLogisticsnumber,jdbcType=VARCHAR}, #{orderIfEmailSend,jdbcType=VARCHAR}, 
-      #{orderIfEmailReturn,jdbcType=VARCHAR}, #{orderIfSMSSend,jdbcType=VARCHAR}, #{orderIfSMSReturn,jdbcType=VARCHAR})
+      #{orderLogisticsnumber,jdbcType=VARCHAR})
   </insert>
   
   
@@ -84,11 +79,7 @@
       order_motifyTime = #{orderMotifytime,jdbcType=VARCHAR},
       order_logisticsId = #{orderLogisticsid,jdbcType=INTEGER},
       order_logisticsName = #{orderLogisticsname,jdbcType=VARCHAR},
-      order_logisticsNumber = #{orderLogisticsnumber,jdbcType=VARCHAR}, 
-      order_ifEmailSend = #{orderIfEmailSend,jdbcType=VARCHAR}, 
-      order_ifEmailReturn = #{orderIfEmailReturn,jdbcType=VARCHAR}, 
-      order_ifSMSSend = #{orderIfSMSSend,jdbcType=VARCHAR}, 
-      order_ifSMSReturn = #{orderIfSMSReturn,jdbcType=VARCHAR}
+      order_logisticsNumber = #{orderLogisticsnumber,jdbcType=VARCHAR}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
   
@@ -159,18 +150,6 @@
       <if test="orderLogisticsnumber != null">
         order_logisticsNumber,
       </if>
-      <if test="orderIfEmailSend != null">
-        order_ifEmailSend,
-      </if>
-      <if test="orderIfEmailReturn != null">
-        order_ifEmailReturn,
-      </if>
-      <if test="orderIfSMSSend != null">
-        order_ifSMSSend,
-      </if>
-      <if test="orderIfSMSReturn != null">
-        order_ifSMSReturn,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -235,18 +214,6 @@
       </if>
       <if test="orderLogisticsnumber != null">
         #{orderLogisticsnumber,jdbcType=VARCHAR},
-      </if>
-      <if test="orderIfEmailSend != null">
-        #{orderIfEmailSend,jdbcType=VARCHAR},
-      </if>
-      <if test="orderIfEmailReturn != null">
-        #{orderIfEmailReturn,jdbcType=VARCHAR},
-      </if>
-      <if test="orderIfSMSSend != null">
-        #{orderIfSMSSend,jdbcType=VARCHAR},
-      </if>
-      <if test="orderIfSMSReturn != null">
-        #{orderIfSMSReturn,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -319,18 +286,6 @@
       <if test="orderLogisticsnumber != null">
         order_logisticsNumber = #{orderLogisticsnumber,jdbcType=VARCHAR},
       </if>
-      <if test="orderIfEmailSend != null">
-        order_ifEmailSend = #{orderIfEmailSend,jdbcType=VARCHAR}, 
-      </if>
-      <if test="orderIfEmailReturn != null">
-        order_ifEmailReturn = #{orderIfEmailReturn,jdbcType=VARCHAR}, 
-      </if>
-      <if test="orderIfSMSSend != null">
-        order_ifSMSSend = #{orderIfSMSSend,jdbcType=VARCHAR},
-      </if>
-      <if test="orderIfSMSReturn != null">
-        order_ifSMSReturn = #{orderIfSMSReturn,jdbcType=VARCHAR},
-      </if>
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
@@ -363,17 +318,6 @@
   <select id="selectOrderListByUidAndSuccessStatus" parameterType="com.atguigu.bean.MlfrontOrder" resultMap="BaseResultMap">
   	select * from tb_mlfront_order where order_uid = #{orderUid,jdbcType=INTEGER} and order_addressinfo_id>0 
     and order_status!=0 and order_status!=2
-    order by order_id desc
-  </select>
-  
-  <!-- selectOrderListByAddressAndStatus使用中 -->
-  <select id="selectOrderListByAddressAndStatus" parameterType="com.atguigu.bean.MlfrontOrder" resultMap="BaseResultMap">
-  	select
-  	order_id,order_money, order_coupon_code, order_coupon_price, 
-  	order_addressinfo_id, order_addressinfo_uname, order_addressinfo_uemail, 
-  	order_proNum_str, order_pay_plate, order_pay_plateStr,order_status, order_createTime
-  	from tb_mlfront_order 
-  	where order_addressinfo_id>0 and order_status=0
     order by order_id desc
   </select>
   
