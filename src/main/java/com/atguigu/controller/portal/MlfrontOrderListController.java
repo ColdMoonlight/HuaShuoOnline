@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackSearch;
 import com.atguigu.bean.MlbackSmstype;
 import com.atguigu.bean.MlfrontAddress;
@@ -343,6 +345,23 @@ public class MlfrontOrderListController {
 		}else{
 			//没查到这个,返回
 			return Msg.fail().add("resMsg", "没配置smstypeName对象");
+		}
+	}
+	
+	/**
+	 * 2.0	UseNow	0505
+	 * toMlbackPayInfoList列表页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/abandonedCheckoutList")
+	public String abandonedCheckoutList(HttpSession session) throws Exception{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//mlbackAdmin对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/order/mlbackAbandonedCheckoutPage";
 		}
 	}
 	
