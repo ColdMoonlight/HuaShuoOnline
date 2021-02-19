@@ -32,12 +32,6 @@
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">Wholesale Page</span>
 					</a>
-				</li>				
-				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontOrderList/toAbandonedCheckoutPage">
-						<span class="c-sidebar-nav-icon"></span>
-						<span class="c-text">Abandoned Checkouts</span>
-					</a>
 				</li>
 			</ul>
 		</li>
