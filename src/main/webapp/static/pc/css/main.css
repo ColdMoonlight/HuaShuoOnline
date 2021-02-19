@@ -386,11 +386,10 @@ a.btn-black,
 }
 a.btn-gray,
 .btn-gray {
-	color: #fff;
-	border: 1px solid #ff1671;
-	background-color: #ff1671;
+	color: #333;
+	border: 1px solid #ccc;
+	background-color: #ccc;
 }
-.order-coupon-group .btn-gray{color:#fff}
 a.btn-pink,
 .btn-pink {	
 	color: #fff;
@@ -2954,7 +2953,7 @@ footer li {
 	flex-grow: 0;
 	width: 5rem;
 	font-weight: 500;
-	color: #111;
+	/**color: #111;**/
 }
 .order-coupon-tip {
 	font-size: .75rem;
