@@ -44,6 +44,14 @@ public class MlfrontOrder {
     private String orderLogisticsname;
 
     private String orderLogisticsnumber;
+    
+    private String orderIfEmailSend;
+    
+    private String orderIfEmailReturn;
+    
+    private String orderIfSMSSend;
+    
+    private String orderIfSMSReturn;
 
     public Integer getOrderId() {
         return orderId;
@@ -212,6 +220,38 @@ public class MlfrontOrder {
     public void setOrderLogisticsnumber(String orderLogisticsnumber) {
         this.orderLogisticsnumber = orderLogisticsnumber == null ? null : orderLogisticsnumber.trim();
     }
+    
+	public String getOrderIfEmailSend() {
+		return orderIfEmailSend;
+	}
+
+	public void setOrderIfEmailSend(String orderIfEmailSend) {
+		this.orderIfEmailSend = orderIfEmailSend == null ? null : orderIfEmailSend.trim();
+	}
+
+	public String getOrderIfEmailReturn() {
+		return orderIfEmailReturn;
+	}
+
+	public void setOrderIfEmailReturn(String orderIfEmailReturn) {
+		this.orderIfEmailReturn = orderIfEmailReturn == null ? null : orderIfEmailReturn.trim();
+	}
+
+	public String getOrderIfSMSSend() {
+		return orderIfSMSSend;
+	}
+
+	public void setOrderIfSMSSend(String orderIfSMSSend) {
+		this.orderIfSMSSend = orderIfSMSSend == null ? null : orderIfSMSSend.trim();
+	}
+
+	public String getOrderIfSMSReturn() {
+		return orderIfSMSReturn;
+	}
+
+	public void setOrderIfSMSReturn(String orderIfSMSReturn) {
+		this.orderIfSMSReturn = orderIfSMSReturn == null ? null : orderIfSMSReturn.trim();
+	}
 
 	public MlfrontOrder() {
 		super();
@@ -222,7 +262,8 @@ public class MlfrontOrder {
 			Integer orderAddressinfoId, String orderAddressinfoUname, String orderAddressinfoUemail,
 			String orderPronumStr, Integer orderPayPlate, String orderPayPlatestr, String orderBuyMess,
 			Integer orderStatus, String orderCreatetime, String orderMotifytime, Integer orderLogisticsid,
-			String orderLogisticsname, String orderLogisticsnumber) {
+			String orderLogisticsname, String orderLogisticsnumber, String orderIfEmailSend, String orderIfEmailReturn,
+			String orderIfSMSSend, String orderIfSMSReturn) {
 		super();
 		this.orderId = orderId;
 		this.orderUid = orderUid;
@@ -245,6 +286,10 @@ public class MlfrontOrder {
 		this.orderLogisticsid = orderLogisticsid;
 		this.orderLogisticsname = orderLogisticsname;
 		this.orderLogisticsnumber = orderLogisticsnumber;
+		this.orderIfEmailSend = orderIfEmailSend;
+		this.orderIfEmailReturn = orderIfEmailReturn;
+		this.orderIfSMSSend = orderIfSMSSend;
+		this.orderIfSMSReturn = orderIfSMSReturn;
 	}
 
 	@Override
@@ -257,7 +302,9 @@ public class MlfrontOrder {
 				+ ", orderPayPlate=" + orderPayPlate + ", orderPayPlatestr=" + orderPayPlatestr + ", orderBuyMess="
 				+ orderBuyMess + ", orderStatus=" + orderStatus + ", orderCreatetime=" + orderCreatetime
 				+ ", orderMotifytime=" + orderMotifytime + ", orderLogisticsid=" + orderLogisticsid
-				+ ", orderLogisticsname=" + orderLogisticsname + ", orderLogisticsnumber=" + orderLogisticsnumber + "]";
+				+ ", orderLogisticsname=" + orderLogisticsname + ", orderLogisticsnumber=" + orderLogisticsnumber
+				+ ", orderIfEmailSend=" + orderIfEmailSend + ", orderIfEmailReturn=" + orderIfEmailReturn
+				+ ", orderIfSMSSend=" + orderIfSMSSend + ", orderIfSMSReturn=" + orderIfSMSReturn + "]";
 	}
-    
+
 }
