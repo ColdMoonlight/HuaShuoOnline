@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Customer Video 111</title>
+    <title>Customer Video </title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>
