@@ -332,7 +332,7 @@ public class MlfrontOrderListController {
 						
 					}
 					//该状态不生效,没有生效的
-					return Msg.success().add("resMsg", "本时间段没有可以弃购挽回的订单信息");
+					return Msg.success().add("resMsg", "本时间段的弃购挽回信息操作完毕");
 				}else{
 					//该状态不生效,没有生效的
 					return Msg.fail().add("resMsg", "本时间段没有可以弃购挽回的订单信息");

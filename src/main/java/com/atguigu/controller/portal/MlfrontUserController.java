@@ -153,8 +153,8 @@ public class MlfrontUserController {
 				//测试方法
 				String getToEmail = userEmail;
 				String Message = "Welcome to Register In Megalook.";
-				EmailUtilshtml.readyEmailRegister(getToEmail, Message,mlfrontUserafterIn);
-				EmailUtilshtmlCustomer.readyEmailRegisterCustomer(getToEmail, Message,mlfrontUserafterIn);
+//				EmailUtilshtml.readyEmailRegister(getToEmail, Message,mlfrontUserafterIn);
+//				EmailUtilshtmlCustomer.readyEmailRegisterCustomer(getToEmail, Message,mlfrontUserafterIn);
 				EmailNewUtilshtml.readyEmailRegister(getToEmail, Message,mlfrontUserafterIn);
 				EmailNewUtilshtmlCustomer.readyEmailRegisterCustomer(getToEmail, Message,mlfrontUserafterIn);
 			} catch (Exception e) {
