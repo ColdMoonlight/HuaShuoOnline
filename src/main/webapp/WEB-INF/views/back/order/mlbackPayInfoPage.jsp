@@ -135,6 +135,7 @@
 											<th>customer</th>
 											<!-- <th>customer-email</th> -->
 											<th>pay-method</th>
+											<th class="table-sms hide">SMS-status</th>
 											<th>pay-num</th>
 											<th>money-status</th>
 											<th>ecpp-num</th>
@@ -813,23 +814,26 @@
 		}
 		// get Data for table
 		function getTabSearchData($this) {
+			function fnSendSms() {
+				if ('' + $('#payinfoStatus').val() == '0') {
+					$('.table-sms').removeClass('hide');
+					$('#send-sms').removeClass('hide');
+				} else {
+					$('#send-sms').addClass('hide');
+					$('.table-sms').addClass('hide');
+				}
+			}
 			var dataVal = $this.data('val');
 			if (dataVal && (dataVal.payinfostatusval || dataVal.payinfonum)) {
 				$('#payinfoPlateNum').val(dataVal.payinfonum || '');
 				$('#payinfoStatus').attr('data-val', dataVal.payinfostatus || '-1');
 				$('#payinfoStatus').val(dataVal.payinfostatus || '-1');
-				getSearchOrdersData();
+				getSearchOrdersData(fnSendSms);
 			} else {
 				$('#payinfoPlateNum').val('');
 				$('#payinfoStatus').val('999');
 				initActiveItemNum();
-				getOrdersData();
-			}
-			
-			if ('' + $('#payinfoStatus').val() == '0') {
-				$('#send-sms').removeClass('hide');
-			} else {
-				$('#send-sms').addClass('hide');
+				getOrdersData(fnSendSms);
 			}
 		}
 		// callback init order details
@@ -1077,7 +1081,7 @@
 			$('.checkout-view-shipping.address .value').html(data.checkoutviewAddressdetail || '--');
 		}
 		//  callback get all
-		function getOrdersData(val) {
+		function getOrdersData(callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlfrontPayInfo/getMlfrontPayInfoByPage",
@@ -1088,6 +1092,7 @@
 						renderTable(data.extend.pageInfo.list);
 						renderTablePagination(data.extend.pageInfo);
 						toastr.success(data.extend.resMsg);
+						callback && callback();
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
@@ -1101,7 +1106,7 @@
 			});
 		}
 		// callback get search data
-		function getSearchOrdersData(data) {
+		function getSearchOrdersData(callback) {
 			$('.c-mask').show();
 
 			var formData = new FormData();
@@ -1121,6 +1126,7 @@
 						renderTable(data.extend.pageInfo.list);
 						renderTablePagination(data.extend.pageInfo);
 						toastr.success(data.extend.resMsg);
+						callback && callback();
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
@@ -1201,6 +1207,7 @@
 					'<td>' + (data[i].payinfoUname || '') + '</td>' +
 					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
 					'<td><img style="width: 60px;" src="${APP_PATH}/static/pc/img/' + ((data[i].payinfoPlatform).toLowerCase() == 'bank_card' ? 'paypal-2.png' : 'paypal-1.png') + '"/></td>' +
+					'<td class="table-sms hide"><a class="badge '+ (data[i].payinfoIfSMS ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoIfSMS ? 'send' : 'not send') + '</td>' +
 					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
 					'<td><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
