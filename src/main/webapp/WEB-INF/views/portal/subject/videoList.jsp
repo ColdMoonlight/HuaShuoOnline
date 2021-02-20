@@ -3,11 +3,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Customer Video</title>
+    <title>Customer Video 111</title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>
 		@media only screen and (max-width: 1023px) { main { margin:  0; } }
+		
+		@media only screen and (min-width: 576px){
+			.video-banner2 .pc {
+			    padding-top: 26.1%;
+			    /* max-height: 500px; */
+				display: block;
+				opacity: 1;
+			}
+			.video-banner2 .wap {
+				display: none;
+				opacity: 0;
+			}
+		}
+		@media only screen and (max-width: 575px){
+			.video-banner2 .wap {
+			    padding-top: 53.33%;
+				display: block;
+				opacity: 1;
+			}
+			.video-banner2 .pc {
+				display: none;
+				opacity: 0;
+			}
+		}
+		
+		
 	</style>
 </head>
 <body>
@@ -15,24 +41,28 @@
 	<!-- main start -->
 		<!-- video banner -->
 		<div class="video-banner">
-			<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-banner.jpg"></div>
-			<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-banner.jpg"></div>
+			<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/sj1.jpg"></div>
+			<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/c01.jpg"></div>
 		</div>
 
 		<div class="container">
 			<!-- video discount -->
 			<div class="video-discount">			
-				<div class="video-discount-title wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-dis-title.jpg"></div>
-				<div class="video-discount-title pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-dis-title.jpg"></div>
-				<div class="video-discount-body wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-discount.jpg"></div>
-				<div class="video-discount-body pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-discount.png"></div>				
+				<div class="video-discount-title wap lazyload" data-src="${APP_PATH }/static/pc/img/video/sjbt1.jpg"></div>
+				<div class="video-discount-title pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pcbt.jpg"></div>
+				<div class="video-discount-body wap lazyload" data-src="${APP_PATH }/static/pc/img/video/sj2.jpg"></div>
+				<div class="video-discount-body pc lazyload" data-src="${APP_PATH }/static/pc/img/video/c02.jpg"></div>				
 			</div>
 			<!-- video recommend -->
+			<div class="video-banner2">
+				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/sj3.jpg"></div>
+				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/c03.jpg"></div>
+			</div>	
 			<div class="video-recommend-box">
 				<div class="video-recommend-title">
 					<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-recommend.jpg"></div>
 					<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-recommend.jpg"></div>
-				</div>			
+				</div>	
 				<div class="video-recommend-body">
 					<div class="video-recommend-item shadow-radius lazyload" data-id="157" data-video="https://www.youtube.com/embed/zD5dgYYDb08?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=zD5dgYYDb08&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd1.jpg"></div>
 					<div class="video-recommend-item shadow-radius lazyload" data-id="109" data-video="https://www.youtube.com/embed/qp91g1hg9nM?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=qp91g1hg9nM&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd2.jpg"></div>
