@@ -15,6 +15,8 @@ import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.EmailNewUtilshtml;
+import com.atguigu.utils.EmailNewUtilshtmlCustomer;
 import com.atguigu.utils.EmailUtilshtml;
 import com.atguigu.utils.EmailUtilshtmlCustomer;
 import com.atguigu.utils.IfMobileUtils;
@@ -153,6 +155,8 @@ public class MlfrontUserController {
 				String Message = "Welcome to Register In Megalook.";
 				EmailUtilshtml.readyEmailRegister(getToEmail, Message,mlfrontUserafterIn);
 				EmailUtilshtmlCustomer.readyEmailRegisterCustomer(getToEmail, Message,mlfrontUserafterIn);
+				EmailNewUtilshtml.readyEmailRegister(getToEmail, Message,mlfrontUserafterIn);
+				EmailNewUtilshtmlCustomer.readyEmailRegisterCustomer(getToEmail, Message,mlfrontUserafterIn);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -319,78 +323,5 @@ public class MlfrontUserController {
 			  return "portal/user/myPcOrderDetail";//Pc端
 		}
 	}
-	
-//	/**
-//	 * 7.0	UseNow	0505
-//	 * to	MlfrontUser列表页面
-//	 * @param jsp
-//	 * @return 
-//	 * */
-//	@RequestMapping(value="/getMlfrontUserByDate",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getMlfrontUserByDate(HttpServletResponse rep,HttpServletRequest res,HttpSession session ,@RequestBody MlfrontUser mlfrontUser){
-//		
-//		Integer pn = 1;
-////		Integer pn = pageTime.getPn();
-////		if(pn==null){
-////			pn=1;
-////		}
-////		String beginTime = pageTime.getBeginTime();
-////		String endTime = pageTime.getEndTime();
-//		
-//		String beginTime = mlfrontUser.getUserCreatetime();
-//		String endTime = mlfrontUser.getUserMotifytime();
-//		
-//		MlfrontUser mlfrontUserReq = new MlfrontUser();
-//		mlfrontUserReq.setUserCreatetime(beginTime);
-//		mlfrontUserReq.setUserMotifytime(endTime);
-//		
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
-////		if(mlbackAdmin==null){
-////			//SysUsers对象为空
-////			return Msg.fail().add("resMsg", "session中adminuser对象为空");
-////		}else{
-//		int PagNum = 20;
-//		PageHelper.startPage(pn, PagNum);
-//		List<MlfrontUser> mlfrontUserList = mlfrontUserService.selectMlfrontUserByDate(mlfrontUserReq);
-//		Integer countNumber = mlfrontUserList.size();
-//		PageInfo page = new PageInfo(mlfrontUserList, PagNum);
-//		return Msg.success().add("pageInfo", page).add("countNumber", countNumber).add("resMsg", "注册用户查询成功");
-//	}
-	
-//	/**
-//	 * 8.0	useOn	0505
-//	 * to	MlfrontUser列表页面
-//	 * @param jsp
-//	 * @return  
-//	 * */
-//	@RequestMapping("/toMlbackUserPage")
-//	public String toMlfrontUserPage() throws Exception{
-//	
-//		return "back/mlbackUserPage";
-//	}
-//	
-//	/**9.0	UseNow	0505
-//	 * 分类MlfrontUser列表分页list数据
-//	 * @param pn
-//	 * @return
-//	 */
-//	@RequestMapping(value="/getMlfrontUserByPage")
-//	@ResponseBody
-//	public Msg getMlfrontUserWithJson(
-//			@RequestParam(value = "pn", defaultValue = "1") Integer pn
-//			,HttpSession session) {
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
-////		if(mlbackAdmin==null){
-////			//SysUsers对象为空
-////			return Msg.fail().add("resMsg", "session中adminuser对象为空");
-////		}else{
-//			int PagNum = 20;
-//			PageHelper.startPage(pn, PagNum);
-//			List<MlfrontUser> mlfrontUserList = mlfrontUserService.selectMlfrontUserGetAll();
-//			PageInfo page = new PageInfo(mlfrontUserList, PagNum);
-//			return Msg.success().add("pageInfo", page);
-////		}
-//	}
 
 }
