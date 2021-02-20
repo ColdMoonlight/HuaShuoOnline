@@ -46,6 +46,8 @@ import com.atguigu.ship.Classes.ConnectionAPI;
 import com.atguigu.ship.Classes.Tracking;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.EcppUpdateWebStatusUtil;
+import com.atguigu.utils.EmailNewUtilshtml;
+import com.atguigu.utils.EmailNewUtilshtmlCustomer;
 import com.atguigu.utils.EmailUtilshtml;
 import com.atguigu.utils.EmailUtilshtmlCustomer;
 import com.atguigu.utils.PropertiesUtil;
@@ -824,6 +826,8 @@ public class MlfrontPayInfoController {
 			String getToEmail = userEmail;
 			EmailUtilshtml.readyEmailVerifySuccess(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
 			EmailUtilshtmlCustomer.readyEmailVerifyCustomer(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
+			EmailNewUtilshtml.readyEmailVerifySuccess(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
+			EmailNewUtilshtmlCustomer.readyEmailVerifyCustomer(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -34,20 +34,20 @@ public class EmailNewUtilshtml {
      * @throws Exception
      */ 
 	public static void readyEmailRegister(String getToEmail, String Message, MlfrontUser mlfrontUserafterIn)  throws Exception{
-		sendEmilRegister(getToEmail, Message, mlfrontUserafterIn);
+		sendNewEmilRegister(getToEmail, Message, mlfrontUserafterIn);
 	}
 	
 	public static void readyEmailPaySuccess(String getToEmail, String Message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne, 
 			MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage)  throws Exception{
-		sendEmilPay(getToEmail, Message, mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage);
+		sendNewEmilPay(getToEmail, Message, mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage);
 	}
 	
 	public static void readyEmailVerifySuccess(String getToEmail, String toCustomerVerifyInfoStr, String payinfoPlateNum) {
-		sendEmilVerify(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
+		sendNewEmilVerify(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
 	}
 	
 	public static void readyEmailAbandoningPurchaseSuccess(String to, String toCustomerAbandoningPurchaseStr) {
-		sendEmilAbandoningPurchase(to,toCustomerAbandoningPurchaseStr);
+		sendNewEmilAbandoningPurchase(to,toCustomerAbandoningPurchaseStr);
 	}
 	
 	/*
@@ -55,14 +55,14 @@ public class EmailNewUtilshtml {
 	 * megalookweb@outlook.com
 	 * mingyueqingl@163.com
 	 * */
-	public static void sendEmilRegister(String to, String message,MlfrontUser mlfrontUserafterIn) {
+	public static void sendNewEmilRegister(String to, String message,MlfrontUser mlfrontUserafterIn) {
         try {
             Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
             final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
             //设置邮件会话参数
             Properties props = new Properties();
             //邮箱的发送服务器地址
-            props.setProperty("mail.smtp.host", "smtp.138mail.net");
+            props.setProperty("mail.smtp.host", "smtp.mxhichina.com");
             props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
             props.setProperty("mail.smtp.socketFactory.fallback", "false");
             //邮箱发送服务器端口,这里设置为465端口
@@ -75,8 +75,8 @@ public class EmailNewUtilshtml {
 //          final String password = "DfcorpKXl6CbH1It";         
 //          final String username = "sales@megalook.com";//huashuohair
 //          final String password = "qPVGjvIM6wXVSsFn";
-            String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.username");
-            String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.userhighpwd");
+            String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
+            String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
             Session session = Session.getDefaultInstance(props, new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -95,7 +95,7 @@ public class EmailNewUtilshtml {
 //          msg.setFrom(new InternetAddress("发件人邮箱"));
 //          msg.setFrom(new InternetAddress("service@megalook.com"));//megalook
 //          msg.setFrom(new InternetAddress("sales@megalook.com"));//huashuohair
-            String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.username");
+            String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             msg.setFrom(new InternetAddress(sendEmail));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("mingyueqingl@163.com", false));
@@ -123,14 +123,14 @@ public class EmailNewUtilshtml {
 	 * megalookweb@outlook.com
 	 * mingyueqingl@163.com
 	 * */
-	public static void sendEmilPay(String to, String message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage) {
+	public static void sendNewEmilPay(String to, String message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage) {
         try {
             Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
             final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
             //设置邮件会话参数
             Properties props = new Properties();
             //邮箱的发送服务器地址
-            props.setProperty("mail.smtp.host", "smtp.138mail.net");
+            props.setProperty("mail.smtp.host", "smtp.mxhichina.com");
             props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
             props.setProperty("mail.smtp.socketFactory.fallback", "false");
             //邮箱发送服务器端口,这里设置为465端口
@@ -143,8 +143,8 @@ public class EmailNewUtilshtml {
 //          final String password = "DfcorpKXl6CbH1It";         
 //          final String username = "sales@megalook.com";//huashuohair
 //          final String password = "qPVGjvIM6wXVSsFn";
-            String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.username");
-            String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.userhighpwd");
+            String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
+            String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
             Session session = Session.getDefaultInstance(props, new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -194,7 +194,7 @@ public class EmailNewUtilshtml {
 //          msg.setFrom(new InternetAddress("发件人邮箱"));
 //          msg.setFrom(new InternetAddress("service@megalook.com"));//megalook
 //          msg.setFrom(new InternetAddress("sales@megalook.com"));//huashuohair
-            String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.username");
+            String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             msg.setFrom(new InternetAddress(sendEmail));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("mingyueqingl@163.com", false));
@@ -235,14 +235,14 @@ public class EmailNewUtilshtml {
 	 * megalookweb@outlook.com
 	 * mingyueqingl@163.com
 	 * */
-	private static void sendEmilVerify(String to, String toCustomerVerifyInfoStr, String payinfoPlateNum) {
+	private static void sendNewEmilVerify(String to, String toCustomerVerifyInfoStr, String payinfoPlateNum) {
 		try {
             Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
             final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
             //设置邮件会话参数
             Properties props = new Properties();
             //邮箱的发送服务器地址
-            props.setProperty("mail.smtp.host", "smtp.138mail.net");
+            props.setProperty("mail.smtp.host", "smtp.mxhichina.com");
             props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
             props.setProperty("mail.smtp.socketFactory.fallback", "false");
             //邮箱发送服务器端口,这里设置为465端口
@@ -255,8 +255,8 @@ public class EmailNewUtilshtml {
 //          final String password = "DfcorpKXl6CbH1It";         
 //          final String username = "sales@megalook.com";//huashuohair
 //          final String password = "qPVGjvIM6wXVSsFn";
-            String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.username");
-            String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.userhighpwd");
+            String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
+            String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
             Session session = Session.getDefaultInstance(props, new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -271,7 +271,7 @@ public class EmailNewUtilshtml {
 //          msg.setFrom(new InternetAddress("发件人邮箱"));
 //          msg.setFrom(new InternetAddress("service@megalook.com"));//megalook
 //          msg.setFrom(new InternetAddress("sales@megalook.com"));//huashuohair
-            String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.username");
+            String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             msg.setFrom(new InternetAddress(sendEmail));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("mingyueqingl@163.com", false));
@@ -298,7 +298,7 @@ public class EmailNewUtilshtml {
 	}
 	
 
-	public static void sendEmilAbandoningPurchase(String to, String toCustomerAbandoningPurchaseStr) {
+	public static void sendNewEmilAbandoningPurchase(String to, String toCustomerAbandoningPurchaseStr) {
 		
 		try {
             Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
@@ -306,7 +306,7 @@ public class EmailNewUtilshtml {
             //设置邮件会话参数
             Properties props = new Properties();
             //邮箱的发送服务器地址
-            props.setProperty("mail.smtp.host", "smtp.138mail.net");
+            props.setProperty("mail.smtp.host", "smtp.mxhichina.com");
             props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
             props.setProperty("mail.smtp.socketFactory.fallback", "false");
             //邮箱发送服务器端口,这里设置为465端口
@@ -319,8 +319,8 @@ public class EmailNewUtilshtml {
 //          final String password = "DfcorpKXl6CbH1It";         
 //          final String username = "sales@megalook.com";//huashuohair
 //          final String password = "qPVGjvIM6wXVSsFn";
-            String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.username");
-            String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.userhighpwd");
+            String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
+            String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
             Session session = Session.getDefaultInstance(props, new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -335,7 +335,7 @@ public class EmailNewUtilshtml {
 //          msg.setFrom(new InternetAddress("发件人邮箱"));
 //          msg.setFrom(new InternetAddress("service@megalook.com"));//megalook
 //          msg.setFrom(new InternetAddress("sales@megalook.com"));//huashuohair
-            String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendEmil.username");
+            String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             msg.setFrom(new InternetAddress(sendEmail));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("mingyueqingl@163.com", false));
