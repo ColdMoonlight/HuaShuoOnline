@@ -274,6 +274,10 @@ public class MlfrontOrderListController {
 					String orderIdLastOneStr = "";
 					
 					for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
+						
+						//本payinfoId是多少,更新完了的话,需要把这一单的payinfo_SMS更新过来
+						Integer payId = mlfrontPayInfoOne.getPayinfoId();
+						
 						Integer checkRecoverOrderId = mlfrontPayInfoOne.getPayinfoOid();
 						
 						String checkRecoverOrderIdNowStr = checkRecoverOrderId+"";
@@ -325,6 +329,12 @@ public class MlfrontOrderListController {
 								e.printStackTrace();
 								System.out.println(SendStr+",这一单系统异常,报错了");
 							}
+							//1-本payinfoId是多少,更新完了的话;
+							MlfrontPayInfo mlfrontPayInfoSMSed = new MlfrontPayInfo();
+							mlfrontPayInfoSMSed.setPayinfoId(payId);
+							mlfrontPayInfoSMSed.setPayinfoIfSMS(1);
+							//2-需要把这一单的payinfo_SMS更新过来
+							mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoSMSed);
 							
 							//操作完毕，把当前orderid存住；
 							orderIdLastOneStr = checkRecoverOrderIdNowStr;
