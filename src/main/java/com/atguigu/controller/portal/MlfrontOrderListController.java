@@ -300,30 +300,32 @@ public class MlfrontOrderListController {
 							List<MlfrontAddress> MlfrontAddressList = mlfrontAddressService.selectMlfrontAddressByParam(MlfrontAddressReq);
 							MlfrontAddress mlfrontAddressOne = MlfrontAddressList.get(0);
 							String telephone = mlfrontAddressOne.getAddressTelephone();
+							String firstName = mlfrontAddressOne.getAddressUserfirstname();
+							
+							String userName = firstName+" ";
 							//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------end--------
 							String checkRecoverOrderIdStr = checkRecoverOrderId+"";
-							System.out.println("本条order以挽回checkRecoverOrderIdStr："+checkRecoverOrderIdStr);
 							
 							String websiteStr = getNowWeb(rep,res,session);
 							
 							String secretOrderIdStr = EncryptUtil.XORencode(checkRecoverOrderIdStr,"megalook");
-							System.out.println("secretOrderIdStr:"+secretOrderIdStr);
 							
-							String SendStr = Content+"."+websiteStr+"recover/"+checkRecoverOrderIdStr+".html";
-							String SendSecretStr = Content+"."+websiteStr+"recover/"+secretOrderIdStr+".html";
-							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
-							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendSecretStr:"+SendSecretStr);
+							String SendStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"recover/"+checkRecoverOrderIdStr+".html";
+//							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
+							String SendSecretStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"recover/"+secretOrderIdStr+".html";
+//							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendSecretStr:"+SendSecretStr);
 							
 							//这里要解密
-							String unSecretOrderIdStr = EncryptUtil.XORdecode(secretOrderIdStr,"megalook");
-							String SendUnSecretStr = Content+"."+websiteStr+"recover/"+unSecretOrderIdStr+".html";
-							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendUnSecretStr:"+SendUnSecretStr);
+//							String unSecretOrderIdStr = EncryptUtil.XORdecode(secretOrderIdStr,"megalook");
+//							String SendUnSecretStr = Content+"."+websiteStr+"recover/"+unSecretOrderIdStr+".html";
+//							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendUnSecretStr:"+SendUnSecretStr);
 							
 							try {
 								//这个是真实发送
-								//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);
-								//System.out.println(SendStr+",这一单发送成功功");
-								System.out.println("payid为:"+mlfrontPayInfoOne.getPayinfoId()+","+SendStr+",这一单短信通知成功--被屏蔽,仅仅打印,未实际发送,");
+								//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
+								String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,telephone);//加密串
+								System.out.println(SendSecretStr+",这一单发送成功");
+								//System.out.println("payid为:"+mlfrontPayInfoOne.getPayinfoId()+","+SendSecretStr+",这一单短信通知成功--被屏蔽,仅仅打印,未实际发送,");
 								//这个是真实发送
 							} catch (Exception e) {
 								e.printStackTrace();
