@@ -19,6 +19,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackHtmlEmailService;
+import com.atguigu.utils.EmailHtmlUtil;
+import com.atguigu.utils.PropertiesUtil;
 
 @Controller
 @RequestMapping("/MlbackHtmlEmail")
@@ -38,13 +40,13 @@ public class MlbackHtmlEmailController {
 	 * */
 	@RequestMapping("/toMlbackHtmlEmailPage")
 	public String toMlbackHtmlEmailPage(HttpSession session) throws Exception{
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
-		if(mlbackAdmin==null){
-			//MlbackAdmin对象为空
-			return "back/mlbackAdminLogin";
-		}else{
+//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+//		if(mlbackAdmin==null){
+//			//MlbackAdmin对象为空
+//			return "back/mlbackAdminLogin";
+//		}else{
 			return "back/email/mlbackHtmlEmailPage";
-		}
+//		}
 	}
 	
 	
@@ -130,20 +132,15 @@ public class MlbackHtmlEmailController {
 	 */
 	@RequestMapping(value="/getOneMlbackHtmlEmailOneAllDetail",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneMlbackHtmlEmailOneAllDetail(@RequestParam(value = "htmlemailId") Integer htmlemailId){
+	public Msg getOneMlbackHtmlEmailOneAllDetail(@RequestBody MlbackHtmlEmail mlbackHtmlEmail){
 		
+		Integer htmlemailId = mlbackHtmlEmail.getHtmlemailId();
 		//接受categoryId
 		MlbackHtmlEmail mlbackHtmlEmailReq = new MlbackHtmlEmail();
 		mlbackHtmlEmailReq.setHtmlemailId(htmlemailId);
 		//查询本条
 		MlbackHtmlEmail mlbackHtmlEmailOne =mlbackHtmlEmailService.selectByPrimaryKey(htmlemailId);
-		if(mlbackHtmlEmailOne!=null){
-			
-		}else{
-			mlbackHtmlEmailOne = null;
-		}
-		return Msg.success().add("resMsg", "查看单条mlbackHtmlEmailOne的详情细节完毕")
-					.add("mlbackHtmlEmailOne", mlbackHtmlEmailOne);
+		return Msg.success().add("resMsg", "查看单条mlbackHtmlEmailOne的详情细节完毕").add("mlbackHtmlEmailOne", null);
 	}
 	
 	/**
@@ -169,6 +166,19 @@ public class MlbackHtmlEmailController {
 		}
 		return Msg.success().add("resMsg", "查看单条MlbackHtmlEmailOne的详情细节完毕")
 					.add("mlbackHtmlEmailOne", mlbackHtmlEmailOne);
+	}
+	
+	
+	@RequestMapping(value="/tosendMlbackHtmlEmailOneContent",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg tosendMlbackHtmlEmailOneContent(@RequestBody MlbackHtmlEmail mlbackHtmlEmail){
+		
+		String content = mlbackHtmlEmail.getHtmlemailSeven();
+		String userEmail = mlbackHtmlEmail.getHtmlemailSix();
+		
+		EmailHtmlUtil.sendHtmlUnCheckoutEmil(userEmail,content) ;
+		
+		return Msg.success().add("resMsg", "邮件发送成功");
 	}
 	
 }
