@@ -5,7 +5,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Upload Email</title>
+	<title>Email Template</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
 	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
 </head>
@@ -18,120 +18,98 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Email</span>
+						<span class="c-option-title">Email Template</span>
+						<button class="btn btn-primary btn-create">Create Email-template</button>
 					</div>
 					<div class="c-table">
-						<div class="c-table-header">
-							<div class="row">
-								
-								<div class="form-group col-md-12">
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">下载付款邮箱</h3>
-										<div class="c-upload-img" id="download_fk" style="width: 4rem; height: 4rem; padding: 1rem;">
-										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
-										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
-										  </svg>
-										</div>
-									</div>
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">下载地址邮箱</h3>
-										<div class="c-upload-img" id="download_dz" style="width: 4rem; height: 4rem; padding: 1rem;">
-										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
-										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
-										  </svg>
-										</div>
-									</div>
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">下载新用户邮箱</h3>
-										<div class="c-upload-img" id="download_xyh" style="width: 4rem; height: 4rem; padding: 1rem;">
-										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
-										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
-										  </svg>
-										</div>
-									</div>
-								</div>	
-								<div class="form-group col-md-12">
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">上传PayInfoEmail文档</h3>
-										<div class="c-upload-img" style="width: 4rem; height: 4rem;padding: 1rem;">
-											<svg class="c-icon" style="width: 2rem; height: 2rem;">
-												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-uploadwd"></use>
-											</svg>
-											<div class="c-backshow"></div>	
-												<!-- <input type="file" id="file" name="myfile" style="display: none" />
-												<input type="text" id="filename" style="display:none"></span>
-												<input type="button" onclick="upload()" value="选择文件上传" /> -->
-											<input id="excleImportPaySuccessEmail" type="file" name="file" />										
-											<!-- spinner -->
-											<div class="spinner">
-												<div class="spinner-border" role="status" aria-hidden="true"></div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">上传PayPalbillingEmail文档</h3>
-										<div class="c-upload-img" style="width: 4rem; height: 4rem;padding: 1rem;">
-											<svg class="c-icon" style="width: 2rem; height: 2rem;">
-												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-uploadwd"></use>
-											</svg>
-											<div class="c-backshow"></div>	
-												<!-- <input type="file" id="file" name="myfile" style="display: none" />
-												<input type="text" id="filename" style="display:none"></span>
-												<input type="button" onclick="upload()" value="选择文件上传" /> -->
-											<input id="inportPayPalReturnSuccessEmail" type="file" name="file" />										
-											<!-- spinner -->
-											<div class="spinner">
-												<div class="spinner-border" role="status" aria-hidden="true"></div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">上传结算Email文档</h3>
-										<div class="c-upload-img" style="width: 4rem; height: 4rem;padding: 1rem;">
-											<svg class="c-icon" style="width: 2rem; height: 2rem;">
-												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-uploadwd"></use>
-											</svg>
-											<div class="c-backshow"></div>	
-												<!-- <input type="file" id="file" name="myfile" style="display: none" />
-												<input type="text" id="filename" style="display:none"></span>
-												<input type="button" onclick="upload()" value="选择文件上传" /> -->
-											<input id="inportPayAddressEmail" type="file" name="file" />										
-											<!-- spinner -->
-											<div class="spinner">
-												<div class="spinner-border" role="status" aria-hidden="true"></div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">上传UserEmail文档</h3>
-										<div class="c-upload-img" style="width: 4rem; height: 4rem;padding: 1rem;">
-											<svg class="c-icon" style="width: 2rem; height: 2rem;">
-												<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-uploadwd"></use>
-											</svg>
-											<div class="c-backshow"></div>	
-												<!-- <input type="file" id="file" name="myfile" style="display: none" />
-												<input type="text" id="filename" style="display:none"></span>
-												<input type="button" onclick="upload()" value="选择文件上传" /> -->
-											<input id="inportPayUserEmail" type="file" name="file" />										
-											<!-- spinner -->
-											<div class="spinner">
-												<div class="spinner-border" role="status" aria-hidden="true"></div>
-											</div>
-										</div>
-									</div>
-									
-								</div>
-								
+						<div class="c-table-content">
+							<div class="c-table-table table-responsive-sm">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>id</th>
+											<th>name</th>
+											<th>status</th>
+											<th>operate</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
 							</div>
-							
+							<div id="table-pagination"></div>
 						</div>
-						
 					</div>
 				</div>
 				<!-- edit or create -->
-				
+				<div class="c-create hide">
+					<div class="c-option">
+						<span class="c-option-title">Edit Email-template</span>
+						<div class="group">
+							<button class="btn btn-secondary btn-cancel">Cancel</button>
+							<button class="btn btn-primary btn-save">Save Email-template</button>
+						</div>
+					</div>
+					<div class="c-form row">
+						<input id="htmlemailId" hidden>
+						<!-- left panel  -->
+						<div class="left-panel col-lg-7 col-md-12">
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">General</div>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="htmlemailName">Name</label>
+										<div class="controls">
+											<input class="form-control" id="htmlemailName" type="text" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-3 col-form-label" for="htmlemailStatus">Status</label>
+										<div class="controls col-md-3">
+											<label class="c-switch c-switch-primary">
+												<input class="c-switch-input" id="htmlemailStatus" type="checkbox">
+												<span class="c-switch-slider"></span>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- right panel  -->
+						<div class="right-panel col-lg-5 col-md-12">
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">Template Content</div>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="htmlemailTitle">title</label>
+										<div class="controls">
+											<input class="form-control" id="htmlemailTitle" type="text" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="htmlemailRetrieve">Greetings Info</label>
+										<div class="controls">
+											<textarea class="form-control" rows="5" id="htmlemailRetrieve"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="htmlemailRetrievecode">Coupon Infos</label>
+										<div class="controls">
+											<textarea class="form-control" rows="5" id="htmlemailRetrievecode"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<!-- mask -->
-				
+				<div class="c-mask">
+					<div class="spinner-border"></div>
+				</div>
 			</div>
 		</div>
 		<jsp:include page="../layout/backfooter.jsp" flush="true"></jsp:include>
@@ -140,187 +118,284 @@
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
 
-	<!-- <script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script> -->
-	<!-- <script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script> -->
+	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
+	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
+		var hasSuperCateList = false;
+		var hasCollectionList = false;
+		var isCreate = false;
+
+		// init
+		getEmailtemplatesData();
+		// pagination a-click
+		$(document.body).on('click', '#table-pagination li', function (e) {
+			getEmailtemplatesData();
+		});
+		// create collection
+		$('.btn-create').on('click', function () {
+			$('.c-create .c-option-title').text('Create Email-template');
+			showCreateBlock();
+			// init formData
+			resetFormData();
+			getEmailtemplateId();
+			isCreate = true;
+		});
+		// edit collection
+		$(document.body).on('click', '.btn-edit', function (e) {
+			var htmlemailId = $(this).data('id');
+			getOneEmailtemplateData({
+			 htmlemailId: htmlemailId
+			}, function(resData) {
+			 	$('.c-create .c-option-title').text('Edit Email-template');
+				showCreateBlock();
+				initFormData(resData);
+			});			
+		});
+		// delete collection
+		$(document.body).on('click', '.btn-delete', function (e) {
+			var htmlemailId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('Delete Email-template!');
+			$('#deleteModal').modal('show');
+			$('#deleteModal .btn-ok').one('click', function () {
+				deleteEmailtemplateData({
+					htmlemailId: htmlemailId,
+				}, function() {
+					getEmailtemplatesData();
+				});
+			});
+		});
+		$(window).on('beforeunload', function() {
+			var htmlemailId = $('#htmlemailId').val();
+			isCreate && htmlemailId && deleteEmailtemplateData({
+				htmlemailId: htmlemailId,
+			});
+		});
+		// save collection
+		$('.c-create .btn-save').on('click', function () {
+			saveEmailtemplateData(getFormData(), function() {
+				// redirect tab-active & then search-data
+				getEmailtemplatesData();
+				showInitBlock();
+				$('#htmlemailId').val('');
+			});
+		});
+		// cancel collection save
+		$('.c-create .btn-cancel').on('click', function () {
+			if (isCreate) {
+				isCreate = false;
+				deleteEmailtemplateData({
+					htmlemailId: $('#htmlemailId').val(),
+				}, function() {
+					console.log("cancel create-email-template");
+				});
+			}
+
+			showInitBlock();
+		});
+		function showCreateBlock() {
+			$('.c-init').addClass('hide');
+			$('.c-create').removeClass('hide');
+		}
+		function showInitBlock() {
+			$('.c-init').removeClass('hide');
+			$('.c-create').addClass('hide');
+		}
+		// handle formData
+		// reset data
+		function resetFormData() {
+			$('#htmlemailId').val('');
+			$('#htmlemailName').val('');
+			$('#htmlemailStatus').prop('checked', false);
+			$('#htmlemailTitle').val('');
+			$('#htmlemailRetrieve').val('');
+			$('#htmlemailRetrievecode').val('');
+		}
+		// getFormdData
+		function getFormData() {
+			var data = {};
+			data.htmlemailId = parseInt($('#htmlemailId').val());
+			data.htmlemailName = $('#htmlemailName').val();
+			data.htmlemailStatus = $('#htmlemailStatus').prop('checked') ? 1 : 0;
+			data.htmlemailTitle = $('#htmlemailTitle').val();
+			data.htmlemailRetrieve = $('#htmlemailRetrieve').val();
+			data.htmlemailRetrievecode = $('#htmlemailRetrievecode').val();
+
+			return data;
+		}
+		// initFormData
+		function initFormData(data) {
+			$('#htmlemailId').val(data.htmlemailId);
+			$('#htmlemailName').val(data.htmlemailName);
+			$('#htmlemailStatus').prop('checked', (data.categorySuperCateId > 0 ? data.htmlemailStatus : 0));
 	
-		/***download_fk*******************/
-		$('#download_fk').on('click', function() {
-			window.location.href = "${APP_PATH}/excleImport/exportPaySuccess";
-		});
-		
-		/***download_dz*******************/
-		$('#download_dz').on('click', function() {
-			window.location.href = "${APP_PATH}/excleImport/exportAddressEmail";
-		});
-		
-		/***download_xyh*******************/
-		$('#download_xyh').on('click', function() {
-			window.location.href = "${APP_PATH}/excleImport/exportReviewsImportDemo";
-		});
-		
-		/*****导入pay成功的关联的表****/
-		$('#excleImportPaySuccessEmail').on('change', function(e) {
-			var $this = $(this);
-			var excleFile = $this[0].files[0];
-			if (!excleFile) return false;
-			var name = $this.val('');
-			var exclFormData = new FormData();
-			exclFormData.append('file', excleFile);
-			exclFormData.append('name', name);
-			// console.log(exclFormData)
-			var file_typename =  excleFile.name.substring(excleFile.name.lastIndexOf('.'));
-			if (file_typename === '.xlsx' || file_typename === '.xls') {
-				$.ajax({
-					url: "${APP_PATH}/excleImport/inportPaySuccessEmail",
-					type: "post",
-					data: exclFormData,
-					processData: false,
-					contentType: false,
-					cache: false,
-					// dataType: 'json',
-					success: function (data) {
-						// console.log(data);
-						alert("Upload successful ！");
-						 window.location.reload();
-						
-					},
-					error: function (err) {
-						toastr.error(err);
-						// console.log("出错了")
-					},
-					complete: function () {
-						$this.parent().find('.spinner').hide();
+			$('#htmlemailTitle').val(data.htmlemailTitle);
+			$('#htmlemailRetrieve').val(data.htmlemailRetrieve);
+			$('#htmlemailRetrievecode').val(data.htmlemailRetrievecode);
+		}
+		// callback get id
+		function getEmailtemplateId() {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH }/MlbackHtmlEmail/initializaHtmlEmail",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						var htmlemailId = data.extend&& data.extend.mlbackHtmlEmail && data.extend.mlbackHtmlEmail.htmlemailId;
+						if (htmlemailId) {
+							$('#htmlemailId').val(data.extend.mlbackHtmlEmail.htmlemailId);
+							toastr.success(data.extend.resMsg);
+						} else {
+							toastr.error('create email-template fail! Please try again.');
+						}
+					} else {
+						showInitBlock();
+						toastr.error(data.extend.resMsg);
 					}
-				});
-				
-			}else{
-				console.log("The file format is incorrect")
-				alert("The file format is incorrect")
-			}
-		});
-		/****导入PayBIlling返回地址的*****/
-		$('#inportPayPalReturnSuccessEmail').on('change', function(e) {
-			var $this = $(this);
-			var excleFile = $this[0].files[0];
-			if (!excleFile) return false;
-			var name = $this.val('');
-			var exclFormData = new FormData();
-			exclFormData.append('file', excleFile);
-			exclFormData.append('name', name);
-			// console.log(exclFormData)
-			var file_typename =  excleFile.name.substring(excleFile.name.lastIndexOf('.'));
-			if (file_typename === '.xlsx' || file_typename === '.xls') {
-				$.ajax({
-					url: "${APP_PATH}/excleImport/inportPayPalReturnSuccessEmail",
-					type: "post",
-					data: exclFormData,
-					processData: false,
-					contentType: false,
-					cache: false,
-					// dataType: 'json',
-					success: function (data) {
-						// console.log(data);
-						alert("Upload successful ！");
-						 window.location.reload();
-						
-					},
-					error: function (err) {
-						toastr.error(err);
-						// console.log("出错了")
-					},
-					complete: function () {
-						$this.parent().find('.spinner').hide();
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback get all data
+		function getEmailtemplatesData() {
+			$('.c-mask').show();
+
+			var formData = new FormData();
+			formData.append('pn', getPageNum());
+
+			$.ajax({
+				url: "${APP_PATH }/MlbackHtmlEmail/getMlbackHtmlEmailByPage",
+				type: "post",
+				processData: false,
+				contentType: false,
+				cache: false,
+				data: formData,
+				success: function (data) {
+					if (data.code == 100) {
+						renderTable(data.extend.pageInfo.list);
+						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
 					}
-				});
-				
-			}else{
-				console.log("The file format is incorrect")
-				alert("The file format is incorrect")
-			}
-		});
-		/*****导入结算Email****/
-		$('#inportPayAddressEmail').on('change', function(e) {
-			var $this = $(this);
-			var excleFile = $this[0].files[0];
-			if (!excleFile) return false;
-			var name = $this.val('');
-			var exclFormData = new FormData();
-			exclFormData.append('file', excleFile);
-			exclFormData.append('name', name);
-			// console.log(exclFormData)
-			var file_typename =  excleFile.name.substring(excleFile.name.lastIndexOf('.'));
-			if (file_typename === '.xlsx' || file_typename === '.xls') {
-				$.ajax({
-					url: "${APP_PATH}/excleImport/inportPayAddressEmail",
-					type: "post",
-					data: exclFormData,
-					processData: false,
-					contentType: false,
-					cache: false,
-					// dataType: 'json',
-					success: function (data) {
-						// console.log(data);
-						alert("Upload successful ！");
-						 window.location.reload();
-						
-					},
-					error: function (err) {
-						toastr.error(err);
-						// console.log("出错了")
-					},
-					complete: function () {
-						$this.parent().find('.spinner').hide();
+				},
+				error: function () {
+					toastr.error('Failed to get email-template, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback get one data
+		function getOneEmailtemplateData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH }/MlbackHtmlEmail/getOneMlbackHtmlEmailOneAllDetail",
+				type: "post",
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend.mlbackHtmlEmailOne);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
 					}
-				});
-				
-			}else{
-				console.log("The file format is incorrect")
-				alert("The file format is incorrect")
-			}
-		});
-		/*********/
-		$('#inportPayUserEmail').on('change', function(e) {
-			var $this = $(this);
-			var excleFile = $this[0].files[0];
-			if (!excleFile) return false;
-			var name = $this.val('');
-			var exclFormData = new FormData();
-			exclFormData.append('file', excleFile);
-			exclFormData.append('name', name);
-			// console.log(exclFormData)
-			var file_typename =  excleFile.name.substring(excleFile.name.lastIndexOf('.'));
-			if (file_typename === '.xlsx' || file_typename === '.xls') {
-				$.ajax({
-					url: "${APP_PATH}/excleImport/inportPayUserEmail",
-					type: "post",
-					data: exclFormData,
-					processData: false,
-					contentType: false,
-					cache: false,
-					// dataType: 'json',
-					success: function (data) {
-						// console.log(data);
-						alert("Upload successful ！");
-						 window.location.reload();
-						
-					},
-					error: function (err) {
-						toastr.error(err);
-						// console.log("出错了")
-					},
-					complete: function () {
-						$this.parent().find('.spinner').hide();
+				},
+				error: function () {
+					toastr.error('Failed to get email-template, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback save
+		function saveEmailtemplateData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackHtmlEmail/save",
+				type: "post",
+				cache: false,
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						callback && callback();
+					} else {
+						toastr.error(data.extend.resMsg);
 					}
-				});
-				
-			}else{
-				console.log("The file format is incorrect")
-				alert("The file format is incorrect")
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		// callback delete
+		function deleteEmailtemplateData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlbackHtmlEmail/delete",
+				type: "post",
+				cache: false,
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						$('#deleteModal').modal('hide');
+						callback();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+
+		// init table-list
+		function renderTable(data) {
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				htmlStr += '<tr><td>' + data[i].htmlemailId + '</td>' +
+					'<td>' + data[i].htmlemailName + '</td>' +
+					'<td><a class="badge '+ (data[i].htmlemailStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].htmlemailStatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td>' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].htmlemailId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
+							'</svg>' +
+						'</button>' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].htmlemailId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
+							'</svg>' +
+						'</button>' +
+					'</td></tr>';
 			}
-		});
-		
+			$('.c-table-table tbody').html(htmlStr);
+		}
 	</script>
 </body>
 

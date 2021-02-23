@@ -89,8 +89,7 @@
 								</svg>
 								<span>Export</span>
 							</button>
-							<div class="btn btn-dark hide" id="send-sms"> send SMS </div>
-							<!-- <button class="btn btn-primary download-ecpp" id="download-ecpp">Download Ecpp Data</button> -->			
+							<div class="btn btn-dark hide" id="send-sms"> send SMS </div>		
 							<button class="btn btn-info ecpp-verify-sync">checkEcppIfVerify</button>						
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
 						</div>
@@ -166,7 +165,7 @@
 								<div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
 									<div class="card-title-name">Order Info</div>
 									<div style="display: flex;">
-										<div class="input-group hide" style="margin-right: 1rem;" id="unpaid-link">
+										<div class="input-group hide" id="unpaid-link">
 											<span class="form-control">This link to recover customer cart</span>
 											<div class="input-group-addon btn">
 												<svg class="c-icon">
@@ -175,6 +174,7 @@
 												<span>copy</span>
 											</div>										
 										</div>
+										<button class="btn btn-dark hide" style="margin: 0 1rem;" id="send-email">send Email</button>	
 										<button class="btn btn-primary hide" id="checkout-view">Checkout View</button>
 									</div>
 								</div>
@@ -623,6 +623,77 @@
 				}
 			});
 		})
+		// send-email
+		$('#send-email').on('click', function() {
+			function getOrderProductInfo() {
+				var orderProductStr = '';
+				$('.order-list .order-item').each(function(idx, item) {
+					var $item = $('item');
+					orderProductStr += '<tr>' +
+						'<td align="left" valign="top" style="padding-bottom: 10px;">' +
+							'<img width="100" height="100" src="'+ $item.find('img').attr('src') +'" />' +
+						'</td>' +
+						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px; max-width: 302px;">'+ $item.find('.order-product-link').text() +'</td>' +
+						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px;">'+ $item.find('.order-product-cal .order-product-money').text() + ' x ' + $item.find('.order-product-cal .order-product-num').text() + '&nbsap;&nbsap;&nbsap;&nbsap;' + $item.find('.order-product-cal .order-product-total').text() +'</td>' +
+					'</tr>'
+				});
+				return orderProductStr;
+			}
+			
+			function getRecoverLink() {
+				var cRecoverLink = '';
+				$.ajax({
+					url: "${APP_PATH}/MlfrontOrderList/getOlderIdSecretCode",
+					type: "post",
+					data: JSON.stringify({ 'searchId': $('#unpaid-link').data('id') }),
+					dataType: "json",
+					contentType: 'application/json',
+					async: false,
+					success: function (data) {
+						if (data.code == 100) {
+							cRecoverLink = data.extend.ReturnPayUrl;
+						}
+					}
+				});
+				return cRecoverLink;
+			}
+			$('.c-mask').show();
+			var htmlProductStr = getOrderProductInfo();
+			var recoverLink = getRecoverLink();
+			var htmlEmailStr = '<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border: 0;max-width: 600px !important; background-color: #fafafa;">' +
+				'<tbody>' +
+					'<tr>' +
+						'<td style="padding-left: 16px; padding-right: 16px; border-top: 0; border-bottom: 2px solid #EAEAEA; background-color: #FFFFFF;">' +
+							'<table border="0" cellpadding="0" cellspacing="0" width="100%">' +
+								'<tbody>' +
+									'<tr>' +
+										'<td align="center" style="padding-top: 22px;"><img src="https://megalook.com/static/common/dblogo.png" alt="" width="196" style="display: inline-block;"></td>' +
+									'</tr>' +
+									'<tr><td align="center" style="padding: 16px; font-size: 22px; font-weight: bold;">Take Me Home! </td></tr>' +
+									'<tr><td style="padding: 8px 0;"> It looks like you left me in your cart.so i come to you now. </td></tr>' +
+									'<tr>' +
+										'<td style="padding: 12px 0;">' +
+											'<table border="0" cellpadding="0" cellspacing="0" width="100%">' + htmlProductStr + '</table>' +
+										'</td>' +
+									'</tr>' +
+									'<tr>' +
+										'<td align="center" style="padding-bottom: 22px;">' +
+											'<a href="'+ recoverLink +'" style="display: inline-block; padding: 8px 16px; font-weight:bold; letter-spacing:normal; text-decoration:none; color:#FFFFFF; border-radius: 3px; background-color: #2BAADF;" title="Return to Checkout">Return to Checkout</a>' +
+										'</td>' +
+									'</tr>' +
+								'</tbody>' +
+							'</table>' +
+						'</td>' +
+					'</tr>' +
+					'<tr>' +
+						'<td>hello world</td>' +
+					'</tr>' +
+				'</tbody>' +
+			'</table>';
+			
+			alert(htmlEmailStr);
+			$('.c-mask').hide();
+		});
 		// checkout-view
 		$('#checkout-view').on('click', function() {
 			$('#checkoutViewModal').modal('show');
@@ -817,9 +888,9 @@
 			function fnSendSms() {
 				if ('' + $('#payinfoStatus').val() == '0') {
 					$('.table-sms').removeClass('hide');
-					$('#send-sms').removeClass('hide');
+					$('#send-sms,#send-email').removeClass('hide');
 				} else {
-					$('#send-sms').addClass('hide');
+					$('#send-sms,#send-email').addClass('hide');
 					$('.table-sms').addClass('hide');
 				}
 			}
