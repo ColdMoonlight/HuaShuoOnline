@@ -20,7 +20,6 @@ import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackHtmlEmailService;
 import com.atguigu.utils.EmailHtmlUtil;
-import com.atguigu.utils.PropertiesUtil;
 
 @Controller
 @RequestMapping("/MlbackHtmlEmail")
@@ -33,7 +32,7 @@ public class MlbackHtmlEmailController {
 	MlbackAdminService mlbackAdminService;
 	
 	/**
-	 * 1.0	UseNow	0505
+	 * 1.0	zsh20210223
 	 * toMlbackHtmlEmail列表页面
 	 * @param jsp
 	 * @return 
@@ -50,7 +49,7 @@ public class MlbackHtmlEmailController {
 	}
 	
 	
-	/**2.0	UseNow	0505
+	/**2.0	zsh20210223
 	 * 分类MlbackHtmlEmail列表分页list数据
 	 * @param pn
 	 * @return
@@ -71,7 +70,7 @@ public class MlbackHtmlEmailController {
 //		}
 	}
 	
-	/**3.0	onuse	20191225	检查
+	/**3.0	zsh20210223
 	 * MlbackHtmlEmail	initializaHtmlEmail
 	 * @param MlbackHtmlEmail
 	 * @return
@@ -87,7 +86,7 @@ public class MlbackHtmlEmailController {
 		return Msg.success().add("resMsg", "HtmlEmail初始化成功").add("mlbackHtmlEmail", mlbackHtmlEmail);
 	}
 	
-	/**3.0	UseNow	0505
+	/**3.0	zsh20210223
 	 * MlbackAreafreight	insert
 	 * @param MlbackAreafreight
 	 */
@@ -110,7 +109,7 @@ public class MlbackHtmlEmailController {
 		}		
 	}
 	
-	/**4.0	UseNow	0505
+	/**4.0	zsh20210223
 	 * MlbackAreafreight	delete
 	 * @param id
 	 */
@@ -125,7 +124,7 @@ public class MlbackHtmlEmailController {
 	}
 	
 	/**
-	 * 5.0	20200608
+	 * 5.0	zsh20210223
 	 * 查看单条类目的详情细节
 	 * @param MlbackHtmlEmail
 	 * @return 
@@ -144,7 +143,7 @@ public class MlbackHtmlEmailController {
 	}
 	
 	/**
-	 * 5.1	20210113
+	 * 5.1	zsh20210223
 	 * 查看单条类目的详情细节
 	 * @param MlbackHtmlEmail
 	 * @return 
@@ -167,7 +166,6 @@ public class MlbackHtmlEmailController {
 		return Msg.success().add("resMsg", "查看单条MlbackHtmlEmailOne的详情细节完毕")
 					.add("mlbackHtmlEmailOne", mlbackHtmlEmailOne);
 	}
-	
 	
 	@RequestMapping(value="/tosendMlbackHtmlEmailOneContent",method=RequestMethod.POST)
 	@ResponseBody

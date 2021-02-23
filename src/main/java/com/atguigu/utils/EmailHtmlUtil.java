@@ -69,7 +69,7 @@ public class EmailHtmlUtil {
             String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             msg.setFrom(new InternetAddress("MegaLookTeam"+" <"+sendEmail+">"));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("mingyueqingl@163.com", false));
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
 //            msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse("licindy770@gmail.com", false));
             msg.setSubject("new costomer of "+ " Register Success.");
             
