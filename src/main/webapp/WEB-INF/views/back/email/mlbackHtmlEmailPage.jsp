@@ -52,7 +52,7 @@
 					<div class="c-form row">
 						<input id="htmlemailId" hidden>
 						<!-- left panel  -->
-						<div class="left-panel col-lg-7 col-md-12">
+						<div class="left-panel col-md-12">
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">General</div>
@@ -75,9 +75,6 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- right panel  -->
-						<div class="right-panel col-lg-5 col-md-12">
 							<div class="card">
 								<div class="card-title">
 									<div class="card-title-name">Template Content</div>
@@ -122,8 +119,6 @@
 	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
-		var hasSuperCateList = false;
-		var hasCollectionList = false;
 		var isCreate = false;
 
 		// init
@@ -132,7 +127,7 @@
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getEmailtemplatesData();
 		});
-		// create collection
+		// create email-template
 		$('.btn-create').on('click', function () {
 			$('.c-create .c-option-title').text('Create Email-template');
 			showCreateBlock();
@@ -141,18 +136,18 @@
 			getEmailtemplateId();
 			isCreate = true;
 		});
-		// edit collection
+		// edit email-template
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var htmlemailId = $(this).data('id');
 			getOneEmailtemplateData({
-			 htmlemailId: htmlemailId
+				htmlemailId: htmlemailId
 			}, function(resData) {
 			 	$('.c-create .c-option-title').text('Edit Email-template');
 				showCreateBlock();
 				initFormData(resData);
 			});			
 		});
-		// delete collection
+		// delete email-template
 		$(document.body).on('click', '.btn-delete', function (e) {
 			var htmlemailId = parseInt($(this).data('id'));
 			$('#deleteModal').find('.modal-title').html('Delete Email-template!');
@@ -171,7 +166,7 @@
 				htmlemailId: htmlemailId,
 			});
 		});
-		// save collection
+		// save email-template
 		$('.c-create .btn-save').on('click', function () {
 			saveEmailtemplateData(getFormData(), function() {
 				// redirect tab-active & then search-data
@@ -180,7 +175,7 @@
 				$('#htmlemailId').val('');
 			});
 		});
-		// cancel collection save
+		// cancel email-template save
 		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
@@ -227,7 +222,7 @@
 		function initFormData(data) {
 			$('#htmlemailId').val(data.htmlemailId);
 			$('#htmlemailName').val(data.htmlemailName);
-			$('#htmlemailStatus').prop('checked', (data.categorySuperCateId > 0 ? data.htmlemailStatus : 0));
+			$('#htmlemailStatus').prop('checked', data.htmlemailStatus);
 	
 			$('#htmlemailTitle').val(data.htmlemailTitle);
 			$('#htmlemailRetrieve').val(data.htmlemailRetrieve);

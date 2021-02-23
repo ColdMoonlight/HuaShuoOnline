@@ -691,8 +691,28 @@
 				'</tbody>' +
 			'</table>';
 			
-			alert(htmlEmailStr);
-			$('.c-mask').hide();
+			
+			$.ajax({
+				url: "${APP_PATH}/MlbackHtmlEmail/tosendMlbackHtmlEmailOneContent",
+				type: "post",
+				data: JSON.stringify({ 'htmlemailSix': 'lvzhenbang@outlook.com', 'htmlemailSeven': htmlEmailStr }),
+				dataType: "json",
+				contentType: 'application/json',
+				async: false,
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success('send-email success...');
+					} else {
+						toastr.error('send-email fail...');
+					}
+				},
+				error: function() {
+					toastr.error('send-email fail...');
+				},
+				complete: function() {
+					$('.c-mask').hide();
+				}
+			});			
 		});
 		// checkout-view
 		$('#checkout-view').on('click', function() {
