@@ -71,6 +71,8 @@
 		<table tableName="tb_mlback_search" domainObjectName="MlbackSearch" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlback_profbreview_area" domainObjectName="MlbackProfbreviewArea" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_mlblack_smstype" domainObjectName="MlbackSmstype" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		//发送富文本邮件
+		<table tableName="tb_mlback_htmlEmail" domainObjectName="MlbackhtmlEmail" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		//产品推荐/一起买
 		<table tableName="tb_mlback_productTogether" domainObjectName="MlbackProductTogether" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
