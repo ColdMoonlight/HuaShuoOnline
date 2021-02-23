@@ -140,7 +140,7 @@ public class MlbackHtmlEmailController {
 		mlbackHtmlEmailReq.setHtmlemailId(htmlemailId);
 		//查询本条
 		MlbackHtmlEmail mlbackHtmlEmailOne =mlbackHtmlEmailService.selectByPrimaryKey(htmlemailId);
-		return Msg.success().add("resMsg", "查看单条mlbackHtmlEmailOne的详情细节完毕").add("mlbackHtmlEmailOne", null);
+		return Msg.success().add("resMsg", "查看单条mlbackHtmlEmailOne的详情细节完毕").add("mlbackHtmlEmailOne", mlbackHtmlEmailOne);
 	}
 	
 	/**
