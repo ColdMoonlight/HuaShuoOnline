@@ -290,6 +290,9 @@
       <if test="payinfoIfSMS != null">
       	payInfo_IfSMS = #{payinfoIfSMS,jdbcType=INTEGER},
       </if>
+      <if test="payinfoIfEmail != null">
+        payInfo_IfEmail = #{payinfoIfEmail,jdbcType=INTEGER},
+      </if>
     </set>
     where payInfo_id = #{payinfoId,jdbcType=INTEGER}
   </update>
