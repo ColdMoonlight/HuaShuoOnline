@@ -593,7 +593,7 @@
 			var payinfoStatus =$("#payinfoStatus").val();
 			var payinfoCreatetime =$('#order-create-time').val()
 			var payinfoMotifytime  = $('#order-confirm-time').val()
-			console.log("payinfoStatus:"+payinfoStatus+"payinfoCreatetime:"+payinfoCreatetime+"payinfoMotifytime"+payinfoMotifytime);
+			// console.log("payinfoStatus:"+payinfoStatus+"payinfoCreatetime:"+payinfoCreatetime+"payinfoMotifytime"+payinfoMotifytime);
 			window.location.href = "${APP_PATH}/ExcleDownload/exportPayInfoIF?payinfoStatus="+payinfoStatus+"&payinfoCreatetime="+payinfoCreatetime+"&payinfoMotifytime="+payinfoMotifytime;
 		});
 		// send sms
