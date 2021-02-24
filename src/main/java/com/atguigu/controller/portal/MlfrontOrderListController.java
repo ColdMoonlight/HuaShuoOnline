@@ -377,5 +377,106 @@ public class MlfrontOrderListController {
 		
 		return Msg.success().add("resMsg", "成功").add("ReturnPayUrl", SendSecretStr);
 	}
+	
+	
+	/**
+	 * 6.0	zsh200804
+	 * 点击按钮发送短信
+	 * @param String PayInfoNumStr
+	 * @return 
+	 * */
+	@RequestMapping(value="/toSendUnpaySMSByOne",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg toSendUnpaySMSByOne(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
+		
+		Integer payInfoIntoId = mlbackSearch.getSearchId();
+		
+		String telehponeaa = mlbackSearch.getSearchContent();
+		//查询接口,发送时间定时的几点,间隔几小时,发送文案
+		
+		MlbackSmstype mlbackSmstype = new MlbackSmstype();
+		
+		mlbackSmstype.setSmstypeName("sms");
+		
+		List<MlbackSmstype> mlbackSmstypeList = mlbackSmstypeService.selectMlbackSmstypeByName(mlbackSmstype);
+		
+		if(mlbackSmstypeList.size()>0){
+			
+			MlbackSmstype mlbackSmstypeOne = mlbackSmstypeList.get(0);
+			
+			Integer SmstypeStatus =  mlbackSmstypeOne.getSmstypeStatus();
+			
+			if(SmstypeStatus>0){
+				String Content = mlbackSmstypeOne.getSmstypeContent();
+				System.out.println("本短信的挽回语为:Content"+Content);
+				
+				//查询一下这个时间段的orderid没有结算的并且有结算地址的信息
+				MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+				mlfrontPayInfoReq.setPayinfoId(payInfoIntoId);
+				
+				List<MlfrontPayInfo> mlfrontPayInfoList =  mlfrontPayInfoService.selectMlfrontPayInfoById(mlfrontPayInfoReq);
+				MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
+				if(mlfrontPayInfoList.size()>0){
+					
+					Integer orderId = mlfrontPayInfoOne.getPayinfoOid();
+					String orderIdStr = mlfrontPayInfoOne.getPayinfoOid()+"";
+					String orderIdLastOneStr = "";
+					
+					//读出order对应的order明细;
+					//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------begin----------
+					MlfrontOrder mlfrontOrderPay = new MlfrontOrder();
+					mlfrontOrderPay.setOrderId(orderId);
+					List<MlfrontOrder> mlfrontOrderPayResList= mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPay);
+					MlfrontOrder mlfrontOrderPayOneRes = mlfrontOrderPayResList.get(0);
+					//2.2从详情中拿到addressid;
+					Integer addressinfoId = mlfrontOrderPayOneRes.getOrderAddressinfoId();
+					MlfrontAddress MlfrontAddressReq = new MlfrontAddress();
+					MlfrontAddressReq.setAddressId(addressinfoId);
+					List<MlfrontAddress> MlfrontAddressList = mlfrontAddressService.selectMlfrontAddressByParam(MlfrontAddressReq);
+					MlfrontAddress mlfrontAddressOne = MlfrontAddressList.get(0);
+					String telephone = mlfrontAddressOne.getAddressTelephone();
+					String firstName = mlfrontAddressOne.getAddressUserfirstname();
+					String userName = firstName+" ";
+					//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------end--------
+					String checkRecoverOrderIdStr = orderIdStr+"";
+					String websiteStr = getNowWeb(rep,res,session);
+					String secretOrderIdStr = EncryptUtil.XORencode(checkRecoverOrderIdStr,"megalook");
+					
+					String SendStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"recover/"+checkRecoverOrderIdStr+".html";
+//					System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
+					String SendSecretStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"recover/"+secretOrderIdStr+".html";
+//					System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendSecretStr:"+SendSecretStr);
+					
+					try {
+						//这个是真实发送
+						//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
+						String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,telephone);//加密串
+						System.out.println(SendSecretStr+",这一单发送成功");
+						//System.out.println("payid为:"+mlfrontPayInfoOne.getPayinfoId()+","+SendSecretStr+",这一单短信通知成功--被屏蔽,仅仅打印,未实际发送,");
+						//这个是真实发送
+					} catch (Exception e) {
+						e.printStackTrace();
+						System.out.println(SendStr+",这一单系统异常,报错了");
+					}
+					//1-本payinfoId是多少,更新完了的话;
+					MlfrontPayInfo mlfrontPayInfoSMSed = new MlfrontPayInfo();
+					mlfrontPayInfoSMSed.setPayinfoId(payInfoIntoId);
+					mlfrontPayInfoSMSed.setPayinfoIfSMS(1);
+					//2-需要把这一单的payinfo_SMS更新过来
+					mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoSMSed);
+					return Msg.success().add("resMsg", "本单");
+				}else{
+					//该状态不生效,没有生效的
+					return Msg.fail().add("resMsg", "本时间段没有可以弃购挽回的订单信息");
+				}
+			}else{
+				//该状态不生效,没有生效的
+				return Msg.fail().add("resMsg", "没有生效的smstype命令");
+			}
+		}else{
+			//没查到这个,返回
+			return Msg.fail().add("resMsg", "没配置smstypeName对象");
+		}
+	}
 
 }
