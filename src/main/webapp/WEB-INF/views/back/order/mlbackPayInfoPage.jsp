@@ -135,6 +135,7 @@
 											<!-- <th>customer-email</th> -->
 											<th>pay-method</th>
 											<th class="table-sms hide">SMS-status</th>
+											<th class="table-email hide">Email-status</th>
 											<th>pay-num</th>
 											<th>money-status</th>
 											<th>ecpp-num</th>
@@ -719,7 +720,11 @@
 			$.ajax({
 				url: "${APP_PATH}/MlbackHtmlEmail/tosendMlbackHtmlEmailOneContent",
 				type: "post",
-				data: JSON.stringify({ 'htmlemailSix': customerEmail, 'htmlemailSeven': htmlEmailStr }),
+				data: JSON.stringify({
+					'htmlemailId': $('#send-sms-one').data('id'),
+					'htmlemailSix': customerEmail,
+					'htmlemailSeven': htmlEmailStr
+				}),
 				dataType: "json",
 				contentType: 'application/json',
 				success: function (data) {
@@ -954,11 +959,11 @@
 		function getTabSearchData($this) {
 			function fnSendSms() {
 				if ('' + $('#payinfoStatus').val() == '0') {
-					$('.table-sms').removeClass('hide');
+					$('.table-sms,.table-email').removeClass('hide');
 					$('#send-sms,#send-email,#send-sms-one').removeClass('hide');
 				} else {
 					$('#send-sms,#send-email,#send-sms-one').addClass('hide');
-					$('.table-sms').addClass('hide');
+					$('.table-sms,.table-email').addClass('hide');
 				}
 			}
 			var dataVal = $this.data('val');
@@ -1347,6 +1352,7 @@
 					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
 					'<td><img style="width: 60px;" src="${APP_PATH}/static/pc/img/' + ((data[i].payinfoPlatform).toLowerCase() == 'bank_card' ? 'paypal-2.png' : 'paypal-1.png') + '"/></td>' +
 					'<td class="table-sms hide"><a class="badge '+ (data[i].payinfoIfSMS ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoIfSMS ? 'send' : 'not send') + '</td>' +
+					'<td class="table-email hide"><a class="badge '+ (data[i].payinfoIfEmail ? 'badge-info': 'badge-primary') +'" href="javascript:;">' + (data[i].payinfoIfEmail ? 'send' : 'not send') + '</td>' +
 					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
 					'<td><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
 					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
