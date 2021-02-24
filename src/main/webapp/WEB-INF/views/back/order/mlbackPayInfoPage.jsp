@@ -639,7 +639,7 @@
 				});
 				return orderProductStr;
 			}
-			
+
 			function getRecoverLink() {
 				var cRecoverLink = '';
 				$.ajax({
@@ -657,10 +657,10 @@
 				});
 				return cRecoverLink;
 			}
-			
+
 			function getEmailTemplateIfno() {
 				var emailTemplateInfo = '';
-				
+
 				$.ajax({
 					url: "${APP_PATH}/MlbackHtmlEmail/getOneMlbackHtmlEmailOneAllDetailByName",
 					type: "post",
@@ -676,7 +676,7 @@
 				});
 				return emailTemplateInfo;
 			}
-			
+
 			$('.c-mask').show();
 			var htmlProductStr = getOrderProductInfo();
 			var recoverLink = getRecoverLink();
@@ -712,7 +712,7 @@
 					'</tbody>' +
 				'</table>' +
 			'</td></tr></tbody><table>';
-			
+
 			var customerEmail = $('.shipping-list .email .value').html();
 
 			$.ajax({
