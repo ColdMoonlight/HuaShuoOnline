@@ -391,7 +391,6 @@ public class MlfrontOrderListController {
 		
 		Integer payInfoIntoId = mlbackSearch.getSearchId();
 		
-		String telehponeaa = mlbackSearch.getSearchContent();
 		//查询接口,发送时间定时的几点,间隔几小时,发送文案
 		
 		MlbackSmstype mlbackSmstype = new MlbackSmstype();
@@ -418,9 +417,9 @@ public class MlfrontOrderListController {
 				MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
 				if(mlfrontPayInfoList.size()>0){
 					
+					mlfrontPayInfoOne = mlfrontPayInfoList.get(0);
 					Integer orderId = mlfrontPayInfoOne.getPayinfoOid();
 					String orderIdStr = mlfrontPayInfoOne.getPayinfoOid()+"";
-					String orderIdLastOneStr = "";
 					
 					//读出order对应的order明细;
 					//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------begin----------
