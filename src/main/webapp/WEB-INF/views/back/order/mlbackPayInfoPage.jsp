@@ -627,15 +627,15 @@
 		$('#send-email').on('click', function() {
 			function getOrderProductInfo() {
 				var orderProductStr = '';
-				$('.order-list .order-item').each(function(idx, item) {
-					var $item = $('item');
+				$('.payinfo .order-item').each(function(idx, item) {
+					var $item = $(item);
 					orderProductStr += '<tr>' +
 						'<td align="left" valign="top" style="padding-bottom: 10px;">' +
 							'<img width="100" height="100" src="'+ $item.find('img').attr('src') +'" />' +
 						'</td>' +
-						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px; max-width: 302px;">'+ $item.find('.order-product-link').text() +'</td>' +
-						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px;">'+ $item.find('.order-product-cal .order-product-money').text() + ' x ' + $item.find('.order-product-cal .order-product-num').text() + '&nbsap;&nbsap;&nbsap;&nbsap;' + $item.find('.order-product-cal .order-product-total').text() +'</td>' +
-					'</tr>'
+						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px; max-width: 302px;">'+ $item.find('.order-product-link').html() +'</td>' +
+						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px;">'+ $item.find('.order-product-cal .order-product-money').html() + ' x ' + $item.find('.order-product-cal .order-product-num').html() + '&nbsp;&nbsp;&nbsp;&nbsp;' + $item.find('.order-product-cal .order-product-total').html() +'</td>' +
+					'</tr>';
 				});
 				return orderProductStr;
 			}
@@ -691,11 +691,12 @@
 				'</tbody>' +
 			'</table>';
 			
+			var customerEmail = $('.shipping-list .email .value').html();
 			
 			$.ajax({
 				url: "${APP_PATH}/MlbackHtmlEmail/tosendMlbackHtmlEmailOneContent",
 				type: "post",
-				data: JSON.stringify({ 'htmlemailSix': 'lvzhenbang@outlook.com', 'htmlemailSeven': htmlEmailStr }),
+				data: JSON.stringify({ 'htmlemailSix': customerEmail, 'htmlemailSeven': htmlEmailStr }),
 				dataType: "json",
 				contentType: 'application/json',
 				async: false,
@@ -712,7 +713,7 @@
 				complete: function() {
 					$('.c-mask').hide();
 				}
-			});			
+			});
 		});
 		// checkout-view
 		$('#checkout-view').on('click', function() {
