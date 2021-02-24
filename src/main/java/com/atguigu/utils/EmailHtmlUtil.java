@@ -15,7 +15,7 @@ public class EmailHtmlUtil {
 	public static void main(String[] args) throws Exception{  
 		
 		 
-		// 设置要发送的文本，html格式，所以可以内嵌css
+		// 设置要发送的文本,html格式，所以可以内嵌css
 //        String content = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"font-family:'黑体',Helvetica,Arial,sans-serif;font-size:14px;background: lightblue;border-radius: 10px;\" width=\"100%\"><tbody><tr>\n" +
 //                "\t\t<td style=\"font-family:Helvetica,Arial,sans-serif;font-size:14px;text-align: center;color: white;\">\n" +
 //                "\t\t<h3 style=\"margin: 15px 0px;\">页面访问升级中...</h3>\n" +
@@ -28,9 +28,6 @@ public class EmailHtmlUtil {
 //                "\t\t<p style=\"font-size:14px;line-height:24px;font-family: '黑体', sans-serif;padding:0px 10px;margin:8px\">尊敬的访问者：<b>FanX</b></p>\n" +
 //                "\t\t<p style=\"color:white;font-size:14px;line-height:24px;font-family:'黑体',Helvetica,Arial,sans-serif;padding:0px 10px;margin:8px\">您的访问次数程度：<span style=\"color:#af5c61;\">99颗星</span> (最高5颗星)</p>\n" +
 //                "\t\t</td></tr></tbody></table></td></tr></tbody></table>";
-        
-        
-//		String content = "";
 		
 		String content = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.content");
 		
@@ -71,7 +68,7 @@ public class EmailHtmlUtil {
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
 //            msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse("licindy770@gmail.com", false));
-            msg.setSubject("new costomer of "+ " Register Success.");
+            msg.setSubject("Baby?You Really Do not want Me?Final Chance lol");
             
             Multipart mp = new MimeMultipart("related"); 
             BodyPart bodyPart = new MimeBodyPart(); 
