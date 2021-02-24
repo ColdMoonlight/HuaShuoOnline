@@ -81,6 +81,12 @@
 								</div>
 								<div class="card-body">
 									<div class="form-group">
+										<label class="col-form-label" for="htmlemailTitle">Logo</label>
+										<div class="controls">
+											<img src="https://megalook.com/static/common/dblogo.png" width="200" />
+										</div>
+									</div>
+									<div class="form-group">
 										<label class="col-form-label" for="htmlemailTitle">title</label>
 										<div class="controls">
 											<input class="form-control" id="htmlemailTitle" type="text" />
@@ -212,6 +218,7 @@
 			data.htmlemailId = parseInt($('#htmlemailId').val());
 			data.htmlemailName = $('#htmlemailName').val();
 			data.htmlemailStatus = $('#htmlemailStatus').prop('checked') ? 1 : 0;
+			data.htmlemailHeadimgurl = 'https://megalook.com/static/common/dblogo.png';
 			data.htmlemailTitle = $('#htmlemailTitle').val();
 			data.htmlemailRetrieve = $('#htmlemailRetrieve').val();
 			data.htmlemailRetrievecode = $('#htmlemailRetrievecode').val();

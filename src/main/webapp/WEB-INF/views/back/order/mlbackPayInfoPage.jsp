@@ -627,15 +627,15 @@
 		$('#send-email').on('click', function() {
 			function getOrderProductInfo() {
 				var orderProductStr = '';
-				$('.order-list .order-item').each(function(idx, item) {
-					var $item = $('item');
-					orderProductStr += '<tr>' +
+				$('.payinfo .order-item').each(function(idx, item) {
+					var $item = $(item);
+					orderProductStr += '<tr style="font-size: 16px;">' +
 						'<td align="left" valign="top" style="padding-bottom: 10px;">' +
 							'<img width="100" height="100" src="'+ $item.find('img').attr('src') +'" />' +
 						'</td>' +
-						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px; max-width: 302px;">'+ $item.find('.order-product-link').text() +'</td>' +
-						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px;">'+ $item.find('.order-product-cal .order-product-money').text() + ' x ' + $item.find('.order-product-cal .order-product-num').text() + '&nbsap;&nbsap;&nbsap;&nbsap;' + $item.find('.order-product-cal .order-product-total').text() +'</td>' +
-					'</tr>'
+						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px; max-width: 302px;">'+ $item.find('.order-product-link').html() +'</td>' +
+						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px;">'+ $item.find('.order-product-cal .order-product-money').html() + ' x ' + $item.find('.order-product-cal .order-product-num').html() + '&nbsp;&nbsp;&nbsp;&nbsp;' + $item.find('.order-product-cal .order-product-total').html() +'</td>' +
+					'</tr>';
 				});
 				return orderProductStr;
 			}
@@ -657,48 +657,70 @@
 				});
 				return cRecoverLink;
 			}
+			
+			function getEmailTemplateIfno() {
+				var emailTemplateInfo = '';
+				
+				$.ajax({
+					url: "${APP_PATH}/MlbackHtmlEmail/getOneMlbackHtmlEmailOneAllDetailByName",
+					type: "post",
+					data: JSON.stringify({ "htmlemailName": "checkEmail" }),
+					dataType: "json",
+					contentType: 'application/json',
+					async: false,
+					success: function (data) {
+						if (data.code == 100) {
+							emailTemplateInfo = data.extend.mlbackHtmlEmailOne;
+						}
+					}
+				});
+				return emailTemplateInfo;
+			}
+			
 			$('.c-mask').show();
 			var htmlProductStr = getOrderProductInfo();
 			var recoverLink = getRecoverLink();
-			var htmlEmailStr = '<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border: 0;max-width: 600px !important; background-color: #fafafa;">' +
-				'<tbody>' +
-					'<tr>' +
-						'<td style="padding-left: 16px; padding-right: 16px; border-top: 0; border-bottom: 2px solid #EAEAEA; background-color: #FFFFFF;">' +
-							'<table border="0" cellpadding="0" cellspacing="0" width="100%">' +
-								'<tbody>' +
-									'<tr>' +
-										'<td align="center" style="padding-top: 22px;"><img src="https://megalook.com/static/common/dblogo.png" alt="" width="196" style="display: inline-block;"></td>' +
-									'</tr>' +
-									'<tr><td align="center" style="padding: 16px; font-size: 22px; font-weight: bold;">Take Me Home! </td></tr>' +
-									'<tr><td style="padding: 8px 0;"> It looks like you left me in your cart.so i come to you now. </td></tr>' +
-									'<tr>' +
-										'<td style="padding: 12px 0;">' +
-											'<table border="0" cellpadding="0" cellspacing="0" width="100%">' + htmlProductStr + '</table>' +
-										'</td>' +
-									'</tr>' +
-									'<tr>' +
-										'<td align="center" style="padding-bottom: 22px;">' +
-											'<a href="'+ recoverLink +'" style="display: inline-block; padding: 8px 16px; font-weight:bold; letter-spacing:normal; text-decoration:none; color:#FFFFFF; border-radius: 3px; background-color: #2BAADF;" title="Return to Checkout">Return to Checkout</a>' +
-										'</td>' +
-									'</tr>' +
-								'</tbody>' +
-							'</table>' +
-						'</td>' +
-					'</tr>' +
-					'<tr>' +
-						'<td>hello world</td>' +
-					'</tr>' +
-				'</tbody>' +
-			'</table>';
+			var etIfno = getEmailTemplateIfno();
+			var htmlEmailStr = '<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 666px !important;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border: 0;background-color: #fafafa;"><tbody><tr><td style="padding: 16px;">'+
+				'<table border="0" cellpadding="0" cellspacing="0" width="100%">' +
+					'<tbody>' +
+						'<tr>' +
+							'<td style="padding-left: 16px; padding-right: 16px; border-top: 0; border-bottom: 2px solid #EAEAEA; background-color: #FFFFFF;">' +
+								'<table border="0" cellpadding="0" cellspacing="0" width="100%">' +
+									'<tbody>' +
+										'<tr><td align="center" style="padding-top: 40px; padding-bottom: 20px;"><img src="'+ (etIfno && etIfno.htmlemailHeadimgurl) +'" alt="" width="196" style="display: inline-block;"></td></tr>' +
+										'<tr><td align="center" style="padding: 6px; font-size: 22px; font-weight: bold;">'+ (etIfno && etIfno.htmlemailTitle) +'</td></tr>' +
+										'<tr><td style="padding: 8px 0; font-size: 18px;">'+ (etIfno && etIfno.htmlemailRetrieve) +'</td></tr>' +
+										'<tr><td style="padding: 8px 0; font-size: 16px; font-weight: bold;">'+ (etIfno && etIfno.htmlemailRetrievecode && etIfno.htmlemailRetrievecode.replace(/\n/g, '<br>')) +'</td></tr>' +
+										'<tr>' +
+											'<td style="padding: 12px 0;">' +
+												'<table border="0" cellpadding="0" cellspacing="0" width="100%">' + htmlProductStr + '</table>' +
+											'</td>' +
+										'</tr>' +
+										'<tr>' +
+											'<td align="center" style="padding-bottom: 22px;">' +
+												'<a href="'+ recoverLink +'" style="display: inline-block; padding: 8px 16px; font-weight:bold; letter-spacing:normal; text-decoration:none; color:#FFFFFF; border-radius: 3px; background-color: #2BAADF;" title="Return to Checkout">Return to Checkout</a>' +
+											'</td>' +
+										'</tr>' +
+									'</tbody>' +
+								'</table>' +
+							'</td>' +
+						'</tr>' +
+						'<tr>' +
+							'<td style="padding: 8px;">Copyright © 2021 Megalook Hair, All rights reserved.<br>You are receiving this email because you opted in via our website.</td>' +
+						'</tr>' +
+					'</tbody>' +
+				'</table>' +
+			'</td></tr></tbody><table>';
 			
-			
+			var customerEmail = $('.shipping-list .email .value').html();
+
 			$.ajax({
 				url: "${APP_PATH}/MlbackHtmlEmail/tosendMlbackHtmlEmailOneContent",
 				type: "post",
-				data: JSON.stringify({ 'htmlemailSix': 'lvzhenbang@outlook.com', 'htmlemailSeven': htmlEmailStr }),
+				data: JSON.stringify({ 'htmlemailSix': customerEmail, 'htmlemailSeven': htmlEmailStr }),
 				dataType: "json",
 				contentType: 'application/json',
-				async: false,
 				success: function (data) {
 					if (data.code == 100) {
 						toastr.success('send-email success...');
@@ -712,7 +734,7 @@
 				complete: function() {
 					$('.c-mask').hide();
 				}
-			});			
+			});
 		});
 		// checkout-view
 		$('#checkout-view').on('click', function() {
