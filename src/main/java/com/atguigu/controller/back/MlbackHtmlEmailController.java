@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackHtmlEmail;
+import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackHtmlEmailService;
+import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.utils.EmailHtmlUtil;
 
 @Controller
@@ -30,6 +32,9 @@ public class MlbackHtmlEmailController {
 	
 	@Autowired
 	MlbackAdminService mlbackAdminService;
+	
+	@Autowired
+	MlfrontPayInfoService mlfrontPayInfoService;
 	
 	/**
 	 * 1.0	zsh20210223
@@ -178,6 +183,15 @@ public class MlbackHtmlEmailController {
 		String userEmail = mlbackHtmlEmail.getHtmlemailSix();
 		
 		EmailHtmlUtil.sendHtmlUnCheckoutEmil(userEmail,content) ;
+		
+		
+		Integer payInfoId = mlbackHtmlEmail.getHtmlemailId();
+		
+		MlfrontPayInfo mlfrontPayInfoSMSed = new MlfrontPayInfo();
+		mlfrontPayInfoSMSed.setPayinfoId(payInfoId);
+		mlfrontPayInfoSMSed.setPayinfoIfEmail(1);
+		//2-需要把这一单的payinfo_SMS更新过来
+		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoSMSed);
 		
 		return Msg.success().add("resMsg", "邮件发送成功");
 	}
