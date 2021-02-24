@@ -148,15 +148,18 @@ public class MlbackHtmlEmailController {
 	 * @param MlbackHtmlEmail
 	 * @return 
 	 */
-	@RequestMapping(value="/getOneMlbackHtmlEmailOneAllDetailByFootSeo",method=RequestMethod.POST)
+	@RequestMapping(value="/getOneMlbackHtmlEmailOneAllDetailByName",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneMlbackHtmlEmailOneAllDetailByFootSeo(@RequestParam(value = "htmlemailName") String htmlemailName){
+	public Msg getOneMlbackHtmlEmailOneAllDetailByName(@RequestBody MlbackHtmlEmail mlbackHtmlEmailInto){
+		
+		String htmlemailName = mlbackHtmlEmailInto.getHtmlemailName();
 		
 		//接受categoryId
 		MlbackHtmlEmail MlbackHtmlEmailReq = new MlbackHtmlEmail();
 		MlbackHtmlEmailReq.setHtmlemailName(htmlemailName);
+		MlbackHtmlEmailReq.setHtmlemailStatus(1);
 		//查询本条
-		List<MlbackHtmlEmail> mlbackHtmlEmailResList =mlbackHtmlEmailService.selectMlbackhtmlEmailListByName(MlbackHtmlEmailReq);
+		List<MlbackHtmlEmail> mlbackHtmlEmailResList =mlbackHtmlEmailService.selectMlbackHtmlEmailListByName(MlbackHtmlEmailReq);
 		MlbackHtmlEmail mlbackHtmlEmailOne = new MlbackHtmlEmail();
 		if(mlbackHtmlEmailResList.size()>0){
 			mlbackHtmlEmailOne =mlbackHtmlEmailResList.get(0);

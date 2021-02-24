@@ -158,7 +158,7 @@
   </update>
 
   <!-- selectMlbackHtmlEmailListByName -->
-  <select id="selectMlbackHtmlEmailListByName" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectMlbackHtmlEmailListByName" parameterType="com.atguigu.bean.MlbackHtmlEmail" resultMap="BaseResultMap">
     select * 
     from tb_mlback_htmlemail
     where htmlEmail_name = #{htmlemailName,jdbcType=VARCHAR} and htmlEmail_status = #{htmlemailStatus,jdbcType=INTEGER}
