@@ -634,7 +634,7 @@
 							'<img width="100" height="100" src="'+ $item.find('img').attr('src') +'" />' +
 						'</td>' +
 						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px; max-width: 302px;">'+ $item.find('.order-product-link').html() +'</td>' +
-						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px;">'+ $item.find('.order-product-cal .order-product-money').html() + ' x ' + $item.find('.order-product-cal .order-product-num').html() + '&nbsp;&nbsp;&nbsp;&nbsp;' + $item.find('.order-product-cal .order-product-total').html() +'</td>' +
+						'<td align="left" valign="top" style="padding-left: 10px; padding-bottom: 10px;">'+ $item.find('.order-product-cal .order-product-money').html() +'</td>' +
 					'</tr>';
 				});
 				return orderProductStr;
@@ -693,12 +693,12 @@
 										'<tr><td style="padding: 8px 0; font-size: 18px;">'+ (etIfno && etIfno.htmlemailRetrieve) +'</td></tr>' +
 										'<tr><td style="padding: 8px 0; font-size: 16px; font-weight: bold;">'+ (etIfno && etIfno.htmlemailRetrievecode && etIfno.htmlemailRetrievecode.replace(/\n/g, '<br>')) +'</td></tr>' +
 										'<tr>' +
-											'<td style="padding: 12px 0;">' +
+											'<td style="padding: 20px 0;">' +
 												'<table border="0" cellpadding="0" cellspacing="0" width="100%">' + htmlProductStr + '</table>' +
 											'</td>' +
 										'</tr>' +
 										'<tr>' +
-											'<td align="center" style="padding-bottom: 22px;">' +
+											'<td align="center" style="padding-bottom: 36px;">' +
 												'<a href="'+ recoverLink +'" style="display: inline-block; padding: 8px 16px; font-weight:bold; letter-spacing:normal; text-decoration:none; color:#FFFFFF; border-radius: 3px; background-color: #2BAADF;" title="Return to Checkout">Return to Checkout</a>' +
 											'</td>' +
 										'</tr>' +
@@ -707,7 +707,7 @@
 							'</td>' +
 						'</tr>' +
 						'<tr>' +
-							'<td style="padding: 8px;">Copyright © 2021 Megalook Hair, All rights reserved.<br>You are receiving this email because you opted in via our website.</td>' +
+							'<td style="padding-top: 16px; padding-bottom: 8px;">Copyright © 2021 Megalook Hair, All rights reserved.<br>You are receiving this email because you opted in via our website.</td>' +
 						'</tr>' +
 					'</tbody>' +
 				'</table>' +
