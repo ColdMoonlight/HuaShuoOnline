@@ -45,6 +45,8 @@ public class MlfrontPayInfo {
     private String payinfoSendnum;//物流单号
     
     private Integer payinfoIfSMS;//是否发短信了
+    
+    private Integer payinfoIfEmail;//是否发短信了
 
     public Integer getPayinfoId() {
         return payinfoId;
@@ -213,6 +215,14 @@ public class MlfrontPayInfo {
 	public void setPayinfoIfSMS(Integer payinfoIfSMS) {
 		this.payinfoIfSMS = payinfoIfSMS;
 	}
+	
+	public Integer getPayinfoIfEmail() {
+		return payinfoIfEmail;
+	}
+
+	public void setPayinfoIfEmail(Integer payinfoIfEmail) {
+		this.payinfoIfEmail = payinfoIfEmail;
+	}
 
 	public MlfrontPayInfo() {
 		super();
@@ -222,7 +232,7 @@ public class MlfrontPayInfo {
 			String payinfoPlatform, String payinfoPlatformserialcode, BigDecimal payinfoMoney, Integer payinfoStatus,
 			String payinfoReason, String payinfoCreatetime, String payinfoMotifytime, String payinfoReturntime, String payinfoPlatenum,
 			String payinfoUname, String payinfoUemail, String payinfoTransidnum, String payinfoTransStatus,
-			String payinfoEcpphsnum, String payinfoEcpphsnumStatus, String payinfoSendnum,Integer payinfoIfSMS) {
+			String payinfoEcpphsnum, String payinfoEcpphsnumStatus, String payinfoSendnum,Integer payinfoIfSMS,Integer payinfoIfEmail) {
 		super();
 		this.payinfoId = payinfoId;
 		this.payinfoUid = payinfoUid;
@@ -245,6 +255,7 @@ public class MlfrontPayInfo {
 		this.payinfoEcpphsnumStatus = payinfoEcpphsnumStatus;
 		this.payinfoSendnum = payinfoSendnum;
 		this.payinfoIfSMS = payinfoIfSMS;
+		this.payinfoIfEmail = payinfoIfEmail;
 	}
 
 	@Override
@@ -257,7 +268,7 @@ public class MlfrontPayInfo {
 				+ ", payinfoPlatenum=" + payinfoPlatenum + ", payinfoUname=" + payinfoUname + ", payinfoUemail="
 				+ payinfoUemail + ", payinfoTransidnum=" + payinfoTransidnum + ", payinfoTransStatus="
 				+ payinfoTransStatus + ", payinfoEcpphsnum=" + payinfoEcpphsnum + ", payinfoEcpphsnumStatus="
-				+ payinfoEcpphsnumStatus + ", payinfoSendnum=" + payinfoSendnum + ", payinfoIfSMS=" + payinfoIfSMS + "]";
+				+ payinfoEcpphsnumStatus + ", payinfoSendnum=" + payinfoSendnum + ", payinfoIfSMS=" + payinfoIfSMS + ", payinfoIfEmail=" + payinfoIfEmail + "]";
 	}
 
 }
