@@ -313,6 +313,7 @@ public class MlfrontOrderController {
 		mlfrontAddress.setAddressId(payAddressinfoId);
 		List<MlfrontAddress> mlfrontAddressToPayList = mlfrontAddressService.selectMlfrontAddressByParam(mlfrontAddress);
 		MlfrontAddress mlfrontAddressToPay = mlfrontAddressToPayList.get(0);
+		String addressName = mlfrontAddressToPay.getAddressUserfirstname()+","+mlfrontAddressToPay.getAddressUserlastname();
 		//把结算地址放进session中
 		session.setAttribute("mlfrontAddressToPay", mlfrontAddressToPay);
 		session.setAttribute("totalprice", totalprice);
@@ -341,6 +342,7 @@ public class MlfrontOrderController {
 		mlfrontPayInfoNew.setPayinfoCreatetime(nowTime);
 		mlfrontPayInfoNew.setPayinfoMotifytime(nowTime);
 		mlfrontPayInfoNew.setPayinfoReturntime(nowTime);
+		mlfrontPayInfoNew.setPayinfoUname(addressName);
 		mlfrontPayInfoService.insertSelective(mlfrontPayInfoNew);
 		Integer payinfoId = mlfrontPayInfoNew.getPayinfoId();
 		
