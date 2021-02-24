@@ -16,7 +16,7 @@ public interface MlbackHtmlEmailMapper {
 
     MlbackHtmlEmail selectByPrimaryKey(Integer htmlemailId);
 
-    List<MlbackHtmlEmail> selectMlbackhtmlEmailListByName(MlbackHtmlEmail record);
+    List<MlbackHtmlEmail> selectMlbackHtmlEmailListByName(MlbackHtmlEmail record);
 
 	List<MlbackHtmlEmail> selectMlbackHtmlEmailGetAll();
     

@@ -62,8 +62,8 @@ public class MlbackHtmlEmailService {
 		return mlbackAreafreightList;
 	}
 
-	public List<MlbackHtmlEmail> selectMlbackhtmlEmailListByName(MlbackHtmlEmail MlbackHtmlEmailReq) {
-		List<MlbackHtmlEmail>  MlbackHtmlEmailList = mlbackHtmlEmailMapper.selectMlbackhtmlEmailListByName(MlbackHtmlEmailReq);
+	public List<MlbackHtmlEmail> selectMlbackHtmlEmailListByName(MlbackHtmlEmail MlbackHtmlEmailReq) {
+		List<MlbackHtmlEmail>  MlbackHtmlEmailList = mlbackHtmlEmailMapper.selectMlbackHtmlEmailListByName(MlbackHtmlEmailReq);
 		return MlbackHtmlEmailList;
 	}
 	
