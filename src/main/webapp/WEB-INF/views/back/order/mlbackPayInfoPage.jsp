@@ -174,8 +174,9 @@
 												<span>copy</span>
 											</div>										
 										</div>
-										<button class="btn btn-dark hide" style="margin: 0 1rem;" id="send-email">send Email</button>	
-										<button class="btn btn-primary hide" id="checkout-view">Checkout View</button>
+										<button class="btn btn-dark hide" style="margin-left: 1rem;" id="send-email">send Email</button>
+										<button class="btn btn-secondary hide" style="margin-left: 1rem;" id="send-sms-one">send SMS</button>
+										<button class="btn btn-primary hide" style="margin-left: 1rem;" id="checkout-view">Checkout View</button>
 									</div>
 								</div>
 								<div class="payinfo card-body">
@@ -736,6 +737,30 @@
 				}
 			});
 		});
+		// send-sms one
+		$('#send-sms-one').on('click', function() {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontOrderList/toSendUnpaySMSByOne",
+				type: "post",
+				data: JSON.stringify({ 'searchId': $('#send-sms-one').data('id') }),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success('send-sms success...');
+					} else {
+						toastr.error('send-sms fail...');
+					}
+				},
+				error: function() {
+					toastr.error('send-sms fail...');
+				},
+				complete: function() {
+					$('.c-mask').hide();
+				}
+			});
+		});
 		// checkout-view
 		$('#checkout-view').on('click', function() {
 			$('#checkoutViewModal').modal('show');
@@ -930,9 +955,9 @@
 			function fnSendSms() {
 				if ('' + $('#payinfoStatus').val() == '0') {
 					$('.table-sms').removeClass('hide');
-					$('#send-sms,#send-email').removeClass('hide');
+					$('#send-sms,#send-email,#send-sms-one').removeClass('hide');
 				} else {
-					$('#send-sms,#send-email').addClass('hide');
+					$('#send-sms,#send-email,#send-sms-one').addClass('hide');
 					$('.table-sms').addClass('hide');
 				}
 			}
@@ -996,6 +1021,7 @@
 			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
 				$('.btn-abandon-purchase,.btn-close,#checkout-view,#unpaid-link').removeClass('hide');
 				$('#unpaid-link').data('id', data.mlfrontOrderPayOneRes.orderId);
+				$('#send-sms-one').data('id', data.mlfrontPayInfoOne.payinfoId);
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
 				$('.btn-audit,.btn-refund').removeClass('hide');
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 2 || data.mlfrontPayInfoOne.payinfoStatus == 3) {
