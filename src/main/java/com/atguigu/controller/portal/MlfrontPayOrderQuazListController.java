@@ -62,7 +62,6 @@ public class MlfrontPayOrderQuazListController {
 	@ResponseBody
 	public Msg selectOrderlistBySearch(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlbackSearch mlbackSearch) {
 		
-		
 		/**
 		 * 准备筛选前的数据
 		 * 1自动查询12小时以内的payinfo订单List
@@ -71,20 +70,15 @@ public class MlfrontPayOrderQuazListController {
 		 * */
 		
 		//获取当前系统时间
-		
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
 		
 		String nowtime = DateUtil.strTime14s();
-		
 		String beforeTime = DateUtil.dateRoll(36);
 		
-//		
 		String startTime = mlbackSearch.getSearchCreatetime();
 		String endTime = mlbackSearch.getSearchMotifytime();
 		mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
 		mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
-		
-		
 		
 //		mlfrontPayInfoReq.setPayinfoCreatetime("2021-02-25 23:59:59");
 //		mlfrontPayInfoReq.setPayinfoMotifytime("2021-02-26 23:59:50");
