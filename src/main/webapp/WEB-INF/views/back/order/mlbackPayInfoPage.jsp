@@ -89,7 +89,8 @@
 								</svg>
 								<span>Export</span>
 							</button>
-							<div class="btn btn-dark hide" id="send-sms"> send SMS </div>		
+							<div class="btn btn-dark hide" id="send-sms"> send SMS </div>
+							<div class="btn btn-secondary hide" id="send-email"> send Email </div>
 							<button class="btn btn-info ecpp-verify-sync">checkEcppIfVerify</button>						
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
 						</div>
@@ -175,7 +176,7 @@
 												<span>copy</span>
 											</div>										
 										</div>
-										<button class="btn btn-dark hide" style="margin-left: 1rem;" id="send-email">send Email</button>
+										<button class="btn btn-dark hide" style="margin-left: 1rem;" id="send-email-one">send Email</button>
 										<button class="btn btn-secondary hide" style="margin-left: 1rem;" id="send-sms-one">send SMS</button>
 										<button class="btn btn-primary hide" style="margin-left: 1rem;" id="checkout-view">Checkout View</button>
 									</div>
@@ -624,9 +625,38 @@
 					$('.c-mask').hide();
 				}
 			});
-		})
+		});
 		// send-email
 		$('#send-email').on('click', function() {
+			var payinfoCreatetime =$('#order-create-time').val();
+			var payinfoMotifytime  = $('#order-confirm-time').val();
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayOrderQuazList/selectOrderlistBySearch",
+				type: "post",
+				data: JSON.stringify({
+					'searchCreatetime': payinfoCreatetime,
+					'searchMotifytime': payinfoMotifytime,
+				}),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('网络异常，请重新返送email');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		});
+		// send-email-one
+		$('#send-email-one').on('click', function() {
 			function getOrderProductInfo() {
 				var orderProductStr = '';
 				$('.payinfo .order-item').each(function(idx, item) {
@@ -962,10 +992,10 @@
 				if ('' + $('#payinfoStatus').val() == '0') {
 					$('.table-unpaid').addClass('hide');
 					$('.table-sms,.table-email').removeClass('hide');
-					$('#send-sms,#send-email,#send-sms-one').removeClass('hide');
+					$('#send-email,#send-sms,#send-email-one,#send-sms-one').removeClass('hide');
 				} else {
 					$('.table-unpaid').removeClass('hide');
-					$('#send-sms,#send-email,#send-sms-one').addClass('hide');
+					$('#send-email,#send-sms,#send-email-one,#send-sms-one').addClass('hide');
 					$('.table-sms,.table-email').addClass('hide');
 				}
 			}
@@ -1028,7 +1058,7 @@
 			$('.payinfo-group .btn, #checkout-view, #unpaid-link').addClass('hide');
 			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
 				$('.btn-abandon-purchase,.btn-close,#checkout-view,#unpaid-link').removeClass('hide');
-				$('#unpaid-link,#send-email').data('id', data.mlfrontOrderPayOneRes.orderId);
+				$('#unpaid-link,#send-email-one').data('id', data.mlfrontOrderPayOneRes.orderId);
 				$('#send-sms-one').data('id', data.mlfrontPayInfoOne.payinfoId);
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
 				$('.btn-audit,.btn-refund').removeClass('hide');
