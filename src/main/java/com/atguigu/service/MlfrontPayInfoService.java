@@ -66,6 +66,11 @@ public class MlfrontPayInfoService {
 		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoByDate(mlfrontPayInfoReq);
 	    return mlfrontPayInfoList;
 	}
+	
+	public List<MlfrontPayInfo> selectMlfrontPayInfoByDateAndIfEmail(MlfrontPayInfo mlfrontPayInfoReq) {
+		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoByDateAndIfEmail(mlfrontPayInfoReq);
+	    return mlfrontPayInfoList;
+	}
 
 	public List<MlfrontPayInfo> selectMlfrontPayInfoSuccessAll() {
 		List<MlfrontPayInfo>  mlfrontPayInfoList = mlfrontPayInfoMapper.selectMlfrontPayInfoSuccessAll();

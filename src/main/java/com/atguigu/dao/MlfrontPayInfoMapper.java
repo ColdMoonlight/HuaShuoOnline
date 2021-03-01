@@ -26,6 +26,9 @@ public interface MlfrontPayInfoMapper {
 	List<MlfrontPayInfo> selectHighPayInfoListBySearch(MlfrontPayInfo mlfrontPayInfoReq);
 	//高级按照时间查询
 	List<MlfrontPayInfo> selectMlfrontPayInfoByDate(MlfrontPayInfo mlfrontPayInfoReq);
+	
+	//高级按照时间查询
+	List<MlfrontPayInfo> selectMlfrontPayInfoByDateAndIfEmail(MlfrontPayInfo mlfrontPayInfoReq);
 
 	List<MlfrontPayInfo> selectMlfrontPayInfoSuccessAll();
 

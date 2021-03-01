@@ -346,4 +346,18 @@
     and payInfo_createTime between #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR} order by payInfo_oid desc,payInfo_id desc
   </select> 
   
+    <!-- selectMlfrontPayInfoByDateAndIfEmail -->
+  <select id="selectMlfrontPayInfoByDateAndIfEmail" parameterType="com.atguigu.bean.MlfrontPayInfo" resultMap="BaseResultMap">
+    select *
+    from tb_mlfront_payinfo 
+    where payInfo_returnTime between #{payinfoCreatetime,jdbcType=VARCHAR} and #{payinfoMotifytime,jdbcType=VARCHAR}
+    <if test="payinfoStatus != null">
+      and payInfo_status = #{payinfoStatus,jdbcType=INTEGER} 
+    </if>
+    <if test="payinfoIfEmail != null">
+      and payInfo_IfEmail = #{payinfoIfEmail,jdbcType=INTEGER},
+    </if>
+    order by payInfo_id desc
+  </select>
+  
 </mapper>

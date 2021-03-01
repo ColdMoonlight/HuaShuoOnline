@@ -2,6 +2,8 @@ package com.atguigu.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -237,4 +239,20 @@ public class DateUtil {
 		}
 		return XtimeRes;
 	}
+	
+	
+	/**
+	 * @author zsh
+	 * 获取当前时间前N小时的时间
+	 * @return
+	 * */
+	public static String dateRoll(int ihour) {
+	      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	      //（1）获取当前时间
+	      LocalDateTime date = LocalDateTime.now();
+	      //（2）获取当前时间的前几小时时间
+	      LocalDateTime localDateTime = date.minusHours(ihour);
+
+	      return dateTimeFormatter.format(localDateTime);
+	  }
 }
