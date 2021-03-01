@@ -89,7 +89,8 @@
 								</svg>
 								<span>Export</span>
 							</button>
-							<div class="btn btn-dark hide" id="send-sms"> send SMS </div>		
+							<div class="btn btn-dark hide" id="send-sms"> send SMS </div>
+							<div class="btn btn-secondary hide" id="send-email"> send Email </div>
 							<button class="btn btn-info ecpp-verify-sync">checkEcppIfVerify</button>						
 							<button class="btn btn-primary ecpp-data-sync">checkEcppIfSend</button>
 						</div>
@@ -136,11 +137,11 @@
 											<th>pay-method</th>
 											<th class="table-sms hide">SMS-status</th>
 											<th class="table-email hide">Email-status</th>
-											<th>pay-num</th>
-											<th>money-status</th>
-											<th>ecpp-num</th>
-											<th>ecpp-status</th>
-											<th>tracking-num</th>
+											<th class="table-unpaid">pay-num</th>
+											<th class="table-unpaid">money-status</th>
+											<th class="table-unpaid">ecpp-num</th>
+											<th class="table-unpaid">ecpp-status</th>
+											<th class="table-unpaid">tracking-num</th>
 											<th>operate</th>
 										</tr>
 									</thead>
@@ -175,7 +176,7 @@
 												<span>copy</span>
 											</div>										
 										</div>
-										<button class="btn btn-dark hide" style="margin-left: 1rem;" id="send-email">send Email</button>
+										<button class="btn btn-dark hide" style="margin-left: 1rem;" id="send-email-one">send Email</button>
 										<button class="btn btn-secondary hide" style="margin-left: 1rem;" id="send-sms-one">send SMS</button>
 										<button class="btn btn-primary hide" style="margin-left: 1rem;" id="checkout-view">Checkout View</button>
 									</div>
@@ -624,9 +625,38 @@
 					$('.c-mask').hide();
 				}
 			});
-		})
+		});
 		// send-email
 		$('#send-email').on('click', function() {
+			var payinfoCreatetime =$('#order-create-time').val();
+			var payinfoMotifytime  = $('#order-confirm-time').val();
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/MlfrontPayOrderQuazList/selectOrderlistBySearch",
+				type: "post",
+				data: JSON.stringify({
+					'searchCreatetime': payinfoCreatetime,
+					'searchMotifytime': payinfoMotifytime,
+				}),
+				dataType: "json",
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error('网络异常，请重新返送email');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		});
+		// send-email-one
+		$('#send-email-one').on('click', function() {
 			function getOrderProductInfo() {
 				var orderProductStr = '';
 				$('.payinfo .order-item').each(function(idx, item) {
@@ -642,12 +672,12 @@
 				return orderProductStr;
 			}
 
-			function getRecoverLink() {
+			function getRecoverLink(payOrderId) {
 				var cRecoverLink = '';
 				$.ajax({
 					url: "${APP_PATH}/MlfrontOrderList/getOlderIdSecretCode",
 					type: "post",
-					data: JSON.stringify({ 'searchId': $('#unpaid-link').data('id') }),
+					data: JSON.stringify({ 'searchId': payOrderId}),
 					dataType: "json",
 					contentType: 'application/json',
 					async: false,
@@ -681,7 +711,7 @@
 
 			$('.c-mask').show();
 			var htmlProductStr = getOrderProductInfo();
-			var recoverLink = getRecoverLink();
+			var recoverLink = getRecoverLink($(this).data('id'));
 			var etIfno = getEmailTemplateIfno();
 			var htmlEmailStr = '<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 666px !important;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border: 0;background-color: #fafafa;"><tbody><tr><td style="padding: 16px;">'+
 				'<table border="0" cellpadding="0" cellspacing="0" width="100%">' +
@@ -744,11 +774,12 @@
 		});
 		// send-sms one
 		$('#send-sms-one').on('click', function() {
+			var payInfoId = $(this).data('id');
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlfrontOrderList/toSendUnpaySMSByOne",
 				type: "post",
-				data: JSON.stringify({ 'searchId': $('#send-sms-one').data('id') }),
+				data: JSON.stringify({ 'searchId': payInfoId }),
 				dataType: "json",
 				contentType: 'application/json',
 				success: function (data) {
@@ -959,10 +990,12 @@
 		function getTabSearchData($this) {
 			function fnSendSms() {
 				if ('' + $('#payinfoStatus').val() == '0') {
+					$('.table-unpaid').addClass('hide');
 					$('.table-sms,.table-email').removeClass('hide');
-					$('#send-sms,#send-email,#send-sms-one').removeClass('hide');
+					$('#send-email,#send-sms,#send-email-one,#send-sms-one').removeClass('hide');
 				} else {
-					$('#send-sms,#send-email,#send-sms-one').addClass('hide');
+					$('.table-unpaid').removeClass('hide');
+					$('#send-email,#send-sms,#send-email-one,#send-sms-one').addClass('hide');
 					$('.table-sms,.table-email').addClass('hide');
 				}
 			}
@@ -1025,7 +1058,7 @@
 			$('.payinfo-group .btn, #checkout-view, #unpaid-link').addClass('hide');
 			if (data.mlfrontPayInfoOne.payinfoStatus == 0) {
 				$('.btn-abandon-purchase,.btn-close,#checkout-view,#unpaid-link').removeClass('hide');
-				$('#unpaid-link').data('id', data.mlfrontOrderPayOneRes.orderId);
+				$('#unpaid-link,#send-email-one').data('id', data.mlfrontOrderPayOneRes.orderId);
 				$('#send-sms-one').data('id', data.mlfrontPayInfoOne.payinfoId);
 			} else if (data.mlfrontPayInfoOne.payinfoStatus == 1) {
 				$('.btn-audit,.btn-refund').removeClass('hide');
@@ -1353,11 +1386,11 @@
 					'<td><img style="width: 60px;" src="${APP_PATH}/static/pc/img/' + ((data[i].payinfoPlatform).toLowerCase() == 'bank_card' ? 'paypal-2.png' : 'paypal-1.png') + '"/></td>' +
 					'<td class="table-sms hide"><a class="badge '+ (data[i].payinfoIfSMS ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoIfSMS ? 'send' : 'not send') + '</td>' +
 					'<td class="table-email hide"><a class="badge '+ (data[i].payinfoIfEmail ? 'badge-info': 'badge-primary') +'" href="javascript:;">' + (data[i].payinfoIfEmail ? 'send' : 'not send') + '</td>' +
-					'<td>' + (data[i].payinfoTransidnum || '') + '</td>' +
-					'<td><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
-					'<td>' + (data[i].payinfoEcpphsnum || '') + '</td>' +
-					'<td>' + (data[i].payinfoEcpphsnumStatus || '') + '</td>' +
-					'<td>' + (getNewPayinfoSendNum(data[i].payinfoSendnum)) + '</td>' +
+					'<td class="table-unpaid">' + (data[i].payinfoTransidnum || '') + '</td>' +
+					'<td class="table-unpaid"><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
+					'<td class="table-unpaid">' + (data[i].payinfoEcpphsnum || '') + '</td>' +
+					'<td class="table-unpaid">' + (data[i].payinfoEcpphsnumStatus || '') + '</td>' +
+					'<td class="table-unpaid">' + (getNewPayinfoSendNum(data[i].payinfoSendnum)) + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-view" data-id="' + data[i].payinfoId + '">' +
 							'<svg class="c-icon">' +
