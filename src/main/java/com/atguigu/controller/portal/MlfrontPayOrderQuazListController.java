@@ -333,7 +333,7 @@ public class MlfrontPayOrderQuazListController {
 
 	private String getEmailTemplateIfno(String recoverLink, MlbackHtmlEmail mlbackHtmlEmailOne, String htmlProductStr) {
 		
-		String htmlemailRetrievecode =mlbackHtmlEmailOne.getHtmlemailRetrievecode();//
+		String htmlemailRetrievecode =mlbackHtmlEmailOne.getHtmlemailRetrievecode();
 		String htmlemailRetrievecodeNow=htmlemailRetrievecode.replace("\n", "<br>");
 		
 		String htmlEmailStr = "<table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 666px !important;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border: 0;background-color: #fafafa;'><tbody><tr><td style='padding: 16px;'>"+
@@ -364,12 +364,12 @@ public class MlfrontPayOrderQuazListController {
 					"<tr>" +
 						"<td style='padding-top: 16px; padding-bottom: 8px;'>Copyright © 2021 Megalook Hair, All rights reserved.<br>You are receiving this email because you opted in via our website.</td>" +
 					"</tr>" +
+					"<tr><td style='padding-top: 16px; font-size: 12px; font-weight: bold;'>Our mailing address is:</td></tr>" +
+					"<tr><td style='padding: 6px 0; font-size: 12px;'>Megalook Hair<br>Huashuo Hair<br>jin rong zhong xin<br>xu chang, He Nan 461000<br>China</td></tr>" +
 				"</tbody>" +
 			"</table>" +
 		"</td></tr></tbody><table>";
-		
 		return htmlEmailStr;
-		
 	}
 	
 	/**
