@@ -333,7 +333,7 @@ public class MlfrontPayOrderQuazListController {
 
 	private String getEmailTemplateIfno(String recoverLink, MlbackHtmlEmail mlbackHtmlEmailOne, String htmlProductStr) {
 		
-		String htmlemailRetrievecode =mlbackHtmlEmailOne.getHtmlemailRetrievecode();
+		String htmlemailRetrievecode =mlbackHtmlEmailOne.getHtmlemailRetrievecode();//
 		String htmlemailRetrievecodeNow=htmlemailRetrievecode.replace("\n", "<br>");
 		
 		String htmlEmailStr = "<table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 666px !important;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border: 0;background-color: #fafafa;'><tbody><tr><td style='padding: 16px;'>"+
