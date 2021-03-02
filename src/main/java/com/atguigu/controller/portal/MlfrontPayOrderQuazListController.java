@@ -334,7 +334,7 @@ public class MlfrontPayOrderQuazListController {
 	private String getEmailTemplateIfno(String recoverLink, MlbackHtmlEmail mlbackHtmlEmailOne, String htmlProductStr) {
 		
 		String htmlemailRetrievecode =mlbackHtmlEmailOne.getHtmlemailRetrievecode();
-		htmlemailRetrievecode.replace("\n", "<br>");
+		String htmlemailRetrievecodeNow=htmlemailRetrievecode.replace("\n", "<br>");
 		
 		String htmlEmailStr = "<table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 666px !important;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border: 0;background-color: #fafafa;'><tbody><tr><td style='padding: 16px;'>"+
 				"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" +
@@ -344,9 +344,9 @@ public class MlfrontPayOrderQuazListController {
 							"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" +
 								"<tbody>" +
 									"<tr><td align='center' style='padding-top: 40px; padding-bottom: 20px;'><img src='"+ mlbackHtmlEmailOne.getHtmlemailHeadimgurl() +"' alt='' width='196' style='display: inline-block;'></td></tr>" +
-									"<tr><td align='center' style='padding: 6px; font-size: 22px; font-weight: bold;'>"+ mlbackHtmlEmailOne.getHtmlemailTitle() +"</td></tr>" +
+									"<tr><td align='center' style='padding: 6px 0; font-size: 22px; font-weight: bold;'>"+ mlbackHtmlEmailOne.getHtmlemailTitle() +"</td></tr>" +
 									"<tr><td style='padding: 8px 0; font-size: 18px;'>"+ mlbackHtmlEmailOne.getHtmlemailRetrieve() +"</td></tr>" +
-									"<tr><td style='padding: 8px 0; font-size: 16px; font-weight: bold;'>"+ htmlemailRetrievecode +"</td></tr>" +
+									"<tr><td style='padding: 8px 0; font-size: 16px; font-weight: bold; color: red;'>"+ htmlemailRetrievecodeNow +"</td></tr>" +
 									"<tr>" +
 										"<td style='padding: 20px 0;'>" +
 											"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" + htmlProductStr + "</table>" +
