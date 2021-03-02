@@ -278,7 +278,7 @@ public class MlfrontPayOrderQuazListController {
 					//发送邮箱
 					String userEmail = mlfrontAddressOne.getAddressEmail();
 					System.out.println("userEmail:"+userEmail);
-					userEmail ="mingyueqingl@163.com";
+					//userEmail ="mingyueqingl@163.com";
 					//产品文案
 					String htmlProductStr = getOrderProductInfo(mlfrontOrderOne);
 					//获取链接信息
