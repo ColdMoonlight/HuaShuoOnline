@@ -53,8 +53,8 @@ public class MlfrontPayOrderQuazListController {
 	MlbackHtmlEmailService mlbackHtmlEmailService;
 	
 	/**
-	 * 1.0	执行方法	200720
-	 * to	全部订单-分状态查询
+	 * 1.0	执行方法	210302
+	 * to	查询当前时间内需要发送邮件的订单,对订单进行批量操作;
 	 * @param jsp
 	 * @return 
 	 * */
@@ -68,17 +68,17 @@ public class MlfrontPayOrderQuazListController {
 		 * 存储付款成功的paySuccessList	包含成功名字
 		 * 存储失败的UnPayList
 		 * */
-		
 		//获取当前系统时间
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
-		
-		String nowtime = DateUtil.strTime14s();
-		String beforeTime = DateUtil.dateRoll(36);
+//		
+//		String nowtime = DateUtil.strTime14s();
+//		String beforeTime = DateUtil.dateRoll(36);
 		
 		String startTime = mlbackSearch.getSearchCreatetime();
 		String endTime = mlbackSearch.getSearchMotifytime();
 		mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
 		mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
+		mlfrontPayInfoReq.setPayinfoIfEmail(0);
 		
 //		mlfrontPayInfoReq.setPayinfoCreatetime("2021-02-25 23:59:59");
 //		mlfrontPayInfoReq.setPayinfoMotifytime("2021-02-26 23:59:50");
@@ -183,13 +183,10 @@ public class MlfrontPayOrderQuazListController {
 		}
 		
 		//先发邮件,把发完的邮件变成状态1
-		
 		sendEmailToUnpayList(rep, res, session, trueUnPayIdList);
-		
 		//重复单标记状态2
-		
 		updateSameUnpay(sameUnPayIdList);
-		
+		//成功单标记状态3
 		updateSuccessPay(mlfrontPayInfoSuccessList);
 		
 		return Msg.success().add("trueUnPayIdList", trueUnPayIdList).add("successPayIdList", successPayIdList).add("sameUnPayIdList", sameUnPayIdList);
@@ -203,7 +200,7 @@ public class MlfrontPayOrderQuazListController {
 			mlfrontPayInfoOne.setPayinfoId(payinfoId);
 			mlfrontPayInfoOne.setPayinfoIfEmail(3);
 			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
-			System.out.println("本条标记成功");
+			System.out.println("本条是成功记录,标记成无需发送的状态3");
 		}		
 	}
 
