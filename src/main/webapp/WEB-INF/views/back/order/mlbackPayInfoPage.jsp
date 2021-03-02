@@ -741,6 +741,8 @@
 						'<tr>' +
 							'<td style="padding-top: 16px; padding-bottom: 8px;">Copyright © 2021 Megalook Hair, All rights reserved.<br>You are receiving this email because you opted in via our website.</td>' +
 						'</tr>' +
+						'<tr><td style="padding-top: 16px; font-size: 12px; font-weight: bold;">Our mailing address is:</td></tr>' +
+						'<tr><td style="padding: 6px 0; font-size: 12px;">Megalook Hair<br>Huashuo Hair<br>jin rong zhong xin<br>xu chang, He Nan 461000<br>China</td></tr>' +
 					'</tbody>' +
 				'</table>' +
 			'</td></tr></tbody><table>';
