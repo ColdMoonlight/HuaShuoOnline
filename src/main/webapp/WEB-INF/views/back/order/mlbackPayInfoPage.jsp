@@ -721,9 +721,9 @@
 								'<table border="0" cellpadding="0" cellspacing="0" width="100%">' +
 									'<tbody>' +
 										'<tr><td align="center" style="padding-top: 40px; padding-bottom: 20px;"><img src="'+ (etIfno && etIfno.htmlemailHeadimgurl) +'" alt="" width="196" style="display: inline-block;"></td></tr>' +
-										'<tr><td align="center" style="padding: 6px; font-size: 22px; font-weight: bold;">'+ (etIfno && etIfno.htmlemailTitle) +'</td></tr>' +
+										'<tr><td align="center" style="padding: 6px 0; font-size: 22px; font-weight: bold;">'+ (etIfno && etIfno.htmlemailTitle) +'</td></tr>' +
 										'<tr><td style="padding: 8px 0; font-size: 18px;">'+ (etIfno && etIfno.htmlemailRetrieve) +'</td></tr>' +
-										'<tr><td style="padding: 8px 0; font-size: 16px; font-weight: bold;">'+ (etIfno && etIfno.htmlemailRetrievecode && etIfno.htmlemailRetrievecode.replace(/\n/g, '<br>')) +'</td></tr>' +
+										'<tr><td style="padding: 8px 0; font-size: 16px; font-weight: bold; color: red;">'+ (etIfno && etIfno.htmlemailRetrievecode && etIfno.htmlemailRetrievecode.replace(/\n/g, '<br>')) +'</td></tr>' +
 										'<tr>' +
 											'<td style="padding: 20px 0;">' +
 												'<table border="0" cellpadding="0" cellspacing="0" width="100%">' + htmlProductStr + '</table>' +
@@ -741,6 +741,8 @@
 						'<tr>' +
 							'<td style="padding-top: 16px; padding-bottom: 8px;">Copyright © 2021 Megalook Hair, All rights reserved.<br>You are receiving this email because you opted in via our website.</td>' +
 						'</tr>' +
+						'<tr><td style="padding-top: 16px; font-size: 12px; font-weight: bold;">Our mailing address is:</td></tr>' +
+						'<tr><td style="padding: 6px 0; font-size: 12px;">Megalook Hair<br>Huashuo Hair<br>jin rong zhong xin<br>xu chang, He Nan 461000<br>China</td></tr>' +
 					'</tbody>' +
 				'</table>' +
 			'</td></tr></tbody><table>';
@@ -1372,6 +1374,26 @@
 		}
 		// init table-list
 		function renderTable(data) {
+			function getSendEmailStatus(status) {
+				var statusText;
+				switch(status) {
+					case 0:
+						statusText = '<a class="badge badge-danger">not send</a>'; // 未发送 red
+					    break;
+					case 1:
+						statusText = '<a class="badge badge-success">send</a>'; // 发送  green
+						break;
+					case 2:
+						statusText = '<a class="badge badge-primary">repeat</a>'; // 重复 blue
+					    break;
+					case 3:
+						statusText = '<a class="badge badge-info">Deal</a>'; // 成交  purple
+						break;
+					default:
+						statusText = '<a class="badge badge-danger">not send</a>'; // 未发送
+				}
+				return statusText;
+			}
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td class="table-view">' + data[i].payinfoId + '</td>' +
@@ -1385,7 +1407,7 @@
 					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
 					'<td><img style="width: 60px;" src="${APP_PATH}/static/pc/img/' + ((data[i].payinfoPlatform).toLowerCase() == 'bank_card' ? 'paypal-2.png' : 'paypal-1.png') + '"/></td>' +
 					'<td class="table-sms hide"><a class="badge '+ (data[i].payinfoIfSMS ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoIfSMS ? 'send' : 'not send') + '</td>' +
-					'<td class="table-email hide"><a class="badge '+ (data[i].payinfoIfEmail ? 'badge-info': 'badge-primary') +'" href="javascript:;">' + (data[i].payinfoIfEmail ? 'send' : 'not send') + '</td>' +
+					'<td class="table-email hide">'+ getSendEmailStatus(data[i].payinfoIfEmail) +'</td>' +
 					'<td class="table-unpaid">' + (data[i].payinfoTransidnum || '') + '</td>' +
 					'<td class="table-unpaid"><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
 					'<td class="table-unpaid">' + (data[i].payinfoEcpphsnum || '') + '</td>' +
