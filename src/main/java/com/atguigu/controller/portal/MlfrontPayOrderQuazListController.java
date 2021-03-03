@@ -200,7 +200,7 @@ public class MlfrontPayOrderQuazListController {
 			mlfrontPayInfoOne.setPayinfoId(payinfoId);
 			mlfrontPayInfoOne.setPayinfoIfEmail(3);
 			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
-			System.out.println("本条是成功记录,标记成无需发送的状态3");
+			System.out.println("本条是成功记录-无需发送,标记为成功状态3");
 		}		
 	}
 
@@ -209,9 +209,9 @@ public class MlfrontPayOrderQuazListController {
 		for(Integer payinfoId:sameUnPayIdList){
 			MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
 			mlfrontPayInfoOne.setPayinfoId(payinfoId);
-			mlfrontPayInfoOne.setPayinfoIfEmail(1);
+			mlfrontPayInfoOne.setPayinfoIfEmail(2);
 			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
-			System.out.println("本条未发送成功");
+			System.out.println("本条是重复单-无需发送,标记为无需发送的状态2");
 		}
 	}
 
@@ -245,7 +245,7 @@ public class MlfrontPayOrderQuazListController {
 				mlfrontPayInfoOne.setPayinfoIfEmail(1);
 				mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
 			}else{
-				System.out.println("本条未发送成功");
+				System.out.println("本条筛选发送单,标记为已经发送的状态1");
 			}
 		}
 	}
