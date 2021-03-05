@@ -200,7 +200,7 @@ public class MlfrontPayOrderQuazListController {
 			mlfrontPayInfoOne.setPayinfoId(payinfoId);
 			mlfrontPayInfoOne.setPayinfoIfEmail(3);
 			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
-			System.out.println("本条是成功记录,标记成无需发送的状态3");
+			System.out.println("本条是成功记录-无需发送,标记为成功状态3");
 		}		
 	}
 
@@ -209,9 +209,9 @@ public class MlfrontPayOrderQuazListController {
 		for(Integer payinfoId:sameUnPayIdList){
 			MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
 			mlfrontPayInfoOne.setPayinfoId(payinfoId);
-			mlfrontPayInfoOne.setPayinfoIfEmail(1);
+			mlfrontPayInfoOne.setPayinfoIfEmail(2);
 			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
-			System.out.println("本条未发送成功");
+			System.out.println("本条是重复单-无需发送,标记为无需发送的状态2");
 		}
 	}
 
@@ -245,7 +245,7 @@ public class MlfrontPayOrderQuazListController {
 				mlfrontPayInfoOne.setPayinfoIfEmail(1);
 				mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
 			}else{
-				System.out.println("本条未发送成功");
+				System.out.println("本条筛选发送单,标记为已经发送的状态1");
 			}
 		}
 	}
@@ -278,7 +278,7 @@ public class MlfrontPayOrderQuazListController {
 					//发送邮箱
 					String userEmail = mlfrontAddressOne.getAddressEmail();
 					System.out.println("userEmail:"+userEmail);
-					userEmail ="mingyueqingl@163.com";
+					//userEmail ="mingyueqingl@163.com";
 					//产品文案
 					String htmlProductStr = getOrderProductInfo(mlfrontOrderOne);
 					//获取链接信息
@@ -334,7 +334,7 @@ public class MlfrontPayOrderQuazListController {
 	private String getEmailTemplateIfno(String recoverLink, MlbackHtmlEmail mlbackHtmlEmailOne, String htmlProductStr) {
 		
 		String htmlemailRetrievecode =mlbackHtmlEmailOne.getHtmlemailRetrievecode();
-		htmlemailRetrievecode.replace("\n", "<br>");
+		String htmlemailRetrievecodeNow=htmlemailRetrievecode.replace("\n", "<br>");
 		
 		String htmlEmailStr = "<table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 666px !important;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border: 0;background-color: #fafafa;'><tbody><tr><td style='padding: 16px;'>"+
 				"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" +
@@ -344,9 +344,9 @@ public class MlfrontPayOrderQuazListController {
 							"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" +
 								"<tbody>" +
 									"<tr><td align='center' style='padding-top: 40px; padding-bottom: 20px;'><img src='"+ mlbackHtmlEmailOne.getHtmlemailHeadimgurl() +"' alt='' width='196' style='display: inline-block;'></td></tr>" +
-									"<tr><td align='center' style='padding: 6px; font-size: 22px; font-weight: bold;'>"+ mlbackHtmlEmailOne.getHtmlemailTitle() +"</td></tr>" +
+									"<tr><td align='center' style='padding: 6px 0; font-size: 22px; font-weight: bold;'>"+ mlbackHtmlEmailOne.getHtmlemailTitle() +"</td></tr>" +
 									"<tr><td style='padding: 8px 0; font-size: 18px;'>"+ mlbackHtmlEmailOne.getHtmlemailRetrieve() +"</td></tr>" +
-									"<tr><td style='padding: 8px 0; font-size: 16px; font-weight: bold;'>"+ htmlemailRetrievecode +"</td></tr>" +
+									"<tr><td style='padding: 8px 0; font-size: 16px; font-weight: bold; color: red;'>"+ htmlemailRetrievecodeNow +"</td></tr>" +
 									"<tr>" +
 										"<td style='padding: 20px 0;'>" +
 											"<table border='0' cellpadding='0' cellspacing='0' width='100%'>" + htmlProductStr + "</table>" +
@@ -364,12 +364,12 @@ public class MlfrontPayOrderQuazListController {
 					"<tr>" +
 						"<td style='padding-top: 16px; padding-bottom: 8px;'>Copyright © 2021 Megalook Hair, All rights reserved.<br>You are receiving this email because you opted in via our website.</td>" +
 					"</tr>" +
+					"<tr><td style='padding-top: 16px; font-size: 12px; font-weight: bold;'>Our mailing address is:</td></tr>" +
+					"<tr><td style='padding: 6px 0; font-size: 12px;'>Megalook Hair<br>Huashuo Hair<br>jin rong zhong xin<br>xu chang, He Nan 461000<br>China</td></tr>" +
 				"</tbody>" +
 			"</table>" +
 		"</td></tr></tbody><table>";
-		
 		return htmlEmailStr;
-		
 	}
 	
 	/**
