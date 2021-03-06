@@ -48,7 +48,7 @@
 					if(data.code == 100) {
 						shippingMoney = data.extend.areafreightMoney;
 						renderOrderAddress(data.extend.addressInfo);
-						renderOrderOrder(data.extend.mlfrontOrderOne, data.extend.mlfrontOrderItemList);
+						renderOrderOrder(data.extend.mlfrontPayInfoOne, data.extend.mlfrontOrderOne, data.extend.mlfrontOrderItemList);
 						renderOrderTime(data.extend.mlfrontOrderOne);
 					} else {
 						sysModalTip();
@@ -77,7 +77,7 @@
 				'</div>';
 			$('.user-order-address').html(html);
 		}
-		function renderOrderOrder(orderData, orderItemList) {
+		function renderOrderOrder(payinfoData, orderData, orderItemList) {
 			function generateSkus(item) {
 				var html = '';
 				var optionName = item.orderitemPskuIdnamestr.split(',');
@@ -94,7 +94,7 @@
 			if (orderData) {
 				htmlStr += '<div class="user-order-item" data-id="' + orderData.orderId + '">' +
 					'<div class="user-orderitem-title">' +
-						'<div class="user-order-id">order Id: ' + orderData.orderId + '</div>' +
+						'<div class="user-order-id">Order Id: ' + payinfoData.payinfoPlatenum + '</div>' +
 					'</div>' +
 					'<div class="user-orderitem-body">';
 				var len = orderItemList.length;
