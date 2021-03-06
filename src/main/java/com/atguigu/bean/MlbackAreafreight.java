@@ -11,6 +11,8 @@ public class MlbackAreafreight {
     private Integer areafreightPrice;
 
     private Integer areafreightStatus;
+    
+    private Integer areafreightTelPrefix;//areafreight_tel_prefix
 
     public Integer getAreafreightId() {
         return areafreightId;
@@ -51,26 +53,35 @@ public class MlbackAreafreight {
     public void setAreafreightStatus(Integer areafreightStatus) {
         this.areafreightStatus = areafreightStatus;
     }
+    
+	public Integer getAreafreightTelPrefix() {
+		return areafreightTelPrefix;
+	}
+
+	public void setAreafreightTelPrefix(Integer areafreightTelPrefix) {
+		this.areafreightTelPrefix = areafreightTelPrefix;
+	}
 
 	public MlbackAreafreight() {
 		super();
 	}
 
 	public MlbackAreafreight(Integer areafreightId, String areafreightCountryCode, String areafreightCountry,
-			Integer areafreightPrice, Integer areafreightStatus) {
+			Integer areafreightPrice, Integer areafreightStatus, Integer areafreightTelPrefix) {
 		super();
 		this.areafreightId = areafreightId;
 		this.areafreightCountryCode = areafreightCountryCode;
 		this.areafreightCountry = areafreightCountry;
 		this.areafreightPrice = areafreightPrice;
 		this.areafreightStatus = areafreightStatus;
+		this.areafreightTelPrefix = areafreightTelPrefix;
 	}
 
 	@Override
 	public String toString() {
 		return "MlbackAreafreight [areafreightId=" + areafreightId + ", areafreightCountryCode="
 				+ areafreightCountryCode + ", areafreightCountry=" + areafreightCountry + ", areafreightPrice="
-				+ areafreightPrice + ", areafreightStatus=" + areafreightStatus + "]";
+				+ areafreightPrice + ", areafreightStatus=" + areafreightStatus + ", areafreightTelPrefix=" + areafreightTelPrefix + "]";
 	}
     
 }

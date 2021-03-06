@@ -252,6 +252,23 @@ public class DateUtil {
 	      LocalDateTime date = LocalDateTime.now();
 	      //（2）获取当前时间的前几小时时间
 	      LocalDateTime localDateTime = date.minusHours(ihour);
+	      
+	      date.minusMinutes(ihour);
+
+	      return dateTimeFormatter.format(localDateTime);
+	  }
+	
+	/**
+	 * @author zsh
+	 * 获取当前时间前N小时的时间
+	 * @return
+	 * */
+	public static String dateRollMinus(int iminute) {
+	      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	      //（1）获取当前时间
+	      LocalDateTime date = LocalDateTime.now();
+	      //（2）获取当前时间的前几小时时间
+	      LocalDateTime localDateTime = date.minusMinutes(iminute);
 
 	      return dateTimeFormatter.format(localDateTime);
 	  }

@@ -22,7 +22,7 @@ import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
 
 @Component
-public class testTask {
+public class sendEmailTask {
 	
 	@Autowired
 	MlfrontOrderService mlfrontOrderService;
@@ -45,9 +45,11 @@ public class testTask {
 	@Autowired
 	MlbackOrderStateEmailService mlbackOrderStateEmailService;
 	
-	@Scheduled(cron = "0 0/20 * * * ?")
+	@Scheduled(cron = "0 0 0/12 * * ?")
     public void doTask()  throws InterruptedException{
-        System.out.println("刚看见对方更快捷地覆盖");
+		
+		String nowtime = DateUtil.strTime14s();//当前时间
+		System.out.println("定时任务启动,当前时间:"+nowtime);
         
         MlbackOrderStateEmail mlbackOrderStateEmailReq = new MlbackOrderStateEmail();
         mlbackOrderStateEmailReq.setOrderstateemailName("AbondonEmail");
@@ -60,7 +62,6 @@ public class testTask {
         
         Integer lastHourInt = Integer.parseInt(lastHour);
         
-        String nowtime = DateUtil.strTime14s();//当前时间
         String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
 		String beforeTime = DateUtil.dateRoll(lastHourInt+12);
         
@@ -78,8 +79,8 @@ public class testTask {
 		System.out.println("endTime"+endTime);
 		
 		
-		mlfrontPayInfoReq.setPayinfoCreatetime("2021-02-25 23:59:59");
-		mlfrontPayInfoReq.setPayinfoMotifytime("2021-02-26 23:59:50");
+//		mlfrontPayInfoReq.setPayinfoCreatetime("2021-02-25 23:59:59");
+//		mlfrontPayInfoReq.setPayinfoMotifytime("2021-02-26 23:59:50");
 		
 		List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoByDateAndIfEmail(mlfrontPayInfoReq);
 		System.out.println("mlfrontPayInfoList.size():"+mlfrontPayInfoList.size());
@@ -222,7 +223,7 @@ public class testTask {
 				Integer payinfoId = mlfrontPayInfoInto.getPayinfoId();
 				MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
 				mlfrontPayInfoOne.setPayinfoId(payinfoId);
-				mlfrontPayInfoOne.setPayinfoIfEmail(3);
+				mlfrontPayInfoOne.setPayinfoIfEmail(0);
 				mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
 				System.out.println("本条是成功记录-无需发送,标记为成功状态3");
 			}		
@@ -233,7 +234,7 @@ public class testTask {
 			for(Integer payinfoId:sameUnPayIdList){
 				MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
 				mlfrontPayInfoOne.setPayinfoId(payinfoId);
-				mlfrontPayInfoOne.setPayinfoIfEmail(2);
+				mlfrontPayInfoOne.setPayinfoIfEmail(0);
 				mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
 				System.out.println("本条是重复单-无需发送,标记为无需发送的状态2");
 			}
@@ -283,7 +284,7 @@ public class testTask {
 					//发送邮箱
 					String userEmail = mlfrontAddressOne.getAddressEmail();
 					System.out.println("userEmail:"+userEmail);
-					//userEmail ="mingyueqingl@163.com";
+					userEmail ="mingyueqingl@163.com";
 					//产品文案
 					String htmlProductStr = getOrderProductInfo(mlfrontOrderOne);
 					//获取链接信息
@@ -337,7 +338,7 @@ public class testTask {
 	}
 	
 	
-private String getEmailTemplateIfno(String recoverLink, MlbackHtmlEmail mlbackHtmlEmailOne, String htmlProductStr) {
+	private String getEmailTemplateIfno(String recoverLink, MlbackHtmlEmail mlbackHtmlEmailOne, String htmlProductStr) {
 		
 		String htmlemailRetrievecode =mlbackHtmlEmailOne.getHtmlemailRetrievecode();
 		String htmlemailRetrievecodeNow=htmlemailRetrievecode.replace("\n", "<br>");
