@@ -1,14 +1,19 @@
 package com.atguigu.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import com.atguigu.bean.MlbackAreafreight;
 import com.atguigu.bean.MlbackOrderStateEmail;
 import com.atguigu.bean.MlbackSmstype;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontPayInfo;
+import com.atguigu.service.MlbackAreafreightService;
 import com.atguigu.service.MlbackHtmlEmailService;
 import com.atguigu.service.MlbackOrderStateEmailService;
 import com.atguigu.service.MlbackSmstypeService;
@@ -41,17 +46,24 @@ public class sendSMSTask {
 	@Autowired
 	MlbackOrderStateEmailService mlbackOrderStateEmailService;
 	
+	@Autowired
+	MlbackAreafreightService mlbackAreafreightService;
+	
 	/**
-	 * 6.0	zsh200804
+	 * 1.0	zsh210304
 	 * 点击按钮发送短信
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0 0/3 * * ?")
+	@Scheduled(cron = "0 0 0/20 * * ?")
     public void doTask()  throws InterruptedException{
+		
+		String nowtime = DateUtil.strTime14s();//当前时间
+		System.out.println("SMS定时启动nowtime:"+nowtime);
      
+		//从邮件模板里面
 		MlbackOrderStateEmail mlbackOrderStateEmailReq = new MlbackOrderStateEmail();
-        mlbackOrderStateEmailReq.setOrderstateemailName("AbondonEmail");
+        mlbackOrderStateEmailReq.setOrderstateemailName("AbondonSMS");
         
         List<MlbackOrderStateEmail> mlbackOrderStateEmailList = mlbackOrderStateEmailService.selectMlbackOrderStateEmailByName(mlbackOrderStateEmailReq);
         
@@ -61,9 +73,8 @@ public class sendSMSTask {
         
         Integer lastHourInt = Integer.parseInt(lastHour);
         
-        String nowtime = DateUtil.strTime14s();//当前时间
         String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
-		String startTime = DateUtil.dateRoll(lastHourInt+12);
+		String startTime = DateUtil.dateRoll(lastHourInt+1);
         
 		MlfrontPayInfo mlfrontPayInfoRe = new MlfrontPayInfo();
 		
@@ -79,42 +90,30 @@ public class sendSMSTask {
 		//查询接口,发送时间定时的几点,间隔几小时,发送文案
 		
 		MlbackSmstype mlbackSmstype = new MlbackSmstype();
-		
 		mlbackSmstype.setSmstypeName("sms");
-		
 		List<MlbackSmstype> mlbackSmstypeList = mlbackSmstypeService.selectMlbackSmstypeByName(mlbackSmstype);
-		
 		if(mlbackSmstypeList.size()>0){
-			
 			MlbackSmstype mlbackSmstypeOne = mlbackSmstypeList.get(0);
-			
 			Integer SmstypeStatus =  mlbackSmstypeOne.getSmstypeStatus();
-			
 			if(SmstypeStatus>0){
 				String Content = mlbackSmstypeOne.getSmstypeContent();
 				System.out.println("本短信的挽回语为:Content"+Content);
-				
 				//查询一下这个时间段的orderid没有结算的并且有结算地址的信息
-				
 				MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
 				mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
 				mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
+				mlfrontPayInfoReq.setPayinfoIfSMS(0);
 				
-				List<MlfrontPayInfo> mlfrontPayInfoList =  mlfrontPayInfoService.selectUnpayToSMSByDate(mlfrontPayInfoReq);
-				
+				List<MlfrontPayInfo> mlfrontPayInfoList = getPayInfoList(mlfrontPayInfoReq);
 				if(mlfrontPayInfoList.size()>0){
 					
 					String orderIdLastOneStr = "";
-					
 					for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
 						
 						//本payinfoId是多少,更新完了的话,需要把这一单的payinfo_SMS更新过来
 						Integer payId = mlfrontPayInfoOne.getPayinfoId();
-						
 						Integer checkRecoverOrderId = mlfrontPayInfoOne.getPayinfoOid();
-						
 						String checkRecoverOrderIdNowStr = checkRecoverOrderId+"";
-						
 						if(checkRecoverOrderIdNowStr.equals(orderIdLastOneStr)){
 							//当前orderid=上一个orderid,逃过,循环下一个.
 							//当前单子有毛病
@@ -159,9 +158,12 @@ public class sendSMSTask {
 							try {
 								//这个是真实发送
 								//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
-								String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,telephone);//加密串
-								System.out.println(SendSecretStr+",这一单发送成功");
-								//System.out.println("payid为:"+mlfrontPayInfoOne.getPayinfoId()+","+SendSecretStr+",这一单短信通知成功--被屏蔽,仅仅打印,未实际发送,");
+								if(realTel.length()>0){
+									String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
+									System.out.println(SendSecretStr+",这一单发送成功");
+								}else{
+									System.out.println("当前手机号为："+realTel+",这一单无法发送");
+								}
 								//这个是真实发送
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -195,11 +197,245 @@ public class sendSMSTask {
 		}
 	}
 
-	private String getRealTel(String countryCode, String telephone) {
+	//通过国家拿手机号码的前缀
+	private String getRealTel(String countryCodeInto, String telephone) {
 		
+		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
 		
+		mlbackAreafreightReq.setAreafreightCountryCode(countryCodeInto);
 		
-		return null;
+		List<MlbackAreafreight> mlbackAreafreightList = mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
+		
+		MlbackAreafreight mlbackAreafreightOne = new MlbackAreafreight();
+		
+		String realTelephone ="";
+		if(mlbackAreafreightList.size()>0){
+			mlbackAreafreightOne = mlbackAreafreightList.get(0);
+			
+			Integer telPrefix = mlbackAreafreightOne.getAreafreightTelPrefix();
+			
+			realTelephone = checkTel(countryCodeInto,telPrefix,telephone);
+			
+			return realTelephone;
+		}else{
+			mlbackAreafreightOne = null;
+			return "";
+		}
+	}
+
+//		查询当前国际code,查出对应的号码区号;
+//		查看当前手机号码开头是否包含这段区号;
+//		如果包含,就返回首页.如果不包含,就加上;
+	private String checkTel(String countryCodeInto, Integer telPrefix, String telephone) {
+		
+		String telPrefixStr = telPrefix+"";
+		
+		String finalTel = telephone;
+		if("US".equals(countryCodeInto)){
+			//United States
+			if(telephone.startsWith("1")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
+			//finalTel="86"+telephone;
+		}else if("GB".equals(countryCodeInto)){
+			//United Kingdom
+			if(telephone.startsWith("44")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
+		}else if("CA".equals(countryCodeInto)){
+			//Canada
+			if(telephone.startsWith("1")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
+		}else if("DE".equals(countryCodeInto)){
+			//Germany
+			if(telephone.startsWith("49")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
+		}else if("ZA".equals(countryCodeInto)){
+			//South Africa
+			if(telephone.startsWith("27")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
+		}else if("AU".equals(countryCodeInto)){
+			//Australia
+			if(telephone.startsWith("61")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
+		}else if("FR".equals(countryCodeInto)){
+			//France
+			if(telephone.startsWith("33")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
+		}else if("IE".equals(countryCodeInto)){
+			//Ireland
+			if(telephone.startsWith("353")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
+		}else if("VI".equals(countryCodeInto)){
+			//U.S.Virgin Islands
+			if(telephone.startsWith("1340")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
+		}else{
+			
+		}
+		
+		return finalTel;
+	}
+	
+	
+	private List<MlfrontPayInfo> getPayInfoList(MlfrontPayInfo mlfrontPayInfoReq) {
+		
+		List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoByDateAndIfEmail(mlfrontPayInfoReq);
+		System.out.println("mlfrontPayInfoList.size():"+mlfrontPayInfoList.size());
+		
+		List<MlfrontPayInfo> mlfrontPayInfoSuccessList = new ArrayList<MlfrontPayInfo>();
+		List<MlfrontPayInfo> mlfrontPayInfoUnPayList = new ArrayList<MlfrontPayInfo>();
+		List<MlfrontPayInfo> mlfrontPayInfotrueUnPayList = new ArrayList<MlfrontPayInfo>();
+
+        Map<String, String> successPayInfoOrderIdMap = new HashMap<String, String>();
+        Map<String, String> successPayInfoUserNameMap = new HashMap<String, String>();
+        
+        List<Integer> successPayIdList = new ArrayList<Integer>();
+        List<Integer> sameUnPayIdList = new ArrayList<Integer>();
+        List<Integer> trueUnPayIdList = new ArrayList<Integer>();
+			
+		for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
+			Integer patStatus = mlfrontPayInfoOne.getPayinfoStatus();
+			if(patStatus==0){
+				//失败订单
+				mlfrontPayInfoUnPayList.add(mlfrontPayInfoOne);
+			}else{
+				//成功订单
+				mlfrontPayInfoSuccessList.add(mlfrontPayInfoOne);
+				//存储成功Payinfo,成功orderid,成功uName
+				successPayIdList.add(mlfrontPayInfoOne.getPayinfoId());
+				successPayInfoOrderIdMap.put(mlfrontPayInfoOne.getPayinfoOid()+"", mlfrontPayInfoOne.getPayinfoOid()+"");
+				successPayInfoUserNameMap.put(mlfrontPayInfoOne.getPayinfoUname(), mlfrontPayInfoOne.getPayinfoUname());
+			}
+		}
+		/**遍历
+		 * 准备已出已成功单含有相同的orderid
+		 * */
+		List<MlfrontPayInfo> mlfrontPayInfoRemoveSameOidNowList = new ArrayList<MlfrontPayInfo>();
+			
+		for(MlfrontPayInfo mlfrontPayInfoB:mlfrontPayInfoUnPayList){
+			Integer unpOrderID = mlfrontPayInfoB.getPayinfoOid();
+			String pOrderIDSuccessStr = successPayInfoOrderIdMap.get(unpOrderID+"");
+			
+			if(pOrderIDSuccessStr==null){
+				//这一单起码orderid没有重复//存起来
+				mlfrontPayInfoRemoveSameOidNowList.add(mlfrontPayInfoB);
+				//这里面-剔除了--跟已支付同orderid的重复单(未支付的重复单子)
+				//把此时的客户名字存起来放进Map成功map中
+			}else{
+				//这个是重复单子(最终客户付款之前的单子),跳过
+				sameUnPayIdList.add(mlfrontPayInfoB.getPayinfoId());
+			}
+		}
+		//没有跟成功单相同的orderid了.现在要删掉,剩下的非与成功相同的orderid.去除了跟成功单相同的orderid的payinfo单子
+		/**遍历
+		 * 准备移除未支付单子里面的重复orderid
+		 * */
+		List<MlfrontPayInfo> mlfrontPayInfoRemoveUnameList = new ArrayList<MlfrontPayInfo>();
+        Map<String, String> reallyUnPayInfoOrderIdMap = new HashMap<String, String>();
+        Map<String, String> reallyUnPayInfoUserNameMap = new HashMap<String, String>();
+		for(MlfrontPayInfo mlfrontPayInfoC:mlfrontPayInfoRemoveSameOidNowList){
+			String payinfoUname = mlfrontPayInfoC.getPayinfoUname();
+			String pOrderUnameSuccessStr = successPayInfoUserNameMap.get(payinfoUname);
+			if(pOrderUnameSuccessStr==null){
+				//这一单起码orderid没有重复//存起来
+				mlfrontPayInfoRemoveUnameList.add(mlfrontPayInfoC);
+				//这里面-剔除了--跟已支付同Uname的重复单(未支付的重复单子)
+				//把此时的客户名字存起来放进Map成功map中
+				reallyUnPayInfoOrderIdMap.put(mlfrontPayInfoC.getPayinfoOid()+"", mlfrontPayInfoC.getPayinfoOid()+"");
+				reallyUnPayInfoUserNameMap.put(mlfrontPayInfoC.getPayinfoUname(), mlfrontPayInfoC.getPayinfoUname());
+			}else{
+				//这个是人名重复重复单子(最终客户付款之前的单子),跳过
+				sameUnPayIdList.add(mlfrontPayInfoC.getPayinfoId());
+			}
+		}
+		//移除了与成功单相同Orderid的单子/与成功单相同UserName的单子
+		Integer lastUnPayOid = 0;
+		List<MlfrontPayInfo> mlfrontPayInfoRemoveUnPayOrderIdSameList = new ArrayList<MlfrontPayInfo>();
+		for(MlfrontPayInfo mlfrontPayInfoD:mlfrontPayInfoRemoveUnameList){
+			Integer unpOrderID = mlfrontPayInfoD.getPayinfoOid();
+			if(lastUnPayOid.equals(unpOrderID)){
+				//这一单重复啦(未支付里面的orderid重复)
+				//仅仅记录到未成功付款的重复单里
+				sameUnPayIdList.add(mlfrontPayInfoD.getPayinfoId());
+			}else{
+				mlfrontPayInfoRemoveUnPayOrderIdSameList.add(mlfrontPayInfoD);
+				lastUnPayOid = unpOrderID;
+			}
+		}
+		/**遍历
+		 * 准备移除未支付单子里面的重复uname
+		 * */
+		List<MlfrontPayInfo> mlfrontPayInfoRemoveUnPayOrderUnameSameList = new ArrayList<MlfrontPayInfo>();
+		String lastUnpOrderUname = "";
+		for(MlfrontPayInfo mlfrontPayInfoE:mlfrontPayInfoRemoveUnPayOrderIdSameList){
+			String unpOrderUname = mlfrontPayInfoE.getPayinfoUname();
+			if(lastUnpOrderUname.equals(unpOrderUname)){
+				//这一单重复啦(未支付里面的orderid重复)
+				//仅仅记录到未成功付款的重复单里
+				sameUnPayIdList.add(mlfrontPayInfoE.getPayinfoId());
+			}else{
+				mlfrontPayInfoRemoveUnPayOrderUnameSameList.add(mlfrontPayInfoE);
+				trueUnPayIdList.add(mlfrontPayInfoE.getPayinfoId());
+				mlfrontPayInfotrueUnPayList.add(mlfrontPayInfoE);
+				lastUnpOrderUname = unpOrderUname;
+			}
+		}
+		
+		//重复单标记状态2
+		updateSameUnpay(sameUnPayIdList);
+		//成功单标记状态3
+		updateSuccessPay(mlfrontPayInfoSuccessList);
+		
+		return mlfrontPayInfotrueUnPayList;
+	}
+	
+	//把相同的单子表集成2-重复单子
+	private void updateSameUnpay(List<Integer> sameUnPayIdList) {
+		for(Integer payinfoId:sameUnPayIdList){
+			MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
+			mlfrontPayInfoOne.setPayinfoId(payinfoId);
+			mlfrontPayInfoOne.setPayinfoIfSMS(2);
+			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
+			System.out.println("本条是重复单-无需发送,标记为无需发送的状态2");
+		}
+	}
+	
+	//成功单标记成功单,无需发送
+	private void updateSuccessPay(List<MlfrontPayInfo> mlfrontPayInfoSuccessList) {
+		for(MlfrontPayInfo mlfrontPayInfoInto:mlfrontPayInfoSuccessList){
+			Integer payinfoId = mlfrontPayInfoInto.getPayinfoId();
+			MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
+			mlfrontPayInfoOne.setPayinfoId(payinfoId);
+			mlfrontPayInfoOne.setPayinfoIfSMS(3);
+			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
+			System.out.println("本条是成功记录-无需发送,标记为成功状态3");
+		}		
 	}
 
 }
