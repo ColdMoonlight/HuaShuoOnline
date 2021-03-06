@@ -1406,7 +1406,7 @@
 					'<td>' + (data[i].payinfoUname || '') + '</td>' +
 					/* '<td>' + (data[i].payinfoUemail || '') + '</td>' +  */
 					'<td><img style="width: 60px;" src="${APP_PATH}/static/pc/img/' + ((data[i].payinfoPlatform).toLowerCase() == 'bank_card' ? 'paypal-2.png' : 'paypal-1.png') + '"/></td>' +
-					'<td class="table-sms hide"><a class="badge '+ (data[i].payinfoIfSMS ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoIfSMS ? 'send' : 'not send') + '</td>' +
+					'<td class="table-sms hide">'+ getSendEmailStatus(data[i].payinfoIfSMS) +'</td>' +
 					'<td class="table-email hide">'+ getSendEmailStatus(data[i].payinfoIfEmail) +'</td>' +
 					'<td class="table-unpaid">' + (data[i].payinfoTransidnum || '') + '</td>' +
 					'<td class="table-unpaid"><a class="badge '+ ((data[i].payinfoTransStatus == 'completed' || data[i].payinfoTransStatus == 'succeeded') ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].payinfoTransStatus || '') + '</td>' +
