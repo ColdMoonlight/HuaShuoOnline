@@ -45,11 +45,11 @@ public class sendEmailTask {
 	@Autowired
 	MlbackOrderStateEmailService mlbackOrderStateEmailService;
 	
-	@Scheduled(cron = "0 0 0/12 * * ?")
+	@Scheduled(cron = "0 0 0/3 * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
-		System.out.println("定时任务启动,当前时间:"+nowtime);
+		System.out.println("EmailTask定时任务启动,当前时间:"+nowtime);
         
         MlbackOrderStateEmail mlbackOrderStateEmailReq = new MlbackOrderStateEmail();
         mlbackOrderStateEmailReq.setOrderstateemailName("AbondonEmail");
@@ -63,7 +63,7 @@ public class sendEmailTask {
         Integer lastHourInt = Integer.parseInt(lastHour);
         
         String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
-		String beforeTime = DateUtil.dateRoll(lastHourInt+12);
+		String beforeTime = DateUtil.dateRoll(lastHourInt+10);
         
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
 //		
@@ -223,7 +223,7 @@ public class sendEmailTask {
 				Integer payinfoId = mlfrontPayInfoInto.getPayinfoId();
 				MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
 				mlfrontPayInfoOne.setPayinfoId(payinfoId);
-				mlfrontPayInfoOne.setPayinfoIfEmail(0);
+				mlfrontPayInfoOne.setPayinfoIfEmail(3);
 				mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
 				System.out.println("本条是成功记录-无需发送,标记为成功状态3");
 			}		
@@ -234,12 +234,11 @@ public class sendEmailTask {
 			for(Integer payinfoId:sameUnPayIdList){
 				MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
 				mlfrontPayInfoOne.setPayinfoId(payinfoId);
-				mlfrontPayInfoOne.setPayinfoIfEmail(0);
+				mlfrontPayInfoOne.setPayinfoIfEmail(2);
 				mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
 				System.out.println("本条是重复单-无需发送,标记为无需发送的状态2");
 			}
 		}
-	
 	
 	private void readyToSendEmai(String webSiteUrl,MlbackHtmlEmail mlbackHtmlEmailOne, List<Integer> trueUnPayIdList) {
 		//把发完的邮件变成状态1
