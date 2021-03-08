@@ -10,6 +10,13 @@
 		.search-track-title { padding: 1rem 0; font-size: 20px; font-weight: bold; }
 		#search-track-input { min-width: 18rem; max-width: 100%; font-size: 18px; }
 		.btn-track { padding: .5rem; background-color: #f9a31a; color: #fff; font-size: 20px; border-color: #f9a31a; border-radius: .25rem; }
+		@media only screen and (min-width: 876px) {
+			.search-track-img { display: flex; }
+			.search-track-img>img { width: 50%; }
+		}
+		@media only screen and (max-width: 875px) {
+			.search-track-img>img { width: 100%; }
+		}
 	</style>
 </head>
 <body>
@@ -18,7 +25,7 @@
 		<div class="container" style="max-width: 900px;">
 			<div class="search-track-title" style="text-align: left;">Track Your Order</div>
 			<div class="search-input">
-				<input type="text" id="search-track-input" class="form-control" placeholder="请输入你的物流订单号或者订单ID">
+				<input type="text" id="search-track-input" class="form-control" placeholder="Please input your tracking number or order ID">
 				<button class="btn btn-track" id="search-track-btn">Track</button>
 			</div>
 			<div class="search-track-note">
@@ -27,8 +34,11 @@
 				<p>2.&nbsp;Orders will only be remained for&nbsp;5 working days&nbsp;after placement when<strong>&nbsp;phone number missing</strong>&nbsp;or&nbsp;<strong>unclear address</strong>. Longer than that, order will be canceled&nbsp;and money will be returned accordingly. So pls make sure that you&nbsp;<strong>leave correct shipping address&nbsp;and&nbsp;telephone number</strong>&nbsp;when place order.</p>
 				<p>3. All the order will be fulfilled&nbsp;<strong>&nbsp;Within&nbsp;48&nbsp;hours,&nbsp;in&nbsp;24&nbsp;hours&nbsp;most&nbsp;of&nbsp;the&nbsp;time</strong>, so you could try to&nbsp;<strong>track your order after 24 Hours later</strong></p>
 				<p><strong>Contact Us:</strong></p>
-				<p>&nbsp;service@arabellahair.com<br>Call Us: 1-501-575-0211<br>Whatsapp:+8618937456160</p>
-				<img style="width: 100%; height: auto;" src="${APP_PATH}/static/pc/img/track.png" />
+				<p>&nbsp;team@megalookemail.com<br>Call Us: (501)7226336<br>Whatsapp:+86 18903740682</p>
+				<div class="search-track-img">
+					<img src="${APP_PATH}/static/pc/img/track_01.png" />
+					<img src="${APP_PATH}/static/pc/img/track_02.png" />
+				</div>
 			</div>
 		</div>	
 	<!-- main end -->
@@ -49,7 +59,7 @@
 			payLoading();
 			var searchVal = $('#search-track-input').val().trim();
 			if (!searchVal) {
-				mlModalTip('物流订单号或者订单ID不能为空!');
+				mlModalTip('Logistics order number or order ID cannot be empty!');
 				hidePayLoading();
 			} else {
 				if ('' + searchVal.indexOf('ML20') == '0') {
