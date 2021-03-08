@@ -8,8 +8,8 @@
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<style>
 		.search-track-title { padding: 1rem 0; font-size: 20px; font-weight: bold; }
-		#search-track-input { min-width: 18rem; max-width: 100%; font-size: 18px; }
-		.btn-track { padding: .5rem; background-color: #f9a31a; color: #fff; font-size: 20px; border-color: #f9a31a; border-radius: .25rem; }
+		#search-track-input { min-width: 18rem; max-width: 100%; font-size: 18px; color: #96a6a7; border-width: 2px; border-color: #96a6a7; }
+		.btn-track { padding: 10px; background-color: #f9a31a; color: #fff; font-size: 20px; border-color: #f9a31a; border-radius: .25rem; }
 		@media only screen and (min-width: 876px) {
 			.search-track-img { display: flex; }
 			.search-track-img>img { width: 50%; }
@@ -25,7 +25,7 @@
 		<div class="container" style="max-width: 900px;">
 			<div class="search-track-title" style="text-align: left;">Track Your Order</div>
 			<div class="search-input">
-				<input type="text" id="search-track-input" class="form-control" placeholder="Please input your tracking number or order ID">
+				<input type="text" id="search-track-input" class="form-control" placeholder="Tracking number or order ID">
 				<button class="btn btn-track" id="search-track-btn">Track</button>
 			</div>
 			<div class="search-track-note">
