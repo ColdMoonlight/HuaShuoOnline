@@ -360,6 +360,9 @@
     <if test="payinfoIfEmail != null">
       and payInfo_IfEmail = #{payinfoIfEmail,jdbcType=INTEGER}
     </if>
+    <if test="payinfoIfSMS != null">
+      and payInfo_IfSMS = #{payinfoIfSMS,jdbcType=INTEGER}
+    </if>
     order by payInfo_id desc
   </select>
   
