@@ -5049,7 +5049,7 @@ footer li {
 	color: #ff0000;
 }
 /* search track order */
-.search-order-title {
+/* .search-order-title {
 	padding: 1rem;
 	text-align: center;
 	font-size: 1rem;
@@ -5104,7 +5104,7 @@ footer li {
 	.track-result-body .time-line-date {
 		left: -11rem;
 	}
-}
+} */
 
 /* countdown time */
 #countdown-area {
