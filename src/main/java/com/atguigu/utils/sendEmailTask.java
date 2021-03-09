@@ -45,7 +45,7 @@ public class sendEmailTask {
 	@Autowired
 	MlbackOrderStateEmailService mlbackOrderStateEmailService;
 	
-	@Scheduled(cron = "0 0 0/3 * * ?")
+	@Scheduled(cron = "0 0 0/6 * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
@@ -58,12 +58,14 @@ public class sendEmailTask {
         
         MlbackOrderStateEmail mlbackOrderStateEmailOne = mlbackOrderStateEmailList.get(0);
         String webSiteUrl = mlbackOrderStateEmailOne.getOrderstateemailOne();
-        String lastHour = mlbackOrderStateEmailOne.getOrderstateemailTwo();
+        String lastHour = mlbackOrderStateEmailOne.getOrderstateemailTwo();//超过几个小时就开始发邮件
+        String intervalTime = mlbackOrderStateEmailOne.getOrderstateemailThree();//间隔几小时
         
         Integer lastHourInt = Integer.parseInt(lastHour);
+        Integer longTime = Integer.parseInt(intervalTime);
         
         String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
-		String beforeTime = DateUtil.dateRoll(lastHourInt+10);
+		String beforeTime = DateUtil.dateRoll(lastHourInt+longTime);
         
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
 //		
