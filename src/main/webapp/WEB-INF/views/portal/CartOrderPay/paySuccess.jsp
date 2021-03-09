@@ -23,6 +23,16 @@
 					<div class="ml-breadcrumb-item active">Payment</div>
 				</div>
 			</div>
+			<div class="payment-box payment-buyer">
+				<div class="payment-box-title">
+					<span class="icon wallet"></span>
+					<div class="revceiver-info"></div>
+				</div>
+				<div class="payment-box-body">
+					<div class="payment-address payment-shipping-address"></div>
+					<div class="payment-address payment-billing-address hide"></div>
+				</div>
+			</div>
 			<div class="payment-box payment-order">
 				<div class="payment-box-title">
 					<span class="icon cart"></span>
@@ -33,16 +43,6 @@
 				<div class="payment-box-body active">
 					<div class="payment-product"></div>
 					<div class="payment-cal"></div>
-				</div>
-			</div>
-			<div class="payment-box payment-buyer">
-				<div class="payment-box-title">
-					<span class="icon wallet"></span>
-					<div class="revceiver-info"></div>
-				</div>
-				<div class="payment-box-body">
-					<div class="payment-address payment-shipping-address"></div>
-					<div class="payment-address payment-billing-address hide"></div>
 				</div>
 			</div>
 			<p class="payment-tip">If there's any questions, plz contact the customer service </p>
