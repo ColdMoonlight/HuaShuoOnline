@@ -55,7 +55,7 @@ public class sendSMSTask {
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0 0/2 * * ?")
+	@Scheduled(cron = "0 0 0/30 * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
@@ -69,14 +69,17 @@ public class sendSMSTask {
         
         MlbackOrderStateEmail mlbackOrderStateEmailOne = mlbackOrderStateEmailList.get(0);
         String webSiteUrl = mlbackOrderStateEmailOne.getOrderstateemailOne();
-        String lastHour = mlbackOrderStateEmailOne.getOrderstateemailTwo();//超过几个小时就开始发邮件
+        String lasMinute = mlbackOrderStateEmailOne.getOrderstateemailTwo();//超过几个小时就开始发邮件
         String intervalTime = mlbackOrderStateEmailOne.getOrderstateemailThree();//间隔几小时
         
-        Integer lastHourInt = Integer.parseInt(lastHour);
+        Integer lasMinuteInt = Integer.parseInt(lasMinute);
         Integer longTime = Integer.parseInt(intervalTime);
         
-        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
-		String startTime = DateUtil.dateRoll(lastHourInt+longTime);
+//        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
+//		String startTime = DateUtil.dateRoll(lastHourInt+longTime);
+		
+        String endTime = DateUtil.dateRollMinus(lasMinuteInt);//当前时间2小时
+		String startTime = DateUtil.dateRollMinus(lasMinuteInt+longTime);
         
 		MlfrontPayInfo mlfrontPayInfoRe = new MlfrontPayInfo();
 		
@@ -107,6 +110,7 @@ public class sendSMSTask {
 				mlfrontPayInfoReq.setPayinfoIfSMS(0);
 				
 				List<MlfrontPayInfo> mlfrontPayInfoList = getPayInfoList(mlfrontPayInfoReq);
+				System.out.println("mlfrontPayInfoList:"+mlfrontPayInfoList.toString());
 				if(mlfrontPayInfoList.size()>0){
 					
 					String orderIdLastOneStr = "";
@@ -161,7 +165,7 @@ public class sendSMSTask {
 								//这个是真实发送
 								//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
 								if(realTel.length()>0){
-									String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
+//									String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
 									System.out.println(SendSecretStr+",这一单发送成功");
 								}else{
 									System.out.println("当前手机号为："+realTel+",这一单无法发送");
