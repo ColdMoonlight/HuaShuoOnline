@@ -64,14 +64,14 @@
 			} else {
 				if ('' + searchVal.indexOf('ML20') == '0') {
 					$.ajax({
-						url: "${APP_PATH}/MlfrontOrderList/getTrackDetailByTrackingNumber",
+						url: "${APP_PATH}/MlfrontOrderList/getTrackDetailByPayinfoPlatenum",
 						type: "post",
-						data: {"trackingNumber": searchVal},
+						data: {"payinfoPlatenum": searchVal},
 						success: function (data) {
 							if (data.code == 100) {
 								callback && callback(data.extend.trackingRes);
 							} else {
-								mlModalTip('The tracking number is invalid !');
+								mlModalTip(data.extend.resMsg);
 							}
 						},
 						error: function () {
@@ -82,15 +82,16 @@
 						}
 					});
 				} else {
+
 					$.ajax({
-						url: "${APP_PATH}/MlfrontOrderList/getTrackDetailByPayinfoPlatenum",
+						url: "${APP_PATH}/MlfrontOrderList/getTrackDetailByTrackingNumber",
 						type: "post",
-						data: {"payinfoPlatenum": searchVal},
+						data: {"trackingNumber": searchVal},
 						success: function (data) {
 							if (data.code == 100) {
 								callback && callback(data.extend.trackingRes);
 							} else {
-								mlModalTip(data.extend.resMsg);
+								mlModalTip('The tracking number is invalid !');
 							}
 						},
 						error: function () {
