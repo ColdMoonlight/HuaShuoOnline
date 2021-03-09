@@ -23,6 +23,7 @@
 					<div class="ml-breadcrumb-item active">Payment</div>
 				</div>
 			</div>
+			<p style="border-bottom: 1px solid #ccc; color: red; padding: 1rem; margin: 0;">We will deliver the goods to you immediately according to the following address. Please check. If you have any questions, please contact us in time.</p>
 			<div class="payment-box payment-buyer">
 				<div class="payment-box-title">
 					<span class="icon wallet"></span>
@@ -164,21 +165,17 @@
 			}
 		});
 
-		function renderReceiverinfo(data) {
-			$('.revceiver-info').html('<div class="payment-buyer-name"><span class="name">Thank You </span><span class="value">' + data.addressUserfirstname + '</span></div>' +
-				'<div class="payment-orderid"><span class="name">Your Order ID: </span><span class="value">' + data.payinfoPlatenum + '</span></div>');
+		function renderReceiverinfo(addressData, BillingData) {
+			$('.revceiver-info').html('<div class="payment-buyer-name"><span class="name">Thank You </span><span class="value">' + BillingData.shippingaddressRecipientName + '</span></div>' +
+				'<div class="payment-orderid"><span class="name">Your Order ID: </span><span class="value">' + addressData.payinfoPlatenum + '</span></div>');
 
 			$(".payment-shipping-address").html('<div class="payment-address-title">Shipping Address</div>' +
-				'<div class="payment-address-item"><span class="name">Phone: </span><span class="value">' + data.addressTelephone + '</span></div>' +
-				'<div class="payment-address-item"><span class="name">Address: </span><span class="value">' + data.addressCountry + ' ' + data.addressProvince + ' ' + data.addressCity + ' ' + data.addressDetail + '</span></div>' +
+					'<div class="payment-address-item"><span class="name">Email: </span><span class="value">' + BillingData.shippingaddressEmail + '</span></div>' +
+					'<div class="payment-address-item"><span class="name">Phone: </span><span class="value">' + addressData.addressTelephone + '</span></div>' +
+					'<div class="payment-address-item"><span class="name">Customer Name: </span><span class="value">' + BillingData.shippingaddressRecipientName + '</span></div>' +
+					'<div class="payment-address-item"><span class="name">Address: </span><span class="value">'+ BillingData.shippingaddressLine1 + ', ' + BillingData.shippingaddressCity + ', ' + BillingData.shippingaddressState + ', ' + BillingData.shippingaddressCountryCode  + '</span></div>' +
+					'<div class="payment-address-item"><span class="name">Postcode: </span><span class="value">' + BillingData.shippingaddressPostalCode + '</span></div>' +
 				'</div');
-		}
-
-		function renderPaypaladdress(data) {
-			$(".payment-billing-address").html('<div class="payment-address-title">Billing Address</div>' +
-				'<div class="payment-address-item"><span class="name">Postcode: </span><span class="value">' + data.shippingaddressPostalCode + '</span></div>' +
-				'<div class="payment-address-item"><span class="name">Address: </span><span class="value">' + data.shippingaddressCountryCode + ' ' + data.shippingaddressCity + ' ' + data.shippingaddressLine1 + '</span></div>' +
-				'</div').removeClass('hide');
 		}
 
 		var payinfoId = '${sessionScope.payinfoId}';
@@ -206,10 +203,7 @@
 					resDataAddressOne.payinfoPlatenum = resDataPayInfoOne.payinfoPlatenum;
 		
 					renerPaymentInfo(orderData);
-					renderReceiverinfo(resDataAddressOne);
-					if (!/pm\_/.test(resDataPayInfoOne.payinfoPlatformserialcode)) {
-						renderPaypaladdress(mlPaypalShipAddressOne);					
-					}
+					renderReceiverinfo(resDataAddressOne, mlPaypalShipAddressOne);
 	
 					!isFirst && fbq('track', 'Purchase', {
 						'content_ids': payinfoProductArr,
