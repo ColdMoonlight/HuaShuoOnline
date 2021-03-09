@@ -6,25 +6,39 @@
     <title>Search Track Info</title>
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
+	<style>
+		.search-track-title { padding: 1rem 0; font-size: 20px; font-weight: bold; }
+		#search-track-input { min-width: 18rem; max-width: 100%; font-size: 18px; color: #96a6a7; border-width: 2px; border-color: #96a6a7; }
+		.btn-track { padding: 10px; background-color: #f9a31a; color: #fff; font-size: 20px; border-color: #f9a31a; border-radius: .25rem; }
+		@media only screen and (min-width: 876px) {
+			.search-track-img { display: flex; }
+			.search-track-img>img { width: 50%; }
+		}
+		@media only screen and (max-width: 875px) {
+			.search-track-img>img { width: 100%; }
+		}
+	</style>
 </head>
 <body>
     <jsp:include page="layout/header/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
-		<div class="container">
-			<div class="search-order-title">Track Order</div>
-			<div class="search-order-condition">
-				<select class="search-order-type">
-					<option value="0">order id</option>
-					<option value="1">shipment number</option>
-				</select>
-				<input type="text" class="search-select-input" id="searchOrderId" placeholder="Please input order-id ..." />
-				<input type="text" class="search-select-input hide" id="searchTrackNumber" placeholder="Please input tracking-number ..." />
-
-				<button class="btn btn-pink btn-track-order" id="btn-track-order">Track Order</button>
+		<div class="container" style="max-width: 900px;">
+			<div class="search-track-title" style="text-align: left;">Track Your Order</div>
+			<div class="search-input">
+				<input type="text" id="search-track-input" class="form-control" placeholder="Tracking number or order ID">
+				<button class="btn btn-track" id="search-track-btn">Track</button>
 			</div>
-
-			<div class="search-track-order-result">
-				<p class="track-order-tip">Please input tracking-number/order-id to fetch track-order info...</p>
+			<div class="search-track-note">
+				<p><strong>Note:</strong></p>
+				<p>1.One day in a week won't process orders-- U.S&nbsp;<strong>Saturday</strong>&nbsp;. Shipping companies&nbsp;all close on Sunday. If you have special emergency,plz email us.</p>
+				<p>2.&nbsp;Orders will only be remained for&nbsp;5 working days&nbsp;after placement when<strong>&nbsp;phone number missing</strong>&nbsp;or&nbsp;<strong>unclear address</strong>. Longer than that, order will be canceled&nbsp;and money will be returned accordingly. So pls make sure that you&nbsp;<strong>leave correct shipping address&nbsp;and&nbsp;telephone number</strong>&nbsp;when place order.</p>
+				<p>3. All the order will be fulfilled&nbsp;<strong>&nbsp;Within&nbsp;48&nbsp;hours,&nbsp;in&nbsp;24&nbsp;hours&nbsp;most&nbsp;of&nbsp;the&nbsp;time</strong>, so you could try to&nbsp;<strong>track your order after 24 Hours later</strong></p>
+				<p><strong>Contact Us:</strong></p>
+				<p>&nbsp;team@megalookemail.com<br>Call Us: (501)7226336<br>Whatsapp:+86 18903740682</p>
+				<div class="search-track-img">
+					<img src="${APP_PATH}/static/pc/img/track_01.png" />
+					<img src="${APP_PATH}/static/pc/img/track_02.png" />
+				</div>
 			</div>
 		</div>	
 	<!-- main end -->
@@ -43,21 +57,21 @@
 	<script>
 		function getTrackInfo(callback) {
 			payLoading();
-			if ($('.search-order-type').val() == '0') {
-				var payinfoPlatenum = $('#searchOrderId').val();
-				if (!payinfoPlatenum.trim()) {
-					mlModalTip('The order-id cannot be empty');
-					hidePayLoading();
-				} else {
+			var searchVal = $('#search-track-input').val().trim();
+			if (!searchVal) {
+				mlModalTip('Logistics order number or order ID cannot be empty!');
+				hidePayLoading();
+			} else {
+				if ('' + searchVal.indexOf('ML20') == '0') {
 					$.ajax({
-						url: "${APP_PATH}/MlfrontOrderList/getTrackDetailByPayinfoPlatenum",
+						url: "${APP_PATH}/MlfrontOrderList/getTrackDetailByTrackingNumber",
 						type: "post",
-						data: {"payinfoPlatenum": payinfoPlatenum},
+						data: {"trackingNumber": searchVal},
 						success: function (data) {
 							if (data.code == 100) {
 								callback && callback(data.extend.trackingRes);
 							} else {
-								mlModalTip(data.extend.resMsg);
+								mlModalTip('The tracking number is invalid !');
 							}
 						},
 						error: function () {
@@ -67,22 +81,16 @@
 							hidePayLoading();
 						}
 					});
-				}
-			} else {
-				var trackingNumber = $('#searchTrackNumber').val();
-				if (!trackingNumber.trim()) {
-					mlModalTip('The tracking number cannot be empty');
-					hidePayLoading();
 				} else {
 					$.ajax({
-						url: "${APP_PATH}/MlfrontOrderList/getTrackDetailByTrackingNumber",
+						url: "${APP_PATH}/MlfrontOrderList/getTrackDetailByPayinfoPlatenum",
 						type: "post",
-						data: {"trackingNumber": trackingNumber},
+						data: {"payinfoPlatenum": searchVal},
 						success: function (data) {
 							if (data.code == 100) {
 								callback && callback(data.extend.trackingRes);
 							} else {
-								mlModalTip('The tracking number is invalid !');
+								mlModalTip(data.extend.resMsg);
 							}
 						},
 						error: function () {
@@ -111,6 +119,7 @@
 				return html;
 			}
 			var trackOrderHtml;
+			var trackingModal;
 			if (data.checkpoints && $.isArray(data.checkpoints) && data.checkpoints.length) {
 				trackOrderHtml= '<div class="track-result-header">' +
 						'<div clsass="tracking-name"><span class="name">Tracking Name: </span><span class="value">'+ data.slug +'</span></div>' +
@@ -120,21 +129,21 @@
 					'<div class="track-result-body">' +
 						'<div class="time-line">' + generateTimelineHtml(data.checkpoints) + '</div>' +
 					'</div>';
-				$('.search-track-order-result').html(trackOrderHtml);
 			} else {
 				mlModalTip('The product you purchased has been sent out and is waiting for the courier. If you have other questions, please consult customer service.');
 				return;
 			}
+			
+			trackingModal = createModal({
+				header: {
+					html: '<p>Tracking Info...</p>'
+				},
+	   			body: {
+	   				html: trackOrderHtml,
+	   			}
+	   		});
 		}
-		$('.search-order-type').on('change', function() {
-			$('.search-select-input').addClass('hide');
-			if ($(this).val() == '1') {
-				$('#searchTrackNumber').removeClass('hide');
-			} else {
-				$('#searchOrderId').removeClass('hide');
-			}
-		});
-		$('#btn-track-order').on('click', function() {
+		$('#search-track-btn').on('click', function() {
 			getTrackInfo(renderTrackInfo);
 		});
 	</script>

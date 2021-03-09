@@ -318,6 +318,9 @@
     <if test="payinfoPlatenum != null">
       and payInfo_plateNum = #{payinfoPlatenum,jdbcType=VARCHAR}
     </if>
+    <if test="payinfoOid != null">
+      and payInfo_oid = #{payinfoOid,jdbcType=INTEGER}
+    </if>
     order by payInfo_id desc
   </select>
   <!-- selectMlfrontPayInfoSuccessAll -->

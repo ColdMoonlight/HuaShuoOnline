@@ -96,6 +96,16 @@ public class MlfrontOrderListController {
 		List<MlfrontOrderItem> mlfrontOrderItemList = new ArrayList<MlfrontOrderItem>();
 		List<MlfrontOrderItem> mlfrontOrderItemReturnList = new ArrayList<MlfrontOrderItem>();
 		List<Integer> sizeList = new ArrayList<Integer>();
+		
+		
+		List<MlfrontPayInfo> mlfrontPayInfoOneList = new ArrayList<MlfrontPayInfo>();
+		
+		List<MlfrontPayInfo> mlfrontPayInfoReturnList = new ArrayList<MlfrontPayInfo>();
+		
+		MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
+		
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		
 		for(MlfrontOrder mlfrontOrderOne:mlfrontOrderList){
 			orderitemidstr = mlfrontOrderOne.getOrderOrderitemidstr();
 			String orderitemidArr[] = orderitemidstr.split(",");
@@ -109,8 +119,22 @@ public class MlfrontOrderListController {
 				mlfrontOrderItemRes = mlfrontOrderItemList.get(0);
 				mlfrontOrderItemReturnList.add(mlfrontOrderItemRes);
 			}
+			
+			Integer payinfoOid = mlfrontOrderOne.getOrderId();
+			
+			mlfrontPayInfoReq.setPayinfoOid(payinfoOid);
+			
+			mlfrontPayInfoOneList = mlfrontPayInfoService.selectHighPayInfoListBySearch(mlfrontPayInfoReq);
+			
+			if(mlfrontPayInfoOneList.size()>0){
+				mlfrontPayInfoOne = mlfrontPayInfoOneList.get(0);
+			}else{
+				mlfrontPayInfoOne = null;
+			}
+			mlfrontPayInfoReturnList.add(mlfrontPayInfoOne);
+			
 		}
-		return Msg.success().add("pageInfo", page).add("sizeList", sizeList).add("mlfrontOrderItemReturnList", mlfrontOrderItemReturnList);
+		return Msg.success().add("pageInfo", page).add("sizeList", sizeList).add("mlfrontOrderItemReturnList", mlfrontOrderItemReturnList).add("mlfrontPayInfoReturnList", mlfrontPayInfoReturnList);
 	}
 	
 	/**

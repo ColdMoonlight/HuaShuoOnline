@@ -57,7 +57,7 @@
 				async: false,
 				success: function (data) {
 					if(data.code == 100) {
-						rednerOrderList(data.extend.pageInfo.list, data.extend.mlfrontOrderItemReturnList, data.extend.sizeList);
+						rednerOrderList(data.extend.mlfrontPayInfoReturnList, data.extend.pageInfo.list, data.extend.mlfrontOrderItemReturnList, data.extend.sizeList);
 						renderTablePagination(data.extend.pageInfo);
 						$('.loader-box').hide();
 					} else {
@@ -87,7 +87,7 @@
 				orderItemMap: orderItemMap
 			}
 		}
-		function rednerOrderList(orderList, orderItemList, orderItemSize) {
+		function rednerOrderList(payinfoList, orderList, orderItemList, orderItemSize) {
 			function generateSkus(item) {
 				var html = '';
 				var optionName = item.orderitemPskuIdnamestr.split(',');
@@ -106,7 +106,7 @@
 				for (var key in orderList) {
 					htmlStr += '<div class="user-order-item" data-id="' + orderList[key].orderId + '">' +
 						'<div class="user-orderitem-title">' +
-							'<div class="user-order-id">order Id: ' + orderList[key].orderId + '</div>' +
+							'<div class="user-order-id">Order Id: ' + payinfoList[key].payinfoPlatenum + '</div>' +
 							'<div class="right-box">' +
 								'<div class="user-order-status">' + (statusMap[orderList[key].orderStatus]) + '</div>' +
 							'</div>' +

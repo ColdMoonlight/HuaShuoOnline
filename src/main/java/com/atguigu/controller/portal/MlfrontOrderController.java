@@ -806,9 +806,29 @@ public class MlfrontOrderController {
 		}else{
 			mlfrontOrderOne = null;
 		}
+		
+		
+		List<MlfrontPayInfo> mlfrontPayInfoOneList = new ArrayList<MlfrontPayInfo>();
+		
+		MlfrontPayInfo mlfrontPayInfoOne = new MlfrontPayInfo();
+		
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		
+		Integer payinfoOid = mlfrontOrderOne.getOrderId();
+		
+		mlfrontPayInfoReq.setPayinfoOid(payinfoOid);
+		
+		mlfrontPayInfoOneList = mlfrontPayInfoService.selectHighPayInfoListBySearch(mlfrontPayInfoReq);
+		
+		if(mlfrontPayInfoOneList.size()>0){
+			mlfrontPayInfoOne = mlfrontPayInfoOneList.get(0);
+		}else{
+			mlfrontPayInfoOne = null;
+		}
+		
 		return Msg.success().add("resMsg", "查看单条mlfrontOrderOne的详情细节完毕")
 					.add("mlfrontOrderOne", mlfrontOrderOne).add("mlfrontOrderItemList", mlfrontOrderItemList)
-					.add("addressInfo", mlfrontAddressRes).add("areafreightMoney", areafreightMoney);
+					.add("addressInfo", mlfrontAddressRes).add("areafreightMoney", areafreightMoney).add("mlfrontPayInfoOne", mlfrontPayInfoOne);
 	}
 
 }
