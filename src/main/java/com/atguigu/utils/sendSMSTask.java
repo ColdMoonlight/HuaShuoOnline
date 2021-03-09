@@ -55,7 +55,7 @@ public class sendSMSTask {
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0 0/30 * * ?")
+	@Scheduled(cron = "0 0 0 0/5 * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
@@ -163,7 +163,7 @@ public class sendSMSTask {
 							
 							try {
 								//这个是真实发送
-								//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
+								String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
 								if(realTel.length()>0){
 //									String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
 									System.out.println(SendSecretStr+",这一单发送成功");
