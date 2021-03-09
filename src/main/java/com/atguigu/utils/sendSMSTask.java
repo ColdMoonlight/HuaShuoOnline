@@ -142,6 +142,7 @@ public class sendSMSTask {
 							String countryCode = mlfrontAddressOne.getAddressCountryCode();
 							
 							String realTel = getRealTel(countryCode,telephone);
+							System.out.println("实际电话号码realTel:"+realTel);
 							
 							String userName = firstName+" ";
 							//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------end--------
@@ -163,9 +164,9 @@ public class sendSMSTask {
 							
 							try {
 								//这个是真实发送
-								String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
+								//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
 								if(realTel.length()>0){
-//									String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
+									String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
 									System.out.println(SendSecretStr+",这一单发送成功");
 								}else{
 									System.out.println("当前手机号为："+realTel+",这一单无法发送");
