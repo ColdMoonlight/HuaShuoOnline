@@ -32,7 +32,7 @@
         <to type="forward">/MlbackCart/toCheakOutMoreBuyByhtml?orderIdIntoStr=$1</to>
     </rule>
     <rule>
-        <from>^/SMS/([a-z0-9A-Z-]{5,60}).html</from>
+        <from>^/SMS/([a-z0-9A-Z-]{5,30}).html</from>
         <to type="forward">/MlbackCart/toCheakOutSMSMoreBuyByhtml?orderIdIntoStr=$1</to>
     </rule>
     <rule>
