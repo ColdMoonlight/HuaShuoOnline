@@ -142,7 +142,7 @@ public class MlfrontCartController {
 						session.setAttribute("orderId", orderId);
 						session.setAttribute("addressId", addressId);
 					}else{
-						//没查到数据,数据错误，直接回页面吧
+						//没查到数据,数据错误,直接回页面吧
 						modelAndView.setViewName("redirect:/");
 						return modelAndView;
 					}
@@ -224,7 +224,7 @@ public class MlfrontCartController {
 						session.setAttribute("orderId", orderId);
 						session.setAttribute("addressId", addressId);
 					}else{
-						//没查到数据,数据错误，直接回页面吧
+						//没查到数据,数据错误,直接回页面吧
 						modelAndView.setViewName("redirect:/");
 						return modelAndView;
 					}
@@ -558,10 +558,10 @@ public class MlfrontCartController {
 	@ResponseBody
 	public Msg toAddMoreProToCart(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam("addMoreProToCartTeams") String addMoreProToCartTeams) throws Exception{
 			
-		//1.收到productskuPid，查询该id下，所有的产品sku
+		//1.收到productskuPid,查询该id下,所有的产品sku
 		//收到list集合,先对该产品下,所有的生效中的进行状态为0,
 		//遍历集合
-		//取出一条,查询这一条,如果存在,将状态改成1，生效中。如果有，更改属性值即可，如果没，新增本条即可。
+		//取出一条,查询这一条,如果存在,将状态改成1,生效中。如果有,更改属性值即可,如果没,新增本条即可。
 		
 		JSONArray jsonArray= JSON.parseArray(addMoreProToCartTeams);
 	    List<MlfrontCartItem> mlfrontCartItemList = jsonArray.toJavaList(MlfrontCartItem.class);
@@ -1736,7 +1736,7 @@ public class MlfrontCartController {
 		String nowTime = DateUtil.strTime14s();
 		mlbackAddCartViewDetailreq.setAddcartviewdetailCreatetime(nowTime);
 		mlbackAddCartViewDetailreq.setAddcartviewdetailMotifytime(nowTime);
-		mlbackAddCartViewDetailreq.setAddcartviewdetailActnum(1); //计数用户行为，0纯加购	，1点buyNow附带的加购
+		mlbackAddCartViewDetailreq.setAddcartviewdetailActnum(1); //计数用户行为,0纯加购	,1点buyNow附带的加购
 		mlbackAddCartViewDetailService.insertSelective(mlbackAddCartViewDetailreq);
 		
 	}
@@ -1771,7 +1771,7 @@ public class MlfrontCartController {
 		String nowTime = DateUtil.strTime14s();
 		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailCreatetime(nowTime);
 		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailMotifytime(nowTime);
-		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailActnum(1); //计数用户行为，0纯加购	，1点buyNow附带的加购
+		mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailActnum(1); //计数用户行为,0纯加购	,1点buyNow附带的加购
 		mlbackAddCheakoutViewDetailService.insertSelective(mlbackAddCheakoutViewDetailreq);
 	}
 	
@@ -1805,7 +1805,7 @@ public class MlfrontCartController {
 			String nowTime = DateUtil.strTime14s();
 			mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailCreatetime(nowTime);
 			mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailMotifytime(nowTime);
-			mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailActnum(0); //计数用户行为，0(从CartList--Cheakout)的结算数	，1(从buyNow--Cheakout)的结算数
+			mlbackAddCheakoutViewDetailreq.setAddcheakoutviewdetailActnum(0); //计数用户行为,0(从CartList--Cheakout)的结算数	,1(从buyNow--Cheakout)的结算数
 			mlbackAddCheakoutViewDetailService.insertSelective(mlbackAddCheakoutViewDetailreq);
 		}
 	}
