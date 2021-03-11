@@ -55,7 +55,7 @@ public class sendSMSTask {
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0 0 0/5 * ?")
+	@Scheduled(cron = "0 0/10 * * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
@@ -93,7 +93,6 @@ public class sendSMSTask {
 		System.out.println("endTime"+endTime);
 				
 		//查询接口,发送时间定时的几点,间隔几小时,发送文案
-		
 		MlbackSmstype mlbackSmstype = new MlbackSmstype();
 		mlbackSmstype.setSmstypeName("sms");
 		List<MlbackSmstype> mlbackSmstypeList = mlbackSmstypeService.selectMlbackSmstypeByName(mlbackSmstype);
