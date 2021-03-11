@@ -334,9 +334,9 @@ public class MlfrontOrderListController {
 							
 							String secretOrderIdStr = EncryptUtil.XORencode(checkRecoverOrderIdStr,"megalook");
 							
-							String SendStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"recover/"+checkRecoverOrderIdStr+".html";
+							String SendStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"SMS/"+checkRecoverOrderIdStr+".html";
 //							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
-							String SendSecretStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"recover/"+secretOrderIdStr+".html";
+							String SendSecretStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"SMS/"+secretOrderIdStr+".html";
 //							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendSecretStr:"+SendSecretStr);
 							
 							//这里要解密
@@ -465,9 +465,9 @@ public class MlfrontOrderListController {
 					String websiteStr = getNowWeb(rep,res,session);
 					String secretOrderIdStr = EncryptUtil.XORencode(checkRecoverOrderIdStr,"megalook");
 					
-					String SendStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"recover/"+checkRecoverOrderIdStr+".html";
+					String SendStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"SMS/"+checkRecoverOrderIdStr+".html";
 //					System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
-					String SendSecretStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"recover/"+secretOrderIdStr+".html";
+					String SendSecretStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"SMS/"+secretOrderIdStr+".html";
 //					System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendSecretStr:"+SendSecretStr);
 					
 					try {
