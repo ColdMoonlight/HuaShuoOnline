@@ -179,86 +179,86 @@ public class MlfrontCartController {
 	}
 	
 	//这里加方法
-		@RequestMapping(value="/toCheakOutSMSMoreBuyByhtml",method=RequestMethod.GET)
-		public ModelAndView toCheakOutSMSMoreBuyByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "orderIdIntoStr") String orderIdIntoStr) throws Exception{
+	@RequestMapping(value="/toCheakOutSMSMoreBuyByhtml",method=RequestMethod.GET)
+	public ModelAndView toCheakOutSMSMoreBuyByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "orderIdIntoStr") String orderIdIntoStr) throws Exception{
 
-			//先解码
-			String orginalOrderIdStr = EncryptUtil.XORdecode(orderIdIntoStr,"megalook");
-			System.out.println("本条弃购链接的orderid为orderIdStr:"+orginalOrderIdStr);
-			Integer orderId = Integer.parseInt(orginalOrderIdStr);
-		
-			ModelAndView modelAndView = new ModelAndView();
-			//带着id进来了
-			MlfrontOrder mlfrontOrderInto = new MlfrontOrder();
-			mlfrontOrderInto.setOrderId(orderId);
-			List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderInto);
-			if(mlfrontOrderList.size()>0){
-				MlfrontOrder mlfrontOrderOne = mlfrontOrderList.get(0);
-				Integer orderStatus = mlfrontOrderOne.getOrderStatus();
-				Integer addressId = mlfrontOrderOne.getOrderAddressinfoId();
-				if(orderStatus>0){
-					//此订单不是弃购订单
-					//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款//6发送弃购//7重复单关闭
-					modelAndView.setViewName("redirect:/");
-					return modelAndView;
+		//先解码
+		String orginalOrderIdStr = EncryptUtil.XORdecode(orderIdIntoStr,"megalook");
+		System.out.println("本条弃购链接的orderid为orderIdStr:"+orginalOrderIdStr);
+		Integer orderId = Integer.parseInt(orginalOrderIdStr);
+	
+		ModelAndView modelAndView = new ModelAndView();
+		//带着id进来了
+		MlfrontOrder mlfrontOrderInto = new MlfrontOrder();
+		mlfrontOrderInto.setOrderId(orderId);
+		List<MlfrontOrder> mlfrontOrderList = mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderInto);
+		if(mlfrontOrderList.size()>0){
+			MlfrontOrder mlfrontOrderOne = mlfrontOrderList.get(0);
+			Integer orderStatus = mlfrontOrderOne.getOrderStatus();
+			Integer addressId = mlfrontOrderOne.getOrderAddressinfoId();
+			if(orderStatus>0){
+				//此订单不是弃购订单
+				//0未支付//1支付成功//2支付失败//3审单完毕 //4发货完毕//5已退款//6发送弃购//7重复单关闭
+				modelAndView.setViewName("redirect:/");
+				return modelAndView;
+			}else{
+				
+				//有客户点击,把这一单的payinfo状态弄成付款状态
+				updatePayInfoStatusBySMS(orderId);
+				
+				//这是弃购订单,开始操作；
+				//要判断这一单是不是登陆客户
+				if(mlfrontOrderOne.getOrderUid()==null){
+					//是游客
+					session.setAttribute("orderId", orderId);
+					session.setAttribute("addressId", addressId);
 				}else{
-					
-					//有客户点击,把这一单的payinfo状态弄成付款状态
-					updatePayInfoStatusBySMS(orderId);
-					
-					//这是弃购订单,开始操作；
-					//要判断这一单是不是登陆客户
-					if(mlfrontOrderOne.getOrderUid()==null){
-						//是游客
+					//取出客户id,查询账号密码
+					MlfrontUser mlfrontUserReq =new MlfrontUser();
+					Integer userId = mlfrontOrderOne.getOrderUid();
+					mlfrontUserReq.setUserId(userId);
+					List<MlfrontUser> mlfrontUserList = mlfrontUserService.selectMlfrontUserByConditionS(mlfrontUserReq);
+					if(mlfrontUserList.size()>0){
+						MlfrontUser mlfrontUserRes = mlfrontUserList.get(0);
+						session.setAttribute("loginUser", mlfrontUserRes);
 						session.setAttribute("orderId", orderId);
 						session.setAttribute("addressId", addressId);
 					}else{
-						//取出客户id,查询账号密码
-						MlfrontUser mlfrontUserReq =new MlfrontUser();
-						Integer userId = mlfrontOrderOne.getOrderUid();
-						mlfrontUserReq.setUserId(userId);
-						List<MlfrontUser> mlfrontUserList = mlfrontUserService.selectMlfrontUserByConditionS(mlfrontUserReq);
-						if(mlfrontUserList.size()>0){
-							MlfrontUser mlfrontUserRes = mlfrontUserList.get(0);
-							session.setAttribute("loginUser", mlfrontUserRes);
-							session.setAttribute("orderId", orderId);
-							session.setAttribute("addressId", addressId);
-						}else{
-							//没查到数据,数据错误，直接回页面吧
-							modelAndView.setViewName("redirect:/");
-							return modelAndView;
-						}
+						//没查到数据,数据错误，直接回页面吧
+						modelAndView.setViewName("redirect:/");
+						return modelAndView;
 					}
-					modelAndView.setViewName("portal/CartOrderPay/checkOut");
-					return modelAndView;
 				}
-			}else{
-				//先判断这个orderid在不在,不在直接跳转该订单已经结束;
-				modelAndView.setViewName("redirect:/");
+				modelAndView.setViewName("portal/CartOrderPay/checkOut");
 				return modelAndView;
 			}
-		 }
-		
-		private void updatePayInfoStatusBySMS(Integer orderId) {
-			
-			MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
-			
-			mlfrontPayInfoReq.setPayinfoOid(orderId);
-			
-			List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectHighPayInfoListBySearch(mlfrontPayInfoReq);
-			
-			MlfrontPayInfo mlfrontPayInfoRes = new MlfrontPayInfo();
-			
-			MlfrontPayInfo mlfrontPayInfoUpdate = new MlfrontPayInfo();
-			
-			if(mlfrontPayInfoList.size()>0){
-				mlfrontPayInfoRes = mlfrontPayInfoList.get(0);
-				Integer payInfoId = mlfrontPayInfoRes.getPayinfoId();
-				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
-				mlfrontPayInfoUpdate.setPayinfoIfSMS(9);//客户点击成功返回
-				mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
-			}
+		}else{
+			//先判断这个orderid在不在,不在直接跳转该订单已经结束;
+			modelAndView.setViewName("redirect:/");
+			return modelAndView;
 		}
+	 }
+	
+	private void updatePayInfoStatusBySMS(Integer orderId) {
+		
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		
+		mlfrontPayInfoReq.setPayinfoOid(orderId);
+		
+		List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectHighPayInfoListBySearch(mlfrontPayInfoReq);
+		
+		MlfrontPayInfo mlfrontPayInfoRes = new MlfrontPayInfo();
+		
+		MlfrontPayInfo mlfrontPayInfoUpdate = new MlfrontPayInfo();
+		
+		if(mlfrontPayInfoList.size()>0){
+			mlfrontPayInfoRes = mlfrontPayInfoList.get(0);
+			Integer payInfoId = mlfrontPayInfoRes.getPayinfoId();
+			mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+			mlfrontPayInfoUpdate.setPayinfoIfSMS(9);//客户点击成功返回
+			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+		}
+	}
 
 	/**
 	 * 3.0	200612
