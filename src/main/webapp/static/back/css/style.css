@@ -3608,7 +3608,7 @@ a.badge-light:focus,a.badge-light.focus {
 }
 .badge-dark {
     color: #fff;
-    background-color: #636f83
+    background-color: #000
 }
 a.badge-dark:hover,a.badge-dark:focus {
     color: #fff;
