@@ -22,6 +22,7 @@ import com.atguigu.bean.MlfrontCart;
 import com.atguigu.bean.MlfrontCartItem;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
+import com.atguigu.bean.MlfrontPayInfo;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackAddCartViewDetailService;
@@ -32,6 +33,7 @@ import com.atguigu.service.MlfrontCartItemService;
 import com.atguigu.service.MlfrontCartService;
 import com.atguigu.service.MlfrontOrderItemService;
 import com.atguigu.service.MlfrontOrderService;
+import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.EncryptUtil;
@@ -66,6 +68,9 @@ public class MlfrontCartController {
 	
 	@Autowired
 	MlfrontUserService mlfrontUserService;
+	
+	@Autowired
+	MlfrontPayInfoService mlfrontPayInfoService;
 	
 	/**
 	 * 1.0	zsh200729
@@ -115,6 +120,10 @@ public class MlfrontCartController {
 				modelAndView.setViewName("redirect:/");
 				return modelAndView;
 			}else{
+				
+				//有客户点击,把这一单的payinfo状态弄成付款状态
+				updatePayInfo(orderId);
+				
 				//这是弃购订单,开始操作；
 				//要判断这一单是不是登陆客户
 				if(mlfrontOrderOne.getOrderUid()==null){
@@ -148,6 +157,27 @@ public class MlfrontCartController {
 		}
 	 }
 	
+	private void updatePayInfo(Integer orderId) {
+		
+		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
+		
+		mlfrontPayInfoReq.setPayinfoOid(orderId);
+		
+		List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectHighPayInfoListBySearch(mlfrontPayInfoReq);
+		
+		MlfrontPayInfo mlfrontPayInfoRes = new MlfrontPayInfo();
+		
+		MlfrontPayInfo mlfrontPayInfoUpdate = new MlfrontPayInfo();
+		
+		if(mlfrontPayInfoList.size()>0){
+			mlfrontPayInfoRes = mlfrontPayInfoList.get(0);
+			Integer payInfoId = mlfrontPayInfoRes.getPayinfoId();
+			mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
+			mlfrontPayInfoUpdate.setPayinfoIfEmail(9);//客户点击成功返回
+			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoUpdate);
+		}
+	}
+
 	/**
 	 * 3.0	200612
 	 * getMlfrontCartByDate控制面板根据时间统计数据所需
