@@ -185,6 +185,8 @@
 	<jsp:include page="./productdetails-script.min.jsp" flush="true"></jsp:include>
 	<!-- footer script -->
 	<jsp:include page="../layout/footer/footer-script.min.jsp" flush="true"></jsp:include>
+	<!-- lottery -->
+	<jsp:include page="../layout/lottery.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
 </body>
 </html>
