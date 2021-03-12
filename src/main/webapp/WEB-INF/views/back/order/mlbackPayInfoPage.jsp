@@ -1389,6 +1389,9 @@
 					case 3:
 						statusText = '<a class="badge badge-info">Deal</a>'; // 成交  purple
 						break;
+					case 9:
+			            statusText = '<a class="badge badge-dark">Deal</a>'; // 成交  purple
+			            break;
 					default:
 						statusText = '<a class="badge badge-danger">not send</a>'; // 未发送
 				}

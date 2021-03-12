@@ -55,7 +55,7 @@ public class sendSMSTask {
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0 0/20 * * ?")
+	@Scheduled(cron = "0 0/10 * * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
@@ -69,12 +69,17 @@ public class sendSMSTask {
         
         MlbackOrderStateEmail mlbackOrderStateEmailOne = mlbackOrderStateEmailList.get(0);
         String webSiteUrl = mlbackOrderStateEmailOne.getOrderstateemailOne();
-        String lastHour = mlbackOrderStateEmailOne.getOrderstateemailTwo();
+        String lasMinute = mlbackOrderStateEmailOne.getOrderstateemailTwo();//超过几个小时就开始发邮件
+        String intervalTime = mlbackOrderStateEmailOne.getOrderstateemailThree();//间隔几小时
         
-        Integer lastHourInt = Integer.parseInt(lastHour);
+        Integer lasMinuteInt = Integer.parseInt(lasMinute);
+        Integer longTime = Integer.parseInt(intervalTime);
         
-        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
-		String startTime = DateUtil.dateRoll(lastHourInt+1);
+//        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
+//		String startTime = DateUtil.dateRoll(lastHourInt+longTime);
+		
+        String endTime = DateUtil.dateRollMinus(lasMinuteInt);//当前时间2小时
+		String startTime = DateUtil.dateRollMinus(lasMinuteInt+longTime);
         
 		MlfrontPayInfo mlfrontPayInfoRe = new MlfrontPayInfo();
 		
@@ -88,7 +93,6 @@ public class sendSMSTask {
 		System.out.println("endTime"+endTime);
 				
 		//查询接口,发送时间定时的几点,间隔几小时,发送文案
-		
 		MlbackSmstype mlbackSmstype = new MlbackSmstype();
 		mlbackSmstype.setSmstypeName("sms");
 		List<MlbackSmstype> mlbackSmstypeList = mlbackSmstypeService.selectMlbackSmstypeByName(mlbackSmstype);
@@ -105,6 +109,7 @@ public class sendSMSTask {
 				mlfrontPayInfoReq.setPayinfoIfSMS(0);
 				
 				List<MlfrontPayInfo> mlfrontPayInfoList = getPayInfoList(mlfrontPayInfoReq);
+				System.out.println("mlfrontPayInfoList:"+mlfrontPayInfoList.toString());
 				if(mlfrontPayInfoList.size()>0){
 					
 					String orderIdLastOneStr = "";
@@ -136,6 +141,7 @@ public class sendSMSTask {
 							String countryCode = mlfrontAddressOne.getAddressCountryCode();
 							
 							String realTel = getRealTel(countryCode,telephone);
+							System.out.println("实际电话号码realTel:"+realTel);
 							
 							String userName = firstName+" ";
 							//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------end--------
@@ -145,9 +151,9 @@ public class sendSMSTask {
 							
 							String secretOrderIdStr = EncryptUtil.XORencode(checkRecoverOrderIdStr,"megalook");
 							
-							String SendStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"recover/"+checkRecoverOrderIdStr+".html";
+							String SendStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"SMS/"+checkRecoverOrderIdStr+".html";
 //							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendStr:"+SendStr);
-							String SendSecretStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"recover/"+secretOrderIdStr+".html";
+							String SendSecretStr = "【MegaLook】Dear "+userName+","+Content+"."+websiteStr+"SMS/"+secretOrderIdStr+".html";
 //							System.out.println("本单号位checkRecoverOrderIdStr："+checkRecoverOrderIdStr+",本条弃购链接为SendSecretStr:"+SendSecretStr);
 							
 							//这里要解密
