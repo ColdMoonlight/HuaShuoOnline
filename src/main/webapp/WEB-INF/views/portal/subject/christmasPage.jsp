@@ -52,7 +52,6 @@
 				.box_img .wap2{display:none}
 				.boxbg{padding: 0 12% 15px}
 			}
-			
 	</style>
 </head>
 <body>
