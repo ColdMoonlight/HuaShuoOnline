@@ -69,13 +69,13 @@ public class sendSMSTask {
         
         MlbackOrderStateEmail mlbackOrderStateEmailOne = mlbackOrderStateEmailList.get(0);
         String webSiteUrl = mlbackOrderStateEmailOne.getOrderstateemailOne();
-        String lasMinute = mlbackOrderStateEmailOne.getOrderstateemailTwo();//超过几个小时就开始发邮件
-        String intervalTime = mlbackOrderStateEmailOne.getOrderstateemailThree();//间隔几小时
+        String lasMinute = mlbackOrderStateEmailOne.getOrderstateemailTwo();//超过N分钟就开始发邮件
+        String intervalTime = mlbackOrderStateEmailOne.getOrderstateemailThree();//间隔N分钟
         
         Integer lasMinuteInt = Integer.parseInt(lasMinute);
         Integer longTime = Integer.parseInt(intervalTime);
         
-//        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
+//        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间N分钟
 //		String startTime = DateUtil.dateRoll(lastHourInt+longTime);
 		
         String endTime = DateUtil.dateRollMinus(lasMinuteInt);//当前时间2小时
