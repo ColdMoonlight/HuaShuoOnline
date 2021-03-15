@@ -78,7 +78,7 @@ public class sendSMSTask {
 //        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间N分钟
 //		String startTime = DateUtil.dateRoll(lastHourInt+longTime);
 		
-        String endTime = DateUtil.dateRollMinus(lasMinuteInt);//当前时间2小时
+        String endTime = DateUtil.dateRollMinus(lasMinuteInt);//当前时间N分钟
 		String startTime = DateUtil.dateRollMinus(lasMinuteInt+longTime);
         
 		MlfrontPayInfo mlfrontPayInfoRe = new MlfrontPayInfo();
