@@ -59,7 +59,7 @@ public class sendEmailTask {
         MlbackOrderStateEmail mlbackOrderStateEmailOne = mlbackOrderStateEmailList.get(0);
         String webSiteUrl = mlbackOrderStateEmailOne.getOrderstateemailOne();
         String lastHour = mlbackOrderStateEmailOne.getOrderstateemailTwo();//超过N分钟就开始发邮件
-        String intervalTime = mlbackOrderStateEmailOne.getOrderstateemailThree();//间隔N分钟
+        String intervalTime = mlbackOrderStateEmailOne.getOrderstateemailThree();//间隔N-分钟
         
         Integer lastHourInt = Integer.parseInt(lastHour);
         Integer longTime = Integer.parseInt(intervalTime);
