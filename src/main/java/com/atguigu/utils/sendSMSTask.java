@@ -75,7 +75,7 @@ public class sendSMSTask {
         Integer lasMinuteInt = Integer.parseInt(lasMinute);
         Integer longTime = Integer.parseInt(intervalTime);
         
-//        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间N分钟
+//      String endTime = DateUtil.dateRoll(lastHourInt);//当前时间N分钟
 //		String startTime = DateUtil.dateRoll(lastHourInt+longTime);
 		
         String endTime = DateUtil.dateRollMinus(lasMinuteInt);//当前时间N分钟
