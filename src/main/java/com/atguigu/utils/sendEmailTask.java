@@ -64,10 +64,10 @@ public class sendEmailTask {
         Integer lastHourInt = Integer.parseInt(lastHour);
         Integer longTime = Integer.parseInt(intervalTime);
         
-        String endTime = DateUtil.dateRollMinus(lastHourInt);//当前时间2小时
+        String endTime = DateUtil.dateRollMinus(lastHourInt);//当前时间N-分钟
 		String beforeTime = DateUtil.dateRollMinus(lastHourInt+longTime);
         
-//        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
+//        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间N-分钟
 //		String beforeTime = DateUtil.dateRoll(lastHourInt+longTime);
         
 		MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
