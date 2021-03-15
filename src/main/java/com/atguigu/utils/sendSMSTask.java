@@ -92,7 +92,7 @@ public class sendSMSTask {
 		mlfrontPayInfoRe.setPayinfoMotifytime(endTime);
 		System.out.println("SMS-endTime"+endTime);
 				
-		//查询接口,发送时间定时的几点,间隔几小时,发送文案
+		//查询接口,发送时间定时的N分钟,间隔几小时,发送文案
 		MlbackSmstype mlbackSmstype = new MlbackSmstype();
 		mlbackSmstype.setSmstypeName("sms");
 		List<MlbackSmstype> mlbackSmstypeList = mlbackSmstypeService.selectMlbackSmstypeByName(mlbackSmstype);
