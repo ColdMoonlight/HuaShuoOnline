@@ -55,7 +55,7 @@ public class sendSMSTask {
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0/10 * * * ?")
+	@Scheduled(cron = "0 0/30 * * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
