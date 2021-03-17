@@ -20,7 +20,7 @@ import java.net.URL;
 public class HttpClient_10queryGoodsSnMap {
 
 	public static void main(String[] args) throws IOException {
-		//第一步：创建服务地址，不是WSDL地址
+		//第一步：创建服务地址,不是WSDL地址
 		URL url = new URL("http://s7.vekinerp.com/ecpp_server.php");
 		//第二步：打开一个通向服务地址的连接
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -29,16 +29,16 @@ public class HttpClient_10queryGoodsSnMap {
 		connection.setRequestMethod("POST");
 		//3.2设置数据格式：content-type
 		connection.setRequestProperty("content-type", "text/xml;charset=utf-8");
-		//3.3设置输入输出，因为默认新创建的connection没有读写权限，
+		//3.3设置输入输出,因为默认新创建的connection没有读写权限,
 		connection.setDoInput(true);
 		connection.setDoOutput(true);
 
-		//第四步：组织SOAP数据，发送请求
+		//第四步：组织SOAP数据,发送请求
 		String token = "Lujia2015200708";
 		String soapXML = getXML(token);
 		OutputStream os = connection.getOutputStream();
 		os.write(soapXML.getBytes());
-		//第五步：接收服务端响应，打印
+		//第五步：接收服务端响应,打印
 		int responseCode = connection.getResponseCode();
 		System.out.println(responseCode);
 		if(200 == responseCode){//表示服务端响应成功
