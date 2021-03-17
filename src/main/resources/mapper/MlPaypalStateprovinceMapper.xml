@@ -108,4 +108,10 @@
     from tb_paypal_stateprovince  where stateprovince_country_code = #{stateprovinceCountryCode,jdbcType=VARCHAR} and stateprovince_name = #{stateprovinceName,jdbcType=VARCHAR}
   </select>
   
+  <!--selectMlPaypalStateprovinceByCountryCodeAndProvinceCode-->
+  <select id="selectMlPaypalStateprovinceByCountryCodeAndProvinceCode" parameterType="com.atguigu.bean.MlPaypalStateprovince" resultMap="BaseResultMap">
+    select stateprovince_id, stateprovince_name_code, stateprovince_name, stateprovince_country_code, stateprovince_country
+    from tb_paypal_stateprovince  where stateprovince_country_code = #{stateprovinceCountryCode,jdbcType=VARCHAR} and stateprovince_name_code = #{stateprovinceNameCode,jdbcType=VARCHAR}
+  </select>
+  
 </mapper>

@@ -55,7 +55,7 @@ public class sendSMSTask {
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0/10 * * * ?")
+	@Scheduled(cron = "0 0/30 * * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
@@ -69,16 +69,16 @@ public class sendSMSTask {
         
         MlbackOrderStateEmail mlbackOrderStateEmailOne = mlbackOrderStateEmailList.get(0);
         String webSiteUrl = mlbackOrderStateEmailOne.getOrderstateemailOne();
-        String lasMinute = mlbackOrderStateEmailOne.getOrderstateemailTwo();//超过几个小时就开始发邮件
-        String intervalTime = mlbackOrderStateEmailOne.getOrderstateemailThree();//间隔几小时
+        String lasMinute = mlbackOrderStateEmailOne.getOrderstateemailTwo();//超过N分钟就开始发邮件
+        String intervalTime = mlbackOrderStateEmailOne.getOrderstateemailThree();//间隔N分钟
         
         Integer lasMinuteInt = Integer.parseInt(lasMinute);
         Integer longTime = Integer.parseInt(intervalTime);
         
-//        String endTime = DateUtil.dateRoll(lastHourInt);//当前时间2小时
+//      String endTime = DateUtil.dateRoll(lastHourInt);//当前时间N分钟
 //		String startTime = DateUtil.dateRoll(lastHourInt+longTime);
 		
-        String endTime = DateUtil.dateRollMinus(lasMinuteInt);//当前时间2小时
+        String endTime = DateUtil.dateRollMinus(lasMinuteInt);//当前时间N分钟
 		String startTime = DateUtil.dateRollMinus(lasMinuteInt+longTime);
         
 		MlfrontPayInfo mlfrontPayInfoRe = new MlfrontPayInfo();
@@ -88,11 +88,11 @@ public class sendSMSTask {
 		mlfrontPayInfoRe.setPayinfoIfEmail(0);
 		
 		mlfrontPayInfoRe.setPayinfoCreatetime(startTime);
-		System.out.println("startTime"+startTime);
+		System.out.println("SMS-startTime"+startTime);
 		mlfrontPayInfoRe.setPayinfoMotifytime(endTime);
-		System.out.println("endTime"+endTime);
+		System.out.println("SMS-endTime"+endTime);
 				
-		//查询接口,发送时间定时的几点,间隔几小时,发送文案
+		//查询接口,发送时间定时的N分钟,间隔几小时,发送文案
 		MlbackSmstype mlbackSmstype = new MlbackSmstype();
 		mlbackSmstype.setSmstypeName("sms");
 		List<MlbackSmstype> mlbackSmstypeList = mlbackSmstypeService.selectMlbackSmstypeByName(mlbackSmstype);
@@ -101,7 +101,7 @@ public class sendSMSTask {
 			Integer SmstypeStatus =  mlbackSmstypeOne.getSmstypeStatus();
 			if(SmstypeStatus>0){
 				String Content = mlbackSmstypeOne.getSmstypeContent();
-				System.out.println("本短信的挽回语为:Content"+Content);
+				System.out.println("SMS-本短信的挽回语为:Content"+Content);
 				//查询一下这个时间段的orderid没有结算的并且有结算地址的信息
 				MlfrontPayInfo mlfrontPayInfoReq = new MlfrontPayInfo();
 				mlfrontPayInfoReq.setPayinfoCreatetime(startTime);
@@ -109,7 +109,7 @@ public class sendSMSTask {
 				mlfrontPayInfoReq.setPayinfoIfSMS(0);
 				
 				List<MlfrontPayInfo> mlfrontPayInfoList = getPayInfoList(mlfrontPayInfoReq);
-				System.out.println("mlfrontPayInfoList:"+mlfrontPayInfoList.toString());
+				System.out.println("SMS-mlfrontPayInfoList:"+mlfrontPayInfoList.toString());
 				if(mlfrontPayInfoList.size()>0){
 					
 					String orderIdLastOneStr = "";
@@ -141,7 +141,7 @@ public class sendSMSTask {
 							String countryCode = mlfrontAddressOne.getAddressCountryCode();
 							
 							String realTel = getRealTel(countryCode,telephone);
-							System.out.println("实际电话号码realTel:"+realTel);
+							System.out.println("SMS-实际电话号码realTel:"+realTel);
 							
 							String userName = firstName+" ";
 							//---------------拿到orderId,去地址表中查询addressId,再从地址信息中查询邮箱手机号-------end--------
@@ -165,10 +165,10 @@ public class sendSMSTask {
 								//这个是真实发送
 								//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
 								if(realTel.length()>0){
-									String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
+									//String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
 									System.out.println(SendSecretStr+",这一单发送成功");
 								}else{
-									System.out.println("当前手机号为："+realTel+",这一单无法发送");
+									System.out.println("SMS-当前手机号为："+realTel+",这一单无法发送");
 								}
 								//这个是真实发送
 							} catch (Exception e) {
@@ -182,7 +182,7 @@ public class sendSMSTask {
 							//2-需要把这一单的payinfo_SMS更新过来
 							mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoSMSed);
 							
-							//操作完毕，把当前orderid存住；
+							//操作完毕,把当前orderid存住;
 							orderIdLastOneStr = checkRecoverOrderIdNowStr;
 						}
 						
@@ -312,7 +312,7 @@ public class sendSMSTask {
 	private List<MlfrontPayInfo> getPayInfoList(MlfrontPayInfo mlfrontPayInfoReq) {
 		
 		List<MlfrontPayInfo> mlfrontPayInfoList = mlfrontPayInfoService.selectMlfrontPayInfoByDateAndIfEmail(mlfrontPayInfoReq);
-		System.out.println("mlfrontPayInfoList.size():"+mlfrontPayInfoList.size());
+		System.out.println("SMS-mlfrontPayInfoList.size():"+mlfrontPayInfoList.size());
 		
 		List<MlfrontPayInfo> mlfrontPayInfoSuccessList = new ArrayList<MlfrontPayInfo>();
 		List<MlfrontPayInfo> mlfrontPayInfoUnPayList = new ArrayList<MlfrontPayInfo>();
@@ -428,7 +428,7 @@ public class sendSMSTask {
 			mlfrontPayInfoOne.setPayinfoId(payinfoId);
 			mlfrontPayInfoOne.setPayinfoIfSMS(2);
 			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
-			System.out.println("本条是重复单-无需发送,标记为无需发送的状态2");
+			System.out.println("SMS本条是重复单-无需发送,标记为无需发送的状态2");
 		}
 	}
 	
@@ -440,8 +440,8 @@ public class sendSMSTask {
 			mlfrontPayInfoOne.setPayinfoId(payinfoId);
 			mlfrontPayInfoOne.setPayinfoIfSMS(3);
 			mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoOne);
-			System.out.println("本条是成功记录-无需发送,标记为成功状态3");
-		}		
+			System.out.println("SMS本条是成功记录-无需发送,标记为成功状态3");
+		}
 	}
 
 }

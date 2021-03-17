@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.bean.MlPaypalShipAddress;
+import com.atguigu.bean.MlPaypalStateprovince;
 import com.atguigu.bean.MlbackOrderStateEmail;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
@@ -26,6 +27,7 @@ import com.atguigu.common.Msg;
 import com.atguigu.enumC.PaypalPaymentIntent;
 import com.atguigu.enumC.PaypalPaymentMethod;
 import com.atguigu.service.MlPaypalShipAddressService;
+import com.atguigu.service.MlPaypalStateprovinceService;
 import com.atguigu.service.MlbackOrderStateEmailService;
 import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontOrderItemService;
@@ -80,6 +82,9 @@ public class PaypalController {
 	
 	@Autowired
 	MlbackOrderStateEmailService mlbackOrderStateEmailService;
+	
+	@Autowired
+	MlPaypalStateprovinceService mlPaypalStateprovinceService;
 
     /**1.0
      * 组装参数,WAP端发起真实的支付
@@ -359,7 +364,8 @@ public class PaypalController {
     	//这里要存储一下paypal返回的全部证据
         String paymentStr = payment.toString();
         System.out.println("payment.toString().length()"+paymentStr.length());
-    	insertMlPaypalShipAddressInfo(paymentId,DescIdStr,payerInfoReturn,paymentStr);
+        MlPaypalShipAddress mlPaypalShipAddressReturn = new MlPaypalShipAddress();
+        mlPaypalShipAddressReturn = insertMlPaypalShipAddressInfo(paymentId,DescIdStr,payerInfoReturn,paymentStr);
     	//修改支付单状态
     	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
 		mlfrontPayInfoNew.setPayinfoId(payinfoId);
@@ -401,7 +407,7 @@ public class PaypalController {
 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoIOne);
 		
 		//2.1.2准备调用ecpp接口,将客户的付款信息,导入ecpp中
-		payInfoIntoEcpp(mlfrontPayInfoIOne);
+		payInfoIntoEcpp(mlfrontPayInfoIOne,mlPaypalShipAddressReturn);
 		session.setAttribute("mlfrontPayInfoIOne", mlfrontPayInfoIOne);
 		session.setAttribute("payinfoIdStr", payinfoIdStr);//这个是长串MLXXXXXXXXX0001;
 		session.setAttribute("orderId", PayOid);
@@ -414,11 +420,25 @@ public class PaypalController {
      * 从返回中插入Paypal地址
      * @param payment 
      * */
-    private void insertMlPaypalShipAddressInfo(String paymentId, String payinfoIdStr, PayerInfo payerInfoReturn,String paymentStr) {
+    private MlPaypalShipAddress insertMlPaypalShipAddressInfo(String paymentId, String payinfoIdStr, PayerInfo payerInfoReturn,String paymentStr) {
+    	
+    	//先取出国家code,省份Code
+    	MlPaypalStateprovince mlPaypalStateprovinceReq = new MlPaypalStateprovince();
+    	String CountryCode= payerInfoReturn.getShippingAddress().getCountryCode();
+    	String provinceCode= payerInfoReturn.getShippingAddress().getState();
+    	mlPaypalStateprovinceReq.setStateprovinceCountryCode(CountryCode);
+    	mlPaypalStateprovinceReq.setStateprovinceCountryCode(provinceCode);
+    	String provinceName = "";
+    	
+    	List<MlPaypalStateprovince> mlPaypalStateprovinceList =  mlPaypalStateprovinceService.selectMlPaypalStateprovinceByCountryCodeAndProvinceCode(mlPaypalStateprovinceReq);
+    	if(mlPaypalStateprovinceList.size()>0){
+    		provinceName =  mlPaypalStateprovinceList.get(0).getStateprovinceName();
+    	}
     	
     	MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
     	mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
     	mlPaypalShipAddressReq.setShippingaddressState(payerInfoReturn.getShippingAddress().getState());
+    	mlPaypalShipAddressReq.setShippingaddressStateProvinceName(provinceName);
     	mlPaypalShipAddressReq.setShippingaddressCity(payerInfoReturn.getShippingAddress().getCity());
     	mlPaypalShipAddressReq.setShippingaddressPostalCode(payerInfoReturn.getShippingAddress().getPostalCode());
     	mlPaypalShipAddressReq.setShippingaddressLine1(payerInfoReturn.getShippingAddress().getLine1());
@@ -429,12 +449,15 @@ public class PaypalController {
     	mlPaypalShipAddressReq.setShippingaddressPaymentid(paymentId);
     	mlPaypalShipAddressReq.setShippingaddressPaymentStr(paymentStr);
     	mlPaypalShipAddressService.insertSelective(mlPaypalShipAddressReq);
+    	
+    	return mlPaypalShipAddressReq;
 	}
     
     /**
      * 2.1.2准备调用ecpp接口,将客户的付款信息,导入ecpp中
+     * @param mlPaypalShipAddressReturn
      * */
-    private void payInfoIntoEcpp(MlfrontPayInfo mlfrontPayInfoIn) {
+    private void payInfoIntoEcpp(MlfrontPayInfo mlfrontPayInfoIn, MlPaypalShipAddress mlPaypalShipAddressReturn) {
     	
     	Integer payinfoId = mlfrontPayInfoIn.getPayinfoId();
     	
@@ -476,7 +499,7 @@ public class PaypalController {
 		
 		MlfrontAddress mlfrontAddressToPay = mlfrontAddressToPayList.get(0);
 		
-		order ecppOrderResult = EcppIntoUtil.getEcppNeedOrder(mlfrontPayInfoIOne,mlfrontOrderResOne,mlfrontOrderItemEcppNeedList,mlfrontAddressToPay);
+		order ecppOrderResult = EcppIntoUtil.getEcppNeedOrder(mlfrontPayInfoIOne,mlfrontOrderResOne,mlfrontOrderItemEcppNeedList,mlfrontAddressToPay,mlPaypalShipAddressReturn);
 		
 		String token = (String) PropertiesUtil.getProperty("megalook.properties", "ecppToken");
 //		String token="Lujia2015200708";
