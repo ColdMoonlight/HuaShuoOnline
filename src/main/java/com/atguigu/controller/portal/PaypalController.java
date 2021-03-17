@@ -435,7 +435,6 @@ public class PaypalController {
     		provinceName =  mlPaypalStateprovinceList.get(0).getStateprovinceName();
     	}
     	
-    	
     	MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
     	mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
     	mlPaypalShipAddressReq.setShippingaddressState(payerInfoReturn.getShippingAddress().getState());
