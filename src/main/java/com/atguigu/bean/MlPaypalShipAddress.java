@@ -23,6 +23,8 @@ public class MlPaypalShipAddress {
     private String shippingaddressEmail;
 
     private String shippingaddressState;
+    
+    private String shippingaddressStateProvinceName;
 
     private String shippingaddressCreatetime;
 
@@ -120,7 +122,15 @@ public class MlPaypalShipAddress {
         this.shippingaddressState = shippingaddressState == null ? null : shippingaddressState.trim();
     }
 
-    public String getShippingaddressCreatetime() {
+    public String getShippingaddressStateProvinceName() {
+		return shippingaddressStateProvinceName;
+	}
+
+	public void setShippingaddressStateProvinceName(String shippingaddressStateProvinceName) {
+		this.shippingaddressStateProvinceName = shippingaddressState == null ? null : shippingaddressState.trim();
+	}
+
+	public String getShippingaddressCreatetime() {
         return shippingaddressCreatetime;
     }
 
@@ -160,8 +170,8 @@ public class MlPaypalShipAddress {
 			String shippingaddressPaymentid, String shippingaddressRecipientName, String shippingaddressCountryCode,
 			String shippingaddressCity, String shippingaddressLine1, String shippingaddressLine2,
 			String shippingaddressPostalCode, String shippingaddressEmail, String shippingaddressState,
-			String shippingaddressCreatetime, String shippingaddressMotifytime, Integer shippingaddressIfFirstBuy,
-			String shippingaddressPaymentStr) {
+			String shippingaddressStateProvinceName, String shippingaddressCreatetime, String shippingaddressMotifytime,
+			Integer shippingaddressIfFirstBuy, String shippingaddressPaymentStr) {
 		super();
 		this.shippingaddressId = shippingaddressId;
 		this.shippingaddressPayinfoid = shippingaddressPayinfoid;
@@ -174,6 +184,7 @@ public class MlPaypalShipAddress {
 		this.shippingaddressPostalCode = shippingaddressPostalCode;
 		this.shippingaddressEmail = shippingaddressEmail;
 		this.shippingaddressState = shippingaddressState;
+		this.shippingaddressStateProvinceName = shippingaddressStateProvinceName;
 		this.shippingaddressCreatetime = shippingaddressCreatetime;
 		this.shippingaddressMotifytime = shippingaddressMotifytime;
 		this.shippingaddressIfFirstBuy = shippingaddressIfFirstBuy;
@@ -189,6 +200,7 @@ public class MlPaypalShipAddress {
 				+ ", shippingaddressLine1=" + shippingaddressLine1 + ", shippingaddressLine2=" + shippingaddressLine2
 				+ ", shippingaddressPostalCode=" + shippingaddressPostalCode + ", shippingaddressEmail="
 				+ shippingaddressEmail + ", shippingaddressState=" + shippingaddressState
+				+ ", shippingaddressStateProvinceName=" + shippingaddressStateProvinceName
 				+ ", shippingaddressCreatetime=" + shippingaddressCreatetime + ", shippingaddressMotifytime="
 				+ shippingaddressMotifytime + ", shippingaddressIfFirstBuy=" + shippingaddressIfFirstBuy
 				+ ", shippingaddressPaymentStr=" + shippingaddressPaymentStr + "]";

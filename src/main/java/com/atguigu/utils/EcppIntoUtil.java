@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import com.atguigu.bean.MlPaypalShipAddress;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
@@ -151,7 +152,7 @@ public class EcppIntoUtil {
 	}
 	
 	public static order getEcppNeedOrder(MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne,
-			List<MlfrontOrderItem> mlfrontOrderItemEcppNeedList, MlfrontAddress mlfrontAddressToPay) {
+			List<MlfrontOrderItem> mlfrontOrderItemEcppNeedList, MlfrontAddress mlfrontAddressToPay, MlPaypalShipAddress mlPaypalShipAddressReturn) {
 		
 		order ecppOrder = new order();
 		
@@ -176,8 +177,49 @@ public class EcppIntoUtil {
 //	    private String tel;//*电话
 //	    private String zipcode;//*邮编
 		
+		//传递的是shoppingAddress
+//		String nowTime = DateUtil.strTime14s();
+//		ecppOrder.setUserid(mlfrontAddressToPay.getAddressUserfirstname()+" "+mlfrontAddressToPay.getAddressUserlastname());
+//		ecppOrder.setPaid_time(nowTime);
+//		ecppOrder.setEmail(mlfrontAddressToPay.getAddressEmail());
+//		ecppOrder.setPaypalid(mlfrontPayInfoIOne.getPayinfoTransidnum());
+//		ecppOrder.setSellsrecord(mlfrontPayInfoIOne.getPayinfoPlatenum());
+//		ecppOrder.setOrder_amount(mlfrontPayInfoIOne.getPayinfoMoney());
+//		ecppOrder.setCurrency("USD");
+////		ecppOrder.setShipping_id(1);//发货方式	参数字典查询接口 name为shipping
+//		ecppOrder.setSales_channels(220);//销售渠道(220,)	参见字典查询接口		name为Sales_channels
+//		ecppOrder.setSales_account_id(32);//(30Magalook mall/32Magalook test )		渠道账号	参见渠道账号查询列表
+//		ecppOrder.setEnableStockControl(0);
+//		
+//		ecppOrder.setConsignee(mlfrontAddressToPay.getAddressUserfirstname()+" "+mlfrontAddressToPay.getAddressUserlastname());
+//		ecppOrder.setStreet1(mlfrontAddressToPay.getAddressDetail());
+//		ecppOrder.setStreet2(" ");
+//		ecppOrder.setCity(mlfrontAddressToPay.getAddressCity());
+//		ecppOrder.setState(mlfrontAddressToPay.getAddressProvince());
+//		if(mlfrontAddressToPay.getAddressProvince()==null||"".equals(mlfrontAddressToPay.getAddressProvince())){
+//			//物流那边要求 省州都填, 填一样的也行
+//			ecppOrder.setState(mlfrontAddressToPay.getAddressCity());
+//		}
+//		ecppOrder.setCountry(mlfrontAddressToPay.getAddressCountry());
+//		ecppOrder.setCountryCode(mlfrontAddressToPay.getAddressCountryCode());
+//		ecppOrder.setZipcode(mlfrontAddressToPay.getAddressPost());
+//		ecppOrder.setTel(mlfrontAddressToPay.getAddressTelephone());
+//		//封装pro产品字段
+//		List<ecppItem> ecppItemList = new ArrayList<ecppItem>();
+//		for(MlfrontOrderItem mlfrontOrderItem:mlfrontOrderItemEcppNeedList){
+//			ecppItem ecppItemOne = new ecppItem();
+//			ecppItemOne.setGoods_sn(mlfrontOrderItem.getOrderitemPskuCode());
+//			ecppItemOne.setGoods_name(mlfrontOrderItem.getOrderitemPseo()+","+mlfrontOrderItem.getOrderitemPskuName());
+//			ecppItemOne.setGoods_qty(mlfrontOrderItem.getOrderitemPskuNumber());
+//			ecppItemOne.setGoods_price(mlfrontOrderItem.getOrderitemPskuMoneystr());
+//			ecppItemList.add(ecppItemOne);
+//		}
+//		ecppOrder.setItem(ecppItemList);
+		
+		
+		//传递的是billingAddress
 		String nowTime = DateUtil.strTime14s();
-		ecppOrder.setUserid(mlfrontAddressToPay.getAddressUserfirstname()+" "+mlfrontAddressToPay.getAddressUserlastname());
+		ecppOrder.setUserid(mlPaypalShipAddressReturn.getShippingaddressRecipientName());
 		ecppOrder.setPaid_time(nowTime);
 		ecppOrder.setEmail(mlfrontAddressToPay.getAddressEmail());
 		ecppOrder.setPaypalid(mlfrontPayInfoIOne.getPayinfoTransidnum());
@@ -188,15 +230,15 @@ public class EcppIntoUtil {
 		ecppOrder.setSales_channels(220);//销售渠道(220,)	参见字典查询接口		name为Sales_channels
 		ecppOrder.setSales_account_id(32);//(30Magalook mall/32Magalook test )		渠道账号	参见渠道账号查询列表
 		ecppOrder.setEnableStockControl(0);
-		
-		ecppOrder.setConsignee(mlfrontAddressToPay.getAddressUserfirstname()+" "+mlfrontAddressToPay.getAddressUserlastname());
-		ecppOrder.setStreet1(mlfrontAddressToPay.getAddressDetail());
+		ecppOrder.setConsignee(mlPaypalShipAddressReturn.getShippingaddressRecipientName());
+		ecppOrder.setStreet1(mlPaypalShipAddressReturn.getShippingaddressLine1());
 		ecppOrder.setStreet2(" ");
-		ecppOrder.setCity(mlfrontAddressToPay.getAddressCity());
-		ecppOrder.setState(mlfrontAddressToPay.getAddressProvince());
-		if(mlfrontAddressToPay.getAddressProvince()==null||"".equals(mlfrontAddressToPay.getAddressProvince())){
+		ecppOrder.setCity(mlPaypalShipAddressReturn.getShippingaddressCity());
+		String provinceName = mlPaypalShipAddressReturn.getShippingaddressStateProvinceName();
+		ecppOrder.setState(provinceName);
+		if(provinceName==null||"".equals(provinceName)){
 			//物流那边要求 省州都填, 填一样的也行
-			ecppOrder.setState(mlfrontAddressToPay.getAddressCity());
+			ecppOrder.setState(mlPaypalShipAddressReturn.getShippingaddressCity());
 		}
 		ecppOrder.setCountry(mlfrontAddressToPay.getAddressCountry());
 		ecppOrder.setCountryCode(mlfrontAddressToPay.getAddressCountryCode());

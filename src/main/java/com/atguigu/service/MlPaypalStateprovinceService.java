@@ -65,5 +65,11 @@ public class MlPaypalStateprovinceService {
 		List<MlPaypalStateprovince>  mlPaypalStateprovinceRes = mlPaypalStateprovinceMapper.selectMlPaypalStateprovinceByCountryCodeAndProvince(mlPaypalStateprovinceReq);
 		return mlPaypalStateprovinceRes;
 	}
+	public List<MlPaypalStateprovince> selectMlPaypalStateprovinceByCountryCodeAndProvinceCode(MlPaypalStateprovince mlPaypalStateprovinceReq) {
+		List<MlPaypalStateprovince>  mlPaypalStateprovinceRes = mlPaypalStateprovinceMapper.selectMlPaypalStateprovinceByCountryCodeAndProvinceCode(mlPaypalStateprovinceReq);
+		return mlPaypalStateprovinceRes;
+	}
+	
+	
 
 }
