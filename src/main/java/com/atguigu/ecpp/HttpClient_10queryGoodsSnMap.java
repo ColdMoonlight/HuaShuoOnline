@@ -20,7 +20,7 @@ import java.net.URL;
 public class HttpClient_10queryGoodsSnMap {
 
 	public static void main(String[] args) throws IOException {
-		//第一步：创建服务地址,不是WSDL地址
+		//第一步：创建服务地址,不是WSDL地址;
 		URL url = new URL("http://s7.vekinerp.com/ecpp_server.php");
 		//第二步：打开一个通向服务地址的连接
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
