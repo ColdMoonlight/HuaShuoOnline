@@ -13,6 +13,7 @@
     <result column="shippingAddress_postal_code" jdbcType="VARCHAR" property="shippingaddressPostalCode" />
     <result column="shippingAddress_email" jdbcType="VARCHAR" property="shippingaddressEmail" />
     <result column="shippingAddress_state" jdbcType="VARCHAR" property="shippingaddressState" />
+    <result column="shippingAddress_state_provinceName" jdbcType="VARCHAR" property="shippingaddressStateProvinceName" />
     <result column="shippingAddress_createTime" jdbcType="VARCHAR" property="shippingaddressCreatetime" />
     <result column="shippingAddress_motifyTime" jdbcType="VARCHAR" property="shippingaddressMotifytime" />
     <result column="shippingAddress_ifFirstBuy" jdbcType="INTEGER" property="shippingaddressIfFirstBuy" />
@@ -21,7 +22,7 @@
   <sql id="Base_Column_List">
     shippingAddress_id, shippingAddress_payInfoid, shippingAddress_paymentid, shippingAddress_recipient_name, 
     shippingAddress_country_code, shippingAddress_city, shippingAddress_line1, shippingAddress_line2, 
-    shippingAddress_postal_code, shippingAddress_email, shippingAddress_state, shippingAddress_createTime, 
+    shippingAddress_postal_code, shippingAddress_email, shippingAddress_state, shippingAddress_state_provinceName, shippingAddress_createTime, 
     shippingAddress_motifyTime,shippingAddress_ifFirstBuy,shippingAddress_paymentStr
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -36,14 +37,14 @@
       shippingAddress_country_code, shippingAddress_city, 
       shippingAddress_line1, shippingAddress_line2, 
       shippingAddress_postal_code, shippingAddress_email, 
-      shippingAddress_state, shippingAddress_createTime, 
+      shippingAddress_state, shippingAddress_state_provinceName, shippingAddress_createTime, 
       shippingAddress_motifyTime,shippingAddress_ifFirstBuy,shippingAddress_paymentStr)
     values (#{shippingaddressId,jdbcType=INTEGER}, #{shippingaddressPayinfoid,jdbcType=VARCHAR}, 
       #{shippingaddressPaymentid,jdbcType=VARCHAR}, #{shippingaddressRecipientName,jdbcType=VARCHAR}, 
       #{shippingaddressCountryCode,jdbcType=VARCHAR}, #{shippingaddressCity,jdbcType=VARCHAR}, 
       #{shippingaddressLine1,jdbcType=VARCHAR}, #{shippingaddressLine2,jdbcType=VARCHAR}, 
       #{shippingaddressPostalCode,jdbcType=VARCHAR}, #{shippingaddressEmail,jdbcType=VARCHAR}, 
-      #{shippingaddressState,jdbcType=VARCHAR}, #{shippingaddressCreatetime,jdbcType=VARCHAR}, 
+      #{shippingaddressState,jdbcType=VARCHAR}, #{shippingaddressStateProvinceName,jdbcType=VARCHAR}, #{shippingaddressCreatetime,jdbcType=VARCHAR}, 
       #{shippingaddressMotifytime,jdbcType=VARCHAR}, #{shippingaddressIfFirstBuy,jdbcType=INTEGER}, 
       #{shippingaddressPaymentStr,jdbcType=VARCHAR})
   </insert>
@@ -59,6 +60,7 @@
       shippingAddress_postal_code = #{shippingaddressPostalCode,jdbcType=VARCHAR},
       shippingAddress_email = #{shippingaddressEmail,jdbcType=VARCHAR},
       shippingAddress_state = #{shippingaddressState,jdbcType=VARCHAR},
+      shippingAddress_state_provinceName = #{shippingaddressStateProvinceName,jdbcType=VARCHAR},
       shippingAddress_createTime = #{shippingaddressCreatetime,jdbcType=VARCHAR},
       shippingAddress_motifyTime = #{shippingaddressMotifytime,jdbcType=VARCHAR},
       shippingAddress_ifFirstBuy = #{shippingaddressIfFirstBuy,jdbcType=INTEGER},
@@ -102,6 +104,9 @@
       </if>
       <if test="shippingaddressState != null">
         shippingAddress_state,
+      </if>
+      <if test="shippingaddressStateProvinceName != null">
+        shippingAddress_state_provinceName,
       </if>
       <if test="shippingaddressCreatetime != null">
         shippingAddress_createTime,
@@ -149,6 +154,9 @@
       </if>
       <if test="shippingaddressState != null">
         #{shippingaddressState,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressStateProvinceName != null">
+        #{shippingaddressStateProvinceName,jdbcType=VARCHAR},
       </if>
       <if test="shippingaddressCreatetime != null">
         #{shippingaddressCreatetime,jdbcType=VARCHAR},
@@ -202,6 +210,9 @@
       </if>
       <if test="shippingaddressState != null">
         shippingAddress_state = #{shippingaddressState,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressStateProvinceName != null">
+        shippingAddress_state_provinceName = #{shippingaddressStateProvinceName,jdbcType=VARCHAR},
       </if>
       <if test="shippingaddressCreatetime != null">
         shippingAddress_createTime = #{shippingaddressCreatetime,jdbcType=VARCHAR},
