@@ -166,8 +166,8 @@
 		});
 
 		function renderReceiverinfo(addressData, BillingData) {
-			$('.revceiver-info').html('<div class="payment-buyer-name"><span class="name">Thank You </span><span class="value">' + BillingData.shippingaddressRecipientName + '</span></div>' +
-				'<div class="payment-orderid"><span class="name">Your Order ID: </span><span class="value">' + addressData.payinfoPlatenum + '</span></div>');
+			$('.revceiver-info').html('<div class="payment-orderid"><span class="name">Order ID: </span><span class="value">' + addressData.payinfoPlatenum + '</span></div>' +
+					'<div class="payment-buyer-name"><span class="name">Thank You </span><span class="value">' + BillingData.shippingaddressRecipientName + '</span></div>');
 
 			$(".payment-shipping-address").html('<div class="payment-address-title">Shipping Address</div>' +
 					'<div class="payment-address-item"><span class="name">Email: </span><span class="value">' + BillingData.shippingaddressEmail + '</span></div>' +
