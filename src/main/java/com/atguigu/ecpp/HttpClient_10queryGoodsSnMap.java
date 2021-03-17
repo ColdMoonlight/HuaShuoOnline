@@ -25,7 +25,7 @@ public class HttpClient_10queryGoodsSnMap {
 		//第二步：打开一个通向服务地址的连接
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		//第三步：设置参数
-		//3.1发送方式设置：POST必须大写
+		//3.1发送方式设置：POST必须大写,
 		connection.setRequestMethod("POST");
 		//3.2设置数据格式：content-type
 		connection.setRequestProperty("content-type", "text/xml;charset=utf-8");
