@@ -3287,15 +3287,15 @@ footer li {
 	padding: .5rem 0;
 	border-top: 1px solid #ccc;
 }
-.payment-box-title>.icon {
+.payment-box-title .icon {
 	width: 2rem;
 	height: 2rem;
 	font-size: 1.5rem;
 	margin-right: 1rem;
 }
-.payment-box-title>.arrow {
+.payment-box-title .arrow {
 	color: #555;
-	margin-left: 1.5rem;
+	margin-left: .5rem;
 }
 .payment-product-item {
 	display: flex;
@@ -3339,7 +3339,7 @@ footer li {
 .payment-buyer-name .name,
 .payment-orderid .name,
 .payment-address-item .name {
-	font-size: 1rem;
+	font-size: .875rem;
 }
 .payment-buyer-name .value,
 .payment-orderid .value,
