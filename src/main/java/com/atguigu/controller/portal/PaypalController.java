@@ -427,16 +427,19 @@ public class PaypalController {
     	String CountryCode= payerInfoReturn.getShippingAddress().getCountryCode();
     	String provinceCode= payerInfoReturn.getShippingAddress().getState();
     	mlPaypalStateprovinceReq.setStateprovinceCountryCode(CountryCode);
-    	mlPaypalStateprovinceReq.setStateprovinceCountryCode(provinceCode);
+    	mlPaypalStateprovinceReq.setStateprovinceNameCode(provinceCode);
     	String provinceName = "";
+    	String countryName = "";
     	
     	List<MlPaypalStateprovince> mlPaypalStateprovinceList =  mlPaypalStateprovinceService.selectMlPaypalStateprovinceByCountryCodeAndProvinceCode(mlPaypalStateprovinceReq);
     	if(mlPaypalStateprovinceList.size()>0){
     		provinceName =  mlPaypalStateprovinceList.get(0).getStateprovinceName();
+    		countryName =  mlPaypalStateprovinceList.get(0).getStateprovinceCountry();
     	}
     	
     	MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
     	mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
+    	mlPaypalShipAddressReq.setShippingaddressCountryName(countryName);
     	mlPaypalShipAddressReq.setShippingaddressState(payerInfoReturn.getShippingAddress().getState());
     	mlPaypalShipAddressReq.setShippingaddressStateProvinceName(provinceName);
     	mlPaypalShipAddressReq.setShippingaddressCity(payerInfoReturn.getShippingAddress().getCity());

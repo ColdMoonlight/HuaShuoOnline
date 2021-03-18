@@ -7,6 +7,7 @@
     <result column="shippingAddress_paymentid" jdbcType="VARCHAR" property="shippingaddressPaymentid" />
     <result column="shippingAddress_recipient_name" jdbcType="VARCHAR" property="shippingaddressRecipientName" />
     <result column="shippingAddress_country_code" jdbcType="VARCHAR" property="shippingaddressCountryCode" />
+    <result column="shippingAddress_country_name" jdbcType="VARCHAR" property="shippingaddressCountryName" />
     <result column="shippingAddress_city" jdbcType="VARCHAR" property="shippingaddressCity" />
     <result column="shippingAddress_line1" jdbcType="VARCHAR" property="shippingaddressLine1" />
     <result column="shippingAddress_line2" jdbcType="VARCHAR" property="shippingaddressLine2" />
@@ -21,7 +22,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     shippingAddress_id, shippingAddress_payInfoid, shippingAddress_paymentid, shippingAddress_recipient_name, 
-    shippingAddress_country_code, shippingAddress_city, shippingAddress_line1, shippingAddress_line2, 
+    shippingAddress_country_code, shippingAddress_country_name, shippingAddress_city, shippingAddress_line1, shippingAddress_line2, 
     shippingAddress_postal_code, shippingAddress_email, shippingAddress_state, shippingAddress_state_provinceName, shippingAddress_createTime, 
     shippingAddress_motifyTime,shippingAddress_ifFirstBuy,shippingAddress_paymentStr
   </sql>
@@ -34,14 +35,14 @@
   <insert id="insert" parameterType="com.atguigu.bean.MlPaypalShipAddress">
     insert into tb_paypal_shippingaddress (shippingAddress_id, shippingAddress_payInfoid, 
       shippingAddress_paymentid, shippingAddress_recipient_name, 
-      shippingAddress_country_code, shippingAddress_city, 
+      shippingAddress_country_code, shippingAddress_country_name, shippingAddress_city, 
       shippingAddress_line1, shippingAddress_line2, 
       shippingAddress_postal_code, shippingAddress_email, 
       shippingAddress_state, shippingAddress_state_provinceName, shippingAddress_createTime, 
       shippingAddress_motifyTime,shippingAddress_ifFirstBuy,shippingAddress_paymentStr)
     values (#{shippingaddressId,jdbcType=INTEGER}, #{shippingaddressPayinfoid,jdbcType=VARCHAR}, 
       #{shippingaddressPaymentid,jdbcType=VARCHAR}, #{shippingaddressRecipientName,jdbcType=VARCHAR}, 
-      #{shippingaddressCountryCode,jdbcType=VARCHAR}, #{shippingaddressCity,jdbcType=VARCHAR}, 
+      #{shippingaddressCountryCode,jdbcType=VARCHAR}, #{shippingaddressCountryName,jdbcType=VARCHAR}, #{shippingaddressCity,jdbcType=VARCHAR}, 
       #{shippingaddressLine1,jdbcType=VARCHAR}, #{shippingaddressLine2,jdbcType=VARCHAR}, 
       #{shippingaddressPostalCode,jdbcType=VARCHAR}, #{shippingaddressEmail,jdbcType=VARCHAR}, 
       #{shippingaddressState,jdbcType=VARCHAR}, #{shippingaddressStateProvinceName,jdbcType=VARCHAR}, #{shippingaddressCreatetime,jdbcType=VARCHAR}, 
@@ -54,6 +55,7 @@
       shippingAddress_paymentid = #{shippingaddressPaymentid,jdbcType=VARCHAR},
       shippingAddress_recipient_name = #{shippingaddressRecipientName,jdbcType=VARCHAR},
       shippingAddress_country_code = #{shippingaddressCountryCode,jdbcType=VARCHAR},
+      shippingAddress_country_name = #{shippingaddressCountryName,jdbcType=VARCHAR}, 
       shippingAddress_city = #{shippingaddressCity,jdbcType=VARCHAR},
       shippingAddress_line1 = #{shippingaddressLine1,jdbcType=VARCHAR},
       shippingAddress_line2 = #{shippingaddressLine2,jdbcType=VARCHAR},
@@ -86,6 +88,9 @@
       </if>
       <if test="shippingaddressCountryCode != null">
         shippingAddress_country_code,
+      </if>
+      <if test="shippingaddressCountryName != null">
+        shippingAddress_country_name,
       </if>
       <if test="shippingaddressCity != null">
         shippingAddress_city,
@@ -136,6 +141,9 @@
       </if>
       <if test="shippingaddressCountryCode != null">
         #{shippingaddressCountryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressCountryName != null">
+        #{shippingaddressCountryName,jdbcType=VARCHAR},
       </if>
       <if test="shippingaddressCity != null">
         #{shippingaddressCity,jdbcType=VARCHAR},
@@ -192,6 +200,9 @@
       </if>
       <if test="shippingaddressCountryCode != null">
         shippingAddress_country_code = #{shippingaddressCountryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddressCountryName != null">
+        shippingAddress_country_name = #{shippingaddressCountryName,jdbcType=VARCHAR}, 
       </if>
       <if test="shippingaddressCity != null">
         shippingAddress_city = #{shippingaddressCity,jdbcType=VARCHAR},

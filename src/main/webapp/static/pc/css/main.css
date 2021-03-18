@@ -3285,17 +3285,29 @@ footer li {
 }
 .payment-box-body {
 	padding: .5rem 0;
-	border-top: 1px solid #ccc;
 }
-.payment-box-title>.icon {
+.payment-box-title .icon {
 	width: 2rem;
 	height: 2rem;
 	font-size: 1.5rem;
 	margin-right: 1rem;
 }
-.payment-box-title>.arrow {
-	color: #555;
-	margin-left: 1.5rem;
+.payment-order .payment-box-title {
+	justify-content: space-between;
+	background-color: #fafafa;
+}
+.payment-order .payment-box-left {
+	display: flex;
+	align-items: center;
+}
+.payment-order .payment-box-left .icon,
+.payment-order .payment-box-left {
+	color: #54a9e6;
+	font-size: 1rem;
+}
+
+.payment-order .payment-box-left .icon {
+	margin-right: 0;
 }
 .payment-product-item {
 	display: flex;
@@ -3336,19 +3348,38 @@ footer li {
 	font-size: .875rem;
 	font-weight: 600;
 }
-.payment-buyer-name .name,
-.payment-orderid .name,
 .payment-address-item .name {
-	font-size: 1rem;
+	font-size: .875rem;
 }
-.payment-buyer-name .value,
-.payment-orderid .value,
+.payment-order-info .icon.wallet {
+	color: #54a9e6;
+}
 .payment-address-item .value {
 	font-size: .875rem;
 	font-weight: 500;
 }
+.payment-buyer-name {
+	font-size: 1.4rem;
+}
+.payment-orderid {
+	font-size: .875rem;
+}
+.payment-order-info .payment-contact-us {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 90%;
+	max-width: 500px;
+	padding: .5rem;
+	margin: 1.25rem auto;
+	border-radius: .25rem;
+	background-color: #135e90;
+	font-size: .875rem;
+	color: #fff;
+	cursor: pointer;
+}
 .payment-tip {
-	padding: 1rem;
+	padding: 0 1rem;
 	font-size: .875rem;
 	color: #ff1671;
 	text-align: center;
@@ -3359,6 +3390,10 @@ footer li {
 .payment-btn>.btn {
 	display: block;
 	width: 100%;
+}
+.payment-btn>.btn:hover,
+.payment-order-info .payment-contact-us:hover {
+	opacity: .8;
 }
 @media only screen and (max-width: 575px) {
 	.payment-product-details,

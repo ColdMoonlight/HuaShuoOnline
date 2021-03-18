@@ -11,6 +11,8 @@ public class MlPaypalShipAddress {
     private String shippingaddressRecipientName;
 
     private String shippingaddressCountryCode;
+    
+    private String shippingaddressCountryName;
 
     private String shippingaddressCity;
 
@@ -73,8 +75,16 @@ public class MlPaypalShipAddress {
     public void setShippingaddressCountryCode(String shippingaddressCountryCode) {
         this.shippingaddressCountryCode = shippingaddressCountryCode == null ? null : shippingaddressCountryCode.trim();
     }
+    
+    public String getShippingaddressCountryName() {
+		return shippingaddressCountryName;
+	}
 
-    public String getShippingaddressCity() {
+	public void setShippingaddressCountryName(String shippingaddressCountryName) {
+		this.shippingaddressCountryName = shippingaddressCountryName == null ? null : shippingaddressCountryName.trim();
+	}
+
+	public String getShippingaddressCity() {
         return shippingaddressCity;
     }
 
@@ -127,7 +137,7 @@ public class MlPaypalShipAddress {
 	}
 
 	public void setShippingaddressStateProvinceName(String shippingaddressStateProvinceName) {
-		this.shippingaddressStateProvinceName = shippingaddressState == null ? null : shippingaddressState.trim();
+		this.shippingaddressStateProvinceName = shippingaddressStateProvinceName == null ? null : shippingaddressStateProvinceName.trim();
 	}
 
 	public String getShippingaddressCreatetime() {
@@ -165,19 +175,20 @@ public class MlPaypalShipAddress {
 	public MlPaypalShipAddress() {
 		super();
 	}
-	
+
 	public MlPaypalShipAddress(Integer shippingaddressId, String shippingaddressPayinfoid,
 			String shippingaddressPaymentid, String shippingaddressRecipientName, String shippingaddressCountryCode,
-			String shippingaddressCity, String shippingaddressLine1, String shippingaddressLine2,
-			String shippingaddressPostalCode, String shippingaddressEmail, String shippingaddressState,
-			String shippingaddressStateProvinceName, String shippingaddressCreatetime, String shippingaddressMotifytime,
-			Integer shippingaddressIfFirstBuy, String shippingaddressPaymentStr) {
+			String shippingaddressCountryName, String shippingaddressCity, String shippingaddressLine1,
+			String shippingaddressLine2, String shippingaddressPostalCode, String shippingaddressEmail,
+			String shippingaddressState, String shippingaddressStateProvinceName, String shippingaddressCreatetime,
+			String shippingaddressMotifytime, Integer shippingaddressIfFirstBuy, String shippingaddressPaymentStr) {
 		super();
 		this.shippingaddressId = shippingaddressId;
 		this.shippingaddressPayinfoid = shippingaddressPayinfoid;
 		this.shippingaddressPaymentid = shippingaddressPaymentid;
 		this.shippingaddressRecipientName = shippingaddressRecipientName;
 		this.shippingaddressCountryCode = shippingaddressCountryCode;
+		this.shippingaddressCountryName = shippingaddressCountryName;
 		this.shippingaddressCity = shippingaddressCity;
 		this.shippingaddressLine1 = shippingaddressLine1;
 		this.shippingaddressLine2 = shippingaddressLine2;
@@ -196,14 +207,14 @@ public class MlPaypalShipAddress {
 		return "MlPaypalShipAddress [shippingaddressId=" + shippingaddressId + ", shippingaddressPayinfoid="
 				+ shippingaddressPayinfoid + ", shippingaddressPaymentid=" + shippingaddressPaymentid
 				+ ", shippingaddressRecipientName=" + shippingaddressRecipientName + ", shippingaddressCountryCode="
-				+ shippingaddressCountryCode + ", shippingaddressCity=" + shippingaddressCity
-				+ ", shippingaddressLine1=" + shippingaddressLine1 + ", shippingaddressLine2=" + shippingaddressLine2
-				+ ", shippingaddressPostalCode=" + shippingaddressPostalCode + ", shippingaddressEmail="
-				+ shippingaddressEmail + ", shippingaddressState=" + shippingaddressState
-				+ ", shippingaddressStateProvinceName=" + shippingaddressStateProvinceName
-				+ ", shippingaddressCreatetime=" + shippingaddressCreatetime + ", shippingaddressMotifytime="
-				+ shippingaddressMotifytime + ", shippingaddressIfFirstBuy=" + shippingaddressIfFirstBuy
-				+ ", shippingaddressPaymentStr=" + shippingaddressPaymentStr + "]";
+				+ shippingaddressCountryCode + ", shippingaddressCountryName=" + shippingaddressCountryName
+				+ ", shippingaddressCity=" + shippingaddressCity + ", shippingaddressLine1=" + shippingaddressLine1
+				+ ", shippingaddressLine2=" + shippingaddressLine2 + ", shippingaddressPostalCode="
+				+ shippingaddressPostalCode + ", shippingaddressEmail=" + shippingaddressEmail
+				+ ", shippingaddressState=" + shippingaddressState + ", shippingaddressStateProvinceName="
+				+ shippingaddressStateProvinceName + ", shippingaddressCreatetime=" + shippingaddressCreatetime
+				+ ", shippingaddressMotifytime=" + shippingaddressMotifytime + ", shippingaddressIfFirstBuy="
+				+ shippingaddressIfFirstBuy + ", shippingaddressPaymentStr=" + shippingaddressPaymentStr + "]";
 	}
 
 }

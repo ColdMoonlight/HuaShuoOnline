@@ -23,31 +23,37 @@
 					<div class="ml-breadcrumb-item active">Payment</div>
 				</div>
 			</div>
-			<p style="border-bottom: 1px solid #ccc; color: red; padding: 1rem; margin: 0;">We will deliver the goods to you immediately according to the following address. Please check. <br>If you have any questions, please contact us in time.</p>
-			<div class="payment-box payment-buyer">
+			<div class="payment-box payment-order">
+				<div class="payment-box-title">
+					<div class="payment-box-left">
+						<span class="icon cart"></span>
+						<span class="value">Show order summary</span>
+						<span class="icon arrow bottom"></span>					
+					</div>
+					<span class="total-money"></span>
+				</div>
+				<div class="payment-box-body" style="display:none">
+					<div class="payment-product"></div>
+					<div class="payment-cal"></div>
+				</div>
+			</div>
+			<div class="payment-box payment-order-info">				
 				<div class="payment-box-title">
 					<span class="icon wallet"></span>
 					<div class="revceiver-info"></div>
 				</div>
 				<div class="payment-box-body">
+					<div class="payment-tip">We will deliver the goods to you immediately according to the following address. Please check. <br>If you have any questions, please contact us in time.</div>
+					<div class="payment-contact-us">Contact Us</div>
+				</div>
+			</div>			
+			<div class="payment-box payment-buyer">
+				<div class="payment-box-body">
 					<div class="payment-address payment-shipping-address"></div>
 					<div class="payment-address payment-billing-address hide"></div>
 				</div>
 			</div>
-			<div class="payment-box payment-order">
-				<div class="payment-box-title">
-					<span class="icon cart"></span>
-					<span class="value">Show order summary</span>
-					<span class="icon arrow bottom"></span>
-					<span class="total-money"></span>
-				</div>
-				<div class="payment-box-body active">
-					<div class="payment-product"></div>
-					<div class="payment-cal"></div>
-				</div>
-			</div>
-			<p class="payment-tip">If there's any questions, plz contact the customer service </p>
-			<div class="payment-btn">
+			<div class="payment-btn" style="margin-top: 1rem;">
 				<a href="javascript:goToIndex();" class="btn btn-black">Continue Shopping</a>
 			</div>
 		</div>
@@ -158,22 +164,23 @@
 		$(".payment-order .payment-box-title").on('click', function () {
 			if ($(".payment-order .payment-box-body").hasClass('active')) {
 				$(".payment-order .payment-box-body").removeClass('active').slideUp();
-				$(".payment-order .icon.arrow").removeClass('bottom').addClass('top');
+				$(".payment-order .icon.arrow").removeClass('top').addClass('bottom');
 			} else {
 				$(".payment-order .payment-box-body").addClass('active').slideDown();
-				$(".payment-order .icon.arrow").removeClass('top').addClass('bottom');
+				$(".payment-order .icon.arrow").removeClass('bottom').addClass('top');
 			}
 		});
 
 		function renderReceiverinfo(addressData, BillingData) {
-			$('.revceiver-info').html('<div class="payment-buyer-name"><span class="name">Thank You </span><span class="value">' + BillingData.shippingaddressRecipientName + '</span></div>' +
-				'<div class="payment-orderid"><span class="name">Your Order ID: </span><span class="value">' + addressData.payinfoPlatenum + '</span></div>');
+			$('.revceiver-info').html('<div class="payment-orderid"><span class="name">Order ID: </span><span class="value">' + addressData.payinfoPlatenum + '</span></div>' +
+					'<div class="payment-buyer-name"><span class="name">Thank You </span><span class="value">' + BillingData.shippingaddressRecipientName + '</span></div>');
 
-			$(".payment-shipping-address").html('<div class="payment-address-title">Shipping Address</div>' +
+			$(".payment-shipping-address").html('<h4 style="margin: 0 0 1rem 0;">Customer information</h4><h5 style="margin: .75rem 0;">contact information</h5>' +
 					'<div class="payment-address-item"><span class="name">Email: </span><span class="value">' + BillingData.shippingaddressEmail + '</span></div>' +
+					'<h5 style="margin: .75rem 0;">Shipping Address</h5>' +
 					'<div class="payment-address-item"><span class="name">Phone: </span><span class="value">' + addressData.addressTelephone + '</span></div>' +
 					'<div class="payment-address-item"><span class="name">Customer Name: </span><span class="value">' + BillingData.shippingaddressRecipientName + '</span></div>' +
-					'<div class="payment-address-item"><span class="name">Address: </span><span class="value">'+ BillingData.shippingaddressLine1 + ', ' + BillingData.shippingaddressCity + ', ' + BillingData.shippingaddressStateProvinceName + ', ' + BillingData.shippingaddressCountryCode  + '</span></div>' +
+					'<div class="payment-address-item"><span class="name">Address: </span><span class="value">'+ BillingData.shippingaddressLine1 + ', ' + BillingData.shippingaddressCity + ', ' + BillingData.shippingaddressStateProvinceName + ', ' + BillingData.shippingaddressCountryName  + '</span></div>' +
 					'<div class="payment-address-item"><span class="name">Postcode: </span><span class="value">' + BillingData.shippingaddressPostalCode + '</span></div>' +
 				'</div');
 		}
@@ -232,6 +239,16 @@
 			});
 		}
 		updatePayInfo(payinfoId);
+		$('.payment-contact-us').on('click', function() {
+			 function onTidioChatApiReady() {
+			    window.tidioChatApi.open();
+			  }
+			  if (window.tidioChatApi) {
+			    window.tidioChatApi.on("ready", onTidioChatApiReady);
+			  } else {
+			    document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+			  }
+		});
 	</script>
 	<!-- footer script -->
 	<jsp:include page="../layout/footer/footer-script.min.jsp" flush="true"></jsp:include>
