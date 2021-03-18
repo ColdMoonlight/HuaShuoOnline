@@ -24,8 +24,8 @@
 				</div>
 			</div>
 			<div class="payment-box payment-order">
-				<div class="payment-box-title" style="justify-content: space-between;">
-					<div style="display: flex; align-items: center;">
+				<div class="payment-box-title">
+					<div class="payment-box-left">
 						<span class="icon cart"></span>
 						<span class="value">Show order summary</span>
 						<span class="icon arrow bottom"></span>					
@@ -37,13 +37,16 @@
 					<div class="payment-cal"></div>
 				</div>
 			</div>
-			<div class="payment-box">				
+			<div class="payment-box payment-order-info">				
 				<div class="payment-box-title">
 					<span class="icon wallet"></span>
 					<div class="revceiver-info"></div>
 				</div>
-			</div>
-			<p style="padding: 0 1rem; color: red;">We will deliver the goods to you immediately according to the following address. Please check. <br>If you have any questions, please contact us in time.</p>
+				<div class="payment-box-body">
+					<div class="payment-tip">We will deliver the goods to you immediately according to the following address. Please check. <br>If you have any questions, please contact us in time.</div>
+					<div class="payment-contact-us">Contact Us</div>
+				</div>
+			</div>			
 			<div class="payment-box payment-buyer">
 				<div class="payment-box-body">
 					<div class="payment-address payment-shipping-address"></div>
@@ -236,6 +239,16 @@
 			});
 		}
 		updatePayInfo(payinfoId);
+		$('.payment-contact-us').on('click', function() {
+			 function onTidioChatApiReady() {
+			    window.tidioChatApi.open();
+			  }
+			  if (window.tidioChatApi) {
+			    window.tidioChatApi.on("ready", onTidioChatApiReady);
+			  } else {
+			    document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+			  }
+		});
 	</script>
 	<!-- footer script -->
 	<jsp:include page="../layout/footer/footer-script.min.jsp" flush="true"></jsp:include>
