@@ -43,7 +43,7 @@
 					<div class="revceiver-info"></div>
 				</div>
 				<div class="payment-box-body">
-					<div class="payment-tip">We will deliver the goods to you immediately according to the following address. Please check. <br>If you have any questions, please contact us in time.</div>
+					<div class="payment-tip">We do send  an Email to your email address whenever your order is done (Maybe it's in your Junk or Spam Email),you can check the detailed information about your order. In order let you get the update information about your order, pls add team@megalookemail.com be your whitelist .</div>
 					<div class="payment-contact-us">Contact Us</div>
 				</div>
 			</div>			
@@ -172,11 +172,11 @@
 		});
 
 		function renderReceiverinfo(addressData, BillingData) {
-			$('.revceiver-info').html('<div class="payment-orderid"><span class="name">Order ID: </span><span class="value">' + addressData.payinfoPlatenum + '</span></div>' +
+			$('.revceiver-info').html('<div class="payment-orderid" data-id="'+ addressData.payinfoPlatenum +'"><span class="name">Order ID: </span><span class="value">' + addressData.payinfoPlatenum + '</span><span class="payment-orderid-copy">copy it</span></div>' +
 					'<div class="payment-buyer-name"><span class="name">Thank You </span><span class="value">' + BillingData.shippingaddressRecipientName + '</span></div>');
 
-			$(".payment-shipping-address").html('<h4 style="margin: 0 0 1rem 0;">Customer information</h4><h5 style="margin: .75rem 0;">contact information</h5>' +
-					'<div class="payment-address-item"><span class="name">Email: </span><span class="value">' + BillingData.shippingaddressEmail + '</span></div>' +
+			$(".payment-shipping-address").html('<div>Thanks again for your order, we will arrange the package to the address you left.</div><h4 style="margin: 1rem 0;">Customer information</h4>' +
+					'<div class="payment-address-item"><span class="name">Contact Email: </span><span class="value">' + BillingData.shippingaddressEmail + '</span></div>' +
 					'<h5 style="margin: .75rem 0;">Shipping Address</h5>' +
 					'<div class="payment-address-item"><span class="name">Phone: </span><span class="value">' + addressData.addressTelephone + '</span></div>' +
 					'<div class="payment-address-item"><span class="name">Customer Name: </span><span class="value">' + BillingData.shippingaddressRecipientName + '</span></div>' +
@@ -184,6 +184,26 @@
 					'<div class="payment-address-item"><span class="name">Postcode: </span><span class="value">' + BillingData.shippingaddressPostalCode + '</span></div>' +
 				'</div');
 		}
+
+		function copyToClipboard(str) {
+			var el = document.createElement('textarea');
+			el.value = str;
+			el.setAttribute('readonly', '');
+			el.style.position = 'absolute';
+			el.style.left = '-9999px';
+			document.body.appendChild(el);
+			var selected =
+			  document.getSelection().rangeCount > 0
+			    ? document.getSelection().getRangeAt(0)
+			    : false;
+			el.select();
+			document.execCommand('copy');
+			document.body.removeChild(el);
+			if (selected) {
+				document.getSelection().removeAllRanges();
+				document.getSelection().addRange(selected);
+			}
+		};
 
 		var payinfoId = '${sessionScope.payinfoId}';
 		var payinfoProductArr = [], payinfoOrderArr = [];
@@ -239,15 +259,19 @@
 			});
 		}
 		updatePayInfo(payinfoId);
-		$('.payment-contact-us').on('click', function() {
-			 function onTidioChatApiReady() {
-			    window.tidioChatApi.open();
-			  }
-			  if (window.tidioChatApi) {
-			    window.tidioChatApi.on("ready", onTidioChatApiReady);
-			  } else {
-			    document.addEventListener("tidioChat-ready", onTidioChatApiReady);
-			  }
+		$(document.body).on('click', '.payment-orderid-copy', function() {
+			copyToClipboard($(this).parent('.payment-orderid').data('id'));
+			mlModalTip('Copy successfully!');
+		});
+		$(document.body).on('click', '.payment-contact-us', function() {
+			function onTidioChatApiReady() {
+				window.tidioChatApi.open();
+			}
+			if (window.tidioChatApi) {
+				window.tidioChatApi.on("ready", onTidioChatApiReady);
+			} else {
+				document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+			}
 		});
 	</script>
 	<!-- footer script -->
