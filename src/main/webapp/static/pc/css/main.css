@@ -3354,15 +3354,22 @@ footer li {
 .payment-order-info .icon.wallet {
 	color: #54a9e6;
 }
+.payment-buyer-name,
+.payment-orderid,
 .payment-address-item .value {
 	font-size: .875rem;
+}
+.payment-buyer-name .value,
+.payment-address-item .value {
 	font-weight: 500;
 }
-.payment-buyer-name {
-	font-size: 1.4rem;
-}
-.payment-orderid {
-	font-size: .875rem;
+.payment-orderid-copy {
+	display: inline-block;
+	padding: .35rem .5rem;
+	margin-left: .5rem;
+	background-color: #ccc;
+	border-radius: 1rem;
+	cursor: pointer;
 }
 .payment-order-info .payment-contact-us {
 	display: flex;
@@ -3379,10 +3386,11 @@ footer li {
 	cursor: pointer;
 }
 .payment-tip {
+	max-width: 500px;
+	margin: 0 auto;
 	padding: 0 1rem;
 	font-size: .875rem;
 	color: #ff1671;
-	text-align: center;
 }
 .payment-btn {
 	padding: 0 1rem;
