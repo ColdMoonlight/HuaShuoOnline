@@ -268,7 +268,7 @@
 	}
 	// render introduce search
 	function renderIntroduceSearch() {
-		var data = ["U part", "Deep Wave", "Closure Wig", "99J", "Highlight", "Bob", "Water Wave", "Pixie Cut", "Glueless", "Ponytail", "Piano Color", "Affordable", "Lace Closure Wig", "Full Lace Wig", "Bundles", "360 Lace Frontal Wig", "613"];
+		var data = ["Transparent Lace Frontal Wig", "Undetectable Lace", "Headband Wig", "Balayage  #4 Color", "Curly Wig", "Closure Wig", "360 Lace", "Piano Color", "Glueless Wig", "Bob Wig", "Ginger", "613", "Short Cut", "New Arrival", "U part", "Water Wave", "Bundles", "Ear to Ear Frontal", "Double Drawn Hair", "Thick From Top To End"];
 		var searchRsultHtml = '';
 		data.forEach(function(item, idx) {
 			searchRsultHtml += '<li class="search-result-item" data-name="'+ item +'">'+ item +'</li>';
