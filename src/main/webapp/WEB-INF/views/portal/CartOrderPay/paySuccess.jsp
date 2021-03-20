@@ -43,7 +43,7 @@
 					<div class="revceiver-info"></div>
 				</div>
 				<div class="payment-box-body">
-					<div class="payment-tip">We do send  an Email to your email address whenever your order is done (Maybe it's in your Junk or Spam Email),you can check the detailed information about your order. In order let you get the update information about your order, pls add team@megalookemail.com be your whitelist .</div>
+					<div class="payment-tip">We do send an Email to your email address <b id="payment-user-email" style="color: #000;"></b> whenever your order is done (Maybe it's in your Junk or Spam Email),you can check the detailed information about your order. In order let you get the update information about your order, pls add <b style="color: #000;">team@megalookemail.com</b> be your whitelist .</div>
 					<div class="payment-contact-us">Contact Us</div>
 				</div>
 			</div>			
@@ -174,7 +174,7 @@
 		function renderReceiverinfo(addressData, BillingData) {
 			$('.revceiver-info').html('<div class="payment-orderid" data-id="'+ addressData.payinfoPlatenum +'"><span class="name">Order ID: </span><span class="value">' + addressData.payinfoPlatenum + '</span><span class="payment-orderid-copy">copy it</span></div>' +
 					'<div class="payment-buyer-name"><span class="name">Thank You </span><span class="value">' + BillingData.shippingaddressRecipientName + '</span></div>');
-
+			$('#payment-user-email').text(BillingData.shippingaddressEmail)
 			$(".payment-shipping-address").html('<div>Thanks again for your order, we will arrange the package to the address you left.</div><h4 style="margin: 1rem 0;">Customer information</h4>' +
 					'<div class="payment-address-item"><span class="name">Contact Email: </span><span class="value">' + BillingData.shippingaddressEmail + '</span></div>' +
 					'<h5 style="margin: .75rem 0;">Shipping Address</h5>' +
@@ -261,7 +261,11 @@
 		updatePayInfo(payinfoId);
 		$(document.body).on('click', '.payment-orderid-copy', function() {
 			copyToClipboard($(this).parent('.payment-orderid').data('id'));
-			mlModalTip('Copy successfully!');
+			createModal({
+				body: {
+					html: '<p>The order id has been copied! You can also visit the <a href="${APP_PATH}/MlfrontOrderList/searchTrackPage">search-track-page</a> to track logistics information.</p>'
+				}
+			})
 		});
 		$(document.body).on('click', '.payment-contact-us', function() {
 			function onTidioChatApiReady() {
