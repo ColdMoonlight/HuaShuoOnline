@@ -6,7 +6,6 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-
 import javax.activation.DataHandler;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
