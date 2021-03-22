@@ -6,7 +6,6 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-
 import javax.activation.DataHandler;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
@@ -19,7 +18,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
+import com.atguigu.bean.MlPaypalShipAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
@@ -39,8 +38,8 @@ public class EmailNewUtilshtmlCustomer {
 	}
 	
 	public static void readyEmailPaySuccessCustomer(String getToEmail, String Message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne,
-			MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage)  throws Exception{
-		sendNewEmilPayCustomer(getToEmail, Message, mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage);
+			MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage,MlPaypalShipAddress mlPaypalShipAddress)  throws Exception{
+		sendNewEmilPayCustomer(getToEmail, Message, mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage,mlPaypalShipAddress);
 	}
 	
 	public static void readyEmailVerifyCustomer(String getToEmail, String toCustomerVerifyInfoStr,String payinfoPlateNum) {
@@ -72,10 +71,6 @@ public class EmailNewUtilshtmlCustomer {
             props.put("mail.smtp.auth", "true");
             /*final String username = "发送者邮箱用户名";
             final String password = "发送者邮箱密码或者邮箱授权码";*/
-//          final String username = "service@megalook.com";//megalook
-//          final String password = "DfcorpKXl6CbH1It";         
-//          final String username = "sales@megalook.com";//huashuohair
-//          final String password = "qPVGjvIM6wXVSsFn";
             String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
@@ -106,7 +101,7 @@ public class EmailNewUtilshtmlCustomer {
 //          msg.setFrom(new InternetAddress("service@megalook.com"));//megalook
 //          msg.setFrom(new InternetAddress("sales@megalook.com"));//huashuohair
             String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
-            msg.setFrom(new InternetAddress(sendEmail));
+            msg.setFrom(new InternetAddress("MegaLookHair"+" <"+sendEmail+">"));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
             msg.setSubject("Welcome to Register Megalook.");
@@ -132,7 +127,7 @@ public class EmailNewUtilshtmlCustomer {
 	 * megalookweb@outlook.com
 	 * mingyueqingl@163.com
 	 * */
-	public static void sendNewEmilPayCustomer(String to, String message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage) {
+	public static void sendNewEmilPayCustomer(String to, String message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage,MlPaypalShipAddress mlPaypalShipAddressInto) {
         try {
             Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
             final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
@@ -148,10 +143,6 @@ public class EmailNewUtilshtmlCustomer {
             props.put("mail.smtp.auth", "true");
             /*final String username = "发送者邮箱用户名";
             final String password = "发送者邮箱密码或者邮箱授权码";*/
-//          final String username = "service@megalook.com";//megalook
-//          final String password = "DfcorpKXl6CbH1It";         
-//          final String username = "sales@megalook.com";//huashuohair
-//          final String password = "qPVGjvIM6wXVSsFn";
             String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
@@ -161,6 +152,19 @@ public class EmailNewUtilshtmlCustomer {
                 }
             });
 
+          //联系邮箱：联系人：电话：地址
+            String addressDetail ="";
+            String addressEmail =mlPaypalShipAddressInto.getShippingaddressEmail();
+            String addressUname = mlPaypalShipAddressInto.getShippingaddressRecipientName();
+            String addressTel =mlPaypalShipAddressInto.getShippingaddressTelNumber();
+            String addressAll = mlPaypalShipAddressInto.getShippingaddressLine1()+","+mlPaypalShipAddressInto.getShippingaddressCity()+
+            		","+mlPaypalShipAddressInto.getShippingaddressStateProvinceName()+","+mlPaypalShipAddressInto.getShippingaddressCountryName();
+            
+            addressDetail=addressDetail+"<b>Receiving address</b>:"+addressAll+"<br>";
+            addressDetail=addressDetail+"<b>consignee</b>:"+addressUname+"<br>";
+            addressDetail=addressDetail+"<b>Recipient's phone number</b>:"+addressTel+"<br>";
+            addressDetail=addressDetail+"<b>Notification email</b>:"+addressEmail+"<br>";
+            
             String pdetail ="";
             for(MlfrontOrderItem mlfrontOrderItem :mlfrontOrderItemList){
             	String Pname = mlfrontOrderItem.getOrderitemPname();
@@ -168,7 +172,7 @@ public class EmailNewUtilshtmlCustomer {
             	String Psku = mlfrontOrderItem.getOrderitemPskuName();
             	String pAllmoney = mlfrontOrderItem.getOrderitemPskuReamoney();
             	
-            	pdetail=pdetail+Pnumber+" x "+Pname+" ( "+Psku+" )   "+pAllmoney+"<br><br>";
+            	pdetail=pdetail+Pnumber+" x "+Pname+" ( "+Psku+" )&nbsp;&nbsp;&nbsp;&nbsp;"+pAllmoney+"<br><br>";
             	
             }
             
@@ -190,19 +194,20 @@ public class EmailNewUtilshtmlCustomer {
     		String whatsapp = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.whatsapp");
     		String Telephone = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.Telephone");
             
-            String content="Hi gorgeous girl.<br><br>  "+
-            "Here is Megalook Hair . We have received your order and confirmed your payment.：<br><br>  "+
+            String content="Hi gorgeous girl.Here is Megalook Hair . We have received your order and confirmed your payment：<br>  "+
             "Order ID :"+mlfrontPayInfoIOne.getPayinfoPlatenum()+" <br>"+
             "Date Added :"+mlfrontOrderItemList.get(0).getOrderitemMotifytime()+" <br>"+
             "Order Status : Payment completed, order processing... <br><br>"+
-	  		patSuccessEndLanguage+"<br><br><br>"+
-            "Products:<br><br> "+
-            pdetail+"<br> "+
-            "payment details :<br><br> "+
+	  		patSuccessEndLanguage+"<br><br>"+
+            "<b>Notice!!!</b><br>"
+            + "We will deliver the goods to the following address. If there do have any discrepancy, please reply this email timely and keep us update:<br>"+addressDetail+"<br>"+
+            "<b>Products</b>:<br> "+
+            pdetail+
+            "<b>payment details</b>:<br> "+
             "products-Total: $"+SubTotal+" <br>"+
             CouponCodeStr +
             "Free Shipping: +$"+addressMoney+"<br>"+
-            "Sub-Total: $"+mlfrontPayInfoIOne.getPayinfoMoney()+" <br><br><br>"+
+            "Sub-Total: $"+mlfrontPayInfoIOne.getPayinfoMoney()+" <br><br>"+
             "Best Regards,<br>"+
             "------------------------------------------<br>"+
 	  		team+"<br>"+
@@ -217,7 +222,7 @@ public class EmailNewUtilshtmlCustomer {
 //          msg.setFrom(new InternetAddress("service@megalook.com"));//megalook
 //          msg.setFrom(new InternetAddress("sales@megalook.com"));//huashuohair
             String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
-            msg.setFrom(new InternetAddress(sendEmail));
+            msg.setFrom(new InternetAddress("MegaLookHair"+" <"+sendEmail+">"));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
             msg.setSubject("Order Confirmation From Megalook Hair.");
@@ -271,10 +276,6 @@ public class EmailNewUtilshtmlCustomer {
             props.put("mail.smtp.auth", "true");
             /*final String username = "发送者邮箱用户名";
             final String password = "发送者邮箱密码或者邮箱授权码";*/
-//          final String username = "service@megalook.com";//megalook
-//          final String password = "DfcorpKXl6CbH1It";         
-//          final String username = "sales@megalook.com";//huashuohair
-//          final String password = "qPVGjvIM6wXVSsFn";
             String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
@@ -292,7 +293,7 @@ public class EmailNewUtilshtmlCustomer {
 //          msg.setFrom(new InternetAddress("service@megalook.com"));//megalook
 //          msg.setFrom(new InternetAddress("sales@megalook.com"));//huashuohair
             String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
-            msg.setFrom(new InternetAddress(sendEmail));
+            msg.setFrom(new InternetAddress("MegaLookHair"+" <"+sendEmail+">"));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
             msg.setSubject("Order preparing from Megalook hair.");
@@ -331,10 +332,6 @@ public class EmailNewUtilshtmlCustomer {
             props.put("mail.smtp.auth", "true");
             /*final String username = "发送者邮箱用户名";
             final String password = "发送者邮箱密码或者邮箱授权码";*/
-//          final String username = "service@megalook.com";//megalook
-//          final String password = "DfcorpKXl6CbH1It";         
-//          final String username = "sales@megalook.com";//huashuohair
-//          final String password = "qPVGjvIM6wXVSsFn";
             String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
@@ -352,7 +349,7 @@ public class EmailNewUtilshtmlCustomer {
 //          msg.setFrom(new InternetAddress("service@megalook.com"));//megalook
 //          msg.setFrom(new InternetAddress("sales@megalook.com"));//huashuohair
             String sendEmail = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
-            msg.setFrom(new InternetAddress(sendEmail));
+            msg.setFrom(new InternetAddress("MegaLookHair"+" <"+sendEmail+">"));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
             msg.setSubject("Customer help from Megalook hair.");
