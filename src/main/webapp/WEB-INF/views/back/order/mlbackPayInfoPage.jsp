@@ -281,7 +281,7 @@
 								<div class="col-md-4">
 									<div class="card">
 										<div class="card-title">
-											<div class="card-title-name">New Shipping Address</div>
+											<div class="card-title-name">New Shipping Address(ECCP)</div>
 										</div>
 										<div class="card-body shipping-list new-shipping">
 											<div class="shipping-item order-shipping username">
