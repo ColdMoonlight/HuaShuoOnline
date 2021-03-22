@@ -71,11 +71,7 @@ public class EmailNewUtilshtml {
             props.setProperty("mail.smtp.socketFactory.port", "465");
             props.put("mail.smtp.auth", "true");
             /*final String username = "发送者邮箱用户名";
-            final String password = "发送者邮箱密码或者邮箱授权码";*/          
-//          final String username = "service@megalook.com";//megalook
-//          final String password = "DfcorpKXl6CbH1It";         
-//          final String username = "sales@megalook.com";//huashuohair
-//          final String password = "qPVGjvIM6wXVSsFn";
+            final String password = "发送者邮箱密码或者邮箱授权码";*/
             String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
@@ -140,10 +136,6 @@ public class EmailNewUtilshtml {
             props.put("mail.smtp.auth", "true");
             /*final String username = "发送者邮箱用户名";
             final String password = "发送者邮箱密码或者邮箱授权码";*/
-//          final String username = "service@megalook.com";//megalook
-//          final String password = "DfcorpKXl6CbH1It";         
-//          final String username = "sales@megalook.com";//huashuohair
-//          final String password = "qPVGjvIM6wXVSsFn";
             String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
@@ -266,10 +258,6 @@ public class EmailNewUtilshtml {
             props.put("mail.smtp.auth", "true");
             /*final String username = "发送者邮箱用户名";
             final String password = "发送者邮箱密码或者邮箱授权码";*/
-//          final String username = "service@megalook.com";//megalook
-//          final String password = "DfcorpKXl6CbH1It";         
-//          final String username = "sales@megalook.com";//huashuohair
-//          final String password = "qPVGjvIM6wXVSsFn";
             String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
@@ -330,10 +318,6 @@ public class EmailNewUtilshtml {
             props.put("mail.smtp.auth", "true");
             /*final String username = "发送者邮箱用户名";
             final String password = "发送者邮箱密码或者邮箱授权码";*/
-//          final String username = "service@megalook.com";//megalook
-//          final String password = "DfcorpKXl6CbH1It";         
-//          final String username = "sales@megalook.com";//huashuohair
-//          final String password = "qPVGjvIM6wXVSsFn";
             String username = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.username");
             String password = (String) PropertiesUtil.getProperty("megalook.properties", "sendNewEmil.userhighpwd");
             //获取到邮箱会话,利用匿名内部类的方式,将发送者邮箱用户名和密码授权给jvm
