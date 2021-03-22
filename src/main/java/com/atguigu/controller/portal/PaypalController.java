@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.atguigu.bean.MlPaypalShipAddress;
 import com.atguigu.bean.MlPaypalStateprovince;
 import com.atguigu.bean.MlbackOrderStateEmail;
@@ -341,7 +340,8 @@ public class PaypalController {
     	//包括交易id,交易标记,支付状态,
     	String transactionId = TransactionReturn.getRelatedResources().get(0).getSale().getId();
     	String paypalDescription =  TransactionReturn.getDescription();
-    	String transactionState = TransactionReturn.getRelatedResources().get(0).getSale().getState();
+    	String transactionState = TransactionReturn.getRelatedResources().get(0).getSale().getState();   	
+    	String shippingTelPhone = TransactionReturn.getTransactions().get(0).getItemList().getShippingPhoneNumber();
     	//从交易信息中获取PayerInfo,
     	PayerInfo payerInfoReturn = payment.getPayer().getPayerInfo();
 		//支付人,name,支付邮箱
@@ -365,7 +365,7 @@ public class PaypalController {
         String paymentStr = payment.toString();
         System.out.println("payment.toString().length()"+paymentStr.length());
         MlPaypalShipAddress mlPaypalShipAddressReturn = new MlPaypalShipAddress();
-        mlPaypalShipAddressReturn = insertMlPaypalShipAddressInfo(paymentId,DescIdStr,payerInfoReturn,paymentStr);
+        mlPaypalShipAddressReturn = insertMlPaypalShipAddressInfo(paymentId,DescIdStr,payerInfoReturn,paymentStr,shippingTelPhone);
     	//修改支付单状态
     	MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
 		mlfrontPayInfoNew.setPayinfoId(payinfoId);
@@ -421,7 +421,7 @@ public class PaypalController {
      * 从返回中插入Paypal地址
      * @param payment 
      * */
-    private MlPaypalShipAddress insertMlPaypalShipAddressInfo(String paymentId, String payinfoIdStr, PayerInfo payerInfoReturn,String paymentStr) {
+    private MlPaypalShipAddress insertMlPaypalShipAddressInfo(String paymentId, String payinfoIdStr, PayerInfo payerInfoReturn,String paymentStr,String shippingTelPhone) {
     	
     	//先取出国家code,省份Code
     	MlPaypalStateprovince mlPaypalStateprovinceReq = new MlPaypalStateprovince();
@@ -444,6 +444,7 @@ public class PaypalController {
     		MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
     		mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
     		mlPaypalShipAddressReq.setShippingaddressCountryName(countryName);
+    		mlPaypalShipAddressReq.setShippingaddressTelNumber(shippingTelPhone);
     		mlPaypalShipAddressReq.setShippingaddressState(payerInfoReturn.getShippingAddress().getState());
     		mlPaypalShipAddressReq.setShippingaddressStateProvinceName(provinceName);
     		mlPaypalShipAddressReq.setShippingaddressCity(payerInfoReturn.getShippingAddress().getCity());

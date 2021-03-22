@@ -149,7 +149,7 @@ public class EmailNewUtilshtml {
             String addressDetail ="";
             String addressEmail =mlPaypalShipAddressInto.getShippingaddressEmail();
             String addressUname = mlPaypalShipAddressInto.getShippingaddressRecipientName();
-            String addressTel ="17600001234";
+            String addressTel = mlPaypalShipAddressInto.getShippingaddressTelNumber();
             String addressAll = mlPaypalShipAddressInto.getShippingaddressLine1()+","+mlPaypalShipAddressInto.getShippingaddressCity()+
             		","+mlPaypalShipAddressInto.getShippingaddressStateProvinceName()+","+mlPaypalShipAddressInto.getShippingaddressCountryName();
             
