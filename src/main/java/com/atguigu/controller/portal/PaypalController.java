@@ -216,9 +216,9 @@ public class PaypalController {
             session.setAttribute("successpayment", payment);
             //2.1wap+pc端处理toUpdatePayInfoStateSuccess
             //1生成支付号,2更改payinfo的状态,从返回的payment中获取VIPId=payinfoId
-        	toUpdatePayInfoStateSuccess(session,payerId,paymentId,payment);
+            MlPaypalShipAddress mlPaypalShipAddressReturn = toUpdatePayInfoStateSuccess(session,payerId,paymentId,payment);
         	//2.2修改order的状态
-        	toUpdateOrderInfoSuccess(session,payment);
+        	toUpdateOrderInfoSuccess(session,payment,mlPaypalShipAddressReturn);
         	//输出返回payment信息
         	System.out.println("---------------------payment.toJSON()---------------------");
             System.out.println(payment.toJSON());
@@ -335,7 +335,7 @@ public class PaypalController {
      * 生成支付号,修改支付成功的payinfo状态
      * @param payment 
      * */
-    private void toUpdatePayInfoStateSuccess(HttpSession session, String payerId, String paymentId, Payment payment) {
+    private MlPaypalShipAddress toUpdatePayInfoStateSuccess(HttpSession session, String payerId, String paymentId, Payment payment) {
     	//从交易信息中获取Transactions,
     	Transaction TransactionReturn = payment.getTransactions().get(0);
     	//包括交易id,交易标记,支付状态,
@@ -412,6 +412,7 @@ public class PaypalController {
 		session.setAttribute("payinfoIdStr", payinfoIdStr);//这个是长串MLXXXXXXXXX0001;
 		session.setAttribute("orderId", PayOid);
 		
+		return mlPaypalShipAddressReturn;
 	}
 
 	/**
@@ -426,34 +427,66 @@ public class PaypalController {
     	MlPaypalStateprovince mlPaypalStateprovinceReq = new MlPaypalStateprovince();
     	String CountryCode= payerInfoReturn.getShippingAddress().getCountryCode();
     	String provinceCode= payerInfoReturn.getShippingAddress().getState();
-    	mlPaypalStateprovinceReq.setStateprovinceCountryCode(CountryCode);
-    	mlPaypalStateprovinceReq.setStateprovinceNameCode(provinceCode);
-    	String provinceName = "";
-    	String countryName = "";
     	
-    	List<MlPaypalStateprovince> mlPaypalStateprovinceList =  mlPaypalStateprovinceService.selectMlPaypalStateprovinceByCountryCodeAndProvinceCode(mlPaypalStateprovinceReq);
-    	if(mlPaypalStateprovinceList.size()>0){
-    		provinceName =  mlPaypalStateprovinceList.get(0).getStateprovinceName();
-    		countryName =  mlPaypalStateprovinceList.get(0).getStateprovinceCountry();
+    	if(provinceCode.length()>0){
+    		//不为空的时候,走如下步骤
+    		mlPaypalStateprovinceReq.setStateprovinceCountryCode(CountryCode);
+    		mlPaypalStateprovinceReq.setStateprovinceNameCode(provinceCode);
+    		String provinceName = "";
+    		String countryName = "";
+    		
+    		List<MlPaypalStateprovince> mlPaypalStateprovinceList =  mlPaypalStateprovinceService.selectMlPaypalStateprovinceByCountryCodeAndProvinceCode(mlPaypalStateprovinceReq);
+    		if(mlPaypalStateprovinceList.size()>0){
+    			provinceName =  mlPaypalStateprovinceList.get(0).getStateprovinceName();
+    			countryName =  mlPaypalStateprovinceList.get(0).getStateprovinceCountry();
+    		}
+    		
+    		MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
+    		mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
+    		mlPaypalShipAddressReq.setShippingaddressCountryName(countryName);
+    		mlPaypalShipAddressReq.setShippingaddressState(payerInfoReturn.getShippingAddress().getState());
+    		mlPaypalShipAddressReq.setShippingaddressStateProvinceName(provinceName);
+    		mlPaypalShipAddressReq.setShippingaddressCity(payerInfoReturn.getShippingAddress().getCity());
+    		mlPaypalShipAddressReq.setShippingaddressPostalCode(payerInfoReturn.getShippingAddress().getPostalCode());
+    		mlPaypalShipAddressReq.setShippingaddressLine1(payerInfoReturn.getShippingAddress().getLine1());
+    		mlPaypalShipAddressReq.setShippingaddressLine2(payerInfoReturn.getShippingAddress().getLine2());
+    		mlPaypalShipAddressReq.setShippingaddressRecipientName(payerInfoReturn.getShippingAddress().getRecipientName());
+    		mlPaypalShipAddressReq.setShippingaddressEmail(payerInfoReturn.getEmail());
+    		mlPaypalShipAddressReq.setShippingaddressPayinfoid(payinfoIdStr);
+    		mlPaypalShipAddressReq.setShippingaddressPaymentid(paymentId);
+    		mlPaypalShipAddressReq.setShippingaddressPaymentStr(paymentStr);
+    		mlPaypalShipAddressService.insertSelective(mlPaypalShipAddressReq);
+    		
+    		return mlPaypalShipAddressReq;
+    	}else{
+    		//为空的时候,
+    		mlPaypalStateprovinceReq.setStateprovinceCountryCode(CountryCode);
+    		String provinceName = "";
+    		String countryName = "";
+    		
+    		List<MlPaypalStateprovince> mlPaypalStateprovinceList =  mlPaypalStateprovinceService.selectMlPaypalStateprovinceByCountryCode(mlPaypalStateprovinceReq);
+    		if(mlPaypalStateprovinceList.size()>0){
+    			countryName =  mlPaypalStateprovinceList.get(0).getStateprovinceCountry();
+    		}
+    		
+    		MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
+    		mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
+    		mlPaypalShipAddressReq.setShippingaddressCountryName(countryName);
+    		mlPaypalShipAddressReq.setShippingaddressState(payerInfoReturn.getShippingAddress().getState());
+    		mlPaypalShipAddressReq.setShippingaddressStateProvinceName(provinceName);
+    		mlPaypalShipAddressReq.setShippingaddressCity(payerInfoReturn.getShippingAddress().getCity());
+    		mlPaypalShipAddressReq.setShippingaddressPostalCode(payerInfoReturn.getShippingAddress().getPostalCode());
+    		mlPaypalShipAddressReq.setShippingaddressLine1(payerInfoReturn.getShippingAddress().getLine1());
+    		mlPaypalShipAddressReq.setShippingaddressLine2(payerInfoReturn.getShippingAddress().getLine2());
+    		mlPaypalShipAddressReq.setShippingaddressRecipientName(payerInfoReturn.getShippingAddress().getRecipientName());
+    		mlPaypalShipAddressReq.setShippingaddressEmail(payerInfoReturn.getEmail());
+    		mlPaypalShipAddressReq.setShippingaddressPayinfoid(payinfoIdStr);
+    		mlPaypalShipAddressReq.setShippingaddressPaymentid(paymentId);
+    		mlPaypalShipAddressReq.setShippingaddressPaymentStr(paymentStr);
+    		mlPaypalShipAddressService.insertSelective(mlPaypalShipAddressReq);
+    		
+    		return mlPaypalShipAddressReq;
     	}
-    	
-    	MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
-    	mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
-    	mlPaypalShipAddressReq.setShippingaddressCountryName(countryName);
-    	mlPaypalShipAddressReq.setShippingaddressState(payerInfoReturn.getShippingAddress().getState());
-    	mlPaypalShipAddressReq.setShippingaddressStateProvinceName(provinceName);
-    	mlPaypalShipAddressReq.setShippingaddressCity(payerInfoReturn.getShippingAddress().getCity());
-    	mlPaypalShipAddressReq.setShippingaddressPostalCode(payerInfoReturn.getShippingAddress().getPostalCode());
-    	mlPaypalShipAddressReq.setShippingaddressLine1(payerInfoReturn.getShippingAddress().getLine1());
-    	mlPaypalShipAddressReq.setShippingaddressLine2(payerInfoReturn.getShippingAddress().getLine2());
-    	mlPaypalShipAddressReq.setShippingaddressRecipientName(payerInfoReturn.getShippingAddress().getRecipientName());
-    	mlPaypalShipAddressReq.setShippingaddressEmail(payerInfoReturn.getEmail());
-    	mlPaypalShipAddressReq.setShippingaddressPayinfoid(payinfoIdStr);
-    	mlPaypalShipAddressReq.setShippingaddressPaymentid(paymentId);
-    	mlPaypalShipAddressReq.setShippingaddressPaymentStr(paymentStr);
-    	mlPaypalShipAddressService.insertSelective(mlPaypalShipAddressReq);
-    	
-    	return mlPaypalShipAddressReq;
 	}
     
     /**
@@ -529,7 +562,7 @@ public class PaypalController {
      * 2.2wap/pc端处理toUpdateOrderInfoSuccess
 	 * @param payment
      * */
-	private void toUpdateOrderInfoSuccess(HttpSession session,Payment payment) {
+	private void toUpdateOrderInfoSuccess(HttpSession session,Payment payment,MlPaypalShipAddress mlPaypalShipAddressReturn) {
     	
 		//从交易信息中获取Transactions,
     	Transaction TransactionReturn = payment.getTransactions().get(0);
@@ -572,8 +605,8 @@ public class PaypalController {
 		
 		String ShippingMoney = TransactionReturn.getRelatedResources().get(0).getSale().getAmount().getDetails().getShipping();;
 		String addressMoney = ShippingMoney;
-		//2.2.1	wap+pc同时处理邮件
-		sendResultEmail(session,mlfrontPayInfoIOne, mlfrontOrderResOne,addressMoney);
+		//2.2.1	wap+pc同时处理邮件(包含地址信息)
+		sendResultEmail(session,mlfrontPayInfoIOne, mlfrontOrderResOne,addressMoney,mlPaypalShipAddressReturn);
 		
 		//更新用户的vip等级+购买次数
 		MlfrontUser mlfrontUser= (MlfrontUser) session.getAttribute("loginUser");
@@ -608,7 +641,7 @@ public class PaypalController {
 	/**
      * 2.2.1	wap+pc同时处理邮件
      * */
-    private void sendResultEmail(HttpSession session,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney) {
+    private void sendResultEmail(HttpSession session,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney,MlPaypalShipAddress mlPaypalShipAddress) {
     	try {
     		
     		Integer orderId = mlfrontOrderResOne.getOrderId();
@@ -642,8 +675,8 @@ public class PaypalController {
 			String Message = "pay Success</br>,已收到您的付款,会尽快给您安排发货,注意留意发货通知.祝您购物愉快";
 //			EmailUtilshtml.readyEmailPaySuccess(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage);
 //			EmailUtilshtmlCustomer.readyEmailPaySuccessCustomer(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage);
-			EmailNewUtilshtml.readyEmailPaySuccess(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage);
-			EmailNewUtilshtmlCustomer.readyEmailPaySuccessCustomer(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage);
+			EmailNewUtilshtml.readyEmailPaySuccess(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage,mlPaypalShipAddress);
+			EmailNewUtilshtmlCustomer.readyEmailPaySuccessCustomer(getToEmail, Message,mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage,mlPaypalShipAddress);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
