@@ -1098,7 +1098,7 @@
 			// billing/ecpp
 			$('.billing-item.paymentid .value').html(data.mlPaypalShipAddressOne.shippingaddressPaymentid || '');
 			$('.billing-item.username .value').html(data.mlPaypalShipAddressOne.shippingaddressRecipientName || '');
-			$('.billing-item.phone .value').html(data.mlfrontAddressOne.shippingaddressTelNumber || '--');
+			$('.billing-item.phone .value').html(data.mlPaypalShipAddressOne.shippingaddressTelNumber || '--');
 			$('.billing-item.email .value').html(data.mlPaypalShipAddressOne.shippingaddressEmail || '');
 			$('.billing-item.country .value').html((data.mlPaypalShipAddressOne.shippingaddressCountryName || '--') + ' ('+ (data.mlPaypalShipAddressOne.shippingaddressCountryCode || '--') +')');
 			$('.billing-item.city .value').html(data.mlPaypalShipAddressOne.shippingaddressCity || '');
