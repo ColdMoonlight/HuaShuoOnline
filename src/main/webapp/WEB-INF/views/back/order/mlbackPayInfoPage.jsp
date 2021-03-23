@@ -232,7 +232,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-4">
+								<div class="col-md-6">
 									<div class="card">
 										<div class="card-title">
 											<div class="card-title-name">Old Shipping Address</div>
@@ -277,52 +277,10 @@
 										</div>
 									</div>
 								</div>
-								
-								<div class="col-md-4">
-									<div class="card">
-										<div class="card-title">
-											<div class="card-title-name">New Shipping Address(ECCP)</div>
-										</div>
-										<div class="card-body shipping-list new-shipping">
-											<div class="shipping-item order-shipping username">
-												<div class="name">User Name</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item order-shipping address">
-												<div class="name">Address Details</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item order-shipping city">
-												<div class="name">city</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item order-shipping province">
-												<div class="name">Province/State</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item order-shipping postcode">
-												<div class="name">Post Code</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item order-shipping country">
-												<div class="name">Country</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item order-shipping phone">
-												<div class="name">Phone</div>
-												<div class="value"></div>
-											</div>
-											<div class="shipping-item order-shipping email">
-												<div class="name">E-mail</div>
-												<div class="value"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-4">
+								<div class="col-md-6">
 									<div class="card">
 										<div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
-											<div class="card-title-name">Billing Address</div>
+											<div class="card-title-name">Ecpp(Billing) Address</div>
 											<button class="btn btn-info" id="pay-track">paypal track</button>
 										</div>
 										<div class="card-body billing-list">
@@ -356,6 +314,10 @@
 											</div>
 											<div class="billing-item country">
 												<div class="name">Country Code</div>
+												<div class="value"></div>
+											</div>
+											<div class="billing-item phone">
+												<div class="name">Phone</div>
 												<div class="value"></div>
 											</div>
 											<div class="billing-item email">
@@ -1133,22 +1095,14 @@
 			$('.old-shipping .order-shipping.city .value').html(data.mlfrontAddressOne.addressCity || '');
 			$('.old-shipping .order-shipping.postcode .value').html(data.mlfrontAddressOne.addressPost || '');
 			$('.old-shipping .order-shipping.address .value').html(data.mlfrontAddressOne.addressDetail || '');
-			// new shipping
-			$('.new-shipping .order-shipping.username .value').html(data.mlPaypalShipAddressOne.shippingaddressRecipientName || '');
-			$('.new-shipping .order-shipping.email .value').html(data.mlPaypalShipAddressOne.shippingaddressEmail || '');
-			$('.new-shipping .order-shipping.phone .value').html(data.mlfrontAddressOne.addressTelephone || '');
-			$('.new-shipping .order-shipping.country .value').html(data.mlPaypalShipAddressOne.shippingaddressCountryName + ' ('+ data.mlPaypalShipAddressOne.shippingaddressCountryCode +')');
-			$('.new-shipping .order-shipping.province .value').html(data.mlPaypalShipAddressOne.shippingaddressStateProvinceName + ' ('+ data.mlPaypalShipAddressOne.shippingaddressState +')');
-			$('.new-shipping .order-shipping.city .value').html(data.mlPaypalShipAddressOne.shippingaddressCity || '');
-			$('.new-shipping .order-shipping.postcode .value').html(data.mlPaypalShipAddressOne.shippingaddressPostalCode || '');
-			$('.new-shipping .order-shipping.address .value').html(data.mlPaypalShipAddressOne.shippingaddressLine1 || '');
-			// billing
+			// billing/ecpp
 			$('.billing-item.paymentid .value').html(data.mlPaypalShipAddressOne.shippingaddressPaymentid || '');
 			$('.billing-item.username .value').html(data.mlPaypalShipAddressOne.shippingaddressRecipientName || '');
+			$('.billing-item.phone .value').html(data.mlfrontAddressOne.addressTelephone || '');
 			$('.billing-item.email .value').html(data.mlPaypalShipAddressOne.shippingaddressEmail || '');
-			$('.billing-item.country .value').html(data.mlPaypalShipAddressOne.shippingaddressCountryCode || '');
+			$('.billing-item.country .value').html((data.mlPaypalShipAddressOne.shippingaddressCountryName || '--') + ' ('+ (data.mlPaypalShipAddressOne.shippingaddressCountryCode || '--') +')');
 			$('.billing-item.city .value').html(data.mlPaypalShipAddressOne.shippingaddressCity || '');
-			$('.billing-item.province .value').html(data.mlPaypalShipAddressOne.shippingaddressState || '');
+			$('.billing-item.province .value').html((data.mlPaypalShipAddressOne.shippingaddressStateProvinceName || '--') + ' ('+ (data.mlPaypalShipAddressOne.shippingaddressState || '--') +')');
 			$('.billing-item.postcode .value').html(data.mlPaypalShipAddressOne.shippingaddressPostalCode || '');
 			$('.billing-item.line1 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine1 || '');
 			$('.billing-item.line2 .value').html(data.mlPaypalShipAddressOne.shippingaddressLine2 || '');
