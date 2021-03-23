@@ -473,6 +473,7 @@ public class PaypalController {
     		MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
     		mlPaypalShipAddressReq.setShippingaddressCountryCode(payerInfoReturn.getShippingAddress().getCountryCode());
     		mlPaypalShipAddressReq.setShippingaddressCountryName(countryName);
+    		mlPaypalShipAddressReq.setShippingaddressTelNumber(shippingTelPhone);
     		mlPaypalShipAddressReq.setShippingaddressState(payerInfoReturn.getShippingAddress().getState());
     		mlPaypalShipAddressReq.setShippingaddressStateProvinceName(provinceName);
     		mlPaypalShipAddressReq.setShippingaddressCity(payerInfoReturn.getShippingAddress().getCity());
