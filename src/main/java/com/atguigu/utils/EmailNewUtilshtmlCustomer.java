@@ -195,7 +195,7 @@ public class EmailNewUtilshtmlCustomer {
     		String Telephone = (String) PropertiesUtil.getProperty("megalook.properties", "delvery.Telephone");
             
             String content="Hi gorgeous girl.Here is Megalook Hair, We have received your order and confirmed your payment.<br>  "+
-            "Order ID :"+mlfrontPayInfoIOne.getPayinfoPlatenum()+" <br>"+
+            "Order ID :<b>"+mlfrontPayInfoIOne.getPayinfoPlatenum()+"</b> <br>"+
             "Date Added :"+mlfrontOrderItemList.get(0).getOrderitemMotifytime()+" <br>"+
             "Order Status : Payment completed, order processing... <br><br>"+
 	  		patSuccessEndLanguage+"<br><br>"+
