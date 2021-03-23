@@ -341,7 +341,7 @@ public class PaypalController {
     	String transactionId = TransactionReturn.getRelatedResources().get(0).getSale().getId();
     	String paypalDescription =  TransactionReturn.getDescription();
     	String transactionState = TransactionReturn.getRelatedResources().get(0).getSale().getState();   	
-    	String shippingTelPhone = TransactionReturn.getTransactions().get(0).getItemList().getShippingPhoneNumber();
+    	String shippingTelPhone = TransactionReturn.getItemList().getShippingPhoneNumber();
     	//从交易信息中获取PayerInfo,
     	PayerInfo payerInfoReturn = payment.getPayer().getPayerInfo();
 		//支付人,name,支付邮箱
