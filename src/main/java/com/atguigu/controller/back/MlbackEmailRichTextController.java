@@ -34,7 +34,7 @@ public class MlbackEmailRichTextController {
 	MlfrontPayInfoService mlfrontPayInfoService;
 	
 	/**
-	 * 1.0	zsh20210223
+	 * 1.0	zsh20210323
 	 * toMlbackEmailRichText列表页面
 	 * @param jsp
 	 * @return
