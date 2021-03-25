@@ -1,5 +1,7 @@
 package com.atguigu.dao;
 
+import java.util.List;
+
 import com.atguigu.bean.MlbackEmailRichText;
 
 public interface MlbackEmailRichTextMapper {
@@ -14,4 +16,8 @@ public interface MlbackEmailRichTextMapper {
     int updateByPrimaryKeySelective(MlbackEmailRichText record);
 
     int updateByPrimaryKey(MlbackEmailRichText record);
+
+	List<MlbackEmailRichText> selectMlbackEmailRichTextGetAll();
+
+	List<MlbackEmailRichText> selectMlbackEmailRichTextListByName(MlbackEmailRichText mlbackEmailRichTextReq);
 }
