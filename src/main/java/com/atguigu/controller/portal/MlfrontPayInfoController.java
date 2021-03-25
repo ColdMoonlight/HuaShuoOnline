@@ -1167,6 +1167,9 @@ public class MlfrontPayInfoController {
 		String sendNumStrNow = sendNumStr.replace("intofail", "succeed");
 		System.out.println("manualUpdateSendSucceed,mlfrontPayInfoReq"+mlfrontPayInfoReq.toString());
 		mlfrontPayInfoReq.setPayinfoSendnum(sendNumStrNow);
+		
+		//这一条需要手动发送邮件:
+		
 		mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoReq);
 		
 		return Msg.success().add("resMsg", "本次刷新没有状态是已支付的单子,无改变");
