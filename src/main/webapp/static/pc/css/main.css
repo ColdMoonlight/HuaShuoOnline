@@ -5264,3 +5264,71 @@ footer li {
 	  top: -.75rem;
 	}
 }
+
+/* customer introduce */
+.customer-introduce {
+	margin-top: 1rem;
+}
+.customer-introduce-bg {
+	background-size: cover;
+	background-position: center;
+}
+.customer-introduce-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	background-color: rgba(0, 0, 0, .5);
+}
+
+.customer-introduce-text1 {
+	font-weight: 500;
+	color: #fff;
+}
+
+.customer-introduce-text2,
+.customer-introduce-text3 {
+	font-weight: 500;
+	color: #fff;
+}
+
+.customer-introduce-btn {
+	display: block;
+	width: 50%;
+	height: 36px;  
+	line-height: 36px;
+	margin-left: 25%;
+	margin-top: 15px;
+	text-align: center;
+	background: #000;
+	font-size: 15px;
+	color: #fff;
+	border-radius: 5px;
+	text-decoration: none;
+}
+
+@media screen and (max-width: 899px){
+	.customer-introduce-info {
+		padding: 20px;
+	}
+	.customer-introduce-text1 {
+		font-size: 16px;
+	}
+	.customer-introduce-text2,
+	.customer-introduce-text3 {
+		font-size: 12px;
+	}
+}
+
+@media screen and (min-width: 900px){
+	.customer-introduce-info {
+		padding: 36px 22%;
+	}
+	.customer-introduce-text1 {
+		font-size: 18px;
+	}
+	.customer-introduce-text2,
+	.customer-introduce-text3 {
+		font-size: 14px;
+	}
+}
