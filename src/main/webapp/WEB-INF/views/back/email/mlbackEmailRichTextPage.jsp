@@ -7,7 +7,31 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Email Template</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
+	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
+	<style>
+		.email-notification {
+			margin-top: 1rem;
+		}
+		.email-notification-item {
+			display: flex;
+			padding: .5rem;
+		}
+		.email-notification-item+.email-notification-item {
+			border-top: 1px solid #ccc;
+		}
+		.email-notification-name {
+			width: 180px;
+			color: #006fbb;
+			font-weight: 500;
+			font-size: .875rem;
+			cursor: pointer;
+		}
+		.email-notification-info {
+			margin-left: 1rem;
+			font-size: .75rem;
+			color: #333;
+		}
+	</style>
 </head>
 
 <body class="c-app">
@@ -18,10 +42,10 @@
 			<div class="c-main">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">Email Template</span>
-						<button class="btn btn-primary btn-create">Create Email-template</button>
+						<span class="c-option-title">Email Notifications</span>
+						<!-- <button class="btn btn-primary btn-create">Create Email-template</button> -->
 					</div>
-					<div class="c-table">
+					<!-- <div class="c-table">
 						<div class="c-table-content">
 							<div class="c-table-table table-responsive-sm">
 								<table class="table">
@@ -36,7 +60,30 @@
 								</table>
 							</div>
 							<div id="table-pagination"></div>
+							
 						</div>
+					</div> -->
+					
+					<div class="email-notification">
+						<div class="card">
+							<div class="card-title">
+								<div class="card-title-name">Orders</div>
+							</div>
+							<div class="card-body">
+								<div class="email-notification-item">
+									<div class="email-notification-name" data-id="1">Order confirmation</div>
+									<div class="email-notification-info">Sent automatically to the customer after they place their order.</div>
+								</div>
+								<div class="email-notification-item">
+									<div class="email-notification-name" data-id="2">Order edited</div>
+									<div class="email-notification-info">Sent to the customer after their order is edited (if you select this option).</div>
+								</div>
+								<div class="email-notification-item">
+									<div class="email-notification-name" data-id="3">Order edited invoice</div>
+									<div class="email-notification-info">Sent to the customer after their order is edited and they owe money (if you select this option).</div>
+								</div>
+							</div>
+						</div>							
 					</div>
 				</div>
 				<!-- edit or create -->
