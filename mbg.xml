@@ -76,6 +76,8 @@
 		<table tableName="tb_mlback_emailRichtext" domainObjectName="MlbackEmailRichText" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		//产品推荐/一起买
 		<table tableName="tb_mlback_productTogether" domainObjectName="MlbackProductTogether" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		//产品推荐/一起买
+		<table tableName="tb_mlback_blog" domainObjectName="MlbackBlog" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 
 		<!--	tb_mlfront
