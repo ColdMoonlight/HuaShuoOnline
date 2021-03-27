@@ -120,4 +120,36 @@ public class MlbackBlog {
     public void setBlogContentrichtext(String blogContentrichtext) {
         this.blogContentrichtext = blogContentrichtext == null ? null : blogContentrichtext.trim();
     }
+
+	public MlbackBlog() {
+		super();
+	}
+
+	public MlbackBlog(Integer blogId, String blogSeoname, String blogName, String blogMetaTitle, String blogMetaKeyword,
+			String blogMetaDesc, String blogBannerimg, String blogAuthorCreatetime, Integer blogStatus,
+			String blogCreatetime, String blogMotifytime, String blogContentrichtext) {
+		super();
+		this.blogId = blogId;
+		this.blogSeoname = blogSeoname;
+		this.blogName = blogName;
+		this.blogMetaTitle = blogMetaTitle;
+		this.blogMetaKeyword = blogMetaKeyword;
+		this.blogMetaDesc = blogMetaDesc;
+		this.blogBannerimg = blogBannerimg;
+		this.blogAuthorCreatetime = blogAuthorCreatetime;
+		this.blogStatus = blogStatus;
+		this.blogCreatetime = blogCreatetime;
+		this.blogMotifytime = blogMotifytime;
+		this.blogContentrichtext = blogContentrichtext;
+	}
+
+	@Override
+	public String toString() {
+		return "MlbackBlog [blogId=" + blogId + ", blogSeoname=" + blogSeoname + ", blogName=" + blogName
+				+ ", blogMetaTitle=" + blogMetaTitle + ", blogMetaKeyword=" + blogMetaKeyword + ", blogMetaDesc="
+				+ blogMetaDesc + ", blogBannerimg=" + blogBannerimg + ", blogAuthorCreatetime=" + blogAuthorCreatetime
+				+ ", blogStatus=" + blogStatus + ", blogCreatetime=" + blogCreatetime + ", blogMotifytime="
+				+ blogMotifytime + ", blogContentrichtext=" + blogContentrichtext + "]";
+	}
+    
 }
