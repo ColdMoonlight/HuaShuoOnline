@@ -148,6 +148,8 @@ public class MlfrontOrderListController {
 	public Msg getCheckpointByTrackingNumber(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
 			@RequestParam(value = "trackingNumber") String trackingNumber,@RequestParam(value = "Slug") String Slug) {
 		
+		System.out.println("有人调用getCheckpointByTrackingNumber接口字段为trackingNumber:"+trackingNumber+",Slug:"+Slug);
+		
 		Tracking trackingRes = shipInformation.getTrackingByTrackingNumberAndSlug(trackingNumber,Slug);
 		List<Checkpoint> CheckpointList =  trackingRes.getCheckpoints();
 		
