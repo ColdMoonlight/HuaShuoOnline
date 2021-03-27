@@ -18,6 +18,10 @@ public class MlbackBlog {
     private String blogAuthorCreatetime;
 
     private Integer blogStatus;
+    
+    private Integer blogSuperCateid;
+    
+    private String blogSuperCatename;
 
     private String blogCreatetime;
 
@@ -96,8 +100,24 @@ public class MlbackBlog {
     public void setBlogStatus(Integer blogStatus) {
         this.blogStatus = blogStatus;
     }
+    
+    public Integer getBlogSuperCateid() {
+		return blogSuperCateid;
+	}
 
-    public String getBlogCreatetime() {
+	public void setBlogSuperCateid(Integer blogSuperCateid) {
+		this.blogSuperCateid = blogSuperCateid;
+	}
+
+	public String getBlogSuperCatename() {
+		return blogSuperCatename;
+	}
+
+	public void setBlogSuperCatename(String blogSuperCatename) {
+		this.blogSuperCatename = blogSuperCatename == null ? null : blogSuperCatename.trim();
+	}
+
+	public String getBlogCreatetime() {
         return blogCreatetime;
     }
 
@@ -127,7 +147,8 @@ public class MlbackBlog {
 
 	public MlbackBlog(Integer blogId, String blogSeoname, String blogName, String blogMetaTitle, String blogMetaKeyword,
 			String blogMetaDesc, String blogBannerimg, String blogAuthorCreatetime, Integer blogStatus,
-			String blogCreatetime, String blogMotifytime, String blogContentrichtext) {
+			Integer blogSuperCateid, String blogSuperCatename, String blogCreatetime, String blogMotifytime,
+			String blogContentrichtext) {
 		super();
 		this.blogId = blogId;
 		this.blogSeoname = blogSeoname;
@@ -138,6 +159,8 @@ public class MlbackBlog {
 		this.blogBannerimg = blogBannerimg;
 		this.blogAuthorCreatetime = blogAuthorCreatetime;
 		this.blogStatus = blogStatus;
+		this.blogSuperCateid = blogSuperCateid;
+		this.blogSuperCatename = blogSuperCatename;
 		this.blogCreatetime = blogCreatetime;
 		this.blogMotifytime = blogMotifytime;
 		this.blogContentrichtext = blogContentrichtext;
@@ -148,8 +171,9 @@ public class MlbackBlog {
 		return "MlbackBlog [blogId=" + blogId + ", blogSeoname=" + blogSeoname + ", blogName=" + blogName
 				+ ", blogMetaTitle=" + blogMetaTitle + ", blogMetaKeyword=" + blogMetaKeyword + ", blogMetaDesc="
 				+ blogMetaDesc + ", blogBannerimg=" + blogBannerimg + ", blogAuthorCreatetime=" + blogAuthorCreatetime
-				+ ", blogStatus=" + blogStatus + ", blogCreatetime=" + blogCreatetime + ", blogMotifytime="
-				+ blogMotifytime + ", blogContentrichtext=" + blogContentrichtext + "]";
+				+ ", blogStatus=" + blogStatus + ", blogSuperCateid=" + blogSuperCateid + ", blogSuperCatename="
+				+ blogSuperCatename + ", blogCreatetime=" + blogCreatetime + ", blogMotifytime=" + blogMotifytime
+				+ ", blogContentrichtext=" + blogContentrichtext + "]";
 	}
-    
+
 }

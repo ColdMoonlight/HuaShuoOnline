@@ -132,15 +132,13 @@ public class MlbackBlogController {
 		String nowTime = DateUtil.strTime14s();
 		mlbackBlog.setBlogMotifytime(nowTime);
 		
-		//先对这个产品选择的一些类,进行productIdStr的清理
-		//4.0.1从中读取categoryIdsStr,切割得到每一个categoryId,遍历,把productId,填充再每个查回来的categort中的proidStr拼上
 		mlbackBlogService.updateByPrimaryKeySelective(mlbackBlog);
-		return Msg.success().add("resMsg", "category保存成功");
+		return Msg.success().add("resMsg", "Blog保存成功");
 	}
 	
 	/**6.0	20200608
 	 * MlbackBlog	delete
-	 * @param MlbackBlog-categoryId
+	 * @param MlbackBlog-BlogId
 	 * @return 
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
@@ -149,7 +147,7 @@ public class MlbackBlogController {
 		//接收id信息
 		int blogIdInt = mlbackBlog.getBlogId();
 		mlbackBlogService.deleteByPrimaryKey(blogIdInt);
-		return Msg.success().add("resMsg", "category delete  success");
+		return Msg.success().add("resMsg", "Blog delete  success");
 	}
 	
 
