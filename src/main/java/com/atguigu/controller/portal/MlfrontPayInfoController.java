@@ -288,7 +288,6 @@ public class MlfrontPayInfoController {
 			MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();
 			mlbackProductSkuReq.setProductskuCode(proSkuBuy);
 			mlbackProductSkuReq.setProductskuPSeoname(proSeo);
-			
 			List<MlbackProductSku> mlbackProductSkuList =  mlbackProductSkuService.selectMlProductSkuListByPskuCode(mlbackProductSkuReq);
 			
 			if(mlbackProductSkuList.size()>0){
