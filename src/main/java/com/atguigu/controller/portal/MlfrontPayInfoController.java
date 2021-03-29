@@ -299,6 +299,8 @@ public class MlfrontPayInfoController {
 					MlbackProductSku mlbackProductSkuNow = new MlbackProductSku();
 					mlbackProductSkuNow.setProductskuId(mlbackProductSkuOne.getProductskuId());
 					mlbackProductSkuNow.setProductskuStock(nowNum);
+					//执行更新,将减后的数据-执行更新
+					mlbackProductSkuService.updateByPrimaryKeySelective(mlbackProductSkuNow);
 				}
 			}
 		}
