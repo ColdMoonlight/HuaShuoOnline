@@ -11,6 +11,8 @@
     <result column="blog_bannerImg" jdbcType="VARCHAR" property="blogBannerimg" />
     <result column="blog_author_createtime" jdbcType="VARCHAR" property="blogAuthorCreatetime" />
     <result column="blog_status" jdbcType="INTEGER" property="blogStatus" />
+    <result column="blog_super_cateid" jdbcType="INTEGER" property="blogSuperCateid" />
+    <result column="blog_super_catename" jdbcType="VARCHAR" property="blogSuperCatename" />
     <result column="blog_createtime" jdbcType="VARCHAR" property="blogCreatetime" />
     <result column="blog_motifytime" jdbcType="VARCHAR" property="blogMotifytime" />
   </resultMap>
@@ -19,7 +21,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     blog_id, blog_seoname, blog_name, blog_meta_title, blog_meta_keyword, blog_meta_desc, 
-    blog_bannerImg, blog_author_createtime, blog_status, blog_createtime, blog_motifytime
+    blog_bannerImg, blog_author_createtime, blog_status, blog_super_cateid, blog_super_catename, blog_createtime, blog_motifytime
   </sql>
   <sql id="Blob_Column_List">
     blog_contentrichtext
@@ -35,12 +37,13 @@
   <insert id="insert" parameterType="com.atguigu.bean.MlbackBlog">
     insert into tb_mlback_blog (blog_id, blog_seoname, blog_name, 
       blog_meta_title, blog_meta_keyword, blog_meta_desc, 
-      blog_bannerImg, blog_author_createtime, blog_status, 
+      blog_bannerImg, blog_author_createtime, blog_status, blog_super_cateid, blog_super_catename, 
       blog_createtime, blog_motifytime, blog_contentrichtext
       )
     values (#{blogId,jdbcType=INTEGER}, #{blogSeoname,jdbcType=VARCHAR}, #{blogName,jdbcType=VARCHAR}, 
       #{blogMetaTitle,jdbcType=VARCHAR}, #{blogMetaKeyword,jdbcType=VARCHAR}, #{blogMetaDesc,jdbcType=VARCHAR}, 
-      #{blogBannerimg,jdbcType=VARCHAR}, #{blogAuthorCreatetime,jdbcType=VARCHAR}, #{blogStatus,jdbcType=INTEGER}, 
+      #{blogBannerimg,jdbcType=VARCHAR}, #{blogAuthorCreatetime,jdbcType=VARCHAR}, #{blogStatus,jdbcType=INTEGER},
+      #{blogSuperCateid,jdbcType=INTEGER}, #{blogSuperCatename,jdbcType=VARCHAR}, 
       #{blogCreatetime,jdbcType=VARCHAR}, #{blogMotifytime,jdbcType=VARCHAR}, #{blogContentrichtext,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -54,6 +57,8 @@
       blog_bannerImg = #{blogBannerimg,jdbcType=VARCHAR},
       blog_author_createtime = #{blogAuthorCreatetime,jdbcType=VARCHAR},
       blog_status = #{blogStatus,jdbcType=INTEGER},
+      blog_super_cateid = #{blogSuperCateid,jdbcType=INTEGER}, 
+      blog_super_catename = #{blogSuperCatename,jdbcType=VARCHAR}, 
       blog_createtime = #{blogCreatetime,jdbcType=VARCHAR},
       blog_motifytime = #{blogMotifytime,jdbcType=VARCHAR},
       blog_contentrichtext = #{blogContentrichtext,jdbcType=LONGVARCHAR}
@@ -69,6 +74,8 @@
       blog_bannerImg = #{blogBannerimg,jdbcType=VARCHAR},
       blog_author_createtime = #{blogAuthorCreatetime,jdbcType=VARCHAR},
       blog_status = #{blogStatus,jdbcType=INTEGER},
+      blog_super_cateid = #{blogSuperCateid,jdbcType=INTEGER}, 
+      blog_super_catename = #{blogSuperCatename,jdbcType=VARCHAR}, 
       blog_createtime = #{blogCreatetime,jdbcType=VARCHAR},
       blog_motifytime = #{blogMotifytime,jdbcType=VARCHAR}
     where blog_id = #{blogId,jdbcType=INTEGER}
@@ -103,6 +110,12 @@
       </if>
       <if test="blogStatus != null">
         blog_status,
+      </if>
+      <if test="blogSuperCateid != null">
+        blog_super_cateid,
+      </if>
+      <if test="blogSuperCatename != null">
+        blog_super_catename,
       </if>
       <if test="blogCreatetime != null">
         blog_createtime,
@@ -141,6 +154,12 @@
       </if>
       <if test="blogStatus != null">
         #{blogStatus,jdbcType=INTEGER},
+      </if>
+      <if test="blogSuperCateid != null">
+        #{blogSuperCateid,jdbcType=INTEGER},
+      </if>
+      <if test="blogSuperCatename != null">
+        #{blogSuperCatename,jdbcType=VARCHAR},
       </if>
       <if test="blogCreatetime != null">
         #{blogCreatetime,jdbcType=VARCHAR},
@@ -189,6 +208,12 @@
       <if test="blogCreatetime != null">
         blog_createtime = #{blogCreatetime,jdbcType=VARCHAR},
       </if>
+      <if test="blogSuperCateid != null">
+        blog_super_cateid = #{blogSuperCateid,jdbcType=INTEGER}, 
+      </if>
+      <if test="blogSuperCatename != null">
+      	blog_super_catename = #{blogSuperCatename,jdbcType=VARCHAR}, 
+      </if>
       <if test="blogMotifytime != null">
         blog_motifytime = #{blogMotifytime,jdbcType=VARCHAR},
       </if>
@@ -201,7 +226,7 @@
   <!-- selectMlbackBlogGetAll使用中 -->
   <select id="selectMlbackBlogGetAll" parameterType="com.atguigu.bean.MlbackBlog" resultMap="BaseResultMap">
     select 
-    blog_id, blog_seoname, blog_name, blog_bannerImg, blog_author_createtime, blog_status
+    blog_id, blog_seoname, blog_name, blog_bannerImg, blog_author_createtime, blog_status,blog_super_cateid,blog_super_catename
     from tb_mlback_blog order by blog_author_createtime desc
   </select>
   <!-- selectMlbackBlogByParam -->
@@ -220,6 +245,12 @@
       </if>
       <if test="blogStatus != null">
         and blog_status = #{blogStatus,jdbcType=INTEGER}
+      </if>
+      <if test="blogSuperCateid != null">
+        and blog_super_cateid = #{blogSuperCateid,jdbcType=INTEGER}
+      </if>
+      <if test="blogSuperCatename != null">
+        and blog_super_catename = #{blogSuperCatename,jdbcType=VARCHAR}
       </if>
   </select>
 

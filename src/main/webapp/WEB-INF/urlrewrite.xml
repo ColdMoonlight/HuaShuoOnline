@@ -35,6 +35,11 @@
         <from>^/SMS/([a-z0-9A-Z-]{5,30}).html</from>
         <to type="forward">/MlbackCart/toCheakOutSMSMoreBuyByhtml?orderIdIntoStr=$1</to>
     </rule>
+    <!-- 博客链接 -->
+    <rule>
+        <from>^/Blog/([a-z0-9A-Z-]{5,60}).html</from>
+        <to type="forward">/MlbackBlog/toBlogDetailPageByhtml?blogSeoname=$1</to>
+    </rule>
     <rule>
         <from>^/myCart.html</from>
         <to>/MlbackCart/toCartList</to>
