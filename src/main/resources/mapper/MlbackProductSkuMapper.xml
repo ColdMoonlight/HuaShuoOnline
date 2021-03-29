@@ -202,6 +202,9 @@
     productSku_money, productSku_stock, productSku_pid, productSku_status
     from tb_mlback_product_sku
     where productSku_Code = #{productskuCode,jdbcType=VARCHAR}
+    <if test="productskuPSeoname != null">
+       and productSku_PSeoname = #{productskuPSeoname,jdbcType=VARCHAR}
+    </if>
   </select>
   
 </mapper>
