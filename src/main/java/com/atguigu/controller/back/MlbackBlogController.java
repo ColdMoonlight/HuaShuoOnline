@@ -53,6 +53,17 @@ public class MlbackBlogController {
 		}
 	}
 	
+	/**
+	 * 1.0	20210327
+	 * to后台分类MlbackBlog列表页面
+	 * @return jsp
+	 * */
+	@RequestMapping("/toMlbackBlogList")
+	public String toMlbackBlogList(HttpSession session) throws Exception{
+		
+		return "portal/subject/blogList";
+	}
+	
 	/**2.0	20210327
 	 * 后台MlbackBlog列表分页list数据
 	 * @param pn
