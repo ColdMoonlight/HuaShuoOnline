@@ -293,8 +293,8 @@ public class MlfrontPayInfoController {
 				MlbackProductSku mlbackProductSkuOne = mlbackProductSkuList.get(0);
 				Integer nowNum = mlbackProductSkuOne.getProductskuStock();
 				if(nowNum>0){
-					nowNum = nowNum - buyNum;
 					//
+					nowNum = nowNum - buyNum;
 					MlbackProductSku mlbackProductSkuNow = new MlbackProductSku();
 					mlbackProductSkuNow.setProductskuId(mlbackProductSkuOne.getProductskuId());
 					mlbackProductSkuNow.setProductskuStock(nowNum);
