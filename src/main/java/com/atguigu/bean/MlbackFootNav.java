@@ -13,6 +13,8 @@ public class MlbackFootNav {
     private Integer footnavLie;
     
     private Integer footnavClickType;   //类型 
+    
+    private String footnavClickUrl;
 
     private String footnavCreatetime;
 
@@ -74,6 +76,14 @@ public class MlbackFootNav {
 
 	public void setFootnavClickType(Integer footnavClickType) {
 		this.footnavClickType = footnavClickType;
+	}
+	
+	public String getFootnavClickUrl() {
+		return footnavClickUrl;
+	}
+
+	public void setFootnavClickUrl(String footnavClickUrl) {
+		this.footnavClickUrl = footnavClickUrl == null ? null : footnavClickUrl.trim();
 	}
 
 	public String getFootnavCreatetime() {
@@ -137,9 +147,9 @@ public class MlbackFootNav {
 	}
 
 	public MlbackFootNav(Integer footnavId, String footnavSeo, String footnavName, Integer footnavHang,
-			Integer footnavLie, Integer footnavClickType, String footnavCreatetime, String footnavMotifytime,
-			Integer footnavIfincome, Integer footnavIfshow, String footnavDesc, Integer footnavSuperCateId,
-			String footnavSuperCateName) {
+			Integer footnavLie, Integer footnavClickType, String footnavClickUrl, String footnavCreatetime,
+			String footnavMotifytime, Integer footnavIfincome, Integer footnavIfshow, String footnavDesc,
+			Integer footnavSuperCateId, String footnavSuperCateName) {
 		super();
 		this.footnavId = footnavId;
 		this.footnavSeo = footnavSeo;
@@ -147,6 +157,7 @@ public class MlbackFootNav {
 		this.footnavHang = footnavHang;
 		this.footnavLie = footnavLie;
 		this.footnavClickType = footnavClickType;
+		this.footnavClickUrl = footnavClickUrl;
 		this.footnavCreatetime = footnavCreatetime;
 		this.footnavMotifytime = footnavMotifytime;
 		this.footnavIfincome = footnavIfincome;
@@ -159,11 +170,11 @@ public class MlbackFootNav {
 	@Override
 	public String toString() {
 		return "MlbackFootNav [footnavId=" + footnavId + ", footnavSeo=" + footnavSeo + ", footnavName=" + footnavName
-				+ ", footnavHang=" + footnavHang + ", footnavLie=" + footnavLie + ", footnavClickType=" + footnavClickType
-				+ ", footnavCreatetime=" + footnavCreatetime + ", footnavMotifytime=" + footnavMotifytime
-				+ ", footnavIfincome=" + footnavIfincome + ", footnavIfshow=" + footnavIfshow + ", footnavDesc="
-				+ footnavDesc + ", footnavSuperCateId=" + footnavSuperCateId + ", footnavSuperCateName="
-				+ footnavSuperCateName + "]";
+				+ ", footnavHang=" + footnavHang + ", footnavLie=" + footnavLie + ", footnavClickType="
+				+ footnavClickType + ", footnavClickUrl=" + footnavClickUrl + ", footnavCreatetime=" + footnavCreatetime
+				+ ", footnavMotifytime=" + footnavMotifytime + ", footnavIfincome=" + footnavIfincome
+				+ ", footnavIfshow=" + footnavIfshow + ", footnavDesc=" + footnavDesc + ", footnavSuperCateId="
+				+ footnavSuperCateId + ", footnavSuperCateName=" + footnavSuperCateName + "]";
 	}
 
 }
