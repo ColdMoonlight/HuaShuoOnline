@@ -243,7 +243,7 @@ function updateProductStatus(selected) {
 			selectArr[i] = item;
 			curr = trimSpliter(selectArr.join(','), ',');
 			$item = $('.product-option-item[data-type="' + key + '"]').find('.radio[data-text="' + item + '"]');
-            if (mapSet[curr] && mapSet[curr].count) {
+            if (mapSet[curr] && mapSet[curr].count > 0) {
                 $item.removeClass('disabled');
             } else {
             	 $item.addClass('disabled').removeClass('active');
