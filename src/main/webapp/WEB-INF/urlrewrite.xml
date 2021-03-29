@@ -41,6 +41,10 @@
         <to type="forward">/MlbackBlog/toBlogDetailPageByhtml?blogSeoname=$1</to>
     </rule>
     <rule>
+        <from>^/Blog.html</from>
+        <to>/MlbackBlog/toMlbackBlogList</to>
+    </rule>
+    <rule>
         <from>^/myCart.html</from>
         <to>/MlbackCart/toCartList</to>
     </rule>
