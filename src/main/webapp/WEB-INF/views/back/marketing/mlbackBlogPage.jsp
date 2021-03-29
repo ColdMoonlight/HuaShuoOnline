@@ -201,10 +201,8 @@
 		var storageName = 'blog';
 		var selectedName = [];
 		var selectedId = [];
-
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
 	 	$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
-
 		// init
 		bindDateTimepicker();
 		renderTabItems();
@@ -252,7 +250,6 @@
 			setPageNum(1);
 			// check searchPagearea
 			if (parseInt(searchPageareaVal.supercateId) < 0) searchPageareaVal.supercate = "";
-
 			$('.c-table-tab-item.active').removeClass('active');
 			$('.c-table-tab-tempory').html(createTableTabItem(searchPageareaVal).addClass('active'));
 			getTabSearchData($('.c-table-tab-tempory .c-table-tab-item'));
@@ -327,23 +324,18 @@
 			});
 			$('#editModal .select-result').addClass('hide');
 		});
-
 		// upload Blog img
 		$('#blogBannerimg').on('change', function(e) {
 			var $this = $(this);
 			var file = $this[0].files[0];
 			var formData = new FormData();
-
 			if (!file) return false;
-
 			$this.parent().find('.spinner').show();
 			$this.val('');
-
 			formData.append('type', 'blog');
 			formData.append('image', file);
 			formData.append('blogId', parseInt($('#blogId').val()));
 			formData.append('blogSeoname', $('#blogSeoname').val());
-
 			$.ajax({
 				url: "${APP_PATH}/ImageUpload/uploadBlogImg",
 				type: "post",
@@ -379,7 +371,6 @@
 					initActiveItemNum();
 					$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
 				}
-
 				getTabSearchData($('.c-table-tab-item.active'));
 				showInitBlock();
 				$('#blogId').val('');
@@ -396,7 +387,6 @@
 					console.log("cancel create Blog");
 				});
 			}
-
 			showInitBlock();
 		});
 		
@@ -458,11 +448,9 @@
 			$('#blogName').val('');
 			$('#blogSeoname').val('');
 			$('#blogStatus').prop('checked', false)
-
 			$('#blogContentrichtext').val('');
 			
 			resetPicture($('#blogBannerimg'));
-
 			$('#blogSuperCateid').val('-1');
 			
 			$('#blogMetaTitle').val('');
@@ -476,16 +464,12 @@
 			data.blogName = $('#blogName').val();
 			data.blogSeoname = $('#blogSeoname').val();
 			data.blogStatus = $('#blogStatus').prop('checked') ? 1 : 0;
-
 			data.blogContentrichtext = $('#blogContentrichtext').val();
-
 			data.blogSuperCateid = $('#blogSuperCateid').val();
 			data.blogSuperCatename = $('#blogSuperCateid').find('option:selected').text();
-
 			data.blogMetaTitle = $('#blogMetaTitle').val();
 			data.blogMetaKeyword = $('#blogMetaKeyword').val();
-			data.blogMetaDesc = $('#productMetaDesc').val();
-
+			data.blogMetaDesc = $('#blogMetaDesc').val();
 			return data;
 		}
 		// initFormData
@@ -498,14 +482,13 @@
 			$('#blogContentrichtext').val(data.blogContentrichtext);
 			
 			if (data.blogBannerimg) {
-				addPicture($('#productImgurl'), {
+				addPicture($('#blogBannerimg'), {
 					imageUrl: data.blogBannerimg,
 					thumImageUrl: data.blogBannerimg
 				});
 			} else {
 				resetPicture($('#blogBannerimg'));
 			}
-
 			$('#blogMetaTitle').val(data.blogMetaTitle);
 			$('#blogMetaKeyword').val(data.blogMetaKeyword);
 			$('#blogMetaDesc').val(data.blogMetaDesc);
@@ -523,12 +506,12 @@
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						var blogId = data.extend && data.extend.mlbackBlog && data.extend.mlbackBlog.blogId;
+						var blogId = data.extend && data.extend.MlbackBlog && data.extend.MlbackBlog.blogId;
 						if (blogId) {
 							$('#blogId').val(blogId);
 							toastr.success(data.extend.resMsg);
 						} else {
-							toastr.error('create page-area fail! Please try again.');
+							toastr.error('create Blog fail! Please try again.');
 						}
 					} else {
 						showInitBlock();
@@ -546,10 +529,8 @@
 		// callback get all data
 		function getBlogsData() {
 			$('.c-mask').show();
-
 			var formData = new FormData();
 			formData.append('pn', getPageNum());
-
 			$.ajax({
 				url: "${APP_PATH}/MlbackBlog/getMlbackBlogByPage",
 				type: "post",
@@ -585,7 +566,6 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						console.log(data.extend.MlbackBlogOne)
 						callback(data.extend.MlbackBlogOne);
 						toastr.success(data.extend.resMsg);
 					} else {
@@ -603,12 +583,10 @@
 		// callback get search data
 		function getSearcBlogData(data) {
 			$('.c-mask').show();
-
 			var formData = new FormData();
 			formData.append('blogName', $('#searchBlogName').val());
 			formData.append('blogSuperCateid', ($('#searchSupercate').attr('data-val') || '-1'));
 			formData.append('pn', getPageNum());
-
 			$.ajax({
 				url: "${APP_PATH}/MlbackBlog/backSearchByBlog",
 				type: "post",
