@@ -1259,7 +1259,9 @@ if (proudctTogetherId != 999) {
 				        "cartitemProductNumber": item.cartitemProductNumber
 					});
 				});
-				cartListCheckout(checkoutData, goToCheckout);
+				cartListCheckout(checkoutData, function() {
+					window.location.href = '${APP_PATH}/MlbackCart/toCheakOut#product-together';
+				});
 			} else {
 				sysModalTip();
 			}

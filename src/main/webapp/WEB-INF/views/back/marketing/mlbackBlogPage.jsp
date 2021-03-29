@@ -34,7 +34,7 @@
 								</svg>
 								<div class="form-control">
 									<input id="searchBlogName" type="text" placeholder="Search Blog by name..." />						
-									<select class="supercate-list" id="searchSupercate"></select>
+									<select class="supercate-list hide" id="searchSupercate"></select>
 								</div>
 								<a class="btn btn-primary input-group-addon btn-save-search">Save Blog</a>
 							</div>
