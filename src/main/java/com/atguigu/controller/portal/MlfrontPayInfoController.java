@@ -283,10 +283,12 @@ public class MlfrontPayInfoController {
 			String proSkuBuy = mlfrontOrderItemOne.getOrderitemPskuCode();//orderItem_pSku_code
 			
 			Integer buyNum = mlfrontOrderItemOne.getOrderitemPskuNumber();
+			String proSeo = mlfrontOrderItemOne.getOrderitemPseo();
 			
 			MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();
 			
 			mlbackProductSkuReq.setProductskuCode(proSkuBuy);
+			mlbackProductSkuReq.setProductskuPSeoname(proSeo);
 			
 			List<MlbackProductSku> mlbackProductSkuList =  mlbackProductSkuService.selectMlProductSkuListByPskuCode(mlbackProductSkuReq);
 			
