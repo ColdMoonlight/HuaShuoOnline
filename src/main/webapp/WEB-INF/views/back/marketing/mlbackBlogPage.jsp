@@ -7,6 +7,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Blog</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
+	<link href="${APP_PATH}/static/back/lib/codemirror/codemirror.min.css" rel="stylesheet">
+	<link href="${APP_PATH}/static/back/lib/codemirror/blackboard.min.css" rel="stylesheet">
+	<link href="${APP_PATH}/static/back/lib/codemirror/monokai.min.css" rel="stylesheet">
+	<link href="${APP_PATH}/static/back/lib/summernote/summernote.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 </head>
 
@@ -190,6 +194,10 @@
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/editModal.jsp" flush="true"></jsp:include>
 
+	<script src="${APP_PATH}/static/back/lib/codemirror/codemirror.js"></script>
+	<script src="${APP_PATH}/static/back/lib/codemirror/xml.min.js"></script>
+	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
+
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 
@@ -201,6 +209,26 @@
 		var storageName = 'blog';
 		var selectedName = [];
 		var selectedId = [];
+
+		$('#blogContentrichtext').summernote({
+			height: 300,
+			codemirror: {
+				mode: 'text/html',
+				htmlMode: true,
+				lineNumbers: true,
+				theme: 'monokai'
+			},
+	        toolbar: [
+				['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+				['fontsize', ['fontsize']],
+				['height', ['height']],
+				['color', ['color']],
+				['para', ['ul', 'ol', 'paragraph']],
+				['table', ['table']],
+				['insert', ['link', 'picture', 'video']],
+				['view', ['codeview']]
+	        ]
+	   	});
 		if (!hasSuperCateList) getSuperCategoryData(renderSuperCategory);
 	 	$('#searchSupercate').val($('#searchSupercate').data('val') || '-1');
 		// init
@@ -448,7 +476,7 @@
 			$('#blogName').val('');
 			$('#blogSeoname').val('');
 			$('#blogStatus').prop('checked', false)
-			$('#blogContentrichtext').val('');
+			$('#blogContentrichtext').summernote('reset');
 			
 			resetPicture($('#blogBannerimg'));
 			$('#blogSuperCateid').val('-1');
@@ -479,7 +507,8 @@
 			$('#blogName').val(data.blogName);
 			$('#blogSeoname').val(data.blogSeoname);
 			$('#blogStatus').prop('checked', data.blogStatus);
-			$('#blogContentrichtext').val(data.blogContentrichtext);
+
+			$('#blogContentrichtext').summernote('code', data.blogContentrichtext);
 			
 			if (data.blogBannerimg) {
 				addPicture($('#blogBannerimg'), {
