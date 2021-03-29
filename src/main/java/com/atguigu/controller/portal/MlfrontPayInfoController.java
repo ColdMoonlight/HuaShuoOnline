@@ -282,6 +282,8 @@ public class MlfrontPayInfoController {
 			
 			String proSkuBuy = mlfrontOrderItemOne.getOrderitemPskuCode();//orderItem_pSku_code
 			
+			Integer buyNum = mlfrontOrderItemOne.getOrderitemPskuNumber();
+			
 			MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();
 			
 			mlbackProductSkuReq.setProductskuCode(proSkuBuy);
@@ -289,10 +291,10 @@ public class MlfrontPayInfoController {
 			List<MlbackProductSku> mlbackProductSkuList =  mlbackProductSkuService.selectMlProductSkuListByPskuCode(mlbackProductSkuReq);
 			
 			if(mlbackProductSkuList.size()>0){
-				MlbackProductSku mlbackProductSkuOne = new MlbackProductSku();
+				MlbackProductSku mlbackProductSkuOne = mlbackProductSkuList.get(0);
 				Integer nowNum = mlbackProductSkuOne.getProductskuStock();
 				if(nowNum>0){
-					nowNum--;
+					nowNum = nowNum - buyNum;
 					//
 					MlbackProductSku mlbackProductSkuNow = new MlbackProductSku();
 					mlbackProductSkuNow.setProductskuId(mlbackProductSkuOne.getProductskuId());
