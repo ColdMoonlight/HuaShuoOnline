@@ -195,5 +195,13 @@
       </if>
        order by productSku_name
   </select>
+  <!-- selectMlProductSkuListByPskuCode使用中 -->
+  <select id="selectMlProductSkuListByPskuCode" parameterType="com.atguigu.bean.MlbackProductSku" resultMap="BaseResultMap">
+    select 
+    productSku_id, productSku_name, productSku_Code, productSku_PSeoname,
+    productSku_money, productSku_stock, productSku_pid, productSku_status
+    from tb_mlback_product_sku
+    where productSku_Code = #{productskuCode,jdbcType=VARCHAR}
+  </select>
   
 </mapper>

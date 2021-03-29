@@ -18,6 +18,7 @@ import com.atguigu.bean.MlbackAreafreight;
 import com.atguigu.bean.MlbackCaclPay;
 import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.bean.MlbackOrderStateEmail;
+import com.atguigu.bean.MlbackProductSku;
 import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontCheckoutView;
 import com.atguigu.bean.MlfrontOrder;
@@ -35,6 +36,8 @@ import com.atguigu.service.MlbackAreafreightService;
 import com.atguigu.service.MlbackCaclPayService;
 import com.atguigu.service.MlbackCouponService;
 import com.atguigu.service.MlbackOrderStateEmailService;
+import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlbackProductSkuService;
 import com.atguigu.service.MlfrontAddressService;
 import com.atguigu.service.MlfrontCheckoutViewService;
 import com.atguigu.service.MlfrontOrderItemService;
@@ -96,6 +99,9 @@ public class MlfrontPayInfoController {
 	
 	@Autowired
 	MlfrontCheckoutViewService mlfrontCheckoutViewService;
+	
+	@Autowired
+	MlbackProductSkuService mlbackProductSkuService;
 	
 //	afterShip的真实物流url环境
 	private final static String ConnectionAPIid = "7b04f01f-4f04-4b37-bbb9-5b159af73ee1";
@@ -231,6 +237,10 @@ public class MlfrontPayInfoController {
 				List<MlfrontOrderItem> mlfrontOrderItemResList = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemOneReq);
 				mlfrontOrderItemOne = mlfrontOrderItemResList.get(0);
 				mlfrontOrderItemList.add(mlfrontOrderItemOne);
+				
+				
+				//减库存
+				proSkunumFromOrderItem(mlfrontOrderItemList);
 			}
 			//2.4uid信息
 			Integer uid = mlfrontOrderPayOneRes.getOrderUid();
@@ -266,6 +276,32 @@ public class MlfrontPayInfoController {
 		}
 	}
 	
+	private void proSkunumFromOrderItem(List<MlfrontOrderItem> mlfrontOrderItemListInto) {
+		
+		for(MlfrontOrderItem mlfrontOrderItemOne:mlfrontOrderItemListInto){
+			
+			String proSkuBuy = mlfrontOrderItemOne.getOrderitemPskuCode();//orderItem_pSku_code
+			
+			MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();
+			
+			mlbackProductSkuReq.setProductskuCode(proSkuBuy);
+			
+			List<MlbackProductSku> mlbackProductSkuList =  mlbackProductSkuService.selectMlProductSkuListByPskuCode(mlbackProductSkuReq);
+			
+			if(mlbackProductSkuList.size()>0){
+				MlbackProductSku mlbackProductSkuOne = new MlbackProductSku();
+				Integer nowNum = mlbackProductSkuOne.getProductskuStock();
+				if(nowNum>0){
+					nowNum--;
+					//
+					MlbackProductSku mlbackProductSkuNow = new MlbackProductSku();
+					mlbackProductSkuNow.setProductskuId(mlbackProductSkuOne.getProductskuId());
+					mlbackProductSkuNow.setProductskuStock(nowNum);
+				}
+			}
+		}
+	}
+
 	/**
 	 * 5.1	zsh201208
 	 * update 是否复购信息

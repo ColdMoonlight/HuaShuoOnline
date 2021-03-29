@@ -21,4 +21,6 @@ public interface MlbackProductSkuMapper {
     List<MlbackProductSku> selectMlbackProductSkuListByPId(MlbackProductSku record);
 	//selectMlbackProductSkuListByPIdTogether
 	List<MlbackProductSku> selectMlbackProductSkuListByPIdTogether(MlbackProductSku mlbackProductSku);
+	//文件
+	List<MlbackProductSku> selectMlProductSkuListByPskuCode(MlbackProductSku mlbackProductSkuReq);
 }
