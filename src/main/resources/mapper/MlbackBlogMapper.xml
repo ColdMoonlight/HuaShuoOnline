@@ -253,5 +253,14 @@
         and blog_super_catename = #{blogSuperCatename,jdbcType=VARCHAR}
       </if>
   </select>
+  <!-- selectMlbackBlogBack -->
+  <select id="selectMlbackBlogBack" parameterType="com.atguigu.bean.MlbackBlog" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_blog
+    where blog_id >=0 and blog_name like concat(concat("%",#{blogName}),"%")
+      <if test="blogSuperCateid != null">
+        and blog_super_cateid = #{blogSuperCateid,jdbcType=INTEGER}
+      </if>
+  </select>
 
 </mapper>

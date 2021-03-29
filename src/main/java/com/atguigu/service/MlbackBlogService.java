@@ -62,4 +62,9 @@ public class MlbackBlogService {
 		return mlbackBlogList;
 	}
 
+	public List<MlbackBlog> selectMlbackBlogBack(MlbackBlog mlbackBlogReq) {
+		List<MlbackBlog>  mlbackBlogList = mlbackBlogMapper.selectMlbackBlogBack(mlbackBlogReq);
+		return mlbackBlogList;
+	}
+
 }
