@@ -7,6 +7,7 @@
     <result column="footnav_name" jdbcType="VARCHAR" property="footnavName" />
     <result column="footnav_hang" jdbcType="INTEGER" property="footnavHang" />
     <result column="footnav_lie" jdbcType="INTEGER" property="footnavLie" />
+    <result column="footnav_clicktype" jdbcType="INTEGER" property="footnavClickType" />
     <result column="footnav_createTime" jdbcType="VARCHAR" property="footnavCreatetime" />
     <result column="footnav_motifyTime" jdbcType="VARCHAR" property="footnavMotifytime" />
     <result column="footnav_ifIncome" jdbcType="INTEGER" property="footnavIfincome" />
@@ -19,7 +20,7 @@
     <result column="footnav_desc" jdbcType="LONGVARCHAR" property="footnavDesc" />
   </resultMap>
   <sql id="Base_Column_List">
-    footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, footnav_superCate_id, footnav_superCate_name,
+    footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, footnav_clicktype, footnav_superCate_id, footnav_superCate_name,
     footnav_createTime, footnav_motifyTime, footnav_ifIncome, footnav_ifShow
   </sql>
   <sql id="Blob_Column_List">
@@ -36,11 +37,11 @@
 
   <insert id="insert" parameterType="com.atguigu.bean.MlbackFootNav">
     insert into tb_mlback_footnav (footnav_id, footnav_seo, footnav_name, footnav_hang, 
-      footnav_lie, footnav_superCate_id, footnav_superCate_name, 
+      footnav_lie, footnav_clicktype, footnav_superCate_id, footnav_superCate_name, 
       footnav_createTime, footnav_motifyTime, footnav_ifIncome, 
       footnav_ifShow, footnav_desc)
     values (#{footnavId,jdbcType=INTEGER}, #{footnavSeo,jdbcType=VARCHAR}, #{footnavName,jdbcType=VARCHAR}, #{footnavHang,jdbcType=INTEGER}, 
-      #{footnavLie,jdbcType=INTEGER}, #{footnavSuperCateId,jdbcType=INTEGER}, #{footnavSuperCateName,jdbcType=VARCHAR},
+      #{footnavLie,jdbcType=INTEGER}, #{footnavClickType,jdbcType=INTEGER}, #{footnavSuperCateId,jdbcType=INTEGER}, #{footnavSuperCateName,jdbcType=VARCHAR},
       #{footnavCreatetime,jdbcType=VARCHAR}, #{footnavMotifytime,jdbcType=VARCHAR}, #{footnavIfincome,jdbcType=INTEGER}, 
       #{footnavIfshow,jdbcType=INTEGER}, #{footnavDesc,jdbcType=LONGVARCHAR})
   </insert>
@@ -51,6 +52,7 @@
       footnav_seo = #{footnavSeo,jdbcType=VARCHAR},
       footnav_hang = #{footnavHang,jdbcType=INTEGER},
       footnav_lie = #{footnavLie,jdbcType=INTEGER},
+      footnav_clicktype = #{footnavClickType,jdbcType=INTEGER},
       footnav_createTime = #{footnavCreatetime,jdbcType=VARCHAR},
       footnav_motifyTime = #{footnavMotifytime,jdbcType=VARCHAR},
       footnav_ifIncome = #{footnavIfincome,jdbcType=INTEGER},
@@ -66,6 +68,7 @@
       footnav_seo = #{footnavSeo,jdbcType=VARCHAR},
       footnav_hang = #{footnavHang,jdbcType=INTEGER},
       footnav_lie = #{footnavLie,jdbcType=INTEGER},
+      footnav_clicktype = #{footnavClickType,jdbcType=INTEGER},
       footnav_createTime = #{footnavCreatetime,jdbcType=VARCHAR},
       footnav_motifyTime = #{footnavMotifytime,jdbcType=VARCHAR},
       footnav_ifIncome = #{footnavIfincome,jdbcType=INTEGER},
@@ -93,6 +96,9 @@
       </if>
       <if test="footnavLie != null">
         footnav_lie,
+      </if>
+      <if test="footnavClickType != null">
+        footnav_clicktype,
       </if>
       <if test="footnavCreatetime != null">
         footnav_createTime,
@@ -131,6 +137,9 @@
       </if>
       <if test="footnavLie != null">
         #{footnavLie,jdbcType=INTEGER},
+      </if>
+      <if test="footnavClickType != null">
+        #{footnavClickType,jdbcType=INTEGER},
       </if>
       <if test="footnavCreatetime != null">
         #{footnavCreatetime,jdbcType=VARCHAR},
@@ -176,6 +185,9 @@
       <if test="footnavLie != null">
         footnav_lie = #{footnavLie,jdbcType=INTEGER},
       </if>
+      <if test="footnavClickType != null">
+        footnav_clicktype = #{footnavClickType,jdbcType=INTEGER},
+      </if>
       <if test="footnavCreatetime != null">
         footnav_createTime = #{footnavCreatetime,jdbcType=VARCHAR},
       </if>
@@ -202,25 +214,25 @@
   </update>
   <!-- selectMlbackFootNavOneAllById使用中 -->
   <select id="selectMlbackFootNavOneAllById" parameterType="com.atguigu.bean.MlbackFootNav" resultMap="BaseResultMap">
-    select footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, footnav_createTime, footnav_motifyTime, 
+    select footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, footnav_clicktype, footnav_createTime, footnav_motifyTime, 
     footnav_superCate_id, footnav_superCate_name, footnav_desc,footnav_ifIncome,footnav_ifshow
     from tb_mlback_footnav where footnav_id = #{footnavId,jdbcType=INTEGER}
   </select>
 <!-- selectMlbackFootNavGetAll使用中 -->
   <select id="selectMlbackFootNavGetAll" parameterType="com.atguigu.bean.MlbackFootNav" resultMap="BaseResultMap">
-    select footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, 
+    select footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie,footnav_clicktype, 
       footnav_createTime, footnav_motifyTime, footnav_superCate_id, footnav_superCate_name, footnav_ifIncome, footnav_ifShow
     from tb_mlback_footnav order by footnav_lie desc, footnav_hang desc,footnav_id desc
   </select>
   <!-- selectMlbackFootNavAllSimpleIfShow使用中 -->
   <select id="selectMlbackFootNavAllSimpleIfShow" parameterType="com.atguigu.bean.MlbackFootNav" resultMap="BaseResultMap">
-    select footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, footnav_superCate_id, footnav_superCate_name, footnav_ifIncome,footnav_ifShow
+    select footnav_id, footnav_seo, footnav_name, footnav_hang, footnav_lie, footnav_clicktype, footnav_superCate_id, footnav_superCate_name, footnav_ifIncome,footnav_ifShow
     from tb_mlback_footnav where footnav_ifShow = #{footnavIfshow,jdbcType=INTEGER} order by footnav_lie, footnav_hang,footnav_id
   </select>
   <!-- selectMlbackFootNavBackSearch -->
   <select id="selectMlbackFootNavBackSearch" parameterType="com.atguigu.bean.MlbackFootNav" resultMap="BaseResultMap">
   	select 
-  	footnav_id, footnav_seo,footnav_name, footnav_hang, footnav_lie, 
+  	footnav_id, footnav_seo,footnav_name, footnav_hang, footnav_lie, footnav_clicktype,
     footnav_superCate_id, footnav_superCate_name, footnav_ifIncome,footnav_ifshow
   	from tb_mlback_footnav 
   	where footnav_name like concat(concat("%",#{footnavName}),"%")

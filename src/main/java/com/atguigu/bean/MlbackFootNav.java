@@ -11,6 +11,8 @@ public class MlbackFootNav {
     private Integer footnavHang;
 
     private Integer footnavLie;
+    
+    private Integer footnavClickType;    
 
     private String footnavCreatetime;
 
@@ -65,8 +67,16 @@ public class MlbackFootNav {
     public void setFootnavLie(Integer footnavLie) {
         this.footnavLie = footnavLie;
     }
+    
+	public Integer getFootnavClickType() {
+		return footnavClickType;
+	}
 
-    public String getFootnavCreatetime() {
+	public void setFootnavClickType(Integer footnavClickType) {
+		this.footnavClickType = footnavClickType;
+	}
+
+	public String getFootnavCreatetime() {
         return footnavCreatetime;
     }
 
@@ -127,14 +137,16 @@ public class MlbackFootNav {
 	}
 
 	public MlbackFootNav(Integer footnavId, String footnavSeo, String footnavName, Integer footnavHang,
-			Integer footnavLie, String footnavCreatetime, String footnavMotifytime, Integer footnavIfincome,
-			Integer footnavIfshow, String footnavDesc, Integer footnavSuperCateId, String footnavSuperCateName) {
+			Integer footnavLie, Integer footnavClickType, String footnavCreatetime, String footnavMotifytime,
+			Integer footnavIfincome, Integer footnavIfshow, String footnavDesc, Integer footnavSuperCateId,
+			String footnavSuperCateName) {
 		super();
 		this.footnavId = footnavId;
 		this.footnavSeo = footnavSeo;
 		this.footnavName = footnavName;
 		this.footnavHang = footnavHang;
 		this.footnavLie = footnavLie;
+		this.footnavClickType = footnavClickType;
 		this.footnavCreatetime = footnavCreatetime;
 		this.footnavMotifytime = footnavMotifytime;
 		this.footnavIfincome = footnavIfincome;
@@ -147,10 +159,11 @@ public class MlbackFootNav {
 	@Override
 	public String toString() {
 		return "MlbackFootNav [footnavId=" + footnavId + ", footnavSeo=" + footnavSeo + ", footnavName=" + footnavName
-				+ ", footnavHang=" + footnavHang + ", footnavLie=" + footnavLie + ", footnavCreatetime="
-				+ footnavCreatetime + ", footnavMotifytime=" + footnavMotifytime + ", footnavIfincome="
-				+ footnavIfincome + ", footnavIfshow=" + footnavIfshow + ", footnavDesc=" + footnavDesc
-				+ ", footnavSuperCateId=" + footnavSuperCateId + ", footnavSuperCateName=" + footnavSuperCateName + "]";
+				+ ", footnavHang=" + footnavHang + ", footnavLie=" + footnavLie + ", footnavClickType=" + footnavClickType
+				+ ", footnavCreatetime=" + footnavCreatetime + ", footnavMotifytime=" + footnavMotifytime
+				+ ", footnavIfincome=" + footnavIfincome + ", footnavIfshow=" + footnavIfshow + ", footnavDesc="
+				+ footnavDesc + ", footnavSuperCateId=" + footnavSuperCateId + ", footnavSuperCateName="
+				+ footnavSuperCateName + "]";
 	}
 
 }
