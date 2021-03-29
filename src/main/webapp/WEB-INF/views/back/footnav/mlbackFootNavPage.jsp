@@ -92,6 +92,21 @@
 										</div>
 									</div>
 									<div class="form-group">
+										<label class="col-form-label" for="footnavClickType">Type</label>
+										<div class="controls">
+											<select class="form-control" id="footnavClickType" />
+												<option value="0">Default</option>
+												<option value="1">Customer URL</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group hide">
+										<label class="col-form-label" for="footnavClickUrl">URL</label>
+										<div class="controls">
+											<input class="form-control" id="footnavClickUrl" type="text" />
+										</div>
+									</div>
+									<div class="form-group">
 										<label class="col-form-label" for="footnavLie">Column</label>
 										<div class="controls">
 											<select class="form-control" id="footnavLie" />
@@ -251,6 +266,14 @@
 			$(this).attr('data-val', $(this).val());
 			updateSearchData();
 		});
+		// Type tab
+		$('#footnavClickType').on('change', function() {
+			if ($(this).val() == '1') {
+				$('#footnavClickUrl').parents('.form-group').removeClass('hide');
+			} else {
+				$('#footnavClickUrl').parents('.form-group').addClass('hide');
+			}
+		})
 		var oldTime = (new Date()).getTime(),
 			timer = null;
 		$('#searchFootnav').on('keyup', function() {
@@ -393,6 +416,9 @@
 		function resetFormData() {
 			$('#footnavId').val('');
 			$('#footnavName').val('');
+			$('#footnavSeo').val('');
+			$('#footnavClickType').val('0');
+			$('#footnavClickUrl').val('').parents('.form-group').addClass('hide');
 			$('#footnavLie').val('1');
 			$('#footnavHang').val('1');
 			$('#footnavIfshow').prop('checked', false);
@@ -400,8 +426,7 @@
 			$('#footnavDesc').summernote('reset'); 
 
 			$('#footnavSuperCateId').val('-1');
-			
-			$('#footnavSeo').val('');
+
 			/* $('#footnavMetatitle').val('');
 			$('#footnavMetakeywords').val('');
 			$('#footnavMetadesc').val(''); */
@@ -412,6 +437,8 @@
 			data.footnavId = parseInt($('#footnavId').val());
 			data.footnavName = $('#footnavName').val();
 			data.footnavSeo = $('#footnavSeo').val();
+			data.footnavClickType = $('#footnavClickType').val();
+			data.footnavClickUrl = $('#footnavClickUrl').val();
 			data.footnavLie = $('#footnavLie').val();
 			data.footnavHang = $('#footnavHang').val();
 			data.footnavIfshow = $('#footnavIfshow').prop('checked') ? 1 : 0;
@@ -431,6 +458,8 @@
 			$('#footnavId').val(data.footnavId);
 			$('#footnavName').val(data.footnavName);
 			$('#footnavSeo').val(data.footnavSeo);
+			$('#footnavClickType').val(data.footnavClickType);
+			data.footnavClickType == '1' && $('#footnavClickUrl').val(data.footnavClickUrl).parents('.form-group').removeClass("hide");
 			$('#footnavLie').val(data.footnavLie);
 			$('#footnavHang').val(data.footnavHang);
 			$('#footnavIfshow').prop('checked', (data.footnavIfshow > 0 ? data.footnavIfshow : 0));
