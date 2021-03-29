@@ -286,7 +286,6 @@ public class MlfrontPayInfoController {
 			String proSeo = mlfrontOrderItemOne.getOrderitemPseo();
 			
 			MlbackProductSku mlbackProductSkuReq = new MlbackProductSku();
-			
 			mlbackProductSkuReq.setProductskuCode(proSkuBuy);
 			mlbackProductSkuReq.setProductskuPSeoname(proSeo);
 			
