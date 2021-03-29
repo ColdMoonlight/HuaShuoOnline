@@ -150,14 +150,15 @@ public class MlbackBlogController {
 	
 	/**
 	 * 7.0	20210327
-	 * 后端获取backSearchByProduct产品list
+	 * 后端获取backSearchByBlog产品list
 	 * @return 
 	 * */
-	@RequestMapping(value="/backSearchByProduct",method=RequestMethod.POST)
+	@RequestMapping(value="/backSearchByBlog",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg backSearchByProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+	public Msg backSearchByBlog(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
 			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
-			@RequestParam(value = "blogName") String blogName) throws Exception{
+			@RequestParam(value = "blogName") String blogName,
+			@RequestParam(value = "blogSuperCateid", defaultValue = "1") Integer blogSuperCateid) throws Exception{
 		
 		//接收传递进来的参数
 		int PagNum = 30;
@@ -165,7 +166,7 @@ public class MlbackBlogController {
 		
 		MlbackBlog mlbackBlogReq = new MlbackBlog();
 		mlbackBlogReq.setBlogName(blogName);
-		List<MlbackBlog> MlbackBlogResList = mlbackBlogService.selectMlbackBlogByParam(mlbackBlogReq);
+		List<MlbackBlog> MlbackBlogResList = mlbackBlogService.selectMlbackBlogBack(mlbackBlogReq);
 		PageInfo page = new PageInfo(MlbackBlogResList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}

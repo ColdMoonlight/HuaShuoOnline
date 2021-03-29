@@ -66,25 +66,10 @@ public class MlbackProductSkuService {
 		List<MlbackProductSku>  MlbackProductSkuList = mlbackProductSkuMapper.selectMlbackProductSkuListByPIdTogether(mlbackProductSku);
 		return MlbackProductSkuList;
 	}
-//
-//	/**
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 查看全部MlbackProductSku信息
-//	 * */
-//	public List<MlbackProductSku> selectMlbackProductSkuByPIdAndImgSort(MlbackProductSku MlbackProductSku) {
-//		List<MlbackProductSku>  MlbackProductSkuList = MlbackProductSkuMapper.selectMlbackProductSkuByPIdAndImgSort(MlbackProductSku);
-//		return MlbackProductSkuList;
-//	}
-//	
-//	/**
-//	 * @author Shinelon
-//	 * @param 
-//	 * @exception 用productimgId,查看MlbackProductSku信息
-//	 * */
-//	public List<MlbackProductSku> selectMlbackProductSkuByProductImgId(Integer productimgId) {
-//		List<MlbackProductSku>  MlbackProductSkuList = MlbackProductSkuMapper.selectMlbackProductSkuByProductImgId(productimgId);
-//		return MlbackProductSkuList;
-//	}
 	
+	public List<MlbackProductSku> selectMlProductSkuListByPskuCode(MlbackProductSku mlbackProductSkuReq) {
+		List<MlbackProductSku>  mlbackProductSkuList = mlbackProductSkuMapper.selectMlProductSkuListByPskuCode(mlbackProductSkuReq);
+		return mlbackProductSkuList;
+	}
+
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.atguigu.bean.MlbackActShowPro;
+import com.atguigu.bean.MlbackBlog;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.bean.MlbackCouponDescTitle;
@@ -23,6 +24,7 @@ import com.atguigu.bean.MlbackShowArea;
 import com.atguigu.bean.MlbackSlide;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackActShowProService;
+import com.atguigu.service.MlbackBlogService;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackCouponDescTitleService;
 import com.atguigu.service.MlbackCouponService;
@@ -81,6 +83,9 @@ public class ImageUploadController {
 	
 	@Autowired
 	MlbackProductSkuService mlbackProductSkuService;
+	
+	@Autowired
+	MlbackBlogService mlbackBlogService;
 	
 	/**
 	 * 	zsh	20201010
@@ -879,5 +884,48 @@ public class ImageUploadController {
 		
 		return Msg.success().add("resMsg", "上传成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
 	}
+	
+	/**
+	 * 	zsh 200727
+	 * */
+	@RequestMapping(value="/uploadBlogImg",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg uploadBlogImg(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("blogId")Integer blogId,
+			@RequestParam("blogSeoname")String blogSeoname,@RequestParam("type")String type,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName=ImageNameUtil.gettypeName(type);//proSku
+		
+		String blogSeonameStr = blogSeoname+"";
+		
+		String imgName = ImageNameUtil.getfilenameBlog(typeName,blogSeonameStr);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String uploadPath = "static/upload/img/Blog";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+		
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MlbackBlog mlbackBlogReq = new MlbackBlog();
+		mlbackBlogReq.setBlogId(blogId);
+		mlbackBlogReq.setBlogBannerimg(sqlimageUrl);//blogBannerimg
+		mlbackBlogService.updateByPrimaryKeySelective(mlbackBlogReq);
+		
+		return Msg.success().add("resMsg", "上传成功").add("imageUrl", imageUrl).add("sqlimageUrl", sqlimageUrl);
+	}
+
 
 }
