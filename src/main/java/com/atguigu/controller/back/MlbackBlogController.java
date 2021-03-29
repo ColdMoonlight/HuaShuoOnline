@@ -166,7 +166,7 @@ public class MlbackBlogController {
 		
 		MlbackBlog mlbackBlogReq = new MlbackBlog();
 		mlbackBlogReq.setBlogName(blogName);
-		List<MlbackBlog> MlbackBlogResList = mlbackBlogService.selectMlbackBlogByParam(mlbackBlogReq);
+		List<MlbackBlog> MlbackBlogResList = mlbackBlogService.selectMlbackBlogBack(mlbackBlogReq);
 		PageInfo page = new PageInfo(MlbackBlogResList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
