@@ -4,7 +4,7 @@ public class MlbackFootNav {
 	
     private Integer footnavId;
     
-    private String footnavSeo;//路经查询
+    private String footnavSeo;	//路经查询
 
     private String footnavName;
 
@@ -12,7 +12,7 @@ public class MlbackFootNav {
 
     private Integer footnavLie;
     
-    private Integer footnavClickType;    
+    private Integer footnavClickType;   //类型 
 
     private String footnavCreatetime;
 
