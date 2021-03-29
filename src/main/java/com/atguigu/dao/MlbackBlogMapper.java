@@ -1,7 +1,6 @@
 package com.atguigu.dao;
 
 import java.util.List;
-
 import com.atguigu.bean.MlbackBlog;
 
 public interface MlbackBlogMapper {

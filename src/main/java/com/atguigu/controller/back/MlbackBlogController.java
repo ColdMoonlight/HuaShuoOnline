@@ -1,6 +1,5 @@
 package com.atguigu.controller.back;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackBlog;
-import com.atguigu.bean.MlbackSearch;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
@@ -39,7 +37,7 @@ public class MlbackBlogController {
 	MlbackSearchService mlbackSearchService;
 	
 	/**
-	 * 1.0	20200608
+	 * 1.0	20210327
 	 * to后台分类MlbackBlog列表页面
 	 * @return jsp
 	 * */
@@ -55,7 +53,7 @@ public class MlbackBlogController {
 		}
 	}
 	
-	/**2.0	20200608
+	/**2.0	20210327
 	 * 后台MlbackBlog列表分页list数据
 	 * @param pn
 	 * @return
@@ -71,7 +69,7 @@ public class MlbackBlogController {
 		return Msg.success().add("pageInfo", page);
 	}
 	
-	/**3.0	20200608
+	/**3.0	20210327
 	 * MlbackBlog	initializaBlog
 	 * @param MlbackBlog
 	 * @return
@@ -93,7 +91,7 @@ public class MlbackBlogController {
 	}
 	
 	/**
-	 * 4.0	20200608
+	 * 4.0	20210327
 	 * 查看单个产品的详情
 	 * @param productId
 	 * @return 
@@ -120,7 +118,7 @@ public class MlbackBlogController {
 		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("MlbackBlogOne", mlbackBlogOne);
 	}
 	
-	/**5.0	20200608
+	/**5.0	20210327
 	 * MlbackBlog	update
 	 * @param MlbackBlog
 	 * @return
@@ -136,7 +134,7 @@ public class MlbackBlogController {
 		return Msg.success().add("resMsg", "Blog保存成功");
 	}
 	
-	/**6.0	20200608
+	/**6.0	20210327
 	 * MlbackBlog	delete
 	 * @param MlbackBlog-BlogId
 	 * @return 
@@ -150,113 +148,79 @@ public class MlbackBlogController {
 		return Msg.success().add("resMsg", "Blog delete  success");
 	}
 	
-
-	
 	/**
-	 * 7.0	20200608
+	 * 7.0	20210327
 	 * 后端获取backSearchByProduct产品list
 	 * @return 
 	 * */
-//	@RequestMapping(value="/backSearchByProduct",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg backSearchByProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
-//			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
-//			@RequestParam(value = "blogName") String blogName) throws Exception{
-//		
-//		//接收传递进来的参数
-//		int PagNum = 30;
-//		PageHelper.startPage(pn, PagNum);
-//		
-//		MlbackBlog mlbackBlogReq = new MlbackBlog();
-//		mlbackBlogReq.setBlogName(blogName);
-//		List<MlbackBlog> MlbackBlogResList = mlbackBlogService.selectMlbackBlogBackSearch(mlbackBlogReq);
-//		PageInfo page = new PageInfo(MlbackBlogResList, PagNum);
-//		return Msg.success().add("pageInfo", page);
-//	}
+	@RequestMapping(value="/backSearchByProduct",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg backSearchByProduct(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "blogName") String blogName) throws Exception{
+		
+		//接收传递进来的参数
+		int PagNum = 30;
+		PageHelper.startPage(pn, PagNum);
+		
+		MlbackBlog mlbackBlogReq = new MlbackBlog();
+		mlbackBlogReq.setBlogName(blogName);
+		List<MlbackBlog> MlbackBlogResList = mlbackBlogService.selectMlbackBlogByParam(mlbackBlogReq);
+		PageInfo page = new PageInfo(MlbackBlogResList, PagNum);
+		return Msg.success().add("pageInfo", page);
+	}
 	
-//	/**
-//	 * 8.0	onuse	200103
-//	 * 前台详情页面wap/pc的productDetails
-//	 * @param jsp
-//	 * @return 
-//	 * */
-//	@RequestMapping(value="/tofbProductDetailPageByhtml",method=RequestMethod.GET)
-//	 public ModelAndView tomfbProductDetailPageByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "productSeo") String productSeo) throws Exception{
-//	
-//		//准备封装参数
-//		MlbackBlog mlbackBlogrepBySeo = new MlbackBlog();
-//		MlbackBlogrepBySeo.setProductSeo(productSeo);
-//		String nowTime = DateUtil.strTime14s();
-//		System.out.println("nowTime:"+nowTime+"客户点击ProSeo链接进入: "+productSeo);
-//	
-//		ModelAndView modelAndView = new ModelAndView();
-//		
-//		List<MlbackBlog> MlbackBlogResList = MlbackBlogService.selectMlbackBlogByParam(MlbackBlogrepBySeo);
-//	  
-//		if(!(MlbackBlogResList.size()>0)){
-//			//return "redirect:/";
-//			modelAndView.setViewName("redirect:/");
-//			
-//			return modelAndView;
-//		}else{
-//			MlbackBlog MlbackBlogRes = MlbackBlogResList.get(0);
-//			
-//			Integer proStatus = MlbackBlogRes.getProductStatus();
-//			if(proStatus==1){
-//				
-//				Integer productIdReq = MlbackBlogRes.getProductId();
-//				
-//				//接受信息
-//				List<MlbackBlogImg> mbackProductImgResList =MlbackBlogImgService.selectMlbackBlogImgByProductId(productIdReq);
-//				modelAndView.addObject("mbackProductImgResList", mbackProductImgResList);
-//				//放回响应域中
-//				res.setAttribute("productId", productIdReq);
-//				//放回session域中
-//				session.setAttribute("productDetailId", productIdReq);
-//				session.setAttribute("MlbackBlogMetaTitle", MlbackBlogRes.getProductMetaTitle());
-//				session.setAttribute("MlbackBlogMetaKeywords", MlbackBlogRes.getProductMetaKeywords());
-//				session.setAttribute("MlbackBlogMeteDesc", MlbackBlogRes.getProductMetaDesc());
-//				//返回视图
-//				//return "portal/product/productDetails";
-//				modelAndView.setViewName("portal/product/productDetails");
-//				return modelAndView;
-//			}else{
-//				System.out.println("通过链接点进来的productSeo:"+productSeo+",但是此产品已下架,跳回首页");
-//				//return "redirect:/";
-//				modelAndView.setViewName("redirect:/");
-//				return modelAndView;
-//			}
-//		}
-//	 }
+	/**
+	 * 8.0	onuse	200103
+	 * 前台详情页面wap/pc的BlogDetail
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping(value="/toBlogDetailPageByhtml",method=RequestMethod.GET)
+	 public ModelAndView toBlogDetailPageByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "blogSeoname") String blogSeoname) throws Exception{
 	
-//	/**
-//	  * 11.0	zsh200721
-//	  * 通过产品名模糊搜索
-//	  * @param productId
-//	  * @return 
-//	  */
-//	 @RequestMapping(value="/searchProductLike",method=RequestMethod.POST)
-//	 @ResponseBody
-//	 public Msg searchProductLike(@RequestParam(value = "productName") String productName){
-//	  //接受信息
-//	  //客户搜索记录
-//	  MlbackSearch mlbackSearchReq = new MlbackSearch();
-//	  mlbackSearchReq.setSearchContent(productName);
-//	  String nowTime = DateUtil.strTime14s();
-//	  mlbackSearchReq.setSearchCreatetime(nowTime);
-//	  mlbackSearchReq.setSearchMotifytime(nowTime);
-//	  mlbackSearchService.insertSelective(mlbackSearchReq);
-//	  System.out.println("客户搜索的内容,mlbackSearchReq:"+mlbackSearchReq.toString());
-//	  //执行搜索
-//	  MlbackBlog MlbackBlogReq = new MlbackBlog();
-//	  MlbackBlogReq.setProductName(productName);
-//	  //System.out.println("操作说明:客户搜索的产品名字productName:"+productName);
-//	  List<MlbackBlog> MlbackBlogResList =MlbackBlogService.selectMlbackBlogLike(MlbackBlogReq);
-//	  List<MlbackBlog> MlbackBlogResListnum =MlbackBlogService.selectMlbackBlogLikeNum(MlbackBlogReq);
-//	  Integer num = MlbackBlogResListnum.size();
-//	  //System.out.println("操作说明:客户搜索的产品名,查询结果MlbackBlogResListnum:"+num);
-//	  return Msg.success().add("resMsg", "产品名模糊搜索完毕")
-//	     .add("MlbackBlogResList", MlbackBlogResList).add("MlbackBlogResListnum", num).add("productName", productName);
-//	 }
+		//准备封装参数
+		MlbackBlog mlbackBlogrepBySeo = new MlbackBlog();
+		mlbackBlogrepBySeo.setBlogSeoname(blogSeoname);
+		String nowTime = DateUtil.strTime14s();
+		System.out.println("nowTime:"+nowTime+"客户点击blogSeoname链接进入: "+blogSeoname);
+	
+		ModelAndView modelAndView = new ModelAndView();
+		
+		List<MlbackBlog> MlbackBlogResList = mlbackBlogService.selectMlbackBlogByParam(mlbackBlogrepBySeo);
+	  
+		if(!(MlbackBlogResList.size()>0)){
+			modelAndView.setViewName("redirect:/");
+			return modelAndView;
+		}else{
+			MlbackBlog mlbackBlogRes = MlbackBlogResList.get(0);
+			
+			Integer blogStatus = mlbackBlogRes.getBlogStatus();
+			if(blogStatus==1){
+				
+				Integer blogIdReq = mlbackBlogRes.getBlogId();
+				
+				MlbackBlog mlbackBlogrep = new MlbackBlog();
+				mlbackBlogrep.setBlogId(blogIdReq);
+				//接受信息
+				List<MlbackBlog> mbackBlogResList =mlbackBlogService.selectMlbackBlogByParam(mlbackBlogrep);
+				modelAndView.addObject("mbackBlogResList", mbackBlogResList);
+				//放回响应域中
+				res.setAttribute("blogId", blogIdReq);
+				//放回session域中
+				session.setAttribute("blogDetailId", blogIdReq);
+				session.setAttribute("blogMetaTitle", mlbackBlogRes.getBlogMetaTitle());
+				session.setAttribute("blogMetaKeywords", mlbackBlogRes.getBlogMetaKeyword());
+				session.setAttribute("blogMeteDesc", mlbackBlogRes.getBlogMetaDesc());
+				//返回视图
+				modelAndView.setViewName("portal/blog/blogDetails");
+				return modelAndView;
+			}else{
+				System.out.println("通过链接点进来的blogSeoname:"+blogSeoname+",但是此产品已下架,跳回首页");
+				modelAndView.setViewName("redirect:/");
+				return modelAndView;
+			}
+		}
+	 }
 	 
 }
