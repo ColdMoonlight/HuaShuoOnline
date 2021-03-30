@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Megalook Hair - Megalook Offical Store</title>
-		<meta name="keyword" content="Megalook,MegaLook Hair,Human Hair Wig,Full Lace Wig, 360 Lace Front Wig, Lace Front Wig,Bundles with Closure,straight Human Hair,Body Wave Human Hair,Water Wave Human Hair,Deep Wave Wig,Loose Wave Wig,kinky Curly Wig,Jerry Curly Wig,Bob Wig,Yaki Straight Wig,Full Lace Wig,Transparent Lace Wig,613 Blonde Wig,Ombre Color Wig,613 blonde hair">
+		<title>Megalook Hair, Virgin Remy Human Hair Wigs, Lace Front Wigs, Best Wigs | megalook.com</title>
+		<meta name="keywords" content="Virgin Hair, Lace Front Wigs, Brazilian Hair Weave, Human Hair Extensions, Affordable Human Hair" />
 		<meta name="description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
 		<jsp:include page="WEB-INF/views/portal/common/processor.jsp" flush="true"></jsp:include>
 		<jsp:include page="WEB-INF/views/portal/common/header.jsp" flush="true"></jsp:include>
@@ -38,5 +38,6 @@
 		<!-- lottery -->
 		<jsp:include page="WEB-INF/views/portal/layout/lottery.jsp" flush="true"></jsp:include>
 		<script> addTidio(); </script>
+		<div class="lucky_bag"><a href="${APP_PATH}/Bomb-Sale-13x4-4X4-Lace-Wig.html"></a></div>
 	</body>
 </html>
