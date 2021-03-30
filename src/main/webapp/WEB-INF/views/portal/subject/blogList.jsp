@@ -3,126 +3,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Customer Video </title>
+	<title>Blog</title>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>
 		@media only screen and (max-width: 1023px) { main { margin:  0; } }
 		
-		@media only screen and (min-width: 576px){
-			.video-banner2 .pc {
-			    padding-top: 26.1%;
-			    /* max-height: 500px; */
-				display: block;
-				opacity: 1;
-			}
-			.video-banner2 .wap {
-				display: none;
-				opacity: 0;
-			}
-		}
-		@media only screen and (max-width: 575px){
-			.video-banner2 .wap {
-			    padding-top: 53.33%;
-				display: block;
-				opacity: 1;
-			}
-			.video-banner2 .pc {
-				display: none;
-				opacity: 0;
-			}
+		.ml_blog-banner.loaded { background-size: 100% 100%; }
+		
+		.ml-blog-container { max-width: 1330px; }
+		.ml_blog-body { padding-top: 1rem; }
+		.ml_blog-img { display: block; }
+		.ml_blog-desc {
+			display: -moz-box;
+		    display: -webkit-box;
+		    text-overflow: ellipsis;
+		    -webkit-line-clamp: 2;
+		    -webkit-box-orient: vertical;
+		    overflow: hidden;
+    	}
+    	.ml_blog-name { text-decoration: none; color: #000; }
+    	.ml_blog-more { color: #000; font-weight: 500;  }
+
+		@media only screen and (max-width: 788px) {
+			.ml_blog-banner { padding-top: 30%; }
+			.ml_blog-body { padding-left: .5rem; padding-right: .5rem; }
+			.ml_blog-item { padding: .5rem; border: 1px solid #ccc; border-radius: .25rem; }
+			.ml_blog-item+.ml_blog-item { margin-top: .5rem; }
+			.ml_blog-img { width: 100%; padding-top: 50%; }
+			.ml_blog-name { font-size: 1.2rem; font-weight: 500; }
+			.ml_blog-desc { font-size: .875rem; -webkit-line-clamp: 4; }
+			.ml_blog-more { font-size: .875rem; }
 		}
 		
-		
+		@media only screen and (min-width: 789px) {
+			.ml_blog-banner { padding-top: 14.6666667%; }
+			.ml_blog-item { display: flex; padding-top: 1rem; padding-bottom: 1rem; }
+			.ml-blog-item+.ml-blog-item { border-top: 1px solid #ccc; }
+			.ml_blog-img { width: 50%; padding-top: 25%; flex-shrink: 0; }
+			.ml_blog-content { padding-left: 1rem; }
+			.ml_blog-name { font-size: 1.5rem; font-weight: 700; }
+			.ml_blog-desc { margin: .75rem 0;  min-height: 6rem; font-size: 1rem; line-height:1.5; -webkit-line-clamp: 6; }
+			.ml_blog-more { font-size: 1rem;}
+		}
 	</style>
 </head>
 <body>
     <jsp:include page="../layout/header/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
 		<!-- video banner -->
-		<div class="video-banner">
-			<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/sj1.jpg"></div>
-			<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/c01.jpg"></div>
-		</div>
+		<div class="ml_blog-banner lazyload" data-src="${APP_PATH }/static/pc/img/video/c01.jpg"></div>
 
-		<div class="container">
-			<!-- video discount -->
-			<div class="video-discount">			
-				<div class="video-discount-title wap lazyload" data-src="${APP_PATH }/static/pc/img/video/sjbt1.jpg"></div>
-				<div class="video-discount-title pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pcbt.jpg"></div>
-				<div class="video-discount-body wap lazyload" data-src="${APP_PATH }/static/pc/img/video/sj2.jpg"></div>
-				<div class="video-discount-body pc lazyload" data-src="${APP_PATH }/static/pc/img/video/c02.jpg"></div>				
-			</div>
-			<!-- video recommend -->
-			<div class="video-banner2">
-				<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/sj3.jpg"></div>
-				<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/c03.jpg"></div>
-			</div>	
-			<div class="video-recommend-box">
-				<div class="video-recommend-title">
-					<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-recommend.jpg"></div>
-					<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-recommend.jpg"></div>
-				</div>	
-				<div class="video-recommend-body">
-					<div class="video-recommend-item shadow-radius lazyload" data-id="157" data-video="https://www.youtube.com/embed/zD5dgYYDb08?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=zD5dgYYDb08&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd1.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="109" data-video="https://www.youtube.com/embed/qp91g1hg9nM?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=qp91g1hg9nM&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd2.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="193" data-video="https://www.youtube.com/embed/u9M_pFxuLOA?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=u9M_pFxuLOA&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd3.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="84" data-video="https://www.youtube.com/embed/2cJvNAYpI6Y?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=2cJvNAYpI6Y&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd4.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="110" data-video="https://www.youtube.com/embed/BYgVHjc6P3k?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=BYgVHjc6P3k&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd5.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="80" data-video="https://www.youtube.com/embed/TD4mGC5xNcU?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=TD4mGC5xNcU&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd6.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="140" data-video="https://www.youtube.com/embed/TD4mGC5xNcU?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=TD4mGC5xNcU&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd7.jpg"></div>
-					<div class="video-recommend-item shadow-radius lazyload" data-id="251" data-video="https://www.youtube.com/embed/zoZm8cPDLKM?enablejsapi=1&version=3&playerapiid=ytplayer&loop=1&playlist=zoZm8cPDLKM&modestbranding=1&playsinline=1&rel=0&controls=1&showinfo=0" data-src="${APP_PATH }/static/pc/img/video/pro/vd8.jpg"></div>
-				</div>
-			</div>
-			<!-- video collection -->
-			<div class="video-collection">
-				<div class="video-collection-title">
-					<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-collection.jpg"></div>
-					<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-collection.jpg"></div>
-				</div>
-				<div class="video-collection-body"></div>
-			</div>
-			<!-- video top sale -->
-			<div class="video-topsale">
-				<div class="video-topsale-title">
-					<div class="wap lazyload" data-src="${APP_PATH }/static/pc/img/video/wap-top-sale.jpg"></div>
-					<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/video/pc-top-sale.jpg"></div>
-				</div>
-				<div class="video-topsale-body">
-					<div class="video-topsale-style one">
-						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/B-Piano-Color-13x4-Straight-Hair-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/c4.jpg"></a>
-							<div class="video-topsale-style-name">Piano Color Lace Frontal Wigs</div>
-						</div>
-						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/B-360-Body-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/c2.jpg"></a>
-							<div class="video-topsale-style-name">360 Lace Frontal Wigs Body Wave</div>					
-						</div>
-						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/B-13x4-Straight-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/c1.jpg"></a>
-							<div class="video-topsale-style-name">13x4 Lace Frontal Wig Natural Color</div>					
-						</div>
-						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/B-13x4-Water-Wave-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/c3.jpg"></a>
-							<div class="video-topsale-style-name">13x4 Lace Frontal Wig Water Wave Hair</div>					
-						</div>
-					</div>
-					<div class="video-topsale-style two">
-						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/13x4-Bob-Wig-1B-30-Color-Straight-Lace-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp6.jpg"></a>
-							<div class="video-topsale-style-name">13x4 1b/30 Bob Lace Frontal Straight Wig</div>					
-						</div>
-						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/All-Color-4x4-Bob-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp5.jpg"></a>
-							<div class="video-topsale-style-name">4x4 Bob Wigs All Color Straight Hair</div>					
-						</div>
-						<div class="video-topsale-style-item">
-							<a class="lazyload" href="${APP_PATH }/2x6-Straight-Wave-Bob-Wig.html" data-src="${APP_PATH }/static/pc/img/video/pro/cp7.jpg"></a>
-							<div class="video-topsale-style-name">Kim K 2x6 Straight Lace Closure Bob Wig</div>					
-						</div>
-					</div>
-				</div>
-			</div>
+		<div class="ml-blog-container container">
+			<div class="ml_blog-body"><div id="init-loading"></div></div>
 		</div>
 	<!-- main end -->
 	<!-- footer nav -->
@@ -138,18 +71,16 @@
 	<!-- header script  -->
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
 	<script>
-		function getVideoCollectionData(num, callback) {
+		function getBlogListData(callback) {
 			$.ajax({
-				url: '${APP_PATH}/MlbackVideoShowArea/getMlbackVideoShowAreawapListByArea',
-				data: JSON.stringify({
-					"videoshowareaAreanum": num
-				}),
+				url: '${APP_PATH}/MlbackBlog/getMlbackBlogSimpleList',
 				type: "post",
-				dataType: 'json',
+				data: JSON.stringify({ "blogStatus": "1" }),
+				dataType: "json",
 				contentType: 'application/json',
 				success: function(data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.mlbackVideoShowAreaList, data.extend.videoNumByAreaListList);
+						callback && callback(data.extend.mlbackBlogResList);
 					} else {
 						sysModalTip();
 					}
@@ -159,16 +90,16 @@
 				}
 			});
 		}
-		function renderVideoArea($el, videoData, numData) {
+		function renderBlogList($el, data) {
 			var htmlStr = '';
-			videoData.forEach(function(item, idx) {
-				var itemLink = '${APP_PATH}/MlbackVideo/toVideoAreaPage?videoArea='+ item.videoshowareaId;
-				htmlStr += '<div class="video-area-item">' +
-						'<a class="lazyload wap" href="'+ itemLink +'" data-src="'+ item.videoshowareaWapimgurl +'"></a>' +
-						'<a class="lazyload pc" href="'+ itemLink +'" data-src="'+ item.videoshowareaPcimgurl +'"></a>' +
-						'<div class="video-areaitem-content">' +
-							'<a class="video-areaitem-name" href="'+ itemLink +'">'+ item.videoshowareaName +'</a>' +
-							'<div class="video-areaitem">('+ numData[idx] +')</div>' +
+			data.forEach(function(item, idx) {
+				var itemLink = '${APP_PATH}/blog/' + item.blogSeoname + '.html';
+				htmlStr += '<div class="ml_blog-item">' +
+						'<a class="ml_blog-img lazyload" href="'+ itemLink +'" data-src="'+ item.blogBannerimg +'"></a>' +
+						'<div class="ml_blog-content">' +
+							'<a class="ml_blog-name" href="'+ itemLink +'">'+ item.blogName +'</a>' +
+							'<div class="ml_blog-desc">'+ item.blogMetaDesc +'</div>' +
+							'<a class="ml_blog-more" href="'+ itemLink +'">Read More</a>' +
 						'</div>' +
 					'</div>';
 			});
@@ -179,20 +110,13 @@
 			rootMargin: "10px",
 			threshold: 0
 		});
-		getVideoCollectionData(2, function(videoData, numData) {
-			var $el = $('.video-collection-body');
-			videoData.length && renderVideoArea($el, videoData, numData);
+		getBlogListData(function(data) {
+			var $el = $('.ml_blog-body');
+			data.length && renderBlogList($el, data);
 			new LazyLoad($el.find('.lazyload'), {
 				root: null,
 				rootMargin: "10px",
 				threshold: 0
-			});
-		});
-		$(document.body).on('click', '.video-recommend-item', function() {
-			var productId = $(this).data('id');
-			var videoLink = $(this).data('video');
-			productId && getOneProductData({ "productId": productId }, function(data) {
-				renderVideoData(data, videoLink);
 			});
 		});
 	</script>
