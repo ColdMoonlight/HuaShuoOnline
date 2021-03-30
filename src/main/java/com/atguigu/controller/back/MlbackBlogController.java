@@ -161,6 +161,23 @@ public class MlbackBlogController {
 	
 	/**
 	 * 7.0	20210327
+	 * 查看单个产品的详情
+	 * @param productId
+	 * @return 
+	 */
+	@RequestMapping(value="/getMlbackBlogSimpleList",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getMlbackBlogSimpleList(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackBlog mlbackBlog){
+		//接受信息
+		MlbackBlog mlbackBlogReq = new MlbackBlog();
+		mlbackBlogReq.setBlogStatus(1);
+		List<MlbackBlog> mlbackBlogResList =mlbackBlogService.selectMlbackBlogSimpleByParam(mlbackBlogReq);
+		//System.out.println("操作说明：查询-MlbackBlogOne:"+MlbackBlogOne);
+		return Msg.success().add("resMsg", "查看list完毕").add("mlbackBlogResList", mlbackBlogResList);
+	}
+	
+	/**
+	 * 7.0	20210327
 	 * 后端获取backSearchByBlog产品list
 	 * @return 
 	 * */

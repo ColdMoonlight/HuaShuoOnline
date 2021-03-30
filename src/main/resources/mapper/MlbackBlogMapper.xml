@@ -253,6 +253,33 @@
         and blog_super_catename = #{blogSuperCatename,jdbcType=VARCHAR}
       </if>
   </select>
+  <!-- selectMlbackBlogSimpleByParam -->
+  <select id="selectMlbackBlogSimpleByParam" parameterType="com.atguigu.bean.MlbackBlog" resultMap="BaseResultMap">
+    select
+    blog_id, blog_seoname, blog_name, 
+    blog_meta_title, blog_meta_keyword, blog_meta_desc, 
+    blog_bannerImg, blog_author_createtime, blog_status
+    from tb_mlback_blog
+    where blog_id >=0
+      <if test="blogId != null">
+        and blog_id = #{blogId,jdbcType=INTEGER}
+      </if>
+      <if test="blogSeoname != null">
+        and blog_seoname = #{blogSeoname,jdbcType=VARCHAR}
+      </if>
+      <if test="blogName != null">
+        and blog_name = #{blogName,jdbcType=VARCHAR}
+      </if>
+      <if test="blogStatus != null">
+        and blog_status = #{blogStatus,jdbcType=INTEGER}
+      </if>
+      <if test="blogSuperCateid != null">
+        and blog_super_cateid = #{blogSuperCateid,jdbcType=INTEGER}
+      </if>
+      <if test="blogSuperCatename != null">
+        and blog_super_catename = #{blogSuperCatename,jdbcType=VARCHAR}
+      </if>
+  </select>
   <!-- selectMlbackBlogBack -->
   <select id="selectMlbackBlogBack" parameterType="com.atguigu.bean.MlbackBlog" resultMap="BaseResultMap">
     select *
