@@ -203,6 +203,12 @@ public class MlbackFootNavController {
 		
 	}
 	
+	/**
+	 * 6.0	20200608
+	 * toMlbackFootNav展示页面
+	 * @param	JSON
+	 * @return 
+	 * */
 	@RequestMapping(value="/toFootNavDetailByfootSeoPage",method=RequestMethod.GET)
 	public ModelAndView toFootNavDetailByfootSeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "footnavSeo") String footnavSeo) throws Exception{
 		//接收传递进来的参数
