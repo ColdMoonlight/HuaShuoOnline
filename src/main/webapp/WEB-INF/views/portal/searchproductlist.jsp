@@ -21,7 +21,7 @@
 		                <div class="customer-introduce-text1">Tired of Looking Suitable Hair, Or Still Didn't find the wig/style you wanted?</div>
 		                <div class="customer-introduce-text1">Or you have great idea/picture about the Hair /style you wanted.</div>
 		                <div class="customer-introduce-text2">Just Email us!</div>
-		                <div class="customer-introduce-text3">We will try our best meet your demand！</div>
+		                <div class="customer-introduce-text3">We will try our best meet your demand! </div>
 	              	</div>
 	            </div>
 	            <a class="customer-introduce-btn" href="mailto:team@megalookemail.com?subject=Product%20%20Inquiry%20---New%20Idea%20For%20The%20Hair&amp;body=Hi,%20Megalook%20Team,%20i%20Browser%20your%20website%20and%20didn't%20find%20the%20exact%20hair%20i%20want,%20here%20is%20some%20information%20about%20the%20hair%20i%20want%20,pls%20check%20and%20reply,%20thanks%20!">Send Us Your Idea &gt;</a>
@@ -97,5 +97,6 @@
 	<!-- lottery -->
 	<jsp:include page="layout/lottery.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
+	<div class="lucky_bag"><a href="${APP_PATH}/Bomb-Sale-13x4-4X4-Lace-Wig.html"></a></div>
 </body>
 </html>
