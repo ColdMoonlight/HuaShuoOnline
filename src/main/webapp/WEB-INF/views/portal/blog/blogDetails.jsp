@@ -3,12 +3,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>${sessionScope.blogDetailId}</title>	
+	<title>${sessionScope.blogMetaTitle}</title>	
     <meta name="keyword" content="${sessionScope.blogMetaKeywords}">
     <meta id="ml-des" name="description" content="${sessionScope.blogMeteDesc}">
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
-	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>	
-	<script> var blogId = '${sessionScope.blogDetailId}'; </script>
+	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+	<style>
+		.article { max-width: 1330px; margin: 0 auto; }
+		.article-time { display: flex; align-items: center; }
+		.article-time .text { margin-left: 1rrem; }
+		@media only screen and (min-width: 576px) {
+			.article-title { text-align: left; }
+			.article-time { padding: 0 1.5rem; font-size: 1rem; }
+			.article-time .text { margin-left: 1rem; }
+		}
+
+		@media only screen and (max-width: 575px) {
+			.article-content iframe, .article-content img{ width: 100%; }
+			.article-time { padding: 0 1rem; font-size: .875rem; }
+			.article-time .text { margin-left: .5rem; }
+		}
+	</style>
 </head>
 <body>
 	<jsp:include page="../layout/header/header.jsp" flush="true"></jsp:include>
@@ -29,12 +44,14 @@
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
 	<script>
 		$.ajax({
-			url: "${APP_PATH}/MlbackFootNav/getOneMlbackFootNavOneAllDetail",
+			url: "${APP_PATH}/MlbackBlog/getOneMlbackBlogDetail",
 			type: "post",
-			data: {"footnavId": '${sessionScope.footnavId}'},
+			data: JSON.stringify({"blogId": '${sessionScope.blogDetailId}'}),
+			dataType: "json",
+			contentType: 'application/json',
 			success: function (data) {
 				if (data.code == 100) {
-					renderArticle(data.extend.MlbackFootNavOne);
+					renderBlog(data.extend.MlbackBlogOne);
 				} else {
 					refreshPageModal();
 				}
@@ -43,11 +60,22 @@
 				refreshPageModal();
 			}
 		});
-		function renderArticle(data) {
+		function getNewFormatTime(time) {
+			var monthMap = {0:"JAN",1:"FEB",2:"MAR",3:"APR",4:"MAY",5:"JUN",6:"JUL",7:"AUG",8:"SEP",9:"OCT",10:"NOV",11:"DEC"};
+			if (time) {
+				var newTime = time.split(' ')[0].split('-');
+				return monthMap[newTime[1] - 1] + ' ' + newTime[2] + ', ' + newTime[0];
+			} else {
+				var newTime = new Date();
+				return monthMap[newTime.getMonth()] + ' ' + newTime.getDate() + ', ' + newTime.getFullYear();
+			}
+		}
+		function renderBlog(data) {
 			var htmlStr = '';
 			htmlStr = '<div class="article">' +
-				'<div class="article-title">'+ data.footnavName +'</div>' +
-				'<div class="article-content">'+ data.footnavDesc +'</div>' +
+				'<div class="article-title">'+ data.blogName +'</div>' +
+				'<div class="article-time"><img src="${APP_PATH}/static/pc/img/blog/date.png" /><span class="text">'+ getNewFormatTime(data.blogAuthorCreatetime) +'</span></div>' +
+				'<div class="article-content">'+ data.blogContentrichtext +'</div>' +
 			'</div>';
 			$('main .container').html(htmlStr);
 		}
