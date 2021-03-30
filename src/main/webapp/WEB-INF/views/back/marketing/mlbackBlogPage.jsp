@@ -478,6 +478,8 @@
 			$('#blogStatus').prop('checked', false)
 			$('#blogContentrichtext').summernote('reset');
 			
+			$('#blogAuthorCreatetime').val('');
+			
 			resetPicture($('#blogBannerimg'));
 			$('#blogSuperCateid').val('-1');
 			
@@ -493,6 +495,7 @@
 			data.blogSeoname = $('#blogSeoname').val();
 			data.blogStatus = $('#blogStatus').prop('checked') ? 1 : 0;
 			data.blogContentrichtext = $('#blogContentrichtext').val();
+			data.blogAuthorCreatetime = $('#blogAuthorCreatetime').val();
 			data.blogSuperCateid = $('#blogSuperCateid').val();
 			data.blogSuperCatename = $('#blogSuperCateid').find('option:selected').text();
 			data.blogMetaTitle = $('#blogMetaTitle').val();
@@ -509,6 +512,18 @@
 			$('#blogStatus').prop('checked', data.blogStatus);
 
 			$('#blogContentrichtext').summernote('code', data.blogContentrichtext);
+
+			$('#blogAuthorCreatetime').daterangepicker({
+				singleDatePicker: true,
+				timePicker: true,
+				timePicker24Hour: true,
+				timePickerSeconds: true,
+				showWeekNumbers: true,
+				locale: {
+					format: format,
+				},
+				startDate: (data.blogAuthorCreatetime || initDate()),
+			});
 			
 			if (data.blogBannerimg) {
 				addPicture($('#blogBannerimg'), {
