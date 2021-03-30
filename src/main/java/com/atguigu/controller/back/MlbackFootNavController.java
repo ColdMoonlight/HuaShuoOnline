@@ -94,8 +94,8 @@ public class MlbackFootNavController {
 	}
 	
 	/**3.0	UseNow	0505
-	 * MlbackAreafreight	insert
-	 * @param MlbackAreafreight
+	 * MlbackFootNav	insert
+	 * @param MlbackFootNav
 	 */
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseBody
@@ -120,7 +120,7 @@ public class MlbackFootNavController {
 	}
 	
 	/**4.0	UseNow	0505
-	 * MlbackAreafreight	delete
+	 * MlbackFootNav	delete
 	 * @param id
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
