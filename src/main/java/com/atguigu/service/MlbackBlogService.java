@@ -67,4 +67,9 @@ public class MlbackBlogService {
 		return mlbackBlogList;
 	}
 
+	public List<MlbackBlog> selectMlbackBlogSimpleByParam(MlbackBlog mlbackBlogReq) {
+		List<MlbackBlog>  mlbackBlogList = mlbackBlogMapper.selectMlbackBlogSimpleByParam(mlbackBlogReq);
+		return mlbackBlogList;
+	}
+
 }

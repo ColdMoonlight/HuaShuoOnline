@@ -22,6 +22,8 @@ public interface MlbackBlogMapper {
 	List<MlbackBlog> selectMlbackBlogGetAll();
 
 	List<MlbackBlog> selectMlbackBlogByParam(MlbackBlog mlbackBlog);
-
+	
+	List<MlbackBlog> selectMlbackBlogSimpleByParam(MlbackBlog mlbackBlog);
+	
 	List<MlbackBlog> selectMlbackBlogBack(MlbackBlog mlbackBlogReq);
 }
