@@ -535,6 +535,7 @@ public class MlbackProductController {
 		mlbackProductIn.setProductName(productName+"COPY");
 		mlbackProductIn.setProductSeo(proSeo+"COPY");
 		mlbackProductIn.setProductStatus(0);//0,不上架1,上架	刚复制完
+		mlbackProductIn.setProductNeedProTogetherId(999);//	组合产品的id	刚复制完	无绑定
 		
 		String nowTime = DateUtil.strTime14s();
 		mlbackProductIn.setProductCreatetime(nowTime);
