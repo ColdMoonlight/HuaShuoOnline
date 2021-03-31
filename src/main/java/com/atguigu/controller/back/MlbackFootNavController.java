@@ -94,8 +94,8 @@ public class MlbackFootNavController {
 	}
 	
 	/**3.0	UseNow	0505
-	 * MlbackAreafreight	insert
-	 * @param MlbackAreafreight
+	 * MlbackFootNav	insert
+	 * @param MlbackFootNav
 	 */
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseBody
@@ -120,7 +120,7 @@ public class MlbackFootNavController {
 	}
 	
 	/**4.0	UseNow	0505
-	 * MlbackAreafreight	delete
+	 * MlbackFootNav	delete
 	 * @param id
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
@@ -203,6 +203,12 @@ public class MlbackFootNavController {
 		
 	}
 	
+	/**
+	 * 6.0	20200608
+	 * toMlbackFootNav展示页面
+	 * @param	JSON
+	 * @return 
+	 * */
 	@RequestMapping(value="/toFootNavDetailByfootSeoPage",method=RequestMethod.GET)
 	public ModelAndView toFootNavDetailByfootSeoPage(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "footnavSeo") String footnavSeo) throws Exception{
 		//接收传递进来的参数
