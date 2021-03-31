@@ -516,6 +516,8 @@ public class MlbackProductController {
 		}else{
 			  
 			List<List<MlbackProduct>> kkkList =new ArrayList<List<MlbackProduct>>();
+			
+			String productNameStr = productName;
 			String productNameItemArr[] =productName.split(" ");
 		  
 			for(int i =0;i<productNameItemArr.length;i++){
@@ -546,7 +548,7 @@ public class MlbackProductController {
 			Integer finallyNum = mlbackProductFinallyResList.size();
 			System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
 			ifGetResult = 0;
-			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductFinallyResList).add("mlbackProductResListnum", finallyNum).add("productName", productName).add("ifGetResult", ifGetResult);
+			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductFinallyResList).add("mlbackProductResListnum", finallyNum).add("productName", productNameStr).add("ifGetResult", ifGetResult);
 		}
 	}
 	 
