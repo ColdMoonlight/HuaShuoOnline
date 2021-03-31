@@ -7,13 +7,14 @@
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<script> var productName = '${sessionScope.productName}'; </script>
-	<style>main { margin-top: 1rem; }</style>
+	<style>main { margin-top: 1rem; } .search-product-title { padding: 1rem; font-size: 1.5rem; font-weight: 500; text-align: center;}</style>
 </head>
 <body>
     <jsp:include page="layout/header/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
 		<div class="container">
 			<div class="search-product-banner"></div>
+			<div class="search-product-title hide"></div>
 			<div class="product-list"><div id="init-loading"></div></div>
 			<div class="customer-introduce">
 	            <div class="customer-introduce-bg" style="background-image: url('${APP_PATH}/static/pc/img/send-us-email.jpg')">
@@ -49,7 +50,7 @@
 				async: false,
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(descPrdouct(data.extend.mlbackProductResList));
+						callback && callback(data);
 					} else {
 						refreshPageModal();
 					}
@@ -60,9 +61,9 @@
 			});
 		}
 		function renderProductList(data) {
-			var htmlStr = '';
-			if(data.length) {
-				data.forEach(function(item) {
+			var htmlStr = '', productData = descPrdouct(data.extend.mlbackProductResList);
+			if('' + data.extend.ifGetResult == '1') {
+				productData.forEach(function(item) {
 					var productLink = '${APP_PATH}/'+ item.productSeo +'.html';
 					htmlStr += '<div class="product-item-box"><div class="product-item" data-productid="'+ item.productId +'">' +
 					    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
@@ -76,10 +77,12 @@
 								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? accuracyCal(item.productOriginalprice, item.productActoffoff) : 0) +'</span>' +
 							'</div>' +
 						'</div>' +
-					'</div></div>';					
+					'</div></div>';	
 				});
+				$('.search-product-title').text('Search results for "'+ data.extend.productName +'".').removeClass('hide');
 			} else {
-				htmlStr += '<p class="data-info">Relevant product classification products have been removed from the shelves!</p>';
+				$('.search-product-title').text('No search results for "'+ data.extend.productName +'".').removeClass('hide');
+				htmlStr += '<p class="data-info">Can&apos;t search it out? Maybe you can try checking your spelling or using different words!</p>';
 			}
 			
 			$('.product-list').html(htmlStr);
