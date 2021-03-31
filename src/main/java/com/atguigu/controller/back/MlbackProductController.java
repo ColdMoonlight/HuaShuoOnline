@@ -1,7 +1,11 @@
 package com.atguigu.controller.back;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackCatalog;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackProductImg;
@@ -486,29 +491,63 @@ public class MlbackProductController {
 	  * @param productId
 	  * @return 
 	  */
-	 @RequestMapping(value="/searchProductLike",method=RequestMethod.POST)
-	 @ResponseBody
-	 public Msg searchProductLike(@RequestParam(value = "productName") String productName){
-	  //接受信息
-	  //客户搜索记录
-	  MlbackSearch mlbackSearchReq = new MlbackSearch();
-	  mlbackSearchReq.setSearchContent(productName);
-	  String nowTime = DateUtil.strTime14s();
-	  mlbackSearchReq.setSearchCreatetime(nowTime);
-	  mlbackSearchReq.setSearchMotifytime(nowTime);
-	  mlbackSearchService.insertSelective(mlbackSearchReq);
-	  System.out.println("客户搜索的内容,mlbackSearchReq:"+mlbackSearchReq.toString());
-	  //执行搜索
-	  MlbackProduct mlbackProductReq = new MlbackProduct();
-	  mlbackProductReq.setProductName(productName);
-	  //System.out.println("操作说明:客户搜索的产品名字productName:"+productName);
-	  List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductLike(mlbackProductReq);
-	  List<MlbackProduct> mlbackProductResListnum =mlbackProductService.selectMlbackProductLikeNum(mlbackProductReq);
-	  Integer num = mlbackProductResListnum.size();
-	  //System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
-	  return Msg.success().add("resMsg", "产品名模糊搜索完毕")
-	     .add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName);
-	 }
+	@RequestMapping(value="/searchProductLike",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg searchProductLike(@RequestParam(value = "productName") String productName){
+		//接受信息
+		//客户搜索记录
+		MlbackSearch mlbackSearchReq = new MlbackSearch();
+		mlbackSearchReq.setSearchContent(productName);
+		String nowTime = DateUtil.strTime14s();
+		mlbackSearchReq.setSearchCreatetime(nowTime);
+		mlbackSearchReq.setSearchMotifytime(nowTime);
+		mlbackSearchService.insertSelective(mlbackSearchReq);
+		//执行搜索
+		MlbackProduct mlbackProductReq = new MlbackProduct();
+		mlbackProductReq.setProductName(productName);
+		System.out.println("操作说明:客户搜索的产品名字productName:"+productName);
+		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductLike(mlbackProductReq);
+		List<MlbackProduct> mlbackProductResListnum =mlbackProductService.selectMlbackProductLikeNum(mlbackProductReq);
+		Integer num = mlbackProductResListnum.size();
+		  
+		if(num>0){
+			System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
+			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName);
+		}else{
+			  
+			List<List<MlbackProduct>> kkkList =new ArrayList<List<MlbackProduct>>();
+			String productNameItemArr[] =productName.split(" ");
+		  
+			for(int i =0;i<productNameItemArr.length;i++){
+				MlbackProduct mlbackProductReqArr = new MlbackProduct();
+				productName = productNameItemArr[i];
+				mlbackProductReqArr.setProductName(productName);
+				System.out.println("操作说明:客户搜索的产品名字productName:"+productName);
+				List<MlbackProduct> mlbackProductArrOneResList =mlbackProductService.selectMlbackProductLike(mlbackProductReqArr);
+				kkkList.add(mlbackProductArrOneResList);
+			}
+		  
+			//描述
+			Map<String,MlbackProduct> pidMap = new HashMap<String,MlbackProduct>();
+			for(int j=0;j<kkkList.size();j++){
+				List<MlbackProduct> akkkListOneList =kkkList.get(j);
+					  
+				for(MlbackProduct mlbackProductOne:akkkListOneList){
+					Integer pid = mlbackProductOne.getProductId();
+					pidMap.put(pid+"", mlbackProductOne);
+				}
+			}
+			List<MlbackProduct> mlbackProductFinallyResList =new ArrayList<MlbackProduct>();
+			Iterator it=pidMap.keySet().iterator();
+			while(it.hasNext()){
+				String key=it.next().toString();
+				mlbackProductFinallyResList.add(pidMap.get(key));
+			}
+			Integer finallyNum = mlbackProductFinallyResList.size();
+			System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
+			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductFinallyResList).add("mlbackProductResListnum", finallyNum).add("productName", productName);
+		}
+	}
 	 
 	 /**12.0	20200914
 	 * MlbackProduct	copyProByPid
