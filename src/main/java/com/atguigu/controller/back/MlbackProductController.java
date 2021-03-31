@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlbackCatalog;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlbackProductImg;
@@ -509,10 +507,12 @@ public class MlbackProductController {
 		List<MlbackProduct> mlbackProductResList =mlbackProductService.selectMlbackProductLike(mlbackProductReq);
 		List<MlbackProduct> mlbackProductResListnum =mlbackProductService.selectMlbackProductLikeNum(mlbackProductReq);
 		Integer num = mlbackProductResListnum.size();
+		
+		Integer ifGetResult = 1;
 		  
 		if(num>0){
 			System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
-			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName);
+			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName).add("ifGetResult", ifGetResult);
 		}else{
 			  
 			List<List<MlbackProduct>> kkkList =new ArrayList<List<MlbackProduct>>();
@@ -545,7 +545,8 @@ public class MlbackProductController {
 			}
 			Integer finallyNum = mlbackProductFinallyResList.size();
 			System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
-			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductFinallyResList).add("mlbackProductResListnum", finallyNum).add("productName", productName);
+			ifGetResult = 0;
+			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductFinallyResList).add("mlbackProductResListnum", finallyNum).add("productName", productName).add("ifGetResult", ifGetResult);
 		}
 	}
 	 
