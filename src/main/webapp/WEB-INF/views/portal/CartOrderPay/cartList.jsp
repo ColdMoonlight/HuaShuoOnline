@@ -4,7 +4,9 @@
 <html>
 
 <head>
-	<title>Cart List</title>
+	<title>Your shopping cart | megalook.com</title>
+	<meta name="keywords" content="megalook hair,megalookhair wig,megalook wig">
+	<meta name="description" content="Your shopping cart in megalook">
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>main { margin: 0; }</style>
