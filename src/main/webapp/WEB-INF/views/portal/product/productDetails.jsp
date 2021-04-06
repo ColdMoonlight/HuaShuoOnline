@@ -98,6 +98,10 @@
 						<div class="btn paypal-button btn-primary" id="add-to-cart">Add To Cart</div>
 		   				<div class="btn paypal-button btn-black buy-now">Buy Now</div>
 					</div>
+					
+					<div id="pp-message-price" data-pp-message data-pp-placement="product" data-pp-amount="100" data-pp-style-layout="text" data-pp-buyerCountry="US"></div>
+       				<div id="paypal-button-container-2"></div>
+
 					<div id="countdown-area"></div>					
 
 					<div class="product-coupons wap hide"></div>					
