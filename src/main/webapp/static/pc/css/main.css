@@ -5334,3 +5334,19 @@ footer li {
 }
 .lucky_bag{position:fixed; bottom:30px; left:10px; z-index: 999999999; width:82px; height: 100px; background:url(../img/fd.png) no-repeat;}
 .lucky_bag a{width: 100%; height: 100%; display: block; background: url(../img/lb.gif) no-repeat 13px 45px;}
+
+.ml-user-policy {
+	margin-top: .6rem;
+    text-align: left;
+    font-size: .875rem;
+    display: flex;
+    align-items: center;
+}
+.ml-user-policy a {
+	color: #000;
+}
+.ml-user-policy input[name="userPolicy"] {
+	margin-right: .5rem;
+	-webkit-appearance: auto !important;
+	appearance: auto !important;
+}
