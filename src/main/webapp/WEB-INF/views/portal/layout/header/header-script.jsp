@@ -411,7 +411,7 @@
 							'<input type="password" id="rConfirmPassword" name="ConfirmPassword" placeholder="ConfirmPassword">' +
 						'</div>' +
 					'</form>' +
-					'<div class="ml-user-policy"><input name="userPolicy" type="checkbox" checked /> I accept&nbsp;<a class="user-policy-item" data-title="Terms of Usage" href="#">Terms of Usage</a>&nbsp;and&nbsp;<a class="user-policy-item" data-title="Privacy Policy" href="${APP_PATH}/Policy/PrivacyPolicyPage.html">Privacy Policy</a>&nbsp;of Megalook.com</div>' +
+					'<div class="ml-user-policy"><input name="userPolicy" type="checkbox" checked /> I accept&nbsp;<a class="user-policy-item" data-title="Terms of service" href="${APP_PATH}/Policy/TermsConditionsPage.html">Terms of Usage</a>&nbsp;and&nbsp;<a class="user-policy-item" data-title="Privacy Policy" href="${APP_PATH}/Policy/PrivacyPolicyPage.html">Privacy Policy</a>&nbsp;of Megalook.com</div>' +
 					'<div class="btn-group">' +
 						'<a href="javascript:;" class="btn btn-black register"> REGISTER </a>' +
 						'<a href="javascript:goToIndex();" class="btn btn-pink">Go Home</a>' +

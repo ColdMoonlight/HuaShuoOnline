@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Privacy policy</title>
+    <title>Term condition</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 	<!-- icon -->
@@ -24,7 +24,7 @@
 	    $.ajax({
 			url: "${APP_PATH}/MlbackFootNav/getOneMlbackFootNavOneAllDetailByFootSeo",
 			type: "post",
-			data: {"footnavSeo": 'Privacy-Policy'},
+			data: {"footnavSeo": 'Terms-Conditions'},
 			success: function (data) {
 				if (data.code == 100) {
 					renderArticle(data.extend.MlbackFootNavOne);

@@ -116,6 +116,7 @@
 				<a class="website-policy-item" href="${APP_PATH}/Policy/ReturnPolicyPage.html" data-title="Refund policy">Refund policy</a>
 				<a class="website-policy-item" href="${APP_PATH}/Policy/ShippingPolicyPage.html" data-title="Shipping policy">Shipping policy</a>
 				<a class="website-policy-item" href="${APP_PATH}/Policy/PrivacyPolicyPage.html" data-title="Privacy policy">Privacy policy</a>
+				<a class="website-policy-item" href="${APP_PATH}/Policy/TermsConditionsPage.html" data-title="Terms of service">Terms of service</a>
 			</div>
 		</div>
 	</main>
