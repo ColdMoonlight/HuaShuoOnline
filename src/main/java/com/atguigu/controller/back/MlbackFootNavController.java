@@ -351,4 +351,18 @@ public class MlbackFootNavController {
 		return "portal/policy/privacyPolicyPage";
 	}
 	
+	
+	/**
+	 * 3.0	zsh210107
+	 * toTermsConditionsPage列表页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/toTermsConditionsPage")
+	public String toTermsConditionsPage(HttpSession session) throws Exception{
+
+		return "portal/policy/termsConditionsPage";
+	}
+	
+	
 }
