@@ -312,7 +312,6 @@ public class MlbackFootNavController {
 		
 		return Msg.success().add("pageInfo", page);
 	}
-
 	
 	/**
 	 * 1.0	zsh210107
@@ -338,7 +337,6 @@ public class MlbackFootNavController {
 		return "portal/policy/shippingPolicyPage";
 	}
 	
-	
 	/**
 	 * 3.0	zsh210107
 	 * toPrivacyPolicyPage列表页面
@@ -351,9 +349,8 @@ public class MlbackFootNavController {
 		return "portal/policy/privacyPolicyPage";
 	}
 	
-	
 	/**
-	 * 3.0	zsh210107
+	 * 3.0	zsh210406
 	 * toTermsConditionsPage列表页面
 	 * @param jsp
 	 * @return 
@@ -363,6 +360,5 @@ public class MlbackFootNavController {
 
 		return "portal/policy/termsConditionsPage";
 	}
-	
 	
 }
