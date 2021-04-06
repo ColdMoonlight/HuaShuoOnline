@@ -93,4 +93,8 @@
         <from>^/Policy/ShippingPolicyPage.html</from>
         <to>/MlbackFootNav/toShippingPolicyPage</to>
     </rule>
+        <rule>
+        <from>^/Policy/TermsConditionsPage.html</from>
+        <to>/MlbackFootNav/toTermsConditionsPage</to>
+    </rule>
 </urlrewrite>
