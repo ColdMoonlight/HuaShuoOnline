@@ -5,12 +5,12 @@
 <html>
 <head>
 <c:choose>
-<c:when test="${sessionScope.categorySeo==null}"><title>Product List</title></c:when>
-<c:otherwise><title>${ sessionScope.categorySeo }</title></c:otherwise>
+<c:when test="${sessionScope.categoryMetaTitle==null}"><title>Product List</title></c:when>
+<c:otherwise><title>${sessionScope.categoryMetaTitle}</title></c:otherwise>
 </c:choose>
+<meta name="keyword" content="${sessionScope.categoryMetaKeyWords}">
+<meta name="description" content="${sessionScope.categoryMetaDesc}">
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
-    <meta name="keyword" content="${sessionScope.categoryMetaKeyWords}">
-    <meta name="description" content="${sessionScope.categoryMetaDesc}">
 	<script>
 		var categorySeo = '${sessionScope.categorySeo}';
 	</script>
