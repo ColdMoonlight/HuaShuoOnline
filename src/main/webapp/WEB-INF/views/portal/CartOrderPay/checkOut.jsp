@@ -91,6 +91,7 @@
 										<select name="addressProvince" id="addressProvince" class="form-control"></select>
 									</div>
 								</div>
+								<div class="ml-user-policy"><input name="userPolicy" type="checkbox" checked /> I accept&nbsp;<a class="user-policy-item" data-title="Terms of service" href="${APP_PATH}/Policy/TermsConditionsPage.html">Terms of Usage</a>&nbsp;and&nbsp;<a class="user-policy-item" data-title="Privacy Policy" href="${APP_PATH}/Policy/PrivacyPolicyPage.html">Privacy Policy</a>&nbsp;of Megalook.com</div>
 							</div>
 							<div class="paypal-error-tip hide">
 								<span class="icon tip"></span>
