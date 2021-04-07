@@ -345,16 +345,16 @@ public class MlfrontPayInfoController {
 				mlPaypalShipAddressUpdateReq.setShippingaddressIfFirstBuy(ifPaypalShipAddOldCustomer);
 				mlPaypalShipAddressService.updateByPrimaryKeySelective(mlPaypalShipAddressUpdateReq);
 			}else{
-				//这一单是新单，再去成交单里面查
+				//这一单是新单,再去成交单里面查
 				Integer ifOrderAddressOldCustomer = checkifOldCustomerFromAdress(email);
-				//如果查到是多次来，是复购单，走更新，
+				//如果查到是多次来,是复购单,走更新,
 				if(ifOrderAddressOldCustomer>0){
 					MlPaypalShipAddress mlPaypalShipAddressUpdateReq = new MlPaypalShipAddress();
 					mlPaypalShipAddressUpdateReq.setShippingaddressId(shippingaddressId);
 					mlPaypalShipAddressUpdateReq.setShippingaddressIfFirstBuy(ifPaypalShipAddOldCustomer);
 					mlPaypalShipAddressService.updateByPrimaryKeySelective(mlPaypalShipAddressUpdateReq);
 				}else{
-					//如果不是多次来，是新单跳过
+					//如果不是多次来,是新单跳过
 					System.out.println("payinfoId:"+payinfoId+""+"这一单是新客户,跳过");
 				}
 			}
@@ -455,7 +455,7 @@ public class MlfrontPayInfoController {
 					//优惠券不存在
 					System.out.println("往google,此优惠券不存在");
 				}else{
-					//取出次数，id,次数加一
+					//取出次数,id,次数加一
 					MlbackCoupon mlbackCouponRes = mlbackCouponList.get(0);
 					Integer usedTimes = mlbackCouponRes.getCouponTimes();
 					usedTimes++;
