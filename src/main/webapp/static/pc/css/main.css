@@ -5341,6 +5341,7 @@ footer li {
     font-size: .875rem;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 .ml-user-policy a {
 	color: #000;
