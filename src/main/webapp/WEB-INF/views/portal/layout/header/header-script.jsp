@@ -268,7 +268,7 @@
 	}
 	// render introduce search
 	function renderIntroduceSearch() {
-		var data = ["Transparent Lace", "Balayage", "Undetectable", "Headband Wig", "Ombre", "#4 Color", "Highlight", "Curly Wig", "Closure Wig", "360 Lace", "Piano Color", "Glueless Wig", "Bob Wig", "Ginger", "613", "Short Cut", "New Arrival", "U part", "Water Wave", "Bundles", "Double Drawn Hair", "Thick From Top To End"];
+		var data = ["Transparent Lace", "Balayage", "Undetectable", "Headband Wig", "Ombre", "#4 Color", "Highlight", "Curly Wig", "Closure Wig", "360 Lace", "Piano Color", "Glueless Wig", "Bob Wig", "Ginger", "613 Blonde", "Short Cut", "New Arrival", "U part", "Water Wave", "Bundles", "Double Drawn Hair", "Thick From Top To End"];
 		var searchRsultHtml = '';
 		data.forEach(function(item, idx) {
 			searchRsultHtml += '<li class="search-result-item" data-name="'+ item +'">'+ item +'</li>';
@@ -473,7 +473,7 @@
 	}
 	// go to search product
 	function goToSearchProduct(searchName) {
-		window.location.href = '${APP_PATH}/MlbackProduct/toSearchPage?searchProductName=' + encodeURI(searchName);
+		window.location.href = '${APP_PATH}/MlbackProduct/toSearchPage?searchProductName=' + encodeURI(searchName.replace(/\s+wigs*/i,'').replace('#',''));
 	}
 	// check input search value
 	function checkSearchInput(value) {
