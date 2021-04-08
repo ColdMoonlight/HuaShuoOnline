@@ -328,6 +328,7 @@
 		$('.order-cal-shipping').text('$'+ (calOrder.shipping).toFixed(2));
 		$('.order-cal-coupon').text('-$'+ (calOrder.coupon).toFixed(2));
 		$('.order-cal-subtotal').text('$'+ (calOrder.subtotal).toFixed(2)).data('price', (calOrder.subtotal).toFixed(2));
+		$('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	}
 	// render country
 	function renderCountry() {
@@ -935,6 +936,18 @@ $(document.body).on('change', 'input[type="radio"][name="payment"]', function() 
 <!-- qq -->
 <script src="https://www.paypal.com/sdk/js?client-id=AQyXf-N2nNr8QwJsFt7IudPRL-CMGYEXCCzgqOHIA037JLhSFOEchb2kGa_z_BqzKY4CmUPFiGqG_uNj&buyer-country=US&components=messages,buttons"></script>
 <script>
+function checkInputAdressInfoForPaypalButton() {
+	var flag = true;
+	for(var idx = 0, len = $('.address-box .form-group').length; idx < len; idx += 1) {
+		var item = $('.address-box .form-group')[idx];
+		if ($(item).find('.form-control').data('status')) continue;
+		if (!$(item).find('.form-control').val() || $(item).find('.form-control').val() == 'state') {
+			flag = false;
+			break;
+		}
+	}
+	return flag;
+}
 paypal.Buttons({
     env: 'production',
     style:{
@@ -945,106 +958,99 @@ paypal.Buttons({
         label:   'paypal'
     },
     commit: true,
-    //onInit is called when the button first renders
     onInit: function(data, actions) {
-        // Disable the buttons
-        actions.disable();
+    	if (checkInputAdressInfoForPaypalButton()) {
+    		actions.enable();
+    	} else {
+    		actions.disable();
+    	}
         $('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
+        $('.address-box .form-group input').on('change', function() {
+        	if (checkInputAdressInfoForPaypalButton()) {
+        		actions.enable();
+        	} else {
+        		actions.disable();
+        	}
+        });
     },
-    // onClick is called when the button is clicked
-    onClick: function() {
+    onClick: function(data, actions) {
         if (checkInputAdressInfo()) {
-        	orderSaveAddress(getOrderAddress(), function(data) {
-        		$('#addressId').val(data.addressId);
-    			var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
-    			var orderMoney = $('.order-cal-subtotal').data('price');
-    	    	var reqData = getOrderPayInfo();
+        	var reqData = getOrderAddress();
+        	payLoading();
+        	$.ajax({
+    			url: '${APP_PATH}/MlfrontAddress/save',
+    			type: 'post',
+    			dataType: 'json',
+    			data: JSON.stringify(reqData),
+    			contentType: 'application/json',
+    			success: function (data) {
+    				if (data.code == 100) {
+    					var aData = data.extend.mlfrontAddress;
+    					var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
+    	    			var orderMoney = $('.order-cal-subtotal').data('price');
+    	        		$('#addressId').val(aData.addressId);
 
-    			fbq('track', 'AddPaymentInfo', {
-    				content_ids: productIdArr,
-    				content_type: 'product',
-    				value: orderMoney,
-    				currency: 'USD'
-    			});
-
-    			payLoading();
-    			$.ajax({
-    				url: '${APP_PATH}/MlfrontOrderSuper/orderToPayInfo',
-    				data: JSON.stringify(reqData),
-    				type: 'post',
-    				dataType: 'json',
-    				contentType: 'application/json',
-    				async: false,
-    				success: function (data) {
-    					console.log(data)
-    					if (data.code == 100) {
-    						console.log(data.extend);
-    					} else {
-    						sysModalTip();
-    					}
-    				},
-    				error: function(err) {
+    	    			fbq('track', 'AddPaymentInfo', {
+    	    				content_ids: productIdArr,
+    	    				content_type: 'product',
+    	    				value: orderMoney,
+    	    				currency: 'USD'
+    	    			});    			
+    				} else {
     					sysModalTip();
     				}
-    			});
-        	});
+    			},
+    			error: function () {
+    				sysModalTip();
+    			},
+    			complete: function() {
+    				hidePayLoading();
+    			}
+    		});
         }
-        
-        return 'ok';
     },
-    createOrder: function(data) {
-    	console.log(data)
-		orderSaveAddress(getOrderAddress(), function(data) {
-			$('#addressId').val(data.addressId);
-			var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
-			var orderMoney = $('.order-cal-subtotal').data('price');
-
-			fbq('track', 'AddPaymentInfo', {
-				content_ids: productIdArr,
-				content_type: 'product',
-				value: orderMoney,
-				currency: 'USD'
-			});
+    createOrder: function() {
+    	var token;
+    	var reqData = getOrderPayInfo();
+    	$.ajax({
+			url: '${APP_PATH}/MlfrontOrderSuper/orderToPayInfo',
+			data: JSON.stringify(reqData),
+			type: 'post',
+			dataType: 'json',
+			contentType: 'application/json',
+			async: false,
+			success: function (data) {
+				if (data.code == 100) {
+					var payment = JSON.parse(data.extend.data);
+					payment.links && payment.links.forEach(function(link) {
+						if (link.rel == 'approval_url') {
+		                    token = link.href.match(/EC-\w+/)[0];
+		                }
+					})
+				} else {
+					sysModalTip();
+				}
+			},
+			error: function(err) {
+				sysModalTip();
+			}
 		});
 
-    	
-        /* return fetch('${APP_PATH}/payment.php', {
-            method: 'post',
-            body: JSON.stringify({ }),
-            headers: { 'content-type': 'application/json' }
-        }).then(function (res) {
-            return res.json();
-        }).then(function (data) {
-            console.log(data);
-            let token;
-            for (let link of data.links) {
-                if (link.rel === 'approval_url') {
-                    token = link.href.match(/EC-\w+/)[0];
-                }
-            }
-            return token;
-        }); */
+    	return token;
     },
     onApprove: function (data) {
-        console.log(data);
-        var DOEC_URL = 'successUrl.php';
-        return fetch(DOEC_URL, {
-            method: 'post',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({
-                paymentId: data.paymentID,
-                token: data.orderID,
-                payerID: data.payerID
-            })
-        }).then(function(res){
-            return res.json();
-        }).then(function(data) {
-            console.log(data);
-        });
+    	$.ajax({
+			url: '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID,
+			success: function (data) {
+				window.location.href = '${APP_PATH}/success.html';
+			},
+			error: function() {
+				mlModalTip('Payment failed, please try again later!');
+			},
+			complete: function() {
+				hidePayLoading();
+			}
+    	})
     }
 }).render('#paypal-button-container-2');
-
-$(".product-option-item .radio").on("click", function() {
-	$('#pp-message-price').attr("data-pp-amount", $('.product-now-price').html().replace('$', ''));      		
-});
 </script>
