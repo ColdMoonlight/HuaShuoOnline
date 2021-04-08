@@ -322,6 +322,7 @@ public class MlfrontOrderSuperController {
                     addressMoneyNow,//shopping
                     cancelUrl, 
                     successUrl);
+            return Msg.success().add("data", payment.toJSON());
         } catch (PayPalRESTException e) {
             System.out.println("----------/paypal/mpay/Exception----------");
             System.out.println("---------e.getMessage()-----begin------");
@@ -329,8 +330,8 @@ public class MlfrontOrderSuperController {
             System.out.println("---------e.getMessage()------end-------");
             System.out.println("---------e.getDetails()-----begin------");
             System.out.println(e.getDetails());
+            return Msg.success().add("data", e.getDetails());
         }
-        return Msg.success().add("payment", payment.toJSON());
 	}
 	
 	/*********************************************************************************************************/
