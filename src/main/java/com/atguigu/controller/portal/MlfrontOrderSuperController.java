@@ -7,8 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +40,7 @@ import com.atguigu.service.MlfrontOrderService;
 import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.PaypalService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.URLUtils;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
@@ -87,8 +86,6 @@ public class MlfrontOrderSuperController {
 	@Autowired
 	MlfrontCheckoutViewService mlfrontCheckoutViewService;
 	
-	private Logger log = LoggerFactory.getLogger(getClass());
-
 	
 	/**1.0	zsh210408
 	 * 更新order表中的:地址字段,优惠券字段,优惠券折扣.
@@ -306,10 +303,9 @@ public class MlfrontOrderSuperController {
 
     	//封装paypal所需
     	//HttpServletResponse rep,HttpServletRequest res
+    	String cancelUrl = URLUtils.getBaseURl(res) + "/" + PAYPAL_CANCEL_M_URL;
+        String successUrl = URLUtils.getBaseURl(res) + "/" + PAYPAL_SUCCESS_M_URL;
     	
-    	String cancelUrl = "";
-        String successUrl = "";
-        
         Payment payment = new Payment();
         PaypalService paypalService = new PaypalService();
 
@@ -327,7 +323,6 @@ public class MlfrontOrderSuperController {
                     cancelUrl, 
                     successUrl);
         } catch (PayPalRESTException e) {
-            log.error(e.getMessage());
             System.out.println("----------/paypal/mpay/Exception----------");
             System.out.println("---------e.getMessage()-----begin------");
             System.out.println(e.getMessage());
@@ -798,8 +793,5 @@ public class MlfrontOrderSuperController {
 		}
 		return mlfrontOrderItemsList;
 	}
-	
-	
-	
 	
 }
