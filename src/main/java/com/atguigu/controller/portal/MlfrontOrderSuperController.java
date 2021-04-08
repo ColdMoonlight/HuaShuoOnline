@@ -330,7 +330,7 @@ public class MlfrontOrderSuperController {
             System.out.println("---------e.getDetails()-----begin------");
             System.out.println(e.getDetails());
         }
-        return Msg.success().add("payment", payment);
+        return Msg.success().add("payment", payment.toJSON());
 	}
 	
 	/*********************************************************************************************************/
