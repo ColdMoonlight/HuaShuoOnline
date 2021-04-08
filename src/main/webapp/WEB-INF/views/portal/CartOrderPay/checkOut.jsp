@@ -38,55 +38,62 @@
 								<!-- first name -->
 								<div class="form-group">
 									<div class="form-input form-no-label">
+										<label for="addressUserfirstname" class="form-label hide">First Name</label>
 										<input type="text" name="addressUserfirstname" id="addressUserfirstname" class="form-control" placeholder="First Name">
 									</div>
 								</div>
 								<!-- last name -->
 								<div class="form-group">
+									<label for="addressUserlastname" class="form-label hide">Last Name</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressUserlastname" id="addressUserlastname" class="form-control" placeholder="Last Name">
 									</div>
 								</div>
 								<!-- email address -->
 								<div class="form-group">
+									<label for="addressEmail" class="form-label hide">Email Adress</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressEmail" id="addressEmail" class="form-control" placeholder="Email">
 									</div>
 								</div>
 								<!-- telephone -->
 								<div class="form-group">
+									<label for="addressTelephone" class="form-label hide">Telephone</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressTelephone" id="addressTelephone" class="form-control" placeholder="Telephone">
 									</div>
 								</div>
 								<!-- address -->
 								<div class="form-group" style="width: 100%">
+									<label for="addressDetail" class="form-label hide">Address</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="Address">
 									</div>
 								</div>
 								<!-- city -->
 								<div class="form-group">
+									<label for="addressCity" class="form-label hide">City</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressCity" id="addressCity" class="form-control" placeholder="City">
 									</div>
 								</div>
 								<!-- Zip/Postal code -->
 								<div class="form-group">
+									<label for="addressPost" class="form-label hide">Zip/Postal code</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressPost" id="addressPost" class="form-control" placeholder="Zip/Postal code">
 									</div>
 								</div>
 								<!-- country -->
 								<div class="form-group">
-									<label for="addressCountry" class="form-label">Country</label>
+									<label for="addressCountry" class="form-label hide">Country</label>
 									<div class="form-input">
 										<select name="addressCountry" id="addressCountry" class="form-control" value="US"></select>
 									</div>
 								</div>
 								<!-- stateprovinceName -->
 								<div class="form-group address-province">
-									<label for="addressProvince" class="form-label">State/Province</label>
+									<label for="addressProvince" class="form-label hide">State/Province</label>
 									<div class="form-input">
 										<select name="addressProvince" id="addressProvince" class="form-control"></select>
 									</div>
@@ -111,6 +118,9 @@
 					<div class="checkout-pay-method"></div>
 					<div class="checkout-buy-msg"></div>
 					<div class="checkout-order-cal"></div>
+
+					<div id="pp-message-price" data-pp-message data-pp-placement="product" data-pp-amount="" data-pp-style-layout="text" data-pp-buyerCountry="US"></div>
+					<div id="paypal-button-container-2"></div>
 				</div>
 			</div>
 			<div class="website-policy" style="margin-bottom: 1rem;">
@@ -134,8 +144,8 @@
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
 	<jsp:include page="./add-free-gift.jsp" flush="true"></jsp:include>
 	<!-- checkout script -->
-	<jsp:include page="./checkout-script.min.jsp" flush="true"></jsp:include>
 	<jsp:include page="collect-shipping-address.jsp" flush="true"></jsp:include>
+	<jsp:include page="./checkout-script.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
 </body>
 </html>

@@ -932,3 +932,119 @@ $(document.body).on('change', 'input[type="radio"][name="payment"]', function() 
 		}
 	});
 </script> -->
+<!-- qq -->
+<script src="https://www.paypal.com/sdk/js?client-id=AQyXf-N2nNr8QwJsFt7IudPRL-CMGYEXCCzgqOHIA037JLhSFOEchb2kGa_z_BqzKY4CmUPFiGqG_uNj&buyer-country=US&components=messages,buttons"></script>
+<script>
+paypal.Buttons({
+    env: 'production',
+    style:{
+        layout:  'vertical',
+        color:   'gold',
+        shape:   'rect',
+        size:    'medium',
+        label:   'paypal'
+    },
+    commit: true,
+    //onInit is called when the button first renders
+    onInit: function(data, actions) {
+        // Disable the buttons
+        actions.disable();
+        $('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
+    },
+    // onClick is called when the button is clicked
+    onClick: function() {
+        if (checkInputAdressInfo()) {
+        	orderSaveAddress(getOrderAddress(), function(data) {
+        		$('#addressId').val(data.addressId);
+    			var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
+    			var orderMoney = $('.order-cal-subtotal').data('price');
+    	    	var reqData = getOrderPayInfo();
+
+    			fbq('track', 'AddPaymentInfo', {
+    				content_ids: productIdArr,
+    				content_type: 'product',
+    				value: orderMoney,
+    				currency: 'USD'
+    			});
+
+    			payLoading();
+    			$.ajax({
+    				url: '${APP_PATH}/MlfrontOrderSuper/orderToPayInfo',
+    				data: JSON.stringify(reqData),
+    				type: 'post',
+    				dataType: 'json',
+    				contentType: 'application/json',
+    				async: false,
+    				success: function (data) {
+    					console.log(data)
+    					if (data.code == 100) {
+    						console.log(data.extend);
+    					} else {
+    						sysModalTip();
+    					}
+    				},
+    				error: function(err) {
+    					sysModalTip();
+    				}
+    			});
+        	});
+        }
+        
+        return 'ok';
+    },
+    createOrder: function(data) {
+    	console.log(data)
+		orderSaveAddress(getOrderAddress(), function(data) {
+			$('#addressId').val(data.addressId);
+			var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
+			var orderMoney = $('.order-cal-subtotal').data('price');
+
+			fbq('track', 'AddPaymentInfo', {
+				content_ids: productIdArr,
+				content_type: 'product',
+				value: orderMoney,
+				currency: 'USD'
+			});
+		});
+
+    	
+        /* return fetch('${APP_PATH}/payment.php', {
+            method: 'post',
+            body: JSON.stringify({ }),
+            headers: { 'content-type': 'application/json' }
+        }).then(function (res) {
+            return res.json();
+        }).then(function (data) {
+            console.log(data);
+            let token;
+            for (let link of data.links) {
+                if (link.rel === 'approval_url') {
+                    token = link.href.match(/EC-\w+/)[0];
+                }
+            }
+            return token;
+        }); */
+    },
+    onApprove: function (data) {
+        console.log(data);
+        var DOEC_URL = 'successUrl.php';
+        return fetch(DOEC_URL, {
+            method: 'post',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+                paymentId: data.paymentID,
+                token: data.orderID,
+                payerID: data.payerID
+            })
+        }).then(function(res){
+            return res.json();
+        }).then(function(data) {
+            console.log(data);
+        });
+    }
+}).render('#paypal-button-container-2');
+
+$(".product-option-item .radio").on("click", function() {
+	$('#pp-message-price').attr("data-pp-amount", $('.product-now-price').html().replace('$', ''));      		
+});
+</script>
