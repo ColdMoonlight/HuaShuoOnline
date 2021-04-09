@@ -118,9 +118,6 @@
 					<div class="checkout-pay-method"></div>
 					<div class="checkout-buy-msg"></div>
 					<div class="checkout-order-cal"></div>
-
-					<div id="pp-message-price" data-pp-message data-pp-placement="product" data-pp-amount="" data-pp-style-layout="text" data-pp-buyerCountry="US"></div>
-					<div id="paypal-button-container-2"></div>
 				</div>
 			</div>
 			<div class="website-policy" style="margin-bottom: 1rem;">
