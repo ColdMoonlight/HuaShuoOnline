@@ -41,6 +41,8 @@ import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.PaypalService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.URLUtils;
+import com.paypal.api.payments.ErrorDetails;
+import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
@@ -308,7 +310,9 @@ public class MlfrontOrderSuperController {
     	
         Payment payment = new Payment();
         PaypalService paypalService = new PaypalService();
-
+        
+        String PaypalErrorName="";
+        List<ErrorDetails> paypalErrorList= null;
         try {
             payment = paypalService.createPayment(
             		moneyDouble,// 888.00, 
@@ -322,6 +326,12 @@ public class MlfrontOrderSuperController {
                     addressMoneyNow,//shopping
                     cancelUrl, 
                     successUrl);
+            for(Links links : payment.getLinks()){
+                if(links.getRel().equals("approval_url")){
+                	System.out.println("links.getHref:"+links.getHref());
+                    //return "redirect:" + links.getHref();
+                }
+            }
             return Msg.success().add("data", payment.toJSON());
         } catch (PayPalRESTException e) {
             System.out.println("----------/paypal/mpay/Exception----------");
@@ -330,7 +340,41 @@ public class MlfrontOrderSuperController {
             System.out.println("---------e.getMessage()------end-------");
             System.out.println("---------e.getDetails()-----begin------");
             System.out.println(e.getDetails());
-            return Msg.success().add("data", e.getDetails());
+            
+            
+            System.out.println(e.getDetails());
+            if(e.getDetails()==null){
+            	//PaypalErrorName = "retry fails..  check log for more information";
+            	PaypalErrorName = "network error,"+"pls try once again";
+            	//return Msg.success().add("ifPaypalCheckSuccess", 2).add("errorDetail", PaypalErrorName);
+            }else{
+            	PaypalErrorName = e.getDetails().getName();
+            	paypalErrorList = e.getDetails().getDetails();
+            	if(paypalErrorList.size()>1){
+            		//city,state,zip不匹配
+            		PaypalErrorName = "pls check your information, make sure that city,state,zip code  is  match your address";
+            	}else{
+            		//看看是什么
+            		String errStr = paypalErrorList.get(0).getField();
+            		String errStrll = errStr.replace(".", ",");
+            		System.out.println("errStrll:"+errStrll);
+            		
+            		String errStrArr[] = errStrll.split(",");
+            		Integer errLen = errStrArr.length;
+            		System.out.println("errLen:"+errLen);
+            		String lastStr = errStrArr[errLen-1];
+            		
+            		if(lastStr.equals("phone")){
+            			PaypalErrorName = "Pls fill right phone number with Digital 0-9,which shouldn't included Any Alphabet and Symbol .";
+            		}else{
+            			PaypalErrorName ="Please check the "+lastStr+" . and Pls try again";
+            		}
+            	}
+            }
+            System.out.println("后台转换后的错误提示PaypalErrorName:"+PaypalErrorName);
+            System.out.println("---------e.getDetails()------end------");
+            //return Msg.success().add("ifPaypalCheckSuccess", 2).add("errorDetail", PaypalErrorName);
+            return Msg.success().add("data", PaypalErrorName);
         }
 	}
 	
