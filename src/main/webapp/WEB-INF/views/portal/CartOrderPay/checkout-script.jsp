@@ -722,14 +722,13 @@ function paypalPayment() {
 	    	    				currency: 'USD'
 	    	    			});    			
 	    				} else {
+		    				hidePayLoading();
 	    					sysModalTip();
 	    				}
 	    			},
 	    			error: function () {
-	    				sysModalTip();
-	    			},
-	    			complete: function() {
 	    				hidePayLoading();
+	    				sysModalTip();
 	    			}
 	    		});
 	        }
@@ -753,10 +752,12 @@ function paypalPayment() {
 			                }
 						})
 					} else {
+	    				hidePayLoading();
 						sysModalTip();
 					}
 				},
 				error: function(err) {
+    				hidePayLoading();
 					sysModalTip();
 				}
 			});
@@ -770,10 +771,8 @@ function paypalPayment() {
 					window.location.href = '${APP_PATH}/success.html';
 				},
 				error: function() {
+    				hidePayLoading();
 					mlModalTip('Payment failed, please try again later!');
-				},
-				complete: function() {
-					hidePayLoading();
 				}
 	    	})
 	    }
