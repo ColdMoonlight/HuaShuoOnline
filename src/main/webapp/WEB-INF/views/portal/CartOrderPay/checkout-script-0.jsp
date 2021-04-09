@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
-
 <script>
 	// get order list
 	function getProductOrderList(callback) {
@@ -52,7 +51,6 @@
 				"orderitemId": parseInt(targetData.orderitemId),
 				"orderitemPskuNumber": num
 			};
-
 		$.ajax({
 			url: '${APP_PATH}/MlfrontOrder/updateOrderItemNum',
 			data: JSON.stringify(reqData),
@@ -69,11 +67,9 @@
 						}
 					});
 					$('.order-list').data('itemnumarr', orderProductNumArr.join(','));
-
 					updateProructNumberInCart();
 					targetData.orderitemPskuNumber = num;
 					el.parents('.order-item').data('orderitem', targetData);
-
 					callback && callback();
 					updateProductNumSuccessModal();
 				} else {
@@ -167,19 +163,15 @@
 		}, function(data) {
 			var money = data.areafreightMoney,
 				provinceList = data.mlPaypalStateprovinceList;
-
 			$('.order-address-shipping').data('shipping', money).find('.value').text('$' + money);
-
 			if (provinceList && provinceList.length > 0) {
 				renderProvince(provinceList);
 				$('#addressProvince').data('status', false);
-
 				hasProvince = true;
 				$("#addressProvince").parents('.form-group').removeClass('hide');
 				$("#addressCountry").parents('.form-group').css("width", "");
 			} else {
 				$('#addressProvince').val('').data('status', true);
-
 				hasProvince = false;
 				$("#addressProvince").parents('.form-group').addClass('hide');
 				$("#addressCountry").parents('.form-group').css("width", "100%");
@@ -209,19 +201,16 @@
 		var productIdArr = $('.order-list').data('productidarr').split(',');
 		var couponPidArr = [];
 		var userEmail = $('#addressEmail').val().trim();
-
 		$('.order-item').each(function(idx, item) {
 			var $data = $(item).data('orderitem');
 			var orderitemPrice = parseFloat((parseFloat(accuracyCal((($data.orderitemProductOriginalprice || 0) + parseFloat($data.orderitemPskuMoneystr || 0)), ($data.orderitemProductAccoff || 100))) * $data.orderitemPskuNumber).toFixed(2));
 			resData.prototal += orderitemPrice;
 		});
-
 		// coupon code
 		if (couponData && !couponData.mlbackCouponOne) {
 			resData.coupon = 0;
 			$('.order-coupon-tip').html('<p>'+ couponData.resMsg +'</p>');
 		}
-
 		if (couponData && couponData.mlbackCouponOne) {
 			function checkCouponBaseline(price) {
 				if (!couponData.mlbackCouponOne.couponPriceBaseline || (couponData.mlbackCouponOne.couponPriceBaseline && price >= parseFloat(couponData.mlbackCouponOne.couponPriceBaseline))) {
@@ -248,7 +237,6 @@
 				$('.order-item').each(function(idx, item) {
 					var $data = $(item).data('orderitem');
 					var orderItemPrice = parseFloat((parseFloat(accuracyCal((($data.orderitemProductOriginalprice || 0) + parseFloat($data.orderitemPskuMoneystr || 0)), ($data.orderitemProductAccoff || 100))) * $data.orderitemPskuNumber).toFixed(2));
-
 					if (flag == 'all') {
 						prices += orderItemPrice;
 					}
@@ -272,7 +260,6 @@
 					$('.order-coupon-tip').html('<p><i style="color: #f00">This coupon does not apply to the currently purchased product! </p>');
 				}
 			}
-
 			function checkCoupon() {
 				// all product
 				if ('' + couponData.mlbackCouponOne.couponProductonlyType == '0' || !couponData.mlbackCouponOne.couponProductonlyType) {
@@ -294,7 +281,6 @@
 					checkCouponRange('except');
 				}
 			}
-
 			if ('' + couponData.mlbackCouponOne.couponCodeUniqueEmailIF == '1') {
 				if (userEmail) {
 					if (couponData.mlbackCouponOne.couponCodeUniqueEmail && couponData.mlbackCouponOne.couponCodeUniqueEmail.indexOf(userEmail) > -1) {
@@ -312,11 +298,8 @@
 				checkCoupon();
 			}
 		}
-
 		resData.subtotal = resData.prototal + resData.shipping - resData.coupon;
-
 		if (resData.coupon <= 0) $('.order-coupon-group').data('coupon', '');
-
 		showFreeGift(resData.prototal);
 		
 		return resData;
@@ -328,7 +311,6 @@
 		$('.order-cal-shipping').text('$'+ (calOrder.shipping).toFixed(2));
 		$('.order-cal-coupon').text('-$'+ (calOrder.coupon).toFixed(2));
 		$('.order-cal-subtotal').text('$'+ (calOrder.subtotal).toFixed(2)).data('price', (calOrder.subtotal).toFixed(2));
-		$('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	}
 	// render country
 	function renderCountry() {
@@ -351,7 +333,6 @@
 		for (var i = 0, len = data.length; i < len; i += 1) {
 			htmlStr += '<option value="' + data[i].stateprovinceName + '"'+ (defaultValue == data[i].stateprovinceName ? "selected" : "") +'>' + data[i].stateprovinceName + '</option>';
 		}
-
 		$('#addressProvince').html(htmlStr);
 	}
 	// renderd order list
@@ -371,11 +352,9 @@
 					'<span class="value">'+ skuNameArr[idx] +'</span>' +
 				'</div>';
 			});
-
 			orderProductIdArr.push(item.orderitemPid);
 			orderItemIdArr.push(item.orderitemId);
 			orderProductNumArr.push(item.orderitemPskuNumber);
-
 			var productLink = item.orderitemPseo ? ('${APP_PATH}/'+ item.orderitemPseo +'.html') : 'javascript:;';
 			$orderList.append($('<div class="order-item">' +
 				'<a href="'+ productLink +'" class="order-img lazyload" data-src="'+ item.orderitemProductMainimgurl +'"></a>' +
@@ -403,9 +382,7 @@
 				'<div class="cart-box-body"></div>'+
 			'</div>');
 		$cartReviewBox.find('.cart-box-body').append($orderList);
-
 		$('.checkout-order-list').append($cartReviewBox);
-
 		new LazyLoad($orderList.find('.lazyload'), {
 			root: null,
 			rootMargin: "10px",
@@ -429,14 +406,55 @@
 				'</div>'+
 			'</div>');
 		$('.checkout-coupons').html('').append($cartCouponBox);
-
 		// coupon area list			
 		getCouponAreaData(renderCouponAreaData);
+	}
+	// render order payment method
+	function renderOrderPaymentMethod() {
+		var $cartPaymentBox = $('<div class="cart-box">'+
+				'<div class="cart-box-title"><span class="order-sort">4</span>PAYMENT METHOD</div>'+
+				'<div class="cart-box-body">'+
+					'<div class="order-payment" data-pay="0">' +
+						'<div class="order-payment-item">'+
+							'<div class="order-pay-inner custom-check">' +
+								'<input type="radio" name="payment" id="payment-paypal" checked value="0">' +
+								'<label for="payment-paypal">' +
+									'<img src="${APP_PATH}/static/pc/img/paypal-1.png">' +
+									'<span>Pay with PayPal account</span>' +
+								'</label>' +
+							'</div>' +
+							'<div class="paypal-box">' +
+						    	'<img src="${APP_PATH}/static/pc/img/paypal-3.svg">' +
+						    	'<div class="paypal-des">After clicking “Complete order”, you will be redirected to PayPal to complete your purchase securely.</div>' +
+						    '</div>' +
+						'</div>' +
+						'<div class="order-payment-item">'+
+							'<div class="order-pay-inner custom-check">' +
+								'<input type="radio" name="payment" id="payment-paypalcard" value="1">' +
+								'<label for="payment-paypalcard">' +
+									'<img src="${APP_PATH}/static/pc/img/paypal-2-2.png">' +
+									'<sapn style="white-space: nowrap;">Pay with Paypal Credit card</span>' +
+								'</label>' +
+							'</div>'+
+							'<div class="paypal-box hide">' +
+						    	'<img src="${APP_PATH}/static/pc/img/paypal-3.svg">' +
+						    	'<div class="paypal-des">After clicking “complete order”, you will be redirected to PayPal to complete your purchase safely with several credit cards supported by PayPal.</div>' +
+						    '</div>' +
+						'</div>' +
+						'<div class="card-element-box mask hide">' +
+					    	'<div class="spinner"></div>' +
+					    	'<div id="card-element"></div>' +
+					    	'<p id="card-error" role="alert"></p>' +
+					    '</div>' +
+					'</div>'+
+				'</div>'+
+			'</div>');
+		$('.checkout-pay-method').append($cartPaymentBox);
 	}
 	// render order buyer message
 	function renderOrderBuyerMsg() {
 		var $cartBuyerMsgBox = $('<div class="cart-box">'+
-				'<div class="cart-box-title"><span class="order-sort">4</span>ADDITIONAL INFORMATION</div>'+
+				'<div class="cart-box-title"><span class="order-sort">5</span>ADDITIONAL INFORMATION</div>'+
 				'<div class="cart-box-body">'+
 					'<div class="order-buyer-msg"><textarea rows="2" placeholder="Any Request,Notes Here."></textarea></div>'+
 				'</div>'+
@@ -447,14 +465,17 @@
 	function rednerOrderCal() {
 		var calOrder = calOrderList();
 		var $cartCalBox = $('<div class="cart-box">'+
+				// '<div class="cart-box-title"></div>'+
 				'<div class="cart-box-body">'+
 					'<div class="order-cal">' +
 						'<div class="order-cal-item"><span class="name">prototal</span><span class="value order-cal-prototal">$'+ (calOrder.prototal).toFixed(2) +'</span></div>' +
 						'<div class="order-cal-item"><span class="name">coupon</span><span class="value order-cal-coupon">-$'+ (calOrder.coupon).toFixed(2) +'</span></div>' +
 						'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ (calOrder.shipping).toFixed(2) +'</span></div>' +
 						'<div class="order-cal-item"><span class="name">subtotal</span><span class="value order-cal-subtotal" data-price="'+ (calOrder.subtotal).toFixed(2) +'">$'+ (calOrder.subtotal).toFixed(2) +'</span></div>' +
-						'<div id="pp-message-price" style="margin-top: 1rem;" data-pp-message data-pp-placement="product" data-pp-amount="" data-pp-style-layout="text" data-pp-buyerCountry="US"></div>' +
-						'<div id="paypal-button-container-2" style="position: relative; z-index: 1;"><p class="paypal-loading" style="text-align: center;">Paypal loading...</p></div>' +
+						'<div class="order-cal-btn">' +
+							'<a href="javascript:;" id="pay-now" class="btn btn-pink">Complete Order</a>' +
+							'<button id="payment-form" class="btn btn-pink hide" disabled><div class="spinner hide"></div><span class="btn-text">Pay Securely Now</span></button>' +
+						'</div>' +
 					'</div>'+
 				'</div>'+
 			'</div>');
@@ -520,7 +541,7 @@
 			"orderOrderitemidstr": $('.order-list').data('itemidarr'),
 			"orderCouponId": (couponData.mlbackCouponOne && couponData.mlbackCouponOne.couponId) || '',
 			"orderCouponCode": (couponData.mlbackCouponOne && couponData.mlbackCouponOne.couponCode) || '',
-			"orderPayPlate": 0,
+			"orderPayPlate": $('input[name="payment"]:checked').val(),
 			"orderProNumStr": $('.order-list').data('itemnumarr'),
 			"orderBuyMess": $('.order-buyer-msg textarea').val(),
 			"addressinfoId": $('#addressId').val(),
@@ -551,9 +572,10 @@
 			/* } */
 			countryCombineWithProvince();			
 		});
-		renderOrderBuyerMsg(); // 2
-		renderOrderCoupons(); // 3
-		// 4
+		renderOrderPaymentMethod(); // 2
+		renderOrderBuyerMsg(); // 3
+		renderOrderCoupons(); // 4
+		// 5
 		getProductOrderList(function(data) {
 			var orderListData = data.mlfrontOrderItemList;
 			if (!orderListData.length) {
@@ -565,7 +587,7 @@
 			renderFreeGift();
 			$('.order-list').data('orderid', data.orderId);
 		});
-		rednerOrderCal(); // 5
+		rednerOrderCal(); // 6
 		isBackFill && collectShippingAddress && collectShippingAddress();
 	}
 	var hasProvince = true;
@@ -623,6 +645,24 @@
 			mlModalTip('Please enter a valid coupon code !');
 		}
 	});
+	// pay event
+	$(document.body).on('click', '#pay-now', function() {
+		if (checkInputAdressInfo()) {
+			orderSaveAddress(getOrderAddress(), function(data) {
+				$('#addressId').val(data.addressId);
+				var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
+				var orderMoney = $('.order-cal-subtotal').data('price');
+				fbq('track', 'AddPaymentInfo', {
+					content_ids: productIdArr,
+					content_type: 'product',
+					value: orderMoney,
+					currency: 'USD'
+				});
+				payLoading();
+				orderPay(getOrderPayInfo(), goToPay);
+			});
+		}
+	});
 	$('#addressEmail').on('change', function() {
 		$('.order-coupons').find('input').val('');
 		$('.order-coupons').find('.order-coupon-tip').html('');
@@ -644,140 +684,215 @@ $('.website-policy-item').on('click', function(e) {
 	});
 	policyModal.addClass('policy-modal');
 });
+$(document.body).on('change', 'input[type="radio"][name="payment"]', function() {
+	$('.paypal-box').addClass('hide');
+	$(this).parents('.order-payment-item').find('.paypal-box').removeClass('hide');
+});
 </script>
-<!-- paypal button -->
-<script>
-function addPaypalScript() {
-	var script = document.createElement('script');
-	script.src = 'https://www.paypal.com/sdk/js?client-id='+ ml.paypal_clientid +'&components=messages,buttons';
-	document.body.appendChild(script);
-	script.onload = function() {
-		paypalPayment();
-	}
-	script.onerror = function() {
-		mlModalTip('paypal loading failed, Please refresh the page later and try again...');
-	}
-}
-function checkInputAdressInfoForPaypalButton() {
-	var flag = true;
-	for(var idx = 0, len = $('.address-box .form-group').length; idx < len; idx += 1) {
-		var item = $('.address-box .form-group')[idx];
-		if ($(item).find('.form-control').data('status')) continue;
-		if (!$(item).find('.form-control').val() || $(item).find('.form-control').val() == 'state') {
-			flag = false;
-			break;
+<!-- <script>
+	function addStripeScript() {
+		var script = document.createElement('script');
+		script.src = 'https://js.stripe.com/v3/';
+		document.body.appendChild(script);
+		script.onload = function() {
+			stripePayment();
+		}
+		script.onerror = function() {
+			mlModalTip('Credit card loading failed, Please refresh the page later and try again...');
 		}
 	}
-	return flag;
-}
-
-function paypalPayment() {
-	paypal.Buttons({
-	    env: 'production',
-	    style:{
-	        layout:  'vertical',
-	        color:   'gold',
-	        shape:   'rect',
-	        size:    'medium',
-	        label:   'paypal'
-	    },
-	    commit: true,
-	    onInit: function(data, actions) {
-	    	if (checkInputAdressInfoForPaypalButton()) {
-	    		actions.enable();
-	    	} else {
-	    		actions.disable();
-	    	}
-	    	$('.paypal-loading').addClass('hide');
-	        $('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
-	        $('.address-box .form-group input').on('change', function() {
-	        	if (checkInputAdressInfoForPaypalButton()) {
-	        		actions.enable();
-	        	} else {
-	        		actions.disable();
-	        	}
-	        });
-	    },
-	    onClick: function(data, actions) {
-	        if (checkInputAdressInfo()) {
-	        	var reqData = getOrderAddress();
-	        	payLoading();
-	        	$.ajax({
-	    			url: '${APP_PATH}/MlfrontAddress/save',
-	    			type: 'post',
-	    			dataType: 'json',
-	    			data: JSON.stringify(reqData),
-	    			contentType: 'application/json',
-	    			success: function (data) {
-	    				if (data.code == 100) {
-	    					var aData = data.extend.mlfrontAddress;
-	    					var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
-	    	    			var orderMoney = $('.order-cal-subtotal').data('price');
-	    	        		$('#addressId').val(aData.addressId);
-	
-	    	    			fbq('track', 'AddPaymentInfo', {
-	    	    				content_ids: productIdArr,
-	    	    				content_type: 'product',
-	    	    				value: orderMoney,
-	    	    				currency: 'USD'
-	    	    			});    			
-	    				} else {
-	    					sysModalTip();
-	    				}
-	    			},
-	    			error: function () {
-	    				sysModalTip();
-	    			},
-	    			complete: function() {
-	    				hidePayLoading();
-	    			}
-	    		});
-	        }
-	    },
-	    createOrder: function() {
-	    	var token;
-	    	var reqData = getOrderPayInfo();
-	    	$.ajax({
-				url: '${APP_PATH}/MlfrontOrderSuper/orderToPayInfo',
-				data: JSON.stringify(reqData),
-				type: 'post',
+	function stripePayment() {
+  		function payWithCard(stripe, card, clientSecret) {
+  			stripe
+  				.confirmCardPayment(clientSecret, {
+	  				payment_method: {
+	  					card: card,
+	  					billing_details: {
+	  						name: (addressData.addressUserfirstname + ' ' + addressData.addressUserlastname),
+							phone: addressData.addressTelephone,
+							email: addressData.addressEmail,
+	  						address: {
+	  							country: addressData.addressCountryCode,
+	  						    state: addressData.addressProvince,
+	  						    city: addressData.addressCity,
+	  						    postal_code: addressData.addressPost,
+	  							line1: addressData.addressDetail,
+	  						}
+	  					}
+	  				},
+  					shipping: {
+  						name: (addressData.addressUserfirstname + ' ' + addressData.addressUserlastname),
+						phone: addressData.addressTelephone,
+  						address: {
+  						    country: addressData.addressCountry,
+  						    state: addressData.addressProvince,
+  						    city: addressData.addressCity,
+  						    postal_code: addressData.addressPost,
+  							line1: addressData.addressDetail,
+  						}
+  					}
+  				})
+  				.then(function(result) {
+	  				if (result.error) {
+	  					// Show error to your customer
+	  					paymentError(result.error.message);
+	  				} else {
+	  					// The payment succeeded!
+	  					paymentSuccess(result.paymentIntent);
+	  				}
+	  			});
+  		}
+  		
+  		function backSendCardInfo(data) {
+  			var formData = new FormData();
+  			$('#card-error').text(data.status);
+  			
+  			formData.append('payinfoId', data.description.split(',')[0].replace('VIP', ''));
+			formData.append('CardID', data.payment_method);
+			formData.append('PayUname', (addressData.addressUserfirstname + ' ' + addressData.addressUserlastname));
+			$.ajax({
+				url: "${APP_PATH}/stripe/cardSuccessInfo",
+				type: "post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
 				dataType: 'json',
-				contentType: 'application/json',
-				async: false,
 				success: function (data) {
-					if (data.code == 100) {
-						var payment = JSON.parse(data.extend.data);
-						payment.links && payment.links.forEach(function(link) {
-							if (link.rel == 'approval_url') {
-			                    token = link.href.match(/EC-\w+/)[0];
-			                }
-						})
+					if (data.code == 100 && data.extend.updateStatus) {
+						window.location.href= '${APP_PATH}/success.html';						
 					} else {
-						sysModalTip();
+						$('#card-error').text('The payment is successful, but the shopping list cannot be generated, please contact customer service for help');
 					}
 				},
-				error: function(err) {
-					sysModalTip();
+				error: function() {
+					$('#card-error').text('The payment is successful, but the shopping list cannot be generated, please contact customer service for help');
 				}
 			});
-	
-	    	return token;
-	    },
-	    onApprove: function (data) {
-	    	$.ajax({
-				url: '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID,
-				success: function (data) {
-					window.location.href = '${APP_PATH}/success.html';
-				},
-				error: function() {
-					mlModalTip('Payment failed, please try again later!');
-				},
-				complete: function() {
-					hidePayLoading();
-				}
-	    	})
-	    }
-	}).render('#paypal-button-container-2');	
-}
-addPaypalScript();
-</script>
+  		}
+  		function paymentSuccess() {
+  			// fb ad
+			var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
+			var orderMoney = $('.order-cal-subtotal').data('price');
+			fbq('track', 'AddPaymentInfo', {
+				content_ids: productIdArr,
+				content_type: 'product',
+				value: orderMoney,
+				currency: 'USD'
+			});
+			// send card info
+  			backSendCardInfo(data);
+  		}
+  		function paymentError(errorMsgText) {
+  			paymentLoading(false);
+  			var errorMsg = $('#card-error');
+  			errorMsg.text(errorMsgText);
+  			setTimeout(function() {
+  				errorMsg.text('');
+  			}, 4000);
+  		}
+  		// Show a spinner on payment submission
+  		function paymentLoading(isLoading) {
+  			if (isLoading) {
+  				// Disable the button and show a spinner
+  				$('#payment-form').get(0).disabled = true;
+  				$('#payment-form .spinner').removeClass('hide');
+  				$('#payment-form .btn-text').addClass('hide');
+  			} else {
+  				$('#payment-form').get(0).disabled = false;
+  				$('#payment-form .spinner').addClass('hide');
+  				$('#payment-form .btn-text').removeClass('hide');
+  			}
+  		}
+  		// create one payment
+  		function createPayment(reqData, stripe, card) {
+  			orderPay(reqData, function(data) {
+  				$.ajax({
+  	  				url: '${APP_PATH}/stripe/create-payment-intent',
+  	  				data: JSON.stringify({
+  	  					'payinfoid': data.payinfoId,
+  	  					'payinfoOid': data.orderId
+  	  				}),
+  	  				type: 'post',
+  	  				dataType: 'json',
+  	  				contentType: 'application/json',
+  	  				success: function (data) {
+  	  					if (data.code == 100) {
+  	  						var stripeData = JSON.parse(data.extend.intentKey);
+  	  						payWithCard(stripe, card, stripeData.clientSecret); 
+  	  					} else {
+  	  						sysModalTip();
+  	  					}
+  	  				},
+  	  				error: function () {
+  	  					sysModalTip();
+  	  				}
+  	  		    });
+  			});
+  		}
+  		var style = {
+  			base: {
+  				color: '#32325d',
+  				fontFamily: 'Arial, sans-serif',
+  				fontSmoothing: 'antialiased',
+  				fontSize: '16px',
+  				'::placeholder': { }
+  			},
+  			invalid: {
+  				fontFamily: 'Arial, sans-serif',
+  				color: '#fa755a',
+  			}
+  		};
+  		var stripe = null;
+  		var card = null;
+  		var elements = null;
+  		stripe = Stripe(ml.stripe_key);
+  		elements = stripe.elements();
+  		card = elements.create('card', { style: style });
+  		// Stripe injects an iframe into the DOM
+  		card.mount('#card-element');
+  		card.on('ready', function (event) {
+  			hasStripe = true;
+  			$('.card-element-box').removeClass('mask');
+  			paymentLoading(false);
+  		});
+  		card.on('change', function (event) {
+  			// Disable the Pay button if there are no card details in the Element
+  			$('#payment-form').get(0).disabled = event.empty;
+  			$('#card-error').text(event.error ? event.error.message : '');
+  		});
+  		$('#payment-form').on('click', function(event) {
+  		    event.preventDefault();
+  		    paymentLoading(true);
+  		    // Complete payment when the submit button is clicked
+  		    if (checkInputAdressInfo()) {
+				orderSaveAddress(getOrderAddress(), function(data) {
+					$('#addressId').val(data.addressId);
+	  		    	addressData = getOrderAddress();
+					createPayment(addressData, stripe, card, data.clientSecret);
+				});
+  		    } else {
+  		    	paymentLoading(false);
+  		    }
+  		});
+  	}
+	var hasStripe = false;
+	var addressData = null;
+	// tab pay
+	$(document.body).on('change', 'input[type="radio"][name="payment"]', function() {
+		var payType = $('input[name="payment"]:checked').val();
+		if (payType == '0') {
+			$('.paypal-box').removeClass('hide');
+			$('.card-element-box').addClass('hide');
+			$('#pay-now').removeClass('hide');
+			$('#payment-form').addClass('hide');
+		}
+		if (payType == '1') {
+			!hasStripe && addStripeScript();;
+			$('.paypal-box').addClass('hide');
+			$('.card-element-box').removeClass('hide');
+			$('#pay-now').addClass('hide');
+			$('#payment-form').removeClass('hide');
+		}
+	});
+</script> --> 
