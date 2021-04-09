@@ -716,3 +716,41 @@ function rednerCountDownAreaOne(data) {
 	}
 }
 </script>
+<script>
+function goToPay() {	
+	$.ajax({
+		url: '${APP_PATH}/paypal/mpay?paypalPlatFrom=' + $('input[name="payment"]:checked').val(),
+		type: 'post',
+		dataType: 'json',
+		contentType: 'application/json',
+		success: function (data) {
+			if (data.code == 100) {
+				if ('' + data.extend.ifPaypalCheckSuccess == '0') {
+					window.location.reload();
+				}
+				
+				if ('' + data.extend.ifPaypalCheckSuccess == '1') {
+					window.location.href = data.extend.redirectUrl;
+				}
+				
+				if ('' + data.extend.ifPaypalCheckSuccess == '2') {
+					hidePayLoading();
+					$('html').animate({scrollTop: 0}, 500);
+					setTimeout(function(msg) {
+						var payModalTip = createModal({
+							body: {
+								html: '<p>'+ msg +'</p>',
+							}
+						});
+					}, 600, data.extend.errorDetail);
+				}
+			} else {
+				sysModalTip();
+			}
+		},
+		error: function () {
+			sysModalTip();
+		}
+    });
+}
+</script>
