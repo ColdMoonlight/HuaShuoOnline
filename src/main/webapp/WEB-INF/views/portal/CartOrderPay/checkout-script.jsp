@@ -674,28 +674,18 @@ function checkInputAdressInfoForPaypalButton() {
 function paypalPayment() {
 	paypal.Buttons({
 	    env: 'production',
-	    style:{
-	        layout:  'vertical',
-	        color:   'gold',
-	        shape:   'rect',
-	        size:    'medium',
-	        label:   'paypal'
-	    },
+	    style:{ layout: 'vertical', color: 'gold', shape: 'rect', size: 'medium', label: 'paypal' },
 	    commit: true,
 	    onInit: function(data, actions) {
 	    	if (checkInputAdressInfoForPaypalButton()) {
 	    		actions.enable();
-	    	} else {
-	    		actions.disable();
-	    	}
+			} else { actions.disable(); }
 	    	$('.paypal-loading').addClass('hide');
 	        $('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	        $('.address-box .form-group input').on('change', function() {
 	        	if (checkInputAdressInfoForPaypalButton()) {
 	        		actions.enable();
-	        	} else {
-	        		actions.disable();
-	        	}
+	        	} else { actions.disable(); }
 	        });
 	    },
 	    onClick: function(data, actions) {
@@ -714,7 +704,7 @@ function paypalPayment() {
 	    					var productIdArr = $('.order-list').data('productidarr') ? $('.order-list').data('productidarr').split(',') : [];
 	    	    			var orderMoney = $('.order-cal-subtotal').data('price');
 	    	        		$('#addressId').val(aData.addressId);
-	
+
 	    	    			fbq('track', 'AddPaymentInfo', {
 	    	    				content_ids: productIdArr,
 	    	    				content_type: 'product',
@@ -750,10 +740,17 @@ function paypalPayment() {
 							if (link.rel == 'approval_url') {
 			                    token = link.href.match(/EC-\w+/)[0];
 			                }
-						})
+						});
 					} else {
-	    				hidePayLoading();
-						sysModalTip();
+						hidePayLoading();
+						var payModalTip = createModal({
+	    					header: {
+	    						html: '<p>Paypal Error tip!</p>'
+	    					},
+							body: {
+								html: '<p>'+ data.extend.data +'</p>',
+							}
+						});
 					}
 				},
 				error: function(err) {
@@ -761,7 +758,6 @@ function paypalPayment() {
 					sysModalTip();
 				}
 			});
-	
 	    	return token;
 	    },
 	    onApprove: function (data) {
@@ -774,9 +770,16 @@ function paypalPayment() {
     				hidePayLoading();
 					mlModalTip('Payment failed, please try again later!');
 				}
-	    	})
+	    	});
+	    },
+	    onCancel: function() {
+			hidePayLoading();
+	    },
+	    onError: function() {
+	    	hidePayLoading();
+	    	mlModalTip('Payment failed, please try again later!');
 	    }
-	}).render('#paypal-button-container-2');	
+	}).render('#paypal-button-container-2');
 }
 addPaypalScript();
 </script>
