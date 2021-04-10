@@ -25,6 +25,8 @@ public class MlbackCoupon {
 
     /**是否支持前端抽奖*/
     private Integer couponLuckdrawType;//优惠码是否支持抽奖  0不支持抽奖,1支持抽奖    手动输入
+    
+    private Integer couponLuckdrawSort;//抽奖券排序  0默认值无排序,123456789
 
     private Integer couponLuckdrawWeight;//优惠码抽奖权重 0--100%    手动输入
     
@@ -139,8 +141,16 @@ public class MlbackCoupon {
     public void setCouponLuckdrawType(Integer couponLuckdrawType) {
         this.couponLuckdrawType = couponLuckdrawType;
     }
+    
+    public Integer getCouponLuckdrawSort() {
+		return couponLuckdrawSort;
+	}
 
-    public Integer getCouponLuckdrawWeight() {
+	public void setCouponLuckdrawSort(Integer couponLuckdrawSort) {
+		this.couponLuckdrawSort = couponLuckdrawSort;
+	}
+
+	public Integer getCouponLuckdrawWeight() {
         return couponLuckdrawWeight;
     }
 
@@ -298,9 +308,9 @@ public class MlbackCoupon {
 
 	public MlbackCoupon(Integer couponId, String couponName, String couponCode, Integer couponStatus, String couponType,
 			BigDecimal couponPrice, BigDecimal couponPriceoff, BigDecimal couponPriceBaseline,
-			Integer couponLuckdrawType, Integer couponLuckdrawWeight, String couponImgUrl, Integer couponTimes,
-			Integer couponAlltimes, String couponCreatetime, String couponMotifytime, String couponStarttime,
-			String couponEndtime, Integer couponProductonlyType, String couponProductonlyPidstr,
+			Integer couponLuckdrawType, Integer couponLuckdrawSort, Integer couponLuckdrawWeight, String couponImgUrl,
+			Integer couponTimes, Integer couponAlltimes, String couponCreatetime, String couponMotifytime,
+			String couponStarttime, String couponEndtime, Integer couponProductonlyType, String couponProductonlyPidstr,
 			String couponProductseonamesstronlyPid, String couponProductpronamesstronlyPid, String couponApplyCateidstr,
 			String couponApplyCateSeostr, String couponProsFromApplyCateidstr, String couponAllExceptPidstr,
 			String couponAllExceptPseostr, Integer couponCodeUniqueEmailIF, String couponCodeUniqueEmail) {
@@ -314,6 +324,7 @@ public class MlbackCoupon {
 		this.couponCode = couponCode;
 		this.couponType = couponType;
 		this.couponLuckdrawType = couponLuckdrawType;
+		this.couponLuckdrawSort = couponLuckdrawSort;
 		this.couponLuckdrawWeight = couponLuckdrawWeight;
 		this.couponTimes = couponTimes;
 		this.couponAlltimes = couponAlltimes;
@@ -340,11 +351,11 @@ public class MlbackCoupon {
 		return "MlbackCoupon [couponId=" + couponId + ", couponName=" + couponName + ", couponCode=" + couponCode
 				+ ", couponStatus=" + couponStatus + ", couponType=" + couponType + ", couponPrice=" + couponPrice
 				+ ", couponPriceoff=" + couponPriceoff + ", couponPriceBaseline=" + couponPriceBaseline
-				+ ", couponLuckdrawType=" + couponLuckdrawType + ", couponLuckdrawWeight=" + couponLuckdrawWeight
-				+ ", couponImgUrl=" + couponImgUrl + ", couponTimes=" + couponTimes + ", couponAlltimes="
-				+ couponAlltimes + ", couponCreatetime=" + couponCreatetime + ", couponMotifytime=" + couponMotifytime
-				+ ", couponStarttime=" + couponStarttime + ", couponEndtime=" + couponEndtime
-				+ ", couponProductonlyType=" + couponProductonlyType + ", couponProductonlyPidstr="
+				+ ", couponLuckdrawType=" + couponLuckdrawType + ", couponLuckdrawSort=" + couponLuckdrawSort
+				+ ", couponLuckdrawWeight=" + couponLuckdrawWeight + ", couponImgUrl=" + couponImgUrl + ", couponTimes="
+				+ couponTimes + ", couponAlltimes=" + couponAlltimes + ", couponCreatetime=" + couponCreatetime
+				+ ", couponMotifytime=" + couponMotifytime + ", couponStarttime=" + couponStarttime + ", couponEndtime="
+				+ couponEndtime + ", couponProductonlyType=" + couponProductonlyType + ", couponProductonlyPidstr="
 				+ couponProductonlyPidstr + ", couponProductseonamesstronlyPid=" + couponProductseonamesstronlyPid
 				+ ", couponProductpronamesstronlyPid=" + couponProductpronamesstronlyPid + ", couponApplyCateidstr="
 				+ couponApplyCateidstr + ", couponApplyCateSeostr=" + couponApplyCateSeostr
