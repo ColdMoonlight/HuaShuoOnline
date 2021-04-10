@@ -57,7 +57,8 @@
 											<th>Des</th>
 											<th>Type</th>
 											<th>Draw or no</th>
-											<th>specific-customer</th>
+											<th>Draw order</th>
+											<th>customer</th>
 											<th>use</th>
 											<th>status</th>
 											<th>state</th>
@@ -253,6 +254,21 @@
 											<select class="form-control" id="couponLuckdrawType" />
 												<option value="0">0-Lottery not supported</option>
 												<option value="1">1-Support lottery</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group choose_draw">
+										<label class="col-form-label" for="couponLuckdrawSort">Lottery Order</label>
+										<div class="controls">
+											<select name="couponLuckdrawSort" id="couponLuckdrawSort" class="form-control">
+											   <option value="1">1</option>
+											   <option value="2">2</option>
+											   <option value="3">3</option>
+											   <option value="4">4</option>
+											   <option value="5">5</option>
+											   <option value="6">6</option>
+											   <option value="7">7</option>
+											   <option value="8">8</option>
 											</select>
 										</div>
 									</div>
@@ -598,6 +614,8 @@
 
 			$('#couponLuckdrawType').val('0');
 			$('#couponLuckdrawWeight').val('0');
+			$('#couponLuckdrawSort').val('1');
+			
 			resetPicture($('#couponImgUrl'));
 			
 			$('#couponTimes').val('0');
@@ -681,6 +699,7 @@
 
 			data.couponLuckdrawType = $('#couponLuckdrawType').val();
             data.couponLuckdrawWeight = $('#couponLuckdrawWeight').val();
+            data.couponLuckdrawSort = $('#couponLuckdrawSort').val();
             imageData = $('#couponImgUrl').attr('data-val') && JSON.parse($('#couponImgUrl').attr('data-val'));
 			data.couponImgUrl = imageData.imageUrl;
 
@@ -756,6 +775,7 @@
 
 			$('#couponLuckdrawType').val(data.couponLuckdrawType);
 			$('#couponLuckdrawWeight').val(data.couponLuckdrawWeight);
+			$('#couponLuckdrawSort').val(data.couponLuckdrawSort);
 			if (data.couponImgUrl) {
 				addPicture($('#couponImgUrl'), {
 					imageUrl: data.couponImgUrl,
@@ -1253,6 +1273,7 @@
 						(couponLuckdrawtype ? '<div>' + data[i].couponLuckdrawWeight  + '%</div>' : '--') +
 					'</td>' +
 					'<td>' + (specificCustomer ? 'partial-customer' : 'everyone') + '</td>' +
+					'<td>' + (data[i].couponLuckdrawSort ? data[i].couponLuckdrawSort : '--') + '</td>' +
 					'<td>' + ((data[i].couponTimes || '0') + '/' + (data[i].couponAlltimes || '--')) + '</td>' +
 					'<td><a class="badge '+ (data[i].couponStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].couponStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td><a class="badge badge-gray" href="javascript:;">' + (data[i].couponEndtime && data[i].couponStarttime ? (data[i].couponEndtime >= currentTime && data[i].couponStarttime <= currentTime ? 'Active' : 'Expired') : '--')  + '</a></td>' +
