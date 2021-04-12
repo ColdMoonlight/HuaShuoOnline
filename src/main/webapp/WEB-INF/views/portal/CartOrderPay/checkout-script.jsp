@@ -459,6 +459,7 @@
 				'</div>'+
 			'</div>');
 		$('.checkout-order-cal').append($cartCalBox);
+		$('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	}
 	// check user input address info
 	function checkInputAdressInfo() {
@@ -686,7 +687,6 @@ function paypalPayment() {
 	        		actions.enable();
 	        	} else { actions.disable(); }
 	        });
-	        $('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	    },
 	    onClick: function(data, actions) {
 	        if (checkInputAdressInfo()) {
@@ -741,7 +741,8 @@ function paypalPayment() {
 			                    token = link.href.match(/EC-\w+/)[0];
 			                }
 						});
-					} else {
+					}
+					if (data.code == 200) {
 						hidePayLoading();
 						var payModalTip = createModal({
 	    					header: {
@@ -767,10 +768,13 @@ function paypalPayment() {
 	    	$.ajax({
 				url: '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID,
 				success: function (data) {
-					window.location.href = '${APP_PATH}/success.html';
+    				// pay success jump to success-link
+    				// hidePayLoading();
+    				setTimeout(function() {
+						window.location.href = '${APP_PATH}/success.html';    					
+    				}, 1000);
 				},
 				error: function() {
-    				hidePayLoading();
 					mlModalTip('Payment failed, please try again later!');
 				}
 	    	});
