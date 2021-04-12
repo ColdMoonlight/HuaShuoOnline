@@ -671,7 +671,12 @@ function checkInputAdressInfoForPaypalButton() {
 	}
 	return flag;
 }
-
+function paySuccessfulLoading() {
+	var zIndex = (parseInt($('.modal').css('z-index'), 10) + $('.modal').length + 1) || 99999999999;
+	var $payLoading = $('<div class="pay-loading" style="z-index: '+ zIndex +'"><div style="width:100%;height:100%;background-repeat:no-repeat;background-position:center;background-image:url(${APP_PATH}/static/pc/img/paypal-success.gif)"></div></div>');
+	$(document.body).append($payLoading);
+	addFixed();
+}
 function paypalPayment() {
 	paypal.Buttons({
 	    env: 'production',
@@ -769,7 +774,7 @@ function paypalPayment() {
 				url: '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID,
 				success: function (data) {
     				// pay success jump to success-link
-    				// hidePayLoading();
+    				paySuccessfulLoading();
     				setTimeout(function() {
 						window.location.href = '${APP_PATH}/success.html';    					
     				}, 1000);
