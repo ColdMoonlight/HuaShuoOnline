@@ -1273,8 +1273,8 @@
 						'<div>' + (couponLuckdrawtype == 1 ? 'support' : 'un-support') + '</div>' +
 						(couponLuckdrawtype ? '<div>' + data[i].couponLuckdrawWeight  + '%</div>' : '--') +
 					'</td>' +
-					'<td>' + (specificCustomer ? 'partial-customer' : 'everyone') + '</td>' +
 					'<td>' + (data[i].couponLuckdrawSort ? data[i].couponLuckdrawSort : '--') + '</td>' +
+					'<td>' + (specificCustomer ? 'partial-customer' : 'everyone') + '</td>' +
 					'<td>' + ((data[i].couponTimes || '0') + '/' + (data[i].couponAlltimes || '--')) + '</td>' +
 					'<td><a class="badge '+ (data[i].couponStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].couponStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td><a class="badge badge-gray" href="javascript:;">' + (data[i].couponEndtime && data[i].couponStarttime ? (data[i].couponEndtime >= currentTime && data[i].couponStarttime <= currentTime ? 'Active' : 'Expired') : '--')  + '</a></td>' +
