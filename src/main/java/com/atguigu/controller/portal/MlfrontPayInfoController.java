@@ -238,9 +238,8 @@ public class MlfrontPayInfoController {
 				mlfrontOrderItemOne = mlfrontOrderItemResList.get(0);
 				mlfrontOrderItemList.add(mlfrontOrderItemOne);
 				
-				
 				//减库存
-				proSkunumFromOrderItem(mlfrontOrderItemList);
+				//proSkunumFromOrderItem(mlfrontOrderItemList);
 			}
 			//2.4uid信息
 			Integer uid = mlfrontOrderPayOneRes.getOrderUid();
