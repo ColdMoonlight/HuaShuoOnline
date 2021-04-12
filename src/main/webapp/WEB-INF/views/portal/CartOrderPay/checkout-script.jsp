@@ -459,6 +459,7 @@
 				'</div>'+
 			'</div>');
 		$('.checkout-order-cal').append($cartCalBox);
+		$('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	}
 	// check user input address info
 	function checkInputAdressInfo() {
@@ -686,7 +687,6 @@ function paypalPayment() {
 	        		actions.enable();
 	        	} else { actions.disable(); }
 	        });
-	        $('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	    },
 	    onClick: function(data, actions) {
 	        if (checkInputAdressInfo()) {
