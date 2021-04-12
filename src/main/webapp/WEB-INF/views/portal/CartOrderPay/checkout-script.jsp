@@ -454,7 +454,7 @@
 						'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ (calOrder.shipping).toFixed(2) +'</span></div>' +
 						'<div class="order-cal-item"><span class="name">subtotal</span><span class="value order-cal-subtotal" data-price="'+ (calOrder.subtotal).toFixed(2) +'">$'+ (calOrder.subtotal).toFixed(2) +'</span></div>' +
 						'<div id="pp-message-price" style="margin-top: 1rem;" data-pp-message data-pp-placement="product" data-pp-amount="" data-pp-style-layout="text" data-pp-buyerCountry="US"></div>' +
-						'<div id="paypal-button-container-2" style="position: relative; z-index: 1;"><p class="paypal-loading" style="text-align: center;">Paypal loading...</p></div>' +
+						'<div id="paypal-button-container-2" style="position: relative; z-index: 1; text-align: center;"><p class="paypal-loading">Paypal loading...</p></div>' +
 					'</div>'+
 				'</div>'+
 			'</div>');
