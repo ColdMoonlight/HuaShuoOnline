@@ -681,12 +681,12 @@ function paypalPayment() {
 	    		actions.enable();
 			} else { actions.disable(); }
 	    	$('.paypal-loading').addClass('hide');
-	        $('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	        $('.address-box .form-group input').on('change', function() {
 	        	if (checkInputAdressInfoForPaypalButton()) {
 	        		actions.enable();
 	        	} else { actions.disable(); }
 	        });
+	        $('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	    },
 	    onClick: function(data, actions) {
 	        if (checkInputAdressInfo()) {
@@ -754,13 +754,16 @@ function paypalPayment() {
 					}
 				},
 				error: function(err) {
-    				hidePayLoading();
 					sysModalTip();
-				}
+				},
+    			complete: function() {
+    				hidePayLoading();
+    			}
 			});
 	    	return token;
 	    },
 	    onApprove: function (data) {
+	    	payLoading();
 	    	$.ajax({
 				url: '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID,
 				success: function (data) {
