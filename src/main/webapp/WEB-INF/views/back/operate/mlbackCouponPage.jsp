@@ -261,6 +261,7 @@
 										<label class="col-form-label" for="couponLuckdrawSort">Lottery Order</label>
 										<div class="controls">
 											<select name="couponLuckdrawSort" id="couponLuckdrawSort" class="form-control">
+											   <option value="0">无排序</option>
 											   <option value="1">1</option>
 											   <option value="2">2</option>
 											   <option value="3">3</option>
@@ -614,7 +615,7 @@
 
 			$('#couponLuckdrawType').val('0');
 			$('#couponLuckdrawWeight').val('0');
-			$('#couponLuckdrawSort').val('1');
+			$('#couponLuckdrawSort').val('0');
 			
 			resetPicture($('#couponImgUrl'));
 			
