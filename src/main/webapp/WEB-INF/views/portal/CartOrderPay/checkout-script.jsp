@@ -689,15 +689,10 @@ function paypalPayment() {
 	    		actions.enable();
 			} else { actions.disable(); }
 	    	$('.paypal-loading').addClass('hide');
-	        $('.address-box .form-group input').on('change', function() {
-	        	if (checkInputAdressInfoForPaypalButton()) {
-	        		actions.enable();
-	        	} else { actions.disable(); }
-	        });
-
+	    	paypalAct = actions;
 	    	console.log('onInit ---- end');
 	    },
-	    onClick: function(data, actions) {
+	    onClick: function(actions) {
 	    	console.log('onclick ---- start');
 
 	        if (checkInputAdressInfo()) {
@@ -811,5 +806,14 @@ function paypalPayment() {
 	    }
 	}).render('#paypal-button-container-2');
 }
+var paypalAct;
 addPaypalScript();
+$('.address-box .form-control').on('change', function() {
+	var flag = checkInputAdressInfoForPaypalButton();
+	if (flag) {
+		paypalAct && paypalAct.enable();
+	} else {
+		paypalAct && paypalAct.disable();
+	}
+});
 </script>
