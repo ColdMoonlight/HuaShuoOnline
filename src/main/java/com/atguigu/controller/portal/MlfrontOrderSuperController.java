@@ -374,7 +374,7 @@ public class MlfrontOrderSuperController {
             System.out.println("后台转换后的错误提示PaypalErrorName:"+PaypalErrorName);
             System.out.println("---------e.getDetails()------end------");
             //return Msg.success().add("ifPaypalCheckSuccess", 2).add("errorDetail", PaypalErrorName);
-            return Msg.success().add("data", PaypalErrorName);
+            return Msg.fail().add("data", PaypalErrorName);
         }
 	}
 	

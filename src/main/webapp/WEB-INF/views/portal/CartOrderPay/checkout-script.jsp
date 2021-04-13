@@ -454,11 +454,12 @@
 						'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ (calOrder.shipping).toFixed(2) +'</span></div>' +
 						'<div class="order-cal-item"><span class="name">subtotal</span><span class="value order-cal-subtotal" data-price="'+ (calOrder.subtotal).toFixed(2) +'">$'+ (calOrder.subtotal).toFixed(2) +'</span></div>' +
 						'<div id="pp-message-price" style="margin-top: 1rem;" data-pp-message data-pp-placement="product" data-pp-amount="" data-pp-style-layout="text" data-pp-buyerCountry="US"></div>' +
-						'<div id="paypal-button-container-2" style="position: relative; z-index: 1;"><p class="paypal-loading" style="text-align: center;">Paypal loading...</p></div>' +
+						'<div id="paypal-button-container-2" style="position: relative; z-index: 1; text-align: center;"><p class="paypal-loading">Paypal loading...</p></div>' +
 					'</div>'+
 				'</div>'+
 			'</div>');
 		$('.checkout-order-cal').append($cartCalBox);
+		$('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	}
 	// check user input address info
 	function checkInputAdressInfo() {
@@ -670,7 +671,12 @@ function checkInputAdressInfoForPaypalButton() {
 	}
 	return flag;
 }
-
+function paySuccessfulLoading() {
+	var zIndex = (parseInt($('.modal').css('z-index'), 10) + $('.modal').length + 1) || 99999999999;
+	var $payLoading = $('<div class="pay-loading" style="z-index: '+ zIndex +'"><div style="width:100%;height:100%;background-repeat:no-repeat;background-position:center;background-image:url(${APP_PATH}/static/pc/img/paypal-success.gif)"></div></div>');
+	$(document.body).append($payLoading);
+	addFixed();
+}
 function paypalPayment() {
 	paypal.Buttons({
 	    env: 'production',
@@ -681,7 +687,6 @@ function paypalPayment() {
 	    		actions.enable();
 			} else { actions.disable(); }
 	    	$('.paypal-loading').addClass('hide');
-	        $('#pp-message-price').attr("data-pp-amount", $('.order-cal-subtotal').html().replace('$', ''));
 	        $('.address-box .form-group input').on('change', function() {
 	        	if (checkInputAdressInfoForPaypalButton()) {
 	        		actions.enable();
@@ -741,7 +746,8 @@ function paypalPayment() {
 			                    token = link.href.match(/EC-\w+/)[0];
 			                }
 						});
-					} else {
+					}
+					if (data.code == 200) {
 						hidePayLoading();
 						var payModalTip = createModal({
 	    					header: {
@@ -754,20 +760,26 @@ function paypalPayment() {
 					}
 				},
 				error: function(err) {
-    				hidePayLoading();
 					sysModalTip();
-				}
+				},
+    			complete: function() {
+    				hidePayLoading();
+    			}
 			});
 	    	return token;
 	    },
 	    onApprove: function (data) {
+	    	payLoading();
 	    	$.ajax({
 				url: '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID,
 				success: function (data) {
-					window.location.href = '${APP_PATH}/success.html';
+    				// pay success jump to success-link
+    				paySuccessfulLoading();
+    				setTimeout(function() {
+						window.location.href = '${APP_PATH}/success.html';    					
+    				}, 1000);
 				},
 				error: function() {
-    				hidePayLoading();
 					mlModalTip('Payment failed, please try again later!');
 				}
 	    	});
