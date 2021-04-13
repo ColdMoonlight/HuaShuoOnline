@@ -683,6 +683,8 @@ function paypalPayment() {
 	    style:{ layout: 'vertical', color: 'gold', shape: 'rect', size: 'medium', label: 'paypal' },
 	    commit: true,
 	    onInit: function(data, actions) {
+	    	console.log('onInit ---- start');
+
 	    	if (checkInputAdressInfoForPaypalButton()) {
 	    		actions.enable();
 			} else { actions.disable(); }
@@ -692,17 +694,22 @@ function paypalPayment() {
 	        		actions.enable();
 	        	} else { actions.disable(); }
 	        });
+
+	    	console.log('onInit ---- end');
 	    },
 	    onClick: function(data, actions) {
+	    	console.log('onclick ---- start');
+
 	        if (checkInputAdressInfo()) {
 	        	var reqData = getOrderAddress();
-	        	payLoading();
+	        	// payLoading();
 	        	$.ajax({
 	    			url: '${APP_PATH}/MlfrontAddress/save',
 	    			type: 'post',
 	    			dataType: 'json',
 	    			data: JSON.stringify(reqData),
 	    			contentType: 'application/json',
+	    			async: false,
 	    			success: function (data) {
 	    				if (data.code == 100) {
 	    					var aData = data.extend.mlfrontAddress;
@@ -717,18 +724,22 @@ function paypalPayment() {
 	    	    				currency: 'USD'
 	    	    			});    			
 	    				} else {
-		    				hidePayLoading();
+		    				// hidePayLoading();
 	    					sysModalTip();
 	    				}
 	    			},
 	    			error: function () {
-	    				hidePayLoading();
+	    				// hidePayLoading();
 	    				sysModalTip();
 	    			}
 	    		});
 	        }
+
+	    	console.log('onclick ---- end');
 	    },
 	    createOrder: function() {
+	    	console.log('createOrder ---- start');
+
 	    	var token;
 	    	var reqData = getOrderPayInfo();
 	    	$.ajax({
@@ -767,11 +778,16 @@ function paypalPayment() {
     			}
 			});
 	    	return token;
+
+	    	console.log('createOrder ---- end');
 	    },
 	    onApprove: function (data) {
+	    	console.log('onApprove ---- start');
+
 	    	payLoading();
 	    	$.ajax({
 				url: '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID,
+				async: false,
 				success: function (data) {
     				// pay success jump to success-link
     				paySuccessfulLoading();
@@ -783,6 +799,8 @@ function paypalPayment() {
 					mlModalTip('Payment failed, please try again later!');
 				}
 	    	});
+
+	    	console.log('onApprove ---- end');
 	    },
 	    onCancel: function() {
 			hidePayLoading();
