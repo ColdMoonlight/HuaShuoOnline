@@ -697,7 +697,7 @@ function paypalPayment() {
 
 	        if (checkInputAdressInfo()) {
 	        	var reqData = getOrderAddress();
-	        	// payLoading();
+	        	payLoading();
 	        	$.ajax({
 	    			url: '${APP_PATH}/MlfrontAddress/save',
 	    			type: 'post',
@@ -719,12 +719,12 @@ function paypalPayment() {
 	    	    				currency: 'USD'
 	    	    			});    			
 	    				} else {
-		    				// hidePayLoading();
+		    				hidePayLoading();
 	    					sysModalTip();
 	    				}
 	    			},
 	    			error: function () {
-	    				// hidePayLoading();
+	    				hidePayLoading();
 	    				sysModalTip();
 	    			}
 	    		});
