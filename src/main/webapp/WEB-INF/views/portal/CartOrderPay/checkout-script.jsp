@@ -683,21 +683,16 @@ function paypalPayment() {
 	    style:{ layout: 'vertical', color: 'gold', shape: 'rect', size: 'medium', label: 'paypal' },
 	    commit: true,
 	    onInit: function(data, actions) {
-	    	console.log('onInit ---- start');
-
 	    	if (checkInputAdressInfoForPaypalButton()) {
 	    		actions.enable();
 			} else { actions.disable(); }
 	    	$('.paypal-loading').addClass('hide');
 	    	paypalAct = actions;
-	    	console.log('onInit ---- end');
 	    },
 	    onClick: function(actions) {
-	    	console.log('onclick ---- start');
-
 	        if (checkInputAdressInfo()) {
 	        	var reqData = getOrderAddress();
-	        	// payLoading();
+	        	payLoading();
 	        	$.ajax({
 	    			url: '${APP_PATH}/MlfrontAddress/save',
 	    			type: 'post',
@@ -719,22 +714,18 @@ function paypalPayment() {
 	    	    				currency: 'USD'
 	    	    			});    			
 	    				} else {
-		    				// hidePayLoading();
+		    				hidePayLoading();
 	    					sysModalTip();
 	    				}
 	    			},
 	    			error: function () {
-	    				// hidePayLoading();
+	    				hidePayLoading();
 	    				sysModalTip();
 	    			}
 	    		});
 	        }
-
-	    	console.log('onclick ---- end');
 	    },
 	    createOrder: function() {
-	    	console.log('createOrder ---- start');
-
 	    	var token;
 	    	var reqData = getOrderPayInfo();
 	    	$.ajax({
@@ -766,24 +757,17 @@ function paypalPayment() {
 					}
 				},
 				error: function(err) {
+					hidePayLoading();
 					sysModalTip();
-				},
-    			complete: function() {
-    				hidePayLoading();
-    			}
+				}
 			});
 	    	return token;
-
-	    	console.log('createOrder ---- end');
 	    },
 	    onApprove: function (data) {
-	    	console.log('onApprove ---- start');
-
-	    	payLoading();
 	    	$.ajax({
 				url: '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID,
 				async: false,
-				success: function (data) {
+				success: function () {
     				// pay success jump to success-link
     				paySuccessfulLoading();
     				setTimeout(function() {
@@ -794,8 +778,6 @@ function paypalPayment() {
 					mlModalTip('Payment failed, please try again later!');
 				}
 	    	});
-
-	    	console.log('onApprove ---- end');
 	    },
 	    onCancel: function() {
 			hidePayLoading();
