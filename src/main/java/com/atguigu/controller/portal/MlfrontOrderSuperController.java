@@ -350,7 +350,7 @@ public class MlfrontOrderSuperController {
             	paypalErrorList = e.getDetails().getDetails();
             	if(paypalErrorList.size()>1){
             		//city,state,zip不匹配
-            		PaypalErrorName = "pls check your address information, make sure the zip code  is  match the city,state";
+            		PaypalErrorName = "pls check your address information, make sure the zip code is matched with your city/state.";
             	}else{
             		//看看是什么
             		String errStr = paypalErrorList.get(0).getField();
