@@ -768,19 +768,7 @@ function paypalPayment() {
 	    },
 	    onApprove: function (data) {
 			payLoading();
-	    	$.ajax({
-				url: '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID,
-				success: function () {
-    				// pay success jump to success-link
-    				paySuccessfulLoading();
-    				setTimeout(function() {
-						window.location.href = '${APP_PATH}/success.html';    					
-    				}, 1000);
-				},
-				error: function() {
-					mlModalTip('Payment failed, please try again later!');
-				}
-	    	});
+			window.location.href = '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID;
 	    },
 	    onCancel: function() {
 			hidePayLoading();
