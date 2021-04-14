@@ -772,10 +772,6 @@ function paypalPayment() {
 	    },
 	    onCancel: function() {
 			hidePayLoading();
-	    },
-	    onError: function() {
-	    	hidePayLoading();
-	    	mlModalTip('Payment failed, please try again later!');
 	    }
 	}).render('#paypal-button-container-2');
 }
