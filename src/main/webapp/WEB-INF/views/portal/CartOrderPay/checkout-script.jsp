@@ -745,7 +745,7 @@ function paypalPayment() {
 						});
 					}
 					if (data.code == 200) {
-						hidePayLoading();
+						// hidePayLoading();
 						var payModalTip = createModal({
 	    					header: {
 	    						html: '<p>Paypal Error tip!</p>'
@@ -757,16 +757,19 @@ function paypalPayment() {
 					}
 				},
 				error: function(err) {
-					hidePayLoading();
+					// hidePayLoading();
 					sysModalTip();
+				},
+				complete: function() {
+					hidePayLoading();
 				}
 			});
 	    	return token;
 	    },
 	    onApprove: function (data) {
+			payLoading();
 	    	$.ajax({
 				url: '${APP_PATH}/paypal/msuccess?paymentId='+ data.paymentID +'&PayerID='+ data.payerID,
-				async: false,
 				success: function () {
     				// pay success jump to success-link
     				paySuccessfulLoading();
