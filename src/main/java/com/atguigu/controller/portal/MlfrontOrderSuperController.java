@@ -341,8 +341,6 @@ public class MlfrontOrderSuperController {
             System.out.println("---------e.getDetails()-----begin------");
             System.out.println(e.getDetails());
             
-            
-            System.out.println(e.getDetails());
             if(e.getDetails()==null){
             	//PaypalErrorName = "retry fails..  check log for more information";
             	PaypalErrorName = "network error,"+"pls try once again";
@@ -352,7 +350,7 @@ public class MlfrontOrderSuperController {
             	paypalErrorList = e.getDetails().getDetails();
             	if(paypalErrorList.size()>1){
             		//city,state,zip不匹配
-            		PaypalErrorName = "pls check your information, make sure that city,state,zip code  is  match your address";
+            		PaypalErrorName = "pls check your address information, make sure the zip code  is  match the city,state";
             	}else{
             		//看看是什么
             		String errStr = paypalErrorList.get(0).getField();
