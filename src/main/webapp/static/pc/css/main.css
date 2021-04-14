@@ -115,8 +115,6 @@ optgroup,
 select,
 textarea {
   margin: 0;
-  -webkit-appearance: none;
-  appearance: none;
   color: #333;
 }
 button {
@@ -5347,7 +5345,7 @@ footer li {
 	color: #000;
 }
 .ml-user-policy input[name="userPolicy"] {
+	width: 12px;
+	height: 12px;
 	margin-right: .5rem;
-	-webkit-appearance: auto !important;
-	appearance: auto !important;
 }
