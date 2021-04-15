@@ -364,10 +364,10 @@ public class MlfrontOrderSuperController {
             		String lastStr = errStrArr[errLen-1];
             		
             		if(lastStr.equals("phone")){
-            			PaypalErrorName = "Pls fill right phone number with Digital 0-9,which shouldn't included Any Alphabet and Symbol .";
+            			PaypalErrorName = "Pls fill right phone number with Digital 0-9,which shouldn't included Any Alphabet and Symbol.";
             		}else{
             			String errStrOther = paypalErrorList.get(0).getIssue();
-            			PaypalErrorName =""+errStrOther+" and Pls try again";
+            			PaypalErrorName =""+errStrOther+". Pls check it and try again";
             		}
             	}
             	/******************************************第2版本**begin**************************************/
