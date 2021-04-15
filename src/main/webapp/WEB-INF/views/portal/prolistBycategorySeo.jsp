@@ -161,7 +161,6 @@
 	<!-- lottery -->
 	<jsp:include page="layout/lottery.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
-	<div class="lucky_bag"><a href="${APP_PATH}/Bomb-Sale-13x4-4X4-Lace-Wig.html"></a></div>
 </body>
 
 </html>
