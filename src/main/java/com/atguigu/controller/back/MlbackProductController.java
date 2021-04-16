@@ -508,8 +508,6 @@ public class MlbackProductController {
 		List<MlbackProduct> mlbackProductResListnum =mlbackProductService.selectMlbackProductLikeNum(mlbackProductReq);
 		Integer num = mlbackProductResListnum.size();
 		
-		//Integer ifGetResult = 1;
-		
 		if(num>0){
 			System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
 			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName);
@@ -545,7 +543,6 @@ public class MlbackProductController {
 			}
 			Integer finallyNum = mlbackProductReturnList.size();
 			System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
-			//ifGetResult = 1;
 			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductReturnList).add("mlbackProductResListnum", finallyNum).add("productName", productName);
 		}
 	}
