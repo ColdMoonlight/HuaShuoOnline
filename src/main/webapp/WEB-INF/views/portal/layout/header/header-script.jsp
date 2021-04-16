@@ -473,7 +473,7 @@
 	}
 	// go to search product
 	function goToSearchProduct(searchName) {
-		window.location.href = '${APP_PATH}/MlbackProduct/toSearchPage?searchProductName=' + encodeURI(searchName.replace(/\s+wigs*/i,'').replace('#',''));
+		window.location.href = '${APP_PATH}/MlbackProduct/toSearchPage?searchProductName=' + searchName;
 	}
 	// check input search value
 	function checkSearchInput(value) {
