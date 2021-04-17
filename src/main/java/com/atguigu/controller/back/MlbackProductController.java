@@ -508,47 +508,45 @@ public class MlbackProductController {
 		List<MlbackProduct> mlbackProductResListnum =mlbackProductService.selectMlbackProductLikeNum(mlbackProductReq);
 		Integer num = mlbackProductResListnum.size();
 		
-		Integer ifGetResult = 1;
-		  
+		//Integer ifGetResult = 1;
+		
 		if(num>0){
 			System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
-			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName).add("ifGetResult", ifGetResult);
+			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductResList).add("mlbackProductResListnum", num).add("productName", productName);
 		}else{
-			  
-			List<List<MlbackProduct>> kkkList =new ArrayList<List<MlbackProduct>>();
+			//1查询全部的上架产品信息,2便利匹配搜索字段
 			
-			String productNameStr = productName;
-			String productNameItemArr[] =productName.split(" ");
-		  
-			for(int i =0;i<productNameItemArr.length;i++){
-				MlbackProduct mlbackProductReqArr = new MlbackProduct();
-				productName = productNameItemArr[i];
-				mlbackProductReqArr.setProductName(productName);
-				System.out.println("操作说明:客户搜索的产品名字productName:"+productName);
-				List<MlbackProduct> mlbackProductArrOneResList =mlbackProductService.selectMlbackProductLike(mlbackProductReqArr);
-				kkkList.add(mlbackProductArrOneResList);
-			}
-		  
-			//描述
-			Map<String,MlbackProduct> pidMap = new HashMap<String,MlbackProduct>();
-			for(int j=0;j<kkkList.size();j++){
-				List<MlbackProduct> akkkListOneList =kkkList.get(j);
-					  
-				for(MlbackProduct mlbackProductOne:akkkListOneList){
-					Integer pid = mlbackProductOne.getProductId();
-					pidMap.put(pid+"", mlbackProductOne);
+			MlbackProduct mlbackProductReqIn = new MlbackProduct();
+			mlbackProductReqIn.setProductStatus(1);
+			List<MlbackProduct> mlbackProductALLResList = mlbackProductService.selectMlbackProductSimpleByParamOnlyProDateilUsed(mlbackProductReqIn);
+			List<MlbackProduct> mlbackProductReturnList = new ArrayList<MlbackProduct>();
+			
+			String searchProductName = productName;
+			String searchProductNameItemArr[] =searchProductName.split(" ");
+			
+			for(MlbackProduct mlbackProductALLOne:mlbackProductALLResList){
+				String pName = mlbackProductALLOne.getProductName();
+				
+				String pNameLess = pName.toLowerCase();
+				Integer flag = 1;
+				for(int i =0;i<searchProductNameItemArr.length;i++){
+					String sraechProductNameOne = searchProductNameItemArr[i];
+					String sraechProductNameOneLess = sraechProductNameOne;
+					if(pNameLess.contains(sraechProductNameOneLess)){
+						flag = 1;
+					}else{
+						flag = 0;
+						break;
+					}
+				}
+				if(flag==1){
+					mlbackProductReturnList.add(mlbackProductALLOne);
 				}
 			}
-			List<MlbackProduct> mlbackProductFinallyResList =new ArrayList<MlbackProduct>();
-			Iterator it=pidMap.keySet().iterator();
-			while(it.hasNext()){
-				String key=it.next().toString();
-				mlbackProductFinallyResList.add(pidMap.get(key));
-			}
-			Integer finallyNum = mlbackProductFinallyResList.size();
+			Integer finallyNum = mlbackProductReturnList.size();
 			System.out.println("操作说明:客户搜索的产品名,查询结果mlbackProductResListnum:"+num);
-			ifGetResult = 0;
-			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductFinallyResList).add("mlbackProductResListnum", finallyNum).add("productName", productNameStr).add("ifGetResult", ifGetResult);
+			//ifGetResult = 1;
+			return Msg.success().add("resMsg", "产品名模糊搜索完毕").add("mlbackProductResList", mlbackProductReturnList).add("mlbackProductResListnum", finallyNum).add("productName", productName);
 		}
 	}
 	 

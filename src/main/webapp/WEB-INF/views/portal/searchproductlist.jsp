@@ -64,7 +64,7 @@
 		}
 		function renderProductList(data) {
 			var htmlStr = '', productData = descPrdouct(data.extend.mlbackProductResList);
-			if('' + data.extend.ifGetResult == '1') {
+			if(productData.length > 0) {
 				productData.forEach(function(item) {
 					var productLink = '${APP_PATH}/'+ item.productSeo +'.html';
 					htmlStr += '<div class="product-item-box"><div class="product-item" data-productid="'+ item.productId +'">' +

@@ -11,6 +11,9 @@
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
     <meta name="keyword" content="${sessionScope.mlbackProductMetaKeyWords}">
     <meta id="ml-des" name="description" content="${sessionScope.mlbackProductMeteDesc}">
+    <!-- google rule -->
+    <link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("productSeo") %>.html" hreflang="en-us" />
+	<link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("productSeo") %>.html" />
 	<script>
 		var productId = '${sessionScope.productDetailId}';
 		var productSeo;
@@ -38,7 +41,7 @@
 		.product-together-cal { margin-bottom: 1rem; } 
 		.product-together-info-item { margin-top: .5rem; }
 		.proudct-together-name { margin-left: .5rem; font-size: 1.2rem;  color: #333; }
-		.product-together-check { -webkit-appearance: auto;  appearance: auto;}
+		.product-together-check { width: 18px; height: 18px; }
 		.product-together-select { margin-left: 1rem; padding: .25rem .5rem; background-color: #fff; }
 		.product-together-oprice { margin-left: .5rem; color: #333; text-decoration: line-through; font-weight: 500; }
 		.product-together-dprice { margin-left: .5rem; color: #ff0000; font-weight: 500; }
@@ -90,7 +93,7 @@
 						<div class="name">Qty:</div>
 						<div class="product-qty">
 							<span class="group-addon" id="product-num-sub"><i class="icon sub"></i></span>
-							<input type="text" class="product-num" value="1" data-count="1" disabled>					 
+							<input type="text" class="product-num" value="1" data-count="1">					 
 							<span class="group-addon" id="product-num-add"><i class="icon plus"></i></span>					
 						</div>
 					</div>
@@ -189,6 +192,5 @@
 	<!-- lottery -->
 	<jsp:include page="../layout/lottery.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
-	<div class="lucky_bag"><a href="${APP_PATH}/Bomb-Sale-13x4-4X4-Lace-Wig.html"></a></div>
 </body>
 </html>

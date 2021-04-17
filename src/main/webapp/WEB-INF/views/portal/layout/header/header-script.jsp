@@ -473,7 +473,7 @@
 	}
 	// go to search product
 	function goToSearchProduct(searchName) {
-		window.location.href = '${APP_PATH}/MlbackProduct/toSearchPage?searchProductName=' + encodeURI(searchName.replace(/\s+wigs*/i,'').replace('#',''));
+		window.location.href = '${APP_PATH}/MlbackProduct/toSearchPage?searchProductName=' + searchName;
 	}
 	// check input search value
 	function checkSearchInput(value) {
@@ -529,7 +529,12 @@
 		}
 		renderIntroduceSearch();
 	}
-	$('.pc-header .search-input, #search-product').on('click', showSearchBox);
+	$('.pc-header .search-input, #search-product').on('click', function() {
+		setTimeout(function() {
+			$('#.search-input').focus();
+		});
+		showSearchBox();
+	});
 	// close search-result box
 	$('.search-result-box').on('click', function (e) {
 		if (e.target == this) {
@@ -554,7 +559,7 @@
 	});
 	$('.search-input').on('keyup', function(e) {
 		if (e.keyCode == 13) {
-			var searchName = $('.search-input').val();
+			var searchName = $('.pc-header .search-input').val() || $('.wap-header .search-input').val();
 			checkSearchInput(searchName) && goToSearchProduct(searchName);
 		}
 	});

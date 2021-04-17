@@ -10,6 +10,17 @@
 </c:choose>
 <meta name="keyword" content="${sessionScope.categoryMetaKeyWords}">
 <meta name="description" content="${sessionScope.categoryMetaDesc}">
+<!-- google rule -->
+<link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" hreflang="en-us" />
+<link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" />
+<!-- socail meta -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="${ sessionScope.categoryMetaTitle }">
+<meta property="og:url" content="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html">
+<meta property="og:site_name" content="Megalook Hair">
+<meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
+<!-- <meta name="twitter:site" content="@megalookhair">
+<meta name="twitter:card" content="summary"> -->
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
 	<script>
 		var categorySeo = '${sessionScope.categorySeo}';
@@ -161,7 +172,6 @@
 	<!-- lottery -->
 	<jsp:include page="layout/lottery.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
-	<div class="lucky_bag"><a href="${APP_PATH}/Bomb-Sale-13x4-4X4-Lace-Wig.html"></a></div>
 </body>
 
 </html>

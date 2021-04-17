@@ -341,18 +341,17 @@ public class MlfrontOrderSuperController {
             System.out.println("---------e.getDetails()-----begin------");
             System.out.println(e.getDetails());
             
-            
-            System.out.println(e.getDetails());
             if(e.getDetails()==null){
             	//PaypalErrorName = "retry fails..  check log for more information";
             	PaypalErrorName = "network error,"+"pls try once again";
             	//return Msg.success().add("ifPaypalCheckSuccess", 2).add("errorDetail", PaypalErrorName);
             }else{
+            	/******************************************第1版本**begin**************************************/
             	PaypalErrorName = e.getDetails().getName();
             	paypalErrorList = e.getDetails().getDetails();
             	if(paypalErrorList.size()>1){
             		//city,state,zip不匹配
-            		PaypalErrorName = "pls check your information, make sure that city,state,zip code  is  match your address";
+            		PaypalErrorName = "pls check your address information, make sure the zip code is matched with your city/state.";
             	}else{
             		//看看是什么
             		String errStr = paypalErrorList.get(0).getField();
@@ -365,11 +364,26 @@ public class MlfrontOrderSuperController {
             		String lastStr = errStrArr[errLen-1];
             		
             		if(lastStr.equals("phone")){
-            			PaypalErrorName = "Pls fill right phone number with Digital 0-9,which shouldn't included Any Alphabet and Symbol .";
+            			PaypalErrorName = "Pls fill right phone number with Digital 0-9,which shouldn't included Any Alphabet and Symbol.";
             		}else{
-            			PaypalErrorName ="Please check the "+lastStr+" . and Pls try again";
+            			String errStrOther = paypalErrorList.get(0).getIssue();
+            			PaypalErrorName =""+errStrOther+". Pls check it and try again";
             		}
             	}
+            	/******************************************第2版本**begin**************************************/
+            	
+            	/******************************************第二版本**begin**************************************/
+//            	PaypalErrorName = e.getDetails().getName();
+//            	paypalErrorList = e.getDetails().getDetails();
+//            	if(paypalErrorList.size()>1){
+//            		//city,state,zip不匹配
+//            		PaypalErrorName = "pls check your address information, make sure the zip code is matched with your city/state.";
+//            	}else{
+//            		//看看是什么
+//            		String errStr = paypalErrorList.get(0).getIssue();
+//            		PaypalErrorName = errStr;
+//            	}
+            	/******************************************第二版本**end**************************************/
             }
             System.out.println("后台转换后的错误提示PaypalErrorName:"+PaypalErrorName);
             System.out.println("---------e.getDetails()------end------");
