@@ -11,6 +11,9 @@
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
     <meta name="keyword" content="${sessionScope.mlbackProductMetaKeyWords}">
     <meta id="ml-des" name="description" content="${sessionScope.mlbackProductMeteDesc}">
+    <!-- google rule -->
+    <link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("productSeo") %>.html" hreflang="en-us" />
+	<link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("productSeo") %>.html" />
 	<script>
 		var productId = '${sessionScope.productDetailId}';
 		var productSeo;
