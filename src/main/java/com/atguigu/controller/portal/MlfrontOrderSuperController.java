@@ -175,7 +175,7 @@ public class MlfrontOrderSuperController {
 		//2.0.1.2查询该优惠码的优惠价格(优惠券,总价,客户选好的产品id串,计算好的对应产品item价格串)
 		BigDecimal CouponCodeMoney = getCouponCodeMoney(CouponCode, totalprice,cusTomerPidStr,pidItemAndMoneyStr);
 		String CouponCodeMoneyStr= df1.format(CouponCodeMoney);
-		session.setAttribute("CouponCodeMoney", CouponCodeMoneyStr);
+		session.setAttribute("CouponCodeMoney", CouponCodeMoneyStr);//111--CouponCodeMoney;
 		//减去优惠券优惠的钱
 		totalprice = totalprice.subtract(CouponCodeMoney);
 		
@@ -183,12 +183,12 @@ public class MlfrontOrderSuperController {
 		//2.0.2.1拿到地址ID,
 		Integer AddressId = mlfrontOrder.getOrderAddressinfoId();
 		if(AddressId==null){
-			AddressId= (Integer) session.getAttribute("realAddressId");
+			AddressId= (Integer) session.getAttribute("realAddressId");//222--AddressId;
 		}
 		//2.0.2.2查询英文名,查询该英文名的价格运费价格
 		Integer addressMoney = getAddressMoney(AddressId);
 		String addressMoneyStr= df1.format(addressMoney);
-		session.setAttribute("addressMoney", addressMoneyStr);
+		session.setAttribute("addressMoney", addressMoneyStr);//333--addressMoney;
 		//2.0.2.3加上地区快递费
 		totalprice = totalprice.add(new BigDecimal(addressMoney));
 		//计算该订单的实际价格
@@ -218,8 +218,8 @@ public class MlfrontOrderSuperController {
 		MlfrontAddress mlfrontAddressToPay = mlfrontAddressToPayList.get(0);
 		String addressName = mlfrontAddressToPay.getAddressUserfirstname()+" "+mlfrontAddressToPay.getAddressUserlastname();
 		//把结算地址放进session中
-		session.setAttribute("mlfrontAddressToPay", mlfrontAddressToPay);
-		session.setAttribute("totalprice", totalprice);
+		session.setAttribute("mlfrontAddressToPay", mlfrontAddressToPay);//444--mlfrontAddressToPay;
+		session.setAttribute("totalprice", totalprice);//555--totalprice;
 		MlfrontPayInfo mlfrontPayInfoNew = new MlfrontPayInfo();
 		mlfrontPayInfoNew.setPayinfoOid(originalOrderId);
 		mlfrontPayInfoNew.setPayinfoStatus(0);//0未支付1已支付
@@ -234,11 +234,8 @@ public class MlfrontOrderSuperController {
 
 		//6获取returnmoney
 		String orderAllMoney = GetOrderTopayinfoMoney(Orderitemidstr);
-		
 		String addressMoneyendStr = addressMoney+"";
-		
 		String amTotal = getamountTotal(orderAllMoney,CouponCodeMoneyStr,addressMoneyendStr);
-		
 		BigDecimal amTotalBig=new BigDecimal(amTotal);  
 		
 		mlfrontPayInfoNew.setPayinfoMoney(amTotalBig);//总钱数排除一分钱后的计算结果
@@ -269,12 +266,11 @@ public class MlfrontOrderSuperController {
 			}
 		}
 		
-		session.setAttribute("payinfoId", payinfoId);
-		
-		session.setAttribute("sendAddressinfoId", payAddressinfoId);
+		session.setAttribute("payinfoId", payinfoId);//666--payinfoId;
+		session.setAttribute("sendAddressinfoId", payAddressinfoId);//777--sendAddressinfoId;
 		
 		//取出sessionid,再次放入
-		Integer orderIdFinally = (Integer) session.getAttribute("orderId");
+		Integer orderIdFinally = (Integer) session.getAttribute("orderId");//888--orderId;
 		session.setAttribute("orderId", orderIdFinally);
 		//4.0传入orderid,查询其中的orderItemID,找到cartID 找到cartid,移除购物车中的
 		updateCart(mlfrontOrder);
@@ -287,15 +283,15 @@ public class MlfrontOrderSuperController {
 		
 		System.out.println("into**********/paypal/mpay**********");
     	//1.1,准备支付前,从session中读取getPayInfo参数
-    	ToPaypalInfo toPaypalInfo = getPayInfo(session);
+    	ToPaypalInfo toPaypalInfo = getPayInfo(mlfrontAddressToPay,payinfoId,totalprice);
     	//1.2,准备支付前,从session中获取优惠券减去额度
-    	String Shopdiscount = getCouponMoney(session);
+    	String Shopdiscount = CouponCodeMoneyStr;
     	//1.3,准备支付前,从session中获取地址运费
-    	String addressMoneyNow = getAddressMoney(session);
+    	String addressMoneyNow = addressMoneyStr;
     	//1.4,准备支付前,从session中获取地址信息
-    	MlfrontAddress mlfrontAddressNow = getMlfrontAddress(session);
+    	MlfrontAddress mlfrontAddressNow = mlfrontAddressToPay;
     	//1.5,准备支付前,从session中获取orderList详情
-    	List<MlfrontOrderItem> mlfrontOrderItemList = getMlfrontOrderItemList(session);
+    	List<MlfrontOrderItem> mlfrontOrderItemList = getMlfrontOrderItemList(orderIdFinally);
     	
     	BigDecimal money = toPaypalInfo.getMoneyNum();
     	String moneyStr = money.toString();
@@ -371,19 +367,6 @@ public class MlfrontOrderSuperController {
             		}
             	}
             	/******************************************第2版本**begin**************************************/
-            	
-            	/******************************************第二版本**begin**************************************/
-//            	PaypalErrorName = e.getDetails().getName();
-//            	paypalErrorList = e.getDetails().getDetails();
-//            	if(paypalErrorList.size()>1){
-//            		//city,state,zip不匹配
-//            		PaypalErrorName = "pls check your address information, make sure the zip code is matched with your city/state.";
-//            	}else{
-//            		//看看是什么
-//            		String errStr = paypalErrorList.get(0).getIssue();
-//            		PaypalErrorName = errStr;
-//            	}
-            	/******************************************第二版本**end**************************************/
             }
             System.out.println("后台转换后的错误提示PaypalErrorName:"+PaypalErrorName);
             System.out.println("---------e.getDetails()------end------");
@@ -758,19 +741,17 @@ public class MlfrontOrderSuperController {
 		return Onemoney;
 	}
 	
-	
-	
 	/**
 	 * 1.1读取getPayInfo参数
     * 准备支付前,从session中读取getPayInfo参数
     * */
-   private ToPaypalInfo getPayInfo(HttpSession session) {
-   	//从session中获取对象
-   	MlfrontAddress mlfrontAddressToPay = (MlfrontAddress) session.getAttribute("mlfrontAddressToPay");
-   	//从session中获取payinfoId,准备填入Desc中,防止paypal收到钱,却无法查帐
-   	Integer payinfoId = (Integer) session.getAttribute("payinfoId");
-   	String payinfoIdStr = payinfoId+"";
-   	BigDecimal totalprice = (BigDecimal) session.getAttribute("totalprice");
+   private ToPaypalInfo getPayInfo(MlfrontAddress mlfrontAddressToPayInto,Integer payinfoIdPInto,BigDecimal totalpriceInto) {
+	   
+  	MlfrontAddress mlfrontAddressToPay = mlfrontAddressToPayInto;
+  	//从session中获取payinfoId,准备填入Desc中,防止paypal收到钱,却无法查帐
+  	Integer payinfoId = payinfoIdPInto;
+  	String payinfoIdStr = payinfoId+"";
+  	BigDecimal totalprice = totalpriceInto;
    	ToPaypalInfo toPaypalInfo = new ToPaypalInfo();
 		//从对象中获取参数
 		String toPayTelephone = mlfrontAddressToPay.getAddressTelephone();
@@ -796,39 +777,13 @@ public class MlfrontOrderSuperController {
 		toPaypalInfo.setPaymentDescription(toPayDesc);
 		return toPaypalInfo;
 	}
-	
-   /**
-	 * 1.2读取优惠信息CouponMoney
-    * 准备支付前,从session中获取优惠券减去额度
-    * */
-	private String getCouponMoney(HttpSession session) {
-   	String Shopdiscount = (String) session.getAttribute("CouponCodeMoney");
-   	System.out.println("从session中获取优惠券减去额度-Shopdiscount:"+Shopdiscount);
-		return Shopdiscount;
-	}
-	/**
-	 * 1.3session中获取运费AddressMoney
-    * 准备支付前,从session中获取运费AddressMoney
-    * */
-   private String getAddressMoney(HttpSession session) {
-   	String addressMoney = (String) session.getAttribute("addressMoney");
-   	System.out.println("从session中获取地址运费-addressMoney:"+addressMoney);
-		return addressMoney;
-	}
-   /**
-    * 1.4从session中获取地址信息
-    * 准备支付前,从session中获取地址信息
-    * */
-   private MlfrontAddress getMlfrontAddress(HttpSession session) {
-   	MlfrontAddress mlfrontAddressToPay = (MlfrontAddress) session.getAttribute("mlfrontAddressToPay");
-		return mlfrontAddressToPay;
-	}
+
    /**
     * 1.5从session中获取orderList详情
     * 准备支付前,从session中获取orderList详情
     * */
-   private List<MlfrontOrderItem> getMlfrontOrderItemList(HttpSession session) {
-   	Integer orderId = (Integer) session.getAttribute("orderId");
+   	private List<MlfrontOrderItem> getMlfrontOrderItemList(Integer orderIdInto) {
+	Integer orderId = orderIdInto;
    	
    	MlfrontOrder mlfrontOrderReq = new MlfrontOrder();
    	mlfrontOrderReq.setOrderId(orderId);
