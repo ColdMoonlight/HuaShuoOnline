@@ -8,6 +8,16 @@
 	<meta name="keywords" content="Lace Front Wigs, Human Hair Extensions,Brazilian Virgin Hair,Affordable Human Hair" />
 	<meta name="description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
+	<meta property="og:site_name" content="Megalook Hair">
+	<meta property="og:url" content="https://www.megalook.com/MlbackCart/toCartList">
+	<meta property="og:title" content="Megalook Hair Cart List">
+	<meta property="og:type" content="website">
+	<meta property="og:description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
+	<meta name="twitter:site" content="@megalookhair">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Your Shopping Cart">
+	<meta name="twitter:description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
+
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>main { margin: 0; }</style>
 </head>

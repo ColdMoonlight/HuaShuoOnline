@@ -2,7 +2,9 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
 <c:choose>
 <c:when test="${sessionScope.mlbackProductMetaTitle==null}"><title>Product Details</title></c:when>
@@ -14,11 +16,15 @@
     <!-- google rule -->
     <link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("productSeo") %>.html" hreflang="en-us" />
 	<link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("productSeo") %>.html" />
-	<script>
-		var productId = '${sessionScope.productDetailId}';
-		var productSeo;
-		var productName;
-	</script>
+	<!-- socail media -->
+	<meta name="twitter:site" content="@megalookhair">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="${ sessionScope.mlbackProductMetaTitle }">
+	<meta name="twitter:description" content="${sessionScope.mlbackProductMeteDesc}">
+	<meta name="twitter:image" content="https://www.megalook.com/static/upload/img/product/proid248time23112510.jpg">
+	<meta name="twitter:image:width" content="600">
+	<meta name="twitter:image:height" content="600">
+	<script> var productId='${sessionScope.productDetailId}', productSeo, productName; </script>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/swiper.jsp" flush="true"></jsp:include>
 	<style>

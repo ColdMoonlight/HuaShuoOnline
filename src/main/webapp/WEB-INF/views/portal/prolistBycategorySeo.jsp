@@ -2,7 +2,9 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
 <c:choose>
 <c:when test="${sessionScope.categoryMetaTitle==null}"><title>Product List</title></c:when>
@@ -14,17 +16,15 @@
 <link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" hreflang="en-us" />
 <link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" />
 <!-- socail meta -->
+<meta name="twitter:site" content="@megalookhair">
+<meta name="twitter:card" content="summary">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${ sessionScope.categoryMetaTitle }">
 <meta property="og:url" content="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html">
 <meta property="og:site_name" content="Megalook Hair">
 <meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
-<!-- <meta name="twitter:site" content="@megalookhair">
-<meta name="twitter:card" content="summary"> -->
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
-	<script>
-		var categorySeo = '${sessionScope.categorySeo}';
-	</script>
+	<script> var categorySeo = '${sessionScope.categorySeo}'; </script>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<jsp:include page="common/swiper.jsp" flush="true"></jsp:include>
 	<style>@media only screen and (max-width: 1023px) { main { margin: 0; } main .container { margin: 1rem; } } @media only screen and (min-width: 1024px) { main .container { margin-top: 1rem; } }</style>
