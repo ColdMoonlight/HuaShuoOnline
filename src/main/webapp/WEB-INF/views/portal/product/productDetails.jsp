@@ -2,7 +2,9 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
 <c:choose>
 <c:when test="${sessionScope.mlbackProductMetaTitle==null}"><title>Product Details</title></c:when>
