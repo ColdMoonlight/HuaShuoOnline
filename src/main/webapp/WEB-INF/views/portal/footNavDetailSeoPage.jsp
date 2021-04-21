@@ -1,10 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!DOCTYPE html>
-<html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-	<title>Megalook Tip</title>
+	<title><%=request.getParameter("footnavSeo").replace("-"," ") %> | megalook.com</title>
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
+	<meta name="keywords" content="Lace Front Wigs, Human Hair Extensions,Brazilian Virgin Hair,Affordable Human Hair">
+	<meta name="description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
+    <!-- google rule -->
+    <link rel="alternate" href="https://www.megalook.com/pages/<%=request.getParameter("footnavSeo") %>.html" hreflang="en-us" />
+	<link rel="canonical" href="https://www.megalook.com/pages/<%=request.getParameter("footnavSeo") %>.html" />
+	<!-- social media -->
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="<%=request.getParameter("footnavSeo").replace("-"," ") %>">
+	<meta property="og:url" content="https://www.megalook.com/pages/<%=request.getParameter("footnavSeo") %>.html">
+	<meta property="og:site_name" content="Megalook Hair">
+	<meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
+	<meta name="twitter:site" content="@megalookhair">
+	<meta name="twitter:card" content="summary">
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 </head>
 <body>
