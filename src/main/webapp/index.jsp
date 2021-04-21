@@ -10,13 +10,15 @@
 	    <link rel="alternate" href="https://www.megalook.com/" hreflang="en-us" />
 		<link rel="canonical" href="https://www.megalook.com/" />
 		<!-- socail meta -->
+		<meta name="twitter:site" content="@megalookhair">
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content="Megalook Hair, Virgin Remy Human Hair Wigs, Lace Front Wigs, Best Wigs | megalook.com">
+		<meta name="twitter:description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
 		<meta property="og:type" content="website">
 		<meta property="og:title" content="Megalook Hair, Virgin Remy Human Hair Wigs, Lace Front Wigs, Best Wigs | megalook.com">
 		<meta property="og:url" content="https://www.megalook.com/">
 		<meta property="og:site_name" content="Megalook Hair">
 		<meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
-		<!-- <meta name="twitter:site" content="@megalookhair">
-		<meta name="twitter:card" content="summary"> -->
 		<jsp:include page="WEB-INF/views/portal/common/processor.jsp" flush="true"></jsp:include>
 		<jsp:include page="WEB-INF/views/portal/common/header.jsp" flush="true"></jsp:include>
 		<jsp:include page="WEB-INF/views/portal/common/swiper.jsp" flush="true"></jsp:include>
