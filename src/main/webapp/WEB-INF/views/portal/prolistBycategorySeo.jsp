@@ -16,7 +16,7 @@
 <link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" hreflang="en-us" />
 <link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" />
 <!-- socail meta -->
-<meta name="twitter:site" content="@luvmehair">
+<meta name="twitter:site" content="@megalookhair">
 <meta name="twitter:card" content="summary">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${ sessionScope.categoryMetaTitle }">
@@ -24,9 +24,7 @@
 <meta property="og:site_name" content="Megalook Hair">
 <meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
-	<script>
-		var categorySeo = '${sessionScope.categorySeo}';
-	</script>
+	<script> var categorySeo = '${sessionScope.categorySeo}'; </script>
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<jsp:include page="common/swiper.jsp" flush="true"></jsp:include>
 	<style>@media only screen and (max-width: 1023px) { main { margin: 0; } main .container { margin: 1rem; } } @media only screen and (min-width: 1024px) { main .container { margin-top: 1rem; } }</style>
