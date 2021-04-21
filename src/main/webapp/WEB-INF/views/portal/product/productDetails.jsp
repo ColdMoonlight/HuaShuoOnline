@@ -24,7 +24,6 @@
 	<meta name="twitter:image" content="https://www.megalook.com/static/upload/img/product/proid248time23112510.jpg">
 	<meta name="twitter:image:width" content="600">
 	<meta name="twitter:image:height" content="600">
-
 	<script> var productId='${sessionScope.productDetailId}', productSeo, productName; </script>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/swiper.jsp" flush="true"></jsp:include>

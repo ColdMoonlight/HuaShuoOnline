@@ -6,9 +6,20 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
     <title>Search Track Info | megalook.com</title>
+	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
 	<meta name="keywords" content="Lace Front Wigs, Human Hair Extensions,Brazilian Virgin Hair,Affordable Human Hair" />
 	<meta name="description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
-	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
+	<!-- google rule -->
+    <link rel="alternate" href="https://www.megalook.com/MlfrontOrderList/searchTrackPage" hreflang="en-us" />
+	<link rel="canonical" href="https://www.megalook.com/MlfrontOrderList/searchTrackPage" />
+	<!-- socail media -->
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Search Track Info">
+	<meta property="og:url" content="https://www.megalook.com/MlfrontOrderList/searchTrackPage">
+	<meta property="og:site_name" content="Megalook Hair">
+	<meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
+	<meta name="twitter:site" content="@megalookhair">
+	<meta name="twitter:card" content="summary">
 	<jsp:include page="common/header.jsp" flush="true"></jsp:include>
 	<style>
 		.search-track-title { padding: 1rem 0; font-size: 20px; font-weight: bold; }
