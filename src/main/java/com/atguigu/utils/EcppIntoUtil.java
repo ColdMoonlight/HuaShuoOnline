@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import com.atguigu.bean.MlPaypalShipAddress;
@@ -246,12 +247,23 @@ public class EcppIntoUtil {
 		ecppOrder.setTel(mlfrontAddressToPay.getAddressTelephone());
 		//封装pro产品字段
 		List<ecppItem> ecppItemList = new ArrayList<ecppItem>();
+		DecimalFormat df1 = new DecimalFormat("0.00");
 		for(MlfrontOrderItem mlfrontOrderItem:mlfrontOrderItemEcppNeedList){
 			ecppItem ecppItemOne = new ecppItem();
 			ecppItemOne.setGoods_sn(mlfrontOrderItem.getOrderitemPskuCode());
 			ecppItemOne.setGoods_name(mlfrontOrderItem.getOrderitemPseo()+","+mlfrontOrderItem.getOrderitemPskuName());
 			ecppItemOne.setGoods_qty(mlfrontOrderItem.getOrderitemPskuNumber());
-			ecppItemOne.setGoods_price(mlfrontOrderItem.getOrderitemPskuMoneystr());
+			//ecppItemOne.setGoods_price(mlfrontOrderItem.getOrderitemPskuMoneystr());
+			Integer num = mlfrontOrderItem.getOrderitemPskuNumber();
+			String ItemMoney = mlfrontOrderItem.getOrderitemPskuReamoney();
+			if(num>1){
+				BigDecimal bd=new BigDecimal(ItemMoney);
+				bd = bd.divide(new BigDecimal(num));
+				String moneyStr = df1.format(bd);
+				ecppItemOne.setGoods_price(moneyStr);
+			}else{
+				ecppItemOne.setGoods_price(ItemMoney);
+			}
 			ecppItemList.add(ecppItemOne);
 		}
 		ecppOrder.setItem(ecppItemList);
