@@ -1,13 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!DOCTYPE html>
-<html>
-
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
 	<title>Checkout | megalook.com</title>
 	<meta name="keywords" content="Lace Front Wigs, Human Hair Extensions,Brazilian Virgin Hair,Affordable Human Hair" />
 	<meta name="description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
+	<!-- google rule -->
+    <link rel="alternate" href="https://www.megalook.com/MlbackCart/toCheakOut" hreflang="en-us" />
+	<link rel="canonical" href="https://www.megalook.com/MlbackCart/toCheakOut" />
+	<!-- socail media -->
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Megalook checkout Info">
+	<meta property="og:url" content="https://www.megalook.com/MlbackCart/toCheakOut">
+	<meta property="og:site_name" content="Megalook Hair">
+	<meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
+	<meta name="twitter:site" content="@megalookhair">
+	<meta name="twitter:card" content="summary_large_image">
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<style>main { margin: 0; }</style>
 	<style>.spinner,.spinner:after,.spinner:before{border-radius:50%}.spinner{position:relative;margin-right:.75rem;color:#fff;width:20px;height:20px;box-shadow:inset 0 0 0 2px;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}.spinner:after,.spinner:before{position:absolute;content:"";background:#5469d4}.spinner:before{width:10.4px;height:20.4px;border-radius:20.4px 0 0 20.4px;top:-.2px;left:-.2px;-webkit-transform-origin:10.4px 10.2px;transform-origin:10.4px 10.2px;-webkit-animation:loading 2s infinite ease 1.5s;animation:loading 2s infinite ease 1.5s}.spinner:after{width:10.4px;height:10.2px;border-radius:0 10.2px 10.2px 0;top:-.1px;left:10.2px;-webkit-transform-origin:0 10.2px;transform-origin:0 10.2px;-webkit-animation:loading 2s infinite ease;animation:loading 2s infinite ease}@-webkit-keyframes loading{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes loading{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.card-element-box{position:relative;padding:1rem;margin-top:.5rem;background-color:#f5f5f5}.card-element-box .spinner:after,.card-element-box .spinner:before{background-color:#f5f5f5}#card-element{width:100%;height:2.75rem;padding:.75rem;border-radius:.25rem .25rem 0 0;border:1px solid rgba(50,50,93,.1);background-color:#fff}#card-error{margin:.25rem 0 0 0;font-style:italic;font-size:.75rem;text-align:left;color:#ff1671}.card-element-box.mask #card-element{background-color:#f5f5f5;border-color:#f5f5f5}.card-element-box.mask .spinner{display:block;color:#333}#payment-form{display:flex;align-items:center;justify-content:center}#payment-form .spinner:after,#payment-form .spinner:before{background-color:#ccc}#payment-form[disabled]{background-color:#ccc;border-color:#ccc}.card-element-box .spinner{position:absolute;top:50%;left:50%;display:none;transform:translate(-50%,-50%)}.order-payment-item~.order-payment-item{margin-top:.5rem;}.form-input{position:relative}.address-box .form-no-label::after{position:absolute;top:.7rem;left:.4rem;content:'*';display:inline-block;font-size:.875rem;color:red;vertical-align:middle}</style>
@@ -38,55 +50,62 @@
 								<!-- first name -->
 								<div class="form-group">
 									<div class="form-input form-no-label">
+										<label for="addressUserfirstname" class="form-label hide">First Name</label>
 										<input type="text" name="addressUserfirstname" id="addressUserfirstname" class="form-control" placeholder="First Name">
 									</div>
 								</div>
 								<!-- last name -->
 								<div class="form-group">
+									<label for="addressUserlastname" class="form-label hide">Last Name</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressUserlastname" id="addressUserlastname" class="form-control" placeholder="Last Name">
 									</div>
 								</div>
 								<!-- email address -->
 								<div class="form-group">
+									<label for="addressEmail" class="form-label hide">Email Adress</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressEmail" id="addressEmail" class="form-control" placeholder="Email">
 									</div>
 								</div>
 								<!-- telephone -->
 								<div class="form-group">
+									<label for="addressTelephone" class="form-label hide">Telephone</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressTelephone" id="addressTelephone" class="form-control" placeholder="Telephone">
 									</div>
 								</div>
 								<!-- address -->
 								<div class="form-group" style="width: 100%">
+									<label for="addressDetail" class="form-label hide">Address</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="Address">
 									</div>
 								</div>
 								<!-- city -->
 								<div class="form-group">
+									<label for="addressCity" class="form-label hide">City</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressCity" id="addressCity" class="form-control" placeholder="City">
 									</div>
 								</div>
 								<!-- Zip/Postal code -->
 								<div class="form-group">
+									<label for="addressPost" class="form-label hide">Zip/Postal code</label>
 									<div class="form-input form-no-label">
 										<input type="text" name="addressPost" id="addressPost" class="form-control" placeholder="Zip/Postal code">
 									</div>
 								</div>
 								<!-- country -->
 								<div class="form-group">
-									<label for="addressCountry" class="form-label">Country</label>
+									<label for="addressCountry" class="form-label hide">Country</label>
 									<div class="form-input">
 										<select name="addressCountry" id="addressCountry" class="form-control" value="US"></select>
 									</div>
 								</div>
 								<!-- stateprovinceName -->
 								<div class="form-group address-province">
-									<label for="addressProvince" class="form-label">State/Province</label>
+									<label for="addressProvince" class="form-label hide">State/Province</label>
 									<div class="form-input">
 										<select name="addressProvince" id="addressProvince" class="form-control"></select>
 									</div>
@@ -134,8 +153,8 @@
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
 	<jsp:include page="./add-free-gift.jsp" flush="true"></jsp:include>
 	<!-- checkout script -->
-	<jsp:include page="./checkout-script.min.jsp" flush="true"></jsp:include>
 	<jsp:include page="collect-shipping-address.jsp" flush="true"></jsp:include>
+	<jsp:include page="./checkout-script.min.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
 </body>
 </html>
