@@ -8,7 +8,7 @@
 			<div class="follow-us">
 				<h3 class="follow-us-title wap-follow-us">FOLLOW US</h3>
 				<div class="follow-us-title pc-follow-us">
-					<img src="${APP_PATH }/static/common/dblogo.png" alt="" title="megalook" style="width:150px">
+					<img src="${APP_PATH }/static/common/dblogo.png" alt="megalook" title="megalook" style="width:150px">
 					<div style="margin-top:6px;">My New Look </div>
 				</div>
 				<ul class="follow-us-list">
@@ -27,7 +27,7 @@
 	<div class="footer-page-footer">
 		<div class="container">
 			<p class="copyright">Copyright © 2021 <a href="${APP_PATH}/">MegaLook</a>, All Rights Reserved</p>
-			<img src="${APP_PATH }/static/pc/img/paypalcard.jpg" width="266" height="33" title="paypal card">
+			<img src="${APP_PATH }/static/pc/img/paypalcard.jpg" width="266" height="33" alt="paypal card" title="paypal card">
 		</div>
 	</div>
 </footer>
