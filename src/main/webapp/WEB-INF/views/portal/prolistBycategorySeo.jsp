@@ -103,10 +103,10 @@
 					htmlStr += '<div class="product-item-box"><div class="product-item" data-productid="'+ item.productId +'">' +
 					    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
 						'<div class="product-img">' +
-							'<a href="'+ productLink +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
+							'<a href="'+ productLink +'" title="'+ item.productName +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
 						'</div>' +
 						'<div class="product-desc">' +
-							'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
+							'<div class="product-name"><a href="'+ productLink +'" title="'+ item.productName +'">'+ item.productName +'</a></div>' +
 							'<div class="product-price">' +
 								'<span class="product-define-price">$'+ (item.productOriginalprice || 0).toFixed(2) +'</span>' +
 								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? accuracyCal(item.productOriginalprice, item.productActoffoff) : 0) +'</span>' +
