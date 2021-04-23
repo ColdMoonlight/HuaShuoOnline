@@ -153,8 +153,8 @@
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
 	<jsp:include page="./add-free-gift.jsp" flush="true"></jsp:include>
 	<!-- checkout script -->
-	<jsp:include page="collect-shipping-address.jsp" flush="true"></jsp:include>
 	<jsp:include page="./checkout-script.min.jsp" flush="true"></jsp:include>
+	<jsp:include page="collect-shipping-address.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
 </body>
 </html>

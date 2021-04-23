@@ -591,10 +591,10 @@ function generateSwiperSlideProduct(data) {
 		htmlStr += '<div class="swiper-slide product-item" data-productid="'+ item.productId +'">' +
 		    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
 			'<div class="product-img">' +
-				'<a href="'+ productLink +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
+				'<a href="'+ productLink +'" title="'+ item.productName +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
 			'</div>' +
 			'<div class="product-desc">' +
-				'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
+				'<div class="product-name"><a href="'+ productLink +'" title="'+ item.productName +'">'+ item.productName +'</a></div>' +
 				/* '<div class="product-data">' +
 					'<span class="product-pay-num">'+ (item.productHavesalenum || 0) +' Order(s)</span>' +
 					'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
