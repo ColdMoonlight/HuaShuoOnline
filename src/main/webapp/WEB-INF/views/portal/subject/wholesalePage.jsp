@@ -7,6 +7,7 @@
 	<meta name="keywords" content="Lace Front Wigs, Human Hair Extensions,Brazilian Virgin Hair,Affordable Human Hair" />
 	<meta name="description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
     <!-- google rule -->
+	<meta name="robots" content="INDEX,FOLLOW">
     <link rel="alternate" href="https://megalook.com/Customer/Wholesale.html" hreflang="en-us" />
 	<link rel="canonical" href="https://megalook.com/Customer/Wholesale.html" />
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>

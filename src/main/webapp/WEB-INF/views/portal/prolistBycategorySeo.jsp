@@ -13,6 +13,7 @@
 <meta name="keyword" content="${sessionScope.categoryMetaKeyWords}">
 <meta name="description" content="${sessionScope.categoryMetaDesc}">
 <!-- google rule -->
+<meta name="robots" content="INDEX,FOLLOW">
 <link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" hreflang="en-us" />
 <link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" />
 <!-- socail meta -->
