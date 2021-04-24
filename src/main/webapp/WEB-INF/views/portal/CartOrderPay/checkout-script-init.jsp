@@ -409,10 +409,52 @@
 		// coupon area list			
 		getCouponAreaData(renderCouponAreaData);
 	}
+	// render order payment method
+	function renderOrderPaymentMethod() {
+		var $cartPaymentBox = $('<div class="cart-box">'+
+				'<div class="cart-box-title"><span class="order-sort">4</span>PAYMENT METHOD</div>'+
+				'<div class="cart-box-body">'+
+					'<div class="order-payment" data-pay="0">' +
+						'<div class="order-payment-item">'+
+							'<div class="order-pay-inner custom-check">' +
+								'<input type="radio" name="payment" id="payment-paypal" checked value="0">' +
+								'<label for="payment-paypal">' +
+									'<img src="${APP_PATH}/static/pc/img/paypal-1.png">' +
+									'<span>Pay with PayPal account</span>' +
+								'</label>' +
+							'</div>' +
+							'<div class="paypal-box">' +
+						    	'<img src="${APP_PATH}/static/pc/img/paypal-3.svg">' +
+						    	'<div class="paypal-des">After clicking “Complete order”, you will be redirected to PayPal to complete your purchase securely.</div>' +
+						    '</div>' +
+						'</div>' +
+						'<div class="order-payment-item">'+
+							'<div class="order-pay-inner custom-check">' +
+								'<input type="radio" name="payment" id="payment-paypalcard" value="1">' +
+								'<label for="payment-paypalcard">' +
+									'<img src="${APP_PATH}/static/pc/img/paypal-2-2.png">' +
+									'<sapn style="white-space: nowrap;">Pay with Paypal Credit card</span>' +
+								'</label>' +
+							'</div>'+
+							'<div class="paypal-box hide">' +
+						    	'<img src="${APP_PATH}/static/pc/img/paypal-3.svg">' +
+						    	'<div class="paypal-des">After clicking “complete order”, you will be redirected to PayPal to complete your purchase safely with several credit cards supported by PayPal.</div>' +
+						    '</div>' +
+						'</div>' +
+						'<div class="card-element-box mask hide">' +
+					    	'<div class="spinner"></div>' +
+					    	'<div id="card-element"></div>' +
+					    	'<p id="card-error" role="alert"></p>' +
+					    '</div>' +
+					'</div>'+
+				'</div>'+
+			'</div>');
+		$('.checkout-pay-method').append($cartPaymentBox);
+	}
 	// render order buyer message
 	function renderOrderBuyerMsg() {
 		var $cartBuyerMsgBox = $('<div class="cart-box">'+
-				'<div class="cart-box-title"><span class="order-sort">4</span>ADDITIONAL INFORMATION</div>'+
+				'<div class="cart-box-title"><span class="order-sort">5</span>ADDITIONAL INFORMATION</div>'+
 				'<div class="cart-box-body">'+
 					'<div class="order-buyer-msg"><textarea rows="2" placeholder="Any Request,Notes Here."></textarea></div>'+
 				'</div>'+
@@ -430,10 +472,9 @@
 						'<div class="order-cal-item"><span class="name">coupon</span><span class="value order-cal-coupon">-$'+ (calOrder.coupon).toFixed(2) +'</span></div>' +
 						'<div class="order-cal-item"><span class="name">shipping</span><span class="value order-cal-shipping">$'+ (calOrder.shipping).toFixed(2) +'</span></div>' +
 						'<div class="order-cal-item"><span class="name">subtotal</span><span class="value order-cal-subtotal" data-price="'+ (calOrder.subtotal).toFixed(2) +'">$'+ (calOrder.subtotal).toFixed(2) +'</span></div>' +
-						'<div class="order-cal-btn" style="flex-direction: column;">' +
-							'<div class="complete-order complete-order-1 btn btn-yellow" data-id="0"><span class="paypal-btn paypal-btn-1"></span></div>' +
-							'<div class="complete-order complete-order-2 btn btn-black" data-id="1"><span class="paypal-btn paypal-btn-2"></span><span>Debit or Credit Card</span></div>' +
-							'<div class="paypal-logon"><span class="paypal-power-by">Powered by</span><span class="paypal-btn paypal-btn-3"></span></div>' +
+						'<div class="order-cal-btn">' +
+							'<a href="javascript:;" id="pay-now" class="btn btn-pink">Complete Order</a>' +
+							'<button id="payment-form" class="btn btn-pink hide" disabled><div class="spinner hide"></div><span class="btn-text">Pay Securely Now</span></button>' +
 						'</div>' +
 					'</div>'+
 				'</div>'+
@@ -493,14 +534,14 @@
 		isBackFill = true;
 	}
 	// get order pay info
-	function getOrderPayInfo(payType) {
+	function getOrderPayInfo() {
 		var couponData = $('.order-coupon-group').data('coupon') || {};
 		return {
 			"orderId": $('.order-list').data('orderid') || null,
 			"orderOrderitemidstr": $('.order-list').data('itemidarr'),
 			"orderCouponId": (couponData.mlbackCouponOne && couponData.mlbackCouponOne.couponId) || '',
 			"orderCouponCode": (couponData.mlbackCouponOne && couponData.mlbackCouponOne.couponCode) || '',
-			"orderPayPlate": payType,
+			"orderPayPlate": $('input[name="payment"]:checked').val(),
 			"orderProNumStr": $('.order-list').data('itemnumarr'),
 			"orderBuyMess": $('.order-buyer-msg textarea').val(),
 			"addressinfoId": $('#addressId').val(),
@@ -531,9 +572,10 @@
 			/* } */
 			countryCombineWithProvince();			
 		});
-		renderOrderBuyerMsg(); // 2
-		renderOrderCoupons(); // 3
-		// 4
+		renderOrderPaymentMethod(); // 2
+		renderOrderBuyerMsg(); // 3
+		renderOrderCoupons(); // 4
+		// 5
 		getProductOrderList(function(data) {
 			var orderListData = data.mlfrontOrderItemList;
 			if (!orderListData.length) {
@@ -545,7 +587,7 @@
 			renderFreeGift();
 			$('.order-list').data('orderid', data.orderId);
 		});
-		rednerOrderCal(); // 5
+		rednerOrderCal(); // 6
 		isBackFill && collectShippingAddress && collectShippingAddress();
 	}
 	var hasProvince = true;
@@ -604,8 +646,7 @@
 		}
 	});
 	// pay event
-	$(document.body).on('click', '.complete-order', function() {
-		var payType = $(this).data('id') || 0;
+	$(document.body).on('click', '#pay-now', function() {
 		if (checkInputAdressInfo()) {
 			orderSaveAddress(getOrderAddress(), function(data) {
 				$('#addressId').val(data.addressId);
@@ -618,9 +659,7 @@
 					currency: 'USD'
 				});
 				payLoading();
-				orderPay(getOrderPayInfo(payType), function() {
-					goToPay(payType);
-				});
+				orderPay(getOrderPayInfo(), goToPay);
 			});
 		}
 	});
@@ -632,9 +671,9 @@
 	});
 </script>
 <script>
-function goToPay(payType) {	
+function goToPay() {	
 	$.ajax({
-		url: '${APP_PATH}/paypal/mpay?paypalPlatFrom=' + payType,
+		url: '${APP_PATH}/paypal/mpay?paypalPlatFrom=' + $('input[name="payment"]:checked').val(),
 		type: 'post',
 		dataType: 'json',
 		contentType: 'application/json',
@@ -682,5 +721,9 @@ $('.website-policy-item').on('click', function(e) {
 		}
 	});
 	policyModal.addClass('policy-modal');
+});
+$(document.body).on('change', 'input[type="radio"][name="payment"]', function() {
+	$('.paypal-box').addClass('hide');
+	$(this).parents('.order-payment-item').find('.paypal-box').removeClass('hide');
 });
 </script>
