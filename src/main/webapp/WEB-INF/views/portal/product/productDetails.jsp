@@ -14,6 +14,7 @@
     <meta name="keyword" content="${sessionScope.mlbackProductMetaKeyWords}">
     <meta id="ml-des" name="description" content="${sessionScope.mlbackProductMeteDesc}">
     <!-- google rule -->
+	<meta name="robots" content="INDEX,FOLLOW">
     <link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("productSeo") %>.html" hreflang="en-us" />
 	<link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("productSeo") %>.html" />
 	<!-- socail media -->

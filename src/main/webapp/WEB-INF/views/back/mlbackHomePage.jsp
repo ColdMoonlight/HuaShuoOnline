@@ -685,12 +685,12 @@
 						'<span class="num">'+ (checkoutNum + checkoutNum2) +' sessions</span>' +
 						'<span class="rate">'+ (mapRate["checkout"] + mapRate["checkout2"]).toFixed(2) +'%</span>' +
 						'<a class="view-report" href="${APP_PATH}/MlbackAddCheakoutViewDetail/toMlbackAddCheakoutViewDetailPage">View Report</a>' +
-					'</div>'/*  +
+					'</div>' +
 					'<div class="order-conversion-item">'+
 						'<span class="name">conversion Rate</span>' +
 						'<span class="num">'+ totalPayinfoNum +' sessions</span>' +
 						'<span class="rate">'+ coversionRate +'%</span>' +
-					'</div>' */					;
+					'</div>';
 				$('#order-conversion').html(htmlStr).parents('.card').find('.card-mask').hide();
 				$('.order-conversion-rate').text(coversionRate + '%');
 			}
