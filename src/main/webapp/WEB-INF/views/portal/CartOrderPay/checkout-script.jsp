@@ -617,7 +617,7 @@
 					value: orderMoney,
 					currency: 'USD'
 				});
-				payLoading();
+				payLoading2();
 				orderPay(getOrderPayInfo(payType), function() {
 					goToPay(payType);
 				});
@@ -670,6 +670,12 @@ function goToPay(payType) {
 }
 </script>
 <script>
+function payLoading2() {
+	var zIndex = (parseInt($('.modal').css('z-index'), 10) + $('.modal').length + 1) || 99999999999;
+	var $payLoading = $('<div class="pay-loading" style="z-index: '+ zIndex +'"><div style="width:100%;height:100%;background-repeat:no-repeat;background-position:center;background-image:url(${APP_PATH}/static/pc/img/paypal-loading.gif)"></div></div>');
+	$(document.body).append($payLoading);
+	addFixed();
+}
 $('.website-policy-item').on('click', function(e) {
 	var $this = $(this), policyModalHtml = '<iframe src="'+ e.target.href +'"><iframe>', policyModal;
 	e.preventDefault();
