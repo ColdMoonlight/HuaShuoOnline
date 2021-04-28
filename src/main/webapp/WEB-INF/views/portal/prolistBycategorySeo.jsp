@@ -14,14 +14,14 @@
 <meta name="description" content="${sessionScope.categoryMetaDesc}">
 <!-- google rule -->
 <meta name="robots" content="INDEX,FOLLOW">
-<link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" hreflang="en-us" />
-<link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" />
+<link rel="alternate" href="https://www.megalook.com/search/<%=request.getParameter("categorySeo") %>.html" hreflang="en-us" />
+<link rel="canonical" href="https://www.megalook.com/search/<%=request.getParameter("categorySeo") %>.html" />
 <!-- socail meta -->
 <meta name="twitter:site" content="@megalookhair">
 <meta name="twitter:card" content="summary">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${ sessionScope.categoryMetaTitle }">
-<meta property="og:url" content="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html">
+<meta property="og:url" content="https://www.megalook.com/search/<%=request.getParameter("categorySeo") %>.html">
 <meta property="og:site_name" content="Megalook Hair">
 <meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
