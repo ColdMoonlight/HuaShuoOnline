@@ -2,9 +2,9 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <!--<![endif]-->
 <head>
 <c:choose>
 <c:when test="${sessionScope.categoryMetaTitle==null}"><title>Product List</title></c:when>
@@ -13,14 +13,15 @@
 <meta name="keyword" content="${sessionScope.categoryMetaKeyWords}">
 <meta name="description" content="${sessionScope.categoryMetaDesc}">
 <!-- google rule -->
-<link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" hreflang="en-us" />
-<link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html" />
+<meta name="robots" content="INDEX,FOLLOW">
+<link rel="alternate" href="https://www.megalook.com/search/<%=request.getParameter("categorySeo") %>.html" hreflang="en-us" />
+<link rel="canonical" href="https://www.megalook.com/search/<%=request.getParameter("categorySeo") %>.html" />
 <!-- socail meta -->
 <meta name="twitter:site" content="@megalookhair">
 <meta name="twitter:card" content="summary">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${ sessionScope.categoryMetaTitle }">
-<meta property="og:url" content="https://www.megalook.com/<%=request.getParameter("categorySeo") %>.html">
+<meta property="og:url" content="https://www.megalook.com/search/<%=request.getParameter("categorySeo") %>.html">
 <meta property="og:site_name" content="Megalook Hair">
 <meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
 	<jsp:include page="common/processor.jsp" flush="true"></jsp:include>
@@ -103,10 +104,10 @@
 					htmlStr += '<div class="product-item-box"><div class="product-item" data-productid="'+ item.productId +'">' +
 					    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
 						'<div class="product-img">' +
-							'<a href="'+ productLink +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
+							'<a href="'+ productLink +'" title="'+ item.productName +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
 						'</div>' +
 						'<div class="product-desc">' +
-							'<div class="product-name"><a href="'+ productLink +'">'+ item.productName +'</a></div>' +
+							'<div class="product-name"><a href="'+ productLink +'" title="'+ item.productName +'">'+ item.productName +'</a></div>' +
 							'<div class="product-price">' +
 								'<span class="product-define-price">$'+ (item.productOriginalprice || 0).toFixed(2) +'</span>' +
 								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? accuracyCal(item.productOriginalprice, item.productActoffoff) : 0) +'</span>' +

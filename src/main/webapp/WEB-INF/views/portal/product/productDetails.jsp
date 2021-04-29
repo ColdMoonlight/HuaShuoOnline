@@ -2,9 +2,9 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml"> <!--<![endif]-->
 <head>
 <c:choose>
 <c:when test="${sessionScope.mlbackProductMetaTitle==null}"><title>Product Details</title></c:when>
@@ -14,6 +14,7 @@
     <meta name="keyword" content="${sessionScope.mlbackProductMetaKeyWords}">
     <meta id="ml-des" name="description" content="${sessionScope.mlbackProductMeteDesc}">
     <!-- google rule -->
+	<meta name="robots" content="INDEX,FOLLOW">
     <link rel="alternate" href="https://www.megalook.com/<%=request.getParameter("productSeo") %>.html" hreflang="en-us" />
 	<link rel="canonical" href="https://www.megalook.com/<%=request.getParameter("productSeo") %>.html" />
 	<!-- socail media -->

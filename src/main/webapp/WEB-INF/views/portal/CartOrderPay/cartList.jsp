@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <!DOCTYPE html>
-<html>
+<html xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
 
 <head>
 	<title>Megalook Hair Cart List | megalook.com</title>
 	<meta name="keywords" content="Lace Front Wigs, Human Hair Extensions,Brazilian Virgin Hair,Affordable Human Hair" />
 	<meta name="description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
+	<meta name="robots" content="INDEX,FOLLOW">
+    <link rel="alternate" href="https://www.megalook.com/MlbackCart/toCartList" hreflang="en-us" />
+	<link rel="canonical" href="https://www.megalook.com/MlbackCart/toCartList" />
 	<meta property="og:site_name" content="Megalook Hair">
 	<meta property="og:url" content="https://www.megalook.com/MlbackCart/toCartList">
 	<meta property="og:title" content="Megalook Hair Cart List">

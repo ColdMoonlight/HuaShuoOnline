@@ -690,7 +690,7 @@
 						'<span class="name">conversion Rate</span>' +
 						'<span class="num">'+ totalPayinfoNum +' sessions</span>' +
 						'<span class="rate">'+ coversionRate +'%</span>' +
-					'</div>'					;
+					'</div>';
 				$('#order-conversion').html(htmlStr).parents('.card').find('.card-mask').hide();
 				$('.order-conversion-rate').text(coversionRate + '%');
 			}
