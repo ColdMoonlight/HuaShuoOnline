@@ -6,6 +6,20 @@
     <title>Christmas | megalook.com</title>
 	<meta name="keywords" content="Lace Front Wigs, Human Hair Extensions,Brazilian Virgin Hair,Affordable Human Hair" />
 	<meta name="description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
+	<!-- google rule -->
+	<meta name="robots" content="INDEX,FOLLOW">
+    <link rel="alternate" href="https://megalook.com/PortalHome/ChristmasPage.html" hreflang="en-us" />
+	<link rel="canonical" href="https://megalook.com/PortalHome/ChristmasPage.html" />
+	<!-- socail meta -->
+	<meta name="twitter:site" content="@megalookhair">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Megalook Hair, Virgin Remy Human Hair Wigs, Lace Front Wigs, Best Wigs | megalook.com">
+	<meta name="twitter:description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Megalook Hair, Virgin Remy Human Hair Wigs, Lace Front Wigs, Best Wigs | megalook.com">
+	<meta property="og:url" content="https://megalook.com/PortalHome/ChristmasPage.html">
+	<meta property="og:site_name" content="Megalook Hair">
+	<meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	
