@@ -19,11 +19,12 @@
     <result column="address_post" jdbcType="VARCHAR" property="addressPost" />
     <result column="address_createTime" jdbcType="VARCHAR" property="addressCreatetime" />
     <result column="address_motifyTime" jdbcType="VARCHAR" property="addressMotifytime" />
+    <result column="address_formatTelephone" jdbcType="VARCHAR" property="addressFormatTelephone" />
   </resultMap>
   <sql id="Base_Column_List">
     address_id, address_status, address_uid, address_ip, address_email, address_telephone, address_userFirstName, 
     address_userLastName, address_country_code, address_country, address_province, address_provinceCode, 
-    address_city, address_detail, address_post, address_createTime, address_motifyTime
+    address_city, address_detail, address_post, address_createTime, address_motifyTime,address_formatTelephone
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -37,13 +38,13 @@
       address_userLastName, address_country_code, 
       address_country, address_province, address_provinceCode, 
       address_city, address_detail, address_post, 
-      address_createTime, address_motifyTime)
+      address_createTime, address_motifyTime,address_formatTelephone)
     values (#{addressId,jdbcType=INTEGER}, #{addressStatus,jdbcType=INTEGER}, #{addressUid,jdbcType=INTEGER}, #{addressIp,jdbcType=VARCHAR}, 
       #{addressEmail,jdbcType=VARCHAR}, #{addressTelephone,jdbcType=VARCHAR}, #{addressUserfirstname,jdbcType=VARCHAR}, 
       #{addressUserlastname,jdbcType=VARCHAR}, #{addressCountryCode,jdbcType=VARCHAR}, 
       #{addressCountry,jdbcType=VARCHAR}, #{addressProvince,jdbcType=VARCHAR}, #{addressProvincecode,jdbcType=VARCHAR}, 
       #{addressCity,jdbcType=VARCHAR}, #{addressDetail,jdbcType=VARCHAR}, #{addressPost,jdbcType=VARCHAR}, 
-      #{addressCreatetime,jdbcType=VARCHAR}, #{addressMotifytime,jdbcType=VARCHAR})
+      #{addressCreatetime,jdbcType=VARCHAR}, #{addressMotifytime,jdbcType=VARCHAR}, #{addressFormatTelephone,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlfrontAddress">
     update tb_mlfront_address
@@ -62,7 +63,8 @@
       address_detail = #{addressDetail,jdbcType=VARCHAR},
       address_post = #{addressPost,jdbcType=VARCHAR},
       address_createTime = #{addressCreatetime,jdbcType=VARCHAR},
-      address_motifyTime = #{addressMotifytime,jdbcType=VARCHAR}
+      address_motifyTime = #{addressMotifytime,jdbcType=VARCHAR},
+      address_formatTelephone = #{addressFormatTelephone,jdbcType=VARCHAR}
     where address_id = #{addressId,jdbcType=INTEGER}
   </update>
   <!-- insertSelective -->
@@ -120,6 +122,9 @@
       <if test="addressMotifytime != null">
         address_motifyTime,
       </if>
+      <if test="addressFormatTelephone != null">
+        address_formatTelephone,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="addressId != null">
@@ -172,6 +177,9 @@
       </if>
       <if test="addressMotifytime != null">
         #{addressMotifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="addressFormatTelephone != null">
+        #{addressFormatTelephone,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -231,6 +239,9 @@
       </if>
       <if test="addressMotifytime != null">
         address_motifyTime = #{addressMotifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="addressFormatTelephone != null">
+        address_formatTelephone = #{addressFormatTelephone,jdbcType=VARCHAR},
       </if>
     </set>
     where address_id = #{addressId,jdbcType=INTEGER}
