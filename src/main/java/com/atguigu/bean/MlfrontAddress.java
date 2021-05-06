@@ -35,6 +35,8 @@ public class MlfrontAddress {
     private String addressMotifytime;
     
     private Integer addressStatus;
+    
+    private String addressFormatTelephone;
 
     public Integer getAddressId() {
         return addressId;
@@ -171,6 +173,14 @@ public class MlfrontAddress {
 	public void setAddressStatus(Integer addressStatus) {
 		this.addressStatus = addressStatus;
 	}
+	
+	public String getAddressFormatTelephone() {
+		return addressFormatTelephone;
+	}
+
+	public void setAddressFormatTelephone(String addressFormatTelephone) {
+		this.addressFormatTelephone = addressFormatTelephone == null ? null : addressFormatTelephone.trim();
+	}
 
 	public MlfrontAddress() {
 		super();
@@ -179,7 +189,8 @@ public class MlfrontAddress {
 	public MlfrontAddress(Integer addressId, Integer addressUid, String addressIp, String addressEmail,
 			String addressTelephone, String addressUserfirstname, String addressUserlastname, String addressCountryCode,
 			String addressCountry, String addressProvince, String addressProvincecode, String addressCity,
-			String addressDetail, String addressPost, String addressCreatetime, String addressMotifytime,Integer addressStatus) {
+			String addressDetail, String addressPost, String addressCreatetime, String addressMotifytime,
+			Integer addressStatus, String addressFormatTelephone) {
 		super();
 		this.addressId = addressId;
 		this.addressUid = addressUid;
@@ -198,6 +209,7 @@ public class MlfrontAddress {
 		this.addressCreatetime = addressCreatetime;
 		this.addressMotifytime = addressMotifytime;
 		this.addressStatus = addressStatus;
+		this.addressFormatTelephone = addressFormatTelephone;
 	}
 
 	@Override
@@ -209,7 +221,7 @@ public class MlfrontAddress {
 				+ ", addressProvince=" + addressProvince + ", addressProvincecode=" + addressProvincecode
 				+ ", addressCity=" + addressCity + ", addressDetail=" + addressDetail + ", addressPost=" + addressPost
 				+ ", addressCreatetime=" + addressCreatetime + ", addressMotifytime=" + addressMotifytime
-				+ ", addressStatus=" + addressStatus + "]";
+				+ ", addressStatus=" + addressStatus + ", addressFormatTelephone=" + addressFormatTelephone + "]";
 	}
-    
+
 }
