@@ -471,7 +471,23 @@
 			if (item.name == 'addressCountry') addressData['addressCountryCode'] = $(item).find('option:checked').data('value');
 			addressData[item.name] = (item.value || '').trim();
 		});
+		addressData.addressFormatTelephone = formatTelphone(addressData.addressTelephone, addressData.addressCountryCode);
 		return addressData;
+	}
+	// format tel phone for us/ca
+	function formatTelphone(tel, countryCode) {
+		var newTel = tel.replace(/\(|\)|\s|-|\+/g, '');
+		if (countryCode == 'US' || countryCode == 'CA') {
+			if (newTel.length == 10 && (newTel[0] != '1' || newTel[0] != '0')) {
+				return newTel;
+			}
+			if (newTel.length == 11 && newTel[0] == '1') {
+				return newTel.slice(1);
+			}
+			return tel;
+		} else {
+			return tel;
+		}
 	}
 	// init order address
 	function initOrderAddress(data) {
