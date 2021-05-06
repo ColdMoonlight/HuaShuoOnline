@@ -9,10 +9,10 @@ public class MlbackCoupon {
     /**优惠券Code-Name*/
     private String couponName;//满100减10块   手动输入
 
-    private String couponCode;//优惠码  如  OFF15,,,OFF15%    手动输入  
+    private String couponCode;//优惠码  如  OFF15,,,,OFF15%    手动输入  
     
     /**优惠券类型--半分比/满多少减多少*/
-    private Integer couponStatus;//  0不生效,1生效中，，下拉选
+    private Integer couponStatus;//  0不生效,1生效中,下拉选
     
     private String couponType;//优惠码类型  0满减的,1百分比折扣的(手动输入)
     
