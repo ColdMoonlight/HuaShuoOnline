@@ -178,17 +178,6 @@
 			}
 		});
 	}
-	// get current time
-	/* function getTime() {
-		var date = new Date(),
-			year = date.getFullYear(),
-			month = date.getMonth() + 1,
-			day = date.getDate(),
-			hours = date.getHours(),
-			minutes = date.getMinutes(),
-			seconds = date.getSeconds();
-		return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + (seconds < 10 ? '0' + seconds : seconds);
-	} */
 	// cal orderList data
 	function calOrderList () {
 		var couponData = $('.order-coupon-group').data('coupon');
