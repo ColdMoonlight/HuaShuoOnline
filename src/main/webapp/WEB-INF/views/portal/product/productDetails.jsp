@@ -22,9 +22,19 @@
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="${ sessionScope.mlbackProductMetaTitle }">
 	<meta name="twitter:description" content="${sessionScope.mlbackProductMeteDesc}">
-	<meta name="twitter:image" content="https://www.megalook.com/static/upload/img/product/proid248time23112510.jpg">
+	<meta name="twitter:image" content="${mbackProductImgResList[0].productimgUrl}">
 	<meta name="twitter:image:width" content="600">
 	<meta name="twitter:image:height" content="600">
+	<script type="application/ld+json">{
+		"@context": "http://schema.org/",
+		"@type": "Product",
+		"name": "${ sessionScope.mlbackProductMetaTitle }",
+		"url": "https://www.megalook.com/<%=request.getParameter("productSeo") %>.html",
+		"sku": "${sessionScope.productDetailId}",
+		"image": [ <c:forEach items="${ mbackProductImgResList }" var="pro">"${ pro.productimgUrl }",</c:forEach> ],
+		"description": "${sessionScope.mlbackProductMeteDesc}",
+		"brand": { "@type": "Thing", "name": "Megalook Hair" }
+	}</script>
 	<script> var productId='${sessionScope.productDetailId}', productSeo, productName; </script>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/swiper.jsp" flush="true"></jsp:include>
