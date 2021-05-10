@@ -19,6 +19,8 @@
 <!-- socail meta -->
 <meta name="twitter:site" content="@megalookhair">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="${ sessionScope.categoryMetaTitle }">
+<meta name="twitter:description" content="${sessionScope.categoryMetaDesc}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${ sessionScope.categoryMetaTitle }">
 <meta property="og:url" content="https://www.megalook.com/search/<%=request.getParameter("categorySeo") %>.html">
