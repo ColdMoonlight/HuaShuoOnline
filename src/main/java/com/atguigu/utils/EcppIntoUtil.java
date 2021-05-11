@@ -233,7 +233,12 @@ public class EcppIntoUtil {
 		ecppOrder.setEnableStockControl(0);
 		ecppOrder.setConsignee(mlPaypalShipAddressReturn.getShippingaddressRecipientName());
 		ecppOrder.setStreet1(mlPaypalShipAddressReturn.getShippingaddressLine1());
-		ecppOrder.setStreet2(" ");
+		//ecppOrder.setStreet2(" ");
+		if(mlPaypalShipAddressReturn.getShippingaddressLine2()==null||mlPaypalShipAddressReturn.getShippingaddressLine2()==""){
+			ecppOrder.setStreet2(" ");
+		}else{
+			ecppOrder.setStreet2(","+mlPaypalShipAddressReturn.getShippingaddressLine2()+".");
+		}
 		ecppOrder.setCity(mlPaypalShipAddressReturn.getShippingaddressCity());
 		String provinceName = mlPaypalShipAddressReturn.getShippingaddressStateProvinceName();
 		ecppOrder.setState(provinceName);
