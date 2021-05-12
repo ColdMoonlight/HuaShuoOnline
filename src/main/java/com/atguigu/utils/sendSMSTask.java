@@ -55,7 +55,7 @@ public class sendSMSTask {
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0/10 * * * ?")
+	@Scheduled(cron = "0 0/20 * * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
@@ -137,7 +137,6 @@ public class sendSMSTask {
 							MlfrontAddressReq.setAddressId(addressinfoId);
 							List<MlfrontAddress> MlfrontAddressList = mlfrontAddressService.selectMlfrontAddressByParam(MlfrontAddressReq);
 							MlfrontAddress mlfrontAddressOne = MlfrontAddressList.get(0);
-//							String telephone = mlfrontAddressOne.getAddressTelephone();
 							String telephone = mlfrontAddressOne.getAddressFormatTelephone();
 							String firstName = mlfrontAddressOne.getAddressUserfirstname();
 							String countryCode = mlfrontAddressOne.getAddressCountryCode();
@@ -167,10 +166,8 @@ public class sendSMSTask {
 								//这个是真实发送
 								//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
 								if(realTel.length()>0){
-									System.out.println(SendSecretStr+",11111111111111111");
 									//String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
 									System.out.println(SendSecretStr+",这一单发送成功");
-									System.out.println(SendSecretStr+",22222222222222222");
 								}else{
 									System.out.println("SMS-当前手机号为："+realTel+",这一单无法发送");
 								}
@@ -245,7 +242,6 @@ public class sendSMSTask {
 			//United States
 			if(telephone.startsWith("1")){
 				finalTel = telephone;
-				
 				System.out.println("us-1");
 			}else{
 				finalTel=telPrefixStr+telephone;
