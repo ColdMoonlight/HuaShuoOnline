@@ -31,9 +31,16 @@
 		"name": "${ sessionScope.mlbackProductMetaTitle }",
 		"url": "https://www.megalook.com/<%=request.getParameter("productSeo") %>.html",
 		"sku": "${sessionScope.productDetailId}",
-		"image": [ <c:forEach items="${ mbackProductImgResList }" var="pro">"${ pro.productimgUrl }",</c:forEach> ],
+		"image": [ <c:forEach items="${ mbackProductImgResList }" var="pro" varStatus="status"><c:if test="${status.count < 2}">"${ pro.productimgUrl }"</c:if><c:if test="${status.count > 2}">,"${ pro.productimgUrl }"</c:if></c:forEach> ],
 		"description": "${sessionScope.mlbackProductMeteDesc}",
-		"brand": { "@type": "Thing", "name": "Megalook Hair" }
+		"brand": { "@type": "Thing", "name": "Megalook Hair" },
+		"offers": {
+			"@type": "AggregateOffer",
+          	"offerCount": "100",
+          	"lowPrice": "89.99",
+          	"highPrice": "599.99",
+          	"priceCurrency": "USD"
+        }
 	}</script>
 	<script> var productId='${sessionScope.productDetailId}', productSeo, productName; </script>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
