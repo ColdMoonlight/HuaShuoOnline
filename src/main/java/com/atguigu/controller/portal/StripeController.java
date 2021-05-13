@@ -34,8 +34,6 @@ import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.EcppIntoUtil;
 import com.atguigu.utils.EmailNewUtilshtml;
 import com.atguigu.utils.EmailNewUtilshtmlCustomer;
-import com.atguigu.utils.EmailUtilshtml;
-import com.atguigu.utils.EmailUtilshtmlCustomer;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.vo.order;
 import com.google.gson.Gson;
