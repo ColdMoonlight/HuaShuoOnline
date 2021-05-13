@@ -17,8 +17,6 @@ import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.EmailNewUtilshtml;
 import com.atguigu.utils.EmailNewUtilshtmlCustomer;
-import com.atguigu.utils.EmailUtilshtml;
-import com.atguigu.utils.EmailUtilshtmlCustomer;
 import com.atguigu.utils.IfMobileUtils;
 
 @Controller
