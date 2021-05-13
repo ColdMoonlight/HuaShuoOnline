@@ -2,7 +2,6 @@ package com.atguigu.controller.portal;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -43,12 +42,6 @@ public class MlfrontCartProDetailPayController {
 	
 	@Autowired
 	MlbackProductService mlbackProductService;
-//	
-//	@Autowired
-//	MlbackAddCartViewDetailService mlbackProductViewDetailService;
-//	
-//	@Autowired
-//	MlbackAddCheakoutViewDetailService mlbackAddCheakoutViewDetailService;
 	
 	/**
 	 * 1.0	useOn	0530
