@@ -1,10 +1,7 @@
 package com.atguigu.controller.back;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -373,7 +370,6 @@ public class MlbackProductController {
 	 * @return 
 	 * */
 	@RequestMapping(value="/tofbProductDetailPageByhtml",method=RequestMethod.GET)
-//	 public String tomfbProductDetailPageByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "productSeo") String productSeo) throws Exception{
 	 public ModelAndView tomfbProductDetailPageByhtml(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestParam(value = "productSeo") String productSeo) throws Exception{
 	
 		//准备封装参数
