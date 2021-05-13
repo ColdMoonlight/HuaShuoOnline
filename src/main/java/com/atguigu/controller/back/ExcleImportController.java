@@ -194,7 +194,6 @@ public class ExcleImportController {
 					is.close();
 					for(MlfrontReview mlfrontReview:reviewList){
 						mlfrontReviewService.insertSelective(mlfrontReview);
-						//System.out.println("mlfrontReview.getReviewId():"+mlfrontReview.toString());
 					}
 				}catch (Exception e) {
 					System.out.println("第行出错");

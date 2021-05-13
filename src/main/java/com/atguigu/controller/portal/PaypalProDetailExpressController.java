@@ -33,8 +33,6 @@ import com.atguigu.service.MlfrontPayInfoService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.service.PaypalService;
 import com.atguigu.utils.DateUtil;
-//import com.atguigu.utils.EmailUtilshtml;
-//import com.atguigu.utils.EmailUtilshtmlCustomer;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.utils.URLUtils;
 import com.paypal.api.payments.ErrorDetails;

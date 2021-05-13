@@ -197,7 +197,7 @@ public class EcppIntoUtil {
 		if(mlPaypalShipAddressReturn.getShippingaddressLine2()==null||mlPaypalShipAddressReturn.getShippingaddressLine2()==""){
 			ecppOrder.setStreet2(" ");
 		}else{
-			ecppOrder.setStreet2(","+mlPaypalShipAddressReturn.getShippingaddressLine2()+".");
+			ecppOrder.setStreet2(","+mlPaypalShipAddressReturn.getShippingaddressLine2()+" ");
 		}
 		ecppOrder.setCity(mlPaypalShipAddressReturn.getShippingaddressCity());
 		String provinceName = mlPaypalShipAddressReturn.getShippingaddressStateProvinceName();
