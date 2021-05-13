@@ -1,6 +1,7 @@
 package com.atguigu.bean;
 
 public class MlbackBlog {
+	
     private Integer blogId;
 
     private String blogSeoname;
