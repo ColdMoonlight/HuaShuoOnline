@@ -69,6 +69,7 @@
 		.product-together-select { margin-left: 1rem; padding: .25rem .5rem; background-color: #fff; }
 		.product-together-oprice { margin-left: .5rem; color: #333; text-decoration: line-through; font-weight: 500; }
 		.product-together-dprice { margin-left: .5rem; color: #ff0000; font-weight: 500; }
+		.product-reviews { display: flex; align-items: center; margin-top: .5rem; }
 		@media only screen and (max-width: 575px) {
 			.product-together-imgs { width: 100%; }
 			.product-together-img-item { display: inline-block; }
@@ -113,6 +114,7 @@
 					<div class="product-coupons pc hide"></div>
 					<div class="product-options"><div id="init-loading"></div></div>
 					<div class="product-price"></div>
+					<div class="product-reviews"></div>
 					<div class="product-operate">
 						<div class="name">Qty:</div>
 						<div class="product-qty">
