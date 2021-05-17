@@ -280,6 +280,7 @@
 			'productSeo': data.productSeo,
 		});
 		$('.product-name').text(data.productName);
+		$('.product-reviews').html('<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star"></span></div><span class="product-review-num">'+ (data.productReviewnum || 0) +' Review(s)</span>');
 		$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
 		$('.product-description').html(data.productDesc);
 	}

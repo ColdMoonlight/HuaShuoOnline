@@ -476,12 +476,12 @@
 	}
 	// format tel phone for us/ca
 	function formatTelphone(tel, countryCode) {
-		var newTel = tel.replace(/\(|\)|\s|-|\+/g, '');
+		var newTel = tel.replace(/[^\d]/g, '');
 		if (countryCode == 'US' || countryCode == 'CA') {
 			if (newTel.length == 10 && (newTel[0] != '1' || newTel[0] != '0')) {
 				return newTel;
 			}
-			if (newTel.length == 11 && newTel[0] == '1') {
+			if (newTel.length == 11 && (newTel[0] == '1' || newTel[0] == '0')) {
 				return newTel.slice(1);
 			}
 			return tel;
