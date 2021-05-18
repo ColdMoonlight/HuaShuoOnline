@@ -280,7 +280,7 @@
 			'productSeo': data.productSeo,
 		});
 		$('.product-name').text(data.productName);
-		$('.product-reviews').html('<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star"></span></div><span class="product-review-num">'+ (data.productReviewnum || 0) +' Review(s)</span>');
+		data.productReviewnum > 0 && $('.product-reviews').html('<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star"></span></div><span class="product-review-num">'+ (data.productReviewnum || 0) +' Review(s)</span>');
 		$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
 		$('.product-description').html(data.productDesc);
 	}
@@ -405,7 +405,6 @@
 			type: "post",
 			dataType: 'json',
 			contentType: 'application/json',
-			async: false,
 			success: function (data) {
 				if (data.code == 100) {
 					var pageInfo = data.extend.pageInfo;
@@ -667,7 +666,7 @@
 	$('.product-tab-item').on('click', function() {
 		var $this = $(this);
 		var tabName = $this.data('name');
-		if (!$this.hasClass('active')) $('.product-tab-container[data-name="'+ tabName +'"]').addClass('active').siblings().removeClass('active');
+		if (!$this.hasClass('active')) $(this).addClass('active').siblings().removeClass('active'),$('.product-tab-container[data-name="'+ tabName +'"]').addClass('active').siblings().removeClass('active');
 		if (tabName == 'review' && !hasReivewData) {
 			// review count
 			getReviewCalData(function(data) {
@@ -759,15 +758,6 @@
 			]
 		}), toBuyNow(reqData, goToCheckout));
 	});
-	/* $('.paypal-button.paypal-now').on('click', function() {
-		var reqData = getProductData();
-		isCorrectProduct() && reqData && (payLoading(), fbq('track', 'AddPaymentInfo', {
-			content_ids: reqData.cartitemProductId,
-			content_type: 'product',
-			value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductNumber, reqData.cartitemProductActoff),
-			currency: 'USD'
-		}), toPayInstance(reqData));
-	}); */
 	// open reiview swiper
 	$(document.body).on('click', '.product-review-imgs-item', function() {
 		var activeImg = $(this).data('src');
@@ -932,7 +922,7 @@
 			threshold: 0
 		}));
 	});
-	// delte unused reiview
+	// delete unused reiview
 	$(window).on('beforeunload', function() {
 		deleteReviewId();
 		setPageNum(1);
