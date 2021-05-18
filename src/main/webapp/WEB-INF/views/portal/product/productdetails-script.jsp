@@ -405,7 +405,6 @@
 			type: "post",
 			dataType: 'json',
 			contentType: 'application/json',
-			async: false,
 			success: function (data) {
 				if (data.code == 100) {
 					var pageInfo = data.extend.pageInfo;
@@ -667,7 +666,7 @@
 	$('.product-tab-item').on('click', function() {
 		var $this = $(this);
 		var tabName = $this.data('name');
-		if (!$this.hasClass('active')) $('.product-tab-container[data-name="'+ tabName +'"]').addClass('active').siblings().removeClass('active');
+		if (!$this.hasClass('active')) $(this).addClass('active').siblings().removeClass('active'),$('.product-tab-container[data-name="'+ tabName +'"]').addClass('active').siblings().removeClass('active');
 		if (tabName == 'review' && !hasReivewData) {
 			// review count
 			getReviewCalData(function(data) {
@@ -759,15 +758,6 @@
 			]
 		}), toBuyNow(reqData, goToCheckout));
 	});
-	/* $('.paypal-button.paypal-now').on('click', function() {
-		var reqData = getProductData();
-		isCorrectProduct() && reqData && (payLoading(), fbq('track', 'AddPaymentInfo', {
-			content_ids: reqData.cartitemProductId,
-			content_type: 'product',
-			value: accuracyCal((reqData.cartitemProductOriginalprice + parseFloat(reqData.cartitemProductskuMoneystr)) * reqData.cartitemProductNumber, reqData.cartitemProductActoff),
-			currency: 'USD'
-		}), toPayInstance(reqData));
-	}); */
 	// open reiview swiper
 	$(document.body).on('click', '.product-review-imgs-item', function() {
 		var activeImg = $(this).data('src');
@@ -932,7 +922,7 @@
 			threshold: 0
 		}));
 	});
-	// delte unused reiview
+	// delete unused reiview
 	$(window).on('beforeunload', function() {
 		deleteReviewId();
 		setPageNum(1);
