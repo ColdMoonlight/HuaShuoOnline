@@ -715,7 +715,7 @@ function rednerCountDownAreaOne(data) {
 function getProductReivewsData(data) {
 	if (data > 0) {
 		return '<div class="product-data">' +
-			'<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star"></span></div>' +
+			'<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span></div>' +
 			'<span class="product-review-num">'+ data +' Review(s)</span>' +
 		'</div>';
 	}
