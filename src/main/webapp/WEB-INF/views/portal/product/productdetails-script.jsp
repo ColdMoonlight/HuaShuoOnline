@@ -280,6 +280,7 @@
 			'productSeo': data.productSeo,
 		});
 		$('.product-name').text(data.productName);
+		$('.product-reviews').html('<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star"></span></div><span class="product-review-num">'+ (data.productReviewnum || 0) +' Review(s)</span>');
 		$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
 		$('.product-description').html(data.productDesc);
 	}
@@ -376,47 +377,6 @@
 			removeModal(cartOrCheckoutModal);
 		}, 5000);
 	}
-	// to pay instance
-	/* function toPayInstance(reqData) {
-		$.ajax({
-			url: '${APP_PATH}/ProPay/toBuyNowPay',					
-			data: JSON.stringify(reqData),
-			type: "post",
-			dataType: 'json',
-			contentType: 'application/json',
-			success: function (data) {
-				if (data.code == 100) {
-					// create payment id
-					$.ajax({
-						url: '${APP_PATH}/MlfrontOrder/proDetailOrderToPayInfo',
-						data: JSON.stringify({
-							"orderId": data.extend.OrderIdBuyNowPay,
-							"orderPayPlate": 1, //选择的付款方式,int类型   paypal传0，后来再有信用卡传1
-							"orderProNumStr": reqData.cartitemProductNumber
-						}),
-						type: 'post',
-						dataType: 'json',
-						contentType: 'application/json',
-						success: function (data) {
-							if (data.code == 100) {								
-								goTopayInstance();					
-							} else {
-								sysModalTip();
-							}
-						},
-						error: function(err) {
-							sysModalTip();
-						}
-					});
-				} else {
-					sysModalTip();
-				}
-			},
-			error: function (data) {
-				sysModalTip();
-			}
-		});
-	} */
 	// get review cal data
 	function getReviewCalData(callback) {
 		$.ajax({
@@ -1273,78 +1233,4 @@ if (proudctTogetherId != 999) {
 		addProductTogetherSelectCart(getSelectProductTogether(), productTogetherCheckout);
 	});
 }
-</script>
-<!-- qq -->
-<script src="https://www.paypal.com/sdk/js?client-id=AfOV7u_zTgZvjIwCM5e0wdkFI_ZctlCGR-JskMc8RHeW9VREZ2jHjnisnUxP63IesLSb6Y0MmDdtm-mr&buyer-country=US&components=messages,buttons"></script>
-<script>
-paypal.Buttons({
-    env: 'production',
-    style:{
-        layout:  'vertical',
-        color:   'gold',
-        shape:   'rect',
-        size:    'medium',
-        label:   'paypal'
-    },
-    commit: true,
-    //onInit is called when the button first renders
-    onInit: function(data, actions) {
-        // Disable the buttons
-        actions.disable();
-        $(".check").each(function(item) {
-        	$(item).on("click", function() {
-        		$('#pp-message-price').attr("data-pp-amount", $('.product-now-price').html().replace('$', ''));
-		        if(isCorrectProduct()) {
-		            actions.enable();
-		        } else {
-		            actions.disable();
-		        }        		
-        	});
-        });
-    },
-    // onClick is called when the button is clicked
-    onClick: function() {
-        // Show a validation error if the checkbox is not checked
-        if (isCorrectProduct()) {
-            document.getElementById('error').style.display = "block";
-        } else {
-            document.getElementById('error').style.display = "none";
-        }
-    },
-    createOrder: function(data, actions) {
-        return fetch('payment.php', {
-            method: 'post',
-            body: JSON.stringify({ }),
-            headers: { 'content-type': 'application/json' }
-        }).then(function (res) {
-            return res.json();
-        }).then(function (data) {
-            console.log(data);
-            let token;
-            for (let link of data.links) {
-                if (link.rel === 'approval_url') {
-                    token = link.href.match(/EC-\w+/)[0];
-                }
-            }
-            return token;
-        });
-    },
-    onApprove: function (data) {
-        console.log(data);
-        var DOEC_URL = 'successUrl.php';
-        return fetch(DOEC_URL, {
-            method: 'post',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({
-                paymentId: data.paymentID,
-                token: data.orderID,
-                payerID: data.payerID
-            })
-        }).then(function(res){
-            return res.json();
-        }).then(function(data){
-            console.log(data);
-        });
-    }
-}).render('#paypal-button-container-2');
 </script>

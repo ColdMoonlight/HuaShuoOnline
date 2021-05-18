@@ -55,7 +55,7 @@ public class sendSMSTask {
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0/30 * * * ?")
+	@Scheduled(cron = "0 0/20 * * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
@@ -91,7 +91,7 @@ public class sendSMSTask {
 		System.out.println("SMS-startTime"+startTime);
 		mlfrontPayInfoRe.setPayinfoMotifytime(endTime);
 		System.out.println("SMS-endTime"+endTime);
-				
+		
 		//查询接口,发送时间定时的N分钟,间隔几小时,发送文案
 		MlbackSmstype mlbackSmstype = new MlbackSmstype();
 		mlbackSmstype.setSmstypeName("sms");
@@ -108,6 +108,7 @@ public class sendSMSTask {
 				mlfrontPayInfoReq.setPayinfoMotifytime(endTime);
 				mlfrontPayInfoReq.setPayinfoIfSMS(0);
 				
+				//拿到筛选后的操作数据
 				List<MlfrontPayInfo> mlfrontPayInfoList = getPayInfoList(mlfrontPayInfoReq);
 				System.out.println("SMS-mlfrontPayInfoList:"+mlfrontPayInfoList.toString());
 				if(mlfrontPayInfoList.size()>0){
@@ -136,7 +137,7 @@ public class sendSMSTask {
 							MlfrontAddressReq.setAddressId(addressinfoId);
 							List<MlfrontAddress> MlfrontAddressList = mlfrontAddressService.selectMlfrontAddressByParam(MlfrontAddressReq);
 							MlfrontAddress mlfrontAddressOne = MlfrontAddressList.get(0);
-							String telephone = mlfrontAddressOne.getAddressTelephone();
+							String telephone = mlfrontAddressOne.getAddressFormatTelephone();
 							String firstName = mlfrontAddressOne.getAddressUserfirstname();
 							String countryCode = mlfrontAddressOne.getAddressCountryCode();
 							
@@ -241,23 +242,20 @@ public class sendSMSTask {
 			//United States
 			if(telephone.startsWith("1")){
 				finalTel = telephone;
+				System.out.println("us-1");
 			}else{
 				finalTel=telPrefixStr+telephone;
+				System.out.println("us-2");
 			}
 			//finalTel="86"+telephone;
-		}else if("GB".equals(countryCodeInto)){
-			//United Kingdom
-			if(telephone.startsWith("44")){
-				finalTel = telephone;
-			}else{
-				finalTel=telPrefixStr+telephone;
-			}
 		}else if("CA".equals(countryCodeInto)){
 			//Canada
 			if(telephone.startsWith("1")){
 				finalTel = telephone;
+				System.out.println("ca-1");
 			}else{
 				finalTel=telPrefixStr+telephone;
+				System.out.println("ca-2");
 			}
 		}else if("DE".equals(countryCodeInto)){
 			//Germany
@@ -297,6 +295,13 @@ public class sendSMSTask {
 		}else if("VI".equals(countryCodeInto)){
 			//U.S.Virgin Islands
 			if(telephone.startsWith("1340")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
+		}else if("GB".equals(countryCodeInto)){
+			//United Kingdom
+			if(telephone.startsWith("44")){
 				finalTel = telephone;
 			}else{
 				finalTel=telPrefixStr+telephone;

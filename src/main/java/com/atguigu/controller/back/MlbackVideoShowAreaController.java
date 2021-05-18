@@ -2,7 +2,6 @@ package com.atguigu.controller.back;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlbackSlide;
 import com.atguigu.bean.MlbackVideo;
 import com.atguigu.bean.MlbackVideoShowArea;
 import com.atguigu.common.Const;

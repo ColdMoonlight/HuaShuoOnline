@@ -55,6 +55,19 @@ public class MlfrontAddressController {
 		System.out.println("afterAddressDetail:"+afterAddressDetail);
 		mlfrontAddress.setAddressDetail(afterAddressDetail);
 		
+		
+		String intoUserfirstname = mlfrontAddress.getAddressUserfirstname();
+		System.out.println("intoUserfirstname:"+intoUserfirstname);
+		String afterUserfirstname = intoUserfirstname.replaceAll("[^\\u0000-\\uFFFF]", "");
+		System.out.println("afterUserfirstname:"+afterUserfirstname);
+		mlfrontAddress.setAddressUserfirstname(afterUserfirstname);
+		
+		String intoUserlastname = mlfrontAddress.getAddressUserlastname();
+		System.out.println("intoUserlastname:"+intoUserlastname);
+		String afterUserlastname = intoUserlastname.replaceAll("[^\\u0000-\\uFFFF]", "");
+		System.out.println("afterUserlastname:"+afterUserlastname);
+		mlfrontAddress.setAddressUserlastname(afterUserlastname);
+		
 		//拿到国家的code
 		String areafreightCountryCode = mlfrontAddress.getAddressCountryCode();
 		//封装国家code

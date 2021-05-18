@@ -178,17 +178,6 @@
 			}
 		});
 	}
-	// get current time
-	/* function getTime() {
-		var date = new Date(),
-			year = date.getFullYear(),
-			month = date.getMonth() + 1,
-			day = date.getDate(),
-			hours = date.getHours(),
-			minutes = date.getMinutes(),
-			seconds = date.getSeconds();
-		return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + (seconds < 10 ? '0' + seconds : seconds);
-	} */
 	// cal orderList data
 	function calOrderList () {
 		var couponData = $('.order-coupon-group').data('coupon');
@@ -482,7 +471,23 @@
 			if (item.name == 'addressCountry') addressData['addressCountryCode'] = $(item).find('option:checked').data('value');
 			addressData[item.name] = (item.value || '').trim();
 		});
+		addressData.addressFormatTelephone = formatTelphone(addressData.addressTelephone, addressData.addressCountryCode);
 		return addressData;
+	}
+	// format tel phone for us/ca
+	function formatTelphone(tel, countryCode) {
+		var newTel = tel.replace(/[^\d]/g, '');
+		if (countryCode == 'US' || countryCode == 'CA') {
+			if (newTel.length == 10 && (newTel[0] != '1' || newTel[0] != '0')) {
+				return newTel;
+			}
+			if (newTel.length == 11 && (newTel[0] == '1' || newTel[0] == '0')) {
+				return newTel.slice(1);
+			}
+			return tel;
+		} else {
+			return tel;
+		}
 	}
 	// init order address
 	function initOrderAddress(data) {

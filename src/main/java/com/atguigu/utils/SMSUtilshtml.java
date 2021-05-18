@@ -22,7 +22,6 @@ public class SMSUtilshtml {
 //        parmas.put("content","您的验证码是1234，请查收！");
 //
 //        ArrayList request = new ArrayList();
-//
 //        for(String st:(String)parmas.keySet())
 //        {
 //            request.add(URLEncoder.encode(st,"UTF-8") + "=" + URLEncoder.encode(parmas.get(st),"UTF-8"));
