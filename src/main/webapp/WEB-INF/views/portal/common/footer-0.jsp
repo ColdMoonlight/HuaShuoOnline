@@ -595,10 +595,7 @@ function generateSwiperSlideProduct(data) {
 			'</div>' +
 			'<div class="product-desc">' +
 				'<div class="product-name"><a href="'+ productLink +'" title="'+ item.productName +'">'+ item.productName +'</a></div>' +
-				'<div class="product-data">' +
-					'<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star"></span></div>' +
-					'<span class="product-review-num">'+ (item.productReviewnum || 0) +' Review(s)</span>' +
-				'</div>' +
+				getProductReivewsData(item.productReviewnum) +
 				'<div class="product-price">' +
 					'<span class="product-define-price">$'+ (item.productOriginalprice || 0).toFixed(2) +'</span>' +
 					'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? accuracyCal(item.productOriginalprice, item.productActoffoff) : 0.00) +'</span>' +
@@ -714,5 +711,14 @@ function rednerCountDownAreaOne(data) {
 			$('#countdown-area').addClass('hide');
 		}		
 	}
+}
+function getProductReivewsData(data) {
+	if (data > 0) {
+		return '<div class="product-data">' +
+			'<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span></div>' +
+			'<span class="product-review-num">'+ data +' Review(s)</span>' +
+		'</div>';
+	}
+	return '';
 }
 </script>
