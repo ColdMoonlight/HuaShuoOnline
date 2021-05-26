@@ -15,7 +15,7 @@ function removeFixed() {
 }
 /* product desc */
 function descPrdouct(data) {
-	return data.sort(function(item, item2) {
+	/* return data.sort(function(item, item2) {
 		var compare = item.productHavesalenum - item2.productHavesalenum;
 		if (compare > 0) {
 			return -1;
@@ -24,7 +24,8 @@ function descPrdouct(data) {
 		} else {
 			return 0;
 		}
-	});
+	}); */
+	return t;
 }
 /* product add/sub */
 function productAdd(el, callback) {

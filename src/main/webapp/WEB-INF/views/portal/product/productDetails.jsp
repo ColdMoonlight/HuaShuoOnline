@@ -87,6 +87,8 @@
 		.product-coupons.wap, .product-coupons.pc { display: none; opacity: 0; visibility: hidden; }
 		@media only screen and (max-width: 1023px) { .product-coupons.wap { display: flex; opacity: 1; visibility: visible; } }
 		@media only screen and (min-width: 1024px) { .product-coupons.pc { display: flex; opacity: 1; visibility: visible; } }
+		.product-tab-item.active { color: #fff; border: 1px solid #000; background-color: #000; }
+		.product-reviews .product-review-stars {margin-right: .5rem;}
 	</style>
 </head>
 <body>
@@ -157,15 +159,15 @@
 			</div>
 			<div class="product-body">
 				<div class="product-tab">
-					<div class="product-tab-item btn btn-primary" data-name="desc">Description</div>
-					<div class="product-tab-item btn btn-black" data-name="review">Reviews</div>
+					<div class="product-tab-item btn" data-name="desc">Description</div>
+					<div class="product-tab-item btn active" data-name="review">Reviews</div>
 				</div>
 				<div class="product-tab-body">
-					<div class="product-tab-container active" data-name="desc">
+					<div class="product-tab-container" data-name="desc">
 						<div class="product-description"></div>
 						<div class="product-fb-reviews"></div>
 					</div>
-					<div class="product-tab-container" data-name="review">
+					<div class="product-tab-container active" data-name="review">
 						<div class="product-review-title">
 							<div class="product-review-cal">
 								<div class="product-review-total">Based on <span>0</span> Customer Reviews</div>
@@ -186,9 +188,9 @@
 							<div class="product-review-list"></div>
 							<div id="table-pagination"></div>
 						</div>
-						<div class="loader-box" id="loader-box">
+						<!-- <div class="loader-box" id="loader-box">
 							<div class="loader"></div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
