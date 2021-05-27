@@ -21,7 +21,7 @@ public class MlbackCoupon {
 
     private BigDecimal couponPriceoff;// 5  手动输入
 
-    private BigDecimal couponPriceBaseline;//100     使用的底钱,,减前满100.   手动输入
+    private BigDecimal couponPriceBaseline;//100     使用的底钱,减前满100.   手动输入
 
     /**是否支持前端抽奖*/
     private Integer couponLuckdrawType;//优惠码是否支持抽奖  0不支持抽奖,1支持抽奖    手动输入

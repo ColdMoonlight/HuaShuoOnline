@@ -281,7 +281,9 @@
 		});
 		$('.product-name').text(data.productName);
 		data.productReviewnum > 0 && $('.product-reviews').html('<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span></div><span class="product-review-num">'+ (data.productReviewnum || 0) +' Review(s)</span>');
-		$('.product-price').html('<div class="name">Total Price: </div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
+		$('.product-sold-num').html('Sold: ' + data.productHavesalenum);
+		$('.product-price').html('<div class="name">Total Price:</div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
+		$('.product-price-save').html('save $'+ (data.productOriginalprice - accuracyCal(data.productOriginalprice, data.productActoffoff)).toFixed(2));
 		$('.product-description').html(data.productDesc);
 	}
 	/* create review swiper */
@@ -541,6 +543,15 @@
 			}
 		});
 	}
+	function resetProductStock() {
+		var selectedItem = trimSpliter(getSelectedItem().join(','), ',');
+		var productStock = mapSet[selectedItem].count;
+		if (productStock > 0) {
+			$('.product-stock').html('Only '+ productStock +' pcs in stock, hurry!');				
+		} else {
+			$('.product-stock').html('Sorry, it is sold out now.');
+		}
+	}
 	// varients
 	var mediaData = {}, productData = {}, mainUrl, reviewSwiper, reviewModal, reviewId, hasReivewData = false, proudctTogetherId;
 	// initial
@@ -580,6 +591,7 @@
 			data.length && buildResult(data), mediaData.skuImgs = getProductSkuImgs(data);
 		});
 		renderProductMedia(mediaData);
+		resetProductStock();
 		$('.product-option-item .radio').on('click', function() {
 			function getSwiperSlideItem(sku) {
 				var swiperIdx = -1;
@@ -598,7 +610,8 @@
 					});
 					swiperSlideIdx = getSwiperSlideItem(skuNameArr.join(','));
 					swiperSlideIdx > -1 && $('.product-slide .swiper-pagination-bullet').eq(swiperSlideIdx).click();
-				}				
+				}
+				resetProductStock();				
 			}, 500);
 		})
 		// countdown time

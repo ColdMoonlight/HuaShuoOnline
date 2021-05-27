@@ -7,8 +7,6 @@ public class ecppItem {
     private String goods_name;//产品名称
 
     private Integer goods_qty;//产品数量
-
-//    private BigDecimal goods_price;//产品价格
     
     private String goods_price;//产品价格
 

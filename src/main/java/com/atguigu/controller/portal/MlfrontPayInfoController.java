@@ -720,6 +720,8 @@ public class MlfrontPayInfoController {
 		String payinfoPlateNumInto = mlfrontPayInfo.getPayinfoPlatenum();
 		String payinfoUemailInto = mlfrontPayInfo.getPayinfoUemail();
 		
+		String payinfoAddressEmail = mlfrontPayInfo.getPayinfoReturntime();
+		
 		//取出mlfrontPayInfoOne中的Ecpphsnum中的信息
 		String ecppHSnum = mlfrontPayInfo.getPayinfoEcpphsnum();
 		String order_sn = ecppHSnum;
@@ -797,7 +799,7 @@ public class MlfrontPayInfoController {
         		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
         		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
         		//发审核完毕的邮件通知客户
-        		sendVerfirtEmail(payinfoPlateNumInto,payinfoUemailInto);
+        		sendVerfirtEmail(payinfoPlateNumInto,payinfoUemailInto,payinfoAddressEmail);
 			}else if("POO".equals(ecppOrderStatusCode)){
 				//114-POO-客服审核完成的状态,就更新成审核完毕的状态
 				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
@@ -808,7 +810,7 @@ public class MlfrontPayInfoController {
         		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
         		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
         		//发审核完毕的邮件通知客户
-        		sendVerfirtEmail(payinfoPlateNumInto,payinfoUemailInto);
+        		sendVerfirtEmail(payinfoPlateNumInto,payinfoUemailInto,payinfoAddressEmail);
 			}else if("PPP".equals(ecppOrderStatusCode)){
 				//129-PPP-客服审核完成的状态,就更新成审核完毕的状态
 				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
@@ -819,7 +821,7 @@ public class MlfrontPayInfoController {
         		mlfrontOrderReq.setOrderStatus(3);//orderStatus == 3已审单,待发货//
         		mlfrontOrderService.updateByPrimaryKeySelective(mlfrontOrderReq);
         		//发审核完毕的邮件通知客户
-        		sendVerfirtEmail(payinfoPlateNumInto,payinfoUemailInto);
+        		sendVerfirtEmail(payinfoPlateNumInto,payinfoUemailInto,payinfoAddressEmail);
 			}else if("DEL".equals(ecppOrderStatusCode)){
 				//124-DEL-客户退件了,这是ecpp取消发货后的状态,就更新成取消发货的状态
 				mlfrontPayInfoUpdate.setPayinfoId(payInfoId);
@@ -840,7 +842,7 @@ public class MlfrontPayInfoController {
 		return Msg.success().add("resMsg", "本次刷新有修改,请注意观察payInfo列表变化");
 	}
 
-	private void sendVerfirtEmail(String payinfoPlateNum,String userEmail) {
+	private void sendVerfirtEmail(String payinfoPlateNum,String userEmail,String payinfoAddressEmail) {
 		String toCustomerVerifyInfoStr = "";
 		//查询
 		MlbackOrderStateEmail mlbackOrderStateEmailReq = new MlbackOrderStateEmail();
@@ -862,7 +864,7 @@ public class MlfrontPayInfoController {
 //			EmailUtilshtml.readyEmailVerifySuccess(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
 //			EmailUtilshtmlCustomer.readyEmailVerifyCustomer(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
 			EmailNewUtilshtml.readyEmailVerifySuccess(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
-			EmailNewUtilshtmlCustomer.readyEmailVerifyCustomer(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
+			EmailNewUtilshtmlCustomer.readyEmailVerifyCustomer(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum,payinfoAddressEmail);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
