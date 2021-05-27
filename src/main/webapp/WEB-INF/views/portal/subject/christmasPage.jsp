@@ -46,6 +46,7 @@
 			@media only screen and (max-width: 780px) {
 				.product_list_box ul li{width:48%;; margin: 0 1% 1%;}
 			}
+			
 			@media only screen and (max-width: 575px) {
 				.box_cont{width:100%;margin: 0; display: flex;align-items: flex-start;}
 				.left_box,.right_box{width:48%;margin: 0 1%; position:relative;}
