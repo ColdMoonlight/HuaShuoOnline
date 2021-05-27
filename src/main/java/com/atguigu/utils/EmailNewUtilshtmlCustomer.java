@@ -42,8 +42,8 @@ public class EmailNewUtilshtmlCustomer {
 		sendNewEmilPayCustomer(getToEmail, Message, mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage,mlPaypalShipAddress);
 	}
 	
-	public static void readyEmailVerifyCustomer(String getToEmail, String toCustomerVerifyInfoStr,String payinfoPlateNum) {
-		sendNewEmilVerifyCustomer(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum);
+	public static void readyEmailVerifyCustomer(String getToEmail, String toCustomerVerifyInfoStr,String payinfoPlateNum,String payinfoAddressEmail) {
+		sendNewEmilVerifyCustomer(getToEmail, toCustomerVerifyInfoStr,payinfoPlateNum,payinfoAddressEmail);
 	}
 	
 	public static void readyEmailAbandoningPurchaseCustomer(String getToEmail, String toCustomerAbandoningPurchaseStr) {
@@ -225,6 +225,8 @@ public class EmailNewUtilshtmlCustomer {
             msg.setFrom(new InternetAddress("MegaLookHair"+" <"+sendEmail+">"));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+            msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse(addressEmail, false));
+            msg.setRecipients(Message.RecipientType.BCC, InternetAddress.parse("mingyueqingl@163.com", false));
             msg.setSubject("Order Confirmation From Megalook Hair.");
             
             Multipart mp = new MimeMultipart("related");
@@ -260,7 +262,7 @@ public class EmailNewUtilshtmlCustomer {
 	 * megalookweb@outlook.com
 	 * mingyueqingl@163.com
 	 * */
-	private static void sendNewEmilVerifyCustomer(String to, String toCustomerVerifyInfoStr,String payinfoPlateNum) {
+	private static void sendNewEmilVerifyCustomer(String to, String toCustomerVerifyInfoStr,String payinfoPlateNum,String payinfoAddressEmail) {
 		try {
             Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
             final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
@@ -296,6 +298,8 @@ public class EmailNewUtilshtmlCustomer {
             msg.setFrom(new InternetAddress("MegaLookHair"+" <"+sendEmail+">"));
             //设置收件人,to为收件人,cc为抄送,bcc为密送
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+            msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse(payinfoAddressEmail, false));
+            msg.setRecipients(Message.RecipientType.BCC, InternetAddress.parse("mingyueqingl@163.com", false));
             msg.setSubject("Order preparing from Megalook hair.");
             
             Multipart mp = new MimeMultipart("related"); 
