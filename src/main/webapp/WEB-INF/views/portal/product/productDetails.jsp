@@ -69,26 +69,41 @@
 		.product-together-select { margin-left: 1rem; padding: .25rem .5rem; background-color: #fff; }
 		.product-together-oprice { margin-left: .5rem; color: #333; text-decoration: line-through; font-weight: 500; }
 		.product-together-dprice { margin-left: .5rem; color: #ff0000; font-weight: 500; }
-		.product-reviews { display: flex; align-items: center; margin-top: .5rem; }
+		.product-tab-item.active { color: #fff; border: 1px solid #000; background-color: #000; }
+		.product-reviews,.product-review-orders {display:flex;align-items:center;}
+		.product-review-orders {margin-top: 1rem;}
+		.product-reviews .product-review-stars {margin-right: .5rem;}
+		.product-sold-num {margin-left: 1rem;}
+		.product-price-save {border: 1px solid #ff186e; border-radius: 1em;}
+		.product-stock {color: #666666; font-style: italic; font-size: .875rem;}
+		.product-service-wap {display: none;padding-left:0;}
+		.product-service-wap-item {list-style:none;display: inline-block; margin-bottom: .75rem; margin-right: 1.2rem; font-size: 1rem; color: #3e3a3a;}
+		.product-service-wap-item:before {content: ""; display: inline-block; vertical-align: middle; width: 1.25rem; height: 1.25rem; margin-right: .5rem; background: url(${APP_PATH}/static/pc/img/product-service.png) no-repeat; background-size: 100%;}
 		@media only screen and (max-width: 575px) {
 			.product-together-imgs { width: 100%; }
 			.product-together-img-item { display: inline-block; }
 			.product-together-img-item a { display: inline-block; vertical-align: middle; width: 135px; height: 135px; }
 			.product-together-plus { display: inline-block; vertical-align: middle; margin: 0 .5rem; }
 			.product-together-cal { text-align: center; }
-			#product-together-sadd { width: 100%; }	
+			#product-together-sadd { width: 100%; }
+			.product-price-qty {display: flex;justify-content: space-between;}
+			.product-price-qty .product-operate {margin-top: 0!important;}
+			.product-price-save {float: right;padding: .1rem .25rem; }
+			.product-options {margin-top: .5rem!important;}
+			.product-service-wap {display: block;}
 		}
 		@media only screen and (min-width: 576px) {
 			.product-together-head, .product-together-imgs { display: flex; flex-wrap: wrap;  align-items: center; }
 			.product-together-imgs { margin-right: 1rem; }
 			.product-together-plus { margin: 0 1rem; }
 			.product-together-img-item a { display: block; justify-content: center; width: 150px; height: 150px; }
+			.product-price-qty .product-qty { margin-left: 1rem; }
+			.product-price-data {display: flex; align-items: center;}
+			.product-price-save {margin-top: .5rem; margin-left: 1rem;padding: .2rem .5rem;}
 		}
 		.product-coupons.wap, .product-coupons.pc { display: none; opacity: 0; visibility: hidden; }
 		@media only screen and (max-width: 1023px) { .product-coupons.wap { display: flex; opacity: 1; visibility: visible; } }
 		@media only screen and (min-width: 1024px) { .product-coupons.pc { display: flex; opacity: 1; visibility: visible; } }
-		.product-tab-item.active { color: #fff; border: 1px solid #000; background-color: #000; }
-		.product-reviews .product-review-stars {margin-right: .5rem;}
 	</style>
 </head>
 <body>
@@ -114,15 +129,24 @@
 				</div>
 				<div class="product-details">
 					<div class="product-coupons pc hide"></div>
+					<div class="product-review-orders">
+						<div class="product-reviews"></div>
+						<div class="product-sold-num"></div>
+					</div>
 					<div class="product-options"><div id="init-loading"></div></div>
-					<div class="product-price"></div>
-					<div class="product-reviews"></div>
-					<div class="product-operate">
-						<div class="name">Qty:</div>
-						<div class="product-qty">
-							<span class="group-addon" id="product-num-sub"><i class="icon sub"></i></span>
-							<input type="text" class="product-num" value="1" data-count="1">					 
-							<span class="group-addon" id="product-num-add"><i class="icon plus"></i></span>					
+					<div class="product-stock"></div>
+					<div class="product-price-qty">
+						<div class="product-price-data">
+							<div class="product-price"></div>
+							<div class="product-price-save"></div>
+						</div>
+						<div class="product-operate">
+							<div class="name">Qty:</div>
+							<div class="product-qty">
+								<span class="group-addon" id="product-num-sub"><i class="icon sub"></i></span>
+								<input type="text" class="product-num" value="1" data-count="1">					 
+								<span class="group-addon" id="product-num-add"><i class="icon plus"></i></span>					
+							</div>
 						</div>
 					</div>
 					<div class="product-pay paypal-button-container">
@@ -130,7 +154,7 @@
 		   				<div class="btn paypal-button btn-black buy-now">Buy Now</div>
 					</div>
 
-					<div id="countdown-area"></div>					
+					<div id="countdown-area"></div>
 
 					<div class="product-coupons wap hide"></div>					
 					<div class="product-share">
@@ -142,6 +166,13 @@
 					</div>
 				</div>
 			</div>
+			<ul class="product-service-wap">
+				<li class="product-service-wap-item">Free Same Day Delivery For California In Stock Orders</li>
+				<li class="product-service-wap-item">$50 Gifts/ Order</li>
+				<li class="product-service-wap-item">30 Days Free Returns</li>
+				<li class="product-service-wap-item">Secure Payment</li>
+				<li class="product-service-wap-item">72 Hours Online</li>
+			</ul>
 			<div class="product-together-box hide">
 				<div class="product-togher-title">Frequently Bought Together</div>
 				<div class="product-together-head">
@@ -188,9 +219,6 @@
 							<div class="product-review-list"></div>
 							<div id="table-pagination"></div>
 						</div>
-						<!-- <div class="loader-box" id="loader-box">
-							<div class="loader"></div>
-						</div> -->
 					</div>
 				</div>
 			</div>
@@ -214,7 +242,7 @@
 	<!-- third lib -->
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
 	<!-- product-details script -->
-	<jsp:include page="./productdetails-script.min.jsp" flush="true"></jsp:include>
+	<jsp:include page="./productdetails-script.jsp" flush="true"></jsp:include>
 	<!-- footer script -->
 	<jsp:include page="../layout/footer/footer-script.min.jsp" flush="true"></jsp:include>
 	<!-- lottery -->
