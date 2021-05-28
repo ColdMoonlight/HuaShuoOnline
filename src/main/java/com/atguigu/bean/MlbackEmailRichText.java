@@ -1,19 +1,19 @@
 package com.atguigu.bean;
 
 public class MlbackEmailRichText {
-    private Integer emailrichtextId;
+    private Integer emailrichtextId;//主键
 
-    private String emailrichtextSeoname;
+    private String emailrichtextSeoname;//邮件简称
 
-    private String emailrichtextTitle;
+    private String emailrichtextTitle;//邮件title:order confirm
 
-    private String emailrichtextSendfrom;
+    private String emailrichtextSendfrom;//邮件发件人:megalookHair
 
-    private String emailrichtextTemplate;
+    private String emailrichtextTemplate;//邮件模板:
 
-    private String emailrichtextKeynamestr;
+    private String emailrichtextKeynamestr;//字段串
 
-    private String emailrichtextValuenamestr;
+    private String emailrichtextValuenamestr;//值串
 
     public Integer getEmailrichtextId() {
         return emailrichtextId;
