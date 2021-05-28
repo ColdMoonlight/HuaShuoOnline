@@ -81,7 +81,7 @@
 								<div class="form-group" style="width: 100%">
 									<label for="addressDetail" class="form-label hide">Address</label>
 									<div class="form-input form-no-label">
-										<input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="Address">
+										<input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="Address(Apartment, suite, etc)">
 									</div>
 								</div>
 								<!-- city -->

@@ -72,14 +72,19 @@
 		.product-tab-item.active { color: #fff; border: 1px solid #000; background-color: #000; }
 		.product-reviews,.product-review-orders {display:flex;align-items:center;}
 		.product-review-orders {margin-top: 1rem;}
-		.product-reviews .product-review-stars {margin-right: .5rem;}
-		.product-sold-num {margin-left: 1rem;}
+		.product-review-num {color: #333; font-size:.875rem; margin-left: .5rem; margin-right: 1rem; }
+		.product-sold-num b {color: #ff186e;}
 		.product-price-save {border: 1px solid #ff186e; border-radius: 1em;}
 		.product-stock {color: #666666; font-style: italic; font-size: .875rem;}
 		.product-media {flex-shrink: 0;}
 		.product-service {display: none; opacity: 0; visibility: hidden;}
-		.product-service-wap-item,.product-service-pc-item2 {margin-bottom: .75rem; margin-right: 1.2rem; font-size: 1rem; color: #3e3a3a;}
+		.product-service-wap-item,.product-service-pc-item2 {margin-bottom: .75rem; margin-right: 1.2rem; color: #3e3a3a;}
 		.product-service-wap-item:before,.product-service-pc-item2:before {content: ""; display: inline-block; vertical-align: middle; margin-right: .5rem; background: url(${APP_PATH}/static/pc/img/product-service.png) no-repeat; background-size: 100%;}
+		.product-share-btn {margin-left: 1rem; font-size: 1rem; line-height: 1.0; color: #1296db; cursor: pointer;}
+		.product-share-btn .icon-share {display: inline-block; vertical-align:middle; width: .875rem; height: .875rem; margin-right: .2rem;}
+		.product-review-stars {position: relative;}
+		.product-review-stars .icon {height: 1.4rem; font-size: 1.4rem;}
+		.product-review-stars .icon.avgstar {position: absolute; top: 0; left: 0; z-index: 2; overflow: hidden;}
 		@media only screen and (max-width: 575px) {
 			.product-together-imgs { width: 100%; }
 			.product-together-img-item { display: inline-block; }
@@ -88,10 +93,14 @@
 			.product-together-cal { text-align: center; }
 			#product-together-sadd { width: 100%; }
 			.product-price-qty {display: flex;justify-content: space-between;}
+			.product-price-qty .name {display: none;}
 			.product-price-qty .product-operate {margin-top: 0!important;}
-			.product-price-save {float: right;padding: .1rem .25rem; }
+			.product-price-qty .product-define-price {font-size: 1rem; margin-left: 0;}			
+			.product-price-qty .product-now-price {font-size: 1.25rem;}
+			.product-price-save {float: left;padding: .1rem .25rem; margin-top: .25rem; font-size: .75rem;}
 			.product-options {margin-top: .5rem!important;}
-			.product-service.wap {display: block; opacity: 1;  visibility: visible;}
+			.product-service.wap {display: block; opacity: 1;  visibility: visible; margin-top: 1rem;}
+			.product-service-wap-item {display: inline-block; font-size: .875rem;}
 			.product-service-wap-item:before {width: 1rem; height: 1rem;}
 		}
 		@media only screen and (min-width: 576px) {
@@ -103,11 +112,12 @@
 			.product-price-data {display: flex; align-items: center;}
 			.product-price-save {margin-top: .5rem; margin-left: 1rem;padding: .2rem .5rem;}
 			.product-service.pc {display: block; opacity: 1;  visibility: visible; margin-top: 1rem; padding: 1rem;}
-			.product-service-pc-item {display: inline-block; margin-bottom: .75rem; margin-right: 1.2rem;}
+			.product-service-pc-item {display: inline-block; margin-bottom: .75rem; margin-right: 1.2rem; font-size: 1rem;}
 			.product-service-pc-item .text {font-size: 1.25rem;}
 			.product-service-pc-item .icon {display: inline-block; font-size: 1.5rem; margin-right: .5rem; width: 1.5rem; height: 1.5rem; color: #ff186e;}
 			.product-service-pc-item2:before {width: 1.25rem; height: 1.25rem;}
 			.product-service-pc-item2 .color {color: #ff186e;}
+			.product-sold-num {display: none;}
 		}
 		.product-coupons.wap, .product-coupons.pc { display: none; opacity: 0; visibility: hidden; }
 		@media only screen and (max-width: 1023px) { .product-coupons.wap { display: flex; opacity: 1; visibility: visible; } }
@@ -143,6 +153,7 @@
 					<div class="product-review-orders">
 						<div class="product-reviews"></div>
 						<div class="product-sold-num"></div>
+						<div class="product-share-btn"><svg t="1622182325492" class="icon-share" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1188" width="32" height="32"><path d="M769.14815 670.390403c-44.430932 0-84.182284 19.999496-110.768803 51.471278L389.219117 565.736878c6.597255-16.571421 10.228969-34.653241 10.228969-53.594639 0-17.006326-2.940982-33.332153-8.320503-48.497551l270.88143-157.119457c26.511817 29.069059 64.702628 47.312562 107.138112 47.312562 80.055291 0 144.95337-64.899102 144.95337-144.95337 0-80.055291-64.898079-144.954393-144.95337-144.954393s-144.95337 64.899102-144.95337 144.954393c0 15.991206 2.600221 31.386848 7.382131 45.776579L359.655801 412.377048c-26.417673-27.833929-63.756069-45.181015-105.161085-45.181015-80.055291 0-144.954393 64.890916-144.954393 144.946206 0 80.055291 64.898079 144.967696 144.954393 144.967696 39.409568 0 75.128071-15.741519 101.256148-41.24845l274.172383 159.024853c-3.725858 12.8384-5.729491 26.409486-5.729491 40.457434 0 80.0645 64.898079 144.954393 144.95337 144.954393s144.95337-64.889893 144.95337-144.954393C914.101519 735.297692 849.20344 670.390403 769.14815 670.390403z" p-id="1189" fill="#1296db"></path></svg>share</div>
 					</div>
 					<div class="product-options"><div id="init-loading"></div></div>
 					<div class="product-stock"></div>
@@ -167,14 +178,7 @@
 
 					<div id="countdown-area"></div>
 
-					<div class="product-coupons wap hide"></div>					
-					<div class="product-share">
-						<a class="share-item youtube" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber" title="megalook youtube"></a>
-						<a class="share-item instagram" style="background-image: url('${APP_PATH}/static/pc/img/follow-us.png');" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>
-						<div class="share-item share-click facebook" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>
-						<div class="share-item share-click pinterest" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest"></div>
-						<div class="share-item share-click whatsapp" data-url="https://api.whatsapp.com/send?text=" title="share on whatsapp"></div>
-					</div>
+					<div class="product-coupons wap hide"></div>
 
 					<div class="product-service pc">
 						<div class="product-service-pc-item"><span class="icon car"></span><span class="text">Free Shipping</span></div>
@@ -209,7 +213,7 @@
 				</div>
 				<div class="product-together-other"></div>
 			</div>
-			<div class="product-body">
+			<div class="product-body" id="product-reviews">
 				<div class="product-tab">
 					<div class="product-tab-item btn" data-name="desc">Description</div>
 					<div class="product-tab-item btn active" data-name="review">Reviews</div>
