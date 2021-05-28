@@ -280,7 +280,7 @@
 			'productSeo': data.productSeo,
 		});
 		$('.product-name').text(data.productName);
-		data.productReviewnum > 0 && $('.product-reviews').html('<div class="product-review-stars"><span class="icon avgstar2"></span><span class="icon avgstar"></span></div><a href="#product-reviews" class="product-review-num">'+ (data.productReviewnum || 0) +' Review(s)</a>');
+		$('.product-reviews').html('<div class="product-review-stars"><span class="icon avgstar2"></span><span class="icon avgstar"></span></div><a href="#product-reviews" class="product-review-num">'+ (data.productReviewnum || 0) +' Review(s)</a>');
 		$('.product-sold-num').html('Sold: <b>' + data.productHavesalenum + '</b>');
 		$('.product-price').html('<div class="name">Total Price:</div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
 		$('.product-price-save').html('save $'+ (data.productOriginalprice - accuracyCal(data.productOriginalprice, data.productActoffoff)).toFixed(2));
