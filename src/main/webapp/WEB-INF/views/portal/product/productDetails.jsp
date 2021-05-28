@@ -76,9 +76,10 @@
 		.product-sold-num {margin-left: 1rem;}
 		.product-price-save {border: 1px solid #ff186e; border-radius: 1em;}
 		.product-stock {color: #666666; font-style: italic; font-size: .875rem;}
-		.product-service-wap {display: none;padding-left:0;}
-		.product-service-wap-item {list-style:none;display: inline-block; margin-bottom: .75rem; margin-right: 1.2rem; font-size: 1rem; color: #3e3a3a;}
-		.product-service-wap-item:before {content: ""; display: inline-block; vertical-align: middle; width: 1.25rem; height: 1.25rem; margin-right: .5rem; background: url(${APP_PATH}/static/pc/img/product-service.png) no-repeat; background-size: 100%;}
+		.product-media {flex-shrink: 0;}
+		.product-service {display: none; opacity: 0; visibility: hidden;}
+		.product-service-wap-item,.product-service-pc-item2 {margin-bottom: .75rem; margin-right: 1.2rem; font-size: 1rem; color: #3e3a3a;}
+		.product-service-wap-item:before,.product-service-pc-item2:before {content: ""; display: inline-block; vertical-align: middle; margin-right: .5rem; background: url(${APP_PATH}/static/pc/img/product-service.png) no-repeat; background-size: 100%;}
 		@media only screen and (max-width: 575px) {
 			.product-together-imgs { width: 100%; }
 			.product-together-img-item { display: inline-block; }
@@ -90,7 +91,8 @@
 			.product-price-qty .product-operate {margin-top: 0!important;}
 			.product-price-save {float: right;padding: .1rem .25rem; }
 			.product-options {margin-top: .5rem!important;}
-			.product-service-wap {display: block;}
+			.product-service.wap {display: block; opacity: 1;  visibility: visible;}
+			.product-service-wap-item:before {width: 1rem; height: 1rem;}
 		}
 		@media only screen and (min-width: 576px) {
 			.product-together-head, .product-together-imgs { display: flex; flex-wrap: wrap;  align-items: center; }
@@ -100,10 +102,17 @@
 			.product-price-qty .product-qty { margin-left: 1rem; }
 			.product-price-data {display: flex; align-items: center;}
 			.product-price-save {margin-top: .5rem; margin-left: 1rem;padding: .2rem .5rem;}
+			.product-service.pc {display: block; opacity: 1;  visibility: visible; margin-top: 1rem; padding: 1rem;}
+			.product-service-pc-item {display: inline-block; margin-bottom: .75rem; margin-right: 1.2rem;}
+			.product-service-pc-item .text {font-size: 1.25rem;}
+			.product-service-pc-item .icon {display: inline-block; font-size: 1.5rem; margin-right: .5rem; width: 1.5rem; height: 1.5rem; color: #ff186e;}
+			.product-service-pc-item2:before {width: 1.25rem; height: 1.25rem;}
+			.product-service-pc-item2 .color {color: #ff186e;}
 		}
 		.product-coupons.wap, .product-coupons.pc { display: none; opacity: 0; visibility: hidden; }
 		@media only screen and (max-width: 1023px) { .product-coupons.wap { display: flex; opacity: 1; visibility: visible; } }
 		@media only screen and (min-width: 1024px) { .product-coupons.pc { display: flex; opacity: 1; visibility: visible; } }
+		@media only screen and (min-width: 1299px) { .product-media-container {position: absolute;} .product-media-container.product-media-fixed {position: fixed;} }
 	</style>
 </head>
 <body>
@@ -113,18 +122,20 @@
 			<div class="product-details-name product-name"></div>
 			<div class="product-header">
 				<div class="product-media">
-					<div class="product-slide-box">
-						<div class="swiper-container product-slide product-zoom">
-							<div class="swiper-wrapper">
-								<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><div class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }"></div><noscript><img src="${ pro.productimgUrl }" alt="${ sessionScope.mlbackProductMetaTitle }" /></noscript></div></c:forEach>
+					<div class="product-media-container">
+						<div class="product-slide-box">
+							<div class="swiper-container product-slide product-zoom">
+								<div class="swiper-wrapper">
+									<c:forEach items="${ mbackProductImgResList }" var="pro"><div class="swiper-slide"><div class="lazyload img" data-src="${ pro.productimgUrl }" rel="${ pro.productimgUrl }"></div><noscript><img src="${ pro.productimgUrl }" alt="${ sessionScope.mlbackProductMetaTitle }" /></noscript></div></c:forEach>
+								</div>
+								<div class="swiper-pagination hide"></div>
 							</div>
-							<div class="swiper-pagination hide"></div>
+						    <div class="swiper-btn swiper-button-next"></div>
+				            <div class="swiper-btn swiper-button-prev"></div>
 						</div>
-					    <div class="swiper-btn swiper-button-next"></div>
-			            <div class="swiper-btn swiper-button-prev"></div>
-					</div>
-					<div class="swiper-container product-thumb-slide">
-						<div class="swiper-wrapper"></div>
+						<div class="swiper-container product-thumb-slide">
+							<div class="swiper-wrapper"></div>
+						</div>
 					</div>
 				</div>
 				<div class="product-details">
@@ -164,15 +175,25 @@
 						<div class="share-item share-click pinterest" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest"></div>
 						<div class="share-item share-click whatsapp" data-url="https://api.whatsapp.com/send?text=" title="share on whatsapp"></div>
 					</div>
+
+					<div class="product-service pc">
+						<div class="product-service-pc-item"><span class="icon car"></span><span class="text">Free Shipping</span></div>
+						<div class="product-service-pc-item"><span class="icon back"></span><span class="text">30 Days Free Returns</span></div>
+						<div class="product-service-pc-item"><span class="icon lock"></span><span class="text">Secure Payment</span></div>
+						<div class="product-service-pc-item2"><span class="color">Free Gift---</span> Free Gift With Every Order Worth <strong>$50</strong>.</div>
+						<div class="product-service-pc-item2"><span class="color">Free Same Day Delivery---</span> For&nbsp;California In Stock Orders.</div>
+						<div class="product-service-pc-item2"><span class="color">Fast Turnaround Time---</span> All Orders Processed Within- <strong>72</strong> Hours.</div>
+						<div class="product-service-pc-item2"><span class="color">USA Warehouse Shipping---</span> Express: <strong>1-3 Days</strong>; Free: <strong>3-10 Days.</strong></div>
+					</div>
 				</div>
 			</div>
-			<ul class="product-service-wap">
-				<li class="product-service-wap-item">Free Same Day Delivery For California In Stock Orders</li>
-				<li class="product-service-wap-item">$50 Gifts/ Order</li>
-				<li class="product-service-wap-item">30 Days Free Returns</li>
-				<li class="product-service-wap-item">Secure Payment</li>
-				<li class="product-service-wap-item">72 Hours Online</li>
-			</ul>
+			<div class="product-service wap">
+				<div class="product-service-wap-item">Free Same Day Delivery For California In Stock Orders</div>
+				<div class="product-service-wap-item">$50 Gifts/ Order</div>
+				<div class="product-service-wap-item">30 Days Free Returns</div>
+				<div class="product-service-wap-item">Secure Payment</div>
+				<div class="product-service-wap-item">72 Hours Online</div>
+			</div>
 			<div class="product-together-box hide">
 				<div class="product-togher-title">Frequently Bought Together</div>
 				<div class="product-together-head">
