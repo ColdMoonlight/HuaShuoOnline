@@ -946,6 +946,21 @@
 		deleteReviewId();
 		setPageNum(1);
 	});
+	$(window).on('scroll', function() {
+		if (window.innerWidth >= 1300) {
+			var productMediaContainer = $('.product-media-container');
+			var productBody = $('.product-body');
+			var endOffestY = $('.product-header').height() - 600;
+
+			if (window.pageYOffset >= endOffestY) {
+				productMediaContainer.removeClass('product-media-fixed').css('top', endOffestY);
+			} else {
+				if (!productMediaContainer.hasClass('product-media-fixed')) {
+					productMediaContainer.addClass('product-media-fixed').css('top', '');
+				}
+			}
+		}
+	})
 </script>
 <script>
 function renderFbReviews(data) {
