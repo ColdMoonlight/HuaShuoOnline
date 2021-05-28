@@ -485,6 +485,16 @@ a.btn-pink,
 .icon.star:before {
   content: "\e623";
 }
+.icon.avgstar,.icon.avgstar2 {	
+	display: block;
+	width: auto;
+}
+.icon.avgstar2:before {
+  content: "\e623\e623\e623\e623\e623";
+}
+.icon.avgstar:before {
+  content: "\e773\e773\e773\e773\e773";
+}
 
 .icon.star2:before {
   content: "\e773";
@@ -2323,30 +2333,6 @@ footer li {
 .product-tab-container[data-name="review"] {
 	position: relative;
 }
-/* product service */
-.product-service {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-    margin: .5rem 0;
-}
-.product-service-item {
-	display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1em;
-}
-.product-service-item>.icon {
-	font-size: 2rem;
-    color: #ff1671;
-}
-.product-service-item>p {
-	margin-top: 1em;
-    font-size: .75rem;
-    font-weight: 500;
-    color: #ff186e;
-}
-
 /* responsive */
 @media only screen and (max-width: 575px) {
 	.product-media {
@@ -3500,7 +3486,7 @@ footer li {
 .review-statics-item .icon,
 .review-toal-star-list .icon,
 .ins-stars .icon {
-	color: #FDDA05;
+	color: #ff186e;
 }
 .write-review-star .icon {
 	cursor: pointer;
