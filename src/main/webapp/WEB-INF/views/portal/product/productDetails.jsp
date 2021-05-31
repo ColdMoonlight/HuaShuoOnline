@@ -72,7 +72,7 @@
 		.product-tab-item.active { color: #fff; border: 1px solid #000; background-color: #000; }
 		.product-reviews,.product-review-orders {display:flex;align-items:center;}
 		.product-review-orders {margin-top: 1rem;}
-		.product-review-num {color: #333; font-size:.875rem; margin-left: .5rem; margin-right: 1rem; }
+		.product-media-review-num {color: #333; font-size:.875rem; margin-left: .5rem; margin-right: 1rem; }
 		.product-sold-num b {color: #ff186e;}
 		.product-price-save {border: 1px solid #ff186e; border-radius: 1em;}
 		.product-stock {color: #666666; font-style: italic; font-size: .875rem;}
@@ -83,8 +83,8 @@
 		.product-share-btn {margin-left: 1rem; font-size: 1rem; line-height: 1.0; color: #1296db; cursor: pointer;}
 		.product-share-btn .icon-share {display: inline-block; vertical-align:middle; width: .875rem; height: .875rem; margin-right: .2rem;}
 		.product-review-stars {position: relative;}
-		.product-review-stars .icon {height: 1.4rem; font-size: 1.4rem;}
-		.product-review-stars .icon.avgstar {position: absolute; top: 0; left: 0; z-index: 2; overflow: hidden;}
+		.product-header .product-review-stars .icon {height: 1.4rem; font-size: 1.4rem;}
+		.product-header .product-review-stars .icon.avgstar {position: absolute; top: 0; left: 0; overflow: hidden;}
 		@media only screen and (max-width: 575px) {
 			.product-together-imgs { width: 100%; }
 			.product-together-img-item { display: inline-block; }
@@ -108,6 +108,7 @@
 			.product-together-imgs { margin-right: 1rem; }
 			.product-together-plus { margin: 0 1rem; }
 			.product-together-img-item a { display: block; justify-content: center; width: 150px; height: 150px; }
+			.product-single-price { margin-left: .5rem; }
 			.product-price-qty .product-qty { margin-left: 1rem; }
 			.product-price-data {display: flex; align-items: center;}
 			.product-price-save {margin-top: .5rem; margin-left: 1rem;padding: .2rem .5rem;}
@@ -267,7 +268,7 @@
 	<!-- third lib -->
 	<script src="${APP_PATH}/static/pc/js/jqfly/jquery.fly.min.js"></script>
 	<!-- product-details script -->
-	<jsp:include page="./productdetails-script.jsp" flush="true"></jsp:include>
+	<jsp:include page="./productdetails-script.min.jsp" flush="true"></jsp:include>
 	<!-- footer script -->
 	<jsp:include page="../layout/footer/footer-script.min.jsp" flush="true"></jsp:include>
 	<!-- lottery -->
