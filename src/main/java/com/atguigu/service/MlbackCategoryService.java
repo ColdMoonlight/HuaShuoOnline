@@ -60,6 +60,11 @@ public class MlbackCategoryService {
 		return mlbackCategoryList;
 	}
 	
+	public List<MlbackCategory> selectMlbackCategoryGetAllByParentIdFront() {
+		List<MlbackCategory>  mlbackCategoryList = mlbackCategoryMapper.selectMlbackCategoryGetAllByParentIdFront();
+		return mlbackCategoryList;
+	}
+	
 	/**
 	 * @author
 	 * @param 

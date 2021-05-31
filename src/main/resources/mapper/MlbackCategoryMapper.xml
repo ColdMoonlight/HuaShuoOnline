@@ -369,6 +369,14 @@
       	category_superCate_name = #{categorySuperCateName,jdbcType=VARCHAR},
       </if>
   </select>
+  
+  <!-- selectMlbackCategoryGetAllByParentIdFront,下拉 -->
+  <select id="selectMlbackCategoryGetAllByParentIdFront" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
+    select
+    category_id, category_name, category_seo, category_parent_id, category_parent_name, category_desc, category_status 
+    from tb_mlback_category WHERE category_status=1 order by category_parent_id,category_id
+  </select>
+  
   <!-- selectMlbackCategoryGetAllByParentId,下拉 -->
   <select id="selectMlbackCategoryGetAllByParentId" parameterType="com.atguigu.bean.MlbackCategory" resultMap="BaseResultMap">
     select

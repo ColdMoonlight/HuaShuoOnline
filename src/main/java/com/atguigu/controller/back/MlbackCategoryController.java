@@ -280,7 +280,8 @@ public class MlbackCategoryController {
 		 
 		 //初始化返回下拉所需
 		 //查询all-category信息,便于下拉选择
-		 List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
+//		 List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentId();
+		 List<MlbackCategory> mlbackCategorydownList = mlbackCategoryService.selectMlbackCategoryGetAllByParentIdFront();
 		 
 		 //接受信息
 		 String categorySeoReq = mlbackCategory.getCategorySeo();
