@@ -108,7 +108,7 @@
 			.product-together-imgs { margin-right: 1rem; }
 			.product-together-plus { margin: 0 1rem; }
 			.product-together-img-item a { display: block; justify-content: center; width: 150px; height: 150px; }
-			.product-single-price { margin-left: .5rem; }
+			.product-header .product-single-price { margin-left: .5rem; }
 			.product-price-qty .product-qty { margin-left: 1rem; }
 			.product-price-data {display: flex; align-items: center;}
 			.product-price-save {margin-top: .5rem; margin-left: 1rem;padding: .2rem .5rem;}
