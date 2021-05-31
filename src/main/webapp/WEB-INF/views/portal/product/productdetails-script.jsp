@@ -280,10 +280,14 @@
 			'productSeo': data.productSeo,
 		});
 		$('.product-name').text(data.productName);
-		$('.product-reviews').html('<div class="product-review-stars"><span class="icon avgstar2"></span><span class="icon avgstar"></span></div><a href="#product-reviews" class="product-review-num">'+ (data.productReviewnum || 0) +' Review(s)</a>');
+		$('.product-reviews').html('<div class="product-review-stars"><span class="icon avgstar2"></span><span class="icon avgstar"></span></div><a href="#product-reviews" class="product-media-review-num">'+ (data.productReviewnum || 0) +' Review(s)</a>');
 		$('.product-sold-num').html('Sold: <b>' + data.productHavesalenum + '</b>');
-		$('.product-price').html('<div class="name">Total Price:</div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
-		$('.product-price-save').html('save $'+ (data.productOriginalprice - accuracyCal(data.productOriginalprice, data.productActoffoff)).toFixed(2));
+		$('.product-price').html('<div class="name">Total Price:</div>' + renderProductPriceHtml(data));
+		if (data.productActoffoff == 100) {
+			$('.product-price-save').addClass('hide');
+		} else {
+			$('.product-price-save').html('save $'+ (data.productOriginalprice - accuracyCal(data.productOriginalprice, data.productActoffoff)).toFixed(2));
+		}
 		$('.product-description').html(data.productDesc);
 	}
 	/* create review swiper */
@@ -950,7 +954,6 @@
 	$(window).on('scroll', function() {
 		if (window.innerWidth >= 1300) {
 			var productMediaContainer = $('.product-media-container');
-			var productBody = $('.product-body');
 			var endOffestY = $('.product-header').height() - 600;
 
 			if (window.pageYOffset >= endOffestY) {
@@ -978,7 +981,7 @@
    				html: productShareModalHtml,
    			}
    		});
-	})
+	});
 </script>
 <script>
 function renderFbReviews(data) {
