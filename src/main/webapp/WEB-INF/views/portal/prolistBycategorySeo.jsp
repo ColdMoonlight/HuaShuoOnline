@@ -111,10 +111,7 @@
 						'<div class="product-desc">' +
 							'<div class="product-name"><a href="'+ productLink +'" title="'+ item.productName +'">'+ item.productName +'</a></div>' +
 							getProductReivewsData(item.productReviewnum) +
-							'<div class="product-price">' +
-								'<span class="product-define-price">$'+ (item.productOriginalprice || 0).toFixed(2) +'</span>' +
-								'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? accuracyCal(item.productOriginalprice, item.productActoffoff) : 0) +'</span>' +
-							'</div>' +
+							'<div class="product-price">' + renderProductPriceHtml(item) + '</div>' +
 						'</div>' +
 					'</div></div>';					
 				});

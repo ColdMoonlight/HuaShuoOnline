@@ -280,10 +280,14 @@
 			'productSeo': data.productSeo,
 		});
 		$('.product-name').text(data.productName);
-		data.productReviewnum > 0 && $('.product-reviews').html('<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span></div><span class="product-review-num">'+ (data.productReviewnum || 0) +' Review(s)</span>');
-		$('.product-sold-num').html('Sold: ' + data.productHavesalenum);
-		$('.product-price').html('<div class="name">Total Price:</div><div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>');
-		$('.product-price-save').html('save $'+ (data.productOriginalprice - accuracyCal(data.productOriginalprice, data.productActoffoff)).toFixed(2));
+		$('.product-reviews').html('<div class="product-review-stars"><span class="icon avgstar2"></span><span class="icon avgstar"></span></div><a href="#product-reviews" class="product-media-review-num">'+ (data.productReviewnum || 0) +' Review(s)</a>');
+		$('.product-sold-num').html('Sold: <b>' + data.productHavesalenum + '</b>');
+		$('.product-price').html('<div class="name">Total Price:</div>' + renderProductPriceHtml(data));
+		if (data.productActoffoff == 100) {
+			$('.product-price-save').addClass('hide');
+		} else {
+			$('.product-price-save').html('save $'+ (data.productOriginalprice - accuracyCal(data.productOriginalprice, data.productActoffoff)).toFixed(2));
+		}
 		$('.product-description').html(data.productDesc);
 	}
 	/* create review swiper */
@@ -434,6 +438,7 @@
 			htmlStr = '';
 		for (var i = 4, percent = 0; i >= 0; i-=1) {
 			percent = (data.allReviewNum ? reviewStarList[i].startCount * 100 / data.allReviewNum : 0);
+			if (i == 4) $('.product-review-stars .avgstar').css('width', percent + '%')
 			htmlStr += '<div class="product-review-star-item">' +
      	 		'<div class="stars">'+ (i+1) +' star</div>' +
      	 		'<div class="progress">' +
@@ -667,7 +672,7 @@
 		}
 	}
 	// product share
-	$('.share-click').on('click', function() {
+	$(document.body).on('click', '.share-click', function() {
 		if ($(this)[0].title == 'share on pinterest') {
 			window.open($(this).data('url') + encodeURIComponent(window.location.href) + '&channel=pinterest&media=' + encodeURIComponent($('.product-slide').find('.img').eq(0).data('src')) + '&description=' + $('#ml-des').attr('content'));
 		} else
@@ -949,7 +954,6 @@
 	$(window).on('scroll', function() {
 		if (window.innerWidth >= 1300) {
 			var productMediaContainer = $('.product-media-container');
-			var productBody = $('.product-body');
 			var endOffestY = $('.product-header').height() - 600;
 
 			if (window.pageYOffset >= endOffestY) {
@@ -960,7 +964,24 @@
 				}
 			}
 		}
-	})
+	});
+	$('.product-share-btn').on('click', function() {
+		var productShareModalHtml = '<div class="product-share">' +
+			'<a class="share-item youtube" style="background-image: url(${APP_PATH}/static/pc/img/follow-us.png);" href="https://www.youtube.com/channel/UCbbrYL1KabTMlXFmQhFWtmw?view_as=subscriber" title="megalook youtube"></a>' +
+			'<a class="share-item instagram" style="background-image: url(${APP_PATH}/static/pc/img/follow-us.png);" href="https://www.instagram.com/megalookhair/" title="megalook instagram"></a>' +
+			'<div class="share-item share-click facebook" data-url="https://www.facebook.com/sharer/sharer.php?u=" title="share on facebook"></div>' +
+			'<div class="share-item share-click pinterest" data-url="https://www.pinterest.com/pin/create/button/?url=" title="share on pinterest"></div>' +
+			'<div class="share-item share-click whatsapp" data-url="https://api.whatsapp.com/send?text=" title="share on whatsapp"></div>' +
+		'</div>';
+		createModal({
+			header: {
+				html: '<p>Product Share</p>'
+			},
+   			body: {
+   				html: productShareModalHtml,
+   			}
+   		});
+	});
 </script>
 <script>
 function renderFbReviews(data) {

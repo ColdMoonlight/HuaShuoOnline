@@ -595,12 +595,8 @@ function generateSwiperSlideProduct(data) {
 				'<a href="'+ productLink +'" title="'+ item.productName +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
 			'</div>' +
 			'<div class="product-desc">' +
-				'<div class="product-name"><a href="'+ productLink +'" title="'+ item.productName +'">'+ item.productName +'</a></div>' +
-				getProductReivewsData(item.productReviewnum) +
-				'<div class="product-price">' +
-					'<span class="product-define-price">$'+ (item.productOriginalprice || 0).toFixed(2) +'</span>' +
-					'<span class="product-now-price">$'+ (item.productOriginalprice && item.productActoffoff ? accuracyCal(item.productOriginalprice, item.productActoffoff) : 0.00) +'</span>' +
-				'</div>' +
+				'<div class="product-name"><a href="'+ productLink +'" title="'+ item.productName +'">'+ item.productName +'</a></div>' + getProductReivewsData(item.productReviewnum) +
+				'<div class="product-price">'+ renderProductPriceHtml(item) +'</div>' +
 			'</div>' +
 		'</div>';
 	});
@@ -716,10 +712,16 @@ function rednerCountDownAreaOne(data) {
 function getProductReivewsData(data) {
 	if (data > 0) {
 		return '<div class="product-data">' +
-			'<div class="product-review-stars"><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span><span class="icon star2"></span></div>' +
+			'<div class="product-review-stars"><span class="icon avgstar"></span></div>' +
 			'<span class="product-review-num">'+ data +' Review(s)</span>' +
 		'</div>';
 	}
 	return '';
+}
+function renderProductPriceHtml(data) {
+	if (data.productActoffoff == 100) {
+		return '<div class="product-now-price" style="color:#333;margin-left:0;">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>';
+	}
+	return '<div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>';
 }
 </script>

@@ -85,10 +85,11 @@
 					    '<span class="product-discount-label'+ (item.productDiscoutimgShow ? ' show' : '') +'" style="background-image: url('+ (item.productDiscoutimgurl || '') +');"></span>' +
 						'<div class="product-img">' +
 							'<a href="'+ productLink +'" title="'+ item.productName +'" class="lazyload" data-src="'+ item.productMainimgurl +'"></a>' +
-						'</div>' +
+						'</div>' +						
 						'<div class="product-desc">' +
 							'<div class="product-name"><a href="'+ productLink +'" title="'+ item.productName +'">'+ item.productName +'</a></div>' +
 							getProductReivewsData(item.productReviewnum) +
+							'<div class="product-price">' + renderProductPriceHtml(item) + '</div>' +
 						'</div>' +
 					'</div></div>';	
 				});
