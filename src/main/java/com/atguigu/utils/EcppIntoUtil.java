@@ -206,10 +206,15 @@ public class EcppIntoUtil {
 			//物流那边要求 省州都填, 填一样的也行
 			ecppOrder.setState(mlPaypalShipAddressReturn.getShippingaddressCity());
 		}
-		ecppOrder.setCountry(mlfrontAddressToPay.getAddressCountry());
-		ecppOrder.setCountryCode(mlfrontAddressToPay.getAddressCountryCode());
-		ecppOrder.setZipcode(mlfrontAddressToPay.getAddressPost());
-		ecppOrder.setTel(mlfrontAddressToPay.getAddressTelephone());
+//		ecppOrder.setCountry(mlfrontAddressToPay.getAddressCountry());
+//		ecppOrder.setCountryCode(mlfrontAddressToPay.getAddressCountryCode());
+//		ecppOrder.setZipcode(mlfrontAddressToPay.getAddressPost());
+//		ecppOrder.setTel(mlfrontAddressToPay.getAddressTelephone());
+		
+		ecppOrder.setCountry(mlPaypalShipAddressReturn.getShippingaddressCountryName());
+		ecppOrder.setCountryCode(mlPaypalShipAddressReturn.getShippingaddressCountryCode());
+		ecppOrder.setZipcode(mlPaypalShipAddressReturn.getShippingaddressPostalCode());
+		ecppOrder.setTel(mlPaypalShipAddressReturn.getShippingaddressTelNumber());
 		//封装pro产品字段
 		List<ecppItem> ecppItemList = new ArrayList<ecppItem>();
 		DecimalFormat df1 = new DecimalFormat("0.00");
