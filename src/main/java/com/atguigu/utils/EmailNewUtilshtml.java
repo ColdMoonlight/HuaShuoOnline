@@ -151,7 +151,8 @@ public class EmailNewUtilshtml {
             String addressUname = mlPaypalShipAddressInto.getShippingaddressRecipientName();
             String addressTel = mlPaypalShipAddressInto.getShippingaddressTelNumber();
             String addressAll = mlPaypalShipAddressInto.getShippingaddressLine1()+","+mlPaypalShipAddressInto.getShippingaddressCity()+
-            		","+mlPaypalShipAddressInto.getShippingaddressStateProvinceName()+","+mlPaypalShipAddressInto.getShippingaddressCountryName();
+            		","+mlPaypalShipAddressInto.getShippingaddressStateProvinceName()+","+mlPaypalShipAddressInto.getShippingaddressCountryName()+
+            		","+mlPaypalShipAddressInto.getShippingaddressPostalCode();
             
             addressDetail=addressDetail+"<b>Receiving address</b>:"+addressAll+"<br>";
             addressDetail=addressDetail+"<b>consignee</b>:"+addressUname+"<br>";
