@@ -124,12 +124,15 @@
     }
 	// update product price
     function updateProductPrice(price) {
-       	var data = $('.product-details').data('product');
 		function getSkuPrice() {
 			return price ? (parseFloat(price) ? parseFloat(price) : 0) : 0
 		}
-		$('.product-define-price').text('$'+ (data.productPrice + getSkuPrice()).toFixed(2));
-		$('.product-now-price').text('$'+ accuracyCal((data.productPrice + getSkuPrice()), data.productDiscount));
+		var data = $('.product-details').data('product');
+		var definePrice = data.productPrice + getSkuPrice();
+		var nowPrice = accuracyCal(definePrice, data.productDiscount);
+		$('.product-define-price').text('$'+ definePrice.toFixed(2));
+		$('.product-now-price').text('$'+ nowPrice);
+		$('.product-price-save').text('save $'+ (definePrice - parseFloat(nowPrice)).toFixed(2));
     }
 	// get product data
 	function getProductData () {
@@ -618,7 +621,7 @@
 				}
 				resetProductStock();				
 			}, 500);
-		})
+		});
 		// countdown time
 		getCoundownTimeData(2, rednerCountDownAreaOne);
 		addHeaderInfo(data);

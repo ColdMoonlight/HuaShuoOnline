@@ -188,7 +188,7 @@
 						<div class="product-service-pc-item2"><span class="color">Free Gift ---</span> Free Gift With Every Order Worth <strong>$50</strong>.</div>
 						<div class="product-service-pc-item2"><span class="color">Free & Fast Commerical Shipping ---</span> For Wordwide Order.</div>
 						<div class="product-service-pc-item2"><span class="color">Fast Turnaround Time ---</span> All Orders Processed Within- <strong>1-3</strong> Days.</div>
-						<div class="product-service-pc-item2"><span class="color">USA Warehouse Shipping ---</span> Express: <strong>1-3 Days</strong>; Free: <strong>3-10 Days.</strong></div>
+						<div class="product-service-pc-item2"><span class="color">USA Warehouse Shipping ---</span> Express: <strong>1-3 Days.</strong></div>
 						<div class="product-service-pc-item2"><span class="color">Drop Shipping Design Label Customized Service Approved ---</span> For Every Customer's Order.</div>
 					</div>
 				</div>
