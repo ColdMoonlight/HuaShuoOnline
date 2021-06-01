@@ -23,6 +23,8 @@ public interface MlbackCategoryMapper {
 	List<MlbackCategory> selectMlbackCategoryGetAll();
 	//查询全部Category的parentid信息
 	List<MlbackCategory> selectMlbackCategoryGetAllByParentId();
+	
+	List<MlbackCategory> selectMlbackCategoryGetAllByParentIdFront();
     //更新本条
     int updateByPrimaryKeySelective(MlbackCategory record);
     //删除本条
@@ -35,5 +37,4 @@ public interface MlbackCategoryMapper {
 	List<MlbackCategory> selectCategorylistByParam(MlbackCategory mlbackCategory);
 	//selectMlbackCategoryBackSearch	服务端需要用查询
 	List<MlbackCategory> selectMlbackCategoryBackSearch(MlbackCategory mlbackCategoryReq);
-    
 }

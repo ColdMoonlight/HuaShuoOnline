@@ -108,7 +108,7 @@
 			.product-together-imgs { margin-right: 1rem; }
 			.product-together-plus { margin: 0 1rem; }
 			.product-together-img-item a { display: block; justify-content: center; width: 150px; height: 150px; }
-			.product-single-price { margin-left: .5rem; }
+			.product-header .product-single-price { margin-left: .5rem; }
 			.product-price-qty .product-qty { margin-left: 1rem; }
 			.product-price-data {display: flex; align-items: center;}
 			.product-price-save {margin-top: .5rem; margin-left: 1rem;padding: .2rem .5rem;}
@@ -185,15 +185,16 @@
 						<div class="product-service-pc-item"><span class="icon car"></span><span class="text">Free Shipping</span></div>
 						<div class="product-service-pc-item"><span class="icon back"></span><span class="text">30 Days Free Returns</span></div>
 						<div class="product-service-pc-item"><span class="icon lock"></span><span class="text">Secure Payment</span></div>
-						<div class="product-service-pc-item2"><span class="color">Free Gift---</span> Free Gift With Every Order Worth <strong>$50</strong>.</div>
-						<div class="product-service-pc-item2"><span class="color">Free Same Day Delivery---</span> For&nbsp;California In Stock Orders.</div>
-						<div class="product-service-pc-item2"><span class="color">Fast Turnaround Time---</span> All Orders Processed Within- <strong>72</strong> Hours.</div>
-						<div class="product-service-pc-item2"><span class="color">USA Warehouse Shipping---</span> Express: <strong>1-3 Days</strong>; Free: <strong>3-10 Days.</strong></div>
+						<div class="product-service-pc-item2"><span class="color">Free Gift ---</span> Free Gift With Every Order Worth <strong>$50</strong>.</div>
+						<div class="product-service-pc-item2"><span class="color">Free & Fast Commerical Shipping ---</span> For Wordwide Order.</div>
+						<div class="product-service-pc-item2"><span class="color">Fast Turnaround Time ---</span> All Orders Processed Within- <strong>1-3</strong> Days.</div>
+						<div class="product-service-pc-item2"><span class="color">USA Warehouse Shipping ---</span> Express: <strong>1-3 Days</strong>; Free: <strong>3-10 Days.</strong></div>
+						<div class="product-service-pc-item2"><span class="color">Drop Shipping Design Label Customized Service Approved ---</span> For Every Customer's Order.</div>
 					</div>
 				</div>
 			</div>
 			<div class="product-service wap">
-				<div class="product-service-wap-item">Free Same Day Delivery For California In Stock Orders</div>
+				<div class="product-service-wap-item">Free OEM Service Design Label Drop Shipping Accepted</div>
 				<div class="product-service-wap-item">$50 Gifts/ Order</div>
 				<div class="product-service-wap-item">30 Days Free Returns</div>
 				<div class="product-service-wap-item">Secure Payment</div>
