@@ -102,8 +102,8 @@
 					'<div class="cart-sku-list">'+ cartSkuList +'</div>' +
 					'<div class="cart-product-num">' +
 						'<div class="cart-product-price">' +
-							'<span class="product-define-price">$'+ definePrice.toFixed(2) +'</span>' +
-							'<span class="product-now-price">$'+ nowPrice +'</span>' +
+							'<span class="'+(item.cartitemProductActoff==100?"product-single-price":"product-define-price")+'">$'+ definePrice.toFixed(2) +'</span>' +
+							'<span class="product-now-price'+(item.cartitemProductActoff==100?" hide":"")+'">$'+ nowPrice +'</span>' +
 						'</div>' +
 						'<span class="icon delete product-delete">' + '</span>' +
 						'<div class="product-qty">' +
@@ -209,7 +209,7 @@
 		var skuData = data.cartitemProductskuName.split(',');
 		var definePrice = (data.cartitemProductOriginalprice || 0)  + (parseFloat(data.cartitemProductskuMoneystr) || 0);
 		var nowPrice = accuracyCal(definePrice, data.cartitemProductActoff);
-		$selectedItem.find('.product-define-price').text('$' + definePrice.toFixed(2));
+		$selectedItem.find('.product-define-price,.product-single-price').text('$' + definePrice.toFixed(2));
 		$selectedItem.find('.product-now-price').text('$' + nowPrice);
 		$selectedItem.find('.cart-sku-list-item').each(function(idx, item) {
 			$(item).find('.value').text(skuData[idx]);

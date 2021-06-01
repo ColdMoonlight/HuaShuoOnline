@@ -124,15 +124,19 @@
     }
 	// update product price
     function updateProductPrice(price) {
-		function getSkuPrice() {
-			return price ? (parseFloat(price) ? parseFloat(price) : 0) : 0
+		function getSkuPrice(op) {
+			return op ? (parseFloat(op) ? parseFloat(op) : 0) : 0
 		}
 		var data = $('.product-details').data('product');
-		var definePrice = data.productPrice + getSkuPrice();
+		var definePrice = data.productPrice + getSkuPrice(price);
 		var nowPrice = accuracyCal(definePrice, data.productDiscount);
-		$('.product-define-price').text('$'+ definePrice.toFixed(2));
-		$('.product-now-price').text('$'+ nowPrice);
-		$('.product-price-save').text('save $'+ (definePrice - parseFloat(nowPrice)).toFixed(2));
+		if (data.productDiscount == 100) {
+			$('.product-single-price').text('$'+ definePrice);
+		} else {
+			$('.product-define-price').text('$'+ definePrice.toFixed(2));
+			$('.product-now-price').text('$'+ nowPrice);
+			$('.product-price-save').text('save $'+ (definePrice - parseFloat(nowPrice)).toFixed(2));
+		}
     }
 	// get product data
 	function getProductData () {
