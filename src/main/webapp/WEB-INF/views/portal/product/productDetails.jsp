@@ -194,7 +194,7 @@
 				</div>
 			</div>
 			<div class="product-service wap">
-				<div class="product-service-wap-item">Free OEM Service Design Label Drop Shipping Accepted</div>
+				<div class="product-service-wap-item">Free OEM Service Design Label Drop Shipping</div>
 				<div class="product-service-wap-item">$50 Gifts/ Order</div>
 				<div class="product-service-wap-item">30 Days Free Returns</div>
 				<div class="product-service-wap-item">Secure Payment</div>
