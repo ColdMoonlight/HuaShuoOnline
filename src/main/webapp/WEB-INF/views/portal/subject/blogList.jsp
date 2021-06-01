@@ -25,7 +25,7 @@
 	<style>
 		@media only screen and (max-width: 1023px) { main { margin:  0; } }
 		
-		.ml_blog-banner.loaded { background-size: 100% 100%; }
+		.ml_blog-banner .loaded { background-size: 100% 100%; }
 		
 		.ml-blog-container { max-width: 1330px; }
 		.ml_blog-body { padding-top: 1rem; }
@@ -42,7 +42,7 @@
     	.ml_blog-more { color: #000; font-weight: 500;  }
 
 		@media only screen and (max-width: 788px) {
-			.ml_blog-banner { padding-top: 30%; }
+			.ml_blog-banner .web { padding-top:53.33%; }
 			.ml_blog-body { padding-left: .5rem; padding-right: .5rem; }
 			.ml_blog-item { padding: .5rem; border: 1px solid #ccc; border-radius: .25rem; }
 			.ml_blog-item+.ml_blog-item { margin-top: .5rem; }
@@ -53,7 +53,7 @@
 		}
 		
 		@media only screen and (min-width: 789px) {
-			.ml_blog-banner { padding-top: 14.6666667%; }
+			.ml_blog-banner .pc { padding-top:20.83%; }
 			.ml_blog-item { display: flex; padding-top: 1rem; padding-bottom: 1rem; }
 			.ml-blog-item+.ml-blog-item { border-top: 1px solid #ccc; }
 			.ml_blog-img { width: 50%; padding-top: 25%; flex-shrink: 0; }
@@ -68,8 +68,10 @@
     <jsp:include page="../layout/header/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
 		<!-- video banner -->
-		<div class="ml_blog-banner lazyload" data-src="${APP_PATH }/static/pc/img/video/c01.jpg"></div>
-
+		<div class="ml_blog-banner">
+			<div class="pc lazyload" data-src="${APP_PATH }/static/pc/img/blogpc.jpg"></div>
+			<div class="web lazyload" data-src="${APP_PATH }/static/pc/img/blogwap.jpg"></div>	
+		</div>
 		<div class="ml-blog-container container">
 			<div class="ml_blog-body"><div id="init-loading"></div></div>
 		</div>
