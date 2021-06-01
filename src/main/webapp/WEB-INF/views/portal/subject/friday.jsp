@@ -81,6 +81,7 @@
 			.pro_cont .pc{padding-top:104.6153%;}
 			.box_img .wap{display:none}
 		}
+		
 	</style>
 </head>
 <body>
