@@ -181,7 +181,7 @@ public class MlfrontAddressController {
 	@ResponseBody
 	public Msg getAreafreightMoney(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontAddress mlfrontAddress){
 		//接受参数信息
-		System.out.println("选地址的时候,获取邮费操作:mlfrontAddress:"+mlfrontAddress);
+		//System.out.println("选地址的时候,获取邮费操作:mlfrontAddress:"+mlfrontAddress);
 		
 		String areafreightCountryCode = mlfrontAddress.getAddressCountry();
 		
