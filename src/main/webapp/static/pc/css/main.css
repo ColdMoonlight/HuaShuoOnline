@@ -1792,7 +1792,7 @@ footer li {
     	padding: .5rem;
 	}
 }
-@media only screen and (min-width: 576px) and (max-width: 1023px) { 
+@media only screen and (min-width: 576px) and (max-width: 992px) { 
 	.product-list {
 		margin-left: -1.25rem;
 	}
@@ -1835,12 +1835,12 @@ footer li {
 		height: 6rem;
 	}
 }
-@media only screen and (min-width: 1024px) and (max-width: 1499px) {
+@media only screen and (min-width: 993px) and (max-width: 1499px) {
 	.product-item-box {
 		width: 25%;
 	}
 	.swiper-slide.product-item {
-		width: 32%;
+		width: 23%;
 	}
 }
 @media only screen and (min-width: 1500px) {
@@ -1848,7 +1848,7 @@ footer li {
 		width: 20%;
 	}
 	.swiper-slide.product-item {
-		width: 23%;
+		width: 19%;
 	}
 }
 @media only screen and (min-width: 1024px) {
