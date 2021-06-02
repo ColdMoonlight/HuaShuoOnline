@@ -131,7 +131,7 @@
 		var definePrice = data.productPrice + getSkuPrice(price);
 		var nowPrice = accuracyCal(definePrice, data.productDiscount);
 		if (data.productDiscount == 100) {
-			$('.product-single-price').text('$'+ definePrice);
+			$('.product-single-price').text('$'+ definePrice.toFixed(2));
 		} else {
 			$('.product-define-price').text('$'+ definePrice.toFixed(2));
 			$('.product-now-price').text('$'+ nowPrice);
