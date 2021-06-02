@@ -494,7 +494,7 @@ public class MlfrontOrderController {
 		BigDecimal CouponPriceBaseline = mlbackCouponOne.getCouponPriceBaseline();
 		
 		if(mlbackCouponPrice.compareTo(CouponPriceBaseline) > -1){
-		    System.out.println("a大于等于b");
+		    //System.out.println("a大于等于b");
 		    //满足可以用
 			//判断是满减还是折扣
 			String couponType = mlbackCouponOne.getCouponType();
