@@ -34,7 +34,7 @@ public class IfMobileUtils {
             return false;//pc
         requestHeader = requestHeader.toLowerCase();
         for(int i=0;i<deviceArray.length;i++){
-        	System.out.println("deviceArray[i]:"+deviceArray[i]);
+        	//System.out.println("deviceArray[i]:"+deviceArray[i]);
             if(requestHeader.indexOf(deviceArray[i])>0){
                 return true;//移动
             }

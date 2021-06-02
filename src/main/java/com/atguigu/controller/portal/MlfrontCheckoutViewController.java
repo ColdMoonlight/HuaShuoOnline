@@ -50,9 +50,9 @@ public class MlfrontCheckoutViewController {
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlfrontCheckoutView mlfrontCheckoutView){
 		//接受参数信息
 		String intocheckoutviewUserfirstname = mlfrontCheckoutView.getCheckoutviewUserfirstname();
-		System.out.println("intocheckoutviewUserfirstname:"+intocheckoutviewUserfirstname);
+//		System.out.println("intocheckoutviewUserfirstname:"+intocheckoutviewUserfirstname);
 		String aftercheckoutviewUserfirstname = intocheckoutviewUserfirstname.replaceAll("[^\\u0000-\\uFFFF]", "");
-		System.out.println("aftercheckoutviewUserfirstname:"+aftercheckoutviewUserfirstname);
+//		System.out.println("aftercheckoutviewUserfirstname:"+aftercheckoutviewUserfirstname);
 		
 		String nowTime = DateUtil.strTime14s();
 		mlfrontCheckoutView.setCheckoutviewCreatetime(nowTime);

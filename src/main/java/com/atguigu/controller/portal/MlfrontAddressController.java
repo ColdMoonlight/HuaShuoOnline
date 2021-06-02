@@ -50,20 +50,20 @@ public class MlfrontAddressController {
 		System.out.println("客户点击结算按钮的时候,接收到的mlfrontAddress:"+mlfrontAddress);
 		//处理掉不存的字符
 		String intoAddressDetail = mlfrontAddress.getAddressDetail();
-		System.out.println("intoAddressDetail:"+intoAddressDetail);
+//		System.out.println("intoAddressDetail:"+intoAddressDetail);
 		String afterAddressDetail = intoAddressDetail.replaceAll("[^\\u0000-\\uFFFF]", "");
 		System.out.println("afterAddressDetail:"+afterAddressDetail);
 		mlfrontAddress.setAddressDetail(afterAddressDetail);
 		
 		
 		String intoUserfirstname = mlfrontAddress.getAddressUserfirstname();
-		System.out.println("intoUserfirstname:"+intoUserfirstname);
+//		System.out.println("intoUserfirstname:"+intoUserfirstname);
 		String afterUserfirstname = intoUserfirstname.replaceAll("[^\\u0000-\\uFFFF]", "");
 		System.out.println("afterUserfirstname:"+afterUserfirstname);
 		mlfrontAddress.setAddressUserfirstname(afterUserfirstname);
 		
 		String intoUserlastname = mlfrontAddress.getAddressUserlastname();
-		System.out.println("intoUserlastname:"+intoUserlastname);
+//		System.out.println("intoUserlastname:"+intoUserlastname);
 		String afterUserlastname = intoUserlastname.replaceAll("[^\\u0000-\\uFFFF]", "");
 		System.out.println("afterUserlastname:"+afterUserlastname);
 		mlfrontAddress.setAddressUserlastname(afterUserlastname);
@@ -181,7 +181,7 @@ public class MlfrontAddressController {
 	@ResponseBody
 	public Msg getAreafreightMoney(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontAddress mlfrontAddress){
 		//接受参数信息
-		System.out.println("选地址的时候,获取邮费操作:mlfrontAddress:"+mlfrontAddress);
+		//System.out.println("选地址的时候,获取邮费操作:mlfrontAddress:"+mlfrontAddress);
 		
 		String areafreightCountryCode = mlfrontAddress.getAddressCountry();
 		

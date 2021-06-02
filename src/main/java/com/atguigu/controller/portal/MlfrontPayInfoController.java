@@ -431,11 +431,6 @@ public class MlfrontPayInfoController {
 			MlfrontOrder mlfrontOrderPay = new MlfrontOrder();
 			mlfrontOrderPay.setOrderId(payinfoOid);
 			List<MlfrontOrder> mlfrontOrderPayResList= mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPay);
-//		    if(mlfrontOrderPayResList.size()>0){
-//		        syso
-//		    }else{
-//		        
-//		    }
 			MlfrontOrder mlfrontOrderPayOneRes = mlfrontOrderPayResList.get(0);
 			String orderCouponCode = mlfrontOrderPayOneRes.getOrderCouponCode();
 			if(orderCouponCode==null){
