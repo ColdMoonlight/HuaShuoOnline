@@ -5365,9 +5365,7 @@ footer li {
 	margin-top: .6rem;
     text-align: left;
     font-size: .875rem;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+	word-break: break-word;
 }
 .ml-user-policy a {
 	color: #000;
