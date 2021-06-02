@@ -138,7 +138,7 @@ public class MlfrontAddressController {
 				realAddressId = mlfrontAddress.getAddressId();
 				
 				session.setAttribute("realAddressId", realAddressId);
-				System.out.println("游客第一次存的mlfrontAddressService.insertSelective,mlfrontAddress:"+mlfrontAddress.toString());
+				System.out.println("游客第一次存的mlfrontAddressService.insertSelective");
 				return Msg.success().add("resMsg", "游客地址信息插入成功").add("mlfrontAddress", mlfrontAddress).add("areafreightMoney", areafreightMoney).add("usertype", usertype);//新增以后,返回去的这里,有id,你从这里拿
 			}else{
 				//有id,update
@@ -146,7 +146,7 @@ public class MlfrontAddressController {
 				mlfrontAddressService.updateByPrimaryKeySelective(mlfrontAddress);
 				
 				session.setAttribute("realAddressId", addressId);
-				System.out.println("游客非第一次存的mlfrontAddressService.insertSelective,mlfrontAddress:"+mlfrontAddress.toString());
+				System.out.println("游客非第一次存的mlfrontAddressService.insertSelective");
 				return Msg.success().add("resMsg", "游客地址信息更新成功").add("mlfrontAddress", mlfrontAddress).add("areafreightMoney", areafreightMoney).add("usertype", usertype);
 			}		
 		}else{
@@ -160,7 +160,7 @@ public class MlfrontAddressController {
 				realAddressId = mlfrontAddress.getAddressId();
 				
 				session.setAttribute("realAddressId", realAddressId);
-				System.out.println("注册用户第一次存的insertSelective,mlfrontAddress:"+mlfrontAddress.toString());
+				System.out.println("注册用户第一次存的insertSelective");
 				return Msg.success().add("resMsg", "登录用户地址信息插入成功").add("mlfrontAddress", mlfrontAddress).add("areafreightMoney", areafreightMoney).add("usertype", usertype);//新增以后,返回去的这里,有id,你从这里拿
 			}else{
 				//有id,update
@@ -168,7 +168,7 @@ public class MlfrontAddressController {
 				mlfrontAddressService.updateByPrimaryKeySelective(mlfrontAddress);
 				
 				session.setAttribute("realAddressId", addressId);
-				System.out.println("注册用户非第一次存的updateByPrimaryKeySelective,mlfrontAddress:"+mlfrontAddress.toString());
+				System.out.println("注册用户非第一次存的updateByPrimaryKeySelective");
 				return Msg.success().add("resMsg", "登录用户地址信息更新成功").add("mlfrontAddress", mlfrontAddress).add("areafreightMoney", areafreightMoney).add("usertype", usertype);
 			}	
 		}
