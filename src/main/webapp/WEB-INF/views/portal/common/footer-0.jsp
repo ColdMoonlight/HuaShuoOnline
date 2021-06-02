@@ -720,7 +720,7 @@ function getProductReivewsData(data) {
 }
 function renderProductPriceHtml(data) {
 	if (data.productActoffoff == 100) {
-		return '<div class="product-now-price" style="color:#333;margin-left:0;">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>';
+		return '<div class="product-single-price">$'+ (data.productOriginalprice).toFixed(2) +'</div>';
 	}
 	return '<div class="product-define-price">$'+ (data.productOriginalprice).toFixed(2) +'</div><div class="product-now-price">$'+ accuracyCal(data.productOriginalprice, data.productActoffoff) +'</div>';
 }
