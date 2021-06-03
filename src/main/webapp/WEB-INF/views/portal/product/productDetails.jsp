@@ -72,7 +72,7 @@
 		.product-tab-item.active { color: #fff; border: 1px solid #000; background-color: #000; }
 		.product-reviews,.product-review-orders {display:flex;align-items:center;}
 		.product-review-orders {margin-top: 1rem;}
-		.product-media-review-num {color: #333; font-size:.875rem; margin-left: .5rem; margin-right: 1rem; }
+		.product-media-review-num {color: #333;}
 		.product-sold-num b {color: #ff186e;}
 		.product-price-save {border: 1px solid #ff186e; border-radius: 1em;}
 		.product-stock {color: #666666; font-style: italic; font-size: .875rem;}
@@ -80,10 +80,9 @@
 		.product-service {display: none; opacity: 0; visibility: hidden;}
 		.product-service-wap-item,.product-service-pc-item2 {margin-bottom: .75rem; margin-right: 1.2rem; color: #3e3a3a;}
 		.product-service-wap-item:before,.product-service-pc-item2:before {content: ""; display: inline-block; vertical-align: middle; margin-right: .5rem; background: url(${APP_PATH}/static/pc/img/product-service.png) no-repeat; background-size: 100%;}
-		.product-share-btn {margin-left: 1rem; font-size: 1rem; line-height: 1.0; color: #1296db; cursor: pointer;}
+		.product-share-btn {line-height: 1.0; color: #1296db; cursor: pointer;}
 		.product-share-btn .icon-share {display: inline-block; vertical-align:middle; width: .875rem; height: .875rem; margin-right: .2rem;}
 		.product-review-stars {position: relative;}
-		.product-header .product-review-stars .icon {height: 1.4rem; font-size: 1.4rem;}
 		.product-header .product-review-stars .icon.avgstar {position: absolute; top: 0; left: 0; overflow: hidden;}
 		@media only screen and (max-width: 575px) {
 			.product-together-imgs { width: 100%; }
@@ -102,6 +101,10 @@
 			.product-service.wap {display: block; opacity: 1;  visibility: visible; margin-top: 1rem;}
 			.product-service-wap-item {display: inline-block; font-size: .875rem;}
 			.product-service-wap-item:before {width: 1rem; height: 1rem;}
+			.product-header .product-review-stars .icon {height: 1.2rem; font-size: 1.2rem;}
+			.product-sold-num {font-size: .875rem}
+			.product-media-review-num {font-size:.875rem; margin-left: .25rem; margin-right: .5rem;}
+			.product-share-btn {margin-left: .5rem; font-size: .875rem;}
 		}
 		@media only screen and (min-width: 576px) {
 			.product-together-head, .product-together-imgs { display: flex; flex-wrap: wrap;  align-items: center; }
@@ -119,6 +122,9 @@
 			.product-service-pc-item2:before {width: 1.25rem; height: 1.25rem;}
 			.product-service-pc-item2 .color {color: #ff186e;}
 			.product-sold-num {display: none;}
+			.product-header .product-review-stars .icon {height: 1.4rem; font-size: 1.4rem;}
+			.product-media-review-num {font-size: 1rem; margin-left: .5rem; margin-right: 1rem;}
+			.product-share-btn {margin-left: 1rem; font-size: 1rem;}
 		}
 		.product-coupons.wap, .product-coupons.pc { display: none; opacity: 0; visibility: hidden; }
 		@media only screen and (max-width: 1023px) { .product-coupons.wap { display: flex; opacity: 1; visibility: visible; } }
@@ -154,7 +160,7 @@
 					<div class="product-review-orders">
 						<div class="product-reviews"></div>
 						<div class="product-sold-num"></div>
-						<div class="product-share-btn"><svg t="1622182325492" class="icon-share" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1188" width="32" height="32"><path d="M769.14815 670.390403c-44.430932 0-84.182284 19.999496-110.768803 51.471278L389.219117 565.736878c6.597255-16.571421 10.228969-34.653241 10.228969-53.594639 0-17.006326-2.940982-33.332153-8.320503-48.497551l270.88143-157.119457c26.511817 29.069059 64.702628 47.312562 107.138112 47.312562 80.055291 0 144.95337-64.899102 144.95337-144.95337 0-80.055291-64.898079-144.954393-144.95337-144.954393s-144.95337 64.899102-144.95337 144.954393c0 15.991206 2.600221 31.386848 7.382131 45.776579L359.655801 412.377048c-26.417673-27.833929-63.756069-45.181015-105.161085-45.181015-80.055291 0-144.954393 64.890916-144.954393 144.946206 0 80.055291 64.898079 144.967696 144.954393 144.967696 39.409568 0 75.128071-15.741519 101.256148-41.24845l274.172383 159.024853c-3.725858 12.8384-5.729491 26.409486-5.729491 40.457434 0 80.0645 64.898079 144.954393 144.95337 144.954393s144.95337-64.889893 144.95337-144.954393C914.101519 735.297692 849.20344 670.390403 769.14815 670.390403z" p-id="1189" fill="#1296db"></path></svg>share</div>
+						<div class="product-share-btn"><svg t="1622182325492" class="icon-share" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1188" width="32" height="32"><path d="M769.14815 670.390403c-44.430932 0-84.182284 19.999496-110.768803 51.471278L389.219117 565.736878c6.597255-16.571421 10.228969-34.653241 10.228969-53.594639 0-17.006326-2.940982-33.332153-8.320503-48.497551l270.88143-157.119457c26.511817 29.069059 64.702628 47.312562 107.138112 47.312562 80.055291 0 144.95337-64.899102 144.95337-144.95337 0-80.055291-64.898079-144.954393-144.95337-144.954393s-144.95337 64.899102-144.95337 144.954393c0 15.991206 2.600221 31.386848 7.382131 45.776579L359.655801 412.377048c-26.417673-27.833929-63.756069-45.181015-105.161085-45.181015-80.055291 0-144.954393 64.890916-144.954393 144.946206 0 80.055291 64.898079 144.967696 144.954393 144.967696 39.409568 0 75.128071-15.741519 101.256148-41.24845l274.172383 159.024853c-3.725858 12.8384-5.729491 26.409486-5.729491 40.457434 0 80.0645 64.898079 144.954393 144.95337 144.954393s144.95337-64.889893 144.95337-144.954393C914.101519 735.297692 849.20344 670.390403 769.14815 670.390403z" p-id="1189" fill="#1296db"></path></svg>Share</div>
 					</div>
 					<div class="product-options"><div id="init-loading"></div></div>
 					<div class="product-stock"></div>
