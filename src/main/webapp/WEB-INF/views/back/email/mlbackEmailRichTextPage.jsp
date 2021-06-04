@@ -52,7 +52,7 @@
 									<thead>
 										<tr>
 											<th>id</th>
-											<th>title</th>
+											<th>Email Subject</th>
 											<th>operate</th>
 										</tr>
 									</thead>
