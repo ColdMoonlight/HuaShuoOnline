@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Email Template</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
+	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 	<style>
 		.email-notification {
 			margin-top: 1rem;
@@ -60,7 +60,6 @@
 								</table>
 							</div>
 							<div id="table-pagination"></div>
-							
 						</div>
 					</div>
 				</div>
@@ -76,12 +75,21 @@
 					<div class="c-form row">
 						<input id="emailrichtextId" hidden>
 						<!-- left panel  -->
-						<div class="left-panel col-md-12">
+						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">General</div>
-								</div>
 								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="emailrichtextSendfrom">Email</label>
+										<div class="controls">
+											<input class="form-control" id="emailrichtextSendfrom" type="text" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="emailrichtextSeoname">Email SEO</label>
+										<div class="controls">
+											<input class="form-control" id="emailrichtextSeoname" type="text" />
+										</div>
+									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="emailrichtextTitle">Email Subject</label>
 										<div class="controls">
@@ -96,7 +104,28 @@
 									</div>
 								</div>
 							</div>
-							
+						</div>
+						<!-- right panel  -->
+						<div class="right-panel col-lg-5 col-md-12">
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">key & value</div>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="emailrichtextKeynamestr">keys</label>
+										<div class="controls">
+											<input class="form-control" id="emailrichtextKeynamestr" type="text" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="emailrichtextValuenamestr">values</label>
+										<div class="controls">
+											<input class="form-control" id="emailrichtextValuenamestr" type="text" />
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -113,7 +142,6 @@
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
 
 	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
-	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
 		var isCreate = false;
@@ -123,6 +151,13 @@
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
 			getEmailNotificationsData();
+		});
+		$('#emailrichtextKeynamestr,#emailrichtextValuenamestr').tagsinput({
+			allowDuplicates: true,
+			onTagExists: function(item, $tag) {
+				toastr.error('Youve already used the value "'+ item + '"');
+			},
+			trimValue: true
 		});
 		// create Email-Notification
 		$('.btn-create').on('click', function () {
@@ -188,32 +223,55 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
+			$('#emailrichtextKeynamestr,#emailrichtextValuenamestr').tagsinput('removeAll');
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
 			$('.c-create').addClass('hide');
 		}
 		// handle formData
+		function tagsinputValue($el, data) {
+			data && data.split(',').forEach(function(item) {
+				$el.tagsinput('add', item);
+			});
+		}
 		// reset data
 		function resetFormData() {
 			$('#emailrichtextId').val('');
+			$('#emailrichtextSendfrom').val('');
+			$('#emailrichtextSeoname').val('');
 			$('#emailrichtextTitle').val('');
 			$('#emailrichtextTemplate').val('');
+
+			$('#emailrichtextKeynamestr').val('');
+			$('#emailrichtextValuenamestr').val('');
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
 			data.emailrichtextId = parseInt($('#emailrichtextId').val());
+			data.emailrichtextSendfrom = $('#emailrichtextSendfrom').val();
+			data.emailrichtextSeoname = $('#emailrichtextSeoname').val();
 			data.emailrichtextTitle = $('#emailrichtextTitle').val();
 			data.emailrichtextTemplate = $('#emailrichtextTemplate').val();
+
+			data.emailrichtextKeynamestr = $('#emailrichtextKeynamestr').val();
+			data.emailrichtextValuenamestr = $('#emailrichtextValuenamestr').val();
 
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
 			$('#emailrichtextId').val(data.emailrichtextId);
-			$('#emailrichtextTitle').val(data.emailrichtextTitle);	
+			$('#emailrichtextSendfrom').val(data.emailrichtextSendfrom);
+			$('#emailrichtextSeoname').val(data.emailrichtextSeoname);
+			$('#emailrichtextTitle').val(data.emailrichtextTitle);
 			$('#emailrichtextTemplate').val(data.emailrichtextTemplate);
+
+			$('#emailrichtextKeynamestr').val(data.emailrichtextKeynamestr);
+			$('#emailrichtextValuenamestr').val(data.emailrichtextValuenamestr);
+			tagsinputValue($('#emailrichtextKeynamestr'), data.emailrichtextKeynamestr);
+			tagsinputValue($('#emailrichtextValuenamestr'), data.emailrichtextValuenamestr);
 		}
 		// callback get id
 		function getEmailNotificationId() {
