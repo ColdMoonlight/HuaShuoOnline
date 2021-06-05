@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Email Template</title>
 	<jsp:include page="../common/backheader.jsp" flush="true"></jsp:include>
-	<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
+	<link href="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 	<style>
 		.email-notification {
 			margin-top: 1rem;
@@ -43,9 +43,9 @@
 				<div class="c-init">
 					<div class="c-option">
 						<span class="c-option-title">Email Notifications</span>
-						<!-- <button class="btn btn-primary btn-create">Create Email-template</button> -->
+						<button class="btn btn-primary btn-create">Create Email-Notification</button>
 					</div>
-					<!-- <div class="c-table">
+					<div class="c-table">
 						<div class="c-table-content">
 							<div class="c-table-table table-responsive-sm">
 								<table class="table">
@@ -60,50 +60,36 @@
 								</table>
 							</div>
 							<div id="table-pagination"></div>
-							
 						</div>
-					</div> -->
-					
-					<div class="email-notification">
-						<div class="card">
-							<div class="card-title">
-								<div class="card-title-name">Orders</div>
-							</div>
-							<div class="card-body">
-								<div class="email-notification-item">
-									<div class="email-notification-name" data-id="1">Order confirmation</div>
-									<div class="email-notification-info">Sent automatically to the customer after they place their order.</div>
-								</div>
-								<div class="email-notification-item">
-									<div class="email-notification-name" data-id="2">Order edited</div>
-									<div class="email-notification-info">Sent to the customer after their order is edited (if you select this option).</div>
-								</div>
-								<div class="email-notification-item">
-									<div class="email-notification-name" data-id="3">Order edited invoice</div>
-									<div class="email-notification-info">Sent to the customer after their order is edited and they owe money (if you select this option).</div>
-								</div>
-							</div>
-						</div>							
 					</div>
 				</div>
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">Edit Email-template</span>
+						<span class="c-option-title">Edit Email-Notification</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-cancel">Cancel</button>
-							<button class="btn btn-primary btn-save">Save Email-template</button>
+							<button class="btn btn-primary btn-save">Save Email-Notification</button>
 						</div>
 					</div>
 					<div class="c-form row">
 						<input id="emailrichtextId" hidden>
 						<!-- left panel  -->
-						<div class="left-panel col-md-12">
+						<div class="left-panel col-lg-7 col-md-12">
 							<div class="card">
-								<div class="card-title">
-									<div class="card-title-name">General</div>
-								</div>
 								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="emailrichtextSendfrom">Email</label>
+										<div class="controls">
+											<input class="form-control" id="emailrichtextSendfrom" type="text" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="emailrichtextSeoname">Email SEO</label>
+										<div class="controls">
+											<input class="form-control" id="emailrichtextSeoname" type="text" />
+										</div>
+									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="emailrichtextTitle">Email Subject</label>
 										<div class="controls">
@@ -118,7 +104,28 @@
 									</div>
 								</div>
 							</div>
-							
+						</div>
+						<!-- right panel  -->
+						<div class="right-panel col-lg-5 col-md-12">
+							<div class="card">
+								<div class="card-title">
+									<div class="card-title-name">key & value</div>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<label class="col-form-label" for="emailrichtextKeynamestr">keys</label>
+										<div class="controls">
+											<input class="form-control" id="emailrichtextKeynamestr" type="text" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="emailrichtextValuenamestr">values</label>
+										<div class="controls">
+											<input class="form-control" id="emailrichtextValuenamestr" type="text" />
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -135,73 +142,79 @@
 	<jsp:include page="../common/deleteModal.jsp" flush="true"></jsp:include>
 
 	<script src="${APP_PATH}/static/back/lib/tagsinput/bootstrap-tagsinput.min.js"></script>
-	<script src="${APP_PATH}/static/back/lib/summernote/summernote.min.js"></script>
 	<!-- custom script -->
 	<script>
 		var isCreate = false;
 
 		// init
-		getEmailtemplatesData();
+		getEmailNotificationsData();
 		// pagination a-click
 		$(document.body).on('click', '#table-pagination li', function (e) {
-			getEmailtemplatesData();
+			getEmailNotificationsData();
 		});
-		// create email-template
+		$('#emailrichtextKeynamestr,#emailrichtextValuenamestr').tagsinput({
+			allowDuplicates: true,
+			onTagExists: function(item, $tag) {
+				toastr.error('Youve already used the value "'+ item + '"');
+			},
+			trimValue: true
+		});
+		// create Email-Notification
 		$('.btn-create').on('click', function () {
-			$('.c-create .c-option-title').text('Create Email-template');
+			$('.c-create .c-option-title').text('Create Email-Notification');
 			showCreateBlock();
 			// init formData
 			resetFormData();
-			getEmailtemplateId();
+			getEmailNotificationId();
 			isCreate = true;
 		});
-		// edit email-template
+		// edit Email-Notification
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var emailrichtextId = $(this).data('id');
-			getOneEmailtemplateData({
+			getOneEmailNotificationData({
 				emailrichtextId: emailrichtextId
 			}, function(resData) {
-			 	$('.c-create .c-option-title').text('Edit Email-template');
+			 	$('.c-create .c-option-title').text('Edit Email-Notification');
 				showCreateBlock();
 				initFormData(resData);
 			});			
 		});
-		// delete email-template
+		// delete Email-Notification
 		$(document.body).on('click', '.btn-delete', function (e) {
 			var emailrichtextId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('Delete Email-template!');
+			$('#deleteModal').find('.modal-title').html('Delete Email-Notification!');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
-				deleteEmailtemplateData({
+				deleteEmailNotificationData({
 					emailrichtextId: emailrichtextId,
 				}, function() {
-					getEmailtemplatesData();
+					getEmailNotificationsData();
 				});
 			});
 		});
 		$(window).on('beforeunload', function() {
 			var emailrichtextId = $('#emailrichtextId').val();
-			isCreate && emailrichtextId && deleteEmailtemplateData({
+			isCreate && emailrichtextId && deleteEmailNotificationData({
 				emailrichtextId: emailrichtextId,
 			});
 		});
-		// save email-template
+		// save Email-Notification
 		$('.c-create .btn-save').on('click', function () {
-			saveEmailtemplateData(getFormData(), function() {
+			saveEmailNotificationData(getFormData(), function() {
 				// redirect tab-active & then search-data
-				getEmailtemplatesData();
+				getEmailNotificationsData();
 				showInitBlock();
 				$('#emailrichtextId').val('');
 			});
 		});
-		// cancel email-template save
+		// cancel Email-Notification save
 		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
 				isCreate = false;
-				deleteEmailtemplateData({
+				deleteEmailNotificationData({
 					emailrichtextId: $('#emailrichtextId').val(),
 				}, function() {
-					console.log("cancel create-email-template");
+					console.log("cancel create-Email-Notification");
 				});
 			}
 
@@ -210,35 +223,58 @@
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
+			$('#emailrichtextKeynamestr,#emailrichtextValuenamestr').tagsinput('removeAll');
 		}
 		function showInitBlock() {
 			$('.c-init').removeClass('hide');
 			$('.c-create').addClass('hide');
 		}
 		// handle formData
+		function tagsinputValue($el, data) {
+			data && data.split(',').forEach(function(item) {
+				$el.tagsinput('add', item);
+			});
+		}
 		// reset data
 		function resetFormData() {
 			$('#emailrichtextId').val('');
+			$('#emailrichtextSendfrom').val('');
+			$('#emailrichtextSeoname').val('');
 			$('#emailrichtextTitle').val('');
 			$('#emailrichtextTemplate').val('');
+
+			$('#emailrichtextKeynamestr').val('');
+			$('#emailrichtextValuenamestr').val('');
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
 			data.emailrichtextId = parseInt($('#emailrichtextId').val());
+			data.emailrichtextSendfrom = $('#emailrichtextSendfrom').val();
+			data.emailrichtextSeoname = $('#emailrichtextSeoname').val();
 			data.emailrichtextTitle = $('#emailrichtextTitle').val();
 			data.emailrichtextTemplate = $('#emailrichtextTemplate').val();
+
+			data.emailrichtextKeynamestr = $('#emailrichtextKeynamestr').val();
+			data.emailrichtextValuenamestr = $('#emailrichtextValuenamestr').val();
 
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
 			$('#emailrichtextId').val(data.emailrichtextId);
-			$('#emailrichtextTitle').val(data.emailrichtextTitle);	
+			$('#emailrichtextSendfrom').val(data.emailrichtextSendfrom);
+			$('#emailrichtextSeoname').val(data.emailrichtextSeoname);
+			$('#emailrichtextTitle').val(data.emailrichtextTitle);
 			$('#emailrichtextTemplate').val(data.emailrichtextTemplate);
+
+			$('#emailrichtextKeynamestr').val(data.emailrichtextKeynamestr);
+			$('#emailrichtextValuenamestr').val(data.emailrichtextValuenamestr);
+			tagsinputValue($('#emailrichtextKeynamestr'), data.emailrichtextKeynamestr);
+			tagsinputValue($('#emailrichtextValuenamestr'), data.emailrichtextValuenamestr);
 		}
 		// callback get id
-		function getEmailtemplateId() {
+		function getEmailNotificationId() {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH }/MlbackEmailRichText/initializaEmailRichText",
@@ -253,7 +289,7 @@
 							$('#emailrichtextId').val(data.extend.MlbackEmailRichText.emailrichtextId);
 							toastr.success(data.extend.resMsg);
 						} else {
-							toastr.error('create email-template fail! Please try again.');
+							toastr.error('create Email-Notification fail! Please try again.');
 						}
 					} else {
 						showInitBlock();
@@ -269,7 +305,7 @@
 			});
 		}
 		// callback get all data
-		function getEmailtemplatesData() {
+		function getEmailNotificationsData() {
 			$('.c-mask').show();
 
 			var formData = new FormData();
@@ -292,7 +328,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get email-template, please refresh the page to get again！');
+					toastr.error('Failed to get Email-Notification, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -300,7 +336,7 @@
 			});
 		}
 		// callback get one data
-		function getOneEmailtemplateData(reqData, callback) {
+		function getOneEmailNotificationData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH }/MlbackEmailRichText/getOneMlbackEmailRichTextOneAllDetail",
@@ -317,7 +353,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get email-template, please refresh the page to get again！');
+					toastr.error('Failed to get Email-Notification, please refresh the page to get again！');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -325,7 +361,7 @@
 			});
 		}
 		// callback save
-		function saveEmailtemplateData(reqData, callback) {
+		function saveEmailNotificationData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackEmailRichText/save",
@@ -351,7 +387,7 @@
 			});
 		}
 		// callback delete
-		function deleteEmailtemplateData(reqData, callback) {
+		function deleteEmailNotificationData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/MlbackEmailRichText/delete",
