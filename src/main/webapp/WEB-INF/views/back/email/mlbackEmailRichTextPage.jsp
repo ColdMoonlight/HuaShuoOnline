@@ -78,9 +78,9 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="form-group">
-										<label class="col-form-label" for="emailrichtextSendfrom">Email</label>
+										<label class="col-form-label" for="emailrichtextTitle">Email Subject</label>
 										<div class="controls">
-											<input class="form-control" id="emailrichtextSendfrom" type="text" />
+											<input class="form-control" id="emailrichtextTitle" type="text" />
 										</div>
 									</div>
 									<div class="row">
@@ -91,9 +91,9 @@
 											</div>
 										</div>
 										<div class="form-group col-lg-6 col-md-12">
-											<label class="col-form-label" for="emailrichtextTitle">Email Subject</label>
+											<label class="col-form-label" for="emailrichtextSendfrom">Email</label>
 											<div class="controls">
-												<input class="form-control" id="emailrichtextTitle" type="text" />
+												<input class="form-control" id="emailrichtextSendfrom" type="text" />
 											</div>
 										</div>
 									</div>
