@@ -11,7 +11,7 @@
 <c:otherwise><title>${ sessionScope.mlbackProductMetaTitle }</title></c:otherwise>
 </c:choose>
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
-    <meta name="keyword" content="${sessionScope.mlbackProductMetaKeyWords}">
+    <meta name="keyword" content="${sessionScope.mlbackProductMetaKeywords}">
     <meta id="ml-des" name="description" content="${sessionScope.mlbackProductMeteDesc}">
     <!-- google rule -->
 	<meta name="robots" content="INDEX,FOLLOW">
