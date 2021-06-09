@@ -45,7 +45,7 @@ public class sendEmailTask {
 	@Autowired
 	MlbackOrderStateEmailService mlbackOrderStateEmailService;
 	
-	@Scheduled(cron = "0 0/30 * * * ?")
+	@Scheduled(cron = "0 0/5 * * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间

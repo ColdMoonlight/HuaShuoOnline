@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackEmailRichText;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -41,13 +42,13 @@ public class MlbackEmailRichTextController {
 	 * */
 	@RequestMapping("/toMlbackEmailRichTextPage")
 	public String toMlbackEmailRichTextPage(HttpSession session) throws Exception{
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
-//		if(mlbackAdmin==null){
-//			//MlbackAdmin对象为空
-//			return "back/mlbackAdminLogin";
-//		}else{
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//MlbackAdmin对象为空
+			return "back/mlbackAdminLogin";
+		}else{
 			return "back/email/mlbackEmailRichTextPage";
-//		}
+		}
 	}
 	
 	

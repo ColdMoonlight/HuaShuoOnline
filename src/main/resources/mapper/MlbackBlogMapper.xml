@@ -279,6 +279,7 @@
       <if test="blogSuperCatename != null">
         and blog_super_catename = #{blogSuperCatename,jdbcType=VARCHAR}
       </if>
+      order by blog_id desc
   </select>
   <!-- selectMlbackBlogBack -->
   <select id="selectMlbackBlogBack" parameterType="com.atguigu.bean.MlbackBlog" resultMap="BaseResultMap">
