@@ -17,6 +17,8 @@ import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackEmailRichTextService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.EmailNewUtilshtml;
+import com.atguigu.utils.EmailNewUtilshtmlCustomer;
 import com.atguigu.utils.EmailRichTextUtilshtml;
 import com.atguigu.utils.EmailRichTextUtilshtmlCustomer;
 import com.atguigu.utils.IfMobileUtils;
@@ -155,6 +157,11 @@ public class MlfrontUserController {
 			try {
 				//测试方法
 				String getToEmail = userEmail;
+				String Message = "Welcome to Register In Megalook.";
+//				EmailUtilshtml.readyEmailRegister(getToEmail, Message,mlfrontUserafterIn);
+//				EmailUtilshtmlCustomer.readyEmailRegisterCustomer(getToEmail, Message,mlfrontUserafterIn);
+//				EmailNewUtilshtml.readyEmailRegister(getToEmail, Message,mlfrontUserafterIn);
+//				EmailNewUtilshtmlCustomer.readyEmailRegisterCustomer(getToEmail, Message,mlfrontUserafterIn);
 				//
 				MlbackEmailRichText mlbackEmailRichTextReq= new MlbackEmailRichText();
 				MlbackEmailRichText mlbackEmailRichTextRes= new MlbackEmailRichText();
@@ -165,6 +172,9 @@ public class MlfrontUserController {
 					mlbackEmailRichTextRes = mlbackEmailRichTextList.get(0);
 					EmailRichTextUtilshtml.readyEmailRichTextRegister(getToEmail, mlbackEmailRichTextRes,mlfrontUserafterIn);
 					EmailRichTextUtilshtmlCustomer.readyEmailRichTextRegisterCustomerAll(getToEmail, mlbackEmailRichTextRes,mlfrontUserafterIn);
+				}else{
+					EmailNewUtilshtml.readyEmailRegister(getToEmail, Message,mlfrontUserafterIn);
+					EmailNewUtilshtmlCustomer.readyEmailRegisterCustomer(getToEmail, Message,mlfrontUserafterIn);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
