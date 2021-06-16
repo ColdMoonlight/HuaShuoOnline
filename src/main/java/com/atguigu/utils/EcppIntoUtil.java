@@ -211,7 +211,8 @@ public class EcppIntoUtil {
 //		ecppOrder.setZipcode(mlfrontAddressToPay.getAddressPost());
 //		ecppOrder.setTel(mlfrontAddressToPay.getAddressTelephone());
 		
-		ecppOrder.setCountry(mlPaypalShipAddressReturn.getShippingaddressCountryName());
+		ecppOrder.setCountry(mlfrontAddressToPay.getAddressCountry());
+//		ecppOrder.setCountry(mlPaypalShipAddressReturn.getShippingaddressCountryName());
 		ecppOrder.setCountryCode(mlPaypalShipAddressReturn.getShippingaddressCountryCode());
 		ecppOrder.setZipcode(mlPaypalShipAddressReturn.getShippingaddressPostalCode());
 		ecppOrder.setTel(mlPaypalShipAddressReturn.getShippingaddressTelNumber());
