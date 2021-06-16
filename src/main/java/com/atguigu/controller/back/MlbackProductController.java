@@ -217,6 +217,24 @@ public class MlbackProductController {
 		}
 		return num;
 	}
+	
+	
+	//* 4.0.3
+	private int cheakPNewCusStrifHavePid(String categoryNewIdsStr, String categoryOldIdStr) {
+		
+		int num = 0;
+		String arrStr [] = categoryNewIdsStr.split(",");
+		String nowCidStr = "";
+		for(int i=0;i<arrStr.length;i++){
+			nowCidStr =arrStr[i];
+			if(nowCidStr.equals(categoryOldIdStr)){
+				//有相同的,所以num增加
+				num++;
+				break;//找到,跳出
+			}
+		}
+		return num;
+	}
 
 	//* 4.0.3清理每条的新产品信息
 	private void ProductCategoryIdsStrUpdateOld(Integer productId,String categoryIdsStrNew) {
@@ -269,7 +287,23 @@ public class MlbackProductController {
 					String productOldNamesStr = categoryProductNamesArr[j];
 					
 					if(productOldIdOneStr.equals(productIdnow)){
-						System.out.println("一致就不存了");
+						//当前新类id串里面有当前不变的Cid,则不清理,则便利类下产品的时候,不跳过该产品
+						//如果产品类下已经有数据
+						int ifHave = cheakPNewCusStrifHavePid(categoryIdsStrNew,categoryIdsStr);
+						//先判断是否包含本次
+						if(ifHave>0){
+							//只要test.indexOf('This')返回的值不是-1说明test字符串中包含字符串'This',相反如果包含返回的值必定是-1"
+							//如果包含,加上,顺序不变
+							categoryProductIdsStrNewList.add(productOldIdOneStr);
+							categoryProductIdsStrNew+=productOldIdOneStr+",";
+							
+							categoryProductNamesStrNewList.add(productOldNamesStr);
+							categoryProductNamesStrNew+=productOldNamesStr+",";
+						}else{
+							//如果不包含,过滤掉
+							System.out.println("一致就不存了");
+							//在的话,继续加上,不在的话,一致就不存了
+						}
 					}else{
 						//移除本个后的该类下全部产品
 						categoryProductIdsStrNewList.add(productOldIdOneStr);
