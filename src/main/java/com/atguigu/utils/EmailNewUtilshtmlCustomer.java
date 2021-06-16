@@ -19,6 +19,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import com.atguigu.bean.MlPaypalShipAddress;
+import com.atguigu.bean.MlfrontAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
 import com.atguigu.bean.MlfrontPayInfo;
@@ -38,8 +39,8 @@ public class EmailNewUtilshtmlCustomer {
 	}
 	
 	public static void readyEmailPaySuccessCustomer(String getToEmail, String Message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne,
-			MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage,MlPaypalShipAddress mlPaypalShipAddress)  throws Exception{
-		sendNewEmilPayCustomer(getToEmail, Message, mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage,mlPaypalShipAddress);
+			MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage,MlPaypalShipAddress mlPaypalShipAddress,MlfrontAddress mlfrontAddressRes)  throws Exception{
+		sendNewEmilPayCustomer(getToEmail, Message, mlfrontOrderItemList,mlfrontPayInfoIOne,mlfrontOrderResOne,addressMoney,patSuccessEndLanguage,mlPaypalShipAddress,mlfrontAddressRes);
 	}
 	
 	public static void readyEmailVerifyCustomer(String getToEmail, String toCustomerVerifyInfoStr,String payinfoPlateNum,String payinfoAddressEmail) {
@@ -127,7 +128,8 @@ public class EmailNewUtilshtmlCustomer {
 	 * megalookweb@outlook.com
 	 * mingyueqingl@163.com
 	 * */
-	public static void sendNewEmilPayCustomer(String to, String message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney,String patSuccessEndLanguage,MlPaypalShipAddress mlPaypalShipAddressInto) {
+	public static void sendNewEmilPayCustomer(String to, String message,List<MlfrontOrderItem> mlfrontOrderItemList,MlfrontPayInfo mlfrontPayInfoIOne, MlfrontOrder mlfrontOrderResOne, String addressMoney,
+			String patSuccessEndLanguage,MlPaypalShipAddress mlPaypalShipAddressInto,MlfrontAddress mlfrontAddressRes) {
         try {
             Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
             final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
@@ -152,13 +154,20 @@ public class EmailNewUtilshtmlCustomer {
                 }
             });
 
+            String countryNameReturn = mlPaypalShipAddressInto.getShippingaddressCountryName();
+            if(countryNameReturn.length()>0){
+            	System.out.println("国家名存在");
+            }else{
+            	countryNameReturn=mlfrontAddressRes.getAddressCountry();
+            }
+            
           //联系邮箱：联系人：电话：地址
             String addressDetail ="";
             String addressEmail =mlPaypalShipAddressInto.getShippingaddressEmail();
             String addressUname = mlPaypalShipAddressInto.getShippingaddressRecipientName();
             String addressTel =mlPaypalShipAddressInto.getShippingaddressTelNumber();
             String addressAll = mlPaypalShipAddressInto.getShippingaddressLine1()+","+mlPaypalShipAddressInto.getShippingaddressCity()+
-            		","+mlPaypalShipAddressInto.getShippingaddressStateProvinceName()+","+mlPaypalShipAddressInto.getShippingaddressCountryName()+","+mlPaypalShipAddressInto.getShippingaddressPostalCode();
+            		","+mlPaypalShipAddressInto.getShippingaddressStateProvinceName()+","+countryNameReturn+","+mlPaypalShipAddressInto.getShippingaddressPostalCode();
             
             addressDetail=addressDetail+"<b>Receiving address</b>:"+addressAll+"<br>";
             addressDetail=addressDetail+"<b>consignee</b>:"+addressUname+"<br>";
