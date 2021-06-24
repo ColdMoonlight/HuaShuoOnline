@@ -26,5 +26,8 @@ public interface MlfrontUserMapper {
   	List<MlfrontUser> selectMlfrontUserByDate(MlfrontUser record);
 	//通过时间查询简单的MlfrontUser
   	List<MlfrontUser> selectMlfrontUserSimpleByDate(MlfrontUser record);
+  	//通过时间查询简单的MlfrontUser
+  	List<MlfrontUser> selectMlfrontUserBackHomeByDate(MlfrontUser record);
+  	
   	
 }
