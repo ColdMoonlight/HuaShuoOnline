@@ -24,6 +24,7 @@ import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackReviewImgService;
 import com.atguigu.service.MlfrontReviewService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.URLLocationUtils;
 
 @Controller
 @RequestMapping("/MlfrontReview")
@@ -110,7 +111,7 @@ public class MlfrontReviewController {
 			reviewUname =mlfrontReview.getReviewUname();
 		}
 		//3.1.1
-		String uimgurl = GetUImgUrlByUname(res,reviewUname);
+		String uimgurl = GetUImgUrlByUname(rep,res,reviewUname);
 		mlfrontReview.setReviewUimgurl(uimgurl);
 		System.out.println("uimgurl:"+uimgurl);
 		String ReviewCreatetime = mlfrontReview.getReviewCreatetime();
@@ -135,7 +136,7 @@ public class MlfrontReviewController {
 	 * MlfrontReview	GetUImgUrlByUname
 	 * @param MlfrontReview
 	 */
-	private String GetUImgUrlByUname(HttpServletRequest res,String reviewUname) {
+	private String GetUImgUrlByUname(HttpServletResponse rep,HttpServletRequest res,String reviewUname) {
 		
 		String contextPathStr = res.getContextPath();
         
@@ -145,7 +146,8 @@ public class MlfrontReviewController {
         String basePathStr = res.getScheme()+"://"+res.getServerName()+":"+res.getServerPort()+contextPathStr+"/";
         System.out.println("basePathStr:"+basePathStr);
 		
-		String pathBig = basePathStr;
+//		String pathBig = basePathStr;
+		String pathBig = URLLocationUtils.getbasePathStr(rep,res);
 		String path="static/upload/img/ReviewUImg/";
 		String returnReaUrl = "";
 		
