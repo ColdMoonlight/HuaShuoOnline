@@ -27,7 +27,6 @@ var ml = {
 	pinterest_id: '2613999865733',
 	pinterest_email: 'lvzhenbang@outlook.com',
 	pinterest_hash_email: 'a6243724a31979a66daa0edc9aa348e44146a59cbe981e0c1139f990d12cd64d',
-	paypal_clientid: 'AQyXf-N2nNr8QwJsFt7IudPRL-CMGYEXCCzgqOHIA037JLhSFOEchb2kGa_z_BqzKY4CmUPFiGqG_uNj',
 
 	//www.megalook.com的fbid googleid tidio
 	//facebook_id: '667403967094866', // megalook
@@ -37,7 +36,6 @@ var ml = {
 	//pinterest_id: '2612741055158',
 	//pinterest_email: 'phannah0303@gmail.com',
 	//pinterest_hash_email: 'dc231ca84370402a003d5fbab542f06bcdf55a056ab1fcbea56eaab2e21dec7a',
-	//paypal_clientid: 'Ad0_fWFpJ2XCHI4xZY3mywHctvdm0rNIvltKnN3bxE_1j56ZK7b-HOzyhrw07ZZWFZRIBzUPJajU-CGW',
 	
 	//www.huashuohair.com的fbid googleid tidio
 	// facebook_id: '246433859565492', // huashuohair

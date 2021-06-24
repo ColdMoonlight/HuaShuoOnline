@@ -287,7 +287,7 @@
 			'productSeo': data.productSeo,
 		});
 		$('.product-name').text(data.productName);
-		$('.product-reviews').html('<div class="product-review-stars"><span class="icon avgstar2"></span><span class="icon avgstar"></span></div><a href="#product-reviews" class="product-media-review-num">'+ (data.productReviewnum || 0) +' Review(s)</a>');
+		$('.product-reviews').html('<div class="product-review-stars"><span class="icon avgstar2"></span><span class="icon avgstar"></span></div><a href="#product-reviews" class="product-media-review-num"></a>');
 		$('.product-sold-num').html('Sold: <b>' + data.productHavesalenum + '</b>');
 		$('.product-price').html('<div class="name">Total Price:</div>' + renderProductPriceHtml(data));
 		if (data.productActoffoff == 100) {
@@ -443,6 +443,7 @@
 			total = reviewStarList ? reviewStarList.reduce(function(acc, item) {acc += item.startCount * item.startNum; return acc;}, 0) : 0,
 			avgStar = Math.ceil(total / reviewNum);
 			htmlStr = '';
+		$('.product-media-review-num').html((data.allReviewNum || 0) + ' Review(s)');
 		for (var i = 4, percent = 0; i >= 0; i-=1) {
 			percent = (data.allReviewNum ? reviewStarList[i].startCount * 100 / data.allReviewNum : 0);
 			if (i == 4) $('.product-review-stars .avgstar').css('width', percent + '%')
