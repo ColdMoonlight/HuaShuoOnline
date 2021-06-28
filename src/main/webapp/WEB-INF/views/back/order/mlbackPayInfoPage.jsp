@@ -1190,7 +1190,7 @@
 						'<div class="order-product-base">' +
 							'<a class="order-product-link" href="${APP_PATH}/'+ item.orderitemPseo +'.html" target="_blank">'+ item.orderitemPname +'</a>' +
 							'<div class="order-product-option">'+ genSkus(item) +'</div>' +
-							'<div class="order-product-sku"><span>SKU: '+ item.orderitemPskuCode +'</span> | <span style="color:#6b6464;">('+ item.orderitemProductOriginalprice +'+'+ item.orderitemPskuMoneystr +')*'+ (parseFloat(item.orderitemProductAccoff)/100).toFixed(2) + '</span></div>' +
+							'<div class="order-product-sku"><span>SKU: '+ item.orderitemPskuCode +'</span>------------------------ <span style="color:#6b6464;">('+ item.orderitemProductOriginalprice +'+'+ item.orderitemPskuMoneystr +')*'+ (parseFloat(item.orderitemProductAccoff)/100).toFixed(2) + '</span></div>' +
 						'</div>' +
 						'<div class="order-product-cal">' +
 							'<div class="order-product-money">$'+ singlePrice +'</div>' +
