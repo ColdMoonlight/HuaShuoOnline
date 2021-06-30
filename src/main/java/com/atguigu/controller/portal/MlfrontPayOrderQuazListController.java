@@ -293,7 +293,7 @@ public class MlfrontPayOrderQuazListController {
 					//2-需要把这一单的payinfo_SMS更新过来
 					mlfrontPayInfoService.updateByPrimaryKeySelective(mlfrontPayInfoIfEmail);
 				}else{
-					System.out.println("一场信息");
+					System.out.println("异常信息");
 				}
 			}else{
 				//该orderid不存在本条没了,没了就不操作
