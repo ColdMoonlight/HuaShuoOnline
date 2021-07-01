@@ -98,7 +98,7 @@ public class MlbackShowAreaController {
 	@ResponseBody
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackShowArea mlbackShowArea){
 		//接受参数信息
-		System.out.println("mlbackShowArea:"+mlbackShowArea);
+		//System.out.println("mlbackShowArea:"+mlbackShowArea);
 		//取出id
 		Integer showareaIdId = mlbackShowArea.getShowareaId();
 		String nowTime = DateUtil.strTime14s();
