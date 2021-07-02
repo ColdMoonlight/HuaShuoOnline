@@ -128,6 +128,12 @@
 												<input class="form-control" id="wholesaleCustomerWatsapp" type="text" disabled />
 											</div>
 										</div>
+										<div class="form-group col-md-6">
+											<label class="col-form-label" for="wholesaleCustomerTypeName">CustomerType</label>
+											<div class="controls">
+												<input class="form-control" id="wholesaleCustomerTypeName" type="text" disabled />
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-form-label" for="wholesaleCustomerMessage">Message</label>
@@ -273,6 +279,7 @@
 			$('#wholesaleCustomerCountry').val('');
 			$('#wholesaleCustomerTelephone').val('');
 			$('#wholesaleCustomerWatsapp').val('');
+			$('#wholesaleCustomerTypeName').val('');
 			$('#wholesaleCustomerMessage').val('');
 			$('#wholesaleCustomerStatus').prop('checked', false);
 			$('#wholesaleOperateDeatil').val('');			
@@ -286,6 +293,7 @@
 			data.wholesaleCustomerCountry = $('#wholesaleCustomerCountry').val();
 			data.wholesaleCustomerTelephone = $('#wholesaleCustomerTelephone').val();
 			data.wholesaleCustomerWatsapp = $('#wholesaleCustomerWatsapp').val();
+			data.wholesaleCustomerTypeName = $('#wholesaleCustomerTypeName').val();
 			data.wholesaleCustomerMessage = $('#wholesaleCustomerMessage').val();
 			data.wholesaleCustomerStatus = $('#wholesaleCustomerStatus').prop('checked') ? 1 : 0;
 			data.wholesaleOperateDeatil = $('#wholesaleOperateDeatil').val();			
@@ -299,6 +307,7 @@
 			$('#wholesaleCustomerCountry').val(data.wholesaleCustomerCountry);
 			$('#wholesaleCustomerTelephone').val(data.wholesaleCustomerTelephone);
 			$('#wholesaleCustomerWatsapp').val(data.wholesaleCustomerWatsapp);
+			$('#wholesaleCustomerTypeName').val(data.wholesaleCustomerTypeName);
 			$('#wholesaleCustomerMessage').val(data.wholesaleCustomerMessage);
 			$('#wholesaleCustomerStatus').prop('checked', (''+data.wholesaleCustomerStatus == '0' ? false : true));
 			$('#wholesaleOperateDeatil').val(data.wholesaleOperateDeatil);
