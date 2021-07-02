@@ -23,7 +23,9 @@ public class CustomerWholesale {
     private String wholesaleCreatetime;
 
     private String wholesaleMotifytime;
-
+    
+    private String wholesaleCustomerTypeName;
+    
     public Integer getWholesaleId() {
         return wholesaleId;
     }
@@ -111,6 +113,14 @@ public class CustomerWholesale {
 	public void setWholesaleCustomerStatus(String wholesaleCustomerStatus) {
 		this.wholesaleCustomerStatus = wholesaleCustomerStatus == null ? null : wholesaleCustomerStatus.trim();
 	}
+	
+	public String getWholesaleCustomerTypeName() {
+		return wholesaleCustomerTypeName;
+	}
+
+	public void setWholesaleCustomerTypeName(String wholesaleCustomerTypeName) {
+		this.wholesaleCustomerTypeName = wholesaleCustomerTypeName == null ? null : wholesaleCustomerTypeName.trim();
+	}
 
 	public CustomerWholesale() {
 		super();
@@ -119,7 +129,7 @@ public class CustomerWholesale {
 	public CustomerWholesale(Integer wholesaleId, String wholesaleCustomerName, String wholesaleCustomerEmail,
 			String wholesaleCustomerTelephone, String wholesaleCustomerCountry, String wholesaleCustomerWatsapp,
 			String wholesaleCustomerMessage, String wholesaleCustomerStatus, String wholesaleOperateDeatil,
-			String wholesaleCreatetime, String wholesaleMotifytime) {
+			String wholesaleCreatetime, String wholesaleMotifytime, String wholesaleCustomerTypeName) {
 		super();
 		this.wholesaleId = wholesaleId;
 		this.wholesaleCustomerName = wholesaleCustomerName;
@@ -132,6 +142,7 @@ public class CustomerWholesale {
 		this.wholesaleOperateDeatil = wholesaleOperateDeatil;
 		this.wholesaleCreatetime = wholesaleCreatetime;
 		this.wholesaleMotifytime = wholesaleMotifytime;
+		this.wholesaleCustomerTypeName = wholesaleCustomerTypeName;
 	}
 
 	@Override
@@ -142,7 +153,8 @@ public class CustomerWholesale {
 				+ ", wholesaleCustomerWatsapp=" + wholesaleCustomerWatsapp + ", wholesaleCustomerMessage="
 				+ wholesaleCustomerMessage + ", wholesaleCustomerStatus=" + wholesaleCustomerStatus
 				+ ", wholesaleOperateDeatil=" + wholesaleOperateDeatil + ", wholesaleCreatetime=" + wholesaleCreatetime
-				+ ", wholesaleMotifytime=" + wholesaleMotifytime + "]";
+				+ ", wholesaleMotifytime=" + wholesaleMotifytime + ", wholesaleCustomerTypeName="
+				+ wholesaleCustomerTypeName + "]";
 	}
 
 }

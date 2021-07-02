@@ -127,6 +127,31 @@
 						</div>
 					</div>
 					<div class="form-group required">
+						<label for="wholesaleCustomerTypeName" class="form-label">Business Type : <i>*</i></label>
+						<div class="form-input">
+							<ul>
+				                <li>
+				                  <input type="radio" name="wholesaleCustomerTypeName" value="Wholesale & Distributer" id="wholesaleCustomerTypeName" class="form-control">Wholesale & Distributer
+				                </li>
+				                <li>
+				                  <input type="radio" name="wholesaleCustomerTypeName" value="Store Owner" id="wholesaleCustomerTypeName" class="form-control">Store Owner
+				                </li>
+				                <li>
+				                  <input type="radio" name="wholesaleCustomerTypeName" value="Personal Use" id="wholesaleCustomerTypeName"  class="form-control">Personal Use
+				                </li>
+				                <li>
+				                  <input type="radio" name="wholesaleCustomerTypeName"  value="Stylist" id="wholesaleCustomerTypeName" class="form-control">Stylist
+				                </li>
+				                <li>
+				                  <input type="radio" name="wholesaleCustomerTypeName"  value="Start Business" id="wholesaleCustomerTypeName"  class="form-control">Start Business
+				                </li>
+				                <li>
+				                  <input type="radio" name="wholesaleCustomerTypeName"  value="Salon Owner" id="wholesaleCustomerTypeName"  class="form-control">Salon Owner
+				                </li>
+			              </ul>
+						</div>
+					</div>
+					<div class="form-group required">
 						<label for="wholesaleCustomerMessage" class="form-label">Messages<i>*</i></label>
 						<div class="form-input">
 							<textarea rows="2" cols="" class="form-control" id="wholesaleCustomerMessage" placeholder="Write your detailed requiry,hair types,hair quantity,hair length,hair color..."></textarea>
@@ -244,6 +269,7 @@
 		data.wholesaleCustomerTelephone = $('#wholesaleCustomerTelephone').val();
 		data.wholesaleCustomerWatsapp = $('#wholesaleCustomerWatsapp').val();
 	  	data.wholesaleCustomerMessage = $('#wholesaleCustomerMessage').val();
+	  	data.wholesaleCustomerTypeName = $('#wholesaleCustomerTypeName').val();
 	  	return data;
 	  }
 	  // save user info
@@ -256,6 +282,7 @@
 	  		contentType: 'application/json',
 	  		success: function (data) {
 				if (data.code == 100) {
+					console.log(reqData);
 					callback && callback(data.extend);
 					var wholsaleModal = createModal({
 						body: {

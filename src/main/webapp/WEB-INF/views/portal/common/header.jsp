@@ -35,3 +35,21 @@ document.head.appendChild(pinNoscript);
 <!-- snapchat
 <script>(function(e,t,n){if(!e.snaptr){var a=e.snaptr=function(){a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};a.queue=[];var s="script";r=t.createElement(s),r.async=!0,r.src=n;var c=t.getElementsByTagName(s)[0];c.parentNode.insertBefore(r,c)}})(window,document,"https://sc-static.net/scevent.min.js"),snaptr("init","a8cfe4e2-6e20-4c56-af5d-1d62bde45547",{user_email:"megalookhairreview@gmail.com"}),snaptr("track","PAGE_VIEW");snaptr('track','VIEW_CONTENT');</script>
  -->
+ <!-- snapchat
+<script type="text/javascript">
+            if(!window._pt_sp_2){
+                window._pt_lt = new Date().getTime();
+                window._pt_sp_2 = [];
+                _pt_sp_2.push("setAccount,4209066a");
+                var _protocol =(("https:" == document.location.protocol) ? " https://" : " http://");
+                (function() {
+                    var atag = document.createElement("script");
+                    atag.type = "text/javascript";
+                    atag.async = true;
+                    atag.src = _protocol + "js.ptengine.cn/4209066a.js";
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(atag, s);
+                })();
+            }
+ </script>
+  -->
