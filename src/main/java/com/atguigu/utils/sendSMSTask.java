@@ -118,6 +118,7 @@ public class sendSMSTask {
 						
 						//本payinfoId是多少,更新完了的话,需要把这一单的payinfo_SMS更新过来
 						Integer payId = mlfrontPayInfoOne.getPayinfoId();
+						System.out.println("SMS-实际电话号码realTel的payId:"+payId);
 						Integer checkRecoverOrderId = mlfrontPayInfoOne.getPayinfoOid();
 						String checkRecoverOrderIdNowStr = checkRecoverOrderId+"";
 						if(checkRecoverOrderIdNowStr.equals(orderIdLastOneStr)){
