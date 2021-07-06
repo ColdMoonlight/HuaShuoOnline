@@ -110,7 +110,6 @@ public class sendSMSTask {
 				
 				//拿到筛选后的操作数据
 				List<MlfrontPayInfo> mlfrontPayInfoList = getPayInfoList(mlfrontPayInfoReq);
-				System.out.println("SMS-mlfrontPayInfoList:"+mlfrontPayInfoList.toString());
 				if(mlfrontPayInfoList.size()>0){
 					
 					String orderIdLastOneStr = "";
