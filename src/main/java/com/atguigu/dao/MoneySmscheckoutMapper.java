@@ -21,6 +21,6 @@ public interface MoneySmscheckoutMapper {
 	
 	List<MoneySmscheckout> selectMoneySmscheckoutByPayOId(MoneySmscheckout moneySmscheckout);
 
-	List<MoneySmscheckout> selectMoneySmscheckoutByPayOname(MoneySmscheckout moneySmscheckout);
+	List<MoneySmscheckout> selectMoneySmscheckoutByPayOnameAndOid(MoneySmscheckout moneySmscheckout);
 	
 }
