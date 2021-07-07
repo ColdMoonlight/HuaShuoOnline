@@ -129,7 +129,6 @@
 			.wholesale-video-swiper .swiper-button-next { right: 15px;}
 			.wholesale-carousel-swiper .swiper-slide { min-height: 150px; }
 			.wholesale-ins-list { padding: 0 20px; }
-			.video-play-btn { width: 30px; height: 30px; }
 			.wholesale-about-us .wholesale-video { height: 400px; }
 		}
 		
@@ -164,6 +163,7 @@
 			.wholesale-ins-item { width: 49%; margin-bottom: 1.5%; }
 			.wholesale-video-box .video-img { min-height: 80px; }
 			.wholesale-title { font-size: 20px; }
+			.video-play-btn { width: 30px; height: 30px; }
 		}
 	</style>
 </head>
