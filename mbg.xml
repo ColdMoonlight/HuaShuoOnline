@@ -95,6 +95,11 @@
 		<table tableName="tb_paypal_stateprovince" domainObjectName="MlPaypalStateprovince" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_paypal_shippingaddress" domainObjectName="MlPaypalShipAddress" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
+		
+		<!--	tb_money
+		<table tableName="tb_money_smscheckout" domainObjectName="MoneySmscheckout" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		-->
+		
 		<!--	tb_customer
 		<table tableName="tb_customer_wholesale" domainObjectName="CustomerWholesale" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
