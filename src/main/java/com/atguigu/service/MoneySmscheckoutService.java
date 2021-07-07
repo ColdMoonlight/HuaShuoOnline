@@ -55,8 +55,8 @@ public class MoneySmscheckoutService {
 	/**6
 	 * 查单条信息byId
 	 * */
-	public List<MoneySmscheckout> selectMoneySmscheckoutByPayOname(MoneySmscheckout moneySmscheckout) {
-		List<MoneySmscheckout>  moneySmscheckoutList = moneySmscheckoutMapper.selectMoneySmscheckoutByPayOname(moneySmscheckout);
+	public List<MoneySmscheckout> selectMoneySmscheckoutByPayOnameAndOid(MoneySmscheckout moneySmscheckout) {
+		List<MoneySmscheckout>  moneySmscheckoutList = moneySmscheckoutMapper.selectMoneySmscheckoutByPayOnameAndOid(moneySmscheckout);
 		return moneySmscheckoutList;
 	}
 	

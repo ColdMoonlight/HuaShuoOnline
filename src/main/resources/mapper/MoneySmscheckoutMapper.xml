@@ -136,11 +136,11 @@
     from tb_money_smscheckout 
     where smscheckout_orderid = #{smscheckoutOrderid,jdbcType=INTEGER}
   </select>
-  <!-- selectMoneySmscheckoutByPayOname -->
-  <select id="selectMoneySmscheckoutByPayOname" parameterType="com.atguigu.bean.MoneySmscheckout" resultMap="BaseResultMap">
+  <!-- selectMoneySmscheckoutByPayOnameAndOid -->
+  <select id="selectMoneySmscheckoutByPayOnameAndOid" parameterType="com.atguigu.bean.MoneySmscheckout" resultMap="BaseResultMap">
     select *
     from tb_money_smscheckout 
-    where smscheckout_ordername = #{smscheckoutOrdername,jdbcType=VARCHAR}
+    where smscheckout_ordername = #{smscheckoutOrdername,jdbcType=VARCHAR} and smscheckout_orderid >= #{smscheckoutOrderid,jdbcType=INTEGER}
   </select>
   
 </mapper>

@@ -176,10 +176,13 @@ public class sendSMSBySellectTask {
 	private List<MlfrontPayInfo> getNeedSendFromPayInfoList(List<MlfrontPayInfo> mlfrontPayInfoList) {
 		
 		
+		Integer orderIdLast = 0;
+		
 		/****************************1次****************************/
 		List<MlfrontPayInfo> mlfrontPayInfoUnPayList = new ArrayList<MlfrontPayInfo>();
 		
 		for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
+			orderIdLast = mlfrontPayInfoOne.getPayinfoOid();
 			Integer patStatus = mlfrontPayInfoOne.getPayinfoStatus();
 			if(patStatus==0){
 				//失败订单
@@ -193,6 +196,8 @@ public class sendSMSBySellectTask {
 				
 			}
 		}
+		
+		System.out.println("orderIdLast:"+orderIdLast);
 		
 		/****************************2次****************************/
 		List<MlfrontPayInfo> mlfrontPayInfoUnPayRemoveSameOidList = new ArrayList<MlfrontPayInfo>();
@@ -220,7 +225,7 @@ public class sendSMSBySellectTask {
 			
 			String orderName = mlfrontPayInfoSuccessSameOnameUnPayOne.getPayinfoUname();
 			
-			Integer ifHave = checkIfAlreadyHaveByOname(orderName);
+			Integer ifHave = checkIfAlreadyHaveByOname(orderName,orderIdLast);
 			
 			if(ifHave>0){
 				//4.2.1这一单是重复单子,需要标记重复
@@ -243,19 +248,18 @@ public class sendSMSBySellectTask {
 			Integer ifHave = checkIfAlreadyHaveByOid(orderId);
 			if(ifHave>0){
 				//跳过
-				//4.2.1这一单是重复单子,需要标记重复
+				//4.2.1这一单是重复单子(name重复),需要标记重复
 				updateSameUnpayOne(mlfrontPayInfoUnPayOne);
 			}else{
 				
 				//再查这一条是不是人名相同，如果有，删掉//如果也没查到，记录，准备发消息
 				String orderName = mlfrontPayInfoUnPayOne.getPayinfoUname();
-				Integer ifHaveName = checkIfAlreadyHaveByOname(orderName);
+				Integer ifHaveName = checkIfAlreadyHaveByOname(orderName,orderIdLast);
 				
 				if(ifHaveName>0){
 					//4.2.1这一单是重复单子(name重复),需要标记重复
 					updateSameUnpayOne(mlfrontPayInfoUnPayOne);
 				}else{
-					//存下来,继续下一关的遍历
 					//这一条存进去
 					//然后记录,方便后面操作
 					insertNowPaySuccess(mlfrontPayInfoUnPayOne);
@@ -316,12 +320,13 @@ public class sendSMSBySellectTask {
 	}
 	
 	//4.3
-	private Integer checkIfAlreadyHaveByOname(String orderName) {
+	private Integer checkIfAlreadyHaveByOname(String orderName, Integer orderIdLast) {
 
 		MoneySmscheckout moneySmscheckoutReq = new MoneySmscheckout();
 		moneySmscheckoutReq.setSmscheckoutOrdername(orderName);
+		moneySmscheckoutReq.setSmscheckoutId(orderIdLast);
 		
-		List<MoneySmscheckout> moneySmscheckoutList = moneySmscheckoutService.selectMoneySmscheckoutByPayOname(moneySmscheckoutReq);
+		List<MoneySmscheckout> moneySmscheckoutList = moneySmscheckoutService.selectMoneySmscheckoutByPayOnameAndOid(moneySmscheckoutReq);
 		if(moneySmscheckoutList.size()>0){
 			return 1;
 		}else{
