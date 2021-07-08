@@ -38,8 +38,8 @@
 		.wholesale-title2::after, .wholesale-title::after { content: ""; position: absolute; bottom: -5px; width: 80px; height: 4px; background: #1089ff; }
 		.wholesale-title::after { left: 50%; -webkit-transform: translate(-50%); transform: translate(-50%); }
 		.wholesale-title2::after { left: 0; }
-		.wholesale-p { font-size: 16px; text-align: center; line-height: 1.8em; padding: 10px 0;}
-		.wholesale-item { max-width: 1400px; margin: 0 auto;}
+		.wholesale-p { text-align: center; line-height: 1.8em; padding: 10px 0;}
+		.wholesale-item, .wholesale-p { max-width: 1400px; margin: 0 auto;}
 
 		.wholesale-more { display: inline-block; padding: 0 15px; margin-top: 20px; line-height: 40px; font-size: 16px; color: #fff; text-decoration: none; background: #09f; border: solid 1px #dbdbdb; -webkit-transition: linear .5s; transition: linear .5s; }
 
@@ -80,7 +80,7 @@
 		.wholesale-video-box .video-play-btn { position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); }
 		.wholesale-video-box .video-img { width: 100%; height: 100%; }
 
-		.wholesale-ins-list { display: flex; align-item: center; justify-content: space-between; flex-wrap: wrap; }
+		.wholesale-ins-list { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 		.wholesale-ins-item>img { width: 100%; height: 100%; }
 
 		.wholesale-form {margin: 0 auto; padding: 1rem 0; }
@@ -112,7 +112,7 @@
 			.wholesale-title { padding: 0 10px; }
 			.wholesale-about-us, .wholesale-factory-list, .wholesale-customer-list, .wholesale-product-list { padding: 15px; }
 			.wholesale-factory-item+.wholesale-factory-item, .wholesale-customer-item+.wholesale-customer-item { margin-top: 10px; }
-			.wholesale-product-item { width: 49%; margin-bottom: 1.5%; }
+			.wholesale-product-item { width: 49%; margin-top: 1.5%; }
 			.wholesale-video-swiper .swiper-slide { width: 49%; }
 			.wholesale-video-swiper { padding: 0 40px; }
 			.wholesale-video-swiper .swiper-btn { width: 30px; height: 30px; }
@@ -122,7 +122,7 @@
 			.wholesale-about-us, .wholesale-factory-list, .wholesale-customer-list, .wholesale-product-list { padding: 20px; }
 			.wholesale-about-us .wholesale-right { margin-top: 20px; }
 			.wholesale-factory-item+.wholesale-factory-item, .wholesale-customer-item+.wholesale-customer-item { margin-top: 16px; }
-			.wholesale-product-item { width: 32%; margin-bottom: 1.5%; }
+			.wholesale-product-item { width: 32%; margin-top: 1.5%; }
 			.wholesale-video-swiper .swiper-slide { width: 33%; }
 			.wholesale-video-swiper { padding: 0 40px; }
 			.wholesale-video-swiper .swiper-button-prev { left: 15px;}
@@ -134,6 +134,7 @@
 		
 		@media only screen and (min-width: 993px) {
 			.wholesale-carousel-swiper .swiper-slide { min-height: 300px; }
+			.wholesale-p { font-size: 18px; }
 			.wholesale-about-us { display: flex; align-items: center;}
 			.wholesale-about-us .wholesale-right { flex-shrink: 0; width: 560px; padding: 80px 60px; }
 			.wholesale-about-us .wholesale-left { width: 100%; height: auto; overflow: hidden; }
@@ -142,7 +143,8 @@
 			.wholesale-factory-item { width: 31%; text-decoration: none; }
 			.wholesale-customer-list { display: flex; justify-content: space-between; flex-wrap: wrap; }
 			.wholesale-customer-item { width: 49%; margin-top: 2%; }
-			.wholesale-product-item { width: 24%; margin-bottom: 1.3%; }
+			.wholesale-product-item { width: 24%; margin-top: 1.3%; }
+			.wholesale-video-swiper, .wholesale-ins-list { margin-top: 20px; }
 			.wholesale-video-swiper .swiper-slide { width: 20%; }
 			.wholesale-video-swiper { padding: 0 80px; }
 			.wholesale-video-swiper .swiper-button-prev { left: 36px; }
@@ -156,12 +158,14 @@
 			.video-play-btn { width: 40px; height: 40px; }
 			.wholesale-video-box .video-img { min-height: 150px; }
 			.wholesale-title { font-size: 33px; }
+			.wholesale-p { font-size: 16px; }
 		}
 		@media only screen and (max-width: 992px) {
 			.wholesale-customer-item .wholesale-content .text { max-width: 60%; font-size: 20px; }
 			.wholesale-product-img { min-height: 100px; }
 			.wholesale-factory-item>img { min-height: 100px; }
 			.wholesale-ins-item { width: 49%; margin-bottom: 1.5%; }
+			.wholesale-video-swiper, .wholesale-ins-list { margin-top: 16px; }
 			.wholesale-video-box .video-img { min-height: 80px; }
 			.wholesale-title { font-size: 20px; }
 			.video-play-btn { width: 30px; height: 30px; }
