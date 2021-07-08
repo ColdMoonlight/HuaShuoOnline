@@ -41,11 +41,11 @@
 		.wholesale-p { text-align: center; line-height: 1.8em; padding: 10px 0;}
 		.wholesale-item, .wholesale-p { max-width: 1400px; margin: 0 auto;}
 
-		.wholesale-more { display: inline-block; padding: 0 15px; margin-top: 20px; line-height: 40px; font-size: 16px; color: #fff; text-decoration: none; background: #09f; border: solid 1px #dbdbdb; -webkit-transition: linear .5s; transition: linear .5s; }
+		.wholesale-more { display: inline-block; padding: 0 15px; margin-top: 20px; line-height: 40px; font-size: 16px; color: #fff; text-decoration: none; /* background: #09f; */ background: #f82d98; border: solid 1px #dbdbdb; -webkit-transition: linear .5s; transition: linear .5s; }
 
 		.wholesale-factory-item { display: block; text-decoration: none; }
 		.wholesale-factory-item>img { width: 100%; height: auto; }
-		.wholesale-factory-header { display: flex; align-items: center; height: 110px; padding: 30px; color: #fff; font-size: 20px; background: #09f; }
+		.wholesale-factory-header { display: flex; align-items: center; height: 110px; padding: 30px; color: #fff; font-size: 20px; /* background: #09f; */ background: #f82d98; }
 		.wholesale-factory-header .icon { flex-shrink: 0; width: 52px; height: 51px; margin-right: 10px; background: url(${APP_PATH}/static/pc/img/wholesale/icon.png) 0 0 no-repeat; }
 		.wholesale-factory-header .icon.factory { background-position: -10px -10px; }
 		.wholesale-factory-header .icon.store { background-position: -72px -10px; }
