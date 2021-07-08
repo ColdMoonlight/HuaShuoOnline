@@ -173,9 +173,9 @@
 		<div class="wholesale-carousel-swiper swiper-container">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide"><img src="${APP_PATH}/static/pc/img/wholesale/swiper-1.jpg"></div>
-				<div class="swiper-slide"><img src="${APP_PATH}/static/pc/img/wholesale/swiper-2.png"></div>
-				<div class="swiper-slide"><img src="${APP_PATH}/static/pc/img/wholesale/swiper-3.png"></div>
-				<div class="swiper-slide"><img src="${APP_PATH}/static/pc/img/wholesale/swiper-4.jpg"></div>
+				<div class="swiper-slide"><img src="${APP_PATH}/static/pc/img/wholesale/swiper-2.jpg"></div>
+				<!--<div class="swiper-slide"><img src="${APP_PATH}/static/pc/img/wholesale/swiper-3.png"></div>
+				<div class="swiper-slide"><img src="${APP_PATH}/static/pc/img/wholesale/swiper-4.jpg"></div>-->
 			</div>
 			<div class="swiper-pagination"></div>
 		</div>	
