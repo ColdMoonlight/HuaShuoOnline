@@ -116,7 +116,7 @@
 			.wholesale-video-swiper .swiper-slide { width: 49%; }
 			.wholesale-video-swiper { padding: 0 40px; }
 			.wholesale-video-swiper .swiper-btn { width: 30px; height: 30px; }
-			.wholesale-about-us .wholesale-video { height: 300px; }
+			.wholesale-about-us .wholesale-video { min-height: 200px; }
 		}
 		@media only screen and (min-width: 568px) and (max-width: 992px) {
 			.wholesale-about-us, .wholesale-factory-list, .wholesale-customer-list, .wholesale-product-list { padding: 20px; }
@@ -129,14 +129,15 @@
 			.wholesale-video-swiper .swiper-button-next { right: 15px;}
 			.wholesale-carousel-swiper .swiper-slide { min-height: 150px; }
 			.wholesale-ins-list { padding: 0 20px; }
-			.video-play-btn { width: 30px; height: 30px; }
 			.wholesale-about-us .wholesale-video { height: 400px; }
 		}
 		
 		@media only screen and (min-width: 993px) {
 			.wholesale-carousel-swiper .swiper-slide { min-height: 300px; }
 			.wholesale-about-us { display: flex; align-items: center;}
-			.wholesale-about-us .wholesale-right { max-width: 560px; padding: 80px 60px; }
+			.wholesale-about-us .wholesale-right { flex-shrink: 0; width: 560px; padding: 80px 60px; }
+			.wholesale-about-us .wholesale-left { width: 100%; height: auto; overflow: hidden; }
+			.wholesale-about-us .wholesale-video { width: 100%; height: 465px; }
 			.wholesale-factory-list { display: flex; align-items: center; justify-content: space-between; }
 			.wholesale-factory-item { width: 31%; text-decoration: none; }
 			.wholesale-customer-list { display: flex; justify-content: space-between; flex-wrap: wrap; }
@@ -153,7 +154,6 @@
 			.wholesale-ins-list { padding: 0 30px; }
 			.wholesale-ins-item { width: 19%; }
 			.video-play-btn { width: 40px; height: 40px; }
-			.wholesale-about-us .wholesale-video { height: 465px; }
 			.wholesale-video-box .video-img { min-height: 150px; }
 			.wholesale-title { font-size: 33px; }
 		}
@@ -164,6 +164,7 @@
 			.wholesale-ins-item { width: 49%; margin-bottom: 1.5%; }
 			.wholesale-video-box .video-img { min-height: 80px; }
 			.wholesale-title { font-size: 20px; }
+			.video-play-btn { width: 30px; height: 30px; }
 		}
 	</style>
 </head>
@@ -183,7 +184,11 @@
 			<h2 class="wholesale-title">WHY WE HAVE THE LOWEST WHOLESALE PRICE?</h2>
 			<div class="wholesale-body">
 				<div class="wholesale-item wholesale-about-us">
-					<iframe class="wholesale-video" src="https://www.youtube.com/embed/RNU9Oht-Fng?autoplay=1&amp;loop=1&amp;playlist=RNU9Oht-Fng&amp;mute=1" frameborder="0" allowfullscreen="" class="video" allow="autoplay"></iframe>
+					<div class="wholesale-left">
+						<video class="wholesale-video" poster="${APP_PATH}/static/pc/img/wholesale/wholesale-poster.jpg" controls>
+							<source src="${APP_PATH}/static/pc/img/wholesale/wholesale-video.mp4" type="video/mp4"></source>
+						</video>
+					</div>
 					<div class="wholesale-right ">
 						<h3 class="wholesale-title2">About Our Factory</h3>
 						<p>Guangzhou Honest Hair Factory was founded in 2007, which locates in Guangzhou city, Guangdong Province, China. We are a professional manufacturer and exporter specializing in research, production, sales, and service in the field of human hair extensions.</p>
