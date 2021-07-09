@@ -88,6 +88,7 @@ public class sendSMSBySellectTask {
     	//5.0准备发邮件
     	readySendPList(MlfrontPayInfoNeedSMSList,webSiteUrl,SmstypeContent);
         
+    	
 	}
 
 	//这是最终的需要发送短信的数据
