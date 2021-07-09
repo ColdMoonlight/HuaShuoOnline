@@ -34,7 +34,7 @@
 		.wholesale-carousel-swiper .swiper-pagination-bullet { width: 16px; height: 16px; margin: 0 8px; }
 
 		.wholesale-title { position: relative; margin-bottom: 20px; text-align: center; line-height: 1.5em; text-transform: uppercase; color: #2e2e2e; }
-		.wholesale-title2 { position: relative; margin-bottom: 30px; font-size: 30px; }
+		.wholesale-title2 { position: relative; margin-top: 0; margin-bottom: 30px; font-size: 30px; }
 		.wholesale-title2::after, .wholesale-title::after { content: ""; position: absolute; bottom: -5px; width: 80px; height: 4px; background: #1089ff; }
 		.wholesale-title::after { left: 50%; -webkit-transform: translate(-50%); transform: translate(-50%); }
 		.wholesale-title2::after { left: 0; }
@@ -319,7 +319,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="wholesale-box">
+		<div class="wholesale-box hide">
 			<h2 class="wholesale-title">OUR PRODUCTS CAN BRING YOU MORE LOYAL CUSTOMERS AND BRAND REPUTATION</h2>
 			<p class="wholesale-p">Because only the good raw material hair can provide customers premium hair products wholesale online, such as can easy to bleach to 613# or lighter color, can use for more than 5-years.</p>
 			<p class="wholesale-p">So that It can bring more profit for our customers. It can get more reputation for our customers. It can help our customers expand their business.</p>
