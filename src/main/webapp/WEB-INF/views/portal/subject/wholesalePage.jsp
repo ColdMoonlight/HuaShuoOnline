@@ -34,7 +34,7 @@
 		.wholesale-carousel-swiper .swiper-pagination-bullet { width: 16px; height: 16px; margin: 0 8px; }
 
 		.wholesale-title { position: relative; margin-bottom: 20px; text-align: center; line-height: 1.5em; text-transform: uppercase; color: #2e2e2e; }
-		.wholesale-title2 { position: relative; margin-bottom: 30px; font-size: 30px; }
+		.wholesale-title2 { position: relative; margin-top: 0; margin-bottom: 30px; font-size: 30px; }
 		.wholesale-title2::after, .wholesale-title::after { content: ""; position: absolute; bottom: -5px; width: 80px; height: 4px; background: #1089ff; }
 		.wholesale-title::after { left: 50%; -webkit-transform: translate(-50%); transform: translate(-50%); }
 		.wholesale-title2::after { left: 0; }
@@ -195,8 +195,8 @@
 					</div>
 					<div class="wholesale-right ">
 						<h3 class="wholesale-title2">About Our Factory</h3>
-						<p>Guangzhou Honest Hair Factory was founded in 2007, which locates in Guangzhou city, Guangdong Province, China. We are a professional manufacturer and exporter specializing in research, production, sales, and service in the field of human hair extensions.</p>
-						<p>We own a factory to supply good hair products all the time. The factory covers an area of 15000 square meters and has more than 600 workers. The production capacity is around 50 tons per month.</p>
+						<p>MEGALOOK Hair Factory was founded in 2006, which locates in XuChang city, HeNan Province, China. We are a professional manufacturer and exporter specializing in research, production, sales, and service in the field of human hair. Our Service’s theme is Quality is Key,Customer Always comes First. We Are always on the way improving our hair quality,We Want Every Female Becomes More Confident.</p>
+						<p>We own 3 factory to supply good hair products all the time. The factory covers an area of 20000 square meters and has more than 700 workers. The production capacity is around 50 tons per month.</p>
 						<a href="#" class="wholesale-more">See More</a>
 					</div>
 				</div>
@@ -246,7 +246,7 @@
 							<img src="${APP_PATH}/static/pc/img/wholesale/value-2.jpg">
 						</div>
 						<div class="wholesale-content">
-							<span class="text">ONLINE WHOLESALER GET DOUBLE PROFITS</span>
+							<span class="text">Wholesaler Open Website Get Double Profit</span>
 							<sapn class="icon whole-saler"></sapn>
 						</div>
 					</div>
@@ -255,7 +255,7 @@
 							<img src="${APP_PATH}/static/pc/img/wholesale/value-3.jpg">
 						</div>
 						<div class="wholesale-content">
-							<span class="text">HAIR STYLIST SELL TO END CUSTOMERS GET DOUBLE PROFITS</span>
+							<span class="text">HAIR STYLIST SELL TO LOCAL CUSTOMERS GET MORE PROFITS</span>
 							<sapn class="icon hairlist"></sapn>
 						</div>
 					</div>
@@ -264,7 +264,7 @@
 							<img src="${APP_PATH}/static/pc/img/wholesale/value-4.jpg">
 						</div>
 						<div class="wholesale-content">
-							<span class="text">STUDENT SELL TO FRIENDS GET DOUBLE PROFITS</span>
+							<span class="text">STUDENT SELL TO FRIENDS GET MORE PROFIT</span>
 							<sapn class="icon student-sell"></sapn>
 						</div>
 					</div>
@@ -273,53 +273,53 @@
 		</div>
 		<div class="wholesale-box">
 			<h2 class="wholesale-title">OUR PRODUCTS</h2>
-			<p class="wholesale-p">Honest Hair Factory has been sourcing hair raw material professionally for 15 years. We source raw materials from all over the world, such as India, Malaysia, Brazil, Peru, and also China. Our hair products are 100% cuticle aligned virgin human hair that can be bleached 613 blond and easily be permed and styled by yourself.</p>
+			<p class="wholesale-p">Megalook Hair Factory has been sourcing hair raw material professionally for 16 years. We source raw materials from all over the world, such as India, Malaysia, Brazil, Peru, and also China. Our hair products are 100% cuticle aligned virgin human hair that can be bleached 613 blond and easily be permed and styled by yourself.</p>
 			<div class="wholesale-body">
 				<div class="wholesale-item wholesale-product-list">					
 					<a class="wholesale-product-item">
 						<img class="wholesale-product-img" src="${APP_PATH}/static/pc/img/wholesale/product-1.jpg">
-						<p class="wholesale-product-content">Wholesale 150% Straight 13*5 Frontal Lace Wig With Pre-plucked Hair Line</p>
-						<p class="wholesale-product-hover-content">Wholesale 150% Straight 13*5 Frontal Lace Wig With Pre-plucked Hair Line</p>
+						<p class="wholesale-product-content">Wholesale 180% Density 13x4 Transparent Lace Frontal Wig</p>
+						<p class="wholesale-product-hover-content">Wholesale 180% Density 13x4 Transparent Lace Frontal Wig</p>
 					</a>
 					<a class="wholesale-product-item">
 						<img class="wholesale-product-img" src="${APP_PATH}/static/pc/img/wholesale/product-2.jpg">
-						<p class="wholesale-product-content">Wholesale 8-50 Inch Straight Premium Brazilian Hair #1B Natural Black</p>
-						<p class="wholesale-product-hover-content">Wholesale 8-50 Inch Straight Premium Brazilian Hair #1B Natural Black</p>
+						<p class="wholesale-product-content">Wholesale 10 A grade human hair 10-40 inch Available</p>
+						<p class="wholesale-product-hover-content">Wholesale 10 A grade human hair 10-40 inch Available</p>
 					</a>
 					<a class="wholesale-product-item">
 						<img class="wholesale-product-img" src="${APP_PATH}/static/pc/img/wholesale/product-3.jpg">
-						<p class="wholesale-product-content">Wholesale 150% Body Wave Full Lace Wig 613#Blonde Color</p>
-						<p class="wholesale-product-hover-content">Wholesale 150% Body Wave Full Lace Wig 613#Blonde Color</p>
+						<p class="wholesale-product-content">Wholesale Highlight Transparent Lace Frontal Wig</p>
+						<p class="wholesale-product-hover-content">Wholesale Highlight Transparent Lace Frontal Wig</p>
 					</a>
 					<a class="wholesale-product-item">
 						<img class="wholesale-product-img" src="${APP_PATH}/static/pc/img/wholesale/product-4.jpg">
-						<p class="wholesale-product-content">Wholesale 8-22Inch Straight Pre-plucked 13*5 Transparent Lace Frontal</p>
-						<p class="wholesale-product-hover-content">Wholesale 8-22Inch Straight Pre-plucked 13*5 Transparent Lace Frontal</p>
+						<p class="wholesale-product-content">Wholesale Transparent lace Frontal EAR TO EAR 13X4 lace</p>
+						<p class="wholesale-product-hover-content">Wholesale Transparent lace Frontal EAR TO EAR 13X4 lace</p>
 					</a>
 					<a class="wholesale-product-item">
 						<img class="wholesale-product-img" src="${APP_PATH}/static/pc/img/wholesale/product-5.jpg">
-						<p class="wholesale-product-content">Wholesale 8-22Inch Straight Pre-plucked 5*5 HD Lace Closure</p>
-						<p class="wholesale-product-hover-content">Wholesale 8-22Inch Straight Pre-plucked 5*5 HD Lace Closure</p>
+						<p class="wholesale-product-content">Wholesale Transparent 4x4 5x5 Swiss Lace Closure</p>
+						<p class="wholesale-product-hover-content">Wholesale Transparent 4x4 5x5 Swiss Lace Closure</p>
 					</a>
 					<a class="wholesale-product-item">
 						<img class="wholesale-product-img" src="${APP_PATH}/static/pc/img/wholesale/product-6.jpg">
-						<p class="wholesale-product-content">Wholesale 14-32 Inch Brazilian Premium Blonde 613# Straight Hair</p>
-						<p class="wholesale-product-hover-content">Wholesale 14-32 Inch Brazilian Premium Blonde 613# Straight Hair</p>
+						<p class="wholesale-product-content">Wholesale 10-32 inch Blond Human Hair Weaves</p>
+						<p class="wholesale-product-hover-content">Wholesale 10-32 inch Blond Human Hair Weaves</p>
 					</a>
 					<a class="wholesale-product-item">
 						<img class="wholesale-product-img" src="${APP_PATH}/static/pc/img/wholesale/product-7.jpg">
-						<p class="wholesale-product-content">Wholesale 8-50 Inch Loose Wave Premium Brazilian Hair #1B Natural Black</p>
-						<p class="wholesale-product-hover-content">Wholesale 8-50 Inch Loose Wave Premium Brazilian Hair #1B Natural Black</p>
+						<p class="wholesale-product-content">Wholesale Double Drawn-32 inch Human Hair Weaves</p>
+						<p class="wholesale-product-hover-content">Wholesale Double Drawn-32 inch Human Hair Weaves</p>
 					</a>
 					<a class="wholesale-product-item">
 						<img class="wholesale-product-img" src="${APP_PATH}/static/pc/img/wholesale/product-8.jpg">
-						<p class="wholesale-product-content">Wholesale 180% Straight HD Full Lace Wig With Pre-plucked Hair Line</p>
-						<p class="wholesale-product-hover-content">Wholesale 180% Straight HD Full Lace Wig With Pre-plucked Hair Line</p>
+						<p class="wholesale-product-content">Wholesale 250% Density Human Hair Wigs can customized length</p>
+						<p class="wholesale-product-hover-content">Wholesale 250% Density Human Hair Wigs can customized length</p>
 					</a>
 				</div>
 			</div>
 		</div>
-		<div class="wholesale-box">
+		<div class="wholesale-box hide">
 			<h2 class="wholesale-title">OUR PRODUCTS CAN BRING YOU MORE LOYAL CUSTOMERS AND BRAND REPUTATION</h2>
 			<p class="wholesale-p">Because only the good raw material hair can provide customers premium hair products wholesale online, such as can easy to bleach to 613# or lighter color, can use for more than 5-years.</p>
 			<p class="wholesale-p">So that It can bring more profit for our customers. It can get more reputation for our customers. It can help our customers expand their business.</p>
@@ -364,7 +364,7 @@
 		</div>
 		<div class="wholesale-box">
 			<h2 class="wholesale-title">INSTAGRAM PAGE</h2>
-			<p class="wholesale-p">Subscribe to our official Instagram, Discover More Professional Information About Honest Hair Factory and Our Human Hair Products</p>
+			<p class="wholesale-p">Subscribe to our official Instagram megalookhair, Discover More Professional Information About Megalook Hair Factory and Our Human Hair Products</p>
 			<div class="wholesale-body">
 				<div class="wholesale-ins-list">
 					<a href="#" class="wholesale-ins-item"><img src="${APP_PATH}/static/pc/img/wholesale/ins-1.jpg" /></a>
