@@ -80,7 +80,7 @@ public class MlfrontAddressController {
 		String addressCountryAll ="";
 		if(mlbackAreafreightResList.size()>0){
 			areafreightMoney =mlbackAreafreightResList.get(0).getAreafreightPrice();	//拿到国家运费
-			addressCountryAll = mlbackAreafreightResList.get(0).getAreafreightCountry();//拿到国家全称
+			addressCountryAll = mlbackAreafreightResList.get(0).getAreafreightCountry();//拿到国家全称 
 		}
 		//拿到省份的code
 		String addressProvinceName = mlfrontAddress.getAddressProvince();
