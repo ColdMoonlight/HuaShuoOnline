@@ -45,7 +45,7 @@
   </update>
   
   <!-- insertSelective -->
-  <insert id="insertSelective" parameterType="com.atguigu.bean.MoneySmscheckout">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="smscheckoutId" parameterType="com.atguigu.bean.MoneySmscheckout">
     insert into tb_money_smscheckout
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="smscheckoutId != null">
