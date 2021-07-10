@@ -59,32 +59,5 @@ public class MoneySmscheckoutService {
 		List<MoneySmscheckout>  moneySmscheckoutList = moneySmscheckoutMapper.selectMoneySmscheckoutByPayOnameAndOid(moneySmscheckout);
 		return moneySmscheckoutList;
 	}
-	
-//	/**5
-//	 * 查登录用户筛选单个不同状态的order信息List
-//	 * */
-//	public List<MoneySmscheckout> selectOrderListByUidAndStatus(MoneySmscheckout moneySmscheckout) {
-//		List<MoneySmscheckout>  moneySmscheckoutList = moneySmscheckoutMapper.selectOrderListByUidAndStatus(moneySmscheckout);
-//		return moneySmscheckoutList;
-//	}
-//	/**6
-//	 * 查登录用户筛选全部成功后状态的order信息List
-//	 * */
-//	public List<MoneySmscheckout> selectOrderListByUidAndSuccessStatus(MoneySmscheckout moneySmscheckout) {
-//		List<MoneySmscheckout>  moneySmscheckoutList = moneySmscheckoutMapper.selectOrderListByUidAndSuccessStatus(moneySmscheckout);
-//		return moneySmscheckoutList;
-//	}
-//	/**7
-//	 * 查百条以内信息
-//	 * */
-//	public List<MoneySmscheckout> selectMoneySmscheckoutAllHundred() {
-//		List<MoneySmscheckout>  moneySmscheckoutList = moneySmscheckoutMapper.selectMoneySmscheckoutAllHundred();
-//		return moneySmscheckoutList;
-//	}
-//
-//	public List<MoneySmscheckout> selectMoneySmscheckoutByTrackingNumber(MoneySmscheckout moneySmscheckoutReq) {
-//		List<MoneySmscheckout>  moneySmscheckoutList = moneySmscheckoutMapper.selectMoneySmscheckoutByTrackingNumber(moneySmscheckoutReq);
-//		return moneySmscheckoutList;
-//	}
-//	
+
 }
