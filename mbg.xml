@@ -98,6 +98,7 @@
 		
 		<!--	tb_money
 		<table tableName="tb_money_smscheckout" domainObjectName="MoneySmscheckout" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_money_emailcheckout" domainObjectName="MoneyEmailcheckout" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 		
 		<!--	tb_customer
