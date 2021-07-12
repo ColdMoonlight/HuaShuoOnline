@@ -141,7 +141,7 @@
   <select id="selectMoneyEmailcheckoutByPayOnameAndOid" parameterType="com.atguigu.bean.MoneyEmailcheckout" resultMap="BaseResultMap">
     select *
     from tb_money_emailcheckout 
-    where emailcheckout_ordername = #{emailcheckoutOrdername,jdbcType=VARCHAR} and semailcheckout_orderid >= #{emailcheckoutOrderid,jdbcType=INTEGER}
+    where emailcheckout_ordername = #{emailcheckoutOrdername,jdbcType=VARCHAR} and emailcheckout_orderid >= #{emailcheckoutOrderid,jdbcType=INTEGER}
   </select>
   
 </mapper>

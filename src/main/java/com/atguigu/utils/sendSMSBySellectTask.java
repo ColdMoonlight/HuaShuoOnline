@@ -58,7 +58,7 @@ public class sendSMSBySellectTask {
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0/20 * * * ?")
+	@Scheduled(cron = "0 0/10 * * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
@@ -114,9 +114,6 @@ public class sendSMSBySellectTask {
 		//准备编译时间参数
         Integer lasMinuteInt = Integer.parseInt(lasMinute);
         Integer longTime = Integer.parseInt(intervalTime);
-        
-//      String endTime = DateUtil.dateRoll(lastHourInt);//当前时间N分钟
-//		String startTime = DateUtil.dateRoll(lastHourInt+longTime);
 		
         String endTime = DateUtil.dateRollMinus(lasMinuteInt);//当前时间N分钟
 		String startTime = DateUtil.dateRollMinus(lasMinuteInt+longTime);
@@ -191,7 +188,7 @@ public class sendSMSBySellectTask {
 			}else{
 				//成功订单
 				//4.1封装新参数,把数据放进去,直接插入新表中
-				insertNowPayRecord(mlfrontPayInfoOne);
+				insertNowPayRecord(mlfrontPayInfoOne,"1");
 				//4.1.1更改成功订单的状态IfSMS--3
 				updateSuccessOnePay(mlfrontPayInfoOne);
 				
@@ -263,7 +260,7 @@ public class sendSMSBySellectTask {
 				}else{
 					//这一条存进去
 					//然后记录,方便后面操作
-					insertNowPayRecord(mlfrontPayInfoUnPayOne);
+					insertNowPayRecord(mlfrontPayInfoUnPayOne,"0");
 					//记录本条的信息
 					mlfrontPayInfoNeedList.add(mlfrontPayInfoUnPayOne);
 				}
@@ -274,12 +271,13 @@ public class sendSMSBySellectTask {
 	}
 
 	//4.1
-	private void insertNowPayRecord(MlfrontPayInfo mlfrontPayInfoOne) {
+	private void insertNowPayRecord(MlfrontPayInfo mlfrontPayInfoOne,String IfSuccessPayOrderStr) {
 		
 		MoneySmscheckout moneySmscheckout = new MoneySmscheckout();
 		moneySmscheckout.setSmscheckoutPayid(mlfrontPayInfoOne.getPayinfoId());
 		moneySmscheckout.setSmscheckoutOrderid(mlfrontPayInfoOne.getPayinfoOid());
 		moneySmscheckout.setSmscheckoutOrdername(mlfrontPayInfoOne.getPayinfoUname());
+		moneySmscheckout.setSmscheckoutSendtype(IfSuccessPayOrderStr);
 		moneySmscheckoutService.insertSelective(moneySmscheckout);
 	}
 	

@@ -154,7 +154,7 @@ public class sendEmailBySellectTask {
 			}else{
 				//成功订单
 				//4.1封装新参数,把数据放进去,直接插入新表中
-				insertNowPayRecord(mlfrontPayInfoOne);
+				insertNowPayRecord(mlfrontPayInfoOne,"1");
 				//4.1.1更改成功订单的状态IfEmail--3		//把发完的邮件变成状态1;重复单标记状态2;成功单标记状态3;
 				updateSuccessOnePay(mlfrontPayInfoOne);
 				
@@ -226,7 +226,7 @@ public class sendEmailBySellectTask {
 				}else{
 					//这一条存进去
 					//然后记录,方便后面操作
-					insertNowPayRecord(mlfrontPayInfoUnPayOne);
+					insertNowPayRecord(mlfrontPayInfoUnPayOne,"0");
 					//记录本条的信息
 					mlfrontPayInfoNeedList.add(mlfrontPayInfoUnPayOne);
 				}
@@ -238,12 +238,13 @@ public class sendEmailBySellectTask {
 		
 		
 		//4.1这是成功单，直接插入存入弃购已发（不需要发）的表中，但标记为成功标识3
-		private void insertNowPayRecord(MlfrontPayInfo mlfrontPayInfoOne) {
+		private void insertNowPayRecord(MlfrontPayInfo mlfrontPayInfoOne, String IfSuccessPayOrderStr) {
 			
 			MoneyEmailcheckout moneyEmailcheckout = new MoneyEmailcheckout();
 			moneyEmailcheckout.setEmailcheckoutPayid(mlfrontPayInfoOne.getPayinfoId());
 			moneyEmailcheckout.setEmailcheckoutOrderid(mlfrontPayInfoOne.getPayinfoOid());
 			moneyEmailcheckout.setEmailcheckoutOrdername(mlfrontPayInfoOne.getPayinfoUname());
+			moneyEmailcheckout.setEmailcheckoutSendtype(IfSuccessPayOrderStr);
 			moneyEmailcheckoutService.insertSelective(moneyEmailcheckout);
 		}
 		
