@@ -60,31 +60,4 @@ public class MoneyEmailcheckoutService {
 		return moneyEmailcheckoutList;
 	}
 	
-//	/**5
-//	 * 查登录用户筛选单个不同状态的order信息List
-//	 * */
-//	public List<MoneyEmailcheckout> selectOrderListByUidAndStatus(MoneyEmailcheckout moneyEmailcheckout) {
-//		List<MoneyEmailcheckout>  moneyEmailcheckoutList = moneyEmailcheckoutMapper.selectOrderListByUidAndStatus(moneyEmailcheckout);
-//		return moneyEmailcheckoutList;
-//	}
-//	/**6
-//	 * 查登录用户筛选全部成功后状态的order信息List
-//	 * */
-//	public List<MoneyEmailcheckout> selectOrderListByUidAndSuccessStatus(MoneyEmailcheckout moneyEmailcheckout) {
-//		List<MoneyEmailcheckout>  moneyEmailcheckoutList = moneyEmailcheckoutMapper.selectOrderListByUidAndSuccessStatus(moneyEmailcheckout);
-//		return moneyEmailcheckoutList;
-//	}
-//	/**7
-//	 * 查百条以内信息
-//	 * */
-//	public List<MoneyEmailcheckout> selectMoneyEmailcheckoutAllHundred() {
-//		List<MoneyEmailcheckout>  moneyEmailcheckoutList = moneyEmailcheckoutMapper.selectMoneyEmailcheckoutAllHundred();
-//		return moneyEmailcheckoutList;
-//	}
-//
-//	public List<MoneyEmailcheckout> selectMoneyEmailcheckoutByTrackingNumber(MoneyEmailcheckout moneyEmailcheckoutReq) {
-//		List<MoneyEmailcheckout>  moneyEmailcheckoutList = moneyEmailcheckoutMapper.selectMoneyEmailcheckoutByTrackingNumber(moneyEmailcheckoutReq);
-//		return moneyEmailcheckoutList;
-//	}
-//	
 }
