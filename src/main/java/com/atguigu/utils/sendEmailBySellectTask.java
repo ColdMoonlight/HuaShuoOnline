@@ -126,7 +126,7 @@ public class sendEmailBySellectTask {
      * 成功的插入其中,并移除List中当前的数据,将本条数据插入发送表,标记无需发送（成功单标记状态3）
      * 
      * 剩下的遍历,
-     * 找到跟成功的相同的orderID 的单子,remove掉。全部标记为重复单（IfSMS==2重复单标记状态2）--
+     * 找到跟成功的相同的orderID 的单子,remove掉。全部标记为重复单（IfEmail==2重复单标记状态2）--
      * 
      * 剩下的单子,
      * 第一条,拿orderid去重复发送表中查询,在之前的发送表中查询是否有记录（只查询最后的100条）,如果有记录则remove掉；
@@ -154,8 +154,8 @@ public class sendEmailBySellectTask {
 			}else{
 				//成功订单
 				//4.1封装新参数,把数据放进去,直接插入新表中
-				insertNowPaySuccess(mlfrontPayInfoOne);
-				//4.1.1更改成功订单的状态IfEmail--2
+				insertNowPayRecord(mlfrontPayInfoOne);
+				//4.1.1更改成功订单的状态IfEmail--3		//把发完的邮件变成状态1;重复单标记状态2;成功单标记状态3;
 				updateSuccessOnePay(mlfrontPayInfoOne);
 				
 			}
@@ -174,7 +174,7 @@ public class sendEmailBySellectTask {
 			Integer ifHave = checkIfAlreadyHaveByOid(orderId);
 			
 			if(ifHave>0){
-				//4.2.1这一单是重复单子,需要标记重复
+				//4.2.1这一单是重复单子,需要标记重复2		//把发完的邮件变成状态1;重复单标记状态2;成功单标记状态3;
 				updateSameUnpayOne(mlfrontPayInfoSuccessSameOidUnPayOne);
 			}else{
 				//存下来,继续下一关的遍历
@@ -192,7 +192,7 @@ public class sendEmailBySellectTask {
 			Integer ifHave = checkIfAlreadyHaveByOname(orderName,orderIdLast);
 			
 			if(ifHave>0){
-				//4.2.1这一单是重复单子,需要标记重复
+				//4.2.1这一单是重复单子,需要标记重复2		//把发完的邮件变成状态1;重复单标记状态2;成功单标记状态3;
 				updateSameUnpayOne(mlfrontPayInfoSuccessSameOnameUnPayOne);
 			}else{
 				//存下来,继续下一关的遍历
@@ -212,7 +212,7 @@ public class sendEmailBySellectTask {
 			Integer ifHave = checkIfAlreadyHaveByOid(orderId);
 			if(ifHave>0){
 				//跳过
-				//4.2.1这一单是重复单子(name重复),需要标记重复
+				//4.2.1这一单是重复单子(name重复),需要标记重复2
 				updateSameUnpayOne(mlfrontPayInfoUnPayOne);
 			}else{
 				
@@ -221,12 +221,12 @@ public class sendEmailBySellectTask {
 				Integer ifHaveName = checkIfAlreadyHaveByOname(orderName,orderIdLast);
 				
 				if(ifHaveName>0){
-					//4.2.1这一单是重复单子(name重复),需要标记重复
+					//4.2.1这一单是重复单子(name重复),需要标记重复2
 					updateSameUnpayOne(mlfrontPayInfoUnPayOne);
 				}else{
 					//这一条存进去
 					//然后记录,方便后面操作
-					insertNowPaySuccess(mlfrontPayInfoUnPayOne);
+					insertNowPayRecord(mlfrontPayInfoUnPayOne);
 					//记录本条的信息
 					mlfrontPayInfoNeedList.add(mlfrontPayInfoUnPayOne);
 				}
@@ -238,7 +238,7 @@ public class sendEmailBySellectTask {
 		
 		
 		//4.1这是成功单，直接插入存入弃购已发（不需要发）的表中，但标记为成功标识3
-		private void insertNowPaySuccess(MlfrontPayInfo mlfrontPayInfoOne) {
+		private void insertNowPayRecord(MlfrontPayInfo mlfrontPayInfoOne) {
 			
 			MoneyEmailcheckout moneyEmailcheckout = new MoneyEmailcheckout();
 			moneyEmailcheckout.setEmailcheckoutPayid(mlfrontPayInfoOne.getPayinfoId());
