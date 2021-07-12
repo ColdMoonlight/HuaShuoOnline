@@ -191,7 +191,7 @@ public class sendSMSBySellectTask {
 			}else{
 				//成功订单
 				//4.1封装新参数,把数据放进去,直接插入新表中
-				insertNowPaySuccess(mlfrontPayInfoOne);
+				insertNowPayRecord(mlfrontPayInfoOne);
 				//4.1.1更改成功订单的状态IfSMS--3
 				updateSuccessOnePay(mlfrontPayInfoOne);
 				
@@ -263,7 +263,7 @@ public class sendSMSBySellectTask {
 				}else{
 					//这一条存进去
 					//然后记录,方便后面操作
-					insertNowPaySuccess(mlfrontPayInfoUnPayOne);
+					insertNowPayRecord(mlfrontPayInfoUnPayOne);
 					//记录本条的信息
 					mlfrontPayInfoNeedList.add(mlfrontPayInfoUnPayOne);
 				}
@@ -274,7 +274,7 @@ public class sendSMSBySellectTask {
 	}
 
 	//4.1
-	private void insertNowPaySuccess(MlfrontPayInfo mlfrontPayInfoOne) {
+	private void insertNowPayRecord(MlfrontPayInfo mlfrontPayInfoOne) {
 		
 		MoneySmscheckout moneySmscheckout = new MoneySmscheckout();
 		moneySmscheckout.setSmscheckoutPayid(mlfrontPayInfoOne.getPayinfoId());
