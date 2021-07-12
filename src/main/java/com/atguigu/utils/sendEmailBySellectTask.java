@@ -374,7 +374,7 @@ public class sendEmailBySellectTask {
 				}
 			}else{
 				//该orderid不存在本条没了,没了就不操作
-				System.out.println("没有查到payId下的Orderid-异常信息");
+				System.out.println("没有查到payId下的Orderid--异常信息");
 				return 0;
 			}
 		}
