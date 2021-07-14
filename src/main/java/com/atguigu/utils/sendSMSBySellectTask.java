@@ -85,7 +85,7 @@ public class sendSMSBySellectTask {
         //获取当前时间段内的支付-未支付的单子list
         List<MlfrontPayInfo> MlfrontPayInfoNeedSMSList = getNeedSendFromPayInfoList(MlfrontPayInfoList);
         
-    	//5.0准备发邮件
+    	//5.0准备发手机号码
     	readySendPList(MlfrontPayInfoNeedSMSList,webSiteUrl,SmstypeContent);
         
     	
@@ -359,7 +359,7 @@ public class sendSMSBySellectTask {
 			String countryCode = mlfrontAddressOne.getAddressCountryCode();
 			
 			
-			//5.1获取转译后的邮件
+			//5.1获取转译后的手机号码
 			String realTel = getRealTel(countryCode,telephone);
 			System.out.println("SMS-实际电话号码realTel:"+realTel);
 			
@@ -385,7 +385,7 @@ public class sendSMSBySellectTask {
 				//这个是真实发送
 				//String SMSreturnData = SMSUtilshtml.sendSMS(SendStr,telephone);//未加密串
 				if(realTel.length()>0){
-					String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
+					//String SMSreturnData = SMSUtilshtml.sendSMS(SendSecretStr,realTel);//加密串
 					System.out.println(SendSecretStr+",这一单发送成功");
 				}else{
 					System.out.println("SMS-当前手机号为："+realTel+",这一单无法发送");

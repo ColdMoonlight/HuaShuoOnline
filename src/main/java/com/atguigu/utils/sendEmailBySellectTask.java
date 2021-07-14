@@ -48,7 +48,7 @@ public class sendEmailBySellectTask {
 	@Autowired
 	MoneyEmailcheckoutService moneyEmailcheckoutService;
 	
-	@Scheduled(cron = "0 0/20 * * * ?")
+	@Scheduled(cron = "0 0/10 * * * ?")
     public void doTask()  throws InterruptedException{
 		
 		
