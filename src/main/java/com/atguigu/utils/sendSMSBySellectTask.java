@@ -58,7 +58,7 @@ public class sendSMSBySellectTask {
 	 * @param String PayInfoNumStr
 	 * @return 
 	 * */
-	@Scheduled(cron = "0 0/10 * * * ?")
+	@Scheduled(cron = "0 0/20 * * * ?")
     public void doTask()  throws InterruptedException{
 		
 		String nowtime = DateUtil.strTime14s();//当前时间
@@ -85,7 +85,7 @@ public class sendSMSBySellectTask {
         //获取当前时间段内的支付-未支付的单子list
         List<MlfrontPayInfo> MlfrontPayInfoNeedSMSList = getNeedSendFromPayInfoList(MlfrontPayInfoList);
         
-    	//5.0准备发邮件
+    	//5.0准备发手机号码
     	readySendPList(MlfrontPayInfoNeedSMSList,webSiteUrl,SmstypeContent);
         
     	
@@ -359,7 +359,7 @@ public class sendSMSBySellectTask {
 			String countryCode = mlfrontAddressOne.getAddressCountryCode();
 			
 			
-			//5.1获取转译后的邮件
+			//5.1获取转译后的手机号码
 			String realTel = getRealTel(countryCode,telephone);
 			System.out.println("SMS-实际电话号码realTel:"+realTel);
 			
