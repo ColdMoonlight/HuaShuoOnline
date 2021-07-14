@@ -223,11 +223,14 @@
 										<div class="name">Customer Note</div>
 										<div class="value" style="color: #f00;">No notes from customer...</div>
 									</div>
-									<div class="payinfo-group">
-										<button class="btn btn-warning hide btn-audit" id="ecpp-verify">Aduited</button>
-										<!-- <button class="btn btn-danger hide btn-abandon-purchase">Abandon Purchase</button> -->
-										<button class="btn btn-primary hide btn-refund">Refund</button>
-										<button class="btn btn-dark hide btn-close">Close</button>
+									<div class="row">
+										<div class="col-md-12 col-lg-6"></div>
+										<div class="col-md-12 col-lg-6 payinfo-group" style="display: flex; justify-content: space-between;">
+											<button class="btn btn-warning hide btn-audit" id="ecpp-verify">Aduited</button>
+											<!-- <button class="btn btn-danger hide btn-abandon-purchase">Abandon Purchase</button> -->
+											<button class="btn btn-primary hide btn-refund">Refund</button>
+											<button class="btn btn-dark hide btn-close">Close</button>
+										</div>
 									</div>
 								</div>
 							</div>
