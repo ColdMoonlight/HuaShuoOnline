@@ -2542,8 +2542,7 @@ footer li {
 .order-product-name,
 .free-gift-name {
 	display: block;
-	font-weight: 600;
-	color: #333;
+	color: #363636;
 }
 .free-gift-item {
 	 display: flex;
@@ -2571,12 +2570,12 @@ footer li {
 }
 .cart-sku-list-item>.name,
 .order-sku-list-item>.name {
-	font-weight: 500;
+	color: #363636;
 }
 .cart-sku-list-item>.value,
 .order-sku-list-item>.value {
 	margin-left: .15rem;
-	color: #363636;
+	font-weight: 600;
 }
 .cart-product-num,
 .order-product-num {
