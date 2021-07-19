@@ -279,6 +279,14 @@
             <version>5.1.1</version>
         </dependency>
 		<!-- 解析stripe信用卡所需的end -->
+		<!-- facebook的相关数据信息到位begin -->
+		<!-- https://mvnrepository.com/artifact/com.facebook.business.sdk/facebook-java-business-sdk -->
+		<dependency>
+		    <groupId>com.facebook.business.sdk</groupId>
+		    <artifactId>facebook-java-business-sdk</artifactId>
+		    <version>11.0.0</version>
+		</dependency>
+		<!-- facebook的相关数据信息到位end -->
 		
 	</dependencies>
 	<build>
