@@ -296,6 +296,7 @@
 				}
 			});
 		}
+
 		updatePayInfo(payinfoId);
 		$(document.body).on('click', '.payment-orderid-copy', function() {
 			copyToClipboard($(this).parent('.payment-orderid').data('id'));
