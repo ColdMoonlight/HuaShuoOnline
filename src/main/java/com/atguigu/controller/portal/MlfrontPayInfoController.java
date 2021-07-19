@@ -321,9 +321,6 @@ public class MlfrontPayInfoController {
 			List<MlfrontOrderItem> mlfrontOrderItemResList = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemOneReq);
 			mlfrontOrderItemOne = mlfrontOrderItemResList.get(0);
 			mlfrontOrderItemList.add(mlfrontOrderItemOne);
-			
-			//减库存
-			//proSkunumFromOrderItem(mlfrontOrderItemList);
 		}
 		//3.获取本payinfoid的paypal_shippingaddress地址;
 		MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
