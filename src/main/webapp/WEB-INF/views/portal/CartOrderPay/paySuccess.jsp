@@ -281,16 +281,16 @@
 							'shipping': 0,
 							'items': payinfoOrderArr
 						});
-						!isFirst && snaptr('track', 'PURCHASE', {
-							'currency': 'USD',
-							'price': String(orderData.payinfoMoney),
-							'transaction_id': resDataPayInfoOne.payinfoPlatenum
-						});
 						!isFirst && pushInfoToFb({
 							'mlfrontPayInfoInto': resDataPayInfoOne,
 							'mlfrontOrderPayOneRes': resDataOrderPayOne,
 							'mlfrontOrderItemList': resDataOrderItemList,
 							'mlPaypalShipAddressRes': mlPaypalShipAddressOne
+						});
+						!isFirst && snaptr('track', 'PURCHASE', {
+							'currency': 'USD',
+							'price': String(orderData.payinfoMoney),
+							'transaction_id': resDataPayInfoOne.payinfoPlatenum
 						});
 					}, 0);
 				}
