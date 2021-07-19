@@ -269,7 +269,7 @@
 						'content_type': 'product',
 						'value': orderData.payinfoMoney,
 						'currency': 'USD'
-					});
+					}, {"eventID": payinfoId});
 	
 					setTimeout(function() {
 						!isFirst && gtag('event', 'purchase', {
