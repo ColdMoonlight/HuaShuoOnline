@@ -281,12 +281,7 @@
 							'shipping': 0,
 							'items': payinfoOrderArr
 						});
-						!isFirst && pushInfoToFb({
-							'mlfrontPayInfoInto': resDataPayInfoOne,
-							'mlfrontOrderPayOneRes': resDataOrderPayOne,
-							'mlfrontOrderItemList': resDataOrderItemList,
-							'mlPaypalShipAddressRes': mlPaypalShipAddressOne
-						});
+						!isFirst && pushInfoToFb({ 'mlfrontPayInfoInto': resDataPayInfoOne });
 						!isFirst && snaptr('track', 'PURCHASE', {
 							'currency': 'USD',
 							'price': String(orderData.payinfoMoney),
