@@ -50,6 +50,7 @@ import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.EcppUpdateWebStatusUtil;
 import com.atguigu.utils.EmailNewUtilshtml;
 import com.atguigu.utils.EmailNewUtilshtmlCustomer;
+import com.atguigu.utils.FaceBookServerSideApiUtil;
 import com.atguigu.utils.PropertiesUtil;
 import com.atguigu.vo.AfterShipReturn;
 import com.atguigu.vo.EcppTrackItem;
@@ -260,6 +261,18 @@ public class MlfrontPayInfoController {
 			}else{
 				mlPaypalShipAddressRes = mlPaypalShipAddressResList.get(0);
 			}
+			
+			
+			
+//			//向facebook那边传递服务器加载数据
+//			if(ifFirst>0){
+//				System.out.println("非首次进来,已经向传fb服务器递过了购物事件");
+//			}else{
+//				//订单信息
+//				FaceBookServerSideApiUtil.toFbServiceApi(mlfrontPayInfoOne,mlfrontOrderPayOneRes,mlfrontOrderItemList,mlPaypalShipAddressRes);
+//			}
+			
+			
 			//完毕回传
 			return Msg.success().add("resMsg", "查看单条mlfrontPayInfoOne的详情细节完毕").add("ifFirst", ifFirst)
 						.add("mlfrontPayInfoOne", mlfrontPayInfoOne).add("mlfrontOrderPayOneRes", mlfrontOrderPayOneRes)
@@ -271,6 +284,24 @@ public class MlfrontPayInfoController {
 			return Msg.success().add("resMsg", "查询单条mlfrontPayInfoOne的详情细节完毕").add("mlfrontPayInfoOne", mlfrontPayInfoOne);
 		}
 	}
+	
+	
+	
+	/**
+	 * 6.0	zsh200716
+	 * 支付页面的最后接口,向FB发送服务端信息
+	 * @param MlfrontPayInfo
+	 * @return 
+	 */
+	@RequestMapping(value="/successPageThenSendDataToFacebook",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg successPageThenSendDataToFacebook(HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfoInto,
+			@RequestBody MlfrontOrder mlfrontOrderPayOneRes,@RequestBody List<MlfrontOrderItem> mlfrontOrderItemList,@RequestBody MlPaypalShipAddress mlPaypalShipAddressRes){
+		
+		
+		return Msg.success().add("resMsg", "yes");
+	}
+	
 	
 	private void proSkunumFromOrderItem(List<MlfrontOrderItem> mlfrontOrderItemListInto) {
 		
