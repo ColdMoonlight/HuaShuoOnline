@@ -281,10 +281,7 @@
 							'shipping': 0,
 							'items': payinfoOrderArr
 						});
-						console.log("------------------------------");
-						console.log(resDataPayInfoOne);
-						console.log("------------------------------");
-						!isFirst && pushInfoToFb(resDataPayInfoOne);
+						pushInfoToFb(resDataPayInfoOne);
 						!isFirst && snaptr('track', 'PURCHASE', {
 							'currency': 'USD',
 							'price': String(orderData.payinfoMoney),
