@@ -281,7 +281,10 @@
 							'shipping': 0,
 							'items': payinfoOrderArr
 						});
-						!isFirst && pushInfoToFb({ 'mlfrontPayInfoInto': resDataPayInfoOne });
+						console.log("------------------------------");
+						console.log(resDataPayInfoOne);
+						console.log("------------------------------");
+						!isFirst && pushInfoToFb(resDataPayInfoOne);
 						!isFirst && snaptr('track', 'PURCHASE', {
 							'currency': 'USD',
 							'price': String(orderData.payinfoMoney),
