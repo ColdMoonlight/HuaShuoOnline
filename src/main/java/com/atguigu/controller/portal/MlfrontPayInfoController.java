@@ -295,8 +295,51 @@ public class MlfrontPayInfoController {
 	 */
 	@RequestMapping(value="/successPageThenSendDataToFacebook",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg successPageThenSendDataToFacebook(HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfoInto,
-			@RequestBody MlfrontOrder mlfrontOrderPayOneRes,@RequestBody List<MlfrontOrderItem> mlfrontOrderItemList,@RequestBody MlPaypalShipAddress mlPaypalShipAddressRes){
+	public Msg successPageThenSendDataToFacebook(HttpSession session,@RequestBody MlfrontPayInfo mlfrontPayInfoInto){
+		
+		Integer payinfoId = mlfrontPayInfoInto.getPayinfoId();
+		
+		//2.获取本条单子的orderId,2.1查询本条的order详情;2.2从详情中拿到addressid;2.3orderItemIDStr;2.4uid信息,历史购买次数;
+		//2.1查询本条的order详情;
+		Integer payinfoOid = mlfrontPayInfoInto.getPayinfoOid();
+		MlfrontOrder mlfrontOrderPay = new MlfrontOrder();
+		mlfrontOrderPay.setOrderId(payinfoOid);
+		List<MlfrontOrder> mlfrontOrderPayResList= mlfrontOrderService.selectMlfrontOrderById(mlfrontOrderPay);
+		MlfrontOrder mlfrontOrderPayOneRes = mlfrontOrderPayResList.get(0);
+		//2.3从详情中拿到orderItemIDStr;
+		String orderItemIdsStr = mlfrontOrderPayOneRes.getOrderOrderitemidstr();
+		List<MlfrontOrderItem>  mlfrontOrderItemList = new ArrayList<MlfrontOrderItem>();
+		MlfrontOrderItem mlfrontOrderItemOne = new MlfrontOrderItem();
+		MlfrontOrderItem mlfrontOrderItemOneReq = new MlfrontOrderItem();
+		String orderItemIdStrArr [] = orderItemIdsStr.split(",");
+		String orderItemIdStr = "";
+		Integer orderItemIdInt = 0;
+		for(int i =0;i<orderItemIdStrArr.length;i++){
+			orderItemIdStr = orderItemIdStrArr[i];
+			orderItemIdInt = Integer.parseInt(orderItemIdStr);
+			mlfrontOrderItemOneReq.setOrderitemId(orderItemIdInt);
+			List<MlfrontOrderItem> mlfrontOrderItemResList = mlfrontOrderItemService.selectMlfrontOrderItemById(mlfrontOrderItemOneReq);
+			mlfrontOrderItemOne = mlfrontOrderItemResList.get(0);
+			mlfrontOrderItemList.add(mlfrontOrderItemOne);
+			
+			//减库存
+			//proSkunumFromOrderItem(mlfrontOrderItemList);
+		}
+		//3.获取本payinfoid的paypal_shippingaddress地址;
+		MlPaypalShipAddress mlPaypalShipAddressReq = new MlPaypalShipAddress();
+		String shippingaddressPayinfoid=payinfoId+"";
+		mlPaypalShipAddressReq.setShippingaddressPayinfoid(shippingaddressPayinfoid);
+		List<MlPaypalShipAddress> mlPaypalShipAddressResList =mlPaypalShipAddressService.selectMlPaypalShipAddressByPayinfoid(mlPaypalShipAddressReq);
+		MlPaypalShipAddress mlPaypalShipAddressRes = new MlPaypalShipAddress();
+		if(mlPaypalShipAddressResList.size()==0){
+			System.out.println("xx调用了getOneMlfrontPayInfoDetail接口,paypal那边返回的地址为null,没有payment的返回地址");
+		}else{
+			mlPaypalShipAddressRes = mlPaypalShipAddressResList.get(0);
+		}
+		
+		//向facebook那边传递服务器加载数据
+		//订单信息
+		FaceBookServerSideApiUtil.toFbServiceApi(mlfrontPayInfoInto,mlfrontOrderPayOneRes,mlfrontOrderItemList,mlPaypalShipAddressRes);
 		
 		
 		return Msg.success().add("resMsg", "yes");
