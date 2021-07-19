@@ -262,17 +262,6 @@ public class MlfrontPayInfoController {
 				mlPaypalShipAddressRes = mlPaypalShipAddressResList.get(0);
 			}
 			
-			
-			
-//			//向facebook那边传递服务器加载数据
-//			if(ifFirst>0){
-//				System.out.println("非首次进来,已经向传fb服务器递过了购物事件");
-//			}else{
-//				//订单信息
-//				FaceBookServerSideApiUtil.toFbServiceApi(mlfrontPayInfoOne,mlfrontOrderPayOneRes,mlfrontOrderItemList,mlPaypalShipAddressRes);
-//			}
-			
-			
 			//完毕回传
 			return Msg.success().add("resMsg", "查看单条mlfrontPayInfoOne的详情细节完毕").add("ifFirst", ifFirst)
 						.add("mlfrontPayInfoOne", mlfrontPayInfoOne).add("mlfrontOrderPayOneRes", mlfrontOrderPayOneRes)
@@ -333,11 +322,9 @@ public class MlfrontPayInfoController {
 		}else{
 			mlPaypalShipAddressRes = mlPaypalShipAddressResList.get(0);
 		}
-		
 		//向facebook那边传递服务器加载数据
 		//订单信息
 		FaceBookServerSideApiUtil.toFbServiceApi(mlfrontPayInfoInto,mlfrontOrderPayOneRes,mlfrontOrderItemList,mlPaypalShipAddressRes);
-		
 		
 		return Msg.success().add("resMsg", "yes");
 	}
