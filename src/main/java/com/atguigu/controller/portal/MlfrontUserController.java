@@ -270,9 +270,13 @@ public class MlfrontUserController {
 		MlfrontUser mlfrontUserReq = new MlfrontUser();
 		mlfrontUserReq.setUserId(userId);
 		List<MlfrontUser> mlfrontUserResList =mlfrontUserService.selectMlfrontUserByConditionS(mlfrontUserReq);
-		MlfrontUser mlfrontUserOne =mlfrontUserResList.get(0);
-		return Msg.success().add("resMsg", "查看单条类目的详情细节完毕")
-					.add("mlfrontUserOne", mlfrontUserOne);
+		
+		if(mlfrontUserResList.size()>0){
+			MlfrontUser mlfrontUserOne =mlfrontUserResList.get(0);
+			return Msg.success().add("resMsg", "查看单条类目的详情细节完毕").add("mlfrontUserOne", mlfrontUserOne);
+		}else{
+			return Msg.fail().add("resMsg", "查看单条类目的详情细节完毕").add("mlfrontUserOne", null);
+		}
 	}	
 	
 	/**
