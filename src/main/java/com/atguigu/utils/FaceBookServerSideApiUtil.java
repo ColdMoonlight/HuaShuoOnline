@@ -3,7 +3,6 @@ package com.atguigu.utils;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-
 import com.atguigu.bean.MlPaypalShipAddress;
 import com.atguigu.bean.MlfrontOrder;
 import com.atguigu.bean.MlfrontOrderItem;
@@ -23,16 +22,20 @@ public class FaceBookServerSideApiUtil {
 	
 	
 	
+	
+	
 	//测试
-	public static final String ACCESS_TOKEN = "EAALqAx5gd40BAMDkRmmxbDao1jpi7ZB8T3LyLGlnGZBR97dZA06jfHs7i23cM3jcddUaZAAiCQWMpRCuQpGF6F8j5F9yhGAS8qHLfl2gQmzAq3F2lItu8ZCfGEbOfP7PGI5aZBcTZCQpGX7sl1pXI7oq5McY6PKkPCvkFQmtJOMs8EsLWuH5FaTibY2oen2IskZD";
-	public static final String PIXEL_ID = "246433859565492";
+//	public static final String ACCESS_TOKEN = "EAALqAx5gd40BALlNPxpfAAYGY7gMZAyXWivriYgfZATE9ZAn9WUhKo7al9P8GJ1TlBNYeTRJQUb8TS3xZAtsu0edh6VPgZB9Ft0336BIpIrgaZBPGDqSDAZBY9txCnwidE9TepgffqUZAFMzS5q9cUqqVWdyEfd3wFzZBQWtUCuZB2dhkZBeAbaf6540kVnStkaRr8ZD";
+//	public static final String PIXEL_ID = "246433859565492";
 			
 	//真实
 //	public static final String ACCESS_TOKEN = "EAALqAx5gd40BAGNZA2z9W0yATVUL9xoPdbbRWElEqCLH7KjZB5G5dls0pydZB6wAZBOpsmw1F3TVetMZAaoWAvY0pOYKSG4OVzZBYVhYXukTZBS5NQvwZBKRWt3u2Ov4dbAOElsutYIYX98NSbT4fC4hlXLkwlIrNoWGexSiVqxSdAa8z0DV9OhjeSppbnQAxPYZD";
 //	public static final String PIXEL_ID = "667403967094866";
 
-	  public static void toFbServiceApi(MlfrontPayInfo mlfrontPayInfoOne, MlfrontOrder mlfrontOrderPayOneRes, List<MlfrontOrderItem> mlfrontOrderItemList, MlPaypalShipAddress mlPaypalShipAddressRes) {
-	    APIContext context = new APIContext(ACCESS_TOKEN).enableDebug(true);
+	  public static void toFbServiceApi(MlfrontPayInfo mlfrontPayInfoOne, MlfrontOrder mlfrontOrderPayOneRes, 
+			  List<MlfrontOrderItem> mlfrontOrderItemList, MlPaypalShipAddress mlPaypalShipAddressRes,String FBTOKEN,String FBPIXELID) {
+	    
+		APIContext context = new APIContext(FBTOKEN).enableDebug(true);
 	    context.setLogger(System.out);
 
 	    String addressEmail = mlPaypalShipAddressRes.getShippingaddressEmail();
@@ -60,6 +63,7 @@ public class FaceBookServerSideApiUtil {
 	    
 	    BigDecimal moneyStrBig = mlfrontPayInfoOne.getPayinfoMoney();
 	    
+	    
 	    float moneyStrF = moneyStrBig.floatValue();
 	    
 	    CustomData customData = new CustomData()
@@ -69,6 +73,7 @@ public class FaceBookServerSideApiUtil {
 
 	    Event purchaseEvent = new Event();
 	    purchaseEvent.eventName("Purchase")
+	    	.eventId(mlfrontPayInfoOne.getPayinfoId()+"")
 	        .eventTime(System.currentTimeMillis() / 1000L)
 	        .userData(userData)
 	        .customData(customData)
@@ -76,7 +81,8 @@ public class FaceBookServerSideApiUtil {
 	        .actionSource(ActionSource.website);
 	    //.actionSource(ActionSource.website);
 
-	    EventRequest eventRequest = new EventRequest(PIXEL_ID, context);
+//	    EventRequest eventRequest = new EventRequest(PIXEL_ID, context);
+	    EventRequest eventRequest = new EventRequest(FBPIXELID, context);
 	    eventRequest.addDataItem(purchaseEvent);
 
 	    try {

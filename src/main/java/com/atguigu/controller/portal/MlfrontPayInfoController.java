@@ -323,8 +323,34 @@ public class MlfrontPayInfoController {
 			mlPaypalShipAddressRes = mlPaypalShipAddressResList.get(0);
 		}
 		//向facebook那边传递服务器加载数据
+		
+		
+		//获取查询的秘钥
+		
+		MlbackOrderStateEmail mlbackOrderStateEmailReq = new MlbackOrderStateEmail();
+	    mlbackOrderStateEmailReq.setOrderstateemailName("FBServiceAPI");
+	        
+	    List<MlbackOrderStateEmail> mlbackOrderStateEmailList = mlbackOrderStateEmailService.selectMlbackOrderStateEmailByName(mlbackOrderStateEmailReq);
+	    
+	    String FBTOKEN = "";
+	    
+	    String FBPIXELID = "";
+	    
+	    if(mlbackOrderStateEmailList.size()>0){
+	    	
+	    	MlbackOrderStateEmail mlbackOrderStateEmailOne = mlbackOrderStateEmailList.get(0);
+	    	
+	    	FBTOKEN = mlbackOrderStateEmailOne.getOrderstateemailOne();
+	    	
+	    	FBPIXELID = mlbackOrderStateEmailOne.getOrderstateemailTwo();
+	    }else{
+	    	FBTOKEN="EAALqAx5gd40BALlNPxpfAAYGY7gMZAyXWivriYgfZATE9ZAn9WUhKo7al9P8GJ1TlBNYeTRJQUb8TS3xZAtsu0edh6VPgZB9Ft0336BIpIrgaZBPGDqSDAZBY9txCnwidE9TepgffqUZAFMzS5q9cUqqVWdyEfd3wFzZBQWtUCuZB2dhkZBeAbaf6540kVnStkaRr8ZD";
+	    	
+	    	FBPIXELID="246433859565492";
+	    }
+	    
 		//订单信息
-		FaceBookServerSideApiUtil.toFbServiceApi(mlfrontPayInfoInto,mlfrontOrderPayOneRes,mlfrontOrderItemList,mlPaypalShipAddressRes);
+		FaceBookServerSideApiUtil.toFbServiceApi(mlfrontPayInfoInto,mlfrontOrderPayOneRes,mlfrontOrderItemList,mlPaypalShipAddressRes,FBTOKEN,FBPIXELID);
 		
 		return Msg.success().add("resMsg", "yes");
 	}
