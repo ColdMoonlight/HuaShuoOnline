@@ -78,7 +78,7 @@ public class MlfrontProductQaController {
 			//updateProductQAId(productIds);
 		}
 		MlfrontProductQaService.insertSelective(MlfrontProductQa);
-		return Msg.success().add("resMsg", "新增QA成功").add("MlfrontProductQa", MlfrontProductQa);
+		return Msg.success().add("resMsg", "新增QA模块成功").add("MlfrontProductQa", MlfrontProductQa);
 	}
 	
 	/**2.0	useOn	0505
