@@ -21,6 +21,7 @@ import com.atguigu.service.MlfrontProductQaService;
 import com.atguigu.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.util.StringUtil;
 
 @Controller
 @RequestMapping("/MlfrontProductQa")
@@ -70,9 +71,16 @@ public class MlfrontProductQaController {
 	@ResponseBody
 	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontProductQa MlfrontProductQa){
 		//接受参数信息
-		MlfrontProductQaService.updateByPrimaryKeySelective(MlfrontProductQa);
-		return Msg.success().add("resMsg", "保存QA成功").add("MlfrontProductQa", MlfrontProductQa);
+		//产品ids (QA模块绑定产品id)
+		String productIds = MlfrontProductQa.getProductqaProductIds();
+		if(StringUtil.isNotEmpty(productIds)){
+			//更新每个产品，绑定QA模块
+			//updateProductQAId(productIds);
+		}
+		MlfrontProductQaService.insertSelective(MlfrontProductQa);
+		return Msg.success().add("resMsg", "新增QA成功").add("MlfrontProductQa", MlfrontProductQa);
 	}
+	
 	/**2.0	useOn	0505
 	 * MlfrontProductQa	delete
 	 * @param id
@@ -95,6 +103,12 @@ public class MlfrontProductQaController {
 	@ResponseBody
 	public Msg update(@RequestBody MlfrontProductQa MlfrontProductQa){
 		//接受信息
+		//产品ids (QA模块绑定产品id)
+		String productIds = MlfrontProductQa.getProductqaProductIds();
+		if(StringUtil.isNotEmpty(productIds)){
+			//更新每个产品，绑定QA模块
+			//updateProductQAId(productIds);
+		}
 		String nowtime = DateUtil.strTime14s();
 		MlfrontProductQa.setProductqaModifyTime(nowtime);
 		//更新本条状态
@@ -121,5 +135,15 @@ public class MlfrontProductQaController {
 		return Msg.success().add("resMsg", "查看单条MlfrontProductQaOne的详情细节完毕")
 					.add("MlfrontProductQaOne", MlfrontProductQaOne);
 	}
+	
+	/**
+	 * 
+	 * 更新每个产品
+	 */
+	private void updateProductQAId(String productIds) {
+		
+		
+	}
+	
 	
 }

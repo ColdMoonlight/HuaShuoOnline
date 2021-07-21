@@ -41,7 +41,7 @@
   </update>
   
   <!-- insertSelective -->
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="wholesaleId" parameterType="com.atguigu.bean.MlfrontProductQa">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="productqaId" parameterType="com.atguigu.bean.MlfrontProductQa">
     insert into tb_mlfront_productqa
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="productqaId != null">
