@@ -81,6 +81,7 @@ public class FaceBookServerSideApiUtil {
 	        .actionSource(ActionSource.website);
 	    //.actionSource(ActionSource.website);
 
+//	    EventRequest eventRequest = new EventRequest(PIXEL_ID, context);
 	    EventRequest eventRequest = new EventRequest(FBPIXELID, context);
 	    eventRequest.addDataItem(purchaseEvent);
 
