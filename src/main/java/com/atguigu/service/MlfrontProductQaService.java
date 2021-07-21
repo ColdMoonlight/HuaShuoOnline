@@ -56,7 +56,7 @@ public class MlfrontProductQaService {
 	/**5.0
 	 * @author Shinelon
 	 * @param MlfrontProductQa
-	 * @exception 查看单条信息
+	 * @exception 查看单条信息 
 	 * */
 	public List<MlfrontProductQa> selectMlfrontProductQaById(MlfrontProductQa MlfrontProductQa) {
 		List<MlfrontProductQa>  MlfrontProductQaList = MlfrontProductQaMapper.selectMlfrontProductQaById(MlfrontProductQa);
