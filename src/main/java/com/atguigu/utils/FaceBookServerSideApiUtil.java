@@ -21,9 +21,6 @@ import com.facebook.ads.sdk.serverside.UserData;
 public class FaceBookServerSideApiUtil {
 	
 	
-	
-	
-	
 	//测试
 //	public static final String ACCESS_TOKEN = "EAALqAx5gd40BALlNPxpfAAYGY7gMZAyXWivriYgfZATE9ZAn9WUhKo7al9P8GJ1TlBNYeTRJQUb8TS3xZAtsu0edh6VPgZB9Ft0336BIpIrgaZBPGDqSDAZBY9txCnwidE9TepgffqUZAFMzS5q9cUqqVWdyEfd3wFzZBQWtUCuZB2dhkZBeAbaf6540kVnStkaRr8ZD";
 //	public static final String PIXEL_ID = "246433859565492";
@@ -59,13 +56,9 @@ public class FaceBookServerSideApiUtil {
 	        .productId(pidStr)
 	        .quantity(pQuantityL)
 	        .deliveryCategory(DeliveryCategory.home_delivery);
-
 	    
 	    BigDecimal moneyStrBig = mlfrontPayInfoOne.getPayinfoMoney();
-	    
-	    
 	    float moneyStrF = moneyStrBig.floatValue();
-	    
 	    CustomData customData = new CustomData()
 	        .addContent(content)
 	        .currency("usd")
