@@ -162,6 +162,7 @@
 											   <option value="28">28%</option>
 											   <option value="29">29%</option>
 											   <option value="30">30%</option>
+											   <option value="50">50%</option>
 											</select>
 										</div>
 									</div>
