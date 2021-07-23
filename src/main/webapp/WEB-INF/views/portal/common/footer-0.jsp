@@ -109,10 +109,29 @@ function getCouponAreaData(callback) {
 }
 /* render coupon area */
 function renderCouponAreaData(data) {
+	function copyToClipboard(str) {
+		var el = document.createElement('textarea');
+		el.value = str;
+		el.setAttribute('readonly', '');
+		el.style.position = 'absolute';
+		el.style.left = '-9999px';
+		document.body.appendChild(el);
+		var selected =
+		  document.getSelection().rangeCount > 0
+		    ? document.getSelection().getRangeAt(0)
+		    : false;
+		el.select();
+		document.execCommand('copy');
+		document.body.removeChild(el);
+		if (selected) {
+			document.getSelection().removeAllRanges();
+			document.getSelection().addRange(selected);
+		}
+	};
 	function generateCouponAreaDetailsListData(data) {
 		var html = '';
 		data.forEach(function(item, idx) {
-			html += '<li>'+ item.coupondescdetailStrengthpre +'&nbsp;<span class="text-color">&nbsp;'+ item.coupondescdetailStrength +'&nbsp;</span>&nbsp;'+ item.coupondescdetailCodepre +'&nbsp;<b>&nbsp;'+ item.coupondescdetailCode +'</b></li>';
+			html += '<li>'+ item.coupondescdetailStrengthpre +'&nbsp;<span class="text-color">&nbsp;'+ item.coupondescdetailStrength +'&nbsp;</span>&nbsp;'+ item.coupondescdetailCodepre +'&nbsp;<b class="code" data-code="'+ item.coupondescdetailCode +'">&nbsp;'+ item.coupondescdetailCode +'</b><span class="btn-copy">Copy</span></li>';
 		});
 		return html;
 	}
@@ -144,17 +163,26 @@ function renderCouponAreaData(data) {
 				'<ul class="full">' + generateCouponAreaDetailsListData(newData.full) + '</ul>' +
 			'</div>' +
 		'</div>';
-	
+
 	$el.html(htmlStr);
-	
+
 	if (data.mlbackCouponDescTitleList[0].coupondesctieleStatus) {
 		$el.removeClass('hide');
 	}
-	
+
 	new LazyLoad($el.find('.lazyload'), {
 		root: null,
 		rootMargin: "10px",
 		threshold: 0
+	});
+
+	$('.btn-copy').on('click', function() {
+		var self = this;
+		$(self).text('Copied!');
+		copyToClipboard($(self).parent().find('.code').data('code'));
+		setTimeout(function() {
+			$(self).text('Copy');
+		}, 1500);
 	});
 }
 /* product sku-list status=1 */
