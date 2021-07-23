@@ -7,6 +7,7 @@
 <option value="Friday">Black Friday</option>
 <option value="Customer/Wholesale">Wholesale Page</option>
 <option value="PortalHome/ChristmasPage">Christmas Page</option>
+<option value="FAQ.html">FAQ Page</option>
 <!-- <option value="Activty">Activty</option>
 <option value="MlfrontReview/toReviewInsPage">Ins Show</option>
 <option value="PortalHome/videoPage">videoPage</option> -->

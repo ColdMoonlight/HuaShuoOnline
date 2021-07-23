@@ -3,78 +3,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Christmas | megalook.com</title>
-	<meta name="keywords" content="Lace Front Wigs, Human Hair Extensions,Brazilian Virgin Hair,Affordable Human Hair" />
-	<meta name="description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
+    <title>FAQ | megalook.com</title>
+	<meta name="keywords" content="Megalook Hair FAQ,Megalook FAST HELP SERVICE" />
+	<meta name="description" content="Megalook Hair offers FAST HELP SERVICE For U.">
 	<!-- google rule -->
 	<meta name="robots" content="INDEX,FOLLOW">
-    <link rel="alternate" href="https://megalook.com/PortalHome/ChristmasPage.html" hreflang="en-us" />
-	<link rel="canonical" href="https://megalook.com/PortalHome/ChristmasPage.html" />
+    <link rel="alternate" href="https://megalook.com/FAQ.html" hreflang="en-us" />
+	<link rel="canonical" href="https://megalook.com/FAQ.html" />
 	<!-- socail meta -->
 	<meta name="twitter:site" content="@megalookhair">
 	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="Megalook Hair, Virgin Remy Human Hair Wigs, Lace Front Wigs, Best Wigs | megalook.com">
-	<meta name="twitter:description" content="Megalook Hair Official Website Sells Best Virgin Hair, Full Lace Wig, Transparent Lace Wig, 360 Lace Wig, Frontal Lace Wig, Closure Lace Wig, Bundles with Closure, Bundles with Frontal, Free Wig Making Service. Hottest Products, Free Gifts, Free & Fast Shipping. No Shedding, No Tangles, Save Big! Lowest Price For U.">
+	<meta name="twitter:title" content="Megalook FAST HELP SERVICE | megalook.com">
+	<meta name="twitter:description" content="Megalook Hair offers FAST HELP SERVICE For U.">
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="Megalook Hair, Virgin Remy Human Hair Wigs, Lace Front Wigs, Best Wigs | megalook.com">
-	<meta property="og:url" content="https://megalook.com/PortalHome/ChristmasPage.html">
+	<meta property="og:title" content="Megalook FAST HELP SERVICE | megalook.com">
+	<meta property="og:url" content="https://megalook.com/FAQ.html">
 	<meta property="og:site_name" content="Megalook Hair">
 	<meta property="og:image" content="https://www.megalook.com/static/apple/micon1.png" />
 	<jsp:include page="../common/processor.jsp" flush="true"></jsp:include>
 	<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-	<style>
-		@media only screen and (max-width: 1023px) { main { margin:0; } }
-		@media only screen and (max-width: 1078px) and (min-width: 576px) { main { margin: 0; } }
-		ul{list-style:none;}
-		*{margin: 0; padding: 0;}
-		body{padding:0px;margin:0px;}
-			.box{width: 100%;}
-			.lazyloadnew{background-image:url(${APP_PATH }/static/pc/img/loading.gif); display: block; background-size:contain;background-repeat: no-repeat;background-position: center;opacity: 1;}
-			.boxbg{background: url(${APP_PATH }/static/pc/img/sdj/sd_bg.jpg) repeat-y; background-size:100%;}
-		    .box_cont{width:70%; margin: 0 15%; display: flex;align-items: flex-start;}
-			.left_box,.right_box{width:50%; position:relative;}
-			.box_img {width: 100%; text-align: center;}
-			.box_img img{display: inline-block;max-width: 100%;}
-			.no_tips{padding: 20px 0 0;}
-			.product_list_box{width:100%; margin: 0 auto;}
-			.product_list_box ul{width: 100%; display: flex;flex-wrap: wrap;}
-			.product_list_box ul li{width:23%;margin: 0 1%;}
-			.pro_cont .lazyload{background-color: transparent;}
-			.product_list_box ul li a{display: block;width: 100%; padding-top:143.75% }
-			.product_list_box ul li:nth-of-type(5) a,.product_list_box ul li:nth-of-type(6) a,.product_list_box ul li:nth-of-type(7) a,.product_list_box ul li:nth-of-type(8) a{padding-top:141%;}
-			.product_list_box ul li img{max-width: 100%; height: auto;}
-			@media only screen and (max-width: 780px) {
-				.product_list_box ul li{width:48%;; margin: 0 1% 1%;}
-			}
-			
-			@media only screen and (max-width: 575px) {
-				.box_cont{width:100%;margin: 0; display: flex;align-items: flex-start;}
-				.left_box,.right_box{width:48%;margin: 0 1%; position:relative;}
-				.top_01 .wap{padding-top:41.2%;}
-				.top_02 .wap{padding-top:40.4%;}
-				.top_03 .wap,.top_04 .wap,.top_05 .wap,.top_06 .wap{padding-top:47.94%;}
-				.top_10 .wap{padding-top:57.33%;}
-				.box_cont .wap{padding-top:146.66%;}
-			   .pc{display:none}
-			   .box_img .pc2{display:none}
-				.boxbg{padding: 0 1% 15px;}
-			}
-			@media only screen and (min-width: 576px) {
-				.top_01 .pc{padding-top:45.41%;}
-				.top_02 .pc{padding-top:25.25%;}
-				.top_03 .pc,.top_04 .pc,.top_05 .pc,.top_06 .pc{padding-top:40%;}
-				.top_10 .pc{padding-top:39.9%;}
-				.box_cont .pc{padding-top:134.61%;}
-				.wap{display:none}
-				.box_img .wap2{display:none}
-				.boxbg{padding: 0 12% 15px}
-			}
+	<style type="text/css">
+		.main-box h2 { text-align: center; }
+		@media only screen and (max-width: 767px) { .main-box { pading: 1rem; } }
+		@media only screen and (min-width: 768px) { .main-box  { max-width: 1300px; margin: 0 auto; } .faq-content { max-width: 800px; margin: 0 auto; } }
 	</style>
 </head>
 <body>
     <jsp:include page="../layout/header/header.jsp" flush="true"></jsp:include>
 	<!-- main start -->
-		fAQuestionPage
+		<div class="main-box">
+			<h2>FAST HELP SERVICE</h2>
+			<div class="faq-content">
+				<jsp:include page="../layout/faq.jsp" flush="true"></jsp:include>
+			</div>
+		</div>
 	<!-- main end -->
 	
 	<!-- footer nav -->
@@ -88,13 +50,6 @@
 	<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 	<!-- header script  -->
 	<jsp:include page="../layout/header/header-script.min.jsp" flush="true"></jsp:include>
-	<script>
-		new lazyload($('main').find('.lazyloadnew'), {
-			root: null,
-			rootMargin: "10px",
-			threshold: 0
-		});
-	</script>
 	<!-- footer script -->
 	<jsp:include page="../layout/footer/footer-script.min.jsp" flush="true"></jsp:include>
 	<script> addTidio(); </script>
