@@ -225,6 +225,7 @@
 				<div class="product-tab">
 					<div class="product-tab-item btn" data-name="desc">Description</div>
 					<div class="product-tab-item btn active" data-name="review">Reviews</div>
+					<div class="product-tab-item btn" data-name="faq">FAQ</div>
 				</div>
 				<div class="product-tab-body">
 					<div class="product-tab-container" data-name="desc">
@@ -252,6 +253,9 @@
 							<div class="product-review-list"></div>
 							<div id="table-pagination"></div>
 						</div>
+					</div>
+					<div class="product-tab-container" data-name="faq">
+						<jsp:include page="../layout/faq.jsp" flush="true"></jsp:include>
 					</div>
 				</div>
 			</div>
