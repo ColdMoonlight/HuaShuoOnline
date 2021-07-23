@@ -5391,3 +5391,16 @@ footer li {
 	height: 12px;
 	margin-right: .5rem;
 }
+
+.btn-copy {
+	display: inline-block;
+	padding: 0 .25rem;
+	margin: 0 0 .2rem .5rem;
+	border-radius: .25rem;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
+
+.btn-copy:hover {
+	background-color: #ccc;
+}

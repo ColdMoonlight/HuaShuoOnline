@@ -50,11 +50,11 @@
 	text-align: center;
 }
 .big_ul .one_ul>li .top {
+	position: relative;
 	height: 50px;
 	line-height: 50px;
 	display: block;
 	padding: 0 12px;
-	position: relative;
 	border-radius: 3px;
 }
 .big_ul .one_ul .top {
@@ -69,7 +69,7 @@
 .big_ul .one_ul>li .bot {
 	display: none;
 }
-.big_ul .one_ul>li .img {
+.big_ul .one_ul .icon {
 	position: absolute;
 	right: 0px;
 	top: 0px;
@@ -101,6 +101,102 @@
 	margin: 0;
 }
 </style>
+<!-- <style type="text/css">
+.big_ul,
+.big_ul ul {
+	padding: 0;
+}
+.big_ul li {
+	list-style: none;
+}
+.big_ul .icon {
+	display: none;
+	color: #fff;
+}
+.big_ul .one_ul .icon {
+	font-size: 22px;
+}
+.big_ul .one_ol .icon {
+	font-size: 18px;
+}
+.big_ul>li {
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+	padding: 10px 20px;
+	background-color: #fff;
+	border-radius: 5px;
+}
+.big_ul .one_ul>li {
+	margin-top: 10px;
+	margin-left: 0px;
+	border: 1px solid #e6e6e6;
+	border-radius: 4px;
+}
+.big_ul .one_top {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+.big_ul .one_top .img {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+}
+.big_ul .one_top .title {
+	display: inline-block;
+	margin-left: 10px;
+	font-size: 18px;
+	text-align: center;
+}
+.big_ul .one_ul>li .top {
+	position: relative;
+	display: block;
+	padding: 0 12px;
+	height: 50px;
+	line-height: 50px;
+	border-radius: 3px;
+}
+.big_ul .one_ul .top {
+	background-color: #545454;
+}
+.big_ul .one_ul>li .top p {
+	font-size: 15px;
+	color: #fff;
+	line-height: 50px;
+	margin: 0 0 0 -5px;
+}
+.big_ul .one_ul .icon {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 50px;
+	height: 50px;
+	padding: 20px;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.big_ul .one_ol {
+	padding: 10px;
+}
+.big_ul .one_ol li+li {
+	margin-top: 5px;
+}
+.big_ul .one_ol .top {
+	min-height: 50px;
+	height: auto !important;
+	background-color: #3fb0e2;
+}
+.big_ul .one_ol .top p {
+	line-height: 22px !important;
+	padding: 10px 30px 10px 0;
+}
+.big_ul .one_ol .bot {
+	padding: 16px;
+}
+.big_ul .one_ol .bot p {
+	margin: 0;
+}
+</style> -->
 <ul class="big_ul">
 	<li>
 		<div class="one_top">
@@ -111,14 +207,14 @@
 			<li>
 				<div class="top two_top">
 					<p>About Return Policy</p>
-					<span class="img icon plus"></span>
+					<span class="icon plus"></span>
 				</div>
 				<div class="bot">
 					<ol class="one_ol">
 						<li>
 							<div class="top three_top">
 								<p>If I don't like it, can I return it? Can I get the full amount?</p>
-								<span class="img icon plus"></span>
+								<span class="icon plus"></span>
 							</div>
 							<div class="bot">
 								<p class="text1">If you don't want your order or you place the wrong order or
@@ -130,7 +226,7 @@
 						<li>
 							<div class="top three_top">
 								<p>Can I have a return label if I return it?</p>
-								<span class="img icon plus"></span>
+								<span class="icon plus"></span>
 							</div>
 							<div class="bot">
 								<p class="text1">We don't provide return label. If you need to return, please
@@ -141,7 +237,7 @@
 						<li>
 							<div class="top three_top">
 								<p>If I return the parcel, do I need to pay the returned shipping fee?</p>
-								<span class="img icon plus"></span>
+								<span class="icon plus"></span>
 							</div>
 							<div class="bot">
 								<p class="text1">If the returning is due to our problems (such as incorrect
@@ -154,7 +250,7 @@
 						<li>
 							<div class="top three_top">
 								<p>How long can I get a refund if I return it?</p>
-								<span class="img icon plus"></span>
+								<span class="icon plus"></span>
 							</div>
 							<div class="bot">
 								<p class="text1">Once your return is received and inspected, we will send you an
@@ -168,7 +264,7 @@
 						<li>
 							<div class="top three_top">
 								<p>If I make a wrong order, can I exchange it?</p>
-								<span class="img icon plus"></span>
+								<span class="icon plus"></span>
 							</div>
 							<div class="bot">
 								<p class="text1">If the parcel has not been shipped, you can send an email to
@@ -182,14 +278,14 @@
 			<li>
 				<div class="top two_top">
 					<p>About Us (LUVME HAIR)</p>
-					<span class="img icon plus"></span>
+					<span class="icon plus"></span>
 				</div>
 				<div class="bot">
 					<ol class="one_ol">
 						<li>
 							<div class="top three_top">
 								<p>Can I be your brand ambassador?</p>
-								<span class="img icon plus"></span>
+								<span class="icon plus"></span>
 							</div>
 							<div class="bot">
 								<p class="text1">It would be better if you have active social skills and
