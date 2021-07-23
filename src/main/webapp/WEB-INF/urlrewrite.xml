@@ -53,6 +53,10 @@
         <to>/MlbackCart/toCheakOut</to>
     </rule>
     <rule>
+        <from>^/FAQ.html</from>
+        <to>/PortalHome/FAQuestionPage</to>
+    </rule>
+    <rule>
         <from>^/Friday.html</from>
         <to>/PortalHome/FridayPage</to>
     </rule>
