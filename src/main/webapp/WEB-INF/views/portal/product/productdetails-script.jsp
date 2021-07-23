@@ -1287,32 +1287,3 @@ if (proudctTogetherId != 999) {
 	});
 }
 </script>
-<script type="text/javascript">
-	$(".big_ul .one_top").click(function() {
-		if ($(this).hasClass("sub")) {
-			$(this).removeClass("sub").addClass("plus");
-			$(this).siblings(".one_ul").slideUp();
-		} else {
-			$(".big_ul>li>.one_ul").slideUp();
-			$(this).addClass("sub").removeClass("plus");
-			$(this).siblings(".one_ul").slideDown();
-		}
-	});
-	$(".one_ul .icon").click(function() {
-		if ($(this).hasClass("sub")) {
-			$(this).removeClass("sub").addClass('plus');
-			$(this).parent().siblings(".bot").slideUp();
-		} else {
-			$(this).parent().parent().parent().find(".icon").removeClass("sub").addClass("plus");
-			$(this).parent().parent().parent().find(".bot").slideUp();
-
-			$(this).addClass('sub').removeClass("plus");
-			$(this).parent().siblings(".bot").slideDown();
-		}
-	});
-	$(".one_ol .bot .icon").click(function() {
-		if (!$(this).hasClass("sub")) {
-			$(this).addClass("sub").removeClass("plus");
-		}
-	});
-</script>

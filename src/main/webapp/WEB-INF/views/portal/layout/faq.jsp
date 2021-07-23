@@ -93,7 +93,6 @@
 .big_ul .one_ol .top p {
 	line-height: 22px !important;
 	padding: 10px 30px 10px 0;
-	text-align: justify;
 }
 .big_ul .one_ol .bot {
 	padding: 16px;
