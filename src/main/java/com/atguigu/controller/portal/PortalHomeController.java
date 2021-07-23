@@ -61,5 +61,15 @@ public class PortalHomeController {
 		return "portal/subject/christmasPage";
 
 	}
+	
+	/**
+	 * 	zsh	20201102
+	 * */
+	@RequestMapping("/FAQuestionPage")
+	public String FAQuestionPage(HttpSession session) throws Exception{
+		
+		return "portal/subject/fAQuestionPage";
+
+	}
 
 }
