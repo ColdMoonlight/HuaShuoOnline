@@ -760,7 +760,8 @@ function renderProductPriceHtml(data) {
 			$(this).removeClass("sub").addClass("plus");
 			$(this).siblings(".one_ul").slideUp();
 		} else {
-			$(".big_ul>li>.one_ul").slideUp();
+			$(".big_ul .one_top").removeClass('sub');
+			$(".big_ul .one_ul").slideUp();
 			$(this).addClass("sub").removeClass("plus");
 			$(this).siblings(".one_ul").slideDown();
 		}
@@ -777,9 +778,11 @@ function renderProductPriceHtml(data) {
 			$(this).parent().siblings(".bot").slideDown();
 		}
 	});
-	$(".one_ol .bot .icon").click(function() {
-		if (!$(this).hasClass("sub")) {
-			$(this).addClass("sub").removeClass("plus");
+	$(".big_ul .helpful .text").click(function() {
+		if (!$(this).hasClass('active')) {
+			var $helpfulData = $(this).find(".data");
+			$helpfulData.text(parseInt($helpfulData.text(), 10) + 1);
+			$(this).addClass('active').css("color", "#ccc");
 		}
 	});
 </script>

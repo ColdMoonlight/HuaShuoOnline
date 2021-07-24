@@ -19,7 +19,7 @@
 .big_ul>li {
 	border: 1px solid #ccc;
 	margin-bottom: 10px;
-	padding: 10px 20px;
+	padding: 16px 20px;
 	background-color: #fff;
 	border-radius: 5px;
 }
@@ -36,7 +36,6 @@
 .big_ul .one_top {
 	display: flex;
 	align-items: center;
-	margin-bottom: 10px;
 }
 .big_ul .one_top .img {
 	display: inline-block;
@@ -100,6 +99,21 @@
 .big_ul .one_ol .bot p {
 	margin: 0;
 }
+.big_ul .helpful {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	color: #5ea7f7;
+}
+.big_ul .helpful .text {
+	cursor: pointer;
+}
+.big_ul .link {
+	display: inline-block;
+	margin-left: 1.5rem;
+	color: inherit;
+	text-decoration: none;
+}
 </style>
 <!-- <style type="text/css">
 .big_ul,
@@ -122,7 +136,7 @@
 .big_ul>li {
 	border: 1px solid #ccc;
 	margin-bottom: 10px;
-	padding: 10px 20px;
+	padding: 16px 20px;
 	background-color: #fff;
 	border-radius: 5px;
 }
@@ -135,7 +149,6 @@
 .big_ul .one_top {
 	display: flex;
 	align-items: center;
-	margin-bottom: 10px;
 }
 .big_ul .one_top .img {
 	display: inline-block;
@@ -221,6 +234,10 @@
 									want a longer length and you would like to exchange the order, you need to
 									pay for the return charge, and your refund will be reduced $20 (because of
 									the shipping fee we paid at the beginning).</p>
+								<div class="helpful">
+									<span class="text">Helpful(<span class="data">23</span>)</span>
+									<a class="link" href="mailto:team@megalookemail.com?subject=Question%20for%20Can%20I%20ask%20for%20small/large%20cap?&amp;body=Hi,%20I%20still%20have%20question%20about%20this,%20"">Still have problem?</a>
+								</div>
 							</div>
 						</li>
 						<li>
@@ -232,6 +249,10 @@
 								<p class="text1">We don't provide return label. If you need to return, please
 									contact us via email at first, then we will provide the return information.
 									You can try to use the USPS to return it.</p>
+								<div class="helpful">
+									<span class="text">Helpful(<span class="data">23</span>)</span>
+									<a class="link" href="mailto:team@megalookemail.com?subject=Question%20for%20Can%20I%20ask%20for%20small/large%20cap?&amp;body=Hi,%20I%20still%20have%20question%20about%20this,%20"">Still have problem?</a>
+								</div>
 							</div>
 						</li>
 						<li>
@@ -245,6 +266,10 @@
 									for you; If the returning is due to buyer`s problems (such as don't
 									like/want, order wrong product/size ), we will remove $20 from your refund
 									as the loss of freight and handling fee.</p>
+								<div class="helpful">
+									<span class="text">Helpful(<span class="data">23</span>)</span>
+									<a class="link" href="mailto:team@megalookemail.com?subject=Question%20for%20Can%20I%20ask%20for%20small/large%20cap?&amp;body=Hi,%20I%20still%20have%20question%20about%20this,%20"">Still have problem?</a>
+								</div>
 							</div>
 						</li>
 						<li>
@@ -259,6 +284,10 @@
 									refund will be processed, and the refund will automatically be returned to
 									your credit card or original method of payments within a certain amount of
 									days.</p>
+								<div class="helpful">
+									<span class="text">Helpful(<span class="data">23</span>)</span>
+									<a class="link" href="mailto:team@megalookemail.com?subject=Question%20for%20Can%20I%20ask%20for%20small/large%20cap?&amp;body=Hi,%20I%20still%20have%20question%20about%20this,%20"">Still have problem?</a>
+								</div>
 							</div>
 						</li>
 						<li>
@@ -270,6 +299,10 @@
 								<p class="text1">If the parcel has not been shipped, you can send an email to
 									Info@luvmehair.com. We will modify the order for you. Once your parcel is
 									shipped out, you can try to make an exchange after receiving it.</p>
+								<div class="helpful">
+									<span class="text">Helpful(<span class="data">23</span>)</span>
+									<a class="link" href="mailto:team@megalookemail.com?subject=Question%20for%20Can%20I%20ask%20for%20small/large%20cap?&amp;body=Hi,%20I%20still%20have%20question%20about%20this,%20"">Still have problem?</a>
+								</div>
 							</div>
 						</li>
 					</ol>
@@ -291,6 +324,10 @@
 								<p class="text1">It would be better if you have active social skills and
 									outstanding shooting skills. If you meet our requirements, please send an
 									email to collaborate@luvmehair.com .</p>
+								<div class="helpful">
+									<span class="text">Helpful(<span class="data">23</span>)</span>
+									<a class="link" href="mailto:team@megalookemail.com?subject=Question%20for%20Can%20I%20ask%20for%20small/large%20cap?&amp;body=Hi,%20I%20still%20have%20question%20about%20this,%20"">Still have problem?</a>
+								</div>
 							</div>
 						</li>
 					</ol>
