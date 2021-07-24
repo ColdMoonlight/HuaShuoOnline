@@ -22,6 +22,7 @@ import com.atguigu.bean.MlbackProductSku;
 import com.atguigu.bean.MlbackReviewImg;
 import com.atguigu.bean.MlbackShowArea;
 import com.atguigu.bean.MlbackSlide;
+import com.atguigu.bean.MlfrontReview;
 import com.atguigu.common.Msg;
 import com.atguigu.service.MlbackActShowProService;
 import com.atguigu.service.MlbackBlogService;
@@ -34,6 +35,7 @@ import com.atguigu.service.MlbackProductSkuService;
 import com.atguigu.service.MlbackReviewImgService;
 import com.atguigu.service.MlbackShowAreaService;
 import com.atguigu.service.MlbackSlideService;
+import com.atguigu.service.MlfrontReviewService;
 import com.atguigu.service.ThumbnailService;
 import com.atguigu.service.UploadService;
 import com.atguigu.utils.DateUtil;
@@ -86,6 +88,9 @@ public class ImageUploadController {
 	
 	@Autowired
 	MlbackBlogService mlbackBlogService;
+	
+	@Autowired
+	MlfrontReviewService mlfrontReviewService;
 	
 	/**
 	 * 	zsh	20201010
@@ -509,6 +514,18 @@ public class ImageUploadController {
 		
 		mlbackReviewImgService.updateByPrimaryKeySelective(mlbackReviewImg);
 		
+		//设置该review 有图片
+		MlfrontReview mlfrontReview = new MlfrontReview();
+		mlfrontReview.setReviewId(reviewId);
+		List<MlfrontReview> mlfrontReviewList = mlfrontReviewService.selectMlfrontReviewById(mlfrontReview);
+		if(mlfrontReviewList.size()>0){
+			if(mlfrontReviewList.get(0).getReviewIsPics() != null &&  1 == mlfrontReviewList.get(0).getReviewIsPics()){
+			}else{
+				mlfrontReview.setReviewIsPics(1);
+				mlfrontReviewService.updateByPrimaryKeySelective(mlfrontReview);
+			}
+		}
+		 
 		return Msg.success().add("resMsg", "登陆成功").add("imageUrl", imageUrl).add("thumImageUrl", thumImageUrl)
 				.add("sqlimageUrl", sqlimageUrl).add("sqlthumImageUrl", sqlthumImageUrl);
 	}
