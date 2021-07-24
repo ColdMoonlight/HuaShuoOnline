@@ -32,6 +32,16 @@ public class MlfrontReview {
     private Integer reviewProstarnum;//3
 
     private Integer reviewFrom;
+    
+    /**
+     * 是否有照片
+     */
+    private Integer reviewIsPics;
+    
+    /**
+     * 查询字段  0：是否有照片，1：待补充
+     */
+    private Integer searchType;
 
     public Integer getReviewId() {
         return reviewId;
@@ -161,6 +171,22 @@ public class MlfrontReview {
         this.reviewFrom = reviewFrom;
     }
 
+	public Integer getReviewIsPics() {
+		return reviewIsPics;
+	}
+
+	public Integer getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(Integer searchType) {
+		this.searchType = searchType;
+	}
+
+	public void setReviewIsPics(Integer reviewIsPics) {
+		this.reviewIsPics = reviewIsPics;
+	}
+
 	public MlfrontReview() {
 		super();
 	}
@@ -168,7 +194,7 @@ public class MlfrontReview {
 	public MlfrontReview(Integer reviewId, Integer reviewUid, String reviewUname, String reviewUimgurl,
 			Integer reviewPid, String reviewPname, String reviewCreatetime, String reviewMotifytime,
 			String reviewConfirmtime, String reviewPseoname, String reviewSupercateidstr, Integer reviewStatus,
-			String reviewDetailstr, String reviewImgidstr, Integer reviewProstarnum, Integer reviewFrom) {
+			String reviewDetailstr, String reviewImgidstr, Integer reviewProstarnum, Integer reviewFrom, Integer reviewIsPics) {
 		super();
 		this.reviewId = reviewId;
 		this.reviewUid = reviewUid;
@@ -186,6 +212,7 @@ public class MlfrontReview {
 		this.reviewImgidstr = reviewImgidstr;
 		this.reviewProstarnum = reviewProstarnum;
 		this.reviewFrom = reviewFrom;
+		this.reviewIsPics = reviewIsPics;
 	}
 
 	@Override
@@ -196,7 +223,7 @@ public class MlfrontReview {
 				+ ", reviewConfirmtime=" + reviewConfirmtime + ", reviewPseoname=" + reviewPseoname
 				+ ", reviewSupercateidstr=" + reviewSupercateidstr + ", reviewStatus=" + reviewStatus
 				+ ", reviewDetailstr=" + reviewDetailstr + ", reviewImgidstr=" + reviewImgidstr + ", reviewProstarnum="
-				+ reviewProstarnum + ", reviewFrom=" + reviewFrom + "]";
+				+ reviewProstarnum + ", reviewFrom=" + reviewFrom + ", reviewIsPics=" + reviewIsPics + "]";
 	}
     
 }

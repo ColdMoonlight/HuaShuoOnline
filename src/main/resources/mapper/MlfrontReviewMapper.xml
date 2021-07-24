@@ -18,11 +18,12 @@
     <result column="review_imgIdStr" jdbcType="VARCHAR" property="reviewImgidstr" />
     <result column="review_proStarNum" jdbcType="INTEGER" property="reviewProstarnum" />
     <result column="review_from" jdbcType="INTEGER" property="reviewFrom" />
+    <result column="review_isPics" jdbcType="INTEGER" property="reviewIsPics" />
   </resultMap>
   <sql id="Base_Column_List">
     review_id, review_uid, review_uname, review_uimgUrl, review_pid, review_pname, review_createTime, 
     review_motifyTime, review_confirmTime, review_pseoname, review_superCateIdStr, review_status, 
-    review_detailStr, review_imgIdStr, review_proStarNum, review_from
+    review_detailStr, review_imgIdStr, review_proStarNum, review_from, review_isPics
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -37,13 +38,13 @@
       review_createTime, review_motifyTime, review_confirmTime, 
       review_pseoname, review_superCateIdStr, review_status, 
       review_detailStr, review_imgIdStr, review_proStarNum, 
-      review_from)
+      review_from,review_isPics)
     values (#{reviewId,jdbcType=INTEGER}, #{reviewUid,jdbcType=INTEGER}, #{reviewUname,jdbcType=VARCHAR}, 
       #{reviewUimgurl,jdbcType=VARCHAR}, #{reviewPid,jdbcType=INTEGER}, #{reviewPname,jdbcType=VARCHAR}, 
       #{reviewCreatetime,jdbcType=VARCHAR}, #{reviewMotifytime,jdbcType=VARCHAR}, #{reviewConfirmtime,jdbcType=VARCHAR}, 
       #{reviewPseoname,jdbcType=VARCHAR}, #{reviewSupercateidstr,jdbcType=VARCHAR}, #{reviewStatus,jdbcType=INTEGER}, 
       #{reviewDetailstr,jdbcType=VARCHAR}, #{reviewImgidstr,jdbcType=VARCHAR}, #{reviewProstarnum,jdbcType=INTEGER}, 
-      #{reviewFrom,jdbcType=INTEGER})
+      #{reviewFrom,jdbcType=INTEGER}, #{reviewIsPics,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlfrontReview">
     update tb_mlfront_review
@@ -61,7 +62,8 @@
       review_detailStr = #{reviewDetailstr,jdbcType=VARCHAR},
       review_imgIdStr = #{reviewImgidstr,jdbcType=VARCHAR},
       review_proStarNum = #{reviewProstarnum,jdbcType=INTEGER},
-      review_from = #{reviewFrom,jdbcType=INTEGER}
+      review_from = #{reviewFrom,jdbcType=INTEGER},
+      review_isPics = #{reviewIsPics,jdbcType=INTEGER}
     where review_id = #{reviewId,jdbcType=INTEGER}
   </update>
   <!-- insertSelective -->
@@ -116,6 +118,9 @@
       <if test="reviewFrom != null">
         review_from,
       </if>
+      <if test="reviewIsPics != null">
+        review_isPics,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="reviewId != null">
@@ -165,6 +170,9 @@
       </if>
       <if test="reviewFrom != null">
         #{reviewFrom,jdbcType=INTEGER},
+      </if>
+      <if test="reviewIsPics != null">
+        #{reviewIsPics,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -222,6 +230,9 @@
       <if test="reviewFrom != null">
         review_from = #{reviewFrom,jdbcType=INTEGER},
       </if>
+      <if test="reviewIsPics != null">
+        review_isPics = #{reviewIsPics,jdbcType=INTEGER},
+      </if>
     </set>
     where review_id = #{reviewId,jdbcType=INTEGER}
   </update>
@@ -229,7 +240,7 @@
   <select id="selectMlfrontReviewAll" parameterType="com.atguigu.bean.MlfrontReview" resultMap="BaseResultMap">
     select 
     review_id, review_uname,review_uimgUrl, review_pid,review_createTime, review_pseoname, review_superCateIdStr, 
-    review_status, review_detailStr, review_imgIdStr, review_proStarNum, review_from
+    review_status, review_detailStr, review_imgIdStr, review_proStarNum, review_from, review_isPics
     from tb_mlfront_review order by review_id desc
   </select>
   <!-- selectMlfrontReviewById -->
@@ -241,7 +252,13 @@
   <!-- selectMlfrontReviewListByPId -->
   <select id="selectMlfrontReviewListByPId" parameterType="com.atguigu.bean.MlfrontReview" resultMap="BaseResultMap">
     select *
-    from tb_mlfront_review where review_pid = #{reviewPid,jdbcType=INTEGER} and review_status = #{reviewStatus,jdbcType=INTEGER} order by review_createTime desc
+    from tb_mlfront_review where review_pid = #{reviewPid,jdbcType=INTEGER} and review_status = #{reviewStatus,jdbcType=INTEGER} 
+    
+    <if test="reviewIsPics != null">
+      and review_isPics = #{reviewIsPics,jdbcType=INTEGER}
+    </if>
+    
+    order by review_createTime desc
   </select>
   <!-- selectMlbackReviewListBySearch使用中 -->
   <select id="selectMlbackReviewListBySearch" parameterType="com.atguigu.bean.MlfrontReview" resultMap="BaseResultMap">

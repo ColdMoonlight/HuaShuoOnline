@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.MlbackProduct;
 import com.atguigu.bean.MlfrontProductQa;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
+import com.atguigu.service.MlbackProductService;
 import com.atguigu.service.MlfrontProductQaService;
 import com.atguigu.utils.DateUtil;
 import com.github.pagehelper.PageHelper;
@@ -28,8 +30,10 @@ import com.github.pagehelper.util.StringUtil;
 public class MlfrontProductQaController {
 		
 	@Autowired
-	MlfrontProductQaService MlfrontProductQaService;
+	MlfrontProductQaService mlfrontProductQaService;
 	
+	@Autowired
+	MlbackProductService mlbackProductService;
 	
 	/**
 	 * 1.0	20200703
@@ -59,7 +63,7 @@ public class MlfrontProductQaController {
 		//查询全部QA
 		int PagNum = Const.PAGE_NUM_CATEGORY;
 		PageHelper.startPage(pn, PagNum);
-		List<MlfrontProductQa> MlfrontProductQaResList =MlfrontProductQaService.selectMlfrontProductQaGetAll();
+		List<MlfrontProductQa> MlfrontProductQaResList = mlfrontProductQaService.selectMlfrontProductQaGetAll();
 		PageInfo page = new PageInfo(MlfrontProductQaResList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
@@ -69,16 +73,19 @@ public class MlfrontProductQaController {
 	 */
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontProductQa MlfrontProductQa){
+	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody MlfrontProductQa mlfrontProductQa){
 		//接受参数信息
+		mlfrontProductQaService.insertSelective(mlfrontProductQa);
+		
+		List<MlfrontProductQa> mlfrontProductQaResList = mlfrontProductQaService.selectMlfrontProductQaGetAll();
+		int qaId = mlfrontProductQaResList.get(0).getProductqaId();
 		//产品ids (QA模块绑定产品id)
-		String productIds = MlfrontProductQa.getProductqaProductIds();
+		String productIds = mlfrontProductQa.getProductqaProductIds();
 		if(StringUtil.isNotEmpty(productIds)){
 			//更新每个产品，绑定QA模块
-			//updateProductQAId(productIds);
+			//updateProductQAId(productIds,qaId);
 		}
-		MlfrontProductQaService.insertSelective(MlfrontProductQa);
-		return Msg.success().add("resMsg", "新增QA模块成功").add("MlfrontProductQa", MlfrontProductQa);
+		return Msg.success().add("resMsg", "新增QA模块成功").add("MlfrontProductQa", mlfrontProductQa);
 	}
 	
 	/**2.0	useOn	0505
@@ -87,10 +94,10 @@ public class MlfrontProductQaController {
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg delete(@RequestBody MlfrontProductQa MlfrontProductQa){
+	public Msg delete(@RequestBody MlfrontProductQa mlfrontProductQa){
 		//接收id信息
-		int productqaId = MlfrontProductQa.getProductqaId();
-		MlfrontProductQaService.deleteByPrimaryKey(productqaId);
+		int productqaId = mlfrontProductQa.getProductqaId();
+		mlfrontProductQaService.deleteByPrimaryKey(productqaId);
 		return Msg.success().add("resMsg", "delete success");
 	}
 	
@@ -101,18 +108,19 @@ public class MlfrontProductQaController {
 	 */
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg update(@RequestBody MlfrontProductQa MlfrontProductQa){
+	public Msg update(@RequestBody MlfrontProductQa mlfrontProductQa){
 		//接受信息
+		int qaId = mlfrontProductQa.getProductqaId();
 		//产品ids (QA模块绑定产品id)
-		String productIds = MlfrontProductQa.getProductqaProductIds();
+		String productIds = mlfrontProductQa.getProductqaProductIds();
 		if(StringUtil.isNotEmpty(productIds)){
 			//更新每个产品，绑定QA模块
-			//updateProductQAId(productIds);
+			//updateProductQAId(productIds,qaId);
 		}
 		String nowtime = DateUtil.strTime14s();
-		MlfrontProductQa.setProductqaModifyTime(nowtime);
+		mlfrontProductQa.setProductqaModifyTime(nowtime);
 		//更新本条状态
-		MlfrontProductQaService.updateByPrimaryKeySelective(MlfrontProductQa);
+		mlfrontProductQaService.updateByPrimaryKeySelective(mlfrontProductQa);
 		return Msg.success().add("resMsg", "更新成功");
 	}
 	
@@ -127,22 +135,29 @@ public class MlfrontProductQaController {
 	public Msg getOneMlfrontProductQaDetail(@RequestParam(value = "productqaId") Integer productqaId){
 		
 		//接受categoryId
-		MlfrontProductQa MlfrontProductQaReq = new MlfrontProductQa();
-		MlfrontProductQaReq.setProductqaId(productqaId);
+		MlfrontProductQa mlfrontProductQaReq = new MlfrontProductQa();
+		mlfrontProductQaReq.setProductqaId(productqaId);
 		//查询本条
-		List<MlfrontProductQa> MlfrontProductQaResList =MlfrontProductQaService.selectMlfrontProductQaById(MlfrontProductQaReq);
-		MlfrontProductQa MlfrontProductQaOne =MlfrontProductQaResList.get(0);
-		return Msg.success().add("resMsg", "查看单条MlfrontProductQaOne的详情细节完毕")
-					.add("MlfrontProductQaOne", MlfrontProductQaOne);
+		List<MlfrontProductQa> mlfrontProductQaResList = mlfrontProductQaService.selectMlfrontProductQaById(mlfrontProductQaReq);
+		MlfrontProductQa mlfrontProductQaOne =mlfrontProductQaResList.get(0);
+		return Msg.success().add("resMsg", "查看单条mlfrontProductQaOne的详情细节完毕")
+					.add("MlfrontProductQaOne", mlfrontProductQaOne);
 	}
 	
 	/**
 	 * 
-	 * 更新每个产品
+	 * 更新产品所归属QA模块
 	 */
-	private void updateProductQAId(String productIds) {
-		
-		
+	private void updateProductQAId(String productIds, int qaId) {
+		if(StringUtil.isNotEmpty(productIds)){
+			String[] pIdsArr =  productIds.split(",");
+			
+			for(String pId : pIdsArr){
+				MlbackProduct mlbackProductReq = new MlbackProduct();
+				mlbackProductReq.setProductId(Integer.parseInt(pId));
+				
+			}
+		}
 	}
 	
 	
