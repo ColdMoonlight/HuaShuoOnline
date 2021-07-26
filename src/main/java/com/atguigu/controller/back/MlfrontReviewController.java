@@ -267,8 +267,8 @@ public class MlfrontReviewController {
 		mlfrontReview.setReviewStatus(1);
 		//条件查询
 		if(mlfrontReviewReq.getSearchType() != null){
-			//searchType 0:是否有照片
-			if(0 == mlfrontReviewReq.getSearchType()){
+			//searchType 1:是否有照片
+			if(1 == mlfrontReviewReq.getSearchType()){
 				mlfrontReview.setReviewIsPics(1);
 			}
 		}
