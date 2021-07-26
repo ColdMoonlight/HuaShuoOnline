@@ -251,7 +251,7 @@ public class MlfrontReviewController {
 	 */
 	@RequestMapping(value="/getMlfrontReviewByProductIdAndPage",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getMlfrontReviewByProductIdAndPage(@RequestBody MlfrontReview mlfrontReviewReq,HttpSession session) {
+	public Msg getMlfrontReviewByProductIdAndPage(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlfrontReview mlfrontReviewReq,HttpSession session) {
 		
 		//接受信息
 		Integer pn = mlfrontReviewReq.getReviewUid();
@@ -265,6 +265,14 @@ public class MlfrontReviewController {
 		MlfrontReview mlfrontReview = new MlfrontReview();
 		mlfrontReview.setReviewPid(productId);
 		mlfrontReview.setReviewStatus(1);
+		//条件查询
+		if(mlfrontReviewReq.getSearchType() != null){
+			//searchType 1:是否有照片
+			if(1 == mlfrontReviewReq.getSearchType()){
+				mlfrontReview.setReviewIsPics(1);
+			}
+		}
+		
 		List<MlfrontReview> mlfrontReviewResListPage = new ArrayList<MlfrontReview>();
 		
 		List<MlfrontReview> mlfrontReviewResreturn = new ArrayList<MlfrontReview>();

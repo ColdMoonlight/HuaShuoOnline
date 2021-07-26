@@ -63,7 +63,7 @@ public class PortalHomeController {
 	}
 	
 	/**
-	 * 	zsh	20201102
+	 * 	zsh	20210723
 	 * */
 	@RequestMapping("/FAQuestionPage")
 	public String FAQuestionPage(HttpSession session) throws Exception{
