@@ -247,6 +247,11 @@
 							</div>
 							<div class="product-review-add">
 								<button class="btn btn-black" id="write-review">Write A Review</button>
+								<div class="product-tab" id="product-search-review">
+									<div class="product-tab-item btn active" data-name="">All</div>
+									<div class="product-tab-item btn" data-name="1">Photo</div>
+									<div class="product-tab-item btn" data-name="0">Recent</div>
+								</div>
 							</div>
 						</div>
 						<div class="product-review-body">
