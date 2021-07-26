@@ -411,10 +411,10 @@
 		});
 	}
 	// get review list data
-	function getReviewListData() {
+	function getReviewListData(type) {
 		$.ajax({
 			url: "${APP_PATH}/MlfrontReview/getMlfrontReviewByProductIdAndPage",
-			data: JSON.stringify({ "reviewPid": productId, "reviewUid": getPageNum() }),
+			data: JSON.stringify({ "reviewPid": productId, "reviewUid": getPageNum(), "searchType": type || '' }),
 			type: "post",
 			dataType: 'json',
 			contentType: 'application/json',
@@ -422,7 +422,8 @@
 				if (data.code == 100) {
 					var pageInfo = data.extend.pageInfo;
 					if (!pageInfo.list.length) {
-						$('.product-review-body').html('<p class="text-error">here are no comments yet, you can just click the <i>Write a Reveiw</i> button to write a comment !</p>');
+						$('.product-review-list').html('<p class="text-error">here are no comments yet, you can just click the <i>Write a Reveiw</i> button to write a comment !</p>');
+						$('#table-pagination').html('');
 					} else {
 						renderProductReviewList(pageInfo.list, data.extend.imgUrlStrListst);
 						renderTablePagination(pageInfo);				
@@ -695,7 +696,7 @@
 		productSub($(this));
 	});
 	// product-body product-tab
-	$('.product-tab-item').on('click', function() {
+	$('#product-reviews .product-tab-item').on('click', function() {
 		var $this = $(this);
 		var tabName = $this.data('name');
 		if (!$this.hasClass('active')) $(this).addClass('active').siblings().removeClass('active'),$('.product-tab-container[data-name="'+ tabName +'"]').addClass('active').siblings().removeClass('active');
@@ -1286,4 +1287,10 @@ if (proudctTogetherId != 999) {
 		addProductTogetherSelectCart(getSelectProductTogether(), productTogetherCheckout);
 	});
 }
+</script>
+<script type="text/javascript">
+	$('#product-search-review .product-tab-item').on('click', function() {
+		var tabName = parseInt($(this).data('name'), 10);
+		getReviewListData(tabName || '');
+	});
 </script>

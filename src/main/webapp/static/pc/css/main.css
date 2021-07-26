@@ -3563,9 +3563,17 @@ footer li {
 .product-review-add {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 }
 .product-review-add>.btn {
 	width: 100%;
+}
+.product-review-add .product-tab {
+	margin-top: 1rem;
+	width: 100%;
+}
+.product-review-add .product-tab-item {
+    padding: .3rem 0;
 }
 .product-review-stars,
 .product-review-item-title {
@@ -3813,6 +3821,13 @@ footer li {
 	.review-modal .modal-body {
 		padding-left: 2.5rem;
 		padding-right: 2.5rem;
+	}
+	.product-review-add .product-tab {
+		margin-top: -2rem;
+		width: 100%;
+	}
+	.product-review-add .product-tab-item {
+	    padding: .4rem 0;
 	}
 }
 
