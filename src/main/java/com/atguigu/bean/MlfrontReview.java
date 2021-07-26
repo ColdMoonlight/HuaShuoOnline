@@ -39,7 +39,7 @@ public class MlfrontReview {
     private Integer reviewIsPics;
     
     /**
-     * 查询字段  0：是否有照片，1：待补充
+     * 查询字段  1：是否有照片，2：待补充
      */
     private Integer searchType;
 
