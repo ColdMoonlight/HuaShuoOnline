@@ -715,7 +715,7 @@
 	});
 	// pagination a-click
 	$(document.body).on('click', '#table-pagination li', function (e) {
-		getReviewListData();
+		getReviewListData($('#product-search-review .product-tab-item.active').data('name') || '');
 	});
 	// add to cart
 	$('#add-to-cart').on('click', function(evt) {
@@ -1291,6 +1291,7 @@ if (proudctTogetherId != 999) {
 <script type="text/javascript">
 	$('#product-search-review .product-tab-item').on('click', function() {
 		var tabName = parseInt($(this).data('name'), 10);
+		setPageNum(1);
 		getReviewListData(tabName || '');
 	});
 </script>

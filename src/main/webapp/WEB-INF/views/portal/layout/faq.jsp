@@ -213,7 +213,7 @@
 <ul class="big_ul">
 	<li>
 		<div class="one_top">
-			<img class="img" src="https://cdn.shopify.com/s/files/1/2465/8681/files/before-pic-1.png">
+			<img class="img" src="${APP_PATH}/static/pc/img/faq/before-pic-1.png">
 			<span class="title">Question Before Purchase</span>
 		</div>
 		<ul class="one_ul">
@@ -615,7 +615,7 @@
 	</li>
 	<li>
 		<div class="one_top">
-			<img class="img" src="https://cdn.shopify.com/s/files/1/2465/8681/files/before-pic-1.png">
+			<img class="img" src="${APP_PATH}/static/pc/img/faq/after-pic-2.png">
 			<span class="title">Question After Purchase</span>
 		</div>
 		<ul class="one_ul">
