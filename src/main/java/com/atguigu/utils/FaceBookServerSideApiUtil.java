@@ -70,7 +70,7 @@ public class FaceBookServerSideApiUtil {
 	        .eventTime(System.currentTimeMillis() / 1000L)
 	        .userData(userData)
 	        .customData(customData)
-	        .eventSourceUrl("https://www.huashuohair.com/Success.html")
+	        .eventSourceUrl("https://www.megalook.com/Success.html")
 	        .actionSource(ActionSource.website);
 	    //.actionSource(ActionSource.website);
 
