@@ -2,6 +2,9 @@
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<!-- fb 认证
+<meta name="facebook-domain-verification" content="nzkbta5il40gcwp82e2cbzn6452qja" />
+ -->
 <!-- xu 认证
 <meta name="msvalidate.01" content="5490B8CBC84E3C9D7F95D2FE93A263BC" /> -->
 <!-- google-site-verification 徐验证所需 声明网站
@@ -38,7 +41,7 @@ var ml = {
 	//pinterest_hash_email: 'dc231ca84370402a003d5fbab542f06bcdf55a056ab1fcbea56eaab2e21dec7a',
 	
 	//www.huashuohair.com的fbid googleid tidio
-	// facebook_id: '246433859565492', // huashuohair
+	//facebook_id: '246433859565492', // huashuohair
 	// google_id: 'UA-128377932-1', // huashuohair
 	// "tidio": '//code.tidio.co/folzahtp5vdopiwathysfiyz75dk5vnm.js', 
 	area_one: 'top-selling',
