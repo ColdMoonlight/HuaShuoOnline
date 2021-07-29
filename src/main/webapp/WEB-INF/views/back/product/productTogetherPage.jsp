@@ -402,13 +402,12 @@
 					selectedImg.push(img);
 				} else {
 					var idx = selectedId.indexOf(id);
-					var namex = selectedName.indexOf(name);
-					var seox = selectedSeo.indexOf(seo);
-					var imgx = selectedImg.indexOf(img);
-					idx > -1  && selectedId.splice(idx, 1);
-					namex > -1  && selectedName.splice(namex, 1);
-					seox > -1  && selectedSeo.splice(seox, 1);
-					imgx > -1  && selectedImg.splice(imgx, 1);
+					if (idx > -1) {
+						selectedId.splice(idx, 1);
+						selectedName.splice(idx, 1);
+						selectedSeo.splice(idx, 1);
+						selectedImg.splice(idx, 1);
+					}
 				}
 				$('#editModal .select-result .value').text(selectedId.join(', '));
 			}
@@ -420,11 +419,11 @@
 					belongSeo.push(seo);
 				} else {
 					var idx = belongId.indexOf(id);
-					var namex = belongName.indexOf(name);
-					var seox = belongSeo.indexOf(seo);
-					idx > -1  && belongId.splice(idx, 1);
-					namex > -1  && belongName.splice(namex, 1);
-					seox > -1  && belongSeo.splice(seox, 1);
+					if (idx > -1) {
+						belongId.splice(idx, 1);
+						belongName.splice(idx, 1);
+						belongSeo.splice(idx, 1);
+					}
 				}
 				$('#editModal .select-result .value').text(belongId.join(', '));
 			}

@@ -2088,6 +2088,7 @@ footer li {
 	margin: 0;
 }
 .product-coupons li {
+	overflow: auto;
 	list-style: none;
 }
 .product-coupons .text-color {
@@ -2099,11 +2100,12 @@ footer li {
 		padding: .5rem;
 	}
 	.product-coupons .left {
+		display: none;
 		width: 4.5rem;
 		height: 4.5rem;
 	}
 	.product-coupons .right {
-		margin-left: .5rem;
+		width: 100%;
 	}
 	.product-coupons .title {
 		font-size: 1rem;
@@ -2145,6 +2147,7 @@ footer li {
 		height: 6rem;
 	}
 	.product-coupons .right {
+		min-width: 50%;
 		margin-left: 1rem;
 	}
 	.product-coupons .title {
@@ -5417,14 +5420,13 @@ footer li {
 }
 
 .btn-copy {
-	display: inline-block;
-	padding: 0 .25rem;
-	margin: 0 0 .2rem .5rem;
+	float: right;
+	display: block;
+	padding: 0.15rem .3rem;
+    margin: 0 0 .2rem .5rem;
 	border-radius: .25rem;
-	border: 1px solid #ccc;
+	border: 1px solid #f92d96;
+	background-color: #f92d96;
+    color: #fff;
 	cursor: pointer;
-}
-
-.btn-copy:hover {
-	background-color: #ccc;
 }
