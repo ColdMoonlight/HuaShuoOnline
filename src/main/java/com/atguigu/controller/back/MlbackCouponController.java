@@ -99,6 +99,27 @@ public class MlbackCouponController {
 //		}
 	}
 	
+	/**2.0	useOn	0505
+	 * 分类MlbackCoupon列表分页list数据 并按状态排序
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/getMlbackCouponByPageOrderByStatus")
+	@ResponseBody
+	public Msg getMlbackCouponByPageOrderByStatus(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
+//		if(mlbackAdmin==null){
+//			//SysUsers对象为空
+//			return Msg.fail().add("resMsg", "session中adminuser对象为空");
+//		}else{
+			int PagNum = 20;
+			PageHelper.startPage(pn, PagNum);
+			List<MlbackCoupon> mlbackCouponList = mlbackCouponService.selectMlbackCouponOrderByStatus();
+			PageInfo page = new PageInfo(mlbackCouponList, PagNum);
+			return Msg.success().add("pageInfo", page);
+//		}
+	}
+	
 	/**3.0	20200608
 	 * MlbackProduct	initializaCategory
 	 * @param MlbackProduct
