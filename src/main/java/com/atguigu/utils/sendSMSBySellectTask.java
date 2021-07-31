@@ -450,24 +450,20 @@ public class sendSMSBySellectTask {
 			//United States
 			if(telephone.startsWith("1")){
 				finalTel = telephone;
-				System.out.println("us-1");
 			}else{
 				finalTel=telPrefixStr+telephone;
-				System.out.println("us-2");
 			}
 			//finalTel="86"+telephone;
 		}else if("CA".equals(countryCodeInto)){
 			//Canada
 			if(telephone.startsWith("1")){
 				finalTel = telephone;
-				System.out.println("ca-1");
 			}else{
 				finalTel=telPrefixStr+telephone;
-				System.out.println("ca-2");
 			}
-		}else if("DE".equals(countryCodeInto)){
-			//Germany
-			if(telephone.startsWith("49")){
+		}else if("GB".equals(countryCodeInto)){
+			//United Kingdom
+			if(telephone.startsWith("44")){
 				finalTel = telephone;
 			}else{
 				finalTel=telPrefixStr+telephone;
@@ -479,6 +475,13 @@ public class sendSMSBySellectTask {
 			}else{
 				finalTel=telPrefixStr+telephone;
 			}
+		}else if("FR".equals(countryCodeInto)){
+			//France
+			if(telephone.startsWith("33")){
+				finalTel = telephone;
+			}else{
+				finalTel=telPrefixStr+telephone;
+			}
 		}else if("AU".equals(countryCodeInto)){
 			//Australia
 			if(telephone.startsWith("61")){
@@ -486,9 +489,9 @@ public class sendSMSBySellectTask {
 			}else{
 				finalTel=telPrefixStr+telephone;
 			}
-		}else if("FR".equals(countryCodeInto)){
-			//France
-			if(telephone.startsWith("33")){
+		}else if("DE".equals(countryCodeInto)){
+			//Germany
+			if(telephone.startsWith("49")){
 				finalTel = telephone;
 			}else{
 				finalTel=telPrefixStr+telephone;
@@ -503,13 +506,6 @@ public class sendSMSBySellectTask {
 		}else if("VI".equals(countryCodeInto)){
 			//U.S.Virgin Islands
 			if(telephone.startsWith("1340")){
-				finalTel = telephone;
-			}else{
-				finalTel=telPrefixStr+telephone;
-			}
-		}else if("GB".equals(countryCodeInto)){
-			//United Kingdom
-			if(telephone.startsWith("44")){
 				finalTel = telephone;
 			}else{
 				finalTel=telPrefixStr+telephone;
