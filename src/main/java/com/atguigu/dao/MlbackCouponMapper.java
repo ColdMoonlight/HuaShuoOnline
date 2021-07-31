@@ -27,4 +27,7 @@ public interface MlbackCouponMapper {
 	List<MlbackCoupon> selectMlbackCouponByLuckDrawType(MlbackCoupon mlbackCoupon);
 
 	List<MlbackCoupon> selectMlbackCouponBackSearch(MlbackCoupon mlbackCouponReq);
+	
+	//查看全部mlbackCoupon信息,并按状态排序
+	List<MlbackCoupon> selectMlbackCouponOrderByStatus();
 }

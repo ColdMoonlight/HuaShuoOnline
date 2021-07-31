@@ -428,6 +428,10 @@
     select *
     from tb_mlback_coupon order by coupon_id desc
   </select>
+  <select id="selectMlbackCouponOrderByStatus" parameterType="com.atguigu.bean.MlbackCoupon" resultMap="BaseResultMap">
+    select *
+    from tb_mlback_coupon order by coupon_status desc,coupon_id desc
+  </select>
   <!-- selectMlbackCouponBackSearch -->
   <select id="selectMlbackCouponBackSearch" parameterType="com.atguigu.bean.MlbackCoupon" resultMap="BaseResultMap">
   	select 
