@@ -477,17 +477,18 @@
 	// format tel phone for us/ca
 	function formatTelphone(tel, countryCode) {
 		var newTel = tel.replace(/[^\d]/g, '');
+		newTel = (+newTel || newTel)+'';
 		if (countryCode == 'US' || countryCode == 'CA') {
-			if (newTel.length == 10 && (newTel[0] != '1' || newTel[0] != '0')) {
+			if (newTel.length == 10 && newTel[0] != '1') {
 				return newTel;
 			}
-			if (newTel.length == 11 && (newTel[0] == '1' || newTel[0] == '0')) {
+			if (newTel.length == 11 && newTel[0] == '1') {
 				return newTel.slice(1);
 			}
-			return tel;
-		} else {
-			return tel;
+		} else if ((countryCode == 'ZA' && newTel.slice(0, 2) == '27') || (countryCode == 'GB' && newTel.slice(0, 2) == '44') || (countryCode == 'FR' && newTel.slice(0, 2) == '33')) {
+			return newTel.slice(2);
 		}
+		return tel;
 	}
 	// init order address
 	function initOrderAddress(data) {
