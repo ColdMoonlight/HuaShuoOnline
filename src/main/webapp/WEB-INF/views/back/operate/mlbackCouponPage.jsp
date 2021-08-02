@@ -1108,7 +1108,8 @@
 		function getCouponsData(val) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/MlbackCoupon/getMlbackCouponByPage",
+				//url: "${APP_PATH}/MlbackCoupon/getMlbackCouponByPage",
+				url: "${APP_PATH}/MlbackCoupon/getMlbackCouponByPageOrderByStatus",
 				type: "post",
 				data: "pn=" + getPageNum(),
 				success: function (data) {
