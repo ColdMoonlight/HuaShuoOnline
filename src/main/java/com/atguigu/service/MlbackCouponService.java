@@ -91,4 +91,15 @@ public class MlbackCouponService {
 		List<MlbackCoupon>  mlbackCouponList = mlbackCouponMapper.selectMlbackCouponBackSearch(mlbackCouponReq);
 		return mlbackCouponList;
 	}
+	/**
+	 * @author Shinelon
+	 * @param 
+	 * @exception 查看全部mlbackCoupon信息,并按状态排序
+	 * 
+	 * */
+	public List<MlbackCoupon> selectMlbackCouponOrderByStatus() {
+		List<MlbackCoupon>  mlbackCouponList = mlbackCouponMapper.selectMlbackCouponOrderByStatus();
+		return mlbackCouponList;
+	}
+	
 }
