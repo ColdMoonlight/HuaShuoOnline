@@ -19,6 +19,7 @@ import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.MlbackCategory;
 import com.atguigu.bean.MlbackCoupon;
 import com.atguigu.bean.MlbackSearch;
+import com.atguigu.bean.MlfrontCouponLuckyDraw;
 import com.atguigu.bean.MlfrontUser;
 import com.atguigu.bean.UrlCount;
 import com.atguigu.common.Const;
@@ -28,6 +29,7 @@ import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.MlbackCategoryService;
 import com.atguigu.service.MlbackCouponService;
 import com.atguigu.service.MlbackProductService;
+import com.atguigu.service.MlfrontCouponLuckyDrawService;
 import com.atguigu.service.MlfrontUserService;
 import com.atguigu.service.UrlCountService;
 import com.atguigu.utils.DateUtil;
@@ -60,6 +62,9 @@ public class MlbackCouponController {
 	
 	@Autowired
 	MlbackCategoryService mlbackCategoryService;
+	
+	@Autowired
+	MlfrontCouponLuckyDrawService mlfrontCouponLuckyDrawService;
 	
 	/**
 	 * 1.0	zsh	1225
@@ -571,10 +576,60 @@ public class MlbackCouponController {
 			session.setAttribute("loginUser", mlfrontUserreq);
 		}
 		//session中记录客户登录信息,即把客户信息放置在客户中
+		
+		//记录该抽奖记录，保存在表mlfrontCouponLuckyDraw中，之后用来判断当前session下是否已抽过奖
+		String sessionId = session.getId();
+		insertMlfrontCouponLuckyDraw(sessionId,couponId,userEmail);
+		
 		return Msg.success().add("resMsg", "获取完毕抽奖客户邮箱完毕,强制注册完成");
 		
 	}
-	
+	/**
+	 * 记录该抽奖记录，保存在表mlfrontCouponLuckyDraw中，
+	 * 之后用来判断，当前session下是否已抽过奖
+	 * 
+	 * @param sessionId 当前sessionId
+	 * @param couponId  抽中优惠券id
+	 * @param userEmail 抽奖邮箱
+	 */
+	private void insertMlfrontCouponLuckyDraw(String sessionId, String couponId, String userEmail) {
+		
+		//新建MlfrontCouponLuckyDraw
+		MlfrontCouponLuckyDraw mlfrontCouponLuckyDraw = new MlfrontCouponLuckyDraw();
+		mlfrontCouponLuckyDraw.setCouponluckydrawUseremail(userEmail);//邮箱
+		mlfrontCouponLuckyDraw.setCouponluckydrawCouponid(Integer.parseInt(couponId));//优惠券id
+		String nowtime = DateUtil.strTime14s();
+		mlfrontCouponLuckyDraw.setCouponluckydrawCreatetime(nowtime);
+		//sessionId
+		mlfrontCouponLuckyDraw.setCouponluckydrawSessionid(sessionId);
+		
+		//用户信息
+		MlfrontUser mlfrontUserreq = new MlfrontUser();
+		mlfrontUserreq.setUserEmail(userEmail);
+		List<MlfrontUser> mlfrontUserList = mlfrontUserService.selectMlfrontUserWhenFirst(mlfrontUserreq);
+		if(mlfrontUserList.size()>0){
+			mlfrontCouponLuckyDraw.setCouponluckydrawUserid(mlfrontUserList.get(0).getUserId());//uId
+		}
+		
+		//优惠券信息
+		MlbackCoupon mlbackCouponReq = new MlbackCoupon();
+		mlbackCouponReq.setCouponId(Integer.parseInt(couponId));
+		List<MlbackCoupon> mlbackCouponResList = mlbackCouponService.selectMlbackCoupon(mlbackCouponReq);
+		if(mlbackCouponResList.size()>0){
+			MlbackCoupon mlbackCoupon = mlbackCouponResList.get(0);
+			mlfrontCouponLuckyDraw.setCouponluckydrawCouponcode(mlbackCoupon.getCouponCode());
+			mlfrontCouponLuckyDraw.setCouponluckydrawCouponname(mlbackCoupon.getCouponName());
+			mlfrontCouponLuckyDraw.setCouponluckydrawCouponprice(mlbackCoupon.getCouponPrice());
+			mlfrontCouponLuckyDraw.setCouponluckydrawCouponpricebaseline(mlbackCoupon.getCouponPriceBaseline());
+			mlfrontCouponLuckyDraw.setCouponluckydrawCouponpriceoff(mlbackCoupon.getCouponPriceoff());
+			mlfrontCouponLuckyDraw.setCouponluckydrawCoupontype(mlbackCoupon.getCouponType());
+		}
+		
+		//新增本条数据
+		mlfrontCouponLuckyDrawService.insertSelective(mlfrontCouponLuckyDraw);
+		
+	}
+
 	/**
 	 * 11.0	zsh	201228
 	 * to分类MlbackCoupon列表页面
