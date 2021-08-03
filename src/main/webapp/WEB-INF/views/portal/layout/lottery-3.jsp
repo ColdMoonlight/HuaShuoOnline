@@ -252,7 +252,7 @@
 }
 
 @media only screen and (max-width:798px) {
-  .lottery-container, .lottery-result {
+  .lottery-container {
     width: 90%;
     margin: 0 auto
   }
@@ -550,6 +550,7 @@
 			         </div>
 		        </div>
 			</div>
+        	<div class="lottery-result hide"></div>
         </div>
     </div>
 </div>
@@ -601,7 +602,7 @@ function startGame() {
 		lotteryIndex = -1;
 
 		if (isPushEmail) {
-			$('.lottery-container').hide();
+			$('.lottery-oh').hide();
 			renderLotterySuccess();
 			lotteryData = null;
 			logStatus();
@@ -627,8 +628,7 @@ function logStatus() {
 
 function renderLotterySuccess() {
 	var lotteryResultHtml = '';
-	lotteryResultHtml += '<div class="lottery-result">'
-		+ '<div class="lottery-other">'
+	lotteryResultHtml += '<div class="lottery-other">'
 		+ '<div class="lottery-result-title"><span>Congratulations!</span><span>You got a</span></div>'
 		+ '<div class="lottery-card">'
 		+ '<div class ="card-item card-price"><span>';
@@ -644,8 +644,8 @@ function renderLotterySuccess() {
 		+ '<div class="card-tip">in order to use this discount add it to the relevant field in checkout!</div>'
 		+ '<div class="card-op">'
 		+ '<a class="btn" href="javascript: window.location.reload();">Use Discount</a>'
-		+ '</div></div></div>';
-	lotteryEl.append(lotteryResultHtml);
+		+ '</div></div>';
+	$('.lottery-result').removeClass('hide').html(lotteryResultHtml);
 }
 
 function getLotteryIndex() {
@@ -736,11 +736,12 @@ var lotteryBoxEl = $('.lottery-box'),
 	lotteryData = null,
 	isStartLottery = false,
 	isHideLottery = getCookie('isHideLottery') || false,
-	lotteryIndex = isHideLottery ? undefined : getLotteryIndex(),
+	lotteryIndex = getLotteryIndex(),
 	prevItem = null;
 
 if (isShowLottery()) {
 	lotteryBoxEl.removeClass('hide');
+	$('.lottery-result').html('');
 } else {
 	window.localStorage && window.localStorage.getItem('lottery-trigger-close') && $('.lottery-trigger-close').removeClass('hide');
 	$('.lottery-trigger-side').removeClass('hide');
@@ -761,17 +762,44 @@ $('.lottery-close').click(function(e){
 	window.localStorage && window.localStorage.setItem('lottery-trigger-close', true);
 });
 $('.lottery-trigger-box').on('click', function() {
-	$('.lottery-trigger-side').addClass('hide');
-	$('.lottery-trigger-close').removeClass('hide');
-	$('.lottery-box').removeClass('hide');
-});
-
-lotteryEl.click(function(e){
-	if (e.target == this) {
-		lotteryBoxEl.addClass('hide');
-		$(document.body).css('overflow', 'unset');
-        logStatus();
+	function seesionNoDraw() {
+		$('.lottery-trigger-close').removeClass('hide');
+		$('.lottery-box').removeClass('hide');
 	}
+	function sessionDraw(data) {
+		lotteryData = data;
+		$('.lottery-oh').hide();
+		$('.lottery-box').removeClass('hide');
+		renderLotterySuccess();
+	}
+	function formatCouponData(data) {
+		if (data) {
+			return {
+				couponId: data.couponluckydrawCouponid,
+				couponCode: data.couponluckydrawCouponcode,
+				couponName: data.couponluckydrawCouponname,
+				couponPrice: data.couponluckydrawCouponprice,
+				couponPriceBaseline: data.couponluckydrawCouponpricebaseline,
+				couponPriceoff: data.couponluckydrawCouponpriceoff,
+				couponType: data.couponluckydrawCoupontype
+			}
+		}
+		return null;
+	}
+	$.ajax({
+		url: '${APP_PATH}/MlfrontCouponLuckyDraw/selectMlfrontCouponLuckyDrawBySessionId',
+		type: 'get',
+		dataType: 'json',
+		contentType: 'application/json',
+		success: function (data) {
+			var luckData = formatCouponData(data.extend.mlfrontCouponLuckyDrawReturn);
+			$('.lottery-trigger-side').addClass('hide');
+			luckData ? sessionDraw(luckData) : seesionNoDraw();
+		},
+		fail: function () {
+			seesionNoDraw();
+		}
+	});	
 });
 emailEl.on('change', function () {
 	lotteryEmailTipEl.text('');
