@@ -668,7 +668,6 @@ function getLotteryIndex() {
 	});
 
 	if (lotteryRequest) {
-	    addFixed();
 		var $lotterGameItems = $('.lottery-game-item');
 		couponList = lotteryRequest.extend.mlbackCouponResList;
 		if (couponList.length != 8) {
@@ -754,7 +753,6 @@ $('.lottery-trigger-close').on('click', function() {
 
 $('.lottery-close').click(function(e){
 	lotteryBoxEl.addClass('hide');
-	$(document.body).css('overflow', 'unset');
     logStatus();
     setTimeout(function() {
 		$('.lottery-trigger-side').removeClass('hide');    	
