@@ -296,7 +296,7 @@
   }
   .lottery-game-item, .lottery-startgame {
     margin: 1% 0;
-    height: 60px;
+    height: 85px;
     border-radius: .5rem
   }
   .lottery-startgame {
