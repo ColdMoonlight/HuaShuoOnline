@@ -7,7 +7,7 @@
   
   <properties>
 		<slf4j.version>1.7.21</slf4j.version>
-		<log4j2_version>2.7</log4j2_version>
+		<log4j2_version>2.15.0</log4j2_version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
